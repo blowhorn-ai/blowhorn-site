@@ -1,0 +1,230 @@
+{
+  "name": "Blowhorn",
+  "version": 1,
+  "groups": [
+    {
+      "name": "Core",
+      "colors": [
+        {
+          "token": "teal",
+          "name": "Teal",
+          "hex": "#00B39F",
+          "rgb": [
+            0,
+            179,
+            159
+          ],
+          "use": "The primary fill: the horn, buttons, big moments. Not for small text on light grounds."
+        },
+        {
+          "token": "charcoal",
+          "name": "Charcoal",
+          "hex": "#3C494F",
+          "rgb": [
+            60,
+            73,
+            79
+          ],
+          "use": "The wordmark on light grounds and every outline."
+        },
+        {
+          "token": "near-black",
+          "name": "Near Black",
+          "hex": "#1E2117",
+          "rgb": [
+            30,
+            33,
+            23
+          ],
+          "use": "The deepest ink and the dark ground."
+        },
+        {
+          "token": "white",
+          "name": "White",
+          "hex": "#FFFFFF",
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "use": "The wordmark on dark grounds; text on charcoal and near black."
+        }
+      ]
+    },
+    {
+      "name": "Accent",
+      "colors": [
+        {
+          "token": "teal-bright",
+          "name": "Teal Bright",
+          "hex": "#00D3A9",
+          "rgb": [
+            0,
+            211,
+            169
+          ],
+          "use": "Highlights. Links and focus on dark grounds."
+        },
+        {
+          "token": "teal-deep",
+          "name": "Teal Deep",
+          "hex": "#00756A",
+          "rgb": [
+            0,
+            117,
+            106
+          ],
+          "use": "Text-safe teal on light grounds: links and focus."
+        },
+        {
+          "token": "yellow",
+          "name": "Yellow",
+          "hex": "#EBC017",
+          "rgb": [
+            235,
+            192,
+            23
+          ],
+          "use": "The accent. Keep it under a tenth of any layout. Never text on light."
+        },
+        {
+          "token": "coral",
+          "name": "Coral",
+          "hex": "#EE5A44",
+          "rgb": [
+            238,
+            90,
+            68
+          ],
+          "use": "The rooster's comb and wattle. Nothing else, ever."
+        },
+        {
+          "token": "cream",
+          "name": "Cream",
+          "hex": "#FFF6E0",
+          "rgb": [
+            255,
+            246,
+            224
+          ],
+          "use": "Warm grounds for badges and Major Blowhorn."
+        }
+      ]
+    },
+    {
+      "name": "Illustration",
+      "colors": [
+        {
+          "token": "teal-shade",
+          "name": "Teal Shade",
+          "hex": "#008F80",
+          "rgb": [
+            0,
+            143,
+            128
+          ],
+          "use": "Shading on teal; the hover on teal fills."
+        },
+        {
+          "token": "mint",
+          "name": "Mint",
+          "hex": "#A6EBDF",
+          "rgb": [
+            166,
+            235,
+            223
+          ],
+          "use": "Major's chest."
+        },
+        {
+          "token": "amber",
+          "name": "Amber",
+          "hex": "#E39A30",
+          "rgb": [
+            227,
+            154,
+            48
+          ],
+          "use": "Major's hackles."
+        },
+        {
+          "token": "yellow-shade",
+          "name": "Yellow Shade",
+          "hex": "#C99F00",
+          "rgb": [
+            201,
+            159,
+            0
+          ],
+          "use": "Shading on yellow."
+        },
+        {
+          "token": "coral-shade",
+          "name": "Coral Shade",
+          "hex": "#C2412F",
+          "rgb": [
+            194,
+            65,
+            47
+          ],
+          "use": "Shading on coral."
+        },
+        {
+          "token": "khaki",
+          "name": "Khaki",
+          "hex": "#C9995A",
+          "rgb": [
+            201,
+            153,
+            90
+          ],
+          "use": "The campaign hat."
+        },
+        {
+          "token": "khaki-shade",
+          "name": "Khaki Shade",
+          "hex": "#97683A",
+          "rgb": [
+            151,
+            104,
+            58
+          ],
+          "use": "The hat's shadow side."
+        },
+        {
+          "token": "leather",
+          "name": "Leather",
+          "hex": "#5B361F",
+          "rgb": [
+            91,
+            54,
+            31
+          ],
+          "use": "The hat band."
+        }
+      ]
+    }
+  ],
+  "themes": {
+    "light": {
+      "surface": "#FFFFFF",
+      "surface-raised": "#F4F7F6",
+      "surface-tint": "#DDF4F1",
+      "ink": "#1E2117",
+      "ink-muted": "#5B6A70",
+      "ink-wordmark": "#3C494F",
+      "line": "#D5DEDD",
+      "link": "#00756A"
+    },
+    "dark": {
+      "surface": "#1E2117",
+      "surface-raised": "#2A2E25",
+      "surface-tint": "#173A34",
+      "ink": "#FFFFFF",
+      "ink-muted": "#A3AEB2",
+      "ink-wordmark": "#FFFFFF",
+      "line": "#3C494F",
+      "link": "#00D3A9"
+    }
+  }
+}

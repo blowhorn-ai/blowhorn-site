@@ -7,6 +7,7 @@
 {{- $privacy := (site.GetPage "/legal/privacy").RelPermalink -}}
 {{- $terms := (site.GetPage "/legal/terms").RelPermalink -}}
 {{- $docs := (site.GetPage "/docs").RelPermalink -}}
+{{- $brand := (site.GetPage "/brand").RelPermalink -}}
 {{- $source := site.Params.github_repo -}}
 {{- $status := `<a class="status-link" href="https://layer5.statuspage.io" target="_blank" rel="noreferrer">Layer5 Cloud Status <span class="pulse-icon" aria-hidden="true"></span></a>` -}}
 <footer class="site-footer">
@@ -33,6 +34,7 @@
           <a href="mailto:security@blowhorn.ai">Security</a>
           <a href="https://layer5.io/">layer5.io</a>
           <a href="https://layer5.io/community">Community</a>
+          <a href="{{ $brand }}">Brand</a>
         </nav>
         <div class="footer-meta caption">
           <span>&copy; 2026 {{ site.Params.copyright }}</span>
@@ -49,7 +51,7 @@
           {{ partial "newsletter.html" . }}
           <span>&copy; 2026 {{ site.Params.copyright }}</span>
           <nav aria-label="Legal">
-            <a href="{{ $trust }}">Trust Center</a> &middot; <a href="{{ $privacy }}">Privacy</a> &middot; <a href="{{ $terms }}">Terms</a> &middot; <a href="mailto:security@blowhorn.ai">Security</a> &middot; {{ $status | safeHTML }}
+            <a href="{{ $trust }}">Trust Center</a> &middot; <a href="{{ $privacy }}">Privacy</a> &middot; <a href="{{ $terms }}">Terms</a> &middot; <a href="mailto:security@blowhorn.ai">Security</a> &middot; <a href="{{ $brand }}">Brand</a> &middot; {{ $status | safeHTML }}
           </nav>
         </div>
         {{- end }}

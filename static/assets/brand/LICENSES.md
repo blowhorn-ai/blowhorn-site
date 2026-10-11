@@ -4,8 +4,9 @@
 
 The Blowhorn name, the Crowhorn mark, the Blowhorn wordmark, Major Blowhorn and
 the marketing art are copyright Layer5, Inc. They are published here for the
-site's pages and as the brand kit's public reference copy; they are not
-licensed for reuse outside Layer5's own products and marketing. The files are byte-identical copies of version 1 of
+site's pages and, with the downloadable kit on the Brand page (`/brand/`), so
+press, partners and the community can refer to Blowhorn. They are not licensed
+for use in anyone else's product names, logos or marks. The files are byte-identical copies of version 1 of
 the brand kit (`brand/` in the Blowhorn product repository, landed as
 PR #354). Never recolour, outline, shadow or rotate the mark; see the brand
 book for the rules.

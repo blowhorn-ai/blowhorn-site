@@ -34,6 +34,9 @@ PAGES = {
     "legal/terms/index.html": [
         "main", "your-accounts", "downloads",
     ],
+    "brand/index.html": [
+        "main", "logo", "clear-space", "color", "type", "major", "usage",
+    ],
     "404.html": [
         "main", "missing-title",
     ],
@@ -100,6 +103,7 @@ FILES = [
     "assets/brand/marketing/blowhorn-social-banner-16x9.png",
     "assets/brand/logo/blowhorn-favicon-32.svg",
     "assets/brand/logo/blowhorn-apple-touch-icon-180.png",
+    "brand/blowhorn-brand-kit.zip",
 ]
 
 

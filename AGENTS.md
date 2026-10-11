@@ -13,7 +13,7 @@ fails without the pinned toolchain; run `make setup` once (npm install), then `m
 
 The marketing and legal pages do not use Docsy's templates: they render through
 `layouts/home.html`, `layouts/trust-center.html` (the Trust Center hub at `/legal/`),
-`layouts/legal.html` (each policy at `/legal/<name>/`) and `layouts/404.html` inside
+`layouts/legal.html` (each policy at `/legal/<name>/`), `layouts/brand.html` (the Brand page at `/brand/`) and `layouts/404.html` inside
 `layouts/baseof.html`, with the header, footer and icon sprite in `layouts/_partials/`.
 
 ## Rules the site holds
@@ -29,6 +29,9 @@ The marketing and legal pages do not use Docsy's templates: they render through
   default; dark follows the OS with no JavaScript. Brand SVGs are used as files, never
   recoloured. Platform logos are the owners' own files in `static/assets/platforms/`, unmodified, on white
   tiles (sources in `static/assets/brand/LICENSES.md`).
+- **The brand kit is built, not edited.** `static/brand/blowhorn-brand-kit.zip` and
+  `data/brand_colors.json` come from the product repository's brand build
+  (`scripts/brand/build-brand-kit.py`, output in `marketing/brand/kit/`); copy them over unchanged.
 - **The product name is Blowhorn.** "Outbox" is the product's old internal name; never put
   it on a public page.
 - **The product repository is private.** Never link its files, issues or pull requests
