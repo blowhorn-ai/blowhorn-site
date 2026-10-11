@@ -1,0 +1,16 @@
+{{- /* Onboarding pages (content/en/welcome.md, content/en/early-access.md):
+  heading, lead and Markdown body, with Cloud links taken from
+  site.Params.cloud_url through the {{< cloud-url >}} shortcode. */ -}}
+{{ define "main" }}
+    <main id="main" class="page">
+      <div class="wrap">
+        <div class="page-head">
+          <h1 class="h1">{{ .Params.heading }}</h1>
+          <p class="body-lg muted">{{ .Params.lead | .RenderString }}</p>
+        </div>
+        <div class="prose">
+          {{ .Content }}
+        </div>
+      </div>
+    </main>
+{{- end }}

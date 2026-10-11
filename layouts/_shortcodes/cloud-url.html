@@ -1,0 +1,2 @@
+{{- /* The Layer5 Cloud base URL from hugo.toml (params.cloud_url), plus an optional path. */ -}}
+{{- strings.TrimSuffix "/" site.Params.cloud_url }}{{ .Get 0 -}}

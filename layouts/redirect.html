@@ -1,0 +1,19 @@
+{{- /* A redirect page: front matter `redirect_to` names a site path or an
+  absolute URL, or `redirect_to_param` names a site param (cloud_url) so the
+  target lives in hugo.toml alone. GitHub Pages has no server redirects, so
+  this is a meta refresh with a visible link, as layouts/alias.html. */ -}}
+{{- $to := .Params.redirect_to -}}
+{{- with .Params.redirect_to_param }}{{ $to = index site.Params . }}{{ end -}}
+{{- with .Params.redirect_suffix }}{{ $to = printf "%s%s" (strings.TrimSuffix "/" $to) . }}{{ end -}}
+{{- if not (hasPrefix $to "http") }}{{ $to = $to | relURL }}{{ end -}}
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode }}">
+  <head>
+    <title>{{ .Title }} | {{ site.Title }}</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex">
+    <meta http-equiv="refresh" content="0; url={{ $to }}">
+    <link rel="canonical" href="{{ $to }}">
+  </head>
+  <body><p>Redirecting to <a href="{{ $to }}">{{ $to }}</a>.</p></body>
+</html>

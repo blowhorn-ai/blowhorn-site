@@ -1,0 +1,25 @@
+---
+title: Welcome
+heading: Welcome to Blowhorn
+description: You installed the Blowhorn Chrome extension. Three steps finish the setup on your Mac.
+lead: The Blowhorn extension does nothing on its own. It acts only when the Blowhorn app on your Mac asks, so finish these three steps and the extension's toolbar icon turns from "not connected" to connected.
+url: /welcome/
+layout: onboarding
+outputs: [html]
+sitemap:
+  disable: true
+---
+
+## 1. Download the Blowhorn app {#download-the-app}
+
+The app is for macOS. [Download Blowhorn](/download/), open the disk image and drag Blowhorn to Applications.
+
+## 2. Sign in to Layer5 Cloud {#sign-in}
+
+Open Blowhorn and choose **Sign in**. Your browser opens Layer5 Cloud, where you can [create an account]({{< cloud-url "/registration" >}}) or [log in]({{< cloud-url >}}), and then returns you to the app. From a terminal, `blowhorn auth login` does the same.
+
+## 3. Connect your Chrome profiles {#connect-chrome}
+
+On first run the app lists the Chrome profiles it found and asks before it connects any of them. It writes one small file Chrome reads for each profile you choose. It does not open Chrome or change your Chrome settings. You can run `blowhorn setup` at any time to check or repeat this step.
+
+When the extension's icon shows connected, you are ready. If your account does not have Blowhorn yet, the app sends you to [early access](/early-access/).

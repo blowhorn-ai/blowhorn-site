@@ -20,6 +20,10 @@ discloses its one outside request. This check holds the build to it:
   they submit it. The footer's newsletter signup posts to Layer5's Mailchimp
   list, the same endpoint as the layer5.io footer, and the privacy page
   discloses it. Every other form host fails.
+  A second: <meta http-equiv="refresh"> may navigate to the Layer5 Cloud host
+  named by params.cloud_url in hugo.toml (the /signup and /login redirects).
+  A refresh is a top-level navigation the reader asked for by opening that
+  path, not a subresource load; every other refresh host fails.
 - CSS: every url(...) and @import in each stylesheet a page loads.
 - JavaScript: every absolute URL in each script a page loads. The Download section's script
   (assets/js/download.js) asks GitHub's public API for the newest release, a
@@ -44,6 +48,16 @@ FIRST_PARTY = "blowhorn.ai"
 SCRIPT_HOSTS = {"api.github.com", "github.com"}
 # Hosts a <form action> may post to. Each one must be disclosed on the privacy page.
 FORM_ACTION_HOSTS = {"calcotestudios.us15.list-manage.com"}
+
+def _cloud_host() -> str:
+    """Host of params.cloud_url in hugo.toml, the one allowed refresh target."""
+    toml = Path(__file__).resolve().parents[2] / "hugo.toml"
+    match = re.search(r'^\s*cloud_url\s*=\s*"([^"]+)"', toml.read_text(encoding="utf-8"), re.M)
+    return urlparse(match.group(1)).hostname or "" if match else ""
+
+
+# Hosts a <meta http-equiv="refresh"> may navigate to (params.cloud_url).
+REFRESH_HOSTS = {h for h in {_cloud_host()} if h}
 # <link rel> values that name a URL without the browser fetching it.
 NON_FETCHING_RELS = {"canonical", "alternate", "author", "license", "me", "help"}
 # <script type> values that hold data, not code the browser runs.
@@ -165,6 +179,8 @@ def main(root: Path, first_party: str) -> int:
         collector.feed(page.read_text(encoding="utf-8"))
         for tag, attr, ref in collector.refs:
             host = host_of(ref)
+            if attr == "refresh" and host in REFRESH_HOSTS:
+                continue
             if host and host not in allowed:
                 problems.append(f"{page.relative_to(root)}: <{tag} {attr}> loads {ref}")
             if (tag, attr) not in FILE_LOADS:
