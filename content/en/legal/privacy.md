@@ -34,8 +34,8 @@ The footer has the site's one form, a signup for the Layer5 newsletter. It is th
 
 ### On your Mac
 
-- Browser sessions for LinkedIn, X, Reddit and Hacker News, meaning the cookies Chrome keeps for those sites, live in Chrome profiles on your machine. They never leave it.
-- Every action Blowhorn takes runs on one of your Macs. Blowhorn never signs in or acts for you from a server.
+- Every action Blowhorn takes is executed on one of your Macs. On LinkedIn, X, Reddit and Hacker News, it acts through your Chrome profile. On Bluesky, GitHub, Slack and X, it calls the platform's API from your Mac.
+- Your Blowhorn account keeps the queue and results in sync across your Macs and coordinates them. It does not sign in, post or act for you from a server.
 - Configuration lives in `.blowhorn.yaml` inside the installation. The store connection, including its password, lives in `~/.config/blowhorn/store.yaml`, readable only by your user account.
 - For LinkedIn, X, Reddit and Bluesky, the password a run signs in with is read from `profiles/<name>/config.yaml` inside the installation, and `blowhorn profile set` writes it there.
 - The app keeps its cached copy of your organization's plan features in your macOS Keychain.
