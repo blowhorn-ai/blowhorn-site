@@ -6,7 +6,7 @@
   "lead": "DeepSeek is a model, and the harness around it decides how it runs commands. Blowhorn fits any harness with a shell tool.",
   "hook": "Any harness, one CLI",
   "wire_title": "Bring the model, keep the commands",
-  "wire_body": "Whether DeepSeek sits behind OpenCode, Claude Code with a compatible endpoint, or a harness of your own, the integration is the same: blowhorn on the PATH, a rules block, and JSON output the model can parse. Long-context reasoning is handy for turning a big changelog into a week of rows.",
+  "wire_body": "Whether DeepSeek sits behind OpenCode, Claude Code with a compatible endpoint, or a harness of your own, the setup is the same: blowhorn on the PATH, a rules block and JSON output. Long context turns a big changelog into a week of rows.",
   "wire_file": "AGENTS.md",
   "wire_code": "## Blowhorn rules\n\n- Always add --json and parse it; never scrape human output\n- One content row per platform per message\n- Writes: blowhorn content upsert --row N --expected-fingerprint <fp>\n- Stop everything: blowhorn schedule pause --all --reason \"<why>\"",
   "extra_file": "",
@@ -42,7 +42,7 @@
     },
     {
       "q": "Does my agent see my social passwords?",
-      "a": "No sign-in happens through the agent. Blowhorn posts through your own signed-in Chrome with the Blowhorn extension, so the agent runs commands and reads their output. Keep the same care you would with any tool that can act on your accounts: review what you allow it to run."
+      "a": "No. Blowhorn posts through your own signed-in Chrome; the agent only runs commands and reads their output. Review what you allow it to run, as with any tool that acts on your accounts."
     }
   ],
   "major": "I do not care whose brain is in the helmet. I care that the post goes out on time.",

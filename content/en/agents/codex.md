@@ -6,7 +6,7 @@
   "lead": "Codex follows AGENTS.md and asks before it acts outside its lane. Point it at Blowhorn and keep your finger on approve.",
   "hook": "AGENTS.md, codex exec and approvals",
   "wire_title": "Rules in AGENTS.md, approvals in Codex",
-  "wire_body": "Codex reads AGENTS.md from your repo. Blowhorn needs the network and your Chrome, so a sandboxed Codex session will ask before running it. That ask is a feature: approve reads, think twice before publishing.",
+  "wire_body": "Codex reads AGENTS.md from your repo. Blowhorn needs the network and your Chrome, so sandboxed Codex asks before running it. That's a feature: approve reads, think twice before publishing.",
   "wire_file": "AGENTS.md",
   "wire_code": "## Social posting\n\nTool: blowhorn (on PATH). JSON output: add --json.\n1. Read: blowhorn schedule list --json, blowhorn content list --pending --json\n2. Propose changes as a payload and show me\n3. Write with --expected-fingerprint so you never overwrite a newer edit\n4. Stop switch: blowhorn schedule pause --all --reason \"<why>\"",
   "extra_file": "",
@@ -42,7 +42,7 @@
     },
     {
       "q": "Does my agent see my social passwords?",
-      "a": "No sign-in happens through the agent. Blowhorn posts through your own signed-in Chrome with the Blowhorn extension, so the agent runs commands and reads their output. Keep the same care you would with any tool that can act on your accounts: review what you allow it to run."
+      "a": "No. Blowhorn posts through your own signed-in Chrome; the agent only runs commands and reads their output. Review what you allow it to run, as with any tool that acts on your accounts."
     }
   ],
   "major": "Codex asks permission before it fires. Good. The last recruit who did not is still explaining himself to LinkedIn.",

@@ -6,7 +6,7 @@
   "lead": "OpenCode reads AGENTS.md and lets you set bash permissions per command. That is exactly the leash a marketing agent needs.",
   "hook": "AGENTS.md and per-command permissions",
   "wire_title": "Write the rules where OpenCode looks",
-  "wire_body": "OpenCode picks up AGENTS.md from your project. Put the Blowhorn rules there, then use the bash permission map in opencode.json so reads run freely, writes ask, and the pause switch is always allowed.",
+  "wire_body": "OpenCode reads AGENTS.md. Put the Blowhorn rules there, then set the bash permission map in opencode.json: reads run freely, writes ask, pause is always allowed.",
   "wire_file": "AGENTS.md",
   "wire_code": "## Marketing with Blowhorn\n\n- Read state with --json: blowhorn schedule list, blowhorn content list --pending\n- Edit queue rows with blowhorn content upsert and pass --expected-fingerprint\n- Preview publishing with --dry-run; never trigger without asking\n- Emergency stop: blowhorn schedule pause --all --reason \"<why>\"",
   "extra_file": "opencode.json",
@@ -43,7 +43,7 @@
     },
     {
       "q": "Does my agent see my social passwords?",
-      "a": "No sign-in happens through the agent. Blowhorn posts through your own signed-in Chrome with the Blowhorn extension, so the agent runs commands and reads their output. Keep the same care you would with any tool that can act on your accounts: review what you allow it to run."
+      "a": "No. Blowhorn posts through your own signed-in Chrome; the agent only runs commands and reads their output. Review what you allow it to run, as with any tool that acts on your accounts."
     }
   ],
   "major": "Permissions per command. Finally, a recruit who reads the rules of engagement.",

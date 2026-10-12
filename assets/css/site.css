@@ -1707,3 +1707,85 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .versus-belief > * + * { margin-top: var(--space-4); }
 .versus-belief p { max-width: 48rem; }
 .versus-all { margin-top: var(--space-6); }
+
+/* ---------- Whitespace and rhythm (DESIGN.md, "Whitespace and rhythm") ----------
+   One spacing system for every page. Sections, heads, grids and cards read these
+   tokens; never patch spacing per page. A title never touches its content. */
+:root {
+  --section-y: 64px;          /* section padding-block, mobile */
+  --section-gap: 0px;         /* extra space between stacked glass sections */
+  --head-gap: 32px;           /* heading (or section head) to its content, minimum */
+  --eyebrow-gap: 12px;        /* label to heading */
+  --intro-gap: 16px;          /* heading to its intro paragraph */
+  --grid-gap: 24px;           /* card grid gutters */
+  --stack-gap: 16px;          /* paragraphs and list items inside a block */
+  --card-pad: 24px;           /* card padding */
+  --text-measure: 64ch;       /* paragraph line length */
+}
+@media (min-width: 900px) {
+  :root {
+    --section-y: 112px;
+    --head-gap: 40px;
+    --grid-gap: 32px;
+    --card-pad: 32px;
+  }
+}
+
+/* Sections: generous block padding, a soft divider between neighbors. */
+.section,
+.compare-section,
+.brand-section,
+.agent-page .agent-section,
+.page .agent-section { padding-block: var(--section-y); margin-top: 0; }
+.agent-section + .agent-section,
+.compare-section + .compare-section,
+.brand-section + .brand-section,
+.agent-section + .major-says,
+.major-says + .agent-section {
+  background-image: linear-gradient(90deg, transparent, var(--line) 18%, var(--line) 82%, transparent);
+  background-size: min(100%, var(--measure)) 1px;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+/* Glass panels that are themselves sections keep their own padding and float
+   with a full section of air around them instead of a divider. */
+.agent-page .agent-section.glass,
+.page .agent-section.glass {
+  padding: clamp(32px, 5vw, 64px);
+  margin-block: calc(var(--section-y) / 2);
+  background-image: none;
+}
+.agent-page .major-says { margin-block: calc(var(--section-y) / 2); }
+.agent-hero { margin-bottom: calc(var(--section-y) / 2); }
+.compare-hero + .compare-section,
+.brand-index + .brand-section { margin-top: 0; }
+
+/* Heads: eyebrow -> title -> intro, then a clear gap before content. */
+.section-head, .page-head, .download-head { max-width: 44rem; }
+.section-head > .label + *, .page-head > .label + * { margin-top: var(--eyebrow-gap); }
+.section-head > .h2 + *, .section-head > h2 + *,
+.page-head > h1 + *, .page-head > .display + * { margin-top: var(--intro-gap); }
+.section-head p, .page-head p { max-width: var(--text-measure); }
+.section-head + *,
+.section-body,
+.brand-section .section-head + *,
+.compare-section .section-head + *,
+.page .section-body > .h2 + .grid,
+.page-head + *,
+section > .h2 + :not(p),
+section > h2 + :not(p) { margin-top: var(--head-gap); }
+.page .prose > .h2, .prose h2 { margin-top: calc(var(--head-gap) * 1.5); }
+.prose h2 + *, .prose .h2 + * { margin-top: var(--intro-gap); }
+.prose h3, .prose .h3 { margin-top: var(--head-gap); }
+
+/* Grids and cards. */
+.grid, .agent-prompts, .agent-grid { gap: var(--grid-gap); }
+.agent-faq { gap: var(--stack-gap); }
+.card { padding: var(--card-pad); }
+.card > * + * { margin-top: var(--space-3); }
+.card .h3 { margin-top: var(--space-4); }
+.card > .h3:first-child { margin-top: 0; }
+
+/* Line length. */
+.prose, .versus-belief p, .agent-cta p, .brand-note, .platform-note { max-width: var(--text-measure); }
+.agent-cta p { margin-inline: auto; }

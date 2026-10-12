@@ -6,7 +6,7 @@
   "lead": "Claude Code already lives in your terminal. Give it the Blowhorn CLI and a skill, and it runs your launch while you review the diff.",
   "hook": "Skills, CLAUDE.md and a Bash allowlist",
   "wire_title": "Teach it once with a skill",
-  "wire_body": "Claude Code loads project skills from .claude/skills/. Drop one in that tells it which blowhorn commands exist, that every read takes --json, and that writes pass the row fingerprint back. Then allow the read-only commands in .claude/settings.json so it stops asking, and leave publishing on ask.",
+  "wire_body": "Claude Code loads project skills from .claude/skills/. Add one that lists the blowhorn commands, says reads take --json and writes pass the row fingerprint back. Allow read-only commands in .claude/settings.json and leave publishing on ask.",
   "wire_file": ".claude/skills/blowhorn/SKILL.md",
   "wire_code": "---\nname: blowhorn\ndescription: Schedule, queue and amplify social posts with the blowhorn CLI\n---\n\nRead before you write:\n- blowhorn schedule list --json\n- blowhorn content list --pending --json\n- blowhorn schedule status --json\n\nWrite with the fingerprint you just read:\n- blowhorn content upsert --payload '<json>' --row N --expected-fingerprint <fp> --json\n\nPreview anything that publishes with --dry-run first.\nIf anything looks wrong: blowhorn schedule pause --all --reason \"<why>\"",
   "extra_file": ".claude/settings.json",
@@ -21,21 +21,21 @@
   "uses": [
     {
       "t": "Release day from the PR",
-      "b": "Ask Claude Code to read the changelog it just wrote and turn it into one queue row per platform, in your voice, ready for approval."
+      "b": "Have Claude Code turn the changelog it just wrote into one queue row per platform, ready for approval."
     },
     {
       "t": "Headless runs",
-      "b": "claude -p runs a prompt without the interactive session, so a morning check of what is due can run from a script and land in your terminal."
+      "b": "claude -p runs a prompt from a script, so a morning check of what's due lands in your terminal."
     },
     {
       "t": "The weekly read-out",
-      "b": "Let it pull blowhorn analytics history --json and write the summary you would otherwise build by hand on Friday."
+      "b": "Let it pull blowhorn analytics history --json and write Friday's summary for you."
     }
   ],
   "faq": [
     {
       "q": "Does Blowhorn ship an MCP server for Claude Code?",
-      "a": "Not today. Claude Code drives the CLI through its Bash tool, and every command that an agent needs speaks --json, so a skill and an allowlist are all the setup there is."
+      "a": "Not today. Claude Code drives the CLI through its Bash tool and every command speaks --json, so a skill and an allowlist are the whole setup."
     },
     {
       "q": "Can it publish without asking me?",
@@ -43,7 +43,7 @@
     },
     {
       "q": "Does my agent see my social passwords?",
-      "a": "No sign-in happens through the agent. Blowhorn posts through your own signed-in Chrome with the Blowhorn extension, so the agent runs commands and reads their output. Keep the same care you would with any tool that can act on your accounts: review what you allow it to run."
+      "a": "No. Blowhorn posts through your own signed-in Chrome; the agent only runs commands and reads their output. Review what you allow it to run, as with any tool that acts on your accounts."
     }
   ],
   "major": "Your agent wrote 4,000 lines before lunch and the launch post is still a sticky note. Unacceptable. Hand it the horn.",

@@ -2,7 +2,7 @@
 title: Trust Center
 heading: Blowhorn Trust Center
 description: How Blowhorn handles your data, sessions and accounts, in plain language, and every policy that covers the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.
-lead: Blowhorn runs as many public voices as you need from one coordinated queue, and every action happens on your own Mac. This page collects every policy that covers the Blowhorn website, the Blowhorn app for macOS and its Chrome extension, with a plain-language summary of each. The summaries are a guide; where one differs from a policy, the policy decides.
+lead: Many public voices, one coordinated queue, every action on your own Mac. Every policy for the Blowhorn website, Mac app and Chrome extension, each with a plain-language summary. Where a summary differs from its policy, the policy decides.
 layout: trust-center
 lastmod: 2026-10-09
 sitemap:
@@ -12,11 +12,11 @@ sitemap:
 # already says; add a card only for a promise a policy or a public doc makes.
 glance:
   - title: Every action happens on your own Mac
-    text: Blowhorn never acts for you from a server. Every post, comment and reaction is made by the Blowhorn app on one of your Macs, and in Chrome the Blowhorn extension acts only when that app asks. Your browser cookies for LinkedIn, X, Reddit and Hacker News stay in Chrome on that Mac and never leave it.
+    text: Blowhorn never acts for you from a server. Every post, comment and reaction is made by the Blowhorn app on one of your Macs; the Chrome extension acts only when that app asks.
     link: /legal/privacy/#on-your-mac
     linkText: What stays on your Mac
   - title: The extension reports to no server
-    text: The extension talks only to the Blowhorn app on your Mac, over Chrome's native messaging. It acts only on the sites Blowhorn supports, only in the Chrome profiles you install it in, and it keeps nothing itself.
+    text: The extension talks only to the Blowhorn app on your Mac, over Chrome's native messaging. It acts only on supported sites, only in the Chrome profiles you install it in, and keeps nothing itself.
     link: /legal/privacy/#in-chrome-through-the-blowhorn-extension
     linkText: What the extension reads
   - title: No analytics, no crash reports, no cookies
@@ -24,7 +24,7 @@ glance:
     link: /legal/privacy/#this-website
     linkText: What this website does
   - title: One account for your queue, analytics and credentials
-    text: Your account keeps your content queue, schedule, profiles, run history, analytics and platform credentials in sync. That is what lets you sign in on any number of Macs, yours or your teammates', and run them as one fleet. Every Mac works from the same queue, coordinated so the same post isn't sent from two of them, and your analytics show the complete picture. The account privacy policy governs that data.
+    text: Your account keeps your queue, schedule, profiles, run history, analytics and platform credentials in sync, so any number of Macs, yours or your teammates', run as one fleet. They share one queue, coordinated so the same post isn't sent from two of them. The account privacy policy governs that data.
     link: /legal/privacy/#in-your-organizations-store-on-layer5-cloud
     linkText: What your account keeps
   - title: You approve what goes out

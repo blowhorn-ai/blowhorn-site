@@ -6,7 +6,7 @@
   "lead": "Grok in your terminal can run commands. Hand it the Blowhorn CLI and it turns a sentence into a launch plan you approve.",
   "hook": "Prompts in, blowhorn commands out",
   "wire_title": "One instructions file, any Grok agent",
-  "wire_body": "However you run Grok as a coding agent, it needs two things from you: blowhorn on the PATH and a short instructions file in the project. If your setup reads AGENTS.md, use that; otherwise paste the same block into its system or project instructions.",
+  "wire_body": "However you run Grok, it needs blowhorn on the PATH and a short instructions file. Use AGENTS.md if your setup reads it; otherwise paste the block into its project instructions.",
   "wire_file": "AGENTS.md",
   "wire_code": "## Blowhorn\n\nYou can run the blowhorn CLI. Prefer --json.\n- What is due: blowhorn schedule list --due-only --json\n- What is queued: blowhorn content list --pending --json\n- Amplify a live post: blowhorn post --platform <p> --amplify <url> --profile all --dry-run\nAsk me before any command without --dry-run that publishes.",
   "extra_file": "",
@@ -42,7 +42,7 @@
     },
     {
       "q": "Does my agent see my social passwords?",
-      "a": "No sign-in happens through the agent. Blowhorn posts through your own signed-in Chrome with the Blowhorn extension, so the agent runs commands and reads their output. Keep the same care you would with any tool that can act on your accounts: review what you allow it to run."
+      "a": "No. Blowhorn posts through your own signed-in Chrome; the agent only runs commands and reads their output. Review what you allow it to run, as with any tool that acts on your accounts."
     }
   ],
   "major": "A post with no amplification is a bugle in an empty barracks. Grok, sound the call.",

@@ -6,7 +6,7 @@
   "lead": "Everything the Mac app does, the CLI does too. That is why any agent can run Blowhorn.",
   "hook": "Every app feature, as a command",
   "wire_title": "Built to be driven",
-  "wire_body": "Reads take --json. Writes take --expected-fingerprint so an agent never stomps a newer edit. Anything that publishes takes --dry-run. And one switch stops every Mac at once, with a recorded reason every machine reports.",
+  "wire_body": "Reads take --json. Writes take --expected-fingerprint so an agent never stomps a newer edit. Anything that publishes takes --dry-run. One switch stops every Mac at once, with a recorded reason.",
   "wire_file": "terminal",
   "wire_code": "blowhorn schedule status --json\nblowhorn schedule pause --all --reason \"launch moved to Thursday\"\nblowhorn schedule resume --all",
   "extra_file": "",

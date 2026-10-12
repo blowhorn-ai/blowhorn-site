@@ -3,7 +3,7 @@
   "linkTitle": "Agentic AI Marketing",
   "layout": "agents",
   "lastmod": "2026-10-12",
-  "description": "Run your marketing from the AI agent you already code with. Blowhorn's CLI does everything the Mac app does, so Claude Code, OpenCode, Pi, Codex, Grok and DeepSeek can schedule, queue and amplify for you.",
+  "description": "Run your marketing from the AI agent you already code with. Blowhorn's CLI does everything the Mac app does, so Claude Code, OpenCode, Pi, Codex, Grok and DeepSeek can schedule and amplify for you.",
   "lead": "Your coding agent can ship the release. Now it can announce it too.",
   "pillars": [
     {
