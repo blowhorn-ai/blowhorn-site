@@ -7,10 +7,13 @@ Run with `make test-scripts` (CI runs it too).
 import subprocess
 import sys
 import tempfile
+import tomllib
 import unittest
 from pathlib import Path
+from urllib.parse import urlparse
 
 SCRIPT = Path(__file__).with_name("check-third-party.py")
+HUGO_TOML = Path(__file__).resolve().parents[2] / "hugo.toml"
 
 
 def page(head="", body=""):
@@ -61,6 +64,14 @@ class CheckThirdPartyTest(unittest.TestCase):
         self.assert_passes({"index.html": page(body='<form method="post" action="https://calcotestudios.us15.list-manage.com/subscribe/post?u=a&amp;id=b"><input name="EMAIL"></form>')})
         self.assert_fails_naming({"index.html": page(body='<form method="post" action="https://forms.example/post"></form>')}, "forms.example")
         self.assert_fails_naming({"index.html": page(body='<img src="https://calcotestudios.us15.list-manage.com/x.png" alt="">')}, "list-manage.com")
+
+    def test_refresh_to_cloud_url_is_the_one_allowed_refresh_host(self):
+        cloud_url = tomllib.loads(HUGO_TOML.read_text(encoding="utf-8"))["params"]["cloud_url"]
+        cloud_host = urlparse(cloud_url).hostname
+        self.assert_passes({"signup/index.html": page(f'<meta http-equiv="refresh" content="0; url={cloud_url}">')})
+        self.assert_fails_naming({"index.html": page('<meta http-equiv="refresh" content="0; url=https://evil.example/">')},
+                                 "evil.example")
+        self.assert_fails_naming({"index.html": page(body=f'<img src="https://{cloud_host}/x.png" alt="">')}, cloud_host)
 
     def test_inline_script_request_fails(self):
         self.assert_fails_naming({"index.html": page(body='<script>fetch("https://tracker.example/hit")</script>')},

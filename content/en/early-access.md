@@ -16,4 +16,4 @@ sitemap:
 
 ## Already have access?
 
-Your organization's administrator may need to add you in [Layer5 Cloud]({{< cloud-url >}}). Once that is done, open the Blowhorn app and choose **Check again**, or run `blowhorn auth status`.
+Your organization's administrator may need to add you in [Layer5 Cloud]({{< cloud-url >}}). Once that is done, run `blowhorn auth status` to check.

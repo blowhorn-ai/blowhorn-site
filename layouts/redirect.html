@@ -4,7 +4,6 @@
   this is a meta refresh with a visible link, as layouts/alias.html. */ -}}
 {{- $to := .Params.redirect_to -}}
 {{- with .Params.redirect_to_param }}{{ $to = index site.Params . }}{{ end -}}
-{{- with .Params.redirect_suffix }}{{ $to = printf "%s%s" (strings.TrimSuffix "/" $to) . }}{{ end -}}
 {{- if not (hasPrefix $to "http") }}{{ $to = $to | relURL }}{{ end -}}
 <!DOCTYPE html>
 <html lang="{{ site.LanguageCode }}">

@@ -30,7 +30,9 @@ class RedirectCheckTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             for name, text in files.items():
-                (root / name).write_text(text, encoding="utf-8")
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text, encoding="utf-8")
             return contract.check_redirects(root)
 
     def test_alias_pages_pass(self):

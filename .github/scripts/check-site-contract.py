@@ -79,16 +79,31 @@ PAGES = {
     "docs/explanation/index.html": [
         "main",
     ],
+    "docs/how-to/set-up/install-the-app/index.html": [
+        "main",
+    ],
+    "welcome/index.html": [
+        "main", "download-the-app", "sign-in", "connect-chrome",
+    ],
+    "early-access/index.html": [
+        "main",
+    ],
 }
-# Moved pages: old published path -> the URL its redirect page must point to.
-# GitHub Pages serves no server-side redirects, so each old path is a Hugo
-# alias page (layouts/alias.html): a meta refresh plus a canonical link.
+# Redirect pages: published path -> the URL its redirect page must point to.
+# GitHub Pages serves no server-side redirects, so each path is a meta refresh
+# plus a canonical link: a Hugo alias page (layouts/alias.html) for a moved
+# page, or layouts/redirect.html for a short path into the site.
 REDIRECTS = {
     "privacy.html": "https://blowhorn.ai/legal/privacy/",
     "terms.html": "https://blowhorn.ai/legal/terms/",
+    "download/index.html": "/#download",
+    "install/index.html": "/docs/how-to/set-up/install-the-app/",
 }
-# Other files that must be published at these paths.
+# Other files that must be published at these paths. /signup/ and /login/
+# redirect to params.cloud_url, so only their presence is checked here.
 FILES = [
+    "signup/index.html",
+    "login/index.html",
     "CNAME",
     "favicon.ico",
     "robots.txt",
