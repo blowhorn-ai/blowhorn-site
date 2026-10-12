@@ -1,0 +1,12 @@
+{{- /* Every fenced code block (docs included) renders as a terminal code
+  card (layouts/_partials/code-card.html). Shell fences get "$" prompts and
+  a copy button; untyped and text fences are sample output: no prompt, no
+  copy. A fence may name its own label with {title="opencode.json"}. */ -}}
+{{- $lang := lower .Type -}}
+{{- $shell := in (slice "bash" "sh" "shell" "zsh" "console") $lang -}}
+{{- $output := in (slice "" "text" "txt" "plaintext" "output") $lang -}}
+{{- $names := dict "json" "JSON" "toml" "TOML" "yaml" "YAML" "yml" "YAML" "markdown" "Markdown" "md" "Markdown" "python" "Python" "javascript" "JavaScript" "js" "JavaScript" "html" "HTML" "css" "CSS" "ini" "INI" "xml" "XML" -}}
+{{- $title := .Attributes.title | default (cond $shell "terminal" (cond $output "output" (index $names $lang | default $lang))) -}}
+{{- if $shell }}{{ $lang = "bash" }}{{ end -}}
+{{- if $output }}{{ $lang = "text" }}{{ end -}}
+{{ partial "code-card.html" (dict "code" .Inner "title" $title "lang" $lang "prompt" $shell "copy" (not $output)) }}
