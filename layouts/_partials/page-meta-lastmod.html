@@ -1,0 +1,7 @@
+{{- /* Docsy's last-modified line, date only: internal commit subjects stay
+  off the public pages. */ -}}
+{{ if .GitInfo -}}
+<div class="td-page-meta__lastmod">
+  {{ T "post_last_mod" }} {{ .Lastmod.Format .Site.Params.time_format_default }}
+</div>
+{{ end -}}

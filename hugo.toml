@@ -98,11 +98,11 @@ disableKinds = ["taxonomy", "term", "rss"]
   filename = "sitemap.xml"
 
 [params]
-  description = "Blowhorn is a social media console that takes one message and broadcasts, reposts and amplifies it across every profile and platform your community runs, on autopilot. Made by Layer5 for macOS."
+  description = "Blowhorn is a social media console that takes one message and broadcasts, reposts and amplifies it across every profile and platform your community runs, on autopilot. Made for macOS."
   copyright = "Layer5, Inc."
   github_repo = "https://github.com/layer5io/blowhorn-site"
   github_branch = "master"
-  # The one place the site names Layer5 Cloud. /signup, /login and
+  # The account service URL. /signup, /login and
   # /early-access redirect here, and the welcome page links to it.
   # TODO(cloud.blowhorn.ai): switch to "https://cloud.blowhorn.ai" when the
   # Blowhorn-branded Cloud goes live. Keep in step with DEFAULT_CLOUD_URL in

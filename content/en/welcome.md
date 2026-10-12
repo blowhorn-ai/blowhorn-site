@@ -14,12 +14,12 @@ sitemap:
 
 The app is for macOS. [Download Blowhorn](/download/), open the disk image and drag Blowhorn to Applications.
 
-## 2. Sign in to Layer5 Cloud {#sign-in}
+## 2. Sign in to your account {#sign-in}
 
-Open Blowhorn and choose **Sign in**. Your browser opens [Layer5 Cloud]({{< cloud-url >}}), where you can create an account or log in, and then returns you to the app. From a terminal, `blowhorn auth login` does the same.
+Open Blowhorn and choose **Sign in**. Your browser opens [your account]({{< cloud-url >}}), where you can create one or log in, and then returns you to the app. From a terminal, `blowhorn auth login` does the same.
 
 ## 3. Connect your Chrome profiles {#connect-chrome}
 
 On first run the app lists the Chrome profiles it found and asks before it connects any of them. It writes one small file Chrome reads for each profile you choose. It does not open Chrome or change your Chrome settings. You can run `blowhorn setup` at any time to check or repeat this step.
 
-When the extension's icon shows connected, you are ready. If your account does not have Blowhorn yet, the app sends you straight to [Layer5 Cloud]({{< cloud-url >}}) to start the beta.
+When the extension's icon shows connected, you are ready. If your account does not have Blowhorn yet, the app sends you straight to [your account]({{< cloud-url >}}) to start the beta.

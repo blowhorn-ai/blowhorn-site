@@ -712,7 +712,7 @@ pre code { background: none; padding: 0; }
 }
 
 /* ---------- Footer ----------
-   Laid out like the layer5.io footer (layer5io/layer5 src/sections/General/Footer):
+   Laid out as
    brand and newsletter on the left, short titled columns on the right, then a
    bottom bar. The panel is a glass surface (see "Liquid glass" below). */
 .site-footer {
@@ -780,7 +780,7 @@ pre code { background: none; padding: 0; }
     padding: var(--space-12);
   }
 }
-/* Service status: ported from the layer5.io footer (layer5io/layer5
+/* Service status: ported from a shared footer pattern (
    src/sections/General/Footer/footer.style.js, .status-link and .pulse-icon). */
 .status-link {
   background-color: #484848;

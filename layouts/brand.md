@@ -38,4 +38,4 @@ Do: full color on light grounds; the on-dark file on dark grounds; one color on 
 
 Don't: recolor, stretch, squash or rotate the logo; add shadows, glows or gradients; set it on a busy ground; put the full-color icon on teal; retype the wordmark in a font; rearrange the parts; use retired marks or old names.
 
-The name is Blowhorn: one word, capital B. In formal copy, Layer5 Blowhorn the first time, then Blowhorn.
+The name is Blowhorn: one word, capital B. Always just Blowhorn, in formal copy too.

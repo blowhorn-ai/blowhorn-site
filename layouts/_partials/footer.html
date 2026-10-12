@@ -1,5 +1,4 @@
-{{- /* One footer for every page, laid out like the layer5.io footer
-  (layer5io/layer5 src/sections/General/Footer): the brand and newsletter on
+{{- /* One footer for every page: the brand and newsletter on
   the left, short titled link columns on the right, and a bottom bar with the
   copyright, the "Status" pill and the trademark note. The 404
   page keeps only the bottom bar. Off the home page the in-page links lead
@@ -27,8 +26,15 @@
                 <li><a href="{{ "download/" | relURL }}">Download</a></li>
                 <li><a href="https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf">Chrome extension</a></li>
                 <li><a href="{{ site.Params.github_repo }}/releases">Releases</a></li>
-                <li><a href="{{ (site.GetPage "/docs").RelPermalink }}">Docs</a></li>
                 <li><a href="{{ (site.GetPage "/compare").RelPermalink }}">Compare</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h2 class="footer-title">Resources</h2>
+              <ul>
+                <li><a href="{{ (site.GetPage "/docs").RelPermalink }}">Docs</a></li>
+                <li><a href="{{ (site.GetPage "/docs/reference/support").RelPermalink }}">Get help</a></li>
+                <li><a href="{{ (site.GetPage "/brand").RelPermalink }}">Brand</a></li>
               </ul>
             </div>
             <div class="footer-col">
@@ -38,14 +44,6 @@
                 <li><a href="{{ (site.GetPage "/legal/privacy").RelPermalink }}">Privacy</a></li>
                 <li><a href="{{ (site.GetPage "/legal/terms").RelPermalink }}">Terms</a></li>
                 <li><a href="mailto:security@blowhorn.ai">Security</a></li>
-              </ul>
-            </div>
-            <div class="footer-col">
-              <h2 class="footer-title">Company</h2>
-              <ul>
-                <li><a href="https://layer5.io/">Layer5</a></li>
-                <li><a href="https://layer5.io/company/contact">Contact</a></li>
-                <li><a href="{{ (site.GetPage "/brand").RelPermalink }}">Brand</a></li>
               </ul>
             </div>
           </nav>

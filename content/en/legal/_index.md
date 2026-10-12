@@ -23,8 +23,8 @@ glance:
     text: The app carries no analytics or crash-reporting library. This website sets no cookies, runs no analytics and loads nothing from third parties. While you browse, its one outside request is the release lookup on GitHub. The newsletter form sends your email address to Mailchimp only when you submit it, and the privacy page describes both.
     link: /legal/privacy/#this-website
     linkText: What this website does
-  - title: One store for your queue, analytics and credentials
-    text: Your account keeps your content queue, schedule, profiles, run history, analytics and platform credentials in sync. That is what lets you sign in on any number of Macs, yours or your teammates', and run them as one fleet. Every Mac works from the same queue, coordinated so the same post isn't sent from two of them, and your analytics show the complete picture. Layer5's privacy policy governs that data.
+  - title: One account for your queue, analytics and credentials
+    text: Your account keeps your content queue, schedule, profiles, run history, analytics and platform credentials in sync. That is what lets you sign in on any number of Macs, yours or your teammates', and run them as one fleet. Every Mac works from the same queue, coordinated so the same post isn't sent from two of them, and your analytics show the complete picture. The account privacy policy governs that data.
     link: /legal/privacy/#in-your-organizations-store-on-layer5-cloud
     linkText: What your account keeps
   - title: You approve what goes out
@@ -41,7 +41,7 @@ policies:
     summary: What the Blowhorn website, the app and the extension store, where they store it, and what the app sends.
     url: /legal/privacy/
   - title: Terms of service
-    summary: The agreement between you and Layer5 for the website, the app and the extension, from early access and downloads to acceptable use.
+    summary: The agreement between you and us for the website, the app and the extension, from early access and downloads to acceptable use.
     url: /legal/terms/
     status: Draft, pending legal review
   - title: Chrome extension permissions
@@ -50,18 +50,18 @@ policies:
   - title: Where your data lives
     summary: What stays on your Mac, what your account keeps in sync, and what the extension reads.
     url: /docs/explanation/your-data/
-  - title: Layer5 Trust Center
-    summary: Layer5's own privacy policy, terms of service and other policies, which cover your account and every other Layer5 service.
+  - title: Account policies
+    summary: The privacy policy, terms of service and other policies of Layer5, Inc. that cover your account.
     url: https://layer5.io/company/legal/
 ---
 
 ## Report a security issue
 
-If you think you have found a security vulnerability in Blowhorn, send the details privately to [security@blowhorn.ai](mailto:security@blowhorn.ai) rather than opening a public issue. Layer5 acknowledges and analyzes each report within 10 working days and keeps the reporter updated while it is addressed. The [security policy](https://github.com/layer5io/blowhorn-site/blob/master/SECURITY.md) explains what to report and how fixes are disclosed.
+If you think you have found a security vulnerability in Blowhorn, send the details privately to [security@blowhorn.ai](mailto:security@blowhorn.ai) rather than opening a public issue. We acknowledge and analyze each report within 10 working days and keep the reporter updated while it is addressed. The [security policy](https://github.com/layer5io/blowhorn-site/blob/master/SECURITY.md) explains what to report and how fixes are disclosed.
 
 ## Questions
 
-- About privacy: open an issue on the [site repository](https://github.com/layer5io/blowhorn-site/issues), or contact Layer5 through the channels on its [privacy policy](https://layer5.io/company/legal/privacy/).
+- About privacy: open an issue on the [site repository](https://github.com/layer5io/blowhorn-site/issues), or use the contact channels in the account [privacy policy](https://layer5.io/company/legal/privacy/).
 - About the terms: email [legal@layer5.io](mailto:legal@layer5.io).
 
 ## Changes to these policies

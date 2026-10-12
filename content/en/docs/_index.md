@@ -1,7 +1,7 @@
 ---
 title: "Blowhorn docs"
 linkTitle: "Docs"
-description: "Tutorials, how-to guides, reference, and explanation for the Layer5 Blowhorn app for macOS."
+description: "Tutorials, how-to guides, reference, and explanation for the Blowhorn app for macOS."
 layout: "landing"
 cascade:
   type: "docs"

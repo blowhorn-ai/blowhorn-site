@@ -65,7 +65,7 @@ wordmarks:
     file: blowhorn-wordmark-white.svg
     stage: dark
   - name: Layer5 Blowhorn
-    note: When Layer5 is in the room
+    note: The formal lockup, with the company mark
     file: layer5-blowhorn-lockup.svg
     stage: light
   - name: Layer5 Blowhorn, on dark
