@@ -1428,3 +1428,57 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   .asset, .swatch, .rule, .type-card, .major-card, .clear-grid { break-inside: avoid; }
   .button-pop, .major-card { box-shadow: none; }
 }
+
+/* ---------- Compare (/compare/) ----------
+   One glass panel holding the matrix, Blowhorn's column tinted teal. Marks are
+   shapes as well as colours: a filled dot, a half dot, a hollow ring. */
+.compare-page { padding-top: var(--space-8); }
+.compare-hero > * + * { margin-top: var(--space-4); }
+.compare-hero .body-lg { max-width: 40rem; }
+.compare-section {
+  padding-block: var(--space-12);
+  border-top: var(--stroke-hairline) solid var(--line);
+}
+.compare-hero + .compare-section { margin-top: var(--space-12); }
+.compare-section .section-head + * { margin-top: var(--space-8); }
+.compare-scroll {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-4);
+}
+.compare-scroll:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.page .compare-table { max-width: none; min-width: 52rem; }
+.page .compare-table th,
+.page .compare-table td { padding: var(--space-4) var(--space-3); vertical-align: middle; }
+.page .compare-table tbody tr:last-child > * { border-bottom: 0; }
+.compare-table thead th { vertical-align: bottom; font-weight: 600; }
+.compare-group, .compare-examples { display: block; }
+.compare-examples { margin-top: var(--space-1); font-weight: 400; }
+.compare-feature-col { width: 26%; }
+.compare-feature { font-weight: 500; color: var(--ink); }
+.compare-table td { color: var(--ink-muted); }
+.compare-table .compare-us {
+  background: color-mix(in srgb, var(--surface-tint) 70%, transparent);
+  color: var(--ink);
+  font-weight: 600;
+}
+.compare-table thead .compare-us { white-space: nowrap; }
+.compare-table thead .compare-us img { display: inline-block; vertical-align: -4px; margin-right: var(--space-1); }
+.mark {
+  display: inline-block;
+  width: 10px; height: 10px;
+  margin-right: var(--space-2);
+  border-radius: 50%;
+  vertical-align: 0;
+}
+.mark-yes { background: var(--teal-shade); }
+.mark-partial { background: linear-gradient(90deg, var(--teal-shade) 50%, transparent 50%); box-shadow: inset 0 0 0 1.5px var(--teal-shade); }
+.mark-no { box-shadow: inset 0 0 0 1.5px var(--line-strong); }
+.compare-fair { display: grid; gap: var(--space-3); max-width: 48rem; padding-left: var(--space-5, 1.25rem); color: var(--ink-muted); }
+.compare-fair li { list-style: disc; }
+.compare-cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); }
+@media (prefers-color-scheme: dark) {
+  .mark-yes { background: var(--teal-bright); }
+  .mark-partial { background: linear-gradient(90deg, var(--teal-bright) 50%, transparent 50%); box-shadow: inset 0 0 0 1.5px var(--teal-bright); }
+}
+@media (min-width: 900px) { .compare-section { padding-block: var(--space-16); } }

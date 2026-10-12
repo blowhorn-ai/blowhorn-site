@@ -1,0 +1,114 @@
+---
+title: How Blowhorn compares
+linkTitle: Compare
+description: Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
+lead: Plenty of tools will post for you. Blowhorn posts as you, from every Mac you own, through one queue you control.
+layout: compare
+lastmod: 2026-10-12
+sitemap:
+  changefreq: monthly
+  priority: 0.5
+# Group level on purpose: products in a group differ, and every vendor fact
+# behind these lines is sourced in the product repository's
+# docs/gtm/blowhorn-icp-competitive-brief.md (checked 9 Oct 2026).
+groups:
+  - key: schedulers
+    name: Cloud schedulers
+    examples: Buffer, Hootsuite, Later, Publer, Typefully, Postiz
+  - key: linkedin
+    name: LinkedIn growth tools
+    examples: Taplio, Expandi, PhantomBuster, Waalaxy
+  - key: advocacy
+    name: Employee advocacy
+    examples: Sociabble, EveryoneSocial, DSMN8, Haiilo
+  - key: local
+    name: Local multi-profile browsers
+    examples: Multi-profile and antidetect browsers
+# Cell values: yes, no, some, or a short phrase. `level` drives the mark:
+# yes, partial, no.
+rows:
+  - feature: Acts from your own Mac, in your real browser, as you
+    blowhorn: { level: yes, text: "Yes" }
+    schedulers: { level: no, text: "Vendor servers, via API" }
+    linkedin: { level: partial, text: "Mostly the vendor's cloud" }
+    advocacy: { level: no, text: "The vendor's platform" }
+    local: { level: yes, text: "Yes" }
+  - feature: As many machines as you like, one shared queue
+    blowhorn: { level: yes, text: "Yes" }
+    schedulers: { level: no, text: "One cloud account" }
+    linkedin: { level: no, text: "One cloud seat per account" }
+    advocacy: { level: no, text: "One cloud account" }
+    local: { level: no, text: "One machine at a time" }
+  - feature: Coordinated so two machines don't send the same post
+    blowhorn: { level: yes, text: "Yes" }
+    schedulers: { level: no, text: "Not applicable" }
+    linkedin: { level: no, text: "Not applicable" }
+    advocacy: { level: no, text: "Not applicable" }
+    local: { level: no, text: "Up to you" }
+  - feature: Pause one action, one machine or everything
+    blowhorn: { level: yes, text: "Yes" }
+    schedulers: { level: partial, text: "Per post or queue" }
+    linkedin: { level: partial, text: "Per campaign" }
+    advocacy: { level: partial, text: "Per campaign" }
+    local: { level: no, text: "Manual" }
+  - feature: Amplify from every profile you run
+    blowhorn: { level: yes, text: "Yes" }
+    schedulers: { level: partial, text: "A few" }
+    linkedin: { level: partial, text: "Auto-comment, some" }
+    advocacy: { level: yes, text: "Yes, typically 100+ seats" }
+    local: { level: no, text: "No" }
+  - feature: Hacker News, Reddit, GitHub and Slack in the same queue
+    blowhorn: { level: yes, text: "Yes" }
+    schedulers: { level: partial, text: "Some; no Hacker News" }
+    linkedin: { level: no, text: "LinkedIn only" }
+    advocacy: { level: no, text: "LinkedIn and X first" }
+    local: { level: partial, text: "Any site, by hand" }
+  - feature: Human pace, CAPTCHA and 2FA handed to you
+    blowhorn: { level: yes, text: "Yes" }
+    schedulers: { level: no, text: "Not applicable" }
+    linkedin: { level: partial, text: "Varies" }
+    advocacy: { level: no, text: "Not applicable" }
+    local: { level: partial, text: "Varies" }
+  - feature: Dry-run every action, CLI an AI agent can drive
+    blowhorn: { level: yes, text: "Yes" }
+    schedulers: { level: partial, text: "A few" }
+    linkedin: { level: no, text: "Rare" }
+    advocacy: { level: no, text: "Rare" }
+    local: { level: partial, text: "Some, via API" }
+  - feature: Posts with every laptop closed
+    blowhorn: { level: partial, text: "As long as one Mac is awake" }
+    schedulers: { level: yes, text: "Yes" }
+    linkedin: { level: yes, text: "Yes" }
+    advocacy: { level: yes, text: "Yes" }
+    local: { level: no, text: "No" }
+  - feature: Instagram, TikTok, Facebook and YouTube
+    blowhorn: { level: partial, text: "Coming soon" }
+    schedulers: { level: yes, text: "Yes" }
+    linkedin: { level: no, text: "No" }
+    advocacy: { level: partial, text: "Some" }
+    local: { level: partial, text: "Any site, by hand" }
+why:
+  - title: It's you, not a bot
+    body: Blowhorn drives the Chrome you already sign in to. No server logs in with your password, session cookie or 2FA secret.
+    link: /docs/explanation/your-own-chrome/
+  - title: One queue, every Mac
+    body: Add Macs for coverage. Each action is claimed by one Mac, and whichever Mac is awake keeps the schedule.
+    link: /docs/explanation/scheduling/
+  - title: A fleet behind every post
+    body: Amplify reposts and comments from every profile you run while the post is still fresh. Teammates joining your fleet is coming soon.
+    link: /docs/explanation/distribution/
+  - title: Your hand on the switch
+    body: Pause one action, one Mac or every Mac at once, with the reason recorded. Resume and due times carry forward.
+    link: /docs/explanation/youre-in-control/
+  - title: Careful by default
+    body: Human-paced typing, built-in caps, one click per run, one automation per platform per profile at a time.
+    link: /docs/explanation/reliability-and-anti-bot-design/
+  - title: Where technical teams talk
+    body: Hacker News, Reddit, GitHub and Slack sit in the same queue as LinkedIn, X and Bluesky.
+    link: /docs/reference/platforms/
+fair:
+  - Cloud schedulers post with every laptop closed and cover more networks today, with calendars, approvals and inboxes Blowhorn doesn't try to match.
+  - LinkedIn growth tools run high-volume outbound sequences. Blowhorn does careful LinkedIn outreach, not a sequencer.
+  - Employee advocacy suites bring approvals, content libraries and compliance archiving for large programs.
+  - Local multi-profile browsers run on more operating systems. Blowhorn is macOS 13 or newer.
+---

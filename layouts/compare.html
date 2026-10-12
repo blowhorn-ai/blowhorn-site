@@ -1,0 +1,80 @@
+{{- /* The comparison page at /compare/ (content/en/compare/_index.md): a
+  feature-by-group matrix, why each row matters, and what the other groups do
+  well. Group level on purpose; the vendor facts behind it are sourced in
+  leecalcote/blowhorn docs/gtm/blowhorn-icp-competitive-brief.md. */ -}}
+{{ define "main" }}
+    {{- $groups := .Params.groups -}}
+    <main id="main" class="page compare-page">
+      <div class="wrap">
+        <header class="compare-hero">
+          <p class="label">Compare</p>
+          <h1 class="display">{{ .Title }}</h1>
+          <p class="body-lg muted">{{ .Params.lead }}</p>
+        </header>
+
+        <section class="compare-section" aria-labelledby="matrix-title">
+          <div class="section-head">
+            <h2 id="matrix-title" class="h2">At a glance</h2>
+            <p class="muted">By group, because products within a group differ. Checked against vendor pages in October 2026.</p>
+          </div>
+          <div class="compare-scroll glass">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="compare-feature-col"><span class="visually-hidden">Feature</span></th>
+                  <th scope="col" class="compare-us"><img src="{{ "assets/brand/logo/blowhorn-icon.svg" | relURL }}" alt="" width="20" height="20"> Blowhorn</th>
+                  {{- range $groups }}
+                  <th scope="col"><span class="compare-group">{{ .name }}</span><span class="caption muted compare-examples">{{ .examples }}</span></th>
+                  {{- end }}
+                </tr>
+              </thead>
+              <tbody>
+                {{- range .Params.rows }}
+                {{- $row := . }}
+                <tr>
+                  <th scope="row" class="compare-feature">{{ .feature }}</th>
+                  {{- with .blowhorn }}
+                  <td class="compare-us"><span class="mark mark-{{ .level }}" aria-hidden="true"></span>{{ .text }}</td>
+                  {{- end }}
+                  {{- range $groups }}
+                  {{- with index $row .key }}
+                  <td><span class="mark mark-{{ .level }}" aria-hidden="true"></span>{{ .text }}</td>
+                  {{- end }}
+                  {{- end }}
+                </tr>
+                {{- end }}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="compare-section" aria-labelledby="why-title">
+          <div class="section-head">
+            <h2 id="why-title" class="h2">Why it matters</h2>
+          </div>
+          <ul class="grid grid-3">
+            {{- range .Params.why }}
+            <li class="card">
+              <h3 class="h3">{{ .title }}</h3>
+              <p>{{ .body }}</p>
+              <p class="ui"><a href="{{ .link | relURL }}">Read the details</a></p>
+            </li>
+            {{- end }}
+          </ul>
+        </section>
+
+        <section class="compare-section" aria-labelledby="fair-title">
+          <div class="section-head">
+            <h2 id="fair-title" class="h2">Credit where due</h2>
+            <p class="muted">Good tools, built for different jobs.</p>
+          </div>
+          <ul class="compare-fair">
+            {{- range .Params.fair }}
+            <li>{{ . }}</li>
+            {{- end }}
+          </ul>
+          <p class="compare-cta"><a class="button button-primary" href="{{ "" | relURL }}#download">Get Blowhorn</a> <a class="button" href="{{ (site.GetPage "/docs").RelPermalink }}">Read the docs</a></p>
+        </section>
+      </div>
+    </main>
+{{ end }}
