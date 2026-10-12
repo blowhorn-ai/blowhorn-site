@@ -18,7 +18,7 @@ administrator gives you access to (see [First run](#first-run)).
 
 Download the latest build from the
 [blowhorn-site releases](https://github.com/layer5io/blowhorn-site/releases),
-the same place the [blowhorn.ai](https://blowhorn.ai) download button links:
+the same place the [blowhorn.ai/download](https://blowhorn.ai/download/) button links:
 
 - [Blowhorn-mac.dmg](https://github.com/layer5io/blowhorn-site/releases/latest/download/Blowhorn-mac.dmg) -
   always the latest build, for Apple silicon and Intel Macs.

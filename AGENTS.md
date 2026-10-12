@@ -19,7 +19,7 @@ The marketing and legal pages do not use Docsy's templates: they render through
 ## Rules the site holds
 
 - **No third parties.** The privacy page promises no cookies, no analytics and no asset
-  loaded from another host; the only outside request is the Download section's disclosed
+  loaded from another host; the only outside request is the download page's disclosed
   release lookup on api.github.com, and the footer newsletter form may post only to the Mailchimp host in
   `FORM_ACTION_HOSTS`. Never add an analytics id, a CDN script or stylesheet, or web
   fonts from elsewhere; never copy layer5io/docs' head, navbar, footer or its

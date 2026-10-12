@@ -7,7 +7,7 @@
     <title>{{ if .IsHome }}{{ .Title }}{{ else if eq .Kind "404" }}Page not found: {{ site.Title }}{{ else }}{{ .Title }}: {{ site.Title }}{{ end }}</title>
     {{- if eq (getenv "HUGO_PREVIEW") "true" }}
     <meta name="robots" content="noindex, nofollow">
-    {{- else if eq .Kind "404" }}
+    {{- else if or (eq .Kind "404") .Params.noindex }}
     <meta name="robots" content="noindex">
     {{- end }}
     {{- with .Description }}

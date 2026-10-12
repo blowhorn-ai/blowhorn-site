@@ -7,11 +7,12 @@
 // long prerelease train) is /releases/latest asked, where a 404 means none.
 //
 // States, in order of preference:
-//   1. A stable release carries the fixed-name alias (Blowhorn-mac.dmg): one
-//      button on the always-latest URL.
-//   2. No stable release with the alias yet: the static "on its way" copy stays.
-//   3. Any failure (rate limit, outage, offline): say the lookup failed and
-//      point at the releases page. Never claim "no build" on an error.
+//   1. A stable release carries the fixed-name alias (Blowhorn-mac.dmg): the
+//      page's button (to /download/thanks/) stays; version, size, date, release
+//      notes and checksums are filled in.
+//   2. No stable release with the alias yet: the static card stays.
+//   3. Any failure (rate limit, outage, offline): the static card stays, and
+//      its button still downloads the always-latest build.
 (function () {
   "use strict";
 
@@ -53,16 +54,6 @@
     });
   }
 
-  function showLookupError() {
-    var actions = el("p", null, { class: "actions" });
-    actions.appendChild(el("a", "See releases", { class: "button button-secondary", href: releasesUrl }));
-    replaceCard([
-      el("p", "The release check did not go through", { class: "h3" }),
-      el("p", "We couldn't load the latest version just now. The releases page always lists the newest build.", { class: "meta" }),
-      actions,
-    ]);
-  }
-
   function showRelease(release) {
     var assets = Array.isArray(release.assets) ? release.assets : [];
     var version = release.tag_name || release.name || "";
@@ -72,13 +63,16 @@
       return;
     }
 
-    var actions = el("p", null, { class: "actions" });
-    actions.appendChild(el("a", "Download Blowhorn " + version, {
-      class: "button button-primary button-pop",
-      href: "https://github.com/" + repo + "/releases/latest/download/" + aliasAsset.name,
-    }));
-    actions.appendChild(el("span", aliasAsset.name + " · " + megabytes(aliasAsset.size), { class: "caption muted" }));
-    var children = [el("p", "Blowhorn " + version + " for Mac", { class: "h3" }), actions];
+    // Keep the page's own button (it goes to the thanks page, which starts the
+    // download); only the label, file size and details below it change.
+    var icon = card.querySelector(".download-icon");
+    var actions = card.querySelector(".actions");
+    var size = actions && actions.querySelector(".caption");
+    if (size) {
+      size.textContent = aliasAsset.name + " · " + megabytes(aliasAsset.size);
+    }
+    var title = el("p", "Blowhorn " + version + " for Mac", { class: "h3" });
+    var children = (icon ? [icon] : []).concat([title, actions]);
 
     var meta = el("p", null, { class: "meta caption" });
     var date = release.published_at ? publishedOn(release.published_at) : null;
@@ -137,6 +131,7 @@
       }
     })
     .catch(function () {
-      showLookupError();
+      // The static card already downloads the always-latest build, so a failed
+      // lookup only means no version details. Never claim "no build" on an error.
     });
 })();

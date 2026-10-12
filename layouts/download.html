@@ -1,0 +1,56 @@
+{{- /* The download page at /download/ (content/en/download/_index.md). The
+  button goes to /download/thanks/, which starts the disk image download and
+  walks through setup, so it works without script. assets/js/download.js fills
+  in the version, size, date and release notes from the newest GitHub release. */ -}}
+{{ define "sprite" }}
+    {{ partial "sprite.html" . }}
+{{- end }}
+
+{{ define "main" }}
+    {{- $thanks := "download/thanks/" | relURL }}
+    <main id="main" class="page download-page">
+      <div class="wrap">
+        <header class="section-head download-head">
+          <p class="label">Download</p>
+          <h1 id="download-title" class="display-xl">Blowhorn for Mac</h1>
+          <p class="body-lg muted">One disk image for Apple silicon and Intel Macs, plus a Chrome extension. Setup takes about a minute.</p>
+        </header>
+        <div class="download-grid section-body">
+          <div id="download-status" class="download-card" data-repo="layer5io/blowhorn-site" data-asset="Blowhorn-mac.dmg" aria-live="polite">
+            <img class="download-icon" src="{{ "assets/brand/logo/blowhorn-app-icon.svg" | relURL }}" alt="" width="72" height="72">
+            <p class="h3">Blowhorn for Mac</p>
+            <p class="actions">
+              <a class="button button-primary button-pop" href="{{ $thanks }}">
+                <svg aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#glyph-download"></use></svg>
+                Download for Mac
+              </a>
+              <span class="caption muted">Blowhorn-mac.dmg</span>
+            </p>
+            <p class="meta caption"><span><a href="https://github.com/layer5io/blowhorn-site/releases/latest">Release notes</a></span></p>
+          </div>
+          <div class="download-aside">
+            <div class="card">
+              <h2 class="h3">What you need</h2>
+              <ul class="checklist">
+                <li>macOS 13 or newer</li>
+                <li>Google Chrome</li>
+                <li>As many social profiles as you want</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h2 class="h3">The Blowhorn Chrome extension</h2>
+              <p>Blowhorn posts from your own signed-in Chrome through its extension. Add it to each Chrome profile you post from.</p>
+              <p class="actions"><a class="button button-primary" href="https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf">Add to Chrome</a></p>
+              <p><a href="{{ "docs/how-to/set-up/install-the-chrome-extension/" | relURL }}">Install guide</a></p>
+            </div>
+            <p class="caption muted download-verify"><a href="{{ "docs/how-to/set-up/install-the-app/#download" | relURL }}">How to verify your download</a></p>
+          </div>
+        </div>
+      </div>
+    </main>
+{{- end }}
+
+{{ define "scripts" }}
+    {{- $js := resources.Get "js/download.js" | minify | fingerprint }}
+    <script src="{{ $js.RelPermalink }}" defer></script>
+{{- end }}

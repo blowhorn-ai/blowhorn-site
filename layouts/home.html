@@ -44,7 +44,7 @@
             <h1 id="hero-title" class="display-xl">Stop pasting the same post into seven tabs.</h1>
             <p class="body-lg">One queue. Every profile. Posted as you, from your own Chrome.</p>
             <div class="hero-actions">
-              <a class="button button-primary button-pop" href="#download">
+              <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">
                 <svg aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#glyph-download"></use></svg>
                 Download for Mac
               </a>
@@ -330,42 +330,22 @@
 
       <section id="download" class="section" aria-labelledby="download-title">
         <div class="wrap">
-          <div class="section-head">
-            <p class="label">Download</p>
-            <h2 id="download-title" class="display">Download for Mac</h2>
-            <p class="body-lg muted">One disk image for Apple silicon and Intel Macs. Drag Blowhorn to Applications and open it.</p>
-          </div>
-          <div class="download-grid section-body">
-            <div id="download-status" class="download-card" data-repo="layer5io/blowhorn-site" data-asset="Blowhorn-mac.dmg" aria-live="polite">
-              <p class="h3">The first public build is on its way</p>
-              <p class="meta">The newest build will appear here the moment it is public.</p>
-              <p class="actions"><a class="button button-secondary" href="https://github.com/layer5io/blowhorn-site/releases">See releases</a></p>
+          <div class="download-cta">
+            <img class="download-cta-icon" src="{{ "assets/brand/logo/blowhorn-app-icon.svg" | relURL }}" alt="" width="64" height="64" loading="lazy">
+            <div class="section-head">
+              <p class="label">Download</p>
+              <h2 id="download-title" class="display">Download for Mac</h2>
+              <p class="body-lg muted">One disk image for Apple silicon and Intel Macs, plus a Chrome extension. Setup takes about a minute.</p>
             </div>
-            <div class="download-aside">
-              <div class="card">
-                <h3 class="h3">What you need</h3>
-                <ul class="checklist">
-                  <li>macOS 13 or newer</li>
-                  <li>Google Chrome</li>
-                  <li>As many social profiles as you want</li>
-                </ul>
-                <p><a href="{{ (site.GetPage "/docs/reference/requirements").RelPermalink }}">Full requirements</a></p>
-              </div>
-              <div class="card">
-                <h3 class="h3">The Blowhorn Chrome extension</h3>
-                <p>Blowhorn posts from your own signed-in Chrome through its extension. Add it to each Chrome profile you post from.</p>
-                <p class="actions"><a class="button button-secondary" href="https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf">Add from Chrome Web Store</a></p>
-                <p><a href="{{ "docs/how-to/set-up/install-the-chrome-extension/" | relURL }}">Install guide</a></p>
-              </div>
-              <p class="caption muted download-verify"><a href="{{ "docs/how-to/set-up/install-the-app/#download" | relURL }}">How to verify your download</a></p>
-            </div>
+            <p class="download-cta-actions">
+              <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">
+                <svg aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#glyph-download"></use></svg>
+                Get Blowhorn for Mac
+              </a>
+            </p>
           </div>
         </div>
       </section>
     </main>
 {{- end }}
 
-{{ define "scripts" }}
-    {{- $js := resources.Get "js/download.js" | minify | fingerprint }}
-    <script src="{{ $js.RelPermalink }}" defer></script>
-{{- end }}

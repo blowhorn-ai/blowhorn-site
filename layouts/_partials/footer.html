@@ -24,7 +24,7 @@
             <div class="footer-col">
               <h2 class="footer-title">Product</h2>
               <ul>
-                <li><a href="{{ $home }}#download">Download</a></li>
+                <li><a href="{{ "download/" | relURL }}">Download</a></li>
                 <li><a href="https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf">Chrome extension</a></li>
                 <li><a href="{{ site.Params.github_repo }}/releases">Releases</a></li>
                 <li><a href="{{ (site.GetPage "/docs").RelPermalink }}">Docs</a></li>

@@ -22,7 +22,13 @@ PAGES = {
     "index.html": [
         "glyph-menubar", "glyph-terminal", "glyph-clock", "glyph-extension",
         "glyph-download", "main", "hero-title", "fan-title", "platforms", "platforms-title", "how",
-        "how-title", "trust", "trust-title", "download", "download-title", "download-status",
+        "how-title", "trust", "trust-title", "download", "download-title",
+    ],
+    "download/index.html": [
+        "main", "glyph-download", "download-title", "download-status",
+    ],
+    "download/thanks/index.html": [
+        "main", "thanks-title", "steps", "download-fallback", "updates-email",
     ],
     "legal/index.html": [
         "main", "glance", "policies",
@@ -96,7 +102,6 @@ PAGES = {
 REDIRECTS = {
     "privacy.html": "https://blowhorn.ai/legal/privacy/",
     "terms.html": "https://blowhorn.ai/legal/terms/",
-    "download/index.html": "/#download",
     "install/index.html": "/docs/how-to/set-up/install-the-app/",
 }
 # Other files that must be published at these paths. /signup/, /login/ and
