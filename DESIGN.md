@@ -45,3 +45,12 @@ Say less, more clearly. Turn the verbosity dial down a notch from your first dra
 - [ ] Checked at 1280, 390 and 320 px, light and dark
 - [ ] Intros <= 2 sentences, card bodies <= ~30 words, one idea per sentence
 - [ ] No em dashes; no trailing periods on section titles
+
+## Code and commands
+
+Anywhere the site shows a command a reader might run, it can be copied in one click. Full rule: the "Code and commands" section of the design language DESIGN.md.
+
+- Every code block is a terminal code card (`layouts/_partials/code-card.html`); docs fences get it through `layouts/_markup/render-codeblock.html`. Declare the language of the card's actual content.
+- Shell prompts (`$`) and sample output are never copied. Untyped or `text` fences are output: no copy button.
+- Inline `blowhorn ...` commands in prose get a small copy button; commands with placeholders are not copyable.
+- Copy buttons are real buttons with an `aria-label`, keyboard reachable, and announce "Copied" through `aria-live`.

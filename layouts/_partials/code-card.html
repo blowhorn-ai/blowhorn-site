@@ -10,7 +10,9 @@
     title   the label in the title bar, e.g. SKILL.md or terminal
     lang    Chroma lexer name: markdown, json, bash, toml, yaml...; inferred
             from the title when empty
-    prompt  true to draw a "$" before each line; prompts are never copied
+    prompt  true to draw a "$" before each command line (not comments,
+            blank lines or continuation lines); prompts are never copied
+    copy    false to hide the copy button (sample output); default true
 */ -}}
 {{- $code := .code -}}
 {{- $title := .title | default "" -}}
@@ -19,16 +21,19 @@
   {{- $ext := lower (path.Ext $title) -}}
   {{- $lang = index (dict ".md" "markdown" ".json" "json" ".toml" "toml" ".yaml" "yaml" ".yml" "yaml" ".sh" "bash") $ext | default "bash" -}}
 {{- end -}}
-{{- $label := index (dict "markdown" "Markdown" "json" "JSON" "bash" "Shell" "toml" "TOML" "yaml" "YAML") $lang | default (upper $lang) -}}
-<figure class="term{{ if .prompt }} term-prompt{{ end }}" data-lang="{{ $lang }}">
+{{- $label := index (dict "markdown" "Markdown" "json" "JSON" "bash" "Shell" "text" "Text" "toml" "TOML" "yaml" "YAML") $lang | default (upper $lang) -}}
+{{- $copy := ne .copy false -}}
+<figure class="term{{ if .prompt }} term-prompt{{ end }}{{ if not $copy }} term-output{{ end }}" data-lang="{{ $lang }}">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
     <span class="term-title">{{ $title }}</span>
     <span class="term-lang" aria-hidden="true">{{ $label }}</span>
+    {{- if $copy }}
     <button type="button" class="term-copy" aria-label="Copy {{ $title }} to clipboard" hidden>
       <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
       <span class="term-copy-text">Copy</span>
     </button>
+    {{- end }}
   </figcaption>
   <div class="term-body">
     {{- /* Chroma's markdown lexer leaves YAML front matter plain: highlight
@@ -47,8 +52,25 @@
       {{- $body := index (split $out `data-lang="markdown">`) 1 -}}
       {{- $out = printf `%s%s` (replace $y `language-yaml" data-lang="yaml"` `language-markdown" data-lang="markdown"`) $body -}}
     {{- end -}}
+    {{- if .prompt -}}
+      {{- /* One "$" per command: skip blank lines, comments and lines that
+        continue the one before with a trailing backslash. */ -}}
+      {{- $raw := split (strings.TrimRight "\n" $code) "\n" -}}
+      {{- $parts := split $out `<span class="line"><span class="cl">` -}}
+      {{- $acc := index $parts 0 -}}
+      {{- $prev := "" -}}
+      {{- range $i, $seg := after 1 $parts -}}
+        {{- $line := strings.TrimSpace (index $raw $i | default "") -}}
+        {{- $ps := and $line (not (hasPrefix $line "#")) (not (hasSuffix $prev "\\")) -}}
+        {{- $acc = printf `%s<span class="line"><span class="cl">%s%s` $acc (cond $ps `<span class="term-ps" aria-hidden="true">$ </span>` "") $seg -}}
+        {{- $prev = $line -}}
+      {{- end -}}
+      {{- $out = $acc -}}
+    {{- end -}}
     {{- $out | safeHTML -}}
   </div>
+  {{- if $copy }}
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+  {{- end }}
 </figure>
 {{- /**/ -}}

@@ -5,6 +5,7 @@
   head (layouts/_partials/docs-head.html). */ -}}
 {{- $jsSearch := resources.Get "js/offline-search.js" }}
 {{- $jsToggle := resources.Get "js/docs-toggle.js" }}
-{{- $js := slice $jsSearch $jsToggle | resources.Concat "js/docs.js" }}
+{{- $jsCode := resources.Get "js/code-card.js" }}
+{{- $js := slice $jsSearch $jsToggle $jsCode | resources.Concat "js/docs.js" }}
 {{- if hugo.IsProduction }}{{ $js = $js | minify | fingerprint }}{{ end }}
 <script src="{{ $js.RelPermalink }}"{{ with $js.Data.Integrity }} integrity="{{ . }}" crossorigin="anonymous"{{ end }} defer></script>

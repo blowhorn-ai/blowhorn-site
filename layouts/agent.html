@@ -107,7 +107,3 @@
       </div>
     </main>
 {{- end }}
-{{ define "scripts" }}
-    {{- $js := resources.Get "js/code-card.js" | minify | fingerprint }}
-    <script src="{{ $js.RelPermalink }}" defer></script>
-{{- end }}

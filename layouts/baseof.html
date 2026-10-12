@@ -13,5 +13,7 @@
 
     {{ partial "footer.html" . }}
     {{- block "scripts" . }}{{ end }}
+    {{- $codeCard := resources.Get "js/code-card.js" | minify | fingerprint }}
+    <script src="{{ $codeCard.RelPermalink }}" defer></script>
   </body>
 </html>
