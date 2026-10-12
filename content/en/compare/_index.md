@@ -57,6 +57,12 @@ rows:
     linkedin: { level: partial, text: "Auto-comment, some" }
     advocacy: { level: yes, text: "Yes, typically 100+ seats" }
     local: { level: no, text: "No" }
+  - feature: Schedule one coordinated wave of amplification from every profile your people add
+    blowhorn: { level: yes, text: "Yes, in one queue" }
+    schedulers: { level: no, text: "No" }
+    linkedin: { level: partial, text: "Engagement pods, by hand" }
+    advocacy: { level: partial, text: "Suggested shares, each person posts" }
+    local: { level: no, text: "No" }
   - feature: Hacker News, Reddit, GitHub and Slack in the same queue
     blowhorn: { level: yes, text: "Yes" }
     schedulers: { level: partial, text: "Some; no Hacker News" }
