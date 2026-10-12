@@ -84,6 +84,26 @@
   --shadow-pop: 4px 4px 0 0 #1E2117;
   --shadow-soft: 0 8px 24px rgba(30, 33, 23, 0.12);
 
+  /* Liquid glass (light). Translucent surfaces over the ambient field; text
+     always sits on a fill opaque enough to keep WCAG AA (see DESIGN.md). */
+  --glass-fill: rgba(255, 255, 255, 0.58);
+  --glass-fill-strong: rgba(255, 255, 255, 0.72);
+  --glass-fill-solid: #FBFDFC;
+  --glass-field: rgba(255, 255, 255, 0.78);
+  --glass-sheen: rgba(255, 255, 255, 0.55);
+  --glass-specular: rgba(255, 255, 255, 0.95);
+  --glass-rim: rgba(255, 255, 255, 0.65);
+  --glass-edge: rgba(30, 33, 23, 0.08);
+  --glass-shadow: 0 1px 2px rgba(30, 33, 23, 0.05), 0 12px 32px -12px rgba(30, 33, 23, 0.18);
+  --glass-shadow-lift: 0 2px 4px rgba(30, 33, 23, 0.06), 0 20px 44px -14px rgba(0, 117, 106, 0.28);
+  --glass-blur: 20px;
+  --glass-saturate: 170%;
+  --ambient-base: linear-gradient(180deg, #F6FBFA 0%, #FFFFFF 38%, #F3F8F7 100%);
+  --ambient-1: rgba(0, 211, 169, 0.20);
+  --ambient-2: rgba(166, 235, 223, 0.50);
+  --ambient-3: rgba(235, 192, 23, 0.14);
+  --ambient-4: rgba(0, 179, 159, 0.12);
+
   /* Type */
   --font-display: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
   --font-sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -129,6 +149,22 @@
     --focus-ring: var(--teal-bright);
     --shadow-pop: 4px 4px 0 0 #00D3A9;
     --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+    --glass-fill: rgba(42, 46, 37, 0.52);
+    --glass-fill-strong: rgba(30, 33, 23, 0.68);
+    --glass-fill-solid: #262A21;
+    --glass-field: rgba(30, 33, 23, 0.60);
+    --glass-sheen: rgba(255, 255, 255, 0.06);
+    --glass-specular: rgba(255, 255, 255, 0.14);
+    --glass-rim: rgba(255, 255, 255, 0.08);
+    --glass-edge: rgba(0, 0, 0, 0.35);
+    --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.30), 0 16px 40px -14px rgba(0, 0, 0, 0.60);
+    --glass-shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.30), 0 22px 48px -14px rgba(0, 211, 169, 0.22);
+    --ambient-base: linear-gradient(180deg, #1A1D14 0%, #1E2117 45%, #1B1E15 100%);
+    --ambient-1: rgba(0, 211, 169, 0.20);
+    --ambient-2: rgba(0, 179, 159, 0.12);
+    --ambient-3: rgba(235, 192, 23, 0.05);
+    --ambient-4: rgba(0, 117, 106, 0.18);
   }
 }
 
@@ -377,24 +413,30 @@ pre code { background: none; padding: 0; }
 .site-nav a:hover { color: var(--link); text-decoration: underline; }
 .site-cta { padding-block: var(--space-2); min-height: 40px; }
 @media (max-width: 719px) {
-  /* Two rows: the lockup alone, then the nav followed by a compact Download button.
-     DOM, tab and visual order stay brand, nav, CTA; --header-h is 12 + 44 + 12 + 36 + 12.
-     Below 360px the second row tightens its gaps, link size and CTA padding so it still
-     fits one 36px row down to a 320px viewport. */
+  /* Two rows: the lockup with a compact Download button on its right, then the
+     section links across the full width. DOM and tab order stay brand, nav, CTA;
+     the grid places the CTA beside the lockup so the links get the whole second
+     row and never run into it (they collided at 320px when they shared a row).
+     --header-h is 12 + 44 + 12 + 36 + 12. */
   .site-header .wrap {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand cta" "nav nav";
     gap: var(--space-3);
   }
-  .brand { grid-column: 1 / -1; justify-self: start; }
-  .site-nav { gap: var(--space-3); margin-left: 0; }
-  .site-cta { min-height: 36px; padding: var(--space-1) var(--space-2); font-size: 13px; }
+  .brand { grid-area: brand; justify-self: start; }
+  .brand img { width: 160px; }
+  .site-cta { grid-area: cta; min-height: 36px; padding: var(--space-1) var(--space-4); font-size: 13px; }
+  .site-nav { grid-area: nav; gap: var(--space-4); margin-left: 0; min-height: 36px; justify-content: space-between; }
+}
+@media (min-width: 480px) and (max-width: 719px) {
+  .site-nav { justify-content: flex-start; gap: var(--space-6); }
 }
 @media (max-width: 359px) {
-  .site-header .wrap { column-gap: var(--space-2); }
+  .brand img { width: 144px; }
   .site-nav { gap: var(--space-2); }
   .site-nav a { font-size: 13px; }
-  .site-cta { padding-inline: var(--space-1); }
+  .site-cta { padding-inline: var(--space-3); }
 }
 
 /* ---------- Hero ---------- */
@@ -410,7 +452,18 @@ pre code { background: none; padding: 0; }
 .hero-copy .body-lg { max-width: 34rem; color: var(--ink-muted); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 .hero-note { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); }
-.hero-art { width: 100%; max-width: 560px; margin-inline: auto; }
+.hero-art { position: relative; width: 100%; max-width: 560px; margin-inline: auto; }
+.hero-art::before {
+  /* A soft teal and mint halo behind the fan, for the glass to pick up. */
+  content: "";
+  position: absolute;
+  inset: 6% 0 6% 8%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--ambient-1), var(--ambient-2) 55%, transparent);
+  filter: blur(24px);
+  pointer-events: none;
+}
 @media (min-width: 900px) {
   .hero { padding-block: var(--space-16); }
   .hero-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 6fr); gap: var(--space-12); }
@@ -658,37 +711,75 @@ pre code { background: none; padding: 0; }
   .download-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-6); }
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer ----------
+   Laid out like the layer5.io footer (layer5io/layer5 src/sections/General/Footer):
+   brand and newsletter on the left, short titled columns on the right, then a
+   bottom bar. The panel is a glass surface (see "Liquid glass" below). */
 .site-footer {
-  border-top: var(--stroke-hairline) solid var(--line);
   padding-block: var(--space-12) var(--space-8);
   color: var(--ink-muted);
 }
-.footer-top {
+.footer-panel {
   display: grid;
   gap: var(--space-8);
-  align-items: end;
+  padding: var(--space-8) var(--space-6);
+  border-radius: var(--radius-xl);
 }
-.footer-brand img { width: 220px; height: auto; }
-.footer-brand p { margin-top: var(--space-4); max-width: 30rem; }
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-6);
-  margin-top: var(--space-8);
-  padding-top: var(--space-6);
-  border-top: var(--stroke-hairline) solid var(--line);
+.footer-logo { display: inline-block; }
+.footer-logo img { width: 200px; height: auto; }
+.footer-tagline {
+  margin-top: var(--space-3);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.005em;
+  color: var(--ink-wordmark);
 }
-.footer-links a { color: var(--ink); text-decoration: none; }
-.footer-links a:hover { color: var(--link); text-decoration: underline; }
-.footer-meta {
+.footer-cols {
+  display: grid;
+  gap: var(--space-8) var(--space-6);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.footer-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.footer-col ul { margin-top: var(--space-3); display: grid; gap: var(--space-1); }
+.footer-col a {
+  display: inline-block;
+  padding-block: var(--space-1);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+}
+.footer-col a:hover { color: var(--link); text-decoration: underline; }
+.footer-bottom {
   margin-top: var(--space-6);
+  padding-inline: var(--space-2);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2) var(--space-6);
 }
 .footer-tm { flex-basis: 100%; }
+@media (min-width: 480px) {
+  .footer-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+  .footer-panel {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: var(--space-12);
+    padding: var(--space-12);
+  }
+}
 /* Service status: ported from the layer5.io footer (layer5io/layer5
    src/sections/General/Footer/footer.style.js, .status-link and .pulse-icon). */
 .status-link {
@@ -726,30 +817,23 @@ pre code { background: none; padding: 0; }
 @media (prefers-reduced-motion: reduce) {
   .pulse-icon { animation: none; }
 }
-@media (min-width: 720px) {
-  .footer-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .footer-top .newsletter { margin-top: 0; justify-self: end; width: 100%; }
-}
 /* Newsletter signup: a plain HTML form, no script. */
-.newsletter { margin-top: var(--space-6); max-width: 30rem; }
-.newsletter .label { display: block; font-family: inherit; font-size: 1rem; line-height: 1.5; font-weight: 400; letter-spacing: normal; text-transform: none; color: var(--ink); }
+.newsletter { margin-top: var(--space-6); max-width: 26rem; }
+.newsletter-label { display: block; color: var(--ink); }
 .newsletter-row { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
 .newsletter input {
-  flex: 1 1 14rem;
+  flex: 1 1 12rem;
   min-width: 0;
-  height: 3.5rem;
-  padding: 1rem;
+  height: 44px;
+  padding: 0 var(--space-4);
   border: 1px solid var(--line-strong);
-  border-radius: 0.25rem;
-  background: var(--surface);
+  border-radius: var(--radius-md);
+  background: var(--glass-field);
   color: var(--ink);
   font: inherit;
 }
 .newsletter input::placeholder { color: var(--ink-muted); }
-.newsletter .button { height: 3.5rem; border-radius: 0.25rem; }
-.footer-meta .newsletter { margin-top: 0; flex-basis: 100%; }
-/* Secondary pages carry only the meta row; the footer's own top rule already separates it. */
-.footer-meta:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.newsletter .button { height: 44px; }
 
 /* ---------- Secondary pages ---------- */
 .page { padding-block: var(--space-12); }
@@ -819,6 +903,171 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 /* Logos: one optical size, centred both ways in the tile. */
 .logo-tile img { display: block; margin: auto; object-position: center; }
 .logo-tile img[src*="linkedin"] { width: 24px; height: 24px; transform: none; }
+
+/* ---------- Liquid glass ----------
+   Frosted, translucent surfaces over a soft ambient field of brand colour, after
+   Apple's Liquid Glass: backdrop blur plus saturation, a bright specular top edge,
+   a faint rim and layered soft shadows. Rules (DESIGN.md, "Liquid glass"):
+   - text never sits on less than --glass-fill, so contrast stays AA in both themes;
+   - platform logos stay on their opaque white tiles (the tile gets the edge, not the blur);
+   - nothing glassy moves on its own; only hover lifts, and not under reduced motion;
+   - no backdrop-filter support, prefers-reduced-transparency or prefers-contrast:
+     more all fall back to solid surfaces. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(44rem 34rem at 6% -8%, var(--ambient-1), transparent 66%),
+    radial-gradient(40rem 32rem at 98% 6%, var(--ambient-2), transparent 62%),
+    radial-gradient(30rem 26rem at 82% 70%, var(--ambient-3), transparent 64%),
+    radial-gradient(42rem 32rem at 10% 96%, var(--ambient-4), transparent 64%),
+    var(--ambient-base);
+}
+body { background: var(--surface); }
+
+.glass,
+.card,
+.platform,
+.download-card,
+.docs-banner,
+.major-says,
+.notice,
+.swatch,
+.td-offline-search-results {
+  background:
+    linear-gradient(180deg, var(--glass-sheen), transparent 46%),
+    var(--glass-fill);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-specular),
+    inset 0 0 0 1px var(--glass-rim),
+    0 0 0 1px var(--glass-edge),
+    var(--glass-shadow);
+}
+/* Callouts carry a whisper of teal so they read as asides, not cards. */
+.docs-banner,
+.major-says,
+.notice {
+  background:
+    linear-gradient(180deg, var(--glass-sheen), transparent 46%),
+    linear-gradient(120deg, color-mix(in srgb, var(--surface-tint) 70%, transparent), transparent 80%),
+    var(--glass-fill);
+}
+
+/* The header: one sticky glass bar, a hairline under it, content blurring past. */
+.site-header {
+  background: var(--glass-fill-strong);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 0;
+  box-shadow: inset 0 -1px 0 0 var(--glass-edge), 0 1px 0 0 var(--glass-rim), 0 8px 24px -18px rgba(30, 33, 23, 0.35);
+}
+
+/* Platform logo tiles: opaque white, as each platform asks, with a glass edge. */
+.logo-tile,
+.fan .fan-tile rect {
+  background: var(--white);
+}
+.logo-tile {
+  box-shadow:
+    inset 0 1px 0 0 #FFFFFF,
+    inset 0 -1px 0 0 rgba(30, 33, 23, 0.06),
+    0 0 0 1px var(--glass-edge),
+    0 8px 18px -8px rgba(30, 33, 23, 0.28);
+}
+
+/* Buttons: a glossy teal primary and a glass secondary. */
+.button-primary {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0) 55%);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.55), inset 0 -1px 0 0 rgba(0, 0, 0, 0.10), 0 8px 18px -8px rgba(0, 143, 128, 0.65);
+}
+.button-primary:hover { background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 55%); }
+.button-pop { box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.55), var(--shadow-pop); }
+.button-pop:hover { box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.55), 2px 2px 0 0 var(--near-black); }
+@media (prefers-color-scheme: dark) {
+  .button-pop:hover { box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.55), 2px 2px 0 0 var(--teal-bright); }
+}
+.button-secondary {
+  border-color: transparent;
+  background:
+    linear-gradient(180deg, var(--glass-sheen), transparent 60%),
+    var(--glass-fill);
+  -webkit-backdrop-filter: blur(12px) saturate(var(--glass-saturate));
+  backdrop-filter: blur(12px) saturate(var(--glass-saturate));
+  box-shadow: inset 0 1px 0 0 var(--glass-specular), inset 0 0 0 1px var(--line-strong), var(--glass-shadow);
+}
+.button-secondary:hover { background: var(--glass-fill-strong); }
+
+/* Whole-card links lift on hover; the glass edge brightens with them. */
+a.card-link:hover, a.platform:hover, a.docs-card:hover,
+a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-specular),
+    inset 0 0 0 1px var(--glass-rim),
+    0 0 0 1px var(--glass-edge),
+    var(--glass-shadow-lift);
+  transform: translateY(-2px);
+}
+.docs-card:hover,
+.docs-landing a.platform:hover { background: linear-gradient(180deg, var(--glass-sheen), transparent 46%), var(--glass-fill-strong); }
+
+/* Sections float on the field: the rule between them fades at both ends. */
+.section + .section {
+  border-top: 0;
+  background-image: linear-gradient(90deg, transparent, var(--line) 18%, var(--line) 82%, transparent);
+  background-size: min(100%, var(--measure)) 1px;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+/* The Major card keeps its tint and pop shadow (the brand moment), on glass. */
+.major-card {
+  background:
+    linear-gradient(180deg, var(--glass-sheen), transparent 50%),
+    color-mix(in srgb, var(--surface-tint) 82%, transparent);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow: inset 0 1px 0 0 var(--glass-specular), var(--shadow-pop);
+}
+
+/* Docs: the sidebar search field and code blocks get the same quiet glass. */
+.td-search__input { background: var(--glass-field); border-color: var(--line-strong); color: var(--ink); }
+.docs-main pre, .card pre { background: var(--glass-field); box-shadow: inset 0 0 0 1px var(--glass-edge); }
+
+/* Search results overlay text, so they sit on the strong fill. */
+.td-offline-search-results { background: var(--glass-fill-strong); -webkit-backdrop-filter: blur(28px) saturate(var(--glass-saturate)); backdrop-filter: blur(28px) saturate(var(--glass-saturate)); }
+
+/* Fallbacks: no backdrop-filter, less transparency or more contrast all mean
+   solid surfaces with a visible edge. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root { --glass-fill: var(--glass-fill-solid); --glass-fill-strong: var(--surface); --glass-field: var(--surface); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass-fill: var(--glass-fill-solid); --glass-fill-strong: var(--surface); --glass-field: var(--surface); --glass-sheen: transparent; }
+  .glass, .card, .platform, .download-card, .docs-banner, .major-says, .notice, .swatch,
+  .td-offline-search-results, .site-header, .button-secondary, .major-card {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .major-card { background: var(--surface-tint); }
+  body::before { opacity: 0.4; }
+}
+@media (prefers-contrast: more) {
+  :root { --glass-fill: var(--surface); --glass-fill-strong: var(--surface); --glass-field: var(--surface); --glass-sheen: transparent; --glass-edge: var(--line-strong); }
+  body::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  a.card-link:hover, a.platform:hover, a.docs-card:hover,
+  a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible { transform: none; }
+}
+@media print {
+  body::before { display: none; }
+  .glass, .card, .platform, .download-card, .swatch { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--white); box-shadow: inset 0 0 0 1px var(--line); }
+}
 
 /* ---------- Brand (/brand/) ----------
    Logos sit on the ground each file is drawn for, in both themes: white for the
