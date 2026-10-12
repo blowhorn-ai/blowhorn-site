@@ -29,9 +29,11 @@ the outcome, not the content's master.
 
 The extension queries tabs only on the supported sites and reads
 cookies there only when the app asks, handing both to the Blowhorn app
-on your Mac. The cookies and sign-ins it reads stay on your Mac, with
-one exception: today that is your Slack workspace session, which the
-app keeps in your account as that profile's Slack credential. What a run records, such as a new post's link and its
+on your Mac. Every action Blowhorn takes is executed on one of your Macs,
+through your Chrome profile or a platform's API; your account keeps the
+queue and results in sync and does not act for you from a server. The
+one browser session the app keeps in your account is your Slack workspace
+session, saved as that profile's Slack credential. What a run records, such as a new post's link and its
 outcome, goes to your account as described above. The extension makes no
 requests of its own to any server, sells nothing, and injects no ads.
 The [privacy page at blowhorn.ai](https://blowhorn.ai/legal/privacy/) states the same promises; this page
