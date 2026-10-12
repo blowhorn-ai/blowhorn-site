@@ -20,7 +20,7 @@ publishes nothing, and refusing it would charge for caution. See
 [Plans and limits](/docs/reference/plans/).
 
 The plan is checked at the moment of publishing, from an attestation
-your Layer5 Cloud organization issued after sign-in. Enforcement is
+your account issued after sign-in. Enforcement is
 off unless `BLOWHORN_ENTITLEMENT=required` is set in the environment
 on your Mac; it is a local switch, not an organization setting. With
 it on, a real run without
@@ -31,7 +31,7 @@ is already held, in the keychain, before the run starts.
 With enforcement off, being offline changes nothing and nothing is
 ever refused for it. With it on, offline use degrades by the clock,
 not by features: a held attestation keeps publishing for 72 hours
-while Cloud is unreachable; past that, publishing refuses until the
+while your account is unreachable; past that, publishing refuses until the
 connection returns. Nothing else changes
 offline: reading the queue, dry runs, and reports never needed the
 plan and never ask for it. A lapse therefore reads as "not entitled,

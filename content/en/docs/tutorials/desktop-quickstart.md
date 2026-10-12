@@ -42,7 +42,7 @@ Work down the rows:
 1. **blowhorn checkout** - if it did not find your checkout, click **choose
    folder…** and select it.
 2. **python environment** - this should already be `ok` from the CLI tutorial.
-3. **store** - the database connection. If it is not configured yet, click
+3. **store** - the connection to your account. If it is not configured yet, click
    its **import** action and follow
    Connect to the store.
 4. **background service** - nothing to do here: once the rows above are ok

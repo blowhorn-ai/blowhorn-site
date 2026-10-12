@@ -20,8 +20,7 @@ profile directories. For a security problem, do not file a public
 issue: email [security@blowhorn.ai](mailto:security@blowhorn.ai)
 instead, as the site repository's security policy describes.
 
-Questions about access, organizations, and billing go through your
-Layer5 Cloud organization. See [Plans and limits](/docs/reference/plans/) for what
+Questions about access, organizations, and billing go through your account. See [Plans and limits](/docs/reference/plans/) for what
 early access covers.
 
 ## Related

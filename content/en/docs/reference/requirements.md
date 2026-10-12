@@ -1,6 +1,6 @@
 ---
 title: "System requirements"
-description: "What your Mac needs to run Blowhorn: macOS version, Chrome, and a Layer5 Cloud organization."
+description: "What your Mac needs to run Blowhorn: macOS version, Chrome, and a Blowhorn account."
 weight: 210
 ---
 
@@ -13,7 +13,7 @@ What your Mac needs before you install Blowhorn.
 | macOS | 13 or newer, Apple silicon or Intel (one universal build) | The build declares the floor; Setup checks the rest |
 | Browser | Google Chrome, installed and signed in | Setup, "chrome profiles" row; `blowhorn chrome status` |
 | Engine | A Blowhorn checkout with a working Python environment | Setup, "blowhorn checkout" and "python environment" rows |
-| Organization | A Layer5 Cloud organization your profile belongs to | Setup, "store" row; `blowhorn store` |
+| Account | A Blowhorn account your profile belongs to | Setup, "store" row; `blowhorn store` |
 | Background runs | The background service, registered from the app | Setup, "background service" row |
 
 macOS 13 is the floor the desktop build declares
@@ -33,9 +33,7 @@ supported version. The desktop app carries its own engine check on the
 Setup screen, so a broken checkout or interpreter shows up there first,
 not mid-run.
 
-Network access to your Layer5 Cloud organization is required for the
-content queue, the schedule, profiles, and run history. The store holds
-those; your Mac holds the app, the engine, and your Chrome sessions.
+Network access to your account is required for the content queue, the schedule, profiles, and run history. Your account keeps those in sync; your Mac holds the app, the engine, and your Chrome sessions.
 Offline behavior is a plans question, not a requirements one: see
 [Plans and limits](/docs/reference/plans/).
 

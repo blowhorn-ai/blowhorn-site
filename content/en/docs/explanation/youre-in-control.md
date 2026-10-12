@@ -143,7 +143,7 @@ explicit `--ignore-pause` on a single run.
 | No blind retries | Within a run, Blowhorn doesn't retry a failed post; it moves on to the next item. If a post goes out but Blowhorn can't record it, it stops that profile's queue rather than risk posting twice. Scheduled jobs only re-run a failure if you turn on retries, and they're off by default. | Built in; scheduled-job retries are opt-in | [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/) |
 | One automation per platform per profile | A second run for the same profile and platform on this Mac is refused | Built in | [Chrome reference](/docs/reference/chrome/) |
 | One send per action | The send control is clicked once; an unread outcome is held for you | Built in | [How Blowhorn avoids repeat posts](/docs/explanation/never-twice/) |
-| One Mac per job | A scheduled job is claimed by one Mac at a time | Built in, through your organization's store | [How scheduling works](/docs/explanation/scheduling/) |
+| One Mac per job | A scheduled job is claimed by one Mac at a time | Built in, through your account | [How scheduling works](/docs/explanation/scheduling/) |
 | CAPTCHA and 2FA | Left for you; never solved | Built in | [Fix sign-in problems](/docs/how-to/troubleshoot/sign-in-problems/) |
 
 ## Your Risk Profile

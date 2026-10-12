@@ -1,11 +1,11 @@
 {{- /* One footer for every page, laid out like the layer5.io footer
   (layer5io/layer5 src/sections/General/Footer): the brand and newsletter on
   the left, short titled link columns on the right, and a bottom bar with the
-  copyright, the "Layer5 Cloud Status" pill and the trademark note. The 404
+  copyright, the "Status" pill and the trademark note. The 404
   page keeps only the bottom bar. Off the home page the in-page links lead
   back to the home page's sections. */ -}}
 {{- $home := cond .IsHome "" ("" | relURL) -}}
-{{- $status := `<a class="status-link" href="https://layer5.statuspage.io" target="_blank" rel="noreferrer">Layer5 Cloud Status <span class="pulse-icon" aria-hidden="true"></span></a>` -}}
+{{- $status := `<a class="status-link" href="https://layer5.statuspage.io" target="_blank" rel="noreferrer">Status <span class="pulse-icon" aria-hidden="true"></span></a>` -}}
 <footer class="site-footer">
       <div class="wrap">
         {{- if ne .Kind "404" }}

@@ -77,8 +77,7 @@ profile   config    schedule  desktop   service
 store     chrome    auth      slack     uninstall
 ```
 
-`blowhorn auth` is a group of three: `auth status` reports whether a Layer5 Cloud
-token and organization id are configured (never the token value), the api base,
+`blowhorn auth` is a group of three: `auth status` reports whether an account token and organization id are configured (never the token value), the api base,
 enforcement mode, a summary of the last entitlement attestation, and why the
 last read of the plan failed when it did;
 `auth login` is not available yet (set `BLOWHORN_CLOUD_TOKEN` instead);
@@ -86,10 +85,8 @@ last read of the plan failed when it did;
 Blowhorn administrator sets up the token and organization id.
 
 `blowhorn store` is a single command, not a group: it reports whether this
-machine can reach the Blowhorn database and why not, opens the bastion tunnel
-when nothing is listening, and with `--import` fills the connection once from
-your Layer5 Cloud configuration. It exits 3, a code nothing else uses, when the store is
-unavailable. During early access the connection is set up by your Blowhorn
+machine can reach your account and why not, opens the bastion tunnel
+when nothing is listening, and with `--import` fills the connection once from your account configuration. It exits 3, a code nothing else uses, when your account is unreachable. During early access the connection is set up by your Blowhorn
 administrator. `blowhorn config get
 <key>` reads one option and says which document holds it.
 
@@ -378,8 +375,8 @@ blowhorn profile status --chrome              # adds the chrome profile each one
 blowhorn profile get your-profile                     # settings with secrets masked (GH_* from the store)
 blowhorn profile set your-profile EMAIL=you@example.com
 blowhorn profile set your-profile GH_TOKEN=ghp_yourtoken  # stored in the store, never in config.yaml
-blowhorn profile set new-profile --create EMAIL=new@example.com   # its row in the store's profiles (bound to the Layer5 Cloud user holding the email), then the directory from the template
-blowhorn profile set new-profile --create EMAIL=new@example.com --subject <uuid>  # name the Layer5 Cloud user when the email alone cannot
+blowhorn profile set new-profile --create EMAIL=new@example.com   # its row in your account's profiles (bound to the account holding the email), then the directory from the template
+blowhorn profile set new-profile --create EMAIL=new@example.com --subject <uuid>  # name the account when the email alone cannot
 blowhorn profile set new-profile --register           # add a profile that exists only under profiles/ to the store's profiles
 blowhorn profile delete new-profile --yes      # retires the store row, then moves profiles/new-profile to profiles/.trash/
 blowhorn profile switch your-profile

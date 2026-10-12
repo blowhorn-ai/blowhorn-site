@@ -24,9 +24,9 @@ glance:
     link: /legal/privacy/#this-website
     linkText: What this website does
   - title: One store for your queue, analytics and credentials
-    text: Your organization's store on Layer5 Cloud holds the content queue, schedule, profiles, run history, analytics and platform credentials. That is what lets you install Blowhorn on any number of Macs, yours or your teammates', and run them as one. Every Mac works from the same queue, and the Macs coordinate through it, so the same post isn't sent from two of them. Analytics show the complete picture. Every row is scoped to your organization's id, and Layer5's privacy policy governs that data.
+    text: Your account keeps your content queue, schedule, profiles, run history, analytics and platform credentials in sync. That is what lets you sign in on any number of Macs, yours or your teammates', and run them as one fleet. Every Mac works from the same queue, coordinated so the same post isn't sent from two of them, and your analytics show the complete picture. Layer5's privacy policy governs that data.
     link: /legal/privacy/#in-your-organizations-store-on-layer5-cloud
-    linkText: What your organization's store holds
+    linkText: What your account keeps
   - title: You approve what goes out
     text: Blowhorn publishes the rows you approve and the commands you run, from the accounts you configure. A dry run publishes nothing, and on Hacker News Blowhorn submits and comments only; it never votes.
     link: /legal/terms/#your-accounts
@@ -48,10 +48,10 @@ policies:
     summary: Each permission the Blowhorn extension asks for, the sites it runs on, and why.
     url: /docs/reference/extension-permissions/
   - title: Where your data lives
-    summary: What stays on your Mac, what lives in your organization's store, and what the extension reads.
+    summary: What stays on your Mac, what your account keeps in sync, and what the extension reads.
     url: /docs/explanation/your-data/
   - title: Layer5 Trust Center
-    summary: Layer5's own privacy policy, terms of service and other policies, which cover Layer5 Cloud and every other Layer5 service.
+    summary: Layer5's own privacy policy, terms of service and other policies, which cover your account and every other Layer5 service.
     url: https://layer5.io/company/legal/
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "How Blowhorn works"
-description: "The app, the engine, the extension, the background service, and your organization's store."
+description: "The app, the engine, the extension, the background service, and your account."
 weight: 280
 ---
 
@@ -30,10 +30,7 @@ closed: one pass every ten minutes claiming the rows that are due.
 Quitting the app never pauses it; pausing is explicit, per machine,
 per organization, or per row.
 
-Your organization's store is what the parts share: the content rows,
-the schedule, the profiles and their credentials, the ledgers, and the
-run history. Your Mac holds the app, the engine, and your Chrome
-sessions; the store holds everything the Macs share.
+Your account is what the parts share: the content rows, the schedule, the profiles and their credentials, the ledgers, and the run history, kept in sync for every Mac you sign in on. Your Mac holds the app, the engine, and your Chrome sessions; your account keeps everything the Macs share.
 
 A post travels this path: a row in the queue, approved and due; a run
 acting as the row's profile; the platform reached through your Chrome

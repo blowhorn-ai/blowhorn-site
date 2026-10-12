@@ -15,11 +15,10 @@ guides under Related.
 ## Creating a profile
 
 `blowhorn profile set <name> --create` (or `--register`) creates both
-halves, row first. It resolves the profile's email to one live Layer5
-Cloud user: no match or several matches refuses by name, and only
+halves, row first. It resolves the profile's email to one live Blowhorn account: no match or several matches refuses by name, and only
 `--subject <uuid>` gets past several. It refuses a silent rename and
 the two slug conflicts, writes the row, and only then scaffolds the
-directory. A store outage refuses before anything is written, the
+directory. An account outage refuses before anything is written, the
 directory included. `blowhorn profile delete` retires the row first,
 then moves the directory.
 

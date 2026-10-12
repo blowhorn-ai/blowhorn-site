@@ -1,6 +1,6 @@
 ---
 title: "Where your data lives"
-description: "What stays on your Mac, what lives in your organization's store, and what the extension reads."
+description: "What stays on your Mac, what your account keeps in sync, and what the extension reads."
 weight: 281
 ---
 
@@ -13,19 +13,14 @@ Nothing here is a step; for the sharing behind it see
 On your Mac: the app, the engine checkout, and your Chrome sessions.
 Browser sign-ins live in your Chrome profiles, where you made them;
 Blowhorn reads them there and copies none of them elsewhere, with one
-exception: a Slack workspace session you capture is kept in your
-organization's store, below. The daily
+exception: a Slack workspace session you capture is kept in your account, below. The daily
 logs, the run ledger copy, and the scheduler heartbeat live under the
-log directory. The store connection file lives outside the checkout at
+log directory. The account connection file lives outside the checkout at
 mode 0600. A plan attestation, once fetched, is kept in your keychain
 for the offline grace.
 
-In your organization's store: the content rows, the schedule, the
-profiles, the ledgers, and the run history. The store-credential
-platforms keep their secrets there too: GitHub tokens, Hacker News
-passwords, and Slack tokens and captured sessions. Every row is scoped
-to the organization, and a machine without the organization configured
-runs nothing.
+In your account, kept in sync across your Macs: the content rows, the schedule, the profiles, the ledgers, and the run history. Some platforms keep their sign-in there too: GitHub tokens, Hacker News
+passwords, and Slack tokens and captured sessions. A Mac that isn't signed in to your account runs nothing.
 
 On the platforms: whatever Blowhorn published, amplified, or followed
 as you, under your name, subject to each destination's own retention.
@@ -36,9 +31,8 @@ The extension queries tabs only on the supported sites and reads
 cookies there only when the app asks, handing both to the Blowhorn app
 on your Mac. The cookies and sign-ins it reads stay on your Mac, with
 one exception: today that is your Slack workspace session, which the
-app keeps in your organization's store as that profile's Slack
-credential. What a run records, such as a new post's link and its
-outcome, goes to your organization's store as described above. The extension makes no
+app keeps in your account as that profile's Slack credential. What a run records, such as a new post's link and its
+outcome, goes to your account as described above. The extension makes no
 requests of its own to any server, sells nothing, and injects no ads.
 The [privacy page at blowhorn.ai](https://blowhorn.ai/legal/privacy/) states the same promises; this page
 follows it, and the privacy page wins on any difference.

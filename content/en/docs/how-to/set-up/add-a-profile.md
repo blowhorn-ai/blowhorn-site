@@ -11,8 +11,7 @@ aliases: [/docs/how-to/add-a-profile/]
 A profile is one voice you post as. Create one from the desktop app or from
 the command line.
 
-**Early access:** creating a profile resolves the person against a Layer5
-Cloud account, and customer onboarding for that account is not open yet.
+**Early access:** creating a profile resolves the person against a Blowhorn account, and customer onboarding for that account is not open yet.
 This page stays a draft until it is.
 
 A profile is two halves. The directory `profiles/<name>/` holds

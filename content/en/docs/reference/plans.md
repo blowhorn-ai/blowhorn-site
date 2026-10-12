@@ -22,7 +22,7 @@ free in every future: a dry run publishes nothing and is never refused.
 Plan enforcement is off unless you set the environment variable
 `BLOWHORN_ENTITLEMENT=required` on your Mac; with it off, nothing is
 ever refused for being offline. With it on, if your Mac loses its
-connection to Layer5 Cloud, publishing keeps working for 72 hours on
+connection to your account, publishing keeps working for 72 hours on
 the plan already held, then refuses until the connection returns. See
 [Plans, offline use and lapses](/docs/explanation/plans/).
 
