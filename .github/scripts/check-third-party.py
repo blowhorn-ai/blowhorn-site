@@ -21,7 +21,8 @@ discloses its one outside request. This check holds the build to it:
   list, the same endpoint as the layer5.io footer, and the privacy page
   discloses it. Every other form host fails.
   A second: <meta http-equiv="refresh"> may navigate to the Layer5 Cloud host
-  named by params.cloud_url in hugo.toml (the /signup and /login redirects).
+  named by params.cloud_url in hugo.toml (the /signup, /login and /early-access
+  redirects).
   A refresh is a top-level navigation the reader asked for by opening that
   path, not a subresource load; every other refresh host fails.
 - CSS: every url(...) and @import in each stylesheet a page loads.

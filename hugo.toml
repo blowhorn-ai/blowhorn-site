@@ -102,8 +102,8 @@ disableKinds = ["taxonomy", "term", "rss"]
   copyright = "Layer5, Inc."
   github_repo = "https://github.com/layer5io/blowhorn-site"
   github_branch = "master"
-  # The one place the site names Layer5 Cloud. /signup and /login redirect
-  # here, and the welcome and early-access pages link to it.
+  # The one place the site names Layer5 Cloud. /signup, /login and
+  # /early-access redirect here, and the welcome page links to it.
   # TODO(cloud.blowhorn.ai): switch to "https://cloud.blowhorn.ai" when the
   # Blowhorn-branded Cloud goes live. Keep in step with DEFAULT_CLOUD_URL in
   # leecalcote/blowhorn blowhorn/cloud/settings.py.
