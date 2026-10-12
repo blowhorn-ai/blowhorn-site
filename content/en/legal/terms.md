@@ -133,5 +133,5 @@ Questions about these terms go to:
 Layer5, Inc.\
 1000 Congress Avenue\
 Austin, Texas 78735\
-Email: [legal@layer5.io](mailto:legal@layer5.io)\
+Email: [legal@blowhorn.ai](mailto:legal@blowhorn.ai)\
 Telephone: 512-810-8200

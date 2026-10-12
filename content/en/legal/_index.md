@@ -62,7 +62,7 @@ If you think you have found a security vulnerability in Blowhorn, send the detai
 ## Questions
 
 - About privacy: open an issue on the [site repository](https://github.com/layer5io/blowhorn-site/issues), or use the contact channels in the account [privacy policy](https://layer5.io/company/legal/privacy/).
-- About the terms: email [legal@layer5.io](mailto:legal@layer5.io).
+- About the terms: email [legal@blowhorn.ai](mailto:legal@blowhorn.ai).
 
 ## Changes to these policies
 
