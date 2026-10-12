@@ -1,0 +1,28 @@
+{{- /* The Agentic AI Marketing index at /agents/ (content/en/agents/_index.md). */ -}}
+{{ define "main" }}
+    <main id="main" class="page agent-page">
+      <div class="wrap">
+        <header class="agent-hero agent-hero-index glass">
+          <div class="agent-hero-copy">
+            <p class="label">Agentic AI Marketing</p>
+            <h1 id="agents-title" class="display">{{ .Params.lead }}</h1>
+            <p class="body-lg muted">{{ .Description }}</p>
+            <p class="actions"><a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a></p>
+          </div>
+        </header>
+        <section class="agent-section" aria-labelledby="pick-title">
+          <div class="section-head"><h2 id="pick-title" class="h2">Pick your agent</h2></div>
+          {{ partial "agents/others.html" . }}
+        </section>
+        <section class="agent-section" aria-labelledby="why-title">
+          <div class="section-head"><h2 id="why-title" class="h2">Why it works with any agent</h2></div>
+          <div class="grid grid-3">
+            {{- range .Params.pillars }}
+            <div class="card glass"><h3 class="h3">{{ .t }}</h3><p>{{ .b }}</p></div>
+            {{- end }}
+          </div>
+        </section>
+        {{ partial "major-says.html" (dict "line" .Params.major) }}
+      </div>
+    </main>
+{{- end }}

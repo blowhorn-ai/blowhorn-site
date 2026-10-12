@@ -38,6 +38,14 @@
               </ul>
             </div>
             <div class="footer-col">
+              <h2 class="footer-title">Agentic AI Marketing</h2>
+              <ul>
+                {{- range (site.GetPage "/agents").Pages.ByWeight }}
+                <li><a href="{{ .RelPermalink }}">{{ .Params.tool }}</a></li>
+                {{- end }}
+              </ul>
+            </div>
+            <div class="footer-col">
               <h2 class="footer-title">Trust</h2>
               <ul>
                 <li><a href="{{ (site.GetPage "/legal").RelPermalink }}">Trust Center</a></li>

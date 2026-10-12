@@ -43,6 +43,30 @@ PAGES = {
     "brand/index.html": [
         "main", "logo", "clear-space", "color", "type", "major", "usage",
     ],
+    "agents/index.html": [
+        "main", "agents-title", "pick-title",
+    ],
+    "agents/claude-code/index.html": [
+        "main", "agent-title", "how-title", "setup-title", "commands-title", "faq-title",
+    ],
+    "agents/opencode/index.html": [
+        "main", "agent-title", "how-title", "setup-title", "commands-title", "faq-title",
+    ],
+    "agents/pi/index.html": [
+        "main", "agent-title", "how-title", "setup-title", "commands-title", "faq-title",
+    ],
+    "agents/codex/index.html": [
+        "main", "agent-title", "how-title", "setup-title", "commands-title", "faq-title",
+    ],
+    "agents/grok/index.html": [
+        "main", "agent-title", "how-title", "setup-title", "commands-title", "faq-title",
+    ],
+    "agents/deepseek/index.html": [
+        "main", "agent-title", "how-title", "setup-title", "commands-title", "faq-title",
+    ],
+    "agents/cli/index.html": [
+        "main", "agent-title", "how-title", "setup-title", "commands-title", "faq-title",
+    ],
     "404.html": [
         "main", "missing-title",
     ],

@@ -1,0 +1,19 @@
+{{- /* Every other page in the Agentic AI Marketing section, as glass tiles.
+  Context: the current page (or the section, which lists them all). */ -}}
+{{- $cur := . -}}
+{{- $section := site.GetPage "/agents" -}}
+<ul class="agent-grid">
+  {{- range $section.Pages.ByWeight }}
+  {{- if ne .RelPermalink $cur.RelPermalink }}
+  <li>
+    <a class="agent-tile glass" href="{{ .RelPermalink }}">
+      {{ partial "agents/mark.html" (dict "page" .) }}
+      <span class="agent-tile-copy">
+        <span class="h3">{{ .Params.tool }}</span>
+        <span class="caption muted">{{ .Params.hook }}</span>
+      </span>
+    </a>
+  </li>
+  {{- end }}
+  {{- end }}
+</ul>

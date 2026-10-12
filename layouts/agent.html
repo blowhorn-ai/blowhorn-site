@@ -1,0 +1,115 @@
+{{- /* One page per AI agent in the Agentic AI Marketing section
+  (content/en/agents/<tool>.md, JSON front matter). Shared layout, per-tool
+  copy: the setup file, prompts, commands, use cases and FAQ all come from the
+  page. Every blowhorn command shown is checked against the CLI source. */ -}}
+{{ define "main" }}
+    {{- $p := .Params -}}
+    <main id="main" class="page agent-page">
+      <div class="wrap">
+        <header class="agent-hero glass">
+          <div class="agent-hero-copy">
+            <p class="label"><a href="{{ (site.GetPage "/agents").RelPermalink }}">Agentic AI Marketing</a></p>
+            <h1 id="agent-title" class="display">{{ .Title }}</h1>
+            <p class="body-lg muted">{{ $p.lead }}</p>
+            <p class="actions">
+              <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a>
+              <a class="button button-secondary" href="{{ (site.GetPage "/docs").RelPermalink }}">Read the docs</a>
+            </p>
+          </div>
+          <div class="agent-hero-art" aria-hidden="true">
+            {{ partial "agents/mark.html" (dict "page" . "size" "xl") }}
+            <span class="agent-hero-plus">+</span>
+            <img src="{{ "assets/brand/logo/blowhorn-app-icon.svg" | relURL }}" alt="" width="96" height="96">
+          </div>
+        </header>
+
+        <section class="agent-section" aria-labelledby="how-title">
+          <div class="section-head">
+            <h2 id="how-title" class="h2">How it works</h2>
+          </div>
+          <ol class="agent-steps grid grid-3">
+            <li class="card glass"><span class="agent-step-n">1</span><h3 class="h3">Install Blowhorn</h3><p>Blowhorn for Mac and the Blowhorn Chrome extension. Your posts go out from your own signed-in Chrome.</p></li>
+            <li class="card glass"><span class="agent-step-n">2</span><h3 class="h3">{{ $p.wire_title }}</h3><p>{{ $p.hook }}. A few lines and {{ $p.tool }} knows the commands.</p></li>
+            <li class="card glass"><span class="agent-step-n">3</span><h3 class="h3">Say what you want</h3><p>{{ $p.tool }} turns it into blowhorn commands. You approve what publishes.</p></li>
+          </ol>
+        </section>
+
+        <section class="agent-section agent-wire" aria-labelledby="setup-title">
+          <div class="section-head">
+            <h2 id="setup-title" class="h2">{{ $p.wire_title }}</h2>
+            <p class="muted">{{ $p.wire_body }}</p>
+          </div>
+          <div class="grid {{ if $p.extra_file }}grid-2{{ end }}">
+            <figure class="code-pane glass">
+              <figcaption class="caption">{{ $p.wire_file }}</figcaption>
+              <pre><code>{{ $p.wire_code }}</code></pre>
+            </figure>
+            {{- with $p.extra_file }}
+            <figure class="code-pane glass">
+              <figcaption class="caption">{{ . }}</figcaption>
+              <pre><code>{{ $p.extra_code }}</code></pre>
+            </figure>
+            {{- end }}
+          </div>
+        </section>
+
+        {{- with $p.prompts }}
+        <section class="agent-section" aria-labelledby="prompts-title">
+          <div class="section-head">
+            <h2 id="prompts-title" class="h2">Try saying</h2>
+          </div>
+          <ul class="agent-prompts">
+            {{- range . }}
+            <li class="glass">"{{ . }}"</li>
+            {{- end }}
+          </ul>
+        </section>
+        {{- end }}
+
+        <section class="agent-section" aria-labelledby="commands-title">
+          <div class="section-head">
+            <h2 id="commands-title" class="h2">{{ if eq .File.ContentBaseName "cli" }}A few commands{{ else }}What {{ $p.tool }} runs{{ end }}</h2>
+          </div>
+          <figure class="code-pane code-pane-dark">
+            <figcaption class="caption">terminal</figcaption>
+            <pre><code>{{ $p.commands }}</code></pre>
+          </figure>
+        </section>
+
+        <section class="agent-section" aria-labelledby="uses-title">
+          <div class="section-head">
+            <h2 id="uses-title" class="h2">Where it pays off</h2>
+          </div>
+          <div class="grid grid-3">
+            {{- range $p.uses }}
+            <div class="card glass"><h3 class="h3">{{ .t }}</h3><p>{{ .b }}</p></div>
+            {{- end }}
+          </div>
+        </section>
+
+        {{ partial "major-says.html" (dict "line" $p.major) }}
+
+        <section class="agent-section" aria-labelledby="faq-title">
+          <div class="section-head">
+            <h2 id="faq-title" class="h2">Questions</h2>
+          </div>
+          <div class="agent-faq">
+            {{- range $p.faq }}
+            <details class="glass"><summary class="ui">{{ .q }}</summary><p>{{ .a }}</p></details>
+            {{- end }}
+          </div>
+        </section>
+
+        <section class="agent-section agent-cta glass" aria-labelledby="cta-title">
+          <h2 id="cta-title" class="h2">One message out, many ears in</h2>
+          <p class="muted">Get Blowhorn for Mac, then let {{ $p.tool }} do the talking.</p>
+          <p class="actions"><a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a></p>
+        </section>
+
+        <section class="agent-section" aria-labelledby="more-title">
+          <div class="section-head"><h2 id="more-title" class="h2">More agents</h2></div>
+          {{ partial "agents/others.html" . }}
+        </section>
+      </div>
+    </main>
+{{- end }}

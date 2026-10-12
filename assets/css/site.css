@@ -771,7 +771,7 @@ pre code { background: none; padding: 0; }
 }
 .footer-tm { flex-basis: 100%; }
 @media (min-width: 480px) {
-  .footer-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer-cols { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 @media (min-width: 900px) {
   .footer-panel {
@@ -1632,3 +1632,63 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   .step-stage { background: var(--surface); box-shadow: 0 0 0 1px var(--line-strong); }
 }
 .download-page .download-grid { align-items: start; }
+
+/* ---------- Agentic AI Marketing (/agents/) ---------- */
+.agent-page .agent-section { margin-top: var(--space-12); }
+.agent-page .major-says { margin-top: var(--space-12); }
+.agent-hero {
+  display: grid; gap: var(--space-8); align-items: center;
+  padding: clamp(24px, 5vw, 56px);
+  border-radius: var(--radius-lg);
+  position: relative; overflow: hidden;
+}
+.agent-hero::before {
+  content: ""; position: absolute; inset: -40% -10% auto auto; width: 60%; aspect-ratio: 1;
+  background: radial-gradient(circle, var(--ambient-1), transparent 65%);
+  pointer-events: none;
+}
+.agent-hero > * { position: relative; }
+@media (min-width: 900px) { .agent-hero { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); } }
+.agent-hero-index { grid-template-columns: 1fr; }
+.agent-hero-copy > * + * { margin-top: var(--space-4); }
+.agent-hero-copy .label a { color: inherit; text-decoration: none; }
+.agent-hero-copy .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.agent-hero-art { display: flex; align-items: center; justify-content: center; gap: var(--space-4); }
+.agent-hero-plus { font-size: 2rem; color: var(--ink-muted); }
+.agent-mark {
+  display: inline-grid; place-items: center; flex: none;
+  width: 48px; height: 48px; border-radius: var(--radius-md);
+  font-family: var(--font-mono); font-weight: 700; font-size: 1rem;
+  color: var(--ink); background: linear-gradient(160deg, var(--glass-specular), var(--surface-tint));
+  border: 1px solid var(--glass-rim); box-shadow: var(--glass-shadow);
+}
+.agent-mark-xl { width: 96px; height: 96px; border-radius: 24px; font-size: 1.9rem; }
+.agent-steps { list-style: none; padding: 0; }
+.agent-step-n {
+  display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--teal); color: var(--on-teal); font-weight: 700;
+}
+.code-pane { margin: 0; border-radius: var(--radius-lg); overflow: hidden; }
+.code-pane figcaption { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--glass-edge); font-family: var(--font-mono); }
+.code-pane pre { margin: 0; padding: var(--space-4); white-space: pre-wrap; overflow-wrap: anywhere; background: transparent; }
+.code-pane-dark { background: var(--near-black); color: var(--cream); }
+.code-pane-dark figcaption { color: var(--mint); border-color: rgba(255, 255, 255, 0.12); }
+.code-pane-dark pre, .code-pane-dark code { color: var(--cream); background: transparent; }
+.agent-prompts { list-style: none; padding: 0; display: grid; gap: var(--space-3); }
+@media (min-width: 760px) { .agent-prompts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.agent-prompts li { padding: var(--space-4) var(--space-6); border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px; }
+.agent-faq { display: grid; gap: var(--space-3); max-width: 48rem; }
+.agent-faq details { padding: var(--space-4) var(--space-6); border-radius: var(--radius-lg); }
+.agent-faq summary { cursor: pointer; font-weight: 600; }
+.agent-faq details p { margin-top: var(--space-3); color: var(--ink-muted); }
+.agent-cta { padding: clamp(24px, 4vw, 48px); border-radius: var(--radius-lg); text-align: center; }
+.agent-cta > * + * { margin-top: var(--space-3); }
+.agent-grid { list-style: none; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.agent-tile {
+  display: flex; gap: var(--space-4); align-items: center; height: 100%;
+  padding: var(--space-4); border-radius: var(--radius-lg); color: inherit; text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.agent-tile:hover { transform: translateY(-2px); box-shadow: var(--glass-shadow-lift); }
+.agent-tile-copy { display: grid; gap: 2px; }
+@media (prefers-reduced-motion: reduce) { .agent-tile { transition: none; } .agent-tile:hover { transform: none; } }
