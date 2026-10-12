@@ -13,7 +13,7 @@ profile it is installed in. Install it in every Chrome profile you post
 from.
 
 The usual path is the Chrome Web Store. Use the unpacked or CLI install
-routes below when the store path does not fit (for example a one-off
+routes below when your account path does not fit (for example a one-off
 profile, a managed install, or while you wait for a store update).
 
 ## From the Chrome Web Store
@@ -32,7 +32,7 @@ talking. It does not name which profile.
 
 ## Load it unpacked in one Chrome profile
 
-For edge cases where the store install is not enough, write the native host and
+For edge cases where your account install is not enough, write the native host and
 follow the printed steps. Through the Blowhorn mapping:
 
 ```bash

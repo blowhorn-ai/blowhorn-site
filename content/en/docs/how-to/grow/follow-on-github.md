@@ -87,7 +87,7 @@ and stops, rather than failing once per account.
 - [Find conversations on Bluesky](/docs/how-to/grow/find-on-bluesky/) - search Bluesky
   for the accounts worth following.
 - [Build a GitHub audience](/docs/how-to/grow/build-a-github-audience/) - list a
-  repository's people into the store first.
+  repository's people into your account first.
 - [Amplify an issue or pull request on GitHub](/docs/how-to/publish/amplify-on-github/) -
   the other GitHub path.
 - [Sign a profile in to each platform](/docs/how-to/set-up/platform-accounts/) -

@@ -14,7 +14,7 @@ one-time setup every browser run depends on.
 
 A mapping is identity, never permission: it does not make a profile
 eligible for any platform. Eligibility is credential existence, decided in
-the store ([Eligibility](/docs/explanation/eligibility/)).
+your account ([Eligibility](/docs/explanation/eligibility/)).
 
 Nothing in this guide runs a browser. What each command prints and its JSON
 shape are in the [Chrome reference](/docs/reference/chrome/). How a run
@@ -37,12 +37,12 @@ profile at once.
 
 ## Before you start
 
-- The store is reachable from this machine: `blowhorn store` says so. The
+- Your account is reachable from this machine: `blowhorn store` says so. The
   mapping lives there, keyed by this machine's hostname, so it is the same
   on every terminal and in the desktop app on this machine, and does not
   follow you to another machine.
-- The Blowhorn profile is in the store's profiles. `blowhorn chrome
-  suggest` lists every profile the store knows; a name missing there cannot
+- The Blowhorn profile is in your account's profiles. `blowhorn chrome
+  suggest` lists every profile your account knows; a name missing there cannot
   be mapped.
 - Chrome's profile list is readable: `blowhorn chrome profiles` lists it.
   Chrome does not have to be running.
@@ -101,7 +101,7 @@ mapped profile ada to chrome profile 'Profile 2' 'Ada' (ada@example.com) on stud
 ```
 
 The command checks three things and refuses with one sentence and exit 1
-when any fails: the Blowhorn profile is in the store's profiles (`all` is
+when any fails: the Blowhorn profile is in your account's profiles (`all` is
 every profile, not one, so map each profile by name), Chrome has that
 directory, and the directory is not already mapped to another Blowhorn
 profile on this machine. Then it records the display name and signed-in
@@ -152,7 +152,7 @@ Nothing falls back to another profile or to a Blowhorn-owned folder.
 blowhorn chrome unmap ada
 ```
 
-Only the store's row goes. Nothing under Chrome's directory is touched, and
+Only your account's row goes. Nothing under Chrome's directory is touched, and
 the Chrome profile keeps its sessions.
 
 ## The Chrome extension in that profile
@@ -161,13 +161,12 @@ A mapping does not install the Chrome extension. Chrome keeps an extension
 per Chrome profile, and the Blowhorn extension drives only the profile it
 is installed in, so install it in every Chrome profile you post from.
 
-## When the store cannot be reached
+## When your account cannot be reached
 
 `chrome profiles`, `chrome map`, `chrome unmap`, `chrome suggest` and
-`profile status --chrome` each read the store, so each ends with the
-store's one named sentence and exit 3 when it is unreachable, even when
-Chrome's profile list cannot be read either, because the store is asked
-first. `chrome status` never opens the store.
+`profile status --chrome` each read your account, so each ends with your account's one named sentence and exit 3 when it is unreachable, even when
+Chrome's profile list cannot be read either, because your account is asked
+first. `chrome status` never opens your account.
 
 ## Related
 

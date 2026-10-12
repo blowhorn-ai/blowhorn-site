@@ -112,20 +112,20 @@ either are refused), `node_modules/`, `desktop/node_modules/` and `logs/` -
 reporting each item as `removed`, `not present`, `not checked`, `kept`,
 `not unregistered` or `failed`. A failed item does not stop the run; the
 command exits 1 at the end, as it does when a real run leaves a login item
-not unregistered. Local data is kept and named (the store connection file, the
+not unregistered. Local data is kept and named (your account connection file, the
 desktop app's state, Blowhorn's own Chrome trees under `~/.blowhorn`, the app's
 per-user Library state, the checkout's `cache/` and each profile's `browser/`
 sessions); `--purge` removes it after you type `purge` at the prompt, or with
 `--yes` when there is no terminal (`--json --purge` needs `--yes` outside a dry
-run, and `--yes` without `--purge` or `--discard-unsynced-runs` is refused), and the shared store is never touched.
+run, and `--yes` without `--purge` or `--discard-unsynced-runs` is refused), and your account is never touched.
 Nothing under a Chrome profile is read or written. It is refused by name, in a
 dry run too, while a scheduler tick, a service pass, an extension run,
 `Blowhorn.app`, a desktop app started from this checkout or, with `--purge`,
 a Chrome on `~/.blowhorn` or `~/.outbox` is running, and in every mode while a
 write-back spool (`runs/pending-store.ndjson`) this run removes - under the
 checkout's `logs/`, or the app's state under `--purge` - holds run records that
-have not reached the shared store - run `blowhorn store --replay-spool` first,
-or pass `--discard-unsynced-runs` when the store will never be reachable again,
+have not reached your account - run `blowhorn store --replay-spool` first,
+or pass `--discard-unsynced-runs` when your account will never be reachable again,
 which names the count it deletes and asks you to type `discard` (`--yes` with no
 terminal or under `--json`). A spool in any other log directory is left in
 place and reported as kept, with its count. A probe that could not run is a refusal too, and an unreadable `engine.json`
@@ -171,7 +171,7 @@ reports.
 All but `chrome unmap`, `chrome extension-install` and `chrome extension-status` read two files under a Chrome data
 directory (`Local State`, `DevToolsActivePort`) and nothing else - `attach-chrome`
 reads the dedicated tree's pair rather than the daily one's; `chrome unmap`
-reads only the store, so a mapping can be removed when those files are gone;
+reads only your account, so a mapping can be removed when those files are gone;
 `chrome extension-install --all-profiles` also reads `Local State` in the
 configured Chrome data directory, only to name each Chrome profile there, and
 does not list profiles outside that directory. The policy route applies the
@@ -193,13 +193,13 @@ person: `slack send` sends one message as one `--profile` (a thread reply from a
 message link, using the link's `?thread_ts=` parent, or a top-level post from a
 channel link), `slack whoami` asks Slack's `auth.test` who that profile's
 credential is, and `slack profiles` lists every profile's captured workspaces
-from the store without calling Slack (a profile whose `config.yaml` still
-carries Slack keys while the store holds no session reads `refused`, as its
+from your account without calling Slack (a profile whose `config.yaml` still
+carries Slack keys while your account holds no session reads `refused`, as its
 send would be). `send` is a dry run unless `--confirm`,
 and stays one under `--dry-run`, `BLOWHORN_DRY_RUN` or `defaults.dry_run` even with `--confirm` (its message then names that setting),
 takes its text from `--message`, `--file` or stdin (`-`) and sends it untouched,
 and sends a given idempotency key at most once: a key already sent replays its
-`ts` and permalink (the record is the store's send ledger), and a send whose answer was never recorded (interrupted, or still in flight) is reported as
+`ts` and permalink (the record is your account's send ledger), and a send whose answer was never recorded (interrupted, or still in flight) is reported as
 `outcome_unknown` (exit 4) and never resent automatically. All three take
 `--json`, print no secret, open no browser, and choose the credential with
 `--slack-auth`. Exit codes: 0 sent, replayed or previewed; 1 refused; 2 usage or
@@ -287,7 +287,7 @@ own command's row of the table, so a `github` schedule row is a `follow` or a
 
 `--profile all` is supported for `post`, `accept`, `follow`, `unfollow`, `comment`, `analytics`, `report`, and `find`, and is always treated as an alias expansion (never a concrete profile).
 
-`blowhorn source` collects people into the store. `--platform github` requires at least one repeatable `--repo` (`owner/name`) and takes `--audience` (default `stargazers`: `owner`, `contributors`, `forks`, `stargazers`, `watchers`, `subscribers`, `issues`, or `all` only when you type it), and `--platform all` is rejected. `--limit` caps how many people a run examines; omitted, there is no cap. Once that many have been examined the run stops without pulling another login. A `--repo` that is blank, or that is not a single `owner/name` (a URL included), is rejected by name. A GitHub run lists that audience with the profile's stored `GH_TOKEN` and upserts one `github_contacts` row per login. `--dry-run` lists the audience, fetches no commit patches, and writes nothing. Email addresses are not printed. `source` is not a scheduled command, and it does not accept `--profile all`.
+`blowhorn source` collects people into your account. `--platform github` requires at least one repeatable `--repo` (`owner/name`) and takes `--audience` (default `stargazers`: `owner`, `contributors`, `forks`, `stargazers`, `watchers`, `subscribers`, `issues`, or `all` only when you type it), and `--platform all` is rejected. `--limit` caps how many people a run examines; omitted, there is no cap. Once that many have been examined the run stops without pulling another login. A `--repo` that is blank, or that is not a single `owner/name` (a URL included), is rejected by name. A GitHub run lists that audience with the profile's stored `GH_TOKEN` and upserts one `github_contacts` row per login. `--dry-run` lists the audience, fetches no commit patches, and writes nothing. Email addresses are not printed. `source` is not a scheduled command, and it does not accept `--profile all`.
 
 Examples:
 

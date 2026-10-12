@@ -46,7 +46,7 @@ blowhorn store --import
 blowhorn store
 ```
 
-Connect to the store covers a machine
+Connect to your account covers a machine
 without that checkout. Nothing below works until `blowhorn store` ends in
 `store usable`.
 
@@ -66,9 +66,9 @@ blowhorn profile status
 ```
 
 This opens no browser and calls no platform; its one read beyond your
-checkout is the store's credentials. What it reports rests on one rule worth knowing
+checkout is your account's credentials. What it reports rests on one rule worth knowing
 now: a profile may act on a platform when a **credential** for that platform
-exists in the store, and never because a handle appears in its roster row.
+exists in your account, and never because a handle appears in its roster row.
 That is deliberate - [Eligibility](/docs/explanation/eligibility/) explains why.
 
 ## 3. Look at the queue without touching it {#section-3-look-at-the-queue-without-touching-it}

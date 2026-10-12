@@ -7,7 +7,7 @@ weight: 217
 # Profile reference
 
 A profile is one identity Blowhorn posts as: a directory beside a
-store row. The directory holds `config.yaml` and `data/`. The store
+store row. The directory holds `config.yaml` and `data/`. Your account
 row holds the organization, the credential keys that moved there, and
 the Chrome mapping. This page describes; the steps live in the how-to
 guides under Related.
@@ -38,17 +38,16 @@ Chrome, and follower counts grant nothing.
 | LinkedIn | `LI_USERNAME`, `LI_PASSWORD` | `config.yaml` |
 | X | `X_USERNAME` (password beside it for automated sign-in) | `config.yaml` |
 | Reddit | `RDDT_USERNAME` (password beside it for automated sign-in) | `config.yaml` |
-| Hacker News | `HN_USERNAME`, `HN_PASSWORD` | The store |
-| Slack | `SLACK_USER_TOKEN`, `SLACK_BOT_TOKEN`, or a captured workspace session | The store, never `config.yaml` |
+| Hacker News | `HN_USERNAME`, `HN_PASSWORD` | Your account |
+| Slack | `SLACK_USER_TOKEN`, `SLACK_BOT_TOKEN`, or a captured workspace session | Your account, never `config.yaml` |
 | Bluesky | `BLUESKY_HANDLE`, `BLUESKY_APP_PASSWORD` | `config.yaml` |
-| GitHub | `GH_TOKEN` | The store |
+| GitHub | `GH_TOKEN` | Your account |
 
-GitHub, Hacker News, and Slack are the store-credential platforms: a
-run reads their secrets from the store, and `profile set` writes their
+GitHub, Hacker News, and Slack are your account-credential platforms: a
+run reads their secrets from your account, and `profile set` writes their
 keys there. Every other platform still reads `config.yaml` until its
 module moves. `blowhorn profile auth --platform slack` captures a
-workspace session through the run's browser driver and lands it in the
-store; no Slack app install is needed.
+workspace session through the run's browser driver and lands it in your account; no Slack app install is needed.
 
 A profile you name that holds no credential for anything in scope stops
 the run with the reason naming it. `--profile all` skips such profiles
@@ -56,7 +55,7 @@ quietly.
 
 ## The Chrome column
 
-The store row beside each profile carries the Chrome column: which real
+Your account row beside each profile carries the Chrome column: which real
 Chrome profile this Blowhorn profile acts in on this machine, keyed by
 hostname. `blowhorn chrome map` writes it; `blowhorn chrome unmap`
 clears it. A browser run with no mapping for its profile refuses

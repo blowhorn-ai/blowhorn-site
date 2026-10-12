@@ -49,10 +49,10 @@ Start from what you saw. Each symptom names its fix page.
   <row>`. See [Find out why a job did not run](/docs/how-to/schedule/why-not-run/).
 - **Nothing is claimed on this machine.** You may be paused. See [Pause and
   resume posting](/docs/how-to/schedule/pause/).
-- **Every store-backed command exits 3 saying the store is unavailable.**
+- **Every account-backed command exits 3 saying your account is unavailable.**
   Bring your connection back; nothing was claimed and nothing is lost. The
-  full story lives in the store-unavailable guide, which ships when the
-  customer store path does. Until then: run `blowhorn store` to probe the
+  full story lives in the account-unavailable guide, which ships when the
+  customer account path does. Until then: run `blowhorn store` to probe the
   connection now, and `blowhorn schedule status` to read the last tick's view
   of it. It never probes, because the app polls it every 15 seconds.
 

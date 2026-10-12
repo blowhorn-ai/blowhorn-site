@@ -76,13 +76,13 @@ blowhorn content delete 12 --yes
 ```
 
 A write refuses rather than guesses: an unknown `Platform`, a `Profile`
-the store does not know, a blank `Profile`, an unparseable `Promote On`,
+your account does not know, a blank `Profile`, an unparseable `Promote On`,
 and unknown fields are all refused with the reason named.
 
 ## Capture a page from the browser
 
 The bookmarklet turns the page you are reading into a new content entry
-without retyping it. It holds no credential and reaches no store: it hands
+without retyping it. It holds no credential and reaches no account: it hands
 the page's address, title, and any selected text to the desktop app, which
 opens the Content screen on a new entry pre-filled from it.
 

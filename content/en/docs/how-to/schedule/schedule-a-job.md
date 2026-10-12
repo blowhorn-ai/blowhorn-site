@@ -80,7 +80,7 @@ excluded one for that job only.
 
 Each pass writes a per-job log under `<log-dir>/scheduler/`, records its
 heartbeat so `blowhorn schedule status` can report it, and appends one line per
-pass to the run ledger. When the pass cannot reach the store it claims nothing,
+pass to the run ledger. When the pass cannot reach your account it claims nothing,
 exits 3, and says so in one line.
 
 ## Related

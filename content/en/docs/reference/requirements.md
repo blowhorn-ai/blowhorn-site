@@ -41,4 +41,4 @@ Offline behavior is a plans question, not a requirements one: see
 
 - [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - what the Setup screen checks.
 - [Plans and limits](/docs/reference/plans/) - what "free during early access" covers.
-- [How Blowhorn works](/docs/explanation/how-it-works/) - why the store and the app are separate.
+- [How Blowhorn works](/docs/explanation/how-it-works/) - why your account and the app are separate.

@@ -44,12 +44,12 @@ Work down the rows:
 2. **python environment** - this should already be `ok` from the CLI tutorial.
 3. **store** - the connection to your account. If it is not configured yet, click
    its **import** action and follow
-   Connect to the store.
+   Connect to your account.
 4. **background service** - nothing to do here: once the rows above are ok
    the app registers the service itself, and this row only reports it. You do
    not need it to finish this tutorial.
 
-Each probe is bounded by a 20-second timeout (60 s for the store's full **test
+Each probe is bounded by a 20-second timeout (60 s for your account's full **test
 connection**), so a row that cannot answer will tell you rather than hang.
 
 ## 3. Turn on dry-run before anything else {#section-3-turn-on-dry-run-before-anything-else}

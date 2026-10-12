@@ -38,7 +38,7 @@ a timer.
 | profiles | Every profile, its Chrome mapping, its per-platform sessions | Add a profile; map or unmap its Chrome profile |
 | analytics | Followers, growth, and operations per profile; collection freshness in the header | Collect now; open the HTML report |
 | service | Who registered the background service, whether it runs, the last tick heartbeat | Install, start, stop, restart, update, or uninstall the service |
-| settings | Engine defaults rendered from the CLI's own option list, the extension card, the store card | Change defaults, check the extension, test the store connection |
+| settings | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, test your account connection |
 
 The analytics screen states how fresh its numbers are in the header and
 has no refresh control of its own. The runs screen reaches per-job logs

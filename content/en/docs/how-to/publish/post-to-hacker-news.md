@@ -22,7 +22,7 @@ that and no way to turn it on.
 ## Before the first run
 
 1. **Store the profile's Hacker News login.** Both keys are needed; the
-   password is read from the store and never from `config.yaml`.
+   password is read from your account and never from `config.yaml`.
 
    ```bash
    blowhorn profile set your-profile HN_USERNAME=<account> HN_PASSWORD=<password>
@@ -117,8 +117,7 @@ real visit by a real account, so Hacker News can rate-limit it like one.
   message prints.
 - **"… is already on Hacker News: submitted by …".** That same URL, on a
   later run or for another profile. Nothing was opened in the browser. To
-  submit it after all, have an operator remove the URL's row from the
-  store's `hn:submissions` ledger, then run again; there is no command for
+  submit it after all, have an operator remove the URL's row from your account's `hn:submissions` ledger, then run again; there is no command for
   that yet.
 - **"the new comment could not be found on the page HN landed on".** The
   row is marked done with the thread's link rather than the comment's own.

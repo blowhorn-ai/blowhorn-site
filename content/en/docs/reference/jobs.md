@@ -63,7 +63,7 @@ A row is claimed only when none of the three scopes says paused:
 | Scope | Pauses | Lifted by |
 |---|---|---|
 | `machine` | This Mac only, in `.blowhorn.pause.json` | `blowhorn schedule resume` on this Mac |
-| `all` | Every Mac sharing the store | Resuming the organization-wide pause |
+| `all` | Every Mac sharing your account | Resuming the organization-wide pause |
 | `row` | One scheduled row, everywhere | Resuming that row |
 
 `blowhorn schedule pause` pauses; `blowhorn schedule resume` resumes.

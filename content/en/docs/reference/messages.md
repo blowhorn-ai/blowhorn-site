@@ -8,18 +8,18 @@ weight: 219
 
 What a failed run prints, why, and what fixes it. Entries are keyed by
 the sentence's first words. Exits: 0 ran clean; 1 the run failed; 2 the
-invocation was wrong; 3 the store was unreachable. A run cancelled
+invocation was wrong; 3 your account was unreachable. A run cancelled
 between passes exits 75.
 
-## The store
+## Your account
 
-A run that needs the store and cannot reach it prints the cause's own
+A run that needs your account and cannot reach it prints the cause's own
 wording, then `error: store unavailable`, and exits 3. There is no
 traceback. Check the connection and run again; nothing was published
 and nothing was marked done.
 
 Any other store error prints its own sentence and exits 1. A ledger
-write the store refuses names the person and stops the run before its
+write your account refuses names the person and stops the run before its
 next platform action, so the run halts rather than acting without
 recording.
 

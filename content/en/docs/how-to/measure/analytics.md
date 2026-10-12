@@ -34,7 +34,7 @@ blowhorn analytics history --subject ada --json
 ```
 
 `history` renders every LinkedIn page and every X profile as one dated series
-from the store, whichever machine collected it. `--since` takes days, weeks,
+from your account, whichever machine collected it. `--since` takes days, weeks,
 months, years or `all`, and filters which points print, never what the 30-day
 figures compute from.
 

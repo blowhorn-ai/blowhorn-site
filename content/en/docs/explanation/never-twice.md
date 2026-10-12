@@ -32,7 +32,7 @@ marking it done. A person left in that state is held the same way:
 recorded, kept off the drain, and listed at the start of every run
 until settled. Neither a retry nor a drop is a run's to decide.
 
-A lost write-back is recorded the same way. A post whose store
+A lost write-back is recorded the same way. A post whose account
 write-back fails is not spooled anywhere: the row stays pending in
 form but carries the unread stamp, LinkedIn amplify re-checks before
 acting, and any other platform risks a duplicate on re-run.

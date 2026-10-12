@@ -24,7 +24,7 @@ Store a token as the profile's `GH_TOKEN`:
 blowhorn profile set marcus GH_TOKEN=<token>
 ```
 
-The token lands in the profile's GitHub credential in the store, never in
+The token lands in the profile's GitHub credential in your account, never in
 `config.yaml`. A classic token needs the `repo` scope; a fine-grained
 token needs read and write on **Issues**, and on **Pull requests** when
 the target is a PR. Then check the token without reacting to anything:

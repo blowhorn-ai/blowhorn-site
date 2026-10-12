@@ -73,7 +73,7 @@ already marked done is never acted on twice.
 ## Hacker News
 
 Browser, through the extension, signed in with the username and
-password in the store (`HN_USERNAME` with `HN_PASSWORD`). Submits link
+password in your account (`HN_USERNAME` with `HN_PASSWORD`). Submits link
 and text posts and comments from rows. Titles hold 80 characters;
 a longer title fails the row rather than truncating, because a
 submission cannot be edited after it lands. At most 2 link submissions
@@ -94,7 +94,7 @@ row; see [Messages and exit codes](/docs/reference/messages/).
 API, never the browser. Sends a message as you to a channel, a person,
 or a thread: the target is `#channel`, `@user`, a channel id, a channel
 link, or a message link for a thread reply. One profile sends; the
-credential is a Slack token in the store (`SLACK_USER_TOKEN`,
+credential is a Slack token in your account (`SLACK_USER_TOKEN`,
 `SLACK_BOT_TOKEN`, or a workspace session captured through the
 extension). `blowhorn post --platform slack --message` sends one ad-hoc
 message with no queue row.
@@ -126,7 +126,7 @@ Under `post`, GitHub amplifies only: it adds all five uplifting
 reactions (+1, laugh, hooray, heart, rocket) to the issue or pull
 request the `--amplify` flag or the row's "Amplify" column names, from
 every selected profile under its own token. Re-running adds none of
-them twice. The credential is `GH_TOKEN` in the store.
+them twice. The credential is `GH_TOKEN` in your account.
 
 ## Captured versus unverified, by platform
 

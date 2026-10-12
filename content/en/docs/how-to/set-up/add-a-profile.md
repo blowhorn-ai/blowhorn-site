@@ -15,7 +15,7 @@ the command line.
 This page stays a draft until it is.
 
 A profile is two halves. The directory `profiles/<name>/` holds
-`config.yaml` and the per-profile data; the row in the store's profiles is
+`config.yaml` and the per-profile data; the row in your account's profiles is
 what every job reads to select it. Creating a profile writes both, the row
 first. A profile with a directory and no row looks healthy in
 `blowhorn profile list`, but no job can reach it. What each half holds is
@@ -23,7 +23,7 @@ in the [Profile reference](/docs/reference/profiles/).
 
 ## Before you start
 
-- The store must be reachable. With the store down the create is refused
+- Your account must be reachable. With your account down the create is refused
   (exit 3) and nothing is written on either side, not even the directory.
   Check with `blowhorn store`, or the Setup screen's store row in the
   desktop app.
@@ -61,7 +61,7 @@ blowhorn profile set sam --create EMAIL=sam@example.com \
 The reply names the account the profile is bound to. Passwords and tokens
 are set afterwards with a plain `blowhorn profile set sam KEY=VALUE`.
 
-Rehearse with `--dry-run`: it touches neither the store nor the disk, and
+Rehearse with `--dry-run`: it touches neither your account nor the disk, and
 it still refuses everything a real run would refuse.
 
 ### When the email cannot decide
@@ -109,7 +109,7 @@ blowhorn profile delete sam --yes
 ```
 
 The command retires the profile's row first, then moves `profiles/sam/`
-aside. With the store unreachable the delete is refused and nothing moves.
+aside. With your account unreachable the delete is refused and nothing moves.
 
 ## Related
 

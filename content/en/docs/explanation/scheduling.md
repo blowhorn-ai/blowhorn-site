@@ -28,7 +28,7 @@ reads the lease alone, atomically, and only one claimant wins it.
 
 Three pause scopes cover the three reasons to stop. This machine's
 file stops this Mac and nothing else, for maintenance on one machine.
-The organization-wide pause stops every Mac sharing the store, with a
+The organization-wide pause stops every Mac sharing your account, with a
 reason every banner repeats. One row's pause holds that row everywhere
 until resumed. A row is claimed only when none of the three says
 paused, and quitting the app touches none of them: pausing is always

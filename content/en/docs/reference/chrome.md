@@ -22,13 +22,13 @@ Chrome is running is one bounded process lookup.
 ## The mapping
 
 Each Blowhorn profile maps to one real Chrome profile on this machine,
-kept in the store and keyed by hostname. The mapping does not follow
+kept in your account and keyed by hostname. The mapping does not follow
 you to another machine.
 
 `blowhorn chrome profiles` lists every profile Chrome knows, with the
 directory name and the display identity. Chrome does not have to be
 running. `blowhorn chrome suggest` prints a proposed mapping for every
-Blowhorn profile the store knows. `blowhorn chrome map <profile>
+Blowhorn profile your account knows. `blowhorn chrome map <profile>
 <directory>` writes one mapping; it checks the directory exists in
 Chrome and refuses a name Chrome no longer has. `blowhorn chrome unmap
 <profile>` removes one mapping. A mapping is identity, never

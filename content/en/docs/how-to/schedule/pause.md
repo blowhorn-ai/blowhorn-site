@@ -44,9 +44,9 @@ blowhorn schedule resume --row 7
 ```
 
 A row is claimed only when none of the three scopes says paused: this machine,
-all machines, or that row. `--all` and `--row` live in the store, so every
+all machines, or that row. `--all` and `--row` live in your account, so every
 machine sharing it honours them on its next claim; the flagless pause never
-touches the store. In the app the same three scopes are "pause this machine",
+touches your account. In the app the same three scopes are "pause this machine",
 "pause all machines" and "pause this row", each with a reason.
 
 Lifting one scope leaves the other two as they were. A held row still reads

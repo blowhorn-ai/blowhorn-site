@@ -37,7 +37,7 @@ blowhorn config get defaults.profile
 blowhorn config get store.password        # set / not set, never the value
 ```
 
-The store connection is configured the same way, but its `store.*` keys live
+Your account connection is configured the same way, but its `store.*` keys live
 in a private file, never in `.blowhorn.yaml`. During early access your
 Blowhorn administrator sets them up.
 

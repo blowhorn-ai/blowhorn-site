@@ -47,7 +47,7 @@ profile already reposted is recorded as done with the amplify URL as its
 link. Re-running a row that already went out is safe. A Bluesky repost
 carries no such guard: once the row is done, leave it done.
 
-## When the store cannot be updated
+## When your account cannot be updated
 
 The `Date Promoted` write happens after the amplify went out, so losing
 it does not undo anything: it hides it. The row stays pending and the
@@ -55,7 +55,7 @@ next run acts again, which the LinkedIn guards above make a no-op rather
 than a duplicate. The write is retried on transient failures; when it
 still fails, one loud `!!!` line names the row, the profile, and exactly
 what went out publicly, the row counts as failed, and the rest of that
-profile's queue is not attempted. Re-run once the store is reachable.
+profile's queue is not attempted. Re-run once your account is reachable.
 
 ## Comments are a different column
 

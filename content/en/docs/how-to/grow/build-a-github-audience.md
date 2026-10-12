@@ -1,12 +1,12 @@
 ---
 title: "Build a GitHub audience"
-description: "List a repository's stargazers, contributors, or watchers into the store."
+description: "List a repository's stargazers, contributors, or watchers into your account."
 weight: 126
 ---
 
 # Build a GitHub audience
 
-List the people around one or more repositories into the store with
+List the people around one or more repositories into your account with
 `blowhorn source --platform github`: stargazers unless you name another
 audience, one stored row per login. It does not follow, connect, or send
 mail. The run lists with the profile's stored `GH_TOKEN`.

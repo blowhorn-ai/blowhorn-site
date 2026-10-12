@@ -51,7 +51,7 @@ account settings; your main password never goes here.
 ## GitHub
 
 Store a personal access token as the profile's `GH_TOKEN`. It lands in the
-profile's GitHub credential in the store, never in `config.yaml`:
+profile's GitHub credential in your account, never in `config.yaml`:
 
 ```bash
 blowhorn profile set ada GH_TOKEN=<token>
@@ -71,7 +71,7 @@ Issues (and Pull requests for PR targets) to react.
 ## Hacker News
 
 Store the login with `profile set`. Both keys are needed; the password is
-read from the store and never from `config.yaml`:
+read from your account and never from `config.yaml`:
 
 ```bash
 blowhorn profile set ada HN_USERNAME=<account> HN_PASSWORD=<password>
@@ -86,7 +86,7 @@ blowhorn profile get ada
 ## Slack
 
 Capture your signed-in web session into the profile's Slack credential in
-the store:
+your account:
 
 ```bash
 blowhorn profile auth --platform slack --profile ada
