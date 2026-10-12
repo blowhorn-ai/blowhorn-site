@@ -22,4 +22,4 @@ Open Blowhorn and choose **Sign in**. Your browser opens [Layer5 Cloud]({{< clou
 
 On first run the app lists the Chrome profiles it found and asks before it connects any of them. It writes one small file Chrome reads for each profile you choose. It does not open Chrome or change your Chrome settings. You can run `blowhorn setup` at any time to check or repeat this step.
 
-When the extension's icon shows connected, you are ready. If your account does not have Blowhorn yet, the app sends you to [early access](/early-access/).
+When the extension's icon shows connected, you are ready. If your account does not have Blowhorn yet, the app sends you straight to [Layer5 Cloud]({{< cloud-url >}}) to start the beta.

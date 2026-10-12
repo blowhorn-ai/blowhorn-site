@@ -85,9 +85,6 @@ PAGES = {
     "welcome/index.html": [
         "main", "download-the-app", "sign-in", "connect-chrome",
     ],
-    "early-access/index.html": [
-        "main",
-    ],
 }
 # Redirect pages: published path -> the URL its redirect page must point to.
 # GitHub Pages serves no server-side redirects, so each path is a meta refresh
@@ -99,10 +96,11 @@ REDIRECTS = {
     "download/index.html": "/#download",
     "install/index.html": "/docs/how-to/set-up/install-the-app/",
 }
-# Other files that must be published at these paths. /signup/ and /login/
-# redirect to params.cloud_url, so only their presence is checked here.
+# Other files that must be published at these paths. /signup/, /login/ and
+# /early-access/ redirect to params.cloud_url, so only their presence is checked here.
 FILES = [
     "signup/index.html",
+    "early-access/index.html",
     "login/index.html",
     "CNAME",
     "favicon.ico",

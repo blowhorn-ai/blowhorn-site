@@ -173,11 +173,12 @@ The public URLs are a contract, checked by `make site-check`:
   plus a canonical link to the new URL. `/privacy.md` and `/terms.md` are
   static notes pointing at the new Markdown copies.
 - The home page's anchors: `#platforms`, `#how`, `#trust`, `#download`.
-- The onboarding pages `/welcome/` (opened by the Chrome extension on install)
-  and `/early-access/` (`layouts/onboarding.html`), and the short paths
-  `/download/`, `/install/`, `/signup/` and `/login/`, each a meta refresh
-  rendered by `layouts/redirect.html`. `/signup/` and `/login/` go to Layer5
-  Cloud, whose URL is `params.cloud_url` in `hugo.toml` alone. None of these
+- The onboarding page `/welcome/` (opened by the Chrome extension on install,
+  `layouts/onboarding.html`), and the short paths `/download/`, `/install/`,
+  `/signup/`, `/login/` and `/early-access/`, each a meta refresh rendered by
+  `layouts/redirect.html`. `/signup/`, `/login/` and `/early-access/` go to
+  Layer5 Cloud (no early-access form: anyone without a plan starts the beta
+  there), whose URL is `params.cloud_url` in `hugo.toml` alone. None of these
   is listed in `sitemap.xml` or `llms.txt`.
 - `/assets/brand/...` (from `static/assets/brand/`), `/favicon.ico`, `/CNAME`.
 - Generated: `/sitemap.xml`, `/robots.txt` (which names the sitemap),
