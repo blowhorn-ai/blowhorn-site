@@ -63,6 +63,14 @@
           </ul>
         </section>
 
+        <section class="compare-section" aria-labelledby="versus-title">
+          <div class="section-head">
+            <h2 id="versus-title" class="h2">Blowhorn vs, one by one</h2>
+            <p class="muted">An honest page for each product we compared. If another tool fits you better, each page says so.</p>
+          </div>
+          {{ partial "versus-grid.html" (dict "cur" nil "group" "") }}
+        </section>
+
         <section class="compare-section" aria-labelledby="fair-title">
           <div class="section-head">
             <h2 id="fair-title" class="h2">Credit where due</h2>

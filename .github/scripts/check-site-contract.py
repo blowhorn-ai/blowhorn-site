@@ -67,6 +67,108 @@ PAGES = {
     "agents/cli/index.html": [
         "main", "agent-title", "how-title", "setup-title", "commands-title", "faq-title",
     ],
+    "compare/index.html": [
+        "main", "matrix-title", "versus-title",
+    ],
+    "compare/buffer/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/hootsuite/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/sprout-social/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/later/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/publer/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/socialbee/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/metricool/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/typefully/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/postiz/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/taplio/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/expandi/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/phantombuster/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/waalaxy/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/dripify/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/authoredup/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/linked-helper/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/dux-soup/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/sociabble/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/everyonesocial/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/dsmn8/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/haiilo/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/mokumokuren/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/social-browser/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/multilogin/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/gologin/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/adspower/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/blotato/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/claude-in-chrome/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/perplexity-comet/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/thunderclap/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/thunderclap-com/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/lempod/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
+    "compare/podawaa/index.html": [
+        "main", "versus-title", "fit-title", "table-title", "belief-title", "faq-title",
+    ],
     "404.html": [
         "main", "missing-title",
     ],

@@ -1692,3 +1692,18 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .agent-tile:hover { transform: translateY(-2px); box-shadow: var(--glass-shadow-lift); }
 .agent-tile-copy { display: grid; gap: 2px; }
 @media (prefers-reduced-motion: reduce) { .agent-tile { transition: none; } .agent-tile:hover { transform: none; } }
+
+/* Blowhorn vs <competitor> pages (/compare/<slug>/, layouts/versus.html).
+   Built on the Agentic AI Marketing glass components. */
+.versus-page .agent-mark-xl { font-size: 1.6rem; }
+.versus-page .agent-hero-plus { font-size: 1.25rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+.versus-fit .card > * + * { margin-top: var(--space-3); }
+.versus-fit ul { display: grid; gap: var(--space-2); padding-left: var(--space-5, 1.25rem); color: var(--ink-muted); }
+.versus-fit li { list-style: disc; }
+.versus-fit .versus-us { box-shadow: var(--glass-shadow-lift); }
+.page .versus-table { min-width: 40rem; }
+.versus-table thead th:nth-child(2) { width: 34%; }
+.versus-belief { padding: clamp(24px, 4vw, 48px); border-radius: var(--radius-lg); }
+.versus-belief > * + * { margin-top: var(--space-4); }
+.versus-belief p { max-width: 48rem; }
+.versus-all { margin-top: var(--space-6); }

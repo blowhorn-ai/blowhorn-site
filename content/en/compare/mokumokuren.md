@@ -1,0 +1,75 @@
+{
+  "title": "Blowhorn vs mokumokuren",
+  "linkTitle": "mokumokuren",
+  "seo_title": "Blowhorn vs mokumokuren: honest comparison",
+  "description": "mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your machine, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.",
+  "layout": "versus",
+  "weight": 40,
+  "lastmod": "2026-10-12",
+  "competitor": "mokumokuren",
+  "mark": "Mk",
+  "site_url": "https://docs-mokumokuren.imakita3gyo.com/en/",
+  "group": "Local multi-profile browsers",
+  "verdict": "mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your machine, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.",
+  "them": [
+    "You want a human to press send on every post",
+    "Threads, mixi2 or Substack are among your channels",
+    "A small monthly price is the priority"
+  ],
+  "us": [
+    "LinkedIn, Reddit, Hacker News, GitHub and Slack matter to you",
+    "You want scheduling and amplification from every profile in your account",
+    "You run more than one Mac"
+  ],
+  "price_them": "Free; Pro $7 per month, first month free",
+  "price_src": "https://docs-mokumokuren.imakita3gyo.com/en/",
+  "rows": [
+    {
+      "f": "Where it acts",
+      "t": "Local browser sessions, you send",
+      "b": "Your Macs, in your own signed-in Chrome or platform APIs"
+    },
+    {
+      "f": "Networks",
+      "t": "X, Bluesky, Threads, mixi2, Substack",
+      "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack. Instagram, TikTok, Facebook and YouTube coming soon"
+    },
+    {
+      "f": "Scheduling",
+      "t": "No, you send",
+      "b": "As long as one of your Macs is awake. Any Mac set up for the profile keeps the schedule"
+    },
+    {
+      "f": "Many Macs on one queue",
+      "t": "No",
+      "b": "Unlimited Macs on one queue, coordinated so the same post isn't sent from two Macs"
+    },
+    {
+      "f": "Amplify one post",
+      "t": "One draft to many accounts",
+      "b": "Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add"
+    },
+    {
+      "f": "AI agents",
+      "t": "Local MCP server",
+      "b": "Full CLI: --help with examples, --json, --dry-run on writes. Your agent drives, you hold pause"
+    },
+    {
+      "f": "Bought engagement",
+      "t": "None",
+      "b": "None. Blowhorn sells no followers, likes or reposts"
+    }
+  ],
+  "signal": "mokumokuren and Blowhorn come from the same place: no vendor posting as you, no bought numbers. Blowhorn goes further on reach, so a post gets real replies from your people across seven networks.",
+  "faq": [
+    {
+      "q": "Is mokumokuren better than Blowhorn?",
+      "a": "If you want to press send yourself every time, or post to Threads, mixi2 or Substack, yes. For scheduling and amplification on developer networks, we think Blowhorn is the better fit."
+    }
+  ],
+  "major": "A kindred spirit. Different bugle call.",
+  "sitemap": {
+    "changefreq": "monthly",
+    "priority": 0.5
+  }
+}

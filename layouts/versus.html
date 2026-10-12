@@ -1,0 +1,106 @@
+{{- /* One honest comparison page per competitor in our competitive landscape:
+  /compare/<slug>/ (content/en/compare/<slug>.md, JSON front matter written
+  from leecalcote/blowhorn marketing/compare/). Shared layout, per-competitor
+  copy. Every competitor fact is dated and links to the vendor page it came
+  from. No competitor logos: their licensing for this use is not clear. */ -}}
+{{ define "head" }}
+    {{- $faq := slice -}}
+    {{- range .Params.faq }}{{ $faq = $faq | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end }}
+    <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $faq | jsonify | safeJS }}</script>
+{{- end }}
+{{ define "main" }}
+    {{- $p := .Params -}}
+    <main id="main" class="page agent-page versus-page">
+      <div class="wrap">
+        <header class="agent-hero glass">
+          <div class="agent-hero-copy">
+            <p class="label"><a href="{{ (site.GetPage "/compare").RelPermalink }}">Compare</a> &middot; {{ $p.group }}</p>
+            <h1 id="versus-title" class="display">{{ .Title }}</h1>
+            <p class="body-lg muted">{{ $p.verdict }}</p>
+            <p class="actions">
+              <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a>
+              <a class="button button-secondary" href="{{ $p.site_url }}" rel="noopener">Visit {{ $p.competitor }}</a>
+            </p>
+          </div>
+          <div class="agent-hero-art" aria-hidden="true">
+            <span class="agent-mark agent-mark-xl">{{ $p.mark }}</span>
+            <span class="agent-hero-plus">vs</span>
+            <img src="{{ "assets/brand/logo/blowhorn-app-icon.svg" | relURL }}" alt="" width="96" height="96">
+          </div>
+        </header>
+
+        <section class="agent-section" aria-labelledby="fit-title">
+          <div class="section-head">
+            <h2 id="fit-title" class="h2">Which one fits you</h2>
+            <p class="muted">If {{ $p.competitor }} is the better fit, go use it. We mean that.</p>
+          </div>
+          <div class="grid grid-2 versus-fit">
+            <div class="card glass">
+              <h3 class="h3">Choose {{ $p.competitor }} if</h3>
+              <ul>{{ range $p.them }}<li>{{ . }}</li>{{ end }}</ul>
+              <p class="ui"><a href="{{ $p.site_url }}" rel="noopener">Go to {{ $p.competitor }}</a></p>
+            </div>
+            <div class="card glass versus-us">
+              <h3 class="h3">Choose Blowhorn if</h3>
+              <ul>{{ range $p.us }}<li>{{ . }}</li>{{ end }}</ul>
+              <p class="ui"><a href="{{ "download/" | relURL }}">Get Blowhorn</a></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="agent-section" aria-labelledby="table-title">
+          <div class="section-head">
+            <h2 id="table-title" class="h2">Side by side</h2>
+            <p class="muted">{{ $p.competitor }} pricing as of Oct 2026: {{ $p.price_them }} (<a href="{{ $p.price_src }}" rel="noopener">source</a>). Blowhorn: free during early access.</p>
+          </div>
+          <div class="compare-scroll glass">
+            <table class="compare-table versus-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="compare-feature-col"><span class="visually-hidden">Feature</span></th>
+                  <th scope="col">{{ $p.competitor }}</th>
+                  <th scope="col" class="compare-us"><img src="{{ "assets/brand/logo/blowhorn-icon.svg" | relURL }}" alt="" width="20" height="20"> Blowhorn</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{- range $p.rows }}
+                <tr><th scope="row" class="compare-feature">{{ .f }}</th><td>{{ .t }}</td><td class="compare-us">{{ .b }}</td></tr>
+                {{- end }}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="agent-section versus-belief glass" aria-labelledby="belief-title">
+          <h2 id="belief-title" class="h2">Strong signal, not bought numbers</h2>
+          <p>{{ site.Params.versus_belief }}</p>
+          <p>{{ $p.signal }}</p>
+        </section>
+
+        {{ partial "major-says.html" (dict "line" $p.major) }}
+
+        <section class="agent-section" aria-labelledby="faq-title">
+          <div class="section-head">
+            <h2 id="faq-title" class="h2">Questions</h2>
+          </div>
+          <div class="agent-faq">
+            {{- range $p.faq }}
+            <details class="glass"><summary class="ui">{{ .q }}</summary><p>{{ .a }}</p></details>
+            {{- end }}
+          </div>
+        </section>
+
+        <section class="agent-section agent-cta glass" aria-labelledby="cta-title">
+          <h2 id="cta-title" class="h2">One message out, many ears in</h2>
+          <p class="muted">If that sounds like what you've been missing, give Blowhorn a try. It's free during early access.</p>
+          <p class="actions"><a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a></p>
+        </section>
+
+        <section class="agent-section" aria-labelledby="more-title">
+          <div class="section-head"><h2 id="more-title" class="h2">More comparisons</h2></div>
+          {{ partial "versus-grid.html" (dict "cur" . "group" $p.group) }}
+          <p class="ui versus-all"><a href="{{ (site.GetPage "/compare").RelPermalink }}#versus-title">Every comparison</a></p>
+        </section>
+      </div>
+    </main>
+{{- end }}

@@ -4,7 +4,7 @@
   enforces it). Pages add their own tags in the "head" block of baseof.html. */ -}}
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ if .IsHome }}{{ .Title }}{{ else if eq .Kind "404" }}Page not found: {{ site.Title }}{{ else }}{{ .Title }}: {{ site.Title }}{{ end }}</title>
+    <title>{{ if .IsHome }}{{ .Title }}{{ else if .Params.seo_title }}{{ .Params.seo_title }}{{ else if eq .Kind "404" }}Page not found: {{ site.Title }}{{ else }}{{ .Title }}: {{ site.Title }}{{ end }}</title>
     {{- if eq (getenv "HUGO_PREVIEW") "true" }}
     <meta name="robots" content="noindex, nofollow">
     {{- else if or (eq .Kind "404") .Params.noindex }}

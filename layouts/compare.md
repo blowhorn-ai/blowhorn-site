@@ -18,3 +18,8 @@ By group, because products within a group differ. Checked against vendor pages i
 {{ range .Params.fair }}
 - {{ . }}
 {{- end }}
+
+## Blowhorn vs, one by one
+{{ range .Pages.ByWeight }}
+- [{{ .Title }}]({{ .Permalink }})
+{{- end }}

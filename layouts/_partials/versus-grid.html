@@ -1,0 +1,19 @@
+{{- /* Comparison pages as glass tiles. Context: dict "cur" (page to skip, or
+  nil) and "group" (only that group, or "" for every page). */ -}}
+{{- $cur := .cur -}}
+{{- $group := .group -}}
+<ul class="agent-grid">
+  {{- range (site.GetPage "/compare").Pages.ByWeight }}
+  {{- if and (or (not $cur) (ne .RelPermalink $cur.RelPermalink)) (or (eq $group "") (eq .Params.group $group)) }}
+  <li>
+    <a class="agent-tile glass" href="{{ .RelPermalink }}">
+      <span class="agent-mark" aria-hidden="true">{{ .Params.mark }}</span>
+      <span class="agent-tile-copy">
+        <span class="h3">vs {{ .Params.competitor }}</span>
+        <span class="caption muted">{{ .Params.group }}</span>
+      </span>
+    </a>
+  </li>
+  {{- end }}
+  {{- end }}
+</ul>
