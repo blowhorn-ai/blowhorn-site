@@ -8,8 +8,10 @@
   "wire_title": "Teach it once with a skill",
   "wire_body": "Claude Code loads project skills from .claude/skills/. Drop one in that tells it which blowhorn commands exist, that every read takes --json, and that writes pass the row fingerprint back. Then allow the read-only commands in .claude/settings.json so it stops asking, and leave publishing on ask.",
   "wire_file": ".claude/skills/blowhorn/SKILL.md",
+  "wire_lang": "markdown",
   "wire_code": "---\nname: blowhorn\ndescription: Schedule, queue and amplify social posts with the blowhorn CLI\n---\n\nRead before you write:\n- blowhorn schedule list --json\n- blowhorn content list --pending --json\n- blowhorn schedule status --json\n\nWrite with the fingerprint you just read:\n- blowhorn content upsert --payload '<json>' --row N --expected-fingerprint <fp> --json\n\nPreview anything that publishes with --dry-run first.\nIf anything looks wrong: blowhorn schedule pause --all --reason \"<why>\"",
   "extra_file": ".claude/settings.json",
+  "extra_lang": "json",
   "extra_code": "{\n  \"permissions\": {\n    \"allow\": [\n      \"Bash(blowhorn schedule list:*)\",\n      \"Bash(blowhorn schedule status:*)\",\n      \"Bash(blowhorn content list:*)\",\n      \"Bash(blowhorn analytics:*)\"\n    ]\n  }\n}",
   "prompts": [
     "Read my pending content queue and tell me which rows are owed to which profiles before Tuesday.",
@@ -18,6 +20,7 @@
     "Something is off with LinkedIn. Pause the whole fleet and tell me the reason you recorded."
   ],
   "commands": "blowhorn content list --pending --json\nblowhorn content upsert --payload '{\"Platform\":\"linkedin\",\"Profile\":\"lee\",\"Message Text\":\"v2.4 is out\",\"Approved?\":\"yes\",\"Promote On\":\"2026-11-10 09:00:00\"}' --json\nblowhorn post --platform linkedin --profile all --amplify \"<post-url>\" --dry-run\nblowhorn schedule pause --all --reason \"LinkedIn challenge\"",
+  "commands_lang": "bash",
   "uses": [
     {
       "t": "Release day from the PR",

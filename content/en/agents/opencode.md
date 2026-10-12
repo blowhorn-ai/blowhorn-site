@@ -8,8 +8,10 @@
   "wire_title": "Write the rules where OpenCode looks",
   "wire_body": "OpenCode picks up AGENTS.md from your project. Put the Blowhorn rules there, then use the bash permission map in opencode.json so reads run freely, writes ask, and the pause switch is always allowed.",
   "wire_file": "AGENTS.md",
+  "wire_lang": "markdown",
   "wire_code": "## Marketing with Blowhorn\n\n- Read state with --json: blowhorn schedule list, blowhorn content list --pending\n- Edit queue rows with blowhorn content upsert and pass --expected-fingerprint\n- Preview publishing with --dry-run; never trigger without asking\n- Emergency stop: blowhorn schedule pause --all --reason \"<why>\"",
   "extra_file": "opencode.json",
+  "extra_lang": "json",
   "extra_code": "{\n  \"permission\": {\n    \"bash\": {\n      \"blowhorn schedule list*\": \"allow\",\n      \"blowhorn content list*\": \"allow\",\n      \"blowhorn schedule pause*\": \"allow\",\n      \"blowhorn post*\": \"ask\",\n      \"*\": \"ask\"\n    }\n  }\n}",
   "prompts": [
     "List every scheduled row that is due this week and the Mac that will claim it.",
@@ -18,6 +20,7 @@
     "Pause row 12 only, the rest of the schedule keeps going."
   ],
   "commands": "blowhorn schedule list --due-only --profile all --json\nblowhorn schedule why 7 --json\nblowhorn schedule pause --row 12 --reason \"copy under review\"\nblowhorn schedule resume --row 12",
+  "commands_lang": "bash",
   "uses": [
     {
       "t": "Model of your choice",

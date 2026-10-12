@@ -8,8 +8,10 @@
   "wire_title": "Bring the model, keep the commands",
   "wire_body": "Whether DeepSeek sits behind OpenCode, Claude Code with a compatible endpoint, or a harness of your own, the integration is the same: blowhorn on the PATH, a rules block, and JSON output the model can parse. Long-context reasoning is handy for turning a big changelog into a week of rows.",
   "wire_file": "AGENTS.md",
+  "wire_lang": "markdown",
   "wire_code": "## Blowhorn rules\n\n- Always add --json and parse it; never scrape human output\n- One content row per platform per message\n- Writes: blowhorn content upsert --row N --expected-fingerprint <fp>\n- Stop everything: blowhorn schedule pause --all --reason \"<why>\"",
   "extra_file": "",
+  "extra_lang": "",
   "extra_code": "",
   "prompts": [
     "Read CHANGELOG.md and plan a week of posts: one row per platform per day, unapproved, with Promote On times at 09:00.",
@@ -17,6 +19,7 @@
     "List every queue row in state invalid and say why."
   ],
   "commands": "blowhorn content list --json\nblowhorn analytics history --since 60d --json\nblowhorn schedule validate --json\nblowhorn schedule get 9 --json",
+  "commands_lang": "bash",
   "uses": [
     {
       "t": "Planning a campaign",

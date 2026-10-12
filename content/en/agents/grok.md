@@ -8,8 +8,10 @@
   "wire_title": "One instructions file, any Grok agent",
   "wire_body": "However you run Grok as a coding agent, it needs two things from you: blowhorn on the PATH and a short instructions file in the project. If your setup reads AGENTS.md, use that; otherwise paste the same block into its system or project instructions.",
   "wire_file": "AGENTS.md",
+  "wire_lang": "markdown",
   "wire_code": "## Blowhorn\n\nYou can run the blowhorn CLI. Prefer --json.\n- What is due: blowhorn schedule list --due-only --json\n- What is queued: blowhorn content list --pending --json\n- Amplify a live post: blowhorn post --platform <p> --amplify <url> --profile all --dry-run\nAsk me before any command without --dry-run that publishes.",
   "extra_file": "",
+  "extra_lang": "",
   "extra_code": "",
   "prompts": [
     "Our launch post is live on X. Dry-run a repost from every profile on this Mac.",
@@ -17,6 +19,7 @@
     "Write tomorrow's X row in my voice from this changelog and leave it unapproved."
   ],
   "commands": "blowhorn post --platform x --profile all --amplify \"https://x.com/<handle>/status/<id>\" --dry-run\nblowhorn find --platform x --query \"blowhorn\" --since 2026-10-12 --limit 25\nblowhorn content list --pending --json",
+  "commands_lang": "bash",
   "uses": [
     {
       "t": "The sound wave",

@@ -8,11 +8,14 @@
   "wire_title": "Built to be driven",
   "wire_body": "Reads take --json. Writes take --expected-fingerprint so an agent never stomps a newer edit. Anything that publishes takes --dry-run. And one switch stops every Mac at once, with a recorded reason every machine reports.",
   "wire_file": "terminal",
+  "wire_lang": "bash",
   "wire_code": "blowhorn schedule status --json\nblowhorn schedule pause --all --reason \"launch moved to Thursday\"\nblowhorn schedule resume --all",
   "extra_file": "",
+  "extra_lang": "",
   "extra_code": "",
   "prompts": [],
   "commands": "blowhorn post --check-queue\nblowhorn post --profile all --dry-run\nblowhorn schedule list --due-only --profile all\nblowhorn schedule trigger-now 7\nblowhorn schedule pause --row 7\nblowhorn analytics --platform x --profile all\nblowhorn report --dry-run",
+  "commands_lang": "bash",
   "uses": [
     {
       "t": "Scripts and cron",

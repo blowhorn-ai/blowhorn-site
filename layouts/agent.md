@@ -10,13 +10,13 @@
 
 `{{ .Params.wire_file }}`
 
-```
+```{{ .Params.wire_lang }}
 {{ .Params.wire_code }}
 ```
 {{ with .Params.extra_file }}
 `{{ . }}`
 
-```
+```{{ $.Params.extra_lang }}
 {{ $.Params.extra_code }}
 ```
 {{ end }}
@@ -28,7 +28,7 @@
 {{ end }}
 ## Commands
 
-```
+```{{ .Params.commands_lang | default "bash" }}
 {{ .Params.commands }}
 ```
 

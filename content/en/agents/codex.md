@@ -8,8 +8,10 @@
   "wire_title": "Rules in AGENTS.md, approvals in Codex",
   "wire_body": "Codex reads AGENTS.md from your repo. Blowhorn needs the network and your Chrome, so a sandboxed Codex session will ask before running it. That ask is a feature: approve reads, think twice before publishing.",
   "wire_file": "AGENTS.md",
+  "wire_lang": "markdown",
   "wire_code": "## Social posting\n\nTool: blowhorn (on PATH). JSON output: add --json.\n1. Read: blowhorn schedule list --json, blowhorn content list --pending --json\n2. Propose changes as a payload and show me\n3. Write with --expected-fingerprint so you never overwrite a newer edit\n4. Stop switch: blowhorn schedule pause --all --reason \"<why>\"",
   "extra_file": "",
+  "extra_lang": "",
   "extra_code": "",
   "prompts": [
     "Read the last 30 days of operations grouped by host and tell me which Mac is doing the work.",
@@ -17,6 +19,7 @@
     "Validate every schedule row and fix the ones that fail, one upsert per row."
   ],
   "commands": "blowhorn analytics operations --group-by host --since 30d --json\nblowhorn schedule upsert --payload '{\"Command\":\"report\",\"Profile\":\"all\",\"Run At\":\"2026-10-13 08:00:00\",\"Recurrence\":\"daily\"}' --json\nblowhorn schedule validate --json",
+  "commands_lang": "bash",
   "uses": [
     {
       "t": "Unattended checks",

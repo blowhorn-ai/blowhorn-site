@@ -8,8 +8,10 @@
   "wire_title": "Small agent, small setup",
   "wire_body": "Pi has no plugin to install for this. It reads AGENTS.md for project context and runs commands through bash, so the whole integration is a short block of instructions and a CLI that answers in JSON.",
   "wire_file": "AGENTS.md",
+  "wire_lang": "markdown",
   "wire_code": "## Blowhorn\n\nUse the blowhorn CLI for social posting. Always read before writing:\n  blowhorn content list --pending --json\nWrites carry the fingerprint you read:\n  blowhorn content upsert --row N --expected-fingerprint <fp> --payload '<json>' --json\nNever publish without a --dry-run first and my go-ahead.",
   "extra_file": "",
+  "extra_lang": "",
   "extra_code": "",
   "prompts": [
     "What does the content queue owe each profile right now?",
@@ -17,6 +19,7 @@
     "Show me schedule status for every Mac in one table."
   ],
   "commands": "blowhorn content list --pending --json\nblowhorn content get 18 --json\nblowhorn schedule status --json\nblowhorn post --check-queue --profile all",
+  "commands_lang": "bash",
   "uses": [
     {
       "t": "Low ceremony",
