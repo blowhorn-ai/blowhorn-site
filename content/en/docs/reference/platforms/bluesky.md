@@ -2,7 +2,7 @@
 title: "Bluesky"
 linkTitle: "Bluesky"
 description: "What Blowhorn can do on Bluesky, and how each action behaves there."
-weight: 6
+weight: 230
 ---
 
 # Bluesky
@@ -13,6 +13,12 @@ Blowhorn works on Bluesky through Bluesky's API, never the browser. It uses `BLU
 
 {{< supported-actions "bluesky" >}}
 
+Posts up to 300 characters per post; longer messages split into
+threads. Reposts for amplify rows. Follows with `blowhorn follow`,
+unfollows one account with `blowhorn unfollow`, searches posts with
+`blowhorn find`. Analytics appends a follower and following trend row
+per run.
+
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
@@ -22,5 +28,5 @@ Blowhorn works on Bluesky through Bluesky's API, never the browser. It uses `BLU
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
-- [Field Manual: Bluesky](/field-manual/bluesky/) - what the Bluesky feed rewards and what it penalizes.
-- [Platform action matrix](/field-manual/action-matrix/) - safe versus risky actions, per platform.
+- [Field Manual: Bluesky](https://blowhorn.ai/field-manual/bluesky/) - what the Bluesky feed rewards and what it penalizes.
+- [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/) - safe versus risky actions, per platform.

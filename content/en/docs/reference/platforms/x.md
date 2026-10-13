@@ -2,7 +2,7 @@
 title: "X (Twitter)"
 linkTitle: "X (Twitter)"
 description: "What Blowhorn can do on X (Twitter), and how each action behaves there."
-weight: 2
+weight: 226
 ---
 
 # X (Twitter)
@@ -13,6 +13,19 @@ Blowhorn works on X in your own signed-in Chrome, through the Blowhorn extension
 
 {{< supported-actions "x" >}}
 
+Posts from a row; a message past 274 characters goes out as a thread.
+Replies go through a post row that targets the conversation. Amplifies
+by retweet or quote. Follows accounts with `blowhorn follow`. Analytics
+appends a follower and following trend row per run.
+
+Follows: at most 400 per profile a day and 15 in any 15 minutes,
+counted from that profile's follow log on this Mac.
+
+## X (Twitter) replies
+
+Replying is a post row addressed at the conversation, not a separate
+command. There is no comment flow for X under `blowhorn comment`.
+
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
@@ -22,5 +35,5 @@ Blowhorn works on X in your own signed-in Chrome, through the Blowhorn extension
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
-- [Field Manual: X](/field-manual/x/) - what the X feed rewards and what it penalizes.
-- [Platform action matrix](/field-manual/action-matrix/) - safe versus risky actions, per platform.
+- [Field Manual: X](https://blowhorn.ai/field-manual/x/) - what the X feed rewards and what it penalizes.
+- [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/) - safe versus risky actions, per platform.

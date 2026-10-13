@@ -87,4 +87,4 @@ Each platform has its own page, listing its supported actions and how each one b
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
 - [Send a Slack message](/docs/how-to/publish/send-a-slack-message/) - Slack, worked.
-- [Platform action matrix](/field-manual/action-matrix/) - which actions are safe and which risk a penalty, per platform.
+- [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/) - which actions are safe and which risk a penalty, per platform.

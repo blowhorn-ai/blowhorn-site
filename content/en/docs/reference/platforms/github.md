@@ -2,7 +2,7 @@
 title: "GitHub"
 linkTitle: "GitHub"
 description: "What Blowhorn can do on GitHub, and how each action behaves there."
-weight: 7
+weight: 231
 ---
 
 # GitHub
@@ -13,6 +13,13 @@ Blowhorn works on GitHub through GitHub's API, never the browser, with the `GH_T
 
 {{< supported-actions "github" >}}
 
+Follows accounts with `blowhorn follow` and lists an audience with
+`blowhorn source --platform github --repo`. Under `post`, GitHub
+amplifies only: it adds all five uplifting reactions (+1, laugh,
+hooray, heart, rocket) to the issue or pull request the `--amplify`
+flag or the row's "Amplify" column names, from every selected profile
+under its own token. Re-running adds none of them twice.
+
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
@@ -22,4 +29,4 @@ Blowhorn works on GitHub through GitHub's API, never the browser, with the `GH_T
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
-- [Platform action matrix](/field-manual/action-matrix/) - safe versus risky actions, per platform.
+- [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/) - safe versus risky actions, per platform.

@@ -2,7 +2,7 @@
 title: "LinkedIn"
 linkTitle: "LinkedIn"
 description: "What Blowhorn can do on LinkedIn, and how each action behaves there."
-weight: 1
+weight: 225
 ---
 
 # LinkedIn
@@ -13,6 +13,16 @@ Blowhorn works on LinkedIn in your own signed-in Chrome, through the Blowhorn ex
 
 {{< supported-actions "linkedin" >}}
 
+Posts to the feed from a row; comments on a post when the row's "Comment on"
+holds its address; amplifies by reposting.
+
+## LinkedIn comments
+
+A row with "Comment on" set to a `linkedin.com` post address and a
+"Message Text" becomes a comment on that post instead of a new post.
+The same row is also picked up by `blowhorn comment`. A row whose
+"Comment on" names anything else stays a normal post.
+
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
@@ -22,5 +32,5 @@ Blowhorn works on LinkedIn in your own signed-in Chrome, through the Blowhorn ex
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
-- [Field Manual: LinkedIn](/field-manual/linkedin/) - what the LinkedIn feed rewards and what it penalizes.
-- [Platform action matrix](/field-manual/action-matrix/) - safe versus risky actions, per platform.
+- [Field Manual: LinkedIn](https://blowhorn.ai/field-manual/linkedin/) - what the LinkedIn feed rewards and what it penalizes.
+- [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/) - safe versus risky actions, per platform.

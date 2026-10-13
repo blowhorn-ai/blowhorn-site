@@ -2,7 +2,7 @@
 title: "Slack"
 linkTitle: "Slack"
 description: "What Blowhorn can do on Slack, and how each action behaves there."
-weight: 5
+weight: 229
 ---
 
 # Slack
@@ -12,6 +12,20 @@ Blowhorn works on Slack through Slack's API, never the browser, and sends as you
 ## Supported actions
 
 {{< supported-actions "slack" >}}
+
+Sends a message as you to a channel, a person, or a thread. One
+profile sends. `blowhorn post --platform slack --message` sends one
+ad-hoc message with no queue row.
+
+## Slack messages
+
+Send from a queue row or ad hoc. A row sends to its own target; `--message`
+with `--target` sends one message you type, with no row read or marked
+done, and `--target` redirects the run's queued Slack rows. The target
+is a `#channel`, `@user`, channel id, channel link, or message link for
+a thread reply; anything else is refused, never sent somewhere else.
+One profile sends per run, named with `--profile`; the profile from
+the defaults file does not count as named.
 
 ## Related
 
@@ -23,4 +37,4 @@ Blowhorn works on Slack through Slack's API, never the browser, and sends as you
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
-- [Platform action matrix](/field-manual/action-matrix/) - safe versus risky actions, per platform.
+- [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/) - safe versus risky actions, per platform.
