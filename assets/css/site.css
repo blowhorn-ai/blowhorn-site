@@ -2248,3 +2248,31 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
   .ai-status { color: #00D3A9; }
   .ai-soon { color: #FF8A73; }
 }
+
+/* Field Manual (layouts/field-manual.html): the platform action matrix and
+   the guide pages. Tokens only. */
+.fm-page { padding-top: var(--space-8); }
+.fm-hero > * + * { margin-top: var(--space-4); }
+.fm-section { margin-top: var(--space-12); }
+.fm-section .section-head + * { margin-top: var(--space-6); }
+.fm-prose { margin-top: var(--space-12); }
+.page .fm-matrix { min-width: 60rem; }
+.fm-via { display: block; margin-top: var(--space-1); font-weight: 400; }
+.fm-cell { vertical-align: top; }
+.page .fm-matrix td { vertical-align: top; }
+.fm-risk { display: inline-block; padding: 0 var(--space-2); border-radius: var(--radius-pill); font-weight: 600; font-size: 0.8125rem; line-height: 1.6; white-space: nowrap; }
+.fm-note { display: block; margin-top: var(--space-1); font-size: 0.8125rem; }
+.fm-safe .fm-risk { background: var(--teal-shade); color: var(--on-teal); }
+.fm-care .fm-risk { background: var(--yellow); color: var(--on-yellow); }
+.fm-risky .fm-risk { background: var(--coral); color: var(--near-black); }
+.fm-none .fm-risk { box-shadow: inset 0 0 0 1.5px var(--line-strong); color: var(--ink-muted); font-weight: 500; }
+.fm-legend { display: grid; gap: var(--space-2); margin-top: var(--space-4); }
+.fm-dot { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: var(--radius-pill); margin-right: var(--space-2); vertical-align: -1px; }
+.fm-dot.fm-safe { background: var(--teal-shade); }
+.fm-dot.fm-care { background: var(--yellow); }
+.fm-dot.fm-risky { background: var(--coral); }
+.fm-prose table { display: block; overflow-x: auto; }
+.fm-prose .hypothesis { font-weight: 600; }
+.fm-prose ol { list-style: decimal; padding-left: var(--space-6); }
+.fm-prose ol > li { list-style: decimal; }
+.fm-prose { overflow-wrap: break-word; }

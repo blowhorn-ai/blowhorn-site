@@ -1,0 +1,83 @@
+{{- /* The Field Manual: /field-manual/ (content/en/field-manual/). What feed
+  algorithms reward and penalize, per platform, with a source for every claim.
+  One layout for the hub, the platform pages and the action matrix: hero from
+  front matter, an optional matrix (front matter `matrix`), the Markdown body
+  in .prose, then the other manual pages as cards. Claims not taken from a
+  platform's own pages are labelled Hypothesis in the copy. */ -}}
+{{ define "main" }}
+    {{- $p := .Params }}
+    {{- $hub := site.GetPage "/field-manual" }}
+    <main id="main" class="page fm-page">
+      <div class="wrap">
+        <header class="page-head fm-hero">
+          <p class="label">{{ if .IsPage }}<a href="{{ $hub.RelPermalink }}">Field Manual</a> <span aria-hidden="true">/</span> {{ .LinkTitle }}{{ else }}Field Manual{{ end }}</p>
+          <h1 class="h1">{{ $p.heading | default .Title }}</h1>
+          {{- with $p.notice }}
+          <p class="notice" role="note">{{ . | $.RenderString }}</p>
+          {{- end }}
+          <p class="body-lg muted">{{ $p.lead | $.RenderString }}</p>
+          {{- with $p.checked }}<p class="caption muted">Sources checked {{ . }}.</p>{{ end }}
+        </header>
+
+        {{- with $p.matrix }}
+        {{- $acts := $p.actions }}
+        <section class="fm-section" aria-labelledby="fm-matrix-title">
+          <div class="section-head">
+            <h2 id="fm-matrix-title" class="h2">Every action, every platform</h2>
+            <p class="muted">What Blowhorn does on each platform, and how risky each action is by that platform's own rules. Scroll sideways on a phone.</p>
+          </div>
+          <div class="compare-scroll glass">
+            <table class="compare-table fm-matrix">
+              <thead>
+                <tr>
+                  <th scope="col" class="compare-feature-col">Platform</th>
+                  {{- range $acts }}<th scope="col">{{ .name }}</th>{{ end }}
+                </tr>
+              </thead>
+              <tbody>
+                {{- range . }}
+                {{- $row := . }}
+                <tr>
+                  <th scope="row" class="compare-feature">{{ if .page }}<a href="{{ (site.GetPage .page).RelPermalink }}">{{ .platform }}</a>{{ else }}{{ .platform }}{{ end }}<span class="caption muted fm-via">{{ .via }}</span></th>
+                  {{- range $acts }}
+                  {{- with index $row .key }}
+                  <td class="fm-cell fm-{{ .risk }}"><span class="fm-risk">{{ index (dict "safe" "Safe" "care" "Use care" "risky" "Risky" "none" "Not supported") .risk }}</span>{{ with .text }}<span class="fm-note">{{ . | $.RenderString }}</span>{{ end }}</td>
+                  {{- else }}
+                  <td class="fm-cell fm-none"><span class="fm-risk">Not supported</span></td>
+                  {{- end }}
+                  {{- end }}
+                </tr>
+                {{- end }}
+              </tbody>
+            </table>
+          </div>
+          <ul class="fm-legend caption muted">
+            <li><span class="fm-dot fm-safe" aria-hidden="true"></span>Safe: the platform allows it when a real person means it</li>
+            <li><span class="fm-dot fm-care" aria-hidden="true"></span>Use care: allowed, with limits or wording the platform spells out</li>
+            <li><span class="fm-dot fm-risky" aria-hidden="true"></span>Risky: the platform's rules name it, or something close to it, as a reason to limit reach or restrict an account</li>
+          </ul>
+        </section>
+        {{- end }}
+
+        <div class="prose fm-prose">
+          {{ .Content }}
+        </div>
+
+        {{- $pages := where $hub.Pages.ByWeight "Permalink" "ne" .Permalink }}
+        {{- with $pages }}
+        <section class="fm-section" aria-labelledby="fm-more-title">
+          <div class="section-head"><h2 id="fm-more-title" class="h2">{{ if $.IsPage }}More from the Field Manual{{ else }}The briefings{{ end }}</h2></div>
+          <ul class="grid grid-3">
+            {{- range . }}
+            <li class="card glass">
+              {{- with .Params.tag }}<p class="label">{{ . }}</p>{{ end }}
+              <h3 class="h3"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+              <p>{{ .Description }}</p>
+            </li>
+            {{- end }}
+          </ul>
+        </section>
+        {{- end }}
+      </div>
+    </main>
+{{ end }}
