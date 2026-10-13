@@ -38,7 +38,7 @@
                 <figcaption class="army-plinth">Major Blowhorn</figcaption>
               </figure>
               <div class="army-orders">
-                {{ partial "bubble.html" (dict "text" "Keyboard Warrior! Dry run first. Nobody fires live rounds on my range without a rehearsal." "class" "h3 army-yell" "id" "army-yell" "live" "off") }}
+                {{ partial "bubble.html" (dict "text" "Keyboard Warrior! Dry run first. Nobody fires live rounds on my range without a rehearsal." "class" "h3 army-yell" "variant" "command" "id" "army-yell" "live" "off") }}
               <div class="army-order" id="army-order-kw">
                 {{ partial "code-card.html" (dict "code" "blowhorn post --platform linkedin --dry-run\n" "title" "terminal" "lang" "bash" "prompt" true) }}
                 <p class="army-more"><a href="{{ (site.GetPage "/docs/reference/cli").RelPermalink }}">The CLI reference</a></p>

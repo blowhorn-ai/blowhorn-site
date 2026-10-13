@@ -12,7 +12,7 @@
             <p class="label">The mascot</p>
             <h1 class="display">{{ .Title }}</h1>
             <p class="body-lg muted">{{ .Params.lead }}</p>
-            {{ partial "bubble.html" (dict "text" "Ears up. Major is talking" "class" "h3") }}
+            {{ partial "bubble.html" (dict "text" "Ears up. Major is talking" "class" "h3" "variant" "paper") }}
           </div>
           <figure class="major-plate major-plate-tall">
             <img src="{{ printf "%smajor-oil-portrait.webp" $art | relURL }}" alt="An oil-painting-style portrait of Major Blowhorn, a teal rooster in a campaign hat with medals on his chest, in a gilt frame" width="1000" height="1232">

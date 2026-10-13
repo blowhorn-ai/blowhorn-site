@@ -65,3 +65,22 @@ Major Blowhorn must look the same in every scene. Image tools give no seed contr
 - Default pose: open beak, barking into the horn like a bullhorn; trumpet-playing only occasionally.
 - Oil-painting style: attach `army.jpg`, `signal.jpg` and `hero.jpg` from `marketing/brand/oil-style/` as reference images for every new scene. Canonical look: broad charcoal campaign hat with a gold band, heavy red jowls under the beak, gold epaulettes on both shoulders.
 - Lore art for /major/ lives in `static/assets/brand/mascot/lore/` as WebP with alt text.
+
+## Speech bubbles
+
+Every bubble uses `layouts/_partials/bubble.html`; styles are under "Speech bubble" in `assets/css/site.css`. The body and tail are one silhouette with one continuous outline. Never draw a tail as its own stroked shape. Tails: `left`, `right`, `top`, `bottom`, or `auto` (bottom on narrow screens, left from 720px). The live specimen is on /brand/#bubbles.
+
+| Variant | Use for | Fill | Outline | Text | Contrast |
+|---|---|---|---|---|---|
+| default (neutral) | quotes, lists of lines | surface | near-black, cream in dark | ink-wordmark | 9.3:1 light, 16.3:1 dark |
+| `paper` | Major speaking | cream | yellow-shade | charcoal | 8.6:1 |
+| `mint` | what a person says to an agent | mint | teal-deep | charcoal | 6.9:1 |
+| `command` | Major's orders, calls to action | teal-deep | none | white | 5.6:1 |
+
+Paper, mint and command keep their colours in dark mode so a voice looks the same in both themes; neutral follows the theme. All pass WCAG AA for body text.
+
+- Do pick the variant by who is talking, and use the same variant for the same voice on every page.
+- Do keep command to one per section.
+- Don't mix variants within one list, put links or buttons inside a bubble, or use teal (#00B39F) as a fill under white text (2.6:1).
+- The storybook variant is only for the /home-alt/ preview.
+

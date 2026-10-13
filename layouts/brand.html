@@ -68,6 +68,7 @@
           <a href="#color">Color</a>
           <a href="#type">Type</a>
           <a href="#major">Major Blowhorn</a>
+          <a href="#bubbles">Speech bubbles</a>
           <a href="#usage">Usage</a>
         </nav>
 
@@ -221,7 +222,7 @@
               <img src="{{ printf "%smajor-blowhorn-attention.svg" $mascot | relURL }}" alt="Major Blowhorn, a teal rooster in a drill sergeant's campaign hat, standing at attention" width="460" height="480">
             </figure>
             <div class="major-copy">
-              {{ partial "bubble.html" (dict "text" "Stretch my logo and we'll have words. Several." "class" "h3") }}
+              {{ partial "bubble.html" (dict "text" "Stretch my logo and we'll have words. Several." "class" "h3" "variant" "paper") }}
               <p class="label">Major Blowhorn</p>
               <ul class="brand-rules">
                 <li>Put him on white, light teal or cream. On bare teal he needs a cream or yellow disc behind him; on near black, his cream keyline.</li>
@@ -242,6 +243,27 @@
               </div>
             </li>
             {{- end }}
+          </ul>
+        </section>
+
+        <section id="bubbles" class="brand-section" aria-labelledby="bubbles-title">
+          <div class="section-head">
+            <h2 id="bubbles-title" class="h2">Speech bubbles</h2>
+            <p class="muted">One bubble shape, four colour variants. The body and tail share one unbroken outline. Pick the variant by who is talking, not by what looks nice next to it.</p>
+          </div>
+          <ul class="bubble-specimens">
+            <li>{{ partial "bubble.html" (dict "text" "Neutral: a quote or aside." "tail" "bottom") }}<p class="ui">Neutral (default)</p><p class="caption muted">surface fill, near-black outline (cream in dark), ink-wordmark text. 9.3:1 light, 16.3:1 dark.</p></li>
+            <li>{{ partial "bubble.html" (dict "text" "Paper: Major speaking." "tail" "bottom" "variant" "paper") }}<p class="ui">Paper</p><p class="caption muted">cream fill, yellow-shade outline, charcoal text. 8.6:1.</p></li>
+            <li>{{ partial "bubble.html" (dict "text" "Mint: what you say." "tail" "bottom" "variant" "mint") }}<p class="ui">Mint</p><p class="caption muted">mint fill, teal-deep outline, charcoal text. 6.9:1.</p></li>
+            <li>{{ partial "bubble.html" (dict "text" "Command: an order." "tail" "bottom" "variant" "command") }}<p class="ui">Command</p><p class="caption muted">teal-deep fill, no outline, white text. 5.6:1.</p></li>
+          </ul>
+          <ul class="brand-rules">
+            <li>Paper is Major's own voice: his intros and asides.</li>
+            <li>Command is Major giving an order or a call to action. At most one per section.</li>
+            <li>Mint is what a person says to their agent, such as the Try saying prompts.</li>
+            <li>Neutral is for quotes and lists of lines, where colour would get noisy.</li>
+            <li>Paper, mint and command keep their colours in dark mode; neutral follows the theme.</li>
+            <li>Don't put links or buttons in a bubble, don't mix variants in one list, and don't draw a tail as a separate shape: use the bubble partial.</li>
           </ul>
         </section>
 
