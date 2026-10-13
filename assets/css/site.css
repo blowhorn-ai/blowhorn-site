@@ -180,6 +180,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* Viewport fallback for fragment targets that are not sections (docs
+     headings, skip links). Home section anchors use scroll-margin below. */
   scroll-padding-top: calc(var(--header-h) + var(--stroke-hairline));
 }
 
@@ -1893,6 +1895,17 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .brand-section,
 .agent-page .agent-section,
 .page .agent-section { padding-block: var(--section-y); margin-top: 0; }
+
+/* In-page section anchors (#platforms, #how, #trust, #download, ...): html
+   scroll-padding-top already clears the sticky header (--header-h is 116px below
+   720px, 72px from 720px up). Pull back by the section's own block padding so
+   the label lands just under the bar after --section-y grew. */
+section[id],
+.section[id],
+.compare-section[id],
+.brand-section[id] {
+  scroll-margin-top: calc(0px - var(--section-y));
+}
 .agent-section + .agent-section,
 .compare-section + .compare-section,
 .brand-section + .brand-section,
