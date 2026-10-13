@@ -1,6 +1,6 @@
 ---
 title: "Platforms"
-description: "What Blowhorn does on each platform: actions, browser or API, sign-in, and limits."
+description: "What Blowhorn does on each platform: supported actions, browser or API, sign-in, and limits."
 weight: 212
 no_list: true
 anchor_redirects:
@@ -43,7 +43,7 @@ moment its credential exists; see [Who can post as whom](/docs/explanation/eligi
 and `bsky` as `bluesky`. GitHub is amplify-only under `post`: it needs
 an issue or pull-request URL and refuses without one.
 
-Each platform has its own page:
+Each platform has its own page, listing its supported actions and how each one behaves there:
 
 <div class="grid grid-2 platform-cards">
   <a class="card docs-card platform-card" href="/docs/reference/platforms/linkedin/">
@@ -75,38 +75,6 @@ Each platform has its own page:
     <span>API, never the browser</span>
   </a>
 </div>
-
-## Captured versus unverified, by platform
-
-
-Blowhorn works on each platform by reading signals off it: a selector,
-a button's wording, the page a submit lands on, the shape of an API
-answer. Each table below says how much evidence stands behind each of
-those readings, so you know how far to trust a line in your run's
-output. There are three kinds, strongest first:
-
-- **Captured** - a saved page, a dump, or quoted markup from the real
-  service stands behind it, on a known date.
-- **Probed** - someone watched the real service do it on a known date
-  and kept nothing of the page.
-- **Unverified** - never observed against the real service; written
-  from a model of the site or from its documentation.
-
-Unverified is a statement about Blowhorn's evidence, not a claim that a
-platform is broken or that your post will fail. What it changes is
-what your run tells you: where a success rests on an unverified
-reading, the run says what it did or read - `Clicked Like; nothing was
-read to confirm LinkedIn accepted it.` - rather than stating the
-outcome as a fact. Where nothing could be read after a click, the row
-is recorded as *clicked, outcome not read*: it is not counted, not
-repeated, and waits for you to check it.
-
-Only one landing after a submit has been captured on any platform: a
-Hacker News reply, on 2026-09-18. A run that worked and a green test
-suite never upgrade a reading; only a dated capture of the page a
-submit lands on does.
-
-Each platform page carries its own table.
 
 ## Related
 

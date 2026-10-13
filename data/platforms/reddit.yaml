@@ -1,0 +1,18 @@
+# Supported actions on Reddit. See linkedin.yaml for the shared rules.
+key: reddit
+name: Reddit
+weight: 3
+docs: /docs/reference/platforms/reddit/
+reach: Your own signed-in Chrome, through the Blowhorn extension
+signin: Sign in to Reddit in your Chrome profile once, by hand.
+actions:
+  - name: Post
+    command: blowhorn post --platform reddit
+    behavior: Publishes your post to the subreddit you name, as r/<name>.
+    limits: A post with no subreddit is skipped, never guessed.
+  - name: Comment
+    command: blowhorn comment --platform reddit
+    behavior: Comments on the Reddit post or comment you point it at.
+  - name: Amplify
+    command: blowhorn post --platform reddit --amplify <post>
+    behavior: Upvotes a post from each of your profiles.

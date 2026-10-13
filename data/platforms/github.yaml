@@ -1,0 +1,19 @@
+# Supported actions on GitHub. See linkedin.yaml for the shared rules.
+key: github
+name: GitHub
+weight: 7
+docs: /docs/reference/platforms/github/
+reach: GitHub's API, never the browser
+signin: Uses the GitHub token saved in your account.
+actions:
+  - name: React
+    command: blowhorn post --platform github --amplify <issue or pull request>
+    behavior: Adds the five upbeat reactions (+1, laugh, hooray, heart, rocket) to an issue or pull request from each of your profiles. Running it again adds none of them twice.
+    limits: GitHub doesn't publish posts; it needs an issue or pull request link.
+  - name: Follow
+    command: blowhorn follow --platform github
+    behavior: Follows the accounts you list.
+  - name: Find
+    command: blowhorn source --platform github --repo <owner/repo>
+    behavior: Lists the people around a repository, so you can choose whom to reach.
+    limits: Lists only; it doesn't follow or react.

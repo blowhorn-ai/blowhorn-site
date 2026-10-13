@@ -17,10 +17,6 @@
             <p class="label"><a href="{{ (site.GetPage "/compare").RelPermalink }}">Compare</a> &middot; {{ $p.group }}</p>
             <h1 id="versus-title" class="display">{{ .Title }}</h1>
             <p class="body-lg versus-verdict">{{ $p.verdict }}</p>
-            <p class="actions">
-              <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a>
-              <a class="button button-secondary" href="{{ $p.site_url }}" rel="noopener">Visit {{ $p.competitor }}</a>
-            </p>
           </div>
           <div class="agent-hero-art" aria-hidden="true">
             <span class="agent-mark agent-mark-xl">{{ $p.mark }}</span>

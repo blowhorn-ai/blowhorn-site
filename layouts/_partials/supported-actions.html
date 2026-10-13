@@ -1,0 +1,13 @@
+{{- /* Supported actions for one platform, from data/platforms/<key>.yaml.
+  The platform docs page (shortcode supported-actions) and the agent pages
+  both render through this partial, so the two can't drift apart.
+  Usage: partial "supported-actions.html" (dict "key" "linkedin") */ -}}
+{{- $d := index hugo.Data.platforms .key -}}
+{{- if not $d }}{{ errorf "supported-actions: no data/platforms/%s.yaml" .key }}{{ end -}}
+<dl class="supported-actions">
+{{- range $d.actions }}
+<dt>{{ .name }}</dt>
+<dd><p>{{ .behavior }}</p>{{ with .limits }}<p class="muted"><strong>Limits:</strong> {{ . }}</p>{{ end }}</dd>
+{{- end }}
+</dl>
+{{- /**/ -}}

@@ -11,10 +11,6 @@
             <p class="label"><a href="{{ (site.GetPage "/agents").RelPermalink }}">Agentic AI Marketing</a></p>
             <h1 id="agent-title" class="display">{{ .Title }}</h1>
             <p class="body-lg muted">{{ $p.lead }}</p>
-            <p class="actions">
-              <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a>
-              <a class="button button-secondary" href="{{ (site.GetPage "/docs").RelPermalink }}">Read the docs</a>
-            </p>
           </div>
           <div class="agent-hero-art" aria-hidden="true">
             {{ partial "agents/mark.html" (dict "page" . "size" "xl") }}
@@ -94,10 +90,30 @@
           </div>
         </section>
 
+        {{- /* Supported actions per platform: the same data/platforms/*.yaml the
+          platform docs pages render, so the two always agree. */}}
+        {{- $platformsDocs := site.GetPage "/docs/reference/platforms" }}
+        <section class="agent-section agent-platforms" aria-labelledby="platforms-title">
+          <div class="section-head">
+            <h2 id="platforms-title" class="h2">What {{ $p.tool }} can do on each platform</h2>
+            <p class="muted">Every action below is a blowhorn command {{ $p.tool }} can run for you. Each platform's <a href="{{ with $platformsDocs }}{{ .RelPermalink }}{{ end }}">docs page</a> has the details.</p>
+          </div>
+          <div class="agent-platform-list">
+          {{- range sort hugo.Data.platforms "weight" }}
+            <article class="card glass agent-platform">
+              <h3 class="h3"><a href="{{ .docs | relURL }}">{{ .name }}</a></h3>
+              <p class="muted">{{ .reach }}.</p>
+              {{ partial "supported-actions.html" (dict "key" .key) -}}
+              <p><a href="{{ .docs | relURL }}">{{ .name }} docs</a></p>
+            </article>
+          {{- end }}
+          </div>
+        </section>
+
         <section class="agent-section agent-cta glass" aria-labelledby="cta-title">
           <h2 id="cta-title" class="h2">One message out, many ears in</h2>
-          <p class="muted">Get Blowhorn for Mac, then let {{ $p.tool }} do the talking.</p>
-          <p class="actions"><a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a></p>
+          <p class="muted">Want the details before {{ $p.tool }} does the talking? The docs cover setup, every command, and each platform.</p>
+          <p class="actions"><a class="button button-secondary" href="{{ (site.GetPage "/docs").RelPermalink }}">Read the docs</a> <a class="button button-secondary" href="{{ with $platformsDocs }}{{ .RelPermalink }}{{ end }}">See every platform</a></p>
         </section>
 
         <section class="agent-section" aria-labelledby="more-title">

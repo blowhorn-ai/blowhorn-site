@@ -1,0 +1,30 @@
+# Supported actions on Bluesky. See linkedin.yaml for the shared rules.
+key: bluesky
+name: Bluesky
+weight: 6
+docs: /docs/reference/platforms/bluesky/
+reach: Bluesky's API, never the browser
+signin: Uses your Bluesky handle and an app password, not your main password.
+actions:
+  - name: Post
+    command: blowhorn post --platform bluesky
+    behavior: Publishes your message. A message longer than 300 characters goes out as a thread.
+  - name: Reply
+    command: blowhorn comment --platform bluesky
+    behavior: Replies to the Bluesky post you point it at.
+  - name: Amplify
+    command: blowhorn post --platform bluesky --amplify <post>
+    behavior: Reposts a post from each of your profiles.
+  - name: Follow
+    command: blowhorn follow --platform bluesky
+    behavior: Follows the accounts you list.
+  - name: Unfollow
+    command: blowhorn unfollow --platform bluesky
+    behavior: Unfollows one account.
+  - name: Find
+    command: blowhorn find --platform bluesky
+    behavior: Searches Bluesky posts for the words you give it.
+  - name: Analytics
+    command: blowhorn analytics --platform bluesky
+    behavior: Records your follower and following counts on each run, so you can watch the trend.
+    limits: Read-only.

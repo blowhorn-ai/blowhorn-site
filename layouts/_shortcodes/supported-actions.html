@@ -1,0 +1,3 @@
+{{- /* {{< supported-actions "linkedin" >}}: the platform's supported actions,
+  from data/platforms/<key>.yaml (shared with the agent pages). */ -}}
+{{ partial "supported-actions.html" (dict "key" (.Get 0)) }}
