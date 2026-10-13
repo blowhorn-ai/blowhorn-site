@@ -2229,3 +2229,22 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
 @media (prefers-reduced-motion: reduce) {
   .billing-switch label { transition: none; }
 }
+
+/* ---------- AI native (/ai/) ---------- */
+.ai-hero { display: grid; gap: var(--space-6); align-items: center; }
+@media (min-width: 860px) { .ai-hero { grid-template-columns: minmax(0, 1fr) auto; } }
+.ai-persona { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); margin: 0; }
+.ai-persona .ai-robo { width: clamp(120px, 22vw, 200px); height: auto; }
+.ai-persona figcaption { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.ai-status { display: inline-block; padding: .2rem .7rem; border-radius: 999px; font-size: .8rem; font-weight: 700; letter-spacing: .02em; background: rgba(0, 211, 169, .16); color: #00756A; }
+.ai-soon { background: rgba(238, 90, 68, .14); color: #B23A26; }
+.ai-code-grid { display: grid; gap: var(--space-4); }
+@media (min-width: 860px) { .ai-code-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+.ai-note { margin-top: var(--space-3); }
+.ai-ways { list-style: none; padding: 0; }
+.ai-ways .card > * + * { margin-top: var(--space-2); }
+.ai-ways h3 a { color: inherit; }
+@media (prefers-color-scheme: dark) {
+  .ai-status { color: #00D3A9; }
+  .ai-soon { color: #FF8A73; }
+}

@@ -1,0 +1,83 @@
+{{- /* The AI native section: /ai/ (content/en/ai/_index.md) and its pages
+  /ai/blowhorn-axi/ and /ai/mcp/. One layout, driven by front matter: hero
+  with the Robo-Recruit persona, optional terminal cards, card grids, the
+  ways-in list (index only) and a Major Blowhorn line. */ -}}
+{{ define "main" }}
+    {{- $p := .Params }}
+    <main id="main" class="page agent-page ai-page">
+      <div class="wrap">
+        <header class="agent-hero ai-hero glass">
+          <div class="agent-hero-copy">
+            <p class="label">{{ if .IsPage }}<a href="{{ .Parent.RelPermalink }}">{{ $p.label }}</a>{{ else }}{{ $p.label }}{{ end }}</p>
+            {{- with $p.status }}<p class="ai-status{{ if $p.soon }} ai-soon{{ end }}">{{ . }}</p>{{ end }}
+            <h1 id="ai-title" class="display">{{ $p.lead }}</h1>
+            <p class="body-lg muted">{{ $p.intro | default .Description }}</p>
+            <p class="actions">
+              {{- if $p.soon }}<a class="button button-primary button-pop" href="{{ "ai/blowhorn-axi/" | relURL }}">Use blowhorn-axi today</a>
+              {{- else }}<a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a>{{ end }}
+              <a class="button" href="{{ (site.GetPage "/agents").RelPermalink }}">Agentic AI marketing</a>
+            </p>
+          </div>
+          <figure class="ai-persona">
+            {{ partial "robo-recruit.html" . }}
+            <figcaption><span class="army-name">Robo-Recruit</span><span class="caption muted">your AI agent</span></figcaption>
+          </figure>
+        </header>
+
+        {{- with $p.code }}
+        <section class="agent-section ai-code" aria-labelledby="ai-try-title">
+          <div class="section-head"><h2 id="ai-try-title" class="h2">Try it</h2></div>
+          <div class="ai-code-grid">
+            {{- range . }}
+            {{ partial "code-card.html" (dict "code" .code "title" .title "lang" (.lang | default "bash") "prompt" .prompt "copy" (ne .copy false)) }}
+            {{- end }}
+          </div>
+          {{- with $p.code_note }}<p class="caption muted ai-note">{{ . }}</p>{{ end }}
+        </section>
+        {{- end }}
+
+        {{- with $p.ways }}
+        <section class="agent-section" aria-labelledby="ai-ways-title">
+          <div class="section-head"><h2 id="ai-ways-title" class="h2">{{ $p.ways_title }}</h2></div>
+          <ul class="grid grid-2 ai-ways">
+            {{- range . }}
+            <li class="card glass">
+              <p class="ai-status{{ if .soon }} ai-soon{{ end }}">{{ .status }}</p>
+              <h3 class="h3"><a href="{{ (site.GetPage .path).RelPermalink }}">{{ .t }}</a></h3>
+              <p>{{ .b }}</p>
+            </li>
+            {{- end }}
+          </ul>
+        </section>
+        {{- end }}
+
+        {{- with $p.cards }}
+        <section class="agent-section" aria-labelledby="ai-cards-title">
+          <div class="section-head"><h2 id="ai-cards-title" class="h2">{{ $p.cards_title }}</h2></div>
+          <div class="grid {{ if eq (len .) 4 }}grid-2 ai-grid-4{{ else }}grid-3{{ end }}">
+            {{- range . }}
+            <div class="card glass"><h3 class="h3">{{ .t }}</h3><p>{{ .b }}</p></div>
+            {{- end }}
+          </div>
+        </section>
+        {{- end }}
+
+        {{- with $p.rules }}
+        <section class="agent-section" aria-labelledby="ai-rules-title">
+          <div class="section-head"><h2 id="ai-rules-title" class="h2">{{ $p.rules_title }}</h2></div>
+          <div class="grid grid-3">
+            {{- range . }}
+            <div class="card glass"><h3 class="h3">{{ .t }}</h3><p>{{ .b }}</p></div>
+            {{- end }}
+          </div>
+        </section>
+        {{- end }}
+
+        {{- with $p.major }}{{ partial "major-says.html" (dict "line" .) }}{{ end }}
+
+        {{- if .IsPage }}
+        <p class="compare-cta"><a class="button" href="{{ .Parent.RelPermalink }}">How Blowhorn is AI native</a></p>
+        {{- end }}
+      </div>
+    </main>
+{{- end }}
