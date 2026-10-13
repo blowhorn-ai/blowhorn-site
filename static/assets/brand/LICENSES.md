@@ -56,3 +56,8 @@ each owner's brand guidelines, and are not licensed for any other use.
 
 - Fraunces (`static/assets/alt-style/Fraunces-Variable.woff2`): Copyright 2018 The Fraunces Project Authors, SIL Open Font License 1.1 (`static/assets/alt-style/OFL-Fraunces.txt`).
 - The illustrations in `static/assets/alt-style/` are original Blowhorn artwork.
+
+## Alternate oil-painting style (/home-oil/)
+
+- The paintings in `static/assets/oil-style/` are original Blowhorn artwork. Sources and the prompts log live in leecalcote/blowhorn `marketing/brand/oil-style/`.
+- The page reuses Fraunces from `static/assets/alt-style/` (SIL Open Font License 1.1).

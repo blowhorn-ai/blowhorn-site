@@ -33,6 +33,9 @@ PAGES = {
     "home-alt/index.html": [
         "main", "hero-title", "platforms", "sound-wave", "how", "trust", "control", "download", "download-title",
     ],
+    "home-oil/index.html": [
+        "main", "hero-title", "platforms", "sound-wave", "how", "signal", "trust", "control", "download", "download-title",
+    ],
     "legal/index.html": [
         "main", "glance", "policies",
     ],
