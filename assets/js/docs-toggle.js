@@ -25,4 +25,21 @@
       button.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   });
+
+  // Collapsible sections in the sidebar tree (layouts/_partials/sidebar-tree.html):
+  // each chevron button shows or hides the list it controls.
+  ready(function () {
+    var folds = document.querySelectorAll('.td-sidebar-fold');
+    Array.prototype.forEach.call(folds, function (fold) {
+      fold.addEventListener('click', function () {
+        var list = document.getElementById(fold.getAttribute('aria-controls'));
+        if (!list) {
+          return;
+        }
+        var open = fold.getAttribute('aria-expanded') !== 'true';
+        fold.setAttribute('aria-expanded', open ? 'true' : 'false');
+        list.hidden = !open;
+      });
+    });
+  });
 })();

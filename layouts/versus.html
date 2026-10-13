@@ -16,7 +16,7 @@
           <div class="agent-hero-copy">
             <p class="label"><a href="{{ (site.GetPage "/compare").RelPermalink }}">Compare</a> &middot; {{ $p.group }}</p>
             <h1 id="versus-title" class="display">{{ .Title }}</h1>
-            <p class="body-lg muted">{{ $p.verdict }}</p>
+            <p class="body-lg versus-verdict">{{ $p.verdict }}</p>
             <p class="actions">
               <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">Download for Mac</a>
               <a class="button button-secondary" href="{{ $p.site_url }}" rel="noopener">Visit {{ $p.competitor }}</a>
@@ -34,15 +34,15 @@
             <h2 id="fit-title" class="h2">Which one fits you</h2>
             <p class="muted">If {{ $p.competitor }} is the better fit, go use it. We mean that.</p>
           </div>
-          <div class="grid grid-2 versus-fit">
-            <div class="card glass">
+          <div class="versus-split versus-fit">
+            <div class="versus-col">
               <h3 class="h3">Choose {{ $p.competitor }} if</h3>
-              <ul>{{ range $p.them }}<li>{{ . }}</li>{{ end }}</ul>
+              <ul class="versus-list">{{ range $p.them }}<li>{{ . }}</li>{{ end }}</ul>
               <p class="ui"><a href="{{ $p.site_url }}" rel="noopener">Go to {{ $p.competitor }}</a></p>
             </div>
-            <div class="card glass versus-us">
+            <div class="versus-col versus-us">
               <h3 class="h3">Choose Blowhorn if</h3>
-              <ul>{{ range $p.us }}<li>{{ . }}</li>{{ end }}</ul>
+              <ul class="versus-list">{{ range $p.us }}<li>{{ . }}</li>{{ end }}</ul>
               <p class="ui"><a href="{{ "download/" | relURL }}">Get Blowhorn</a></p>
             </div>
           </div>
@@ -50,14 +50,14 @@
 
         {{- if $p.wins }}
         <section class="agent-section" aria-labelledby="wins-title">
-          <div class="grid grid-2 versus-fit">
-            <div class="card glass versus-us">
+          <div class="versus-ledger glass">
+            <div class="versus-ledger-col versus-ledger-win">
               <h2 id="wins-title" class="h3">Where Blowhorn wins</h2>
-              <ul>{{ range $p.wins }}<li>{{ . }}</li>{{ end }}</ul>
+              <ul class="versus-marks">{{ range $p.wins }}<li><span class="versus-mark" aria-hidden="true"></span>{{ . }}</li>{{ end }}</ul>
             </div>
-            <div class="card glass">
+            <div class="versus-ledger-col versus-ledger-gap">
               <h2 class="h3">Where Blowhorn doesn't win</h2>
-              <ul>{{ range $p.loses }}<li>{{ . }}</li>{{ end }}</ul>
+              <ul class="versus-marks">{{ range $p.loses }}<li><span class="versus-mark" aria-hidden="true"></span>{{ . }}</li>{{ end }}</ul>
             </div>
           </div>
         </section>
@@ -68,7 +68,7 @@
             <h2 id="table-title" class="h2">Side by side</h2>
             <p class="muted">{{ $p.competitor }} pricing as of Oct 2026: {{ $p.price_them }} (<a href="{{ $p.price_src }}" rel="noopener">source</a>). Blowhorn: free plan available, see <a href="{{ "pricing/" | relURL }}">pricing</a>.</p>
           </div>
-          <div class="compare-scroll glass">
+          <div class="compare-scroll versus-table-wrap">
             <table class="compare-table versus-table">
               <thead>
                 <tr>
@@ -86,7 +86,7 @@
           </div>
         </section>
 
-        <section class="agent-section versus-belief glass" aria-labelledby="belief-title">
+        <section class="agent-section versus-belief" aria-labelledby="belief-title">
           <h2 id="belief-title" class="h2">Strong signal, not bought numbers</h2>
           <p>{{ site.Params.versus_belief }}</p>
           <p>{{ $p.signal }}</p>
@@ -98,7 +98,7 @@
           <div class="section-head">
             <h2 id="faq-title" class="h2">Questions</h2>
           </div>
-          <div class="agent-faq">
+          <div class="agent-faq versus-faq">
             {{- range $p.faq }}
             <details class="glass"><summary class="ui">{{ .q }}</summary><p>{{ .a }}</p></details>
             {{- end }}

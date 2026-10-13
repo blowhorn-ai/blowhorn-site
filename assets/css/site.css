@@ -79,6 +79,7 @@
   --ink-muted: #5B6A70;
   --ink-wordmark: #3C494F;
   --link: var(--teal-deep);
+  --link-hover: var(--near-black);
   --line: #D5DEDD;
   --focus-ring: var(--teal-deep);
   --shadow-pop: 4px 4px 0 0 #1E2117;
@@ -145,6 +146,7 @@
     --ink-muted: #A3AEB2;
     --ink-wordmark: #FFFFFF;
     --link: var(--teal-bright);
+    --link-hover: var(--mint);
     --line: #3C494F;
     --focus-ring: var(--teal-bright);
     --shadow-pop: 4px 4px 0 0 #00D3A9;
@@ -200,13 +202,17 @@ ul, ol { padding: 0; list-style: none; }
 img, svg { display: block; max-width: 100%; height: auto; }
 picture { display: block; }
 
-a {
-  color: var(--link);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
-}
-a:hover { text-decoration-thickness: 2px; }
+/* Links never underline, anywhere on the site, docs included (Lee). One
+  rule for every state; components only change color, never decoration. */
+a,
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:focus-visible,
+a:active { text-decoration: none; }
+a { color: var(--link); }
+a:where(:hover, :focus-visible) { color: var(--link-hover); }
 
 :focus-visible {
   outline: 2px solid var(--focus-ring);
@@ -410,7 +416,7 @@ pre code { background: none; padding: 0; }
   white-space: nowrap;
   padding: var(--space-2) 0;
 }
-.site-nav a:hover { color: var(--link); text-decoration: underline; }
+.site-nav a:hover { color: var(--link); }
 .site-cta { padding-block: var(--space-2); min-height: 40px; }
 @media (max-width: 719px) {
   /* Two rows: the lockup with a compact Download button on its right, then the
@@ -760,7 +766,7 @@ pre code { background: none; padding: 0; }
   color: var(--ink);
   text-decoration: none;
 }
-.footer-col a:hover { color: var(--link); text-decoration: underline; }
+.footer-col a:hover { color: var(--link); }
 .footer-bottom {
   margin-top: var(--space-6);
   padding-inline: var(--space-2);
@@ -847,7 +853,7 @@ pre code { background: none; padding: 0; }
 /* Trust Center (/legal/) */
 .page .section-body > .h2 + .grid { margin-top: var(--space-6); }
 .policy-card .h3 a { color: var(--ink); text-decoration: none; }
-.policy-card .h3 a:hover { color: var(--link); text-decoration: underline; }
+.policy-card .h3 a:hover { color: var(--link); }
 .policy-status {
   display: inline-block;
   background: var(--surface-tint);
@@ -1853,15 +1859,108 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
    Built on the Agentic AI Marketing glass components. */
 .versus-page .agent-mark-xl { font-size: 1.6rem; }
 .versus-page .agent-hero-plus { font-size: 1.25rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
-.versus-fit .card > * + * { margin-top: var(--space-3); }
-.versus-fit ul { display: grid; gap: var(--space-2); padding-left: var(--space-5, 1.25rem); color: var(--ink-muted); }
-.versus-fit li { list-style: disc; }
-.versus-fit .versus-us { box-shadow: var(--glass-shadow-lift); }
+/* Four presentation patterns, one per kind of information, so the page reads as
+   a sequence instead of a stack of identical cards (tokens: --teal, --teal-deep,
+   --teal-bright, --surface-tint, --line, --line-strong, --ink-muted, --radius-lg,
+   --space-*; see leecalcote/blowhorn marketing/brand/tokens.json).
+   1. Split: two open columns under a rule; Blowhorn's rule is teal. No card.
+   2. Ledger: one glass panel, check marks for wins, open circles with a dash for gaps.
+   3. Table: an open data table with a ruled header; Blowhorn's column tinted.
+   4. Prose: narrative with a teal side rule, no surface at all.
+   The verdict is the one highlighted callout. */
+.versus-verdict {
+  max-width: 40rem;
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--teal);
+  background: color-mix(in srgb, var(--surface-tint) 80%, transparent);
+  color: var(--ink);
+}
+
+.versus-split { display: grid; gap: var(--grid-gap, var(--space-8)); }
+@media (min-width: 720px) { .versus-split { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.versus-col { padding-top: var(--space-4); border-top: 2px solid var(--line-strong); }
+.versus-col.versus-us { border-top-color: var(--teal); }
+.versus-col > * + * { margin-top: var(--space-3); }
+.versus-list { display: grid; gap: var(--space-2); padding-left: var(--space-6); color: var(--ink-muted); }
+.versus-list li { list-style: disc; }
+.versus-list li::marker { color: var(--line-strong); }
+.versus-us .versus-list li::marker { color: var(--teal); }
+
+.versus-ledger {
+  display: grid;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+@media (min-width: 720px) { .versus-ledger { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.versus-ledger-col { padding: var(--card-pad, var(--space-6)); }
+.versus-ledger-col > * + * { margin-top: var(--space-4); }
+.versus-ledger-gap { border-top: var(--stroke-hairline) solid var(--line); }
+@media (min-width: 720px) {
+  .versus-ledger-gap { border-top: 0; border-left: var(--stroke-hairline) solid var(--line); }
+}
+.versus-ledger-win { background: color-mix(in srgb, var(--surface-tint) 55%, transparent); }
+.versus-marks { display: grid; gap: var(--space-3); padding: 0; list-style: none; }
+.versus-marks li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: var(--space-3); align-items: start; color: var(--ink); }
+.versus-ledger-gap .versus-marks li { color: var(--ink-muted); }
+.versus-mark {
+  width: 20px; height: 20px; margin-top: 1px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+}
+.versus-mark::before {
+  content: "";
+  width: 12px; height: 12px;
+  background: currentColor;
+  -webkit-mask: var(--versus-glyph) center / contain no-repeat;
+  mask: var(--versus-glyph) center / contain no-repeat;
+}
+.versus-ledger-win .versus-mark {
+  background: var(--teal);
+  color: var(--on-teal);
+  --versus-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.4 2.4 4.6-5' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.versus-ledger-gap .versus-mark {
+  box-shadow: inset 0 0 0 1.5px var(--line-strong);
+  color: var(--ink-muted);
+  --versus-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6h6' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
 .page .versus-table { min-width: 40rem; }
 .versus-table thead th:nth-child(2) { width: 34%; }
-.versus-belief { padding: clamp(24px, 4vw, 48px); border-radius: var(--radius-lg); }
+.versus-table-wrap { padding: 0; border-radius: 0; }
+.page .versus-table thead th {
+  padding-block: var(--space-3);
+  border-bottom: 2px solid var(--ink-wordmark);
+  font-family: var(--font-sans);
+  font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.page .versus-table thead .compare-us { color: var(--ink); border-bottom-color: var(--teal); }
+.page .versus-table th, .page .versus-table td { padding: var(--space-4); }
+.page .versus-table tbody tr:hover > * { background: color-mix(in srgb, var(--surface-tint) 35%, transparent); }
+.page .versus-table tbody tr:hover > .compare-us { background: var(--surface-tint); }
+
+.versus-belief {
+  padding-left: var(--space-6);
+  border-left: 3px solid var(--teal);
+}
+/* The rule hugs the text, so the section trades its padding for margin. */
+.page .agent-section.versus-belief { padding-block: 0; margin-block: var(--section-y); background-image: none; }
 .versus-belief > * + * { margin-top: var(--space-4); }
-.versus-belief p { max-width: 48rem; }
+.versus-belief p { max-width: var(--text-measure, 64ch); color: var(--ink-muted); }
+.versus-belief p:first-of-type { color: var(--ink); font-size: 18px; line-height: 28px; }
+
+.versus-faq { gap: 0; }
+.versus-faq details {
+  padding: var(--space-4) 0;
+  border-radius: 0;
+  background: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  box-shadow: none;
+  border-bottom: var(--stroke-hairline) solid var(--line);
+}
+.versus-faq details:first-child { border-top: var(--stroke-hairline) solid var(--line); }
 .versus-all { margin-top: var(--space-6); }
 
 /* ---------- Whitespace and rhythm (DESIGN.md, "Whitespace and rhythm") ----------
@@ -2321,3 +2420,31 @@ a.card-link:focus-visible, a.docs-card:focus-visible, a.platform:focus-visible, 
 .proof-card:hover, .proof-logo-card:hover { transform: none; box-shadow: var(--glass-shadow); }
 a.card-link > :first-child, a.docs-card > :first-child { padding-right: var(--space-8); }
 a.agent-tile { padding-right: var(--space-6); }
+
+/* Field Manual (layouts/field-manual.html): the platform action matrix and
+   the guide pages. Tokens only. */
+.fm-page { padding-top: var(--space-8); }
+.fm-hero > * + * { margin-top: var(--space-4); }
+.fm-section { margin-top: var(--space-12); }
+.fm-section .section-head + * { margin-top: var(--space-6); }
+.fm-prose { margin-top: var(--space-12); }
+.page .fm-matrix { min-width: 60rem; }
+.fm-via { display: block; margin-top: var(--space-1); font-weight: 400; }
+.fm-cell { vertical-align: top; }
+.page .fm-matrix td { vertical-align: top; }
+.fm-risk { display: inline-block; padding: 0 var(--space-2); border-radius: var(--radius-pill); font-weight: 600; font-size: 0.8125rem; line-height: 1.6; white-space: nowrap; }
+.fm-note { display: block; margin-top: var(--space-1); font-size: 0.8125rem; }
+.fm-safe .fm-risk { background: var(--teal-shade); color: var(--on-teal); }
+.fm-care .fm-risk { background: var(--yellow); color: var(--on-yellow); }
+.fm-risky .fm-risk { background: var(--coral); color: var(--near-black); }
+.fm-none .fm-risk { box-shadow: inset 0 0 0 1.5px var(--line-strong); color: var(--ink-muted); font-weight: 500; }
+.fm-legend { display: grid; gap: var(--space-2); margin-top: var(--space-4); }
+.fm-dot { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: var(--radius-pill); margin-right: var(--space-2); vertical-align: -1px; }
+.fm-dot.fm-safe { background: var(--teal-shade); }
+.fm-dot.fm-care { background: var(--yellow); }
+.fm-dot.fm-risky { background: var(--coral); }
+.fm-prose table { display: block; overflow-x: auto; }
+.fm-prose .hypothesis { font-weight: 600; }
+.fm-prose ol { list-style: decimal; padding-left: var(--space-6); }
+.fm-prose ol > li { list-style: decimal; }
+.fm-prose { overflow-wrap: break-word; }
