@@ -51,3 +51,8 @@ LinkedIn, X, Reddit, Hacker News, Slack, Bluesky and GitHub are trademarks of
 their respective owners. Blowhorn is not affiliated with or endorsed by any of
 them. The logos are used only to name the platforms Blowhorn works with, under
 each owner's brand guidelines, and are not licensed for any other use.
+
+## Alternate storybook style (/home-alt/)
+
+- Fraunces (`static/assets/alt-style/Fraunces-Variable.woff2`): Copyright 2018 The Fraunces Project Authors, SIL Open Font License 1.1 (`static/assets/alt-style/OFL-Fraunces.txt`).
+- The illustrations in `static/assets/alt-style/` are original Blowhorn artwork.
