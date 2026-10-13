@@ -1,25 +1,26 @@
 # Supported actions on LinkedIn. One source for the docs page
 # (/docs/reference/platforms/linkedin/) and the agent pages. Keep the action
 # order of every platform file: Post, Comment or reply, Amplify, React,
-# Follow, Unfollow, Find, Analytics. Checked against leecalcote/blowhorn
-# blowhorn/cli.py SUPPORTED_PLATFORMS_BY_COMMAND.
+# Follow, Unfollow, Accept, Withdraw, Find, Analytics. Checked against
+# leecalcote/blowhorn blowhorn/cli.py SUPPORTED_PLATFORMS_BY_COMMAND.
 key: linkedin
 name: LinkedIn
 weight: 1
 docs: /docs/reference/platforms/linkedin/
 reach: Your own signed-in Chrome, through the Blowhorn extension
-signin: Sign in to LinkedIn in your Chrome profile once, by hand.
 actions:
   - name: Post
-    command: blowhorn post --platform linkedin
     behavior: Publishes your message to your LinkedIn feed, to a group, or to a Page you manage, with an image or link preview when you add one.
   - name: Comment
-    command: blowhorn comment --platform linkedin
     behavior: Comments on the LinkedIn post you point it at. Anything that isn't a LinkedIn post address stays a normal post.
   - name: Amplify
-    command: blowhorn post --platform linkedin --amplify <post>
     behavior: Reposts a post from each of your profiles. A post you already reposted is never reposted twice.
+  - name: Accept
+    behavior: Accepts the invitations people sent you, one at a time. An invitation LinkedIn flags with its "Take care when connecting" warning is skipped, never accepted.
+    limits: At most 20 confirmed acceptances a run, unless you set --limit.
+  - name: Withdraw
+    behavior: Withdraws invitations you sent that have waited 21 days or more, to free room for new ones. Shows a preview until you add --apply.
+    limits: At most 20 confirmed withdrawals a run, unless you set --limit. LinkedIn blocks re-inviting a withdrawn person for up to three weeks.
   - name: Analytics
-    command: blowhorn analytics --platform linkedin
     behavior: Reads your Page's analytics for a date range and saves them, so you can watch the trend.
     limits: Read-only.

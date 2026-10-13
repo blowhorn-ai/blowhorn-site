@@ -37,6 +37,15 @@
 - **{{ .t }}**: {{ .b }}
 {{- end }}
 
+## What {{ cond (eq .File.ContentBaseName "cli") "the CLI" .Params.tool }} can do on each platform
+{{ range sort hugo.Data.platforms "weight" }}
+### {{ .name }}
+
+{{ .reach }}. [{{ .name }} docs]({{ .docs | absURL }})
+{{ range .actions }}
+- **{{ .name }}**: {{ .behavior }}{{ with .limits }} Limits: {{ . }}{{ end }}
+{{- end }}
+{{ end }}
 ## Frequently Asked Questions {#questions}
 {{ range .Params.faq }}
 **{{ .q }}** {{ .a }}

@@ -93,10 +93,11 @@
         {{- /* Supported actions per platform: the same data/platforms/*.yaml the
           platform docs pages render, so the two always agree. */}}
         {{- $platformsDocs := site.GetPage "/docs/reference/platforms" }}
+        {{- $who := cond (eq .File.ContentBaseName "cli") "the CLI" $p.tool }}
         <section class="agent-section agent-platforms" aria-labelledby="platforms-title">
           <div class="section-head">
-            <h2 id="platforms-title" class="h2">What {{ $p.tool }} can do on each platform</h2>
-            <p class="muted">Every action below is a blowhorn command {{ $p.tool }} can run for you. Each platform's <a href="{{ with $platformsDocs }}{{ .RelPermalink }}{{ end }}">docs page</a> has the details.</p>
+            <h2 id="platforms-title" class="h2">What {{ $who }} can do on each platform</h2>
+            <p class="muted">Every action below is a blowhorn command {{ $who }} can run for you. Each platform's <a href="{{ with $platformsDocs }}{{ .RelPermalink }}{{ end }}">docs page</a> has the details.</p>
           </div>
           <div class="agent-platform-list">
           {{- range sort hugo.Data.platforms "weight" }}
@@ -112,7 +113,7 @@
 
         <section class="agent-section agent-cta glass" aria-labelledby="cta-title">
           <h2 id="cta-title" class="h2">One message out, many ears in</h2>
-          <p class="muted">Want the details before {{ $p.tool }} does the talking? The docs cover setup, every command, and each platform.</p>
+          <p class="muted">Want the details before {{ $who }} does the talking? The docs cover setup, every command, and each platform.</p>
           <p class="actions"><a class="button button-secondary" href="{{ (site.GetPage "/docs").RelPermalink }}">Read the docs</a> <a class="button button-secondary" href="{{ with $platformsDocs }}{{ .RelPermalink }}{{ end }}">See every platform</a></p>
         </section>
 

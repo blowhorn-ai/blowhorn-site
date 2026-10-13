@@ -4,12 +4,9 @@ name: Slack
 weight: 5
 docs: /docs/reference/platforms/slack/
 reach: Slack's API, never the browser
-signin: Uses your own Slack token, or your Slack session linked through the Blowhorn extension, so messages go out as you.
 actions:
   - name: Post
-    command: blowhorn slack send
     behavior: Sends a message as you to a channel or to a person, as #channel, @user, a channel ID, or a channel link. Shows a preview until you confirm.
     limits: One profile sends per run. A target Blowhorn can't read is refused, never sent somewhere else.
   - name: Reply
-    command: blowhorn slack send
     behavior: Replies in a thread when you give it the link to the message.

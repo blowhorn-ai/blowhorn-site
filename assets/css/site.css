@@ -2591,8 +2591,8 @@ a.agent-tile { padding-right: var(--space-6); }
 /* Platform index cards: a resting arrow shows each card opens its own page. */
 .platform-cards { margin-top: var(--space-4); }
 /* They use the shared card cue (teal edge, round arrow chip), centred on the
-   right. Hover is subtle: the edge and chip brighten in place, with no lift and
-   no shift, so the arrow stays aligned with the other cards. */
+   right. Hover is subtle: only the edge brightens; the chip stays as it is at
+   rest, with no lift and no shift, so the arrow stays aligned with the other cards. */
 a.docs-card.platform-card { padding-right: calc(var(--space-8) + var(--space-4)); }
 a.docs-card.platform-card::after { top: 50%; right: var(--space-4); transform: translateY(-50%); }
 a.docs-card.platform-card:hover, a.docs-card.platform-card:focus-visible { transform: none; }
@@ -2613,5 +2613,5 @@ a.docs-card.platform-card:hover::after, a.docs-card.platform-card:focus-visible:
 .supported-actions dd { margin: var(--space-1) 0 0; }
 .supported-actions dd > p { margin: 0; }
 .supported-actions dd > p + p { margin-top: var(--space-1); }
-.agent-platform-list { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); margin-top: var(--space-6); }
+.agent-platform-list { display: grid; gap: var(--grid-gap); grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
 .agent-platform > * + * { margin-top: var(--space-3); }
