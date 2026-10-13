@@ -1,89 +1,147 @@
-// Blowhorn's army (home #how): pick a recruit, Major Blowhorn yells at it and
-// its panel shows what it does. Tabs follow the ARIA tabs pattern (arrows,
-// Home, End). The rotation runs only while the section is in view, stops for
-// good on first interaction and never runs under reduced motion. The bubble
-// is announced only after the visitor has chosen something.
+// Blowhorn's army (home #how), chain of command. Pick who gives the order;
+// Major Blowhorn yells at them, then hands the order to exactly one Mac.
+// Enlist or discharge Macs (1 to 8). The rotation runs only while the section
+// is in view, stops for good on first interaction and never runs under
+// reduced motion; the bubble is announced only after the visitor acts.
 (function () {
   var root = document.querySelector('.army');
   if (!root) return;
-  var tabs = Array.prototype.slice.call(root.querySelectorAll('.army-rank'));
+  var board = root.querySelector('.army-board');
+  var wires = root.querySelector('.army-wires');
+  var srcs = Array.prototype.slice.call(root.querySelectorAll('.army-src'));
+  var major = root.querySelector('.army-major img');
   var yell = root.querySelector('.army-yell');
-  var plats = root.querySelectorAll('.army-plats img');
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var cur = 0, timer = null, visible = false, touched = false;
-  root.classList.add('is-ready');
-
-  function select(i, focus) {
-    var t = tabs[i];
-    tabs.forEach(function (x, j) {
-      var on = j === i;
-      x.setAttribute('aria-selected', on);
-      x.tabIndex = on ? 0 : -1;
-      document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
-    });
-    cur = i;
-    yell.textContent = t.dataset.line;
-    yell.classList.remove('is-shout');
-    void yell.offsetWidth;
-    yell.classList.add('is-shout');
-    plats.forEach(function (im, k) {
-      
-      im.classList.remove('is-hit'); void im.offsetWidth; im.classList.add('is-hit');
-    });
-    if (focus) t.focus();
-  }
-  function stop() {
-    touched = true;
-    clearInterval(timer); timer = null;
-    yell.setAttribute('aria-live', 'polite');
-  }
-  function run() {
-    if (reduce || touched || timer || !visible) return;
-    timer = setInterval(function () { select((cur + 1) % tabs.length); }, 6000);
-  }
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { stop(); select(i); });
-    t.addEventListener('keydown', function (e) {
-      var n = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
-      if (n === undefined) return;
-      e.preventDefault(); stop();
-      select((n + tabs.length) % tabs.length, true);
-    });
-  });
-  root.addEventListener('focusin', function () { clearInterval(timer); timer = null; });
-  root.addEventListener('pointerenter', function () { clearInterval(timer); timer = null; });
-  root.addEventListener('pointerleave', run);
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) {
-      visible = es[0].isIntersecting;
-      if (visible) run(); else { clearInterval(timer); timer = null; }
-    }, { threshold: 0.4 }).observe(root);
-  }
-
-  // Reserve Unit: enlist or discharge Macs (1 to 8). One Mac takes the job.
   var macs = root.querySelector('.army-macs');
   var note = root.querySelector('.army-fleet-note');
-  var count = 3, job = 0;
-  function drawMacs(added) {
-    var claim = job % count, html = '';
+  var plats = root.querySelectorAll('.army-plats img');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var halted = false;
+  var count = 3, job = 0, cur = 0, timer = null, visible = false, touched = false, run = 0;
+
+  function shout(line) {
+    yell.textContent = line;
+    yell.classList.remove('is-shout'); void yell.offsetWidth; yell.classList.add('is-shout');
+  }
+  function center(el) {
+    var b = board.getBoundingClientRect(), r = el.getBoundingClientRect();
+    return [r.left - b.left + r.width / 2, r.top - b.top + r.height / 2];
+  }
+  function curve(a, b) {
+    var my = (a[1] + b[1]) / 2;
+    return 'M' + a[0] + ',' + a[1] + ' C' + a[0] + ',' + my + ' ' + b[0] + ',' + my + ' ' + b[0] + ',' + b[1];
+  }
+  function wire() {
+    // innerHTML on an <svg> element parses its children as SVG.
+    var m = center(major), h = '';
+    srcs.forEach(function (s, i) { h += '<path id="army-w-s' + i + '" d="' + curve(center(s), m) + '"/>'; });
+    macs.querySelectorAll('.army-mac').forEach(function (x, i) { h += '<path id="army-w-m' + i + '" d="' + curve(m, center(x)) + '"/>'; });
+    wires.innerHTML = h + '<circle class="army-packet" r="8" cx="-99" cy="-99"/>';
+  }
+  function fly(id, ms, token) {
+    return new Promise(function (done) {
+      var p = document.getElementById(id), pk = wires.querySelector('.army-packet');
+      if (!p || !pk) return done();
+      p.classList.add('is-live');
+      if (reduce) return done();
+      var L = p.getTotalLength(), t0 = performance.now();
+      pk.classList.add('is-flying');
+      (function step(t) {
+        if (token !== run) return done();
+        var k = Math.min(1, (t - t0) / ms), pt = p.getPointAtLength(L * k);
+        pk.setAttribute('cx', pt.x); pk.setAttribute('cy', pt.y);
+        if (k < 1) requestAnimationFrame(step); else { pk.classList.remove('is-flying'); done(); }
+      })(t0);
+    });
+  }
+  function drawMacs(claim, added) {
+    if (halted) claim = -1;
+    var tpl = macs.querySelector('.army-mac svg').outerHTML, html = '';
     for (var m = 0; m < count; m++) {
-      html += '<li class="army-mac' + (m === claim ? ' is-on' : '') + (added && m === count - 1 ? ' is-new' : '') + '">' +
-        '<span class="army-mac-name">Mac ' + (m + 1) + '</span><span class="army-mac-tag">' + (m === claim ? 'on it' : 'standing by') + '</span></li>';
+      html += '<li class="army-mac' + (m === claim ? ' is-on' : '') + (added && m === count - 1 ? ' is-new' : '') + '">' + tpl +
+        '<span class="army-mac-name">Mac ' + (m + 1) + '</span><span class="army-mac-tag">' + (halted ? 'halted' : m === claim ? 'on it' : 'standing by') + '</span></li>';
     }
     macs.innerHTML = html;
+    wire();
   }
-  function say(line) { stop(); yell.textContent = line; }
+  function order(i) {
+    var token = ++run, s = srcs[i];
+    cur = i;
+    srcs.forEach(function (x, j) {
+      x.setAttribute('aria-pressed', j === i);
+      document.getElementById(x.getAttribute('aria-controls')).hidden = j !== i;
+    });
+    wires.querySelectorAll('path').forEach(function (p) { p.classList.remove('is-live'); });
+    drawMacs(-1);
+    shout(s.dataset.line);
+    fly('army-w-s' + i, 700, token).then(function () {
+      if (token !== run) return;
+      var k = job++ % count;
+      return new Promise(function (r) { setTimeout(r, reduce ? 0 : 900); }).then(function () {
+        if (token !== run) return;
+        shout('"' + s.dataset.order + '." Mac ' + (k + 1) + ', that one\'s yours. Everyone else, as you were.');
+        return fly('army-w-m' + k, 800, token).then(function () {
+          if (token !== run) return;
+          drawMacs(k);
+          document.getElementById('army-w-m' + k).classList.add('is-live');
+          plats.forEach(function (im) { im.classList.remove('is-hit'); void im.offsetWidth; im.classList.add('is-hit'); });
+        });
+      });
+    });
+  }
+  function stop() {
+    touched = true; clearInterval(timer); timer = null;
+    yell.setAttribute('aria-live', 'polite');
+  }
+  function auto() {
+    if (reduce || touched || halted || timer || !visible) return;
+    timer = setInterval(function () { order((cur + 1) % srcs.length); }, 6500);
+  }
+  function say(line) { stop(); run++; shout(line); }
+
+  srcs.forEach(function (s, i) {
+    s.addEventListener('click', function () {
+      stop();
+      if (halted) { shout("We're halted, Commander. Your orders wait until you say resume."); return; }
+      order(i);
+    });
+  });
   root.querySelector('[data-army="enlist"]').addEventListener('click', function () {
     if (count >= 8) { say("Eight Macs. That's a battalion, not a hobby. Carry on."); return; }
-    count++; job++; drawMacs(true);
-    say('Mac ' + count + ', welcome to the reserves. Mac ' + (job % count + 1) + ' takes this one. Everyone else, as you were.');
-    note.textContent = count + ' Macs enlisted. One job, one Mac.';
+    count++; drawMacs(-1, true);
+    say('Mac ' + count + ', welcome to the reserves. One order, one Mac per job. Coordinated so the same post isn\'t sent from two Macs.');
+    note.textContent = count + ' Macs enlisted. Each order goes to exactly one.';
   });
   root.querySelector('[data-army="discharge"]').addEventListener('click', function () {
     if (count <= 1) { say('One Mac is the minimum. I need someone to yell at.'); return; }
-    count--; drawMacs();
+    count--; drawMacs(-1);
     say('Mac ' + (count + 1) + ', honorably discharged. The queue carries on without you.');
-    note.textContent = count + (count === 1 ? ' Mac' : ' Macs') + ' enlisted. One job, one Mac.';
+    note.textContent = count + (count === 1 ? ' Mac' : ' Macs') + ' enlisted. Each order goes to exactly one.';
   });
-  drawMacs();
+  // Commander in Chief: halt freezes the whole army (schedule pause --all).
+  var haltBtn = root.querySelector('[data-army="halt"]');
+  haltBtn.addEventListener('click', function () {
+    stop(); run++;
+    halted = !halted;
+    board.classList.toggle('is-halted', halted);
+    haltBtn.setAttribute('aria-pressed', halted);
+    haltBtn.querySelector('.army-halt-text').textContent = halted ? 'Resume' : 'Halt';
+    root.querySelector('[data-army-cmd="halt"]').hidden = halted;
+    root.querySelector('[data-army-cmd="resume"]').hidden = !halted;
+    drawMacs(-1);
+    shout(halted
+      ? 'Commander says halt, the whole army halts. No questions. A post already in flight finishes first. Nothing else moves.'
+      : 'Commander says resume. Anything that fell due runs once, not once per missed slot. Carry on.');
+  });
+  root.addEventListener('focusin', function () { clearInterval(timer); timer = null; });
+  root.addEventListener('pointerenter', function () { clearInterval(timer); timer = null; });
+  root.addEventListener('pointerleave', auto);
+  if ('ResizeObserver' in window) new ResizeObserver(wire).observe(board); else window.addEventListener('resize', wire);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      visible = es[0].isIntersecting;
+      if (visible) auto(); else { clearInterval(timer); timer = null; }
+    }, { threshold: 0.35 }).observe(root);
+  }
+  root.classList.add('is-ready');
+  wire();
 })();

@@ -1984,128 +1984,122 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
   .major-plate:hover img { transform: rotate(-0.6deg) scale(1.01); }
 }
 
-/* ---------- Blowhorn's army (home #how, layouts/_partials/army.html) ---------- */
-.army-stage {
-  display: grid;
-  gap: var(--grid-gap);
-  padding: var(--card-pad);
-  align-items: center;
+/* ---------- Blowhorn's army (home #how, layouts/_partials/army.html) ----------
+   Chain of command: order givers on top, Major Blowhorn in the middle, the
+   fleet of Macs below. Wires are an SVG overlay drawn by assets/js/army.js. */
+.army-board { position: relative; display: grid; gap: var(--head-gap); padding: var(--card-pad); }
+.army-wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.army-wires path { fill: none; stroke: var(--line); stroke-width: 3; stroke-dasharray: 6 8; }
+.army-wires path.is-live { stroke: var(--teal); stroke-dasharray: none; }
+.army-packet { fill: var(--coral); stroke: var(--near-black); stroke-width: 2; }
+.army-sources, .army-macs, .army-plats, .army-legend { list-style: none; margin: 0; padding: 0; position: relative; }
+.army-sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+.army-src {
+  display: flex; gap: var(--space-2); align-items: center;
+  width: 100%; height: 100%;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface); color: inherit; font: inherit; text-align: left;
+  border: 2px solid var(--near-black); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-pop); cursor: pointer;
 }
-.army-podium { margin: 0; text-align: center; }
-.army-podium img { display: block; width: 100%; max-width: 160px; height: auto; margin: 0 auto; }
+.army-src svg { width: 44px; height: 44px; flex: none; }
+.army-src:hover { background: var(--surface-raised); }
+.army-src:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
+.army-src[aria-pressed="true"] { background: var(--surface-tint); }
+.army-src-text { display: grid; min-width: 0; }
+.army-name { font-family: var(--font-display); font-weight: 800; line-height: 1.15; }
+.army-sub { font-size: 0.8125rem; line-height: 1.3; color: var(--ink-muted); }
+.army-hq { position: relative; display: grid; gap: var(--grid-gap); align-items: center; }
+.army-major { margin: 0; text-align: center; }
+.army-major img { display: block; width: 100%; max-width: 120px; height: auto; margin: 0 auto; }
 .army-plinth {
-  display: inline-block;
-  margin-top: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  background: var(--khaki);
-  color: var(--near-black);
-  border: 2px solid var(--near-black);
-  border-radius: var(--radius-md, 10px) var(--radius-md, 10px) 0 0;
-  font: 700 0.75rem/1 var(--font-display, "Bricolage Grotesque"), sans-serif;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  display: inline-block; margin-top: var(--space-2); padding: var(--space-2) var(--space-4);
+  background: var(--khaki); color: var(--near-black);
+  border: 2px solid var(--near-black); border-radius: var(--radius-md) var(--radius-md) 0 0;
+  font: 700 0.75rem/1 var(--font-display); letter-spacing: 0.14em; text-transform: uppercase;
 }
-.army-orders { display: grid; gap: var(--stack-gap); min-width: 0; }
+.army-orders { display: grid; gap: var(--stack-gap); min-width: 0; background: var(--glass-fill-strong); border-radius: var(--radius-lg); }
 .army-yell { display: block; margin: 0 0 var(--space-4); min-height: 3.6em; }
 .army-yell.is-shout { animation: army-shout 0.35s ease-out; }
 @keyframes army-shout { 0% { transform: scale(0.95) rotate(-1deg); } 60% { transform: scale(1.02); } 100% { transform: none; } }
-.army-panel { display: grid; gap: var(--stack-gap); min-width: 0; }
-.army-panel[hidden] { display: none; }
-.army-panel .term { margin: 0; }
-.army-who { margin: 0; }
-.army-who .army-name { font-family: var(--font-display, "Bricolage Grotesque"), sans-serif; font-weight: 800; }
-.army-who .army-sub { color: var(--ink-muted); }
-.army-out { margin: 0; font-weight: 600; color: var(--link); }
+.army-order { display: grid; gap: var(--stack-gap); min-width: 0; }
+.army-order[hidden] { display: none; }
+.army-order .term { margin: 0; }
 .army-more { margin: 0; }
 .army-prompt {
-  margin: 0 0 0 auto;
-  max-width: 85%;
-  padding: var(--space-3) var(--space-4);
-  border-radius: 18px 18px 4px 18px;
-  background: var(--teal);
-  color: var(--on-teal);
-  font-weight: 600;
+  margin: 0 0 0 auto; max-width: 85%; padding: var(--space-3) var(--space-4);
+  border-radius: 18px 18px 4px 18px; background: var(--teal); color: var(--on-teal); font-weight: 600;
 }
-.army-menubar, .army-browser {
-  max-width: 22rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-}
-.army-mb-top, .army-tabs { display: flex; gap: 6px; align-items: center; min-height: 26px; padding: 6px 10px; background: var(--surface-raised); font-size: 0.75rem; }
+.army-menubar { max-width: 22rem; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.army-mb-top { display: block; min-height: 22px; background: var(--surface-raised); }
 .army-menubar ul { list-style: none; margin: 0; padding: 6px; }
 .army-menubar li { display: flex; justify-content: space-between; padding: 6px 10px; border-radius: 8px; }
 .army-menubar li.is-next { background: var(--surface-tint); }
-.army-tabs i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
-.army-tabs span { margin-left: var(--space-2); padding: 2px 10px; border-radius: 6px; background: var(--surface); }
-.army-page { display: grid; gap: 8px; padding: var(--space-4); justify-items: start; }
-.army-line { display: block; width: 80%; height: 9px; border-radius: 5px; background: var(--line); }
-.army-line.is-short { width: 55%; }
-.army-click { padding: 4px 14px; border-radius: 999px; background: #0A66C2; color: #fff; font-weight: 600; }
-.army-macs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: var(--space-3); }
-.army-mac { display: grid; gap: 2px; padding: var(--space-3) var(--space-2); text-align: center; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; font-weight: 600; transition: transform 0.3s, background 0.3s; }
+.army-macs { display: grid; grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); gap: var(--space-3); }
+.army-mac {
+  display: grid; justify-items: center; gap: 2px; padding: var(--space-3) var(--space-2);
+  background: var(--surface); border: 2px solid var(--near-black); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-pop); font-weight: 600; transition: transform 0.3s, background 0.3s;
+}
+.army-mac svg { width: 40px; height: 40px; }
 .army-mac-tag { font-size: 0.8125rem; font-weight: 400; color: var(--ink-muted); }
-.army-mac.is-on { border-color: var(--teal); background: var(--surface-tint); transform: translateY(-4px); }
-.army-mac.is-on .army-mac-tag { color: var(--link); }
+.army-mac.is-on { background: var(--surface-tint); transform: translateY(-4px); }
+.army-mac.is-on .army-mac-tag { color: var(--link); font-weight: 600; }
 .army-mac.is-new { animation: army-enlist 0.45s ease-out; }
 @keyframes army-enlist { from { transform: scale(0.5); opacity: 0; } }
-.army-fleet-ctl { display: flex; flex-wrap: wrap; gap: var(--space-3); }
-.army-wave { display: flex; gap: var(--space-2); align-items: center; height: 48px; }
-.army-wave span { width: 22px; height: 22px; border-radius: 50%; background: var(--teal); border: 2px solid var(--near-black); animation: army-ripple 1.4s ease-in-out infinite; }
-.army-wave span:nth-child(2) { animation-delay: .12s; } .army-wave span:nth-child(3) { animation-delay: .24s; } .army-wave span:nth-child(4) { animation-delay: .36s; } .army-wave span:nth-child(5) { animation-delay: .48s; } .army-wave span:nth-child(6) { animation-delay: .6s; } .army-wave span:nth-child(7) { animation-delay: .72s; }
-@keyframes army-ripple { 0%, 100% { transform: scale(0.7); } 50% { transform: scale(1.15); } }
-.army-plats { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.army-fleet-ctl { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); }
+.army-fleet-note { position: relative; margin: calc(var(--head-gap) * -0.5) 0 0; text-align: center; color: var(--ink-muted); }
+.army-plats { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
 .army-plats img { display: block; width: 32px; height: 32px; padding: 5px; object-fit: contain; background: #fff; border-radius: 8px; box-shadow: var(--shadow-soft); }
 .army-plats img.is-hit { animation: army-hop 0.45s ease-out both; }
+.army-plats li:nth-child(2) img { animation-delay: 70ms; } .army-plats li:nth-child(3) img { animation-delay: 140ms; } .army-plats li:nth-child(4) img { animation-delay: 210ms; } .army-plats li:nth-child(5) img { animation-delay: 280ms; } .army-plats li:nth-child(6) img { animation-delay: 350ms; } .army-plats li:nth-child(7) img { animation-delay: 420ms; }
 @keyframes army-hop { 50% { transform: translateY(-6px) scale(1.1); } }
-.army-ranks {
-  list-style: none;
-  margin: var(--head-gap) 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
-}
-.army-rank {
-  display: grid;
-  justify-items: center;
-  gap: 2px;
-  width: 100%;
-  height: 100%;
-  padding: var(--space-3) var(--space-2);
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  text-align: center;
-  border: 2px solid transparent;
-  border-radius: var(--radius-lg, 16px);
-  cursor: pointer;
-}
-.army-rank:hover { background: var(--glass-fill-strong); }
-.army-rank:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
-.army-rank[aria-selected="true"] { background: var(--surface); border-color: var(--near-black); box-shadow: var(--shadow-pop); }
-.army-rank svg { width: 60px; height: 60px; margin-bottom: var(--space-2); }
-.army-rank[aria-selected="true"] svg { animation: army-salute 0.6s ease-in-out; }
-@keyframes army-salute { 40%, 60% { transform: rotate(-8deg); } }
-.army-rank .army-name { font-family: var(--font-display, "Bricolage Grotesque"), sans-serif; font-weight: 800; line-height: 1.15; }
-.army-rank .army-sub { font-size: 0.8125rem; line-height: 1.3; color: var(--ink-muted); }
+.army-legend { display: grid; gap: var(--space-4); margin-top: var(--head-gap); }
+.army-legend li { display: flex; gap: var(--space-3); align-items: center; }
+.army-legend svg { width: 40px; height: 40px; flex: none; }
 .army-blink { animation: army-blink 1s steps(2) infinite; }
 @keyframes army-blink { 50% { opacity: 0.2; } }
 @media (prefers-color-scheme: dark) {
-  .army-rank[aria-selected="true"], .army-plinth { border-color: var(--cream); }
-  .army-wave span { border-color: var(--cream); }
+  .army-src, .army-mac, .army-plinth { border-color: var(--cream); }
+  .army-packet { stroke: var(--cream); }
 }
-@media (min-width: 600px) {
-  .army-ranks { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (min-width: 720px) {
+  .army-sources { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .army-legend { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (min-width: 900px) {
-  .army-stage { grid-template-columns: minmax(200px, 280px) minmax(0, 1fr); gap: var(--space-8); }
-  .army-podium img { max-width: 260px; }
-  .army-ranks { grid-template-columns: repeat(7, minmax(0, 1fr)); }
-  .army-rank svg { width: 72px; height: 72px; }
+  .army-hq { grid-template-columns: minmax(160px, 220px) minmax(0, 36rem); justify-content: center; gap: var(--space-8); padding-block: var(--space-6); }
+  .army-major img { max-width: 200px; }
+  .army-macs { grid-template-columns: repeat(auto-fit, minmax(110px, 140px)); justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
   .army *, .army *::before, .army *::after { animation: none !important; transition: none !important; }
 }
-.army-plats li:nth-child(2) img { animation-delay: 70ms; } .army-plats li:nth-child(3) img { animation-delay: 140ms; } .army-plats li:nth-child(4) img { animation-delay: 210ms; } .army-plats li:nth-child(5) img { animation-delay: 280ms; } .army-plats li:nth-child(6) img { animation-delay: 350ms; } .army-plats li:nth-child(7) img { animation-delay: 420ms; }
+.army-wires { z-index: 0; }
+.army-packet { opacity: 0; }
+.army-packet.is-flying { opacity: 1; }
+.army-sources, .army-hq, .army-macs { z-index: 1; }
+.army-orders { padding: var(--space-4); background: var(--glass-fill-solid); }
+.army-cic { position: relative; z-index: 1; display: grid; gap: var(--stack-gap); padding: var(--space-4); background: var(--glass-fill-solid); border: 2px solid var(--near-black); border-radius: var(--radius-lg); box-shadow: var(--shadow-pop); }
+.army-cic-who { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.army-cic-who > span:nth-child(2) { flex: 1 1 12rem; }
+.army-cic-star { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--yellow); color: var(--near-black); border: 2px solid var(--near-black); font-size: 1.4rem; }
+.army-halt {
+  min-width: 8rem; min-height: 48px; padding: var(--space-2) var(--space-6);
+  background: var(--coral); color: #fff; font: 800 1.125rem/1 var(--font-display); letter-spacing: 0.06em; text-transform: uppercase;
+  border: 2px solid var(--near-black); border-radius: 999px; box-shadow: var(--shadow-pop); cursor: pointer;
+}
+.army-halt:hover { background: var(--coral-shade); }
+.army-halt:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
+.army-halt[aria-pressed="true"] { background: var(--teal); color: var(--near-black); }
+.army-cic-cmd[hidden] { display: none; }
+.army-cic-cmd .term { margin: 0; }
+.army-cic-note { margin: 0; font-size: 0.875rem; color: var(--ink-muted); }
+.army-halt-text { pointer-events: none; }
+.army-board.is-halted .army-src svg, .army-board.is-halted .army-mac svg { filter: grayscale(1); opacity: 0.55; }
+.army-board.is-halted .army-src, .army-board.is-halted .army-mac { color: var(--ink-muted); }
+.army-board.is-halted .army-wires path { stroke: var(--coral); }
+.army-board.is-halted .army-mac-tag { color: var(--coral-shade); font-weight: 600; }
+@media (prefers-color-scheme: dark) { .army-cic, .army-cic-star, .army-halt { border-color: var(--cream); } }
+.army .army-board, .army .army-cic { grid-template-columns: minmax(0, 1fr); } .army-cic, .army-cic-cmd { min-width: 0; }
+@media (max-width: 419px) { .army-sources { grid-template-columns: minmax(0, 1fr); } }
