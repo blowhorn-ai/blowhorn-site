@@ -1947,3 +1947,39 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
 .code-copy-inline svg { fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .code-copy-inline:hover { color: var(--ink); border-color: var(--line); background: var(--surface-raised); }
 .code-copy-inline.is-copied { color: var(--link); }
+
+/* Major Blowhorn page (/major/). Spacing reads the rhythm tokens above. */
+.major-hero { display: grid; gap: var(--grid-gap); align-items: center; padding-block: var(--section-y) calc(var(--section-y) / 2); }
+.major-hero-copy .speech { margin-top: var(--head-gap); display: inline-block; }
+.major-split { display: grid; gap: calc(var(--grid-gap) * 2); align-items: start; }
+.major-story { max-width: var(--text-measure); }
+.major-story h2 { margin-bottom: var(--head-gap); }
+.major-story p + p { margin-top: var(--stack-gap); }
+.major-plate { margin: 0; }
+.major-plate img { display: block; width: 100%; height: auto; border-radius: 14px; box-shadow: 0 24px 48px -24px rgb(30 33 23 / 45%); }
+.major-plate figcaption { margin-top: var(--intro-gap); }
+.major-plate-tall { max-width: 26rem; justify-self: center; }
+.major-split .major-plate { margin-top: var(--head-gap); }
+.major-dossier { display: grid; gap: var(--stack-gap); margin: 0; padding: var(--card-pad); }
+.major-dossier dd { margin: var(--eyebrow-gap) 0 0; }
+.major-routine { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--eyebrow-gap); }
+.major-routine .ui { display: inline-block; min-width: 4rem; color: var(--teal-deep, #00756a); font-variant-numeric: tabular-nums; }
+.major-rules .card p { margin-top: var(--stack-gap); }
+.major-rules .label { display: block; margin-bottom: 4px; }
+.major-phrases { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--grid-gap); }
+.major-log { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--grid-gap); }
+.major-log .h3 { margin: var(--eyebrow-gap) 0 var(--intro-gap); }
+.major-follow { margin-top: calc(var(--grid-gap) * 2); padding: var(--card-pad); }
+.major-follow p { margin: var(--intro-gap) 0 var(--stack-gap); }
+.major-meet { margin-top: var(--stack-gap); }
+@media (min-width: 900px) {
+  .major-hero { grid-template-columns: 1.2fr 1fr; }
+  .major-split { grid-template-columns: 1fr 1fr; align-items: center; }
+  .major-split .major-plate { margin-top: 0; }
+  .major-split-reverse > :first-child { order: 2; }
+  .major-dossier { grid-template-columns: 1fr 1fr; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .major-plate img { transition: transform 0.4s ease; }
+  .major-plate:hover img { transform: rotate(-0.6deg) scale(1.01); }
+}

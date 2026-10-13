@@ -1,0 +1,157 @@
+{{- /* Major Blowhorn's page at /major/ (content/en/major/_index.md). The story
+  sections are written here; the dossier, routine, speech rules, rivals and
+  dispatches come from front matter so new installments are one list entry.
+  Canonical lore: marketing/brand/major-blowhorn/ in leecalcote/blowhorn.
+  The feed is /major/feed.xml (the "dispatches" output format). */ -}}
+{{ define "main" }}
+    {{- $art := "assets/brand/mascot/lore/" -}}
+    <main id="main" class="page major-page">
+      <div class="wrap">
+        <header class="major-hero">
+          <div class="major-hero-copy">
+            <p class="label">The mascot</p>
+            <h1 class="display">{{ .Title }}</h1>
+            <p class="body-lg muted">{{ .Params.lead }}</p>
+            <p class="speech h3">Ears up. Major is talking</p>
+          </div>
+          <figure class="major-plate major-plate-tall">
+            <img src="{{ printf "%smajor-oil-portrait.webp" $art | relURL }}" alt="An oil-painting-style portrait of Major Blowhorn, a teal rooster in a campaign hat with medals on his chest, in a gilt frame" width="1000" height="1232">
+            <figcaption class="caption muted">Official portrait. He sat for eleven seconds</figcaption>
+          </figure>
+        </header>
+
+        <nav class="brand-index ui" aria-label="On this page">
+          <a href="#dossier">Dossier</a>
+          <a href="#blowhard">The Blowhard incident</a>
+          <a href="#thunderlung">Old Thunderlung</a>
+          <a href="#top-crow">Top crow</a>
+          <a href="#voice">How he talks</a>
+          <a href="#dispatches">Dispatches</a>
+        </nav>
+
+        <section id="dossier" class="brand-section" aria-labelledby="dossier-title">
+          <div class="section-head">
+            <h2 id="dossier-title" class="h2">Service record</h2>
+            <p class="muted">He blows hard about your problems, never at you. Everything else is on file.</p>
+          </div>
+          <div class="major-split">
+            <dl class="major-dossier card">
+              {{- range .Params.dossier }}
+              <div><dt class="label">{{ .k }}</dt><dd>{{ .v }}</dd></div>
+              {{- end }}
+            </dl>
+            <div>
+              <h3 class="h3 brand-subhead">A day in the life</h3>
+              <ol class="major-routine">
+                {{- range .Params.routine }}
+                <li><span class="ui">{{ .t }}</span> {{ .v }}</li>
+                {{- end }}
+              </ol>
+              <figure class="major-plate">
+                <img src="{{ printf "%smajor-pushup-breakfast.webp" $art | relURL }}" alt="Major Blowhorn at his field desk at dawn beside a big red bowl of dumbbells, his breakfast of push-ups" width="1400" height="903" loading="lazy">
+                <figcaption class="caption muted">Breakfast of champions. Champions are not invited</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section id="blowhard" class="brand-section" aria-labelledby="blowhard-title">
+          <div class="major-split major-split-reverse">
+            <figure class="major-plate">
+              <img src="{{ printf "%smajor-blowhard-incident.webp" $art | relURL }}" alt="Major Blowhorn whispering into a giant megaphone on a tripod as speech bubbles blast across a stormy sky" width="1400" height="903" loading="lazy">
+              <figcaption class="caption muted">The incident, as remembered by the weather</figcaption>
+            </figure>
+            <div class="major-story">
+              <h2 id="blowhard-title" class="h2">The Blowhard incident</h2>
+              <p>Young Private Blowhorn was told to whisper "lights out" to one barracks. He leaned into the camp megaphone, whispered, and every barracks in four counties went to bed. So did a weather balloon.</p>
+              <p>The general promoted him to Major on the spot, mostly so he would stop being a private problem. By supper the troops had a new name for him. Major Blowhard.</p>
+              <p>Nobody says it to his face. He always hears. He has very good ears. That is the whole job.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="thunderlung" class="brand-section" aria-labelledby="thunderlung-title">
+          <div class="major-split">
+            <div class="major-story">
+              <h2 id="thunderlung-title" class="h2">Old Thunderlung</h2>
+              <p>His horn is a dented brass trumpet with a red tassel and one valve that sticks. He found it in the henhouse rafters on his first day, already dented, already loud.</p>
+              <p>Its first note made the sun come up twenty minutes early. Nobody has proved otherwise. He polishes it every morning and tells it the plan, because a horn should know where it is going.</p>
+              <p>He will not let anyone else play it. "Is not instrument," he says. "Is colleague."</p>
+            </div>
+            <figure class="major-plate">
+              <img src="{{ printf "%smajor-thunderlung.webp" $art | relURL }}" alt="Old Thunderlung, a dented brass trumpet with a red tassel, resting on a red velvet cushion" width="1400" height="903" loading="lazy">
+              <figcaption class="caption muted">Old Thunderlung, at rest. Briefly</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section id="top-crow" class="brand-section" aria-labelledby="top-crow-title">
+          <div class="major-split major-split-reverse">
+            <figure class="major-plate">
+              <img src="{{ printf "%smajor-top-crow.webp" $art | relURL }}" alt="Major Blowhorn on a fence post at sunrise, crowing through his megaphone as colorful speech bubbles fly out" width="1400" height="903" loading="lazy">
+              <figcaption class="caption muted">Top cock-a-doodle-doo, on duty</figcaption>
+            </figure>
+            <div class="major-story">
+              <h2 id="top-crow-title" class="h2">Top crow</h2>
+              <p>Every yard has one top crow. Not the loudest bird. The first one up, the one who makes sure everybody hears the day has started.</p>
+              <p>That is how he sees your launch. One message out, many ears in. He does not care who is loudest. He cares who answers.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="voice" class="brand-section" aria-labelledby="voice-title">
+          <div class="section-head">
+            <h2 id="voice-title" class="h2">How he talks</h2>
+            <p class="muted">Barracks talk: a made-up drill-yard dialect, gruff and clipped. Not any real accent, and never at anyone's expense.</p>
+          </div>
+          <ul class="grid grid-3 major-rules">
+            {{- range .Params.rules }}
+            <li class="card">
+              <h3 class="h3">{{ .k }}</h3>
+              <p class="major-do"><span class="label">Says</span>{{ .do }}</p>
+              <p class="major-dont caption muted"><span class="label">Never</span>{{ .dont }}</p>
+            </li>
+            {{- end }}
+          </ul>
+          <h3 class="h3 brand-subhead">Greatest hits</h3>
+          <ul class="major-phrases">
+            {{- range .Params.phrases }}<li class="speech">{{ . }}</li>{{ end }}
+          </ul>
+        </section>
+
+        <section id="rivals" class="brand-section" aria-labelledby="rivals-title">
+          <div class="section-head">
+            <h2 id="rivals-title" class="h2">Sworn enemies</h2>
+            <p class="muted">He keeps a list. It is laminated.</p>
+          </div>
+          <ul class="grid grid-2">
+            {{- range .Params.rivals }}
+            <li class="card"><h3 class="h3">{{ .name }}</h3><p>{{ .v }}</p></li>
+            {{- end }}
+          </ul>
+        </section>
+
+        <section id="dispatches" class="brand-section" aria-labelledby="dispatches-title">
+          <div class="section-head">
+            <h2 id="dispatches-title" class="h2">Dispatches from the barracks</h2>
+            <p class="muted">His story keeps going. New entries land here, newest first. <a href="{{ with .OutputFormats.Get "dispatches" }}{{ .RelPermalink }}{{ end }}">RSS feed</a></p>
+          </div>
+          <ol class="major-log">
+            {{- range sort .Params.dispatches "date" "desc" }}
+            {{- $d := time.AsTime .date }}
+            <li class="card" id="dispatch-{{ $d.Format "2006-01-02" }}">
+              <p class="label"><time datetime="{{ $d.Format "2006-01-02" }}">{{ $d.Format "January 2, 2006" }}</time></p>
+              <h3 class="h3">{{ .title }}</h3>
+              <p>{{ .body }}</p>
+            </li>
+            {{- end }}
+          </ol>
+          <div class="major-follow card">
+            <h3 class="h3">Follow his story</h3>
+            <p class="muted">New dispatches and Blowhorn news, now and then. No spam. Major hates spam.</p>
+            {{ partial "newsletter.html" (dict "id" "major-email" "label" "Email address for dispatches" "button" "Enlist") }}
+          </div>
+        </section>
+      </div>
+    </main>
+{{ end }}

@@ -1,0 +1,20 @@
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dispatches from the barracks: Major Blowhorn</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ .Description }}</description>
+    <language>en</language>
+    <atom:link href="{{ with .OutputFormats.Get "dispatches" }}{{ .Permalink }}{{ end }}" rel="self" type="application/rss+xml"/>
+    {{- range sort .Params.dispatches "date" "desc" }}
+    {{- $d := time.AsTime .date }}
+    <item>
+      <title>{{ .title }}</title>
+      <link>{{ $.Permalink }}#dispatch-{{ $d.Format "2006-01-02" }}</link>
+      <guid>{{ $.Permalink }}#dispatch-{{ $d.Format "2006-01-02" }}</guid>
+      <pubDate>{{ $d.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      <description>{{ .body }}</description>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

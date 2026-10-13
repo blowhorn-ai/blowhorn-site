@@ -87,6 +87,13 @@ disableKinds = ["taxonomy", "term", "rss"]
   isPlainText = true
   notAlternative = true
 
+# Major Blowhorn's "Dispatches from the barracks" feed at /major/feed.xml.
+[outputFormats.dispatches]
+  baseName = "feed"
+  mediaType = "application/rss+xml"
+  isPlainText = false
+  notAlternative = true
+
 [outputs]
   home = ["HTML", "llms", "llmsfull", "md"]
   page = ["HTML", "md"]

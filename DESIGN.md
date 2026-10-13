@@ -54,3 +54,12 @@ Anywhere the site shows a command a reader might run, it can be copied in one cl
 - Shell prompts (`$`) and sample output are never copied. Untyped or `text` fences are output: no copy button.
 - Inline `blowhorn ...` commands in prose get a small copy button; commands with placeholders are not copyable.
 - Copy buttons are real buttons with an `aria-label`, keyboard reachable, and announce "Copied" through `aria-live`.
+
+## Mascot consistency
+
+Major Blowhorn must look the same in every scene. Image tools give no seed control, so consistency comes from references and a locked prompt, not luck. Full procedure and the prompt block: `marketing/brand/major-blowhorn/consistency.md` in leecalcote/blowhorn.
+
+- Start every new scene from the official vector art in `static/assets/brand/mascot/` or the canonical reference sheet (`marketing/brand/major-blowhorn/reference/`).
+- Paste the locked character and style prompt block verbatim into every generation, and attach the reference sheet plus the official mascot image as reference images every time.
+- Review each output against the sheet (comb, campaign hat, teal body, amber hackles, yellow beak and legs, medals, Old Thunderlung's dent and red tassel). Regenerate rejects. Log every prompt in `prompts.md`.
+- Lore art for /major/ lives in `static/assets/brand/mascot/lore/` as WebP with alt text.
