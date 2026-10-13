@@ -2248,3 +2248,76 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
   .ai-status { color: #00D3A9; }
   .ai-soon { color: #FF8A73; }
 }
+
+/* ---------- Clickable cards read as clickable at rest ----------
+   Whole-card links (a.card-link, a.docs-card, a.platform, a.agent-tile) carry
+   two at-rest cues that static cards never get: a teal-tinted edge and a round
+   arrow chip. Hover keeps its lift and fills the chip teal; keyboard focus gets
+   a visible ring; reduced motion drops the movement, not the cues.
+   Tokens (leecalcote/blowhorn marketing/brand/tokens.json): teal, teal-deep,
+   teal-bright, surface-tint, near-black (on-teal), radius-pill, space-*. */
+:root { --card-cue-edge: color-mix(in srgb, var(--teal) 34%, transparent); }
+@media (prefers-color-scheme: dark) {
+  :root { --card-cue-edge: color-mix(in srgb, var(--teal-bright) 30%, transparent); }
+}
+a.card-link, a.docs-card, a.platform, a.agent-tile {
+  position: relative;
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-specular),
+    inset 0 0 0 1px var(--card-cue-edge),
+    0 0 0 1px var(--glass-edge),
+    var(--glass-shadow);
+}
+a.card-link::after, a.docs-card::after, a.platform::after, a.agent-tile::after {
+  content: "";
+  flex: none;
+  width: 28px; height: 28px;
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-tint);
+  background-image: var(--card-cue-arrow);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px 14px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2300756A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  a.card-link::after, a.docs-card::after, a.platform::after, a.agent-tile::after {
+    --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2300D3A9' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+}
+/* Big cards: chip in the top-right corner, beside the icon. Platform tiles:
+   agent and versus tiles: a smaller chip in the corner, clear of the copy. */
+a.card-link::after, a.docs-card::after { position: absolute; top: var(--space-4); right: var(--space-4); margin: 0; }
+a.platform::after { position: absolute; top: var(--space-2); right: var(--space-2); width: 22px; height: 22px; background-size: 12px 12px; margin: 0; }
+a.agent-tile::after { position: absolute; top: var(--space-2); right: var(--space-2); width: 20px; height: 20px; background-size: 11px 11px; margin: 0; }
+
+a.card-link:hover::after, a.docs-card:hover::after, a.platform:hover::after, a.agent-tile:hover::after,
+a.card-link:focus-visible::after, a.docs-card:focus-visible::after, a.platform:focus-visible::after, a.agent-tile:focus-visible::after {
+  background-color: var(--teal);
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%231E2117' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  transform: translateX(2px);
+}
+a.card-link:hover, a.docs-card:hover, a.platform:hover, a.agent-tile:hover {
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-specular),
+    inset 0 0 0 1px color-mix(in srgb, var(--teal) 60%, transparent),
+    0 0 0 1px var(--glass-edge),
+    var(--glass-shadow-lift);
+}
+a.card-link:focus-visible, a.docs-card:focus-visible, a.platform:focus-visible, a.agent-tile:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  a.card-link::after, a.docs-card::after, a.platform::after, a.agent-tile::after { transition: none; }
+  a.card-link:hover::after, a.docs-card:hover::after, a.platform:hover::after, a.agent-tile:hover::after,
+  a.card-link:focus-visible::after, a.docs-card:focus-visible::after, a.platform:focus-visible::after, a.agent-tile:focus-visible::after { transform: none; }
+}
+@media (prefers-contrast: more) {
+  :root { --card-cue-edge: var(--teal-deep); }
+}
+/* Static cards stay flat: testimonial and logo cards no longer lift on hover. */
+.proof-card:hover, .proof-logo-card:hover { transform: none; box-shadow: var(--glass-shadow); }
+a.card-link > :first-child, a.docs-card > :first-child { padding-right: var(--space-8); }
+a.agent-tile { padding-right: var(--space-6); }
