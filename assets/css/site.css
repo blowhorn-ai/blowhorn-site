@@ -2248,3 +2248,38 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
   .ai-status { color: #00D3A9; }
   .ai-soon { color: #FF8A73; }
 }
+
+/* ---------- Home platform logos: native colour, no white tile ----------
+   Each logo is the platform's official file in its own colours. The white
+   rounded square is gone; the mark sits on a soft neutral halo with a quiet
+   drop shadow, so it reads as part of the glass card. In dark mode the two
+   single-colour black marks (X, GitHub) render white, the official on-dark
+   version of each; every other mark keeps its colours. Docs keep their tiles.
+   Tokens (leecalcote/blowhorn marketing/brand/tokens.json): surface-tint,
+   near-black, white, radius-pill. */
+#platforms .logo-tile {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-pill);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--surface-tint) 90%, transparent) 0%, color-mix(in srgb, var(--surface-tint) 40%, transparent) 62%, transparent 100%);
+  box-shadow: none;
+}
+#platforms .logo-tile img {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 1px 1px rgba(30, 33, 23, 0.10)) drop-shadow(0 4px 8px rgba(30, 33, 23, 0.14));
+}
+#platforms .logo-tile img[src*="linkedin"],
+#platforms .logo-tile img[src*="hacker-news"] { width: 32px; height: 32px; transform: none; }
+#platforms .logo-tile img[src*="x-logo"] { width: 30px; height: 30px; }
+@media (prefers-color-scheme: dark) {
+  #platforms .logo-tile {
+    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.04) 62%, transparent 100%);
+  }
+  #platforms .logo-tile img { filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45)); }
+  #platforms .logo-tile img[src*="x-logo-black"],
+  #platforms .logo-tile img[src*="github-invertocat-black"] { filter: invert(1) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45)); }
+}
+@media (prefers-contrast: more) {
+  #platforms .logo-tile { background: none; }
+}
