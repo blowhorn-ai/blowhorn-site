@@ -89,7 +89,7 @@
           </div>
           <div class="agent-faq">
             {{- range $p.faq }}
-            <details class="glass"><summary class="ui">{{ .q }}</summary><p>{{ .a }}</p></details>
+            <details class="glass"><summary class="ui">{{ .q }}</summary><p>{{ .a | markdownify }}</p></details>
             {{- end }}
           </div>
         </section>

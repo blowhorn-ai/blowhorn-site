@@ -33,7 +33,7 @@
   "faq": [
     {
       "q": "Where do I find every command?",
-      "a": "Run blowhorn -h for the full list with examples, or read the CLI reference in the docs."
+      "a": "Run blowhorn -h for the full list with examples, or read the [CLI reference](/docs/reference/cli/) in the docs."
     },
     {
       "q": "Can I see what a command will do first?",
