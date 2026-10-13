@@ -2134,3 +2134,98 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
   .proof-card, .proof-logo-card { transition: none; }
   .proof-card:hover, .proof-logo-card:hover { transform: none; }
 }
+
+/* ---------- Pricing (/pricing/) ----------
+   Four plan cards on glass, a CSS-only monthly/yearly switch (two radios and
+   :has(), monthly when :has() is unsupported), the refund promise and the FAQ.
+   Spacing follows the density tokens above. */
+.pricing-hero { max-width: 44rem; }
+.pricing-hero > * + * { margin-top: var(--intro-gap); }
+.pricing-hero .display { text-wrap: balance; }
+.pricing-section { margin-top: var(--section-y); }
+.pricing-hero + .pricing-plans { margin-top: var(--head-gap); }
+.billing-switch {
+  display: inline-flex; gap: var(--space-1); padding: var(--space-1);
+  border-radius: var(--radius-pill);
+}
+.billing-switch label {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 var(--space-4);
+  border-radius: var(--radius-pill); cursor: pointer;
+  font-weight: 600; font-size: 15px; color: var(--ink-muted);
+  transition: background-color 160ms ease, color 160ms ease;
+}
+#billing-monthly:checked ~ .billing-switch label[for="billing-monthly"],
+#billing-annual:checked ~ .billing-switch label[for="billing-annual"] {
+  background: var(--teal); color: var(--on-teal);
+}
+#billing-monthly:focus-visible ~ .billing-switch label[for="billing-monthly"],
+#billing-annual:focus-visible ~ .billing-switch label[for="billing-annual"] {
+  outline: 2px solid var(--focus-ring); outline-offset: 2px;
+}
+.save-badge {
+  padding: 2px var(--space-2); border-radius: var(--radius-pill);
+  background: var(--yellow); color: var(--on-yellow);
+  font-size: 12px; line-height: 16px; font-weight: 700; white-space: nowrap;
+}
+.pricing-grid {
+  display: grid; gap: var(--grid-gap); margin-top: var(--head-gap);
+  list-style: none; padding: 0;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 640px) { .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .pricing-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.plan { display: flex; flex-direction: column; position: relative; }
+.plan > * + * { margin-top: var(--space-3); }
+.plan .plan-name { margin-top: 0; font-size: 22px; }
+.plan-featured {
+  outline: 2px solid var(--teal); outline-offset: -2px;
+  box-shadow: var(--glass-shadow-lift);
+}
+.plan-badge {
+  align-self: flex-start; padding: 2px var(--space-3); border-radius: var(--radius-pill);
+  background: var(--teal); color: var(--on-teal); font-weight: 700;
+}
+.plan-badge + .plan-name { margin-top: var(--space-3); }
+.plan-blurb { min-height: 3em; }
+.plan-price { display: block; margin-top: var(--space-4); color: var(--ink); }
+.price-amount {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 44px; line-height: 48px; letter-spacing: -0.02em; color: var(--ink-wordmark);
+}
+.price-unit { color: var(--ink-muted); font-weight: 500; }
+.plan-note { color: var(--ink-muted); min-height: 16px; }
+.price-annual { display: none; }
+.pricing-plans:has(#billing-annual:checked) .price-annual { display: inline; }
+.pricing-plans:has(#billing-annual:checked) .price-monthly { display: none; }
+.plan-cta { margin-top: var(--space-4); justify-content: center; }
+.plan-features {
+  list-style: none; padding: 0; margin-top: var(--space-6);
+  border-top: var(--stroke-hairline) solid var(--line); padding-top: var(--space-4);
+  display: grid; gap: var(--space-3); font-size: 15px; line-height: 22px;
+}
+.plan-features li { position: relative; padding-left: 26px; color: var(--ink); }
+.plan-features li::before {
+  content: ""; position: absolute; left: 2px; top: 6px; width: 12px; height: 7px;
+  border-left: 2px solid var(--teal); border-bottom: 2px solid var(--teal);
+  transform: rotate(-45deg);
+}
+.pricing-included .h3 { font-size: 18px; }
+.pricing-refund { padding: clamp(24px, 5vw, 56px); border-radius: var(--radius-xl); }
+.refund-steps {
+  margin-top: var(--head-gap); padding: 0; list-style: none; counter-reset: refund;
+  display: grid; gap: var(--grid-gap); grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 820px) { .refund-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.refund-steps li { counter-increment: refund; color: var(--ink-muted); }
+.refund-steps li::before {
+  content: counter(refund); display: grid; place-items: center;
+  width: 36px; height: 36px; margin-bottom: var(--space-3); border-radius: var(--radius-pill);
+  background: var(--teal); color: var(--on-teal); font-family: var(--font-display); font-weight: 800;
+}
+.refund-steps strong { display: block; color: var(--ink-wordmark); margin-bottom: var(--space-1); }
+.pricing-refund > .caption { margin-top: var(--head-gap); }
+.pricing-cta { margin-top: var(--head-gap); display: flex; flex-wrap: wrap; gap: var(--space-3); }
+@media (prefers-reduced-motion: reduce) {
+  .billing-switch label { transition: none; }
+}

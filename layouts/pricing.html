@@ -1,0 +1,99 @@
+{{- /* The pricing page at /pricing/ (content/en/pricing/_index.md). Plans,
+  prices and refund terms come from the product repository's pricing decision
+  (Option B, annual is ten months for twelve). The monthly/annual switch is two
+  radio buttons and CSS only: no script, and monthly shows when :has() is not
+  supported. */ -}}
+{{ define "head" }}
+    {{- $faq := slice -}}
+    {{- range .Params.faq }}{{ $faq = $faq | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end }}
+    <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $faq | jsonify | safeJS }}</script>
+{{- end }}
+
+{{ define "main" }}
+    {{- $download := "download/" | relURL }}
+    <main id="main" class="page pricing-page">
+      <div class="wrap">
+        <header class="pricing-hero">
+          <p class="label">Pricing</p>
+          <h1 id="pricing-title" class="display">Plans that grow with your voice</h1>
+          <p class="body-lg muted">{{ .Params.lead }}</p>
+        </header>
+
+        <section class="pricing-section pricing-plans" aria-labelledby="plans-title">
+          <h2 id="plans-title" class="visually-hidden">Plans</h2>
+          <input class="visually-hidden" type="radio" name="billing" id="billing-monthly" value="monthly" checked>
+          <input class="visually-hidden" type="radio" name="billing" id="billing-annual" value="annual">
+          <div class="billing-switch glass" role="group" aria-label="Billing period">
+            <label for="billing-monthly">Monthly</label>
+            <label for="billing-annual">Yearly <span class="save-badge">2 months free</span></label>
+          </div>
+          <ul class="pricing-grid">
+            {{- range .Params.tiers }}
+            <li class="plan card{{ if .featured }} plan-featured{{ end }}">
+              {{- with .badge }}<p class="plan-badge caption">{{ . }}</p>{{ end }}
+              <h3 class="h3 plan-name">{{ .name }}</h3>
+              <p class="plan-blurb">{{ .blurb }}</p>
+              <p class="plan-price">
+                <span class="price-monthly"><span class="price-amount">${{ .monthly }}</span> <span class="price-unit">{{ .unit_m }}</span></span>
+                <span class="price-annual"><span class="price-amount">${{ .annual }}</span> <span class="price-unit">{{ .unit_a }}</span></span>
+              </p>
+              <p class="plan-note caption"><span class="price-monthly">{{ if eq .monthly "0" }}No card needed{{ else }}Or ${{ .annual }} yearly, 2 months free{{ end }}</span><span class="price-annual">{{ with .note_a }}{{ . }}{{ else }}No card needed{{ end }}</span></p>
+              <a class="button{{ if .featured }} button-primary{{ end }} plan-cta" href="{{ $download }}">{{ .cta }}</a>
+              <ul class="plan-features">
+                {{- range .features }}
+                <li>{{ . }}</li>
+                {{- end }}
+              </ul>
+            </li>
+            {{- end }}
+          </ul>
+        </section>
+
+        <section class="pricing-section" aria-labelledby="included-title">
+          <div class="section-head">
+            <h2 id="included-title" class="h2">Every plan includes</h2>
+            <p class="muted">The things that keep your accounts safe are never an upsell.</p>
+          </div>
+          <ul class="grid grid-4 pricing-included">
+            {{- range .Params.included }}
+            <li class="card">
+              <h3 class="h3">{{ .title }}</h3>
+              <p>{{ .body }}</p>
+            </li>
+            {{- end }}
+          </ul>
+        </section>
+
+        <section id="refunds" class="pricing-section" aria-labelledby="refunds-title">
+          <div class="pricing-refund glass">
+            <div class="section-head">
+              <p class="label">Fair and simple</p>
+              <h2 id="refunds-title" class="h2">Our refund promise</h2>
+            </div>
+            <ol class="refund-steps">
+              <li><strong>14 days to change your mind.</strong> On your first purchase, you can ask for a refund within 14 days.</li>
+              <li><strong>Haven't posted yet?</strong> You get all of it back.</li>
+              <li><strong>Already posted through Blowhorn?</strong> We keep one month at the monthly price and refund the rest.</li>
+              <li><strong>After 14 days.</strong> No cash refunds. Your plan keeps working to the end of the year you paid for, then your account moves to Free.</li>
+            </ol>
+            <p class="caption muted">Billing mistakes, double charges and refunds the law requires are always honored.</p>
+          </div>
+        </section>
+
+        <section class="pricing-section" aria-labelledby="faq-title">
+          <div class="section-head">
+            <h2 id="faq-title" class="h2">Questions</h2>
+          </div>
+          <div class="agent-faq">
+            {{- range .Params.faq }}
+            <details class="glass">
+              <summary>{{ .q }}</summary>
+              <p>{{ .a }}</p>
+            </details>
+            {{- end }}
+          </div>
+          <p class="compare-cta pricing-cta"><a class="button button-primary" href="{{ $download }}">Download Blowhorn free</a> <a class="button" href="{{ (site.GetPage "/compare").RelPermalink }}">See how we compare</a></p>
+        </section>
+      </div>
+    </main>
+{{ end }}

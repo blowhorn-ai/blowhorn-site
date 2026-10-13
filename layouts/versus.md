@@ -16,7 +16,7 @@
 
 ## Side by side
 
-{{ .Params.competitor }} pricing as of Oct 2026: {{ .Params.price_them }} ([source]({{ .Params.price_src }})). Blowhorn: free during early access.
+{{ .Params.competitor }} pricing as of Oct 2026: {{ .Params.price_them }} ([source]({{ .Params.price_src }})). Blowhorn: free plan available, see [pricing]({{ "pricing/" | absURL }}).
 
 | | {{ .Params.competitor }} | Blowhorn |
 | --- | --- | --- |
