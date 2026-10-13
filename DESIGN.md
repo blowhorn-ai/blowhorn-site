@@ -62,4 +62,6 @@ Major Blowhorn must look the same in every scene. Image tools give no seed contr
 - Start every new scene from the official vector art in `static/assets/brand/mascot/` or the canonical reference sheet (`marketing/brand/major-blowhorn/reference/`).
 - Paste the locked character and style prompt block verbatim into every generation, and attach the reference sheet plus the official mascot image as reference images every time.
 - Review each output against the sheet (comb, campaign hat, teal body, amber hackles, yellow beak and legs, medals, Old Thunderlung's dent and red tassel). Regenerate rejects. Log every prompt in `prompts.md`.
+- Default pose: open beak, barking into the horn like a bullhorn; trumpet-playing only occasionally.
+- Oil-painting style: attach `army.jpg`, `signal.jpg` and `hero.jpg` from `marketing/brand/oil-style/` as reference images for every new scene. Canonical look: broad charcoal campaign hat with a gold band, heavy red jowls under the beak, gold epaulettes on both shoulders.
 - Lore art for /major/ lives in `static/assets/brand/mascot/lore/` as WebP with alt text.
