@@ -11,6 +11,7 @@
   var srcs = Array.prototype.slice.call(root.querySelectorAll('.army-src'));
   var major = root.querySelector('.army-major img');
   var yell = root.querySelector('.army-yell');
+  var yellText = yell.querySelector('.bubble-text') || yell;
   var macs = root.querySelector('.army-macs');
   var note = root.querySelector('.army-fleet-note');
   var plats = root.querySelectorAll('.army-plats img');
@@ -19,7 +20,7 @@
   var count = 3, job = 0, cur = 0, timer = null, visible = false, touched = false, run = 0;
 
   function shout(line) {
-    yell.textContent = line;
+    yellText.textContent = line;
     yell.classList.remove('is-shout'); void yell.offsetWidth; yell.classList.add('is-shout');
   }
   function center(el) {

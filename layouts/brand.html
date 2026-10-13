@@ -221,7 +221,7 @@
               <img src="{{ printf "%smajor-blowhorn-attention.svg" $mascot | relURL }}" alt="Major Blowhorn, a teal rooster in a drill sergeant's campaign hat, standing at attention" width="460" height="480">
             </figure>
             <div class="major-copy">
-              <p class="speech h3">Stretch my logo and we'll have words. Several.</p>
+              {{ partial "bubble.html" (dict "text" "Stretch my logo and we'll have words. Several." "class" "h3") }}
               <p class="label">Major Blowhorn</p>
               <ul class="brand-rules">
                 <li>Put him on white, light teal or cream. On bare teal he needs a cream or yellow disc behind him; on near black, his cream keyline.</li>

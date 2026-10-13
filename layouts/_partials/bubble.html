@@ -1,0 +1,32 @@
+{{- /* Speech bubble: the one bubble component of the design system.
+  Styles: "Speech bubble" in assets/css/site.css.
+  The body and tail form one shape with one continuous outline, so there
+  is no seam where the tail meets the body.
+
+  Call with a dict:
+    text     the words (required, escaped)
+    tail     left | right | top | bottom | auto (bottom on narrow screens,
+             left from 720px). Default auto.
+    variant  "" (Major, outlined) | soft (prompts, tinted) | storybook
+    tag      element, default p (use li inside a list)
+    class    extra classes, for example "h3"
+    id       optional id
+    live     optional aria-live value
+    lead     optional visually hidden prefix, for example "You say: "
+*/ -}}
+{{- $tag := .tag | default "p" -}}
+{{- $tail := .tail | default "auto" -}}
+{{- $cls := slice "bubble" (printf "bubble--tail-%s" $tail) -}}
+{{- with .variant }}{{ $cls = $cls | append (printf "bubble--%s" .) }}{{ end -}}
+{{- with .class }}{{ $cls = $cls | append . }}{{ end -}}
+{{- $attrs := printf "class=%q" (delimit $cls " ") -}}
+{{- with .id }}{{ $attrs = printf "%s id=%q" $attrs . }}{{ end -}}
+{{- with .live }}{{ $attrs = printf "%s aria-live=%q" $attrs . }}{{ end -}}
+{{- $inner := "" -}}
+{{- with .lead }}{{ $inner = printf "<span class=\"visually-hidden\">%s</span>" (. | htmlEscape) }}{{ end -}}
+{{- $inner = printf "%s%s" $inner (.text | htmlEscape) -}}
+{{- if eq $tag "li" -}}
+<li {{ $attrs | safeHTMLAttr }}><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text">{{ $inner | safeHTML }}</span></li>
+{{- else -}}
+<p {{ $attrs | safeHTMLAttr }}><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text">{{ $inner | safeHTML }}</span></p>
+{{- end -}}

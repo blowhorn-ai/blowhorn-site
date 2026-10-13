@@ -84,7 +84,7 @@
             <li class="sb-card"><img class="sb-icon" src="{{ $a }}icon-fleet.svg" alt="" width="56" height="56" loading="lazy"><h3 class="sb-h3">Bring your people</h3><p>Teammates add their profiles to your account. Every profile joins the same wave.</p></li>
             <li class="sb-card"><img class="sb-icon" src="{{ $a }}icon-wave.svg" alt="" width="56" height="56" loading="lazy"><h3 class="sb-h3">One blast, no echoes</h3><p>Coordinated so the same post isn't sent from two Macs.</p></li>
           </ul>
-          <p class="sb-bubble">Fall in, profiles. On my mark, the whole platoon sounds off.</p>
+          {{ partial "bubble.html" (dict "text" "Fall in, profiles. On my mark, the whole platoon sounds off." "variant" "storybook" "tail" "bottom") }}
           <p class="sb-more"><a href="{{ (site.GetPage "/docs/how-to/publish/amplify-a-post").RelPermalink }}">How amplification works</a>. Team invites are coming soon.</p>
         </div>
       </section>
@@ -114,7 +114,7 @@
         <div class="wrap sb-major-grid">
           <figure class="sb-major-art sb-major-print"><img src="{{ $a }}major-blowhorn-riso.webp" width="1000" height="563" loading="lazy" decoding="async" alt="Major Blowhorn, a scrappy old rooster in a gritty risograph print, wings at his sides, bellowing into a giant teal megaphone nearly as big as he is"></figure>
           <div>
-            <p class="sb-bubble sb-bubble-left">Seven tabs. One post. Somebody call a medic.</p>
+            {{ partial "bubble.html" (dict "text" "Seven tabs. One post. Somebody call a medic." "variant" "storybook" "tail" "bottom" "class" "sb-bubble-top") }}
             <h2 id="major-title" class="sb-h2">Meet Major Blowhorn</h2>
             <p>Thirty years running basic training. Now he runs your queue. Every approved action is an order; every profile is in his platoon.</p>
             <ul class="sb-gripes">

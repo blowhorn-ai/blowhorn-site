@@ -634,40 +634,116 @@ pre code { background: none; padding: 0; }
   height: auto;
 }
 .major-copy > * + * { margin-top: var(--space-4); }
-.speech {
+/* ---------- Speech bubble (layouts/_partials/bubble.html) ----------
+   One component for every bubble on the site. The bubble is drawn as two
+   stacked silhouettes of the same shape (a rounded body plus a tail): an
+   outline-coloured one (.bubble-shape) and a fill-coloured one inset by the
+   stroke width (.bubble-fill). Each silhouette is a single colour, so the
+   body and tail merge, and the outline runs as one continuous line around
+   both with no seam where the tail meets the body. The tail is a rotated
+   square with a softened tip; the outer and inner squares share a centre,
+   so the stroke stays an even width all the way round.
+   Colours are tokens from /assets/brand/tokens.json (near-black, cream,
+   surface, surface-tint, mint, teal-deep).
+   Tail: .bubble--tail-left | -right | -top | -bottom | -auto (bottom on
+   narrow screens, left from 720px). Optional --bubble-tail-at moves it
+   along its side. Variants: --soft, --storybook. */
+.bubble {
+  --bubble-fill: var(--surface);
+  --bubble-stroke: var(--near-black);
+  --bubble-stroke-w: 2px;
+  --bubble-radius: var(--radius-lg);
+  --bubble-tail: 14px;
+  --bubble-lift: drop-shadow(0 0 0 transparent);
   position: relative;
-  display: inline-block;
-  background: var(--surface);
-  color: var(--ink-wordmark);
-  border: 2px solid var(--near-black);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4) var(--space-6);
-  margin-bottom: var(--space-2);
   isolation: isolate;
-}
-.speech::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 40px;
-  bottom: -14px;
-  width: 24px; height: 24px;
-  background: var(--surface);
-  border-right: 2px solid var(--near-black);
-  border-bottom: 2px solid var(--near-black);
-  transform: rotate(45deg) skew(10deg, 10deg);
+  display: inline-block;
+  max-width: 100%;
+  min-width: 0;
+  padding: var(--space-4) var(--space-6);
+  margin: 0 0 var(--space-2);
+  color: var(--ink-wordmark);
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 @media (prefers-color-scheme: dark) {
-  .speech, .speech::after { border-color: var(--cream); }
+  .bubble { --bubble-stroke: var(--cream); }
 }
-.major-copy p:not(.speech) { color: var(--ink-muted); max-width: 36rem; }
+.bubble-text { position: relative; }
+.bubble-shape, .bubble-fill { position: absolute; inset: 0; pointer-events: none; }
+.bubble-shape { z-index: -1; isolation: isolate; filter: var(--bubble-lift); }
+.bubble-shape::before, .bubble-shape::after,
+.bubble-fill::before, .bubble-fill::after { content: ""; position: absolute; z-index: -1; }
+.bubble-shape::before, .bubble-shape::after { background: var(--bubble-stroke); }
+.bubble-fill::before, .bubble-fill::after { background: var(--bubble-fill); }
+.bubble-fill { z-index: 0; }
+.bubble-shape::before {
+  inset: calc(var(--bubble-stroke-w) * -1);
+  border-radius: calc(var(--bubble-radius) + var(--bubble-stroke-w));
+}
+.bubble-fill::before { inset: 0; border-radius: var(--bubble-radius); }
+.bubble-shape::after, .bubble-fill::after {
+  --q: calc(var(--bubble-tail) * 1.4142);
+  left: calc(var(--tail-x) - var(--q) / 2);
+  top: calc(var(--tail-y) - var(--q) / 2);
+  width: var(--q); height: var(--q);
+  border-radius: var(--tail-r);
+  transform: rotate(45deg);
+}
+.bubble-shape::after { --q: calc(var(--bubble-tail) * 1.4142 + var(--bubble-stroke-w) * 2); }
+.bubble--tail-bottom, .bubble--tail-auto {
+  --tail-x: var(--bubble-tail-at, 48px); --tail-y: 100%; --tail-r: 0 0 3px 0;
+  margin-bottom: calc(var(--bubble-tail) + var(--space-2));
+}
+.bubble--tail-top {
+  --tail-x: var(--bubble-tail-at, 48px); --tail-y: 0%; --tail-r: 3px 0 0 0;
+  margin-top: var(--bubble-tail);
+}
+.bubble--tail-left { --tail-x: 0%; --tail-y: var(--bubble-tail-at, 50%); --tail-r: 0 0 0 3px; }
+.bubble--tail-right { --tail-x: 100%; --tail-y: var(--bubble-tail-at, 50%); --tail-r: 0 3px 0 0; }
+@media (min-width: 720px) {
+  .bubble--tail-auto { --tail-x: 0%; --tail-y: var(--bubble-tail-at, 50%); --tail-r: 0 0 0 3px; margin-bottom: var(--space-2); }
+}
+/* Soft: the tinted "Try saying" prompts, tail low on the left like a chat. */
+.bubble--soft {
+  --bubble-fill: var(--surface-tint);
+  --bubble-stroke: var(--mint);
+  --bubble-stroke-w: 1px;
+  --bubble-radius: 20px;
+  --bubble-tail: 8px;
+  --bubble-tail-at: calc(100% - 18px);
+  --bubble-lift: drop-shadow(0 8px 14px rgba(30, 33, 23, 0.12));
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  font-size: 16px; line-height: 24px; color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  .bubble--soft { --bubble-stroke: var(--teal-deep); --bubble-lift: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.4)); }
+}
+/* Storybook: the /home-alt/ preview style (colours from home-alt.css). */
+.bubble--storybook {
+  --bubble-fill: #FFF8EA;
+  --bubble-stroke: var(--sb-ink, #3A2414);
+  --bubble-stroke-w: 4px;
+  --bubble-radius: 28px;
+  --bubble-tail: 18px;
+  --bubble-tail-at: 60px;
+  --bubble-lift: drop-shadow(4px 5px 0 var(--sb-ink, #3A2414));
+  margin-top: var(--head-gap);
+  padding: 18px 26px;
+  color: var(--sb-ink, #3A2414);
+  font-family: var(--sb-serif, Georgia, serif); font-weight: 700; font-size: 1.3rem;
+}
+@media (max-width: 420px) {
+  .bubble--storybook { font-size: 1.1rem; padding: 14px 18px; }
+}
+.major-copy p:not(.bubble) { color: var(--ink-muted); max-width: 36rem; }
 @media (min-width: 720px) {
   .major-card {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     padding: var(--space-8);
     gap: var(--space-8);
   }
-  .speech::after { left: -14px; bottom: auto; top: 32px; transform: rotate(135deg) skew(10deg, 10deg); }
 }
 
 .major-gripes { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); max-width: 36rem; }
@@ -1371,7 +1447,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .card .type-sample.type-mono { font-size: 14px; letter-spacing: 0.14em; }
 
 /* Major */
-.brand-major .speech { max-width: 30rem; }
+.brand-major .bubble { max-width: 30rem; }
 .brand-rules { list-style: disc; padding-left: 1.25em; max-width: 36rem; color: var(--ink-muted); }
 .brand-rules li + li { margin-top: var(--space-2); }
 
@@ -1791,28 +1867,6 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   box-shadow: 0 0 0 3px var(--glass-rim), var(--glass-shadow);
 }
 .bubble-avatar svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.bubble {
-  position: relative; isolation: isolate; margin: 0; min-width: 0;
-  padding: var(--space-3) var(--space-4);
-  border-radius: 20px 20px 20px 4px;
-  font-size: 16px; line-height: 24px; color: var(--ink);
-  --bubble-fill: #E9F8F5;
-  background: var(--bubble-fill);
-  border: 1px solid rgba(0, 117, 106, 0.18);
-  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-specular);
-}
-@media (prefers-color-scheme: dark) {
-  .bubble { --bubble-fill: #1F3A33; border-color: rgba(0, 211, 169, 0.22); }
-}
-.bubble::before {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
-  background: linear-gradient(180deg, var(--glass-sheen), transparent 55%);
-}
-.bubble::after {
-  content: ""; position: absolute; left: -11px; bottom: -1px; width: 18px; height: 16px;
-  background: var(--bubble-fill);
-  clip-path: polygon(0 100%, 100% 0, 100% 100%);
-}
 /* Desktop: a loose, slightly stacked cloud of asks that drifts gently.
    Rows overlap by 6px and float 3px, so only bubble padding and tails ever
    touch; text never sits under another bubble. Transforms only. */
@@ -1839,7 +1893,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 @media (max-width: 480px) {
   .bubble-row { max-width: 100%; gap: var(--space-2); }
   .bubble-avatar { width: 30px; height: 30px; }
-  .bubble { font-size: 15px; line-height: 22px; }
+  .agent-prompts .bubble { font-size: 15px; line-height: 22px; }
 }
 .agent-faq { display: grid; gap: var(--space-3); max-width: 48rem; }
 .agent-faq details { padding: var(--space-4) var(--space-6); border-radius: var(--radius-lg); }
@@ -2071,7 +2125,7 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
 
 /* Major Blowhorn page (/major/). Spacing reads the rhythm tokens above. */
 .major-hero { display: grid; gap: var(--grid-gap); align-items: center; padding-block: var(--section-y) calc(var(--section-y) / 2); }
-.major-hero-copy .speech { margin-top: var(--head-gap); display: inline-block; }
+.major-hero-copy .bubble { margin-top: var(--head-gap); }
 .major-split { display: grid; gap: calc(var(--grid-gap) * 2); align-items: start; }
 .major-story { max-width: var(--text-measure); }
 .major-story h2 { margin-bottom: var(--head-gap); }

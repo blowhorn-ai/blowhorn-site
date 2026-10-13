@@ -206,7 +206,7 @@
               </div>
             </li>
           </ul>
-          <p class="speech h3 wave-speech">Fall in, profiles. On my mark, the whole platoon sounds off.</p>
+          {{ partial "bubble.html" (dict "text" "Fall in, profiles. On my mark, the whole platoon sounds off." "class" "h3 wave-speech") }}
           <p><a href="{{ (site.GetPage "/docs/how-to/publish/amplify-a-post").RelPermalink }}">How amplification works</a>. Team invites are coming soon.</p>
         </div>
       </section>
@@ -220,7 +220,7 @@
               <img src="{{ "assets/brand/mascot/major-blowhorn-attention.svg" | relURL }}" alt="Major Blowhorn, a teal rooster in a drill sergeant's campaign hat, standing at attention" width="440" height="480">
             </figure>
             <div class="major-copy">
-              <p class="speech h3">Seven tabs. One post. Somebody call a medic.</p>
+              {{ partial "bubble.html" (dict "text" "Seven tabs. One post. Somebody call a medic." "class" "h3") }}
               <p class="label">Major Blowhorn</p>
               <p>Major Blowhorn ran basic training for thirty years. Now he runs your queue: every approved action is an order, every profile is in his platoon. His recruits call him Major Blowhard. Not to his face. <a href="{{ (site.GetPage "/major").RelPermalink }}">Meet the Major</a></p>
               <p class="label">His standing complaints</p>
