@@ -29,6 +29,11 @@ Each line carries one result, `would remove`, `not present`, `not checked`,
 path. `not checked` means the item's state could not be read, with the reason;
 nothing is done to it, and it is never reported as absent.
 
+The dry run always shows the full list, even when the real run would refuse.
+Anything that would stop the real run (the app still open, unsynced run
+records) is listed first under "Nothing was removed", and the command exits 1
+so a script can tell. Resolve those, then run the real command.
+
 ## Remove Blowhorn and keep your data
 
 ```bash
@@ -38,19 +43,20 @@ blowhorn uninstall
 The command removes, in order, reporting each item as `removed`, `not
 present`, `not unregistered` or `failed`:
 
-1. **The background service.** Each loaded label is booted out and waited for,
-   then its file under `~/Library/LaunchAgents` is removed. A label the app
-   registered as its login item is booted out the same way; its Login Items
-   entry is unregistered by the app itself in step 5.
-2. **The Chrome native host.** The manifests under Chrome's
-   `NativeMessagingHosts`, the launchers and the bridge socket beside them.
+1. **The background service.** A loaded `ai.blowhorn.service` is booted out
+   and waited for, then its file under `~/Library/LaunchAgents` is removed. A
+   label the app registered as its login item is booted out the same way; its
+   Login Items entry is unregistered by the app itself in step 5.
+2. **The Chrome native host.** The manifest under Chrome's
+   `NativeMessagingHosts`, the launcher and the bridge socket beside it.
 3. **The every-profile install entries.** The external-extensions file and
    Blowhorn's own entry in the managed policy, removed with the same
    administrator prompt that wrote them; other keys in that file stay.
-4. **The launchers.** `~/.local/bin/blowhorn` and the pre-rename shim, when
-   they carry the installer's marker. A file there that `install.sh` did not
-   write is kept and says so. Pass `--bin-dir` if you installed elsewhere.
-5. **The desktop app.** Each bundle first unregisters its own Login Items
+4. **The launchers.** `~/.local/bin/blowhorn` and `~/.local/bin/blowhorn-axi`,
+   when they carry the installer's marker. A file there that `install.sh` did
+   not write is kept and says so.
+   Pass `--bin-dir` if you installed elsewhere.
+5. **The desktop app.** `Blowhorn.app` first unregisters its own Login Items
    entries, then is removed. A bundle too old to unregister itself is reported
    `not unregistered`, naming the step left to you under System Settings >
    General > Login Items.
@@ -63,6 +69,15 @@ the command exits 1.
 Kept at the end, and named: your account connection file, the app's preferences
 and engine record, Blowhorn's own Chrome trees, the per-user Library state,
 the checkout's `cache/`, and the scheduler pause file.
+
+The checkout itself (for example `~/code/blowhorn`, with `uninstall.sh` in it)
+is never removed, under any flag, and the summary names it. Delete that folder
+yourself if you no longer need it.
+
+The summary ends by saying the shared store was not touched. If your store
+connection shows `127.0.0.1` (for example `postgresql://127.0.0.1:9432`), that
+is the local tunnel Blowhorn opens to your account's database, not a database
+on this Mac.
 
 ## Remove the local data too
 
@@ -92,8 +107,8 @@ and takes the same flags:
 
 ## When it refuses
 
-The command removes nothing, in a dry run too, while any of these is running,
-and names it: a scheduler tick, a pass of the background service, a run
+The real run removes nothing while any of these is running, and names it (a
+dry run names them too, above its preview): a scheduler tick, a pass of the background service, a run
 holding the extension bridge, the desktop app, or run records still waiting
 in the local spool for your account. Send those records first:
 
@@ -104,9 +119,27 @@ blowhorn uninstall
 
 When your account will never be reachable again from this machine, give the
 records up instead with `blowhorn uninstall --discard-unsynced-runs`, which
-asks you to type `discard`. Quit the app or wait for the run to finish, then
-run the command again. `blowhorn service status` and `blowhorn chrome
+asks you to type `discard` (pass `--yes` from a script or with piped input).
+
+If this machine was never signed in to the store (no `~/.config/blowhorn/store.yaml`),
+the records can never be sent from here, and `blowhorn store --replay-spool`
+fails with "no connection is configured". The refusal says so and points to
+`--discard-unsynced-runs`, or to `blowhorn store --import` first if you want
+to keep them.
+
+To quit the desktop app, click the Blowhorn icon in the menu bar and choose
+**Quit Blowhorn**. Closing the window is not enough: the app keeps running in
+the menu bar. Otherwise wait for the run to finish, then run the command again. `blowhorn service status` and `blowhorn chrome
 extension-status` show what is running.
+
+## Delete the checkout
+
+When you no longer need Blowhorn, remove the checkout folder yourself, for
+example:
+
+```bash
+rm -rf ~/code/blowhorn
+```
 
 ## Reinstalling afterwards
 
