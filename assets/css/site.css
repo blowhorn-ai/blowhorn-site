@@ -2282,3 +2282,8 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
 .fm-prose ol { list-style: decimal; padding-left: var(--space-6); }
 .fm-prose ol > li { list-style: decimal; }
 .fm-prose { overflow-wrap: break-word; }
+/* Platform index cards: a resting arrow shows each card opens its own page. */
+.platform-cards { margin-top: var(--space-4); }
+a.platform-card { position: relative; padding-right: calc(var(--space-6) + 1rem); border-left: 3px solid var(--link); }
+a.platform-card::after { content: "\2192"; position: absolute; right: var(--space-4); top: 50%; transform: translateY(-50%); color: var(--link); }
+a.platform-card:hover::after, a.platform-card:focus-visible::after { color: var(--ink); }

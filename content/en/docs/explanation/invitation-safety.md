@@ -30,6 +30,6 @@ standing on that guess.
 - [Accept incoming invitations](/docs/how-to/grow/accept-invitations/) - the command in practice.
 - [How Blowhorn avoids repeat posts](/docs/explanation/never-twice/) - never act on a guess.
 - [Messages and exit codes](/docs/reference/messages/) - what the run reports.
-- [Platforms](/docs/reference/platforms/) - LinkedIn actions and limits.
+- [LinkedIn](/docs/reference/platforms/linkedin/) - LinkedIn actions and limits.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
 - [Withdraw invitations](/docs/how-to/grow/withdraw-invitations/) - the outgoing side.

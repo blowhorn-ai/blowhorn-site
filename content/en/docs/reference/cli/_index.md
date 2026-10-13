@@ -204,7 +204,7 @@ and sends a given idempotency key at most once: a key already sent replays its
 `--json`, print no secret, open no browser, and choose the credential with
 `--slack-auth`. Exit codes: 0 sent, replayed or previewed; 1 refused; 2 usage or
 key conflict; 3 store unavailable or a contended key; 4 outcome unknown; 5 rate-limited (with
-`retry_after`). See [Slack Messages](/docs/reference/platforms/#slack-messages).
+`retry_after`). See [Slack](/docs/reference/platforms/slack/).
 
 Desktop app:
 
