@@ -1,0 +1,76 @@
+{{- /* Social proof. Call with (dict "slot" "hero|interlude|grid|logos|closing").
+   Entries live in data/testimonials.json. An entry with placeholder: true is a
+   made-up draft: it renders only in non-production builds (hugo server, deploy
+   previews) and wears a visible PLACEHOLDER badge. Production builds drop it,
+   and a slot with no remaining entries renders nothing at all. */ -}}
+{{- $slot := .slot -}}
+{{- $items := slice -}}
+{{- range (index site.Data "testimonials").items -}}
+  {{- if and (in .placements $slot) (or (not .placeholder) (not hugo.IsProduction)) -}}
+    {{- $items = $items | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- with $items -}}
+{{- if eq $slot "hero" -}}
+<ul class="proof-strip" aria-label="What beta testers say">
+  {{- range first 3 . }}
+  <li class="proof-chip">
+    <span class="proof-avatar" aria-hidden="true">{{ .initials }}</span>
+    <span><q>{{ .quote | truncate 64 }}</q> <span class="caption muted">{{ .name }}, {{ .company }}</span>{{ if .placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</span>
+  </li>
+  {{- end }}
+</ul>
+{{- else if eq $slot "interlude" -}}
+{{- $t := index . 0 -}}
+<section class="section proof-interlude" aria-label="Beta tester quote">
+  <div class="wrap">
+    <figure class="proof-big">
+      <blockquote class="display">{{ $t.quote }}</blockquote>
+      <figcaption class="label">{{ $t.name }} · {{ $t.role }}, {{ $t.company }}{{ if $t.placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</figcaption>
+    </figure>
+  </div>
+</section>
+{{- else if eq $slot "grid" -}}
+<section id="beta" class="section" aria-labelledby="beta-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">Beta testers</p>
+      <h2 id="beta-title" class="display">Fewer tabs. More reach.</h2>
+      <p class="body-lg muted">What early testers say after a launch or two.</p>
+    </div>
+    <ul class="proof-grid section-body">
+      {{- range . }}
+      <li class="proof-card">
+        {{ if .placeholder }}<span class="proof-flag">Placeholder</span>{{ end }}
+        <blockquote class="body-lg">{{ .quote }}</blockquote>
+        <p class="proof-who"><span class="proof-avatar" aria-hidden="true">{{ .initials }}</span><span><strong>{{ .name }}</strong><br><span class="caption muted">{{ .role }}, {{ .company }}</span></span></p>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+</section>
+{{- else if eq $slot "logos" -}}
+<section class="section" aria-label="Teams in the beta">
+  <div class="wrap">
+    <ul class="proof-logos">
+      {{- range . }}
+      <li class="proof-logo-card">
+        <span class="proof-logo" aria-hidden="true">{{ .initials }}</span>
+        <p class="caption"><strong>{{ .company }}</strong>{{ if .placeholder }} <span class="proof-flag">Placeholder logo</span>{{ end }}</p>
+        <p class="caption muted"><q>{{ .quote | truncate 90 }}</q></p>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+</section>
+{{- else if eq $slot "closing" -}}
+<div class="proof-band" aria-label="Beta testers">
+  {{- range first 3 . }}
+  <figure>
+    <blockquote class="h3">{{ .quote | truncate 80 }}</blockquote>
+    <figcaption class="caption muted">{{ .name }}, {{ .company }}{{ if .placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</figcaption>
+  </figure>
+  {{- end }}
+</div>
+{{- end -}}
+{{- end -}}

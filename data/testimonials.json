@@ -1,0 +1,212 @@
+{
+  "items": [
+    {
+      "name": "Priya Tannenbaum",
+      "role": "Founder and CEO",
+      "company": "Quillstack Labs",
+      "persona": "Alex, Solo Company Voice (Primary)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 91-113, \"Primary persona: Alex - Solo Company Voice\"",
+      "quote": "Launch week used to mean seven tabs and a lot of copy and paste. Now I write it once and it goes everywhere as me.",
+      "placeholder": true,
+      "placements": [
+        "hero",
+        "grid"
+      ],
+      "initials": "QL"
+    },
+    {
+      "name": "Marcus Oyelaran",
+      "role": "Head of Developer Relations",
+      "company": "Fernlight Data",
+      "persona": "Alex, Solo Company Voice (Primary)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 91-113, \"Primary persona: Alex - Solo Company Voice\"",
+      "quote": "My old outreach tool wanted my LinkedIn password. With Blowhorn my logins stay in my own Chrome on my own Mac.",
+      "placeholder": true,
+      "placements": [
+        "interlude",
+        "grid"
+      ],
+      "initials": "FD"
+    },
+    {
+      "name": "Hanna Vestergaard",
+      "role": "Co-founder",
+      "company": "Tidewell Systems",
+      "persona": "Alex, Solo Company Voice (Primary)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 91-113, \"Primary persona: Alex - Solo Company Voice\"",
+      "quote": "I got back most of a day every launch week. One queue covers LinkedIn, X, Reddit and Hacker News.",
+      "placeholder": true,
+      "placements": [
+        "grid",
+        "logos"
+      ],
+      "initials": "TS"
+    },
+    {
+      "name": "Diego Albarran",
+      "role": "Product Marketing Lead",
+      "company": "Northpaw Analytics",
+      "persona": "Alex, Solo Company Voice (Primary)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 91-113, \"Primary persona: Alex - Solo Company Voice\"",
+      "quote": "The rehearsal mode is my favorite part. I see exactly what will post where before anything goes out.",
+      "placeholder": true,
+      "placements": [
+        "grid"
+      ],
+      "initials": "NA"
+    },
+    {
+      "name": "Renee Kowalczyk",
+      "role": "Head of Marketing",
+      "company": "Brightcask",
+      "persona": "Casey, Team Amplification Lead (Secondary #1)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 115-134, \"Secondary persona #1: Casey - Team Amplification Lead\"",
+      "quote": "Our funding post used to get nine likes and a dozen Slack nudges from me. Now the whole team shows up in the first hour and I never ask.",
+      "placeholder": true,
+      "placements": [
+        "hero",
+        "grid",
+        "closing"
+      ],
+      "initials": "B"
+    },
+    {
+      "name": "Theo Achterberg",
+      "role": "Community Lead",
+      "company": "Lanternfish Cloud",
+      "persona": "Casey, Team Amplification Lead (Secondary #1)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 115-134, \"Secondary persona #1: Casey - Team Amplification Lead\"",
+      "quote": "Nobody on my team had to hand a vendor their password. Each person's account acts from their own Mac.",
+      "placeholder": true,
+      "placements": [
+        "grid",
+        "logos"
+      ],
+      "initials": "LC"
+    },
+    {
+      "name": "Amara Nwosu",
+      "role": "DevRel Lead",
+      "company": "Pinegrove Labs",
+      "persona": "Casey, Team Amplification Lead (Secondary #1)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 115-134, \"Secondary persona #1: Casey - Team Amplification Lead\"",
+      "quote": "Five of us share one queue and nothing posts twice. It feels coordinated, not spammy.",
+      "placeholder": true,
+      "placements": [
+        "grid"
+      ],
+      "initials": "PL"
+    },
+    {
+      "name": "Sora Lindqvist",
+      "role": "Open Source Maintainer",
+      "company": "Harborlight Project",
+      "persona": "Riley, Open Source Project Voice (Secondary #2)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 136-152, \"Secondary persona #2: Riley - Open Source Project Voice\"",
+      "quote": "Release day has a one hour window. Blowhorn gets the project account and every maintainer posting on time, with no begging in chat.",
+      "placeholder": true,
+      "placements": [
+        "hero",
+        "grid",
+        "logos"
+      ],
+      "initials": "HP"
+    },
+    {
+      "name": "Benedikt Rausch",
+      "role": "Community Manager",
+      "company": "Kettleworks Foundation",
+      "persona": "Riley, Open Source Project Voice (Secondary #2)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 136-152, \"Secondary persona #2: Riley - Open Source Project Voice\"",
+      "quote": "Hacker News, GitHub, Slack and LinkedIn in one place. I stopped juggling tabs on milestone days.",
+      "placeholder": true,
+      "placements": [
+        "grid"
+      ],
+      "initials": "KF"
+    },
+    {
+      "name": "Lucia Ferraz",
+      "role": "Developer Advocate",
+      "company": "Openmoss Project",
+      "persona": "Riley, Open Source Project Voice (Secondary #2)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 136-152, \"Secondary persona #2: Riley - Open Source Project Voice\"",
+      "quote": "Our big release landed in the first hour across every channel developers read, and it never felt like spam.",
+      "placeholder": true,
+      "placements": [
+        "interlude",
+        "grid",
+        "closing"
+      ],
+      "initials": "OP"
+    },
+    {
+      "name": "Wren Halloway",
+      "role": "Fractional DevRel Consultant",
+      "company": "Halloway and Pike",
+      "persona": "Jordan, Privacy-Scarred Multi-Brand Operator (Secondary #3)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 154-168, \"Secondary persona #3: Jordan - Privacy-Scarred Multi-Brand Operator\"",
+      "quote": "When a client asks where their logins live, I finally have a good answer: on my Mac, in their own Chrome profile.",
+      "placeholder": true,
+      "placements": [
+        "grid",
+        "logos",
+        "closing"
+      ],
+      "initials": "Ha"
+    },
+    {
+      "name": "Kenji Moravec",
+      "role": "Agency Principal",
+      "company": "Signalfern Studio",
+      "persona": "Jordan, Privacy-Scarred Multi-Brand Operator (Secondary #3)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 154-168, \"Secondary persona #3: Jordan - Privacy-Scarred Multi-Brand Operator\"",
+      "quote": "I can pause one client without touching the others. That kind of control is why clients trust me with their accounts.",
+      "placeholder": true,
+      "placements": [
+        "grid"
+      ],
+      "initials": "SS"
+    },
+    {
+      "name": "Isadora Quell",
+      "role": "Growth Consultant",
+      "company": "Brassline Partners",
+      "persona": "Jordan, Privacy-Scarred Multi-Brand Operator (Secondary #3)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 154-168, \"Secondary persona #3: Jordan - Privacy-Scarred Multi-Brand Operator\"",
+      "quote": "No more fake fingerprints or proxies to explain. It is just my real browser, doing the clicking for me.",
+      "placeholder": true,
+      "placements": [
+        "grid"
+      ],
+      "initials": "BP"
+    },
+    {
+      "name": "Felix Durand",
+      "role": "Indie Maker",
+      "company": "Puddlejump Apps",
+      "persona": "Sam, Indie Builder Shipping in Public (Opportunistic)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 170-183, \"Opportunistic persona: Sam - Indie Builder Shipping in Public\"",
+      "quote": "My Show HN went out on time while I answered comments. I did not have to ping a single friend.",
+      "placeholder": true,
+      "placements": [
+        "grid",
+        "logos"
+      ],
+      "initials": "PA"
+    },
+    {
+      "name": "Noor Haddad",
+      "role": "Solo Founder",
+      "company": "Tinroof Software",
+      "persona": "Sam, Indie Builder Shipping in Public (Opportunistic)",
+      "source": "docs/gtm/blowhorn-icp-competitive-brief.md lines 170-183, \"Opportunistic persona: Sam - Indie Builder Shipping in Public\"",
+      "quote": "I ship alone, so every tab I close is time back. Blowhorn turned launch morning into one click.",
+      "placeholder": true,
+      "placements": [
+        "grid"
+      ],
+      "initials": "TS"
+    }
+  ]
+}
