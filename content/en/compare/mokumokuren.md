@@ -60,7 +60,7 @@
       "b": "None. Blowhorn sells no followers, likes or reposts"
     }
   ],
-  "signal": "mokumokuren and Blowhorn come from the same place: no vendor posting as you, no bought numbers. Blowhorn goes further on reach, so a post gets real replies from your people across seven networks.",
+  "signal": "mokumokuren and Blowhorn come from the same place: no vendor posting as you, no bought numbers. Blowhorn goes further on reach, so a post gets real replies from your people across many networks.",
   "faq": [
     {
       "q": "Is mokumokuren better than Blowhorn?",

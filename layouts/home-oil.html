@@ -37,7 +37,7 @@
         </picture>
         <div class="wrap oil-hero-copy">
           <p class="oil-eyebrow">Blowhorn for macOS</p>
-          <h1 id="hero-title" class="oil-display">Stop pasting the same post into seven tabs</h1>
+          <h1 id="hero-title" class="oil-display">Stop pasting the same post into tab after tab</h1>
           <p class="oil-lead">One queue. Every profile. Posted as you, from your own Chrome.</p>
           <div class="oil-actions">
             <a class="oil-btn oil-btn-primary" href="{{ "download/" | relURL }}">
@@ -55,7 +55,7 @@
           <div class="oil-head oil-head-center">
             <p class="oil-eyebrow">Platforms</p>
             <h2 id="platforms-title" class="oil-h2">Say it once. Everywhere</h2>
-            <p class="oil-intro">Seven platforms. One queue. As many Macs as you've got.</p>
+            <p class="oil-intro">One queue. As many Macs as you've got.</p>
           </div>
           <ul class="oil-plaques">
             {{- range slice
@@ -65,7 +65,11 @@
               (dict "n" "Hacker News" "a" "hacker-news" "i" "hacker-news-y18.svg")
               (dict "n" "Slack" "a" "slack" "i" "slack-mark.svg")
               (dict "n" "Bluesky" "a" "bluesky" "i" "bluesky-butterfly-blue.svg")
-              (dict "n" "GitHub" "a" "github" "i" "github-invertocat-black.svg") }}
+              (dict "n" "GitHub" "a" "github" "i" "github-invertocat-black.svg")
+              (dict "n" "YouTube (coming soon)" "a" "youtube" "i" "youtube-simple-icons.svg")
+              (dict "n" "Instagram (coming soon)" "a" "instagram" "i" "instagram-simple-icons.svg")
+              (dict "n" "TikTok (coming soon)" "a" "tiktok" "i" "tiktok-simple-icons.svg")
+              (dict "n" "Facebook (coming soon)" "a" "facebook" "i" "facebook-simple-icons.svg") }}
             <li><a class="oil-plaque" href="{{ $plat }}{{ .a }}/"><span class="oil-plaque-logo"><img src="{{ printf "assets/platforms/%s" .i | relURL }}" alt="" width="32" height="32"></span><span>{{ .n }}</span></a></li>
             {{- end }}
           </ul>
@@ -179,7 +183,7 @@
           </figure>
           <div>
             <h2 id="major-title" class="oil-h2">Meet Major Blowhorn</h2>
-            <blockquote class="oil-quote"><p>Seven tabs. One post. Somebody call a medic.</p></blockquote>
+            <blockquote class="oil-quote"><p>Tab after tab. One post. Somebody call a medic.</p></blockquote>
             <p>Thirty years running basic training. Now he runs your queue.</p>
             <p><a class="oil-btn oil-btn-ghost" href="{{ "major/" | relURL }}">Read his story</a></p>
           </div>

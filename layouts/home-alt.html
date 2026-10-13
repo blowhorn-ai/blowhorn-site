@@ -31,7 +31,7 @@
         <div class="wrap sb-hero-grid">
           <div class="sb-hero-copy">
             <p class="sb-eyebrow">Blowhorn for macOS</p>
-            <h1 id="hero-title" class="sb-display">Stop pasting the same post into seven tabs</h1>
+            <h1 id="hero-title" class="sb-display">Stop pasting the same post into tab after tab</h1>
             <p class="sb-lead">One queue. Every profile. Posted as you, from your own Chrome.</p>
             <div class="sb-actions">
               <a class="sb-btn sb-btn-primary" href="{{ "download/" | relURL }}">
@@ -54,7 +54,7 @@
           <div class="sb-head">
             <p class="sb-eyebrow">Platforms</p>
             <h2 id="platforms-title" class="sb-h2">Say it once. Everywhere</h2>
-            <p class="sb-intro">Seven platforms. One queue. As many Macs as you've got.</p>
+            <p class="sb-intro">One queue. As many Macs as you've got.</p>
           </div>
           <ul class="sb-signs">
             {{- range slice
@@ -64,7 +64,11 @@
               (dict "n" "Hacker News" "a" "hacker-news" "i" "hacker-news-y18.svg")
               (dict "n" "Slack" "a" "slack" "i" "slack-mark.svg")
               (dict "n" "Bluesky" "a" "bluesky" "i" "bluesky-butterfly-blue.svg")
-              (dict "n" "GitHub" "a" "github" "i" "github-invertocat-black.svg") }}
+              (dict "n" "GitHub" "a" "github" "i" "github-invertocat-black.svg")
+              (dict "n" "YouTube (coming soon)" "a" "youtube" "i" "youtube-simple-icons.svg")
+              (dict "n" "Instagram (coming soon)" "a" "instagram" "i" "instagram-simple-icons.svg")
+              (dict "n" "TikTok (coming soon)" "a" "tiktok" "i" "tiktok-simple-icons.svg")
+              (dict "n" "Facebook (coming soon)" "a" "facebook" "i" "facebook-simple-icons.svg") }}
             <li><a class="sb-sign" href="{{ $plat }}{{ .a }}/"><span class="sb-sign-board"><img src="{{ printf "assets/platforms/%s" .i | relURL }}" alt="" width="36" height="36"></span><span class="sb-sign-name">{{ .n }}</span></a></li>
             {{- end }}
           </ul>
@@ -114,7 +118,7 @@
         <div class="wrap sb-major-grid">
           <figure class="sb-major-art sb-major-print"><img src="{{ $a }}major-blowhorn-riso.webp" width="1000" height="563" loading="lazy" decoding="async" alt="Major Blowhorn, a scrappy old rooster in a gritty risograph print, wings at his sides, bellowing into a giant teal megaphone nearly as big as he is"></figure>
           <div>
-            {{ partial "bubble.html" (dict "text" "Seven tabs. One post. Somebody call a medic." "variant" "storybook" "tail" "bottom" "class" "sb-bubble-top") }}
+            {{ partial "bubble.html" (dict "text" "Tab after tab. One post. Somebody call a medic." "variant" "storybook" "tail" "bottom" "class" "sb-bubble-top") }}
             <h2 id="major-title" class="sb-h2">Meet Major Blowhorn</h2>
             <p>Thirty years running basic training. Now he runs your queue. Every approved action is an order; every profile is in his platoon.</p>
             <ul class="sb-gripes">

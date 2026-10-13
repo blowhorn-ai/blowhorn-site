@@ -2,7 +2,7 @@
   "title": "Blowhorn vs Dux-Soup",
   "linkTitle": "Dux-Soup",
   "seo_title": "Blowhorn vs Dux-Soup: honest comparison",
-  "description": "Dux-Soup is a well-known LinkedIn automation extension with drip campaigns and CRM sync, plus a cloud tier. Blowhorn is careful outreach and real-person amplification across seven networks.",
+  "description": "Dux-Soup is a well-known LinkedIn automation extension with drip campaigns and CRM sync, plus a cloud tier. Blowhorn is careful outreach and real-person amplification across many networks.",
   "layout": "versus",
   "weight": 27,
   "lastmod": "2026-10-12",
@@ -10,7 +10,7 @@
   "mark": "DS",
   "site_url": "https://www.dux-soup.com/",
   "group": "LinkedIn growth tools",
-  "verdict": "Dux-Soup is a well-known LinkedIn automation extension with drip campaigns and CRM sync, plus a cloud tier. Blowhorn is careful outreach and real-person amplification across seven networks.",
+  "verdict": "Dux-Soup is a well-known LinkedIn automation extension with drip campaigns and CRM sync, plus a cloud tier. Blowhorn is careful outreach and real-person amplification across many networks.",
   "them": [
     "You want LinkedIn visits, connects and drip campaigns with CRM sync",
     "An extension in your browser, or a cloud tier, both suit you",
@@ -64,7 +64,7 @@
   "faq": [
     {
       "q": "Is Dux-Soup better than Blowhorn?",
-      "a": "For LinkedIn drip campaigns with CRM sync, yes. For publishing and amplifying across seven networks, we think Blowhorn is the better fit."
+      "a": "For LinkedIn drip campaigns with CRM sync, yes. For publishing and amplifying across many networks, we think Blowhorn is the better fit."
     }
   ],
   "major": "Soup is comforting. Brass is rousing.",

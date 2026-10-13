@@ -46,8 +46,12 @@ carry the trademark line below.
 | `slack-mark.svg` | Slack Technologies, LLC (Salesforce) | The Slack mark slack.com serves, https://a.slack-edge.com/9cc0056/marketing/img/nav/logo.svg (media kit: https://slack.com/media-kit) |
 | `bluesky-butterfly-blue.svg` | Bluesky Social, PBC | `bluesky_media_kit_logo_transparent_1.svg`, https://bsky.social/about/support/icons (guidelines: https://bsky.social/about/support/branding) |
 | `github-invertocat-black.svg` | GitHub, Inc. | `SVG/GitHub_Invertocat_Black.svg` from https://brand.github.com/GitHub_Logos.zip (guidelines: https://brand.github.com/foundations/logo) |
+| `youtube-simple-icons.svg` | Google LLC | `icons/youtube.svg` from Simple Icons (https://simpleicons.org, CC0 1.0), downloaded on 13 October 2026, unmodified. A monochrome rendering of the owner's mark, used until the owner's own file replaces it |
+| `instagram-simple-icons.svg` | Meta Platforms, Inc. | `icons/instagram.svg` from Simple Icons (https://simpleicons.org, CC0 1.0), downloaded on 13 October 2026, unmodified. A monochrome rendering of the owner's mark, used until the owner's own file replaces it |
+| `tiktok-simple-icons.svg` | ByteDance Ltd. | `icons/tiktok.svg` from Simple Icons (https://simpleicons.org, CC0 1.0), downloaded on 13 October 2026, unmodified. A monochrome rendering of the owner's mark, used until the owner's own file replaces it |
+| `facebook-simple-icons.svg` | Meta Platforms, Inc. | `icons/facebook.svg` from Simple Icons (https://simpleicons.org, CC0 1.0), downloaded on 13 October 2026, unmodified. A monochrome rendering of the owner's mark, used until the owner's own file replaces it |
 
-LinkedIn, X, Reddit, Hacker News, Slack, Bluesky and GitHub are trademarks of
+LinkedIn, X, Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube, Instagram, TikTok and Facebook are trademarks of
 their respective owners. Blowhorn is not affiliated with or endorsed by any of
 them. The logos are used only to name the platforms Blowhorn works with, under
 each owner's brand guidelines, and are not licensed for any other use.

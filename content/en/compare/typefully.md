@@ -2,7 +2,7 @@
   "title": "Blowhorn vs Typefully",
   "linkTitle": "Typefully",
   "seo_title": "Blowhorn vs Typefully: honest comparison",
-  "description": "Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across seven networks.",
+  "description": "Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many networks.",
   "layout": "versus",
   "weight": 17,
   "lastmod": "2026-10-12",
@@ -10,7 +10,7 @@
   "mark": "Tf",
   "site_url": "https://typefully.com/",
   "group": "Cloud schedulers",
-  "verdict": "Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across seven networks.",
+  "verdict": "Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many networks.",
   "them": [
     "Writing is the hard part, and you want a beautiful, distraction-free editor",
     "You mostly post as yourself on X and LinkedIn",
@@ -64,7 +64,7 @@
   "faq": [
     {
       "q": "Is Typefully better than Blowhorn?",
-      "a": "As an editor, yes, and we'd happily recommend it. For amplifying a post through many real profiles across seven networks, we think Blowhorn is the better fit."
+      "a": "As an editor, yes, and we'd happily recommend it. For amplifying a post through many real profiles across many networks, we think Blowhorn is the better fit."
     },
     {
       "q": "Can I write in Typefully and amplify with Blowhorn?",

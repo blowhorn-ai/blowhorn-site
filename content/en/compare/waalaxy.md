@@ -2,7 +2,7 @@
   "title": "Blowhorn vs Waalaxy",
   "linkTitle": "Waalaxy",
   "seo_title": "Blowhorn vs Waalaxy: honest comparison",
-  "description": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own Chrome and adds publishing and amplification across seven networks.",
+  "description": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own Chrome and adds publishing and amplification across many networks.",
   "layout": "versus",
   "weight": 23,
   "lastmod": "2026-10-12",
@@ -10,7 +10,7 @@
   "mark": "Wx",
   "site_url": "https://www.waalaxy.com/",
   "group": "LinkedIn growth tools",
-  "verdict": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own Chrome and adds publishing and amplification across seven networks.",
+  "verdict": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own Chrome and adds publishing and amplification across many networks.",
   "them": [
     "You want simple LinkedIn plus email prospecting campaigns",
     "Running in the cloud, with nothing on your machine, suits you",

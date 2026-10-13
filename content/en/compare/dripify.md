@@ -64,7 +64,7 @@
   "faq": [
     {
       "q": "Is Dripify better than Blowhorn?",
-      "a": "For sales drip sequences, yes. For publishing and amplifying across seven networks from your own Chrome, we think Blowhorn is the better fit."
+      "a": "For sales drip sequences, yes. For publishing and amplifying across many networks from your own Chrome, we think Blowhorn is the better fit."
     }
   ],
   "major": "Drip, drip, drip. Or one honest blast of brass.",
