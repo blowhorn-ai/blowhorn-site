@@ -151,3 +151,4 @@
   .oil .oil-hero-art img { animation: oil-dawn 2.4s ease-out both; }
   @keyframes oil-dawn { from { filter: brightness(0.82) saturate(0.85); } to { filter: none; } }
 }
+.oil .oil-frame-portrait { max-width: 420px; justify-self: center; width: 100%; }
