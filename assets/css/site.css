@@ -1198,6 +1198,15 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   text-decoration: none;
 }
 .asset-get:hover { color: var(--link); border-color: var(--link); text-decoration: none; }
+.asset-gets {
+  flex: none;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-1);
+}
+.asset-get-primary { border-color: var(--ink); }
+.app-icons .asset-gets { justify-content: flex-start; margin-top: var(--space-2); }
 
 .app-icons {
   display: flex;
@@ -1423,7 +1432,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   .brand-page { padding-top: 0; }
   .brand-section { break-before: page; border-top: 0; }
   .brand-section .h2, .brand-subhead, .section-head { break-after: avoid; }
-  .site-header, .site-footer, .brand-index, .brand-hero-actions, .brand-cta, .asset-get, .copy, .skip-link { display: none !important; }
+  .site-header, .site-footer, .brand-index, .brand-hero-actions, .brand-cta, .asset-gets, .asset-get, .copy, .skip-link { display: none !important; }
   .brand-section { break-inside: auto; padding-block: var(--space-8); }
   .asset, .swatch, .rule, .type-card, .major-card, .clear-grid { break-inside: avoid; }
   .button-pop, .major-card { box-shadow: none; }

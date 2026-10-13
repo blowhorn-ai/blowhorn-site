@@ -3,6 +3,17 @@
   static/brand/. Every logo is placed as its own file, never recoloured: the
   "don't" examples are the one place a mark is distorted, on purpose, with CSS.
   Colors come from data/brand_colors.json, the kit's own colors file. */ -}}
+{{- /* Download links for one brand asset: SVG first, as the master and the
+  file shown on the page, then PNG and WebP renders of it from the same folder.
+  Takes dir, file (the .svg name) and name. */ -}}
+{{- define "partials/brand-asset-formats.html" -}}
+{{- $base := strings.TrimSuffix ".svg" .file -}}
+                  <span class="asset-gets" role="group" aria-label="Download {{ .name }}">
+                    {{- range slice (dict "ext" "svg" "label" "SVG") (dict "ext" "png" "label" "PNG") (dict "ext" "webp" "label" "WebP") }}
+                    <a class="asset-get caption{{ if eq .ext "svg" }} asset-get-primary{{ end }}" href="{{ printf "%s%s.%s" $.dir $base .ext | relURL }}" download aria-label="Download {{ $.name }} as {{ .label }}">{{ .label }}</a>
+                    {{- end }}
+                  </span>
+{{- end -}}
 {{- define "partials/brand-asset.html" -}}
               <li class="asset">
                 <div class="asset-stage stage-{{ .stage }}{{ with .size }} asset-stage-{{ . }}{{ end }}">
@@ -15,7 +26,7 @@
                     <p class="caption muted">{{ . }}</p>
                     {{- end }}
                   </div>
-                  <a class="asset-get caption" href="{{ printf "assets/brand/logo/%s" .file | relURL }}" download aria-label="Download {{ .name }} as SVG">SVG</a>
+                  {{- partial "brand-asset-formats.html" (dict "dir" "assets/brand/logo/" "file" .file "name" .name) }}
                 </div>
               </li>
 {{- end -}}
@@ -85,6 +96,7 @@
             <li>
               <img src="{{ printf "%s%s" $logo .file | relURL }}" alt="" width="120" height="120" loading="lazy">
               <p class="caption muted">{{ .name }}</p>
+              {{- partial "brand-asset-formats.html" (dict "dir" $logo "file" .file "name" .name) }}
             </li>
             {{- end }}
             <li>
@@ -226,7 +238,7 @@
               </div>
               <div class="asset-meta">
                 <p class="ui asset-name">{{ .name }}</p>
-                <a class="asset-get caption" href="{{ printf "%s%s" $mascot .file | relURL }}" download aria-label="Download Major Blowhorn, {{ .name }}, as SVG">SVG</a>
+                {{- partial "brand-asset-formats.html" (dict "dir" $mascot "file" .file "name" (printf "Major Blowhorn, %s" .name)) }}
               </div>
             </li>
             {{- end }}
