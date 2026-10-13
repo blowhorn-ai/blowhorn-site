@@ -1,0 +1,120 @@
+name: Publish blowhorn-axi to npm
+
+# Publishes the blowhorn-axi npm package (the agent interface to Blowhorn) with
+# npm trusted publishing over OIDC. No npm token is stored anywhere: npmjs.com
+# trusts this repository and this workflow file, and npm adds a provenance
+# attestation automatically.
+#
+# The package is built in the private product repo with `npm pack` and handed
+# over as a tarball, so this workflow never needs to read that repo:
+#   - tarball_url: an HTTPS URL of blowhorn-axi-<version>.tgz, or
+#   - release_tag: a release of this repository that has the tarball as an asset
+#     (defaults to v<version> when neither input is given).
+# It does not wait for a desktop release.
+#
+# Run: Actions > Publish blowhorn-axi to npm > Run workflow, or
+#   gh workflow run publish-blowhorn-axi.yml -R layer5io/blowhorn-site \
+#     -f version=0.1.0 -f release_tag=axi-v0.1.0
+#
+# One-time setup on npmjs.com (package Settings > Trusted publishing): GitHub
+# Actions, organization layer5io, repository blowhorn-site, workflow
+# publish-blowhorn-axi.yml, allowed action npm publish.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish, e.g. 0.1.0 (must match the tarball's package.json)"
+        required: true
+        type: string
+      tarball_url:
+        description: "HTTPS URL of blowhorn-axi-<version>.tgz (leave empty to use a release asset)"
+        required: false
+        type: string
+      release_tag:
+        description: "Release of this repo holding blowhorn-axi-<version>.tgz (default v<version>)"
+        required: false
+        type: string
+      sha256:
+        description: "Expected sha256 of the tarball (optional, checked when given)"
+        required: false
+        type: string
+      dist_tag:
+        description: "npm dist-tag"
+        required: false
+        type: string
+        default: latest
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: publish-blowhorn-axi
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Use npm 11.5.1 or newer (trusted publishing)
+        run: |
+          npm install -g npm@^11.5.1
+          npm --version
+
+      - name: Fetch the tarball
+        env:
+          VERSION: ${{ inputs.version }}
+          TARBALL_URL: ${{ inputs.tarball_url }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]] || { echo "::error::version must be X.Y.Z[-pre], got $VERSION"; exit 1; }
+          file="blowhorn-axi-${VERSION}.tgz"
+          if [ -n "$TARBALL_URL" ]; then
+            [[ "$TARBALL_URL" == https://* ]] || { echo "::error::tarball_url must be HTTPS"; exit 1; }
+            curl --fail --location --proto '=https' --proto-redir '=https' --max-time 120 -sS -o "$file" "$TARBALL_URL"
+          else
+            tag="${RELEASE_TAG:-v$VERSION}"
+            gh release download "$tag" -R "$GITHUB_REPOSITORY" -p "$file" -O "$file"
+          fi
+          echo "TARBALL=$file" >> "$GITHUB_ENV"
+
+      - name: Verify the tarball
+        env:
+          VERSION: ${{ inputs.version }}
+          SHA256: ${{ inputs.sha256 }}
+        run: |
+          set -euo pipefail
+          if [ -n "$SHA256" ]; then echo "$SHA256  $TARBALL" | sha256sum -c -; fi
+          tar -xzf "$TARBALL" package/package.json -O > pkg.json
+          name=$(node -p "require('./pkg.json').name")
+          ver=$(node -p "require('./pkg.json').version")
+          repo=$(node -p "(require('./pkg.json').repository||{}).url||''")
+          [ "$name" = "blowhorn-axi" ] || { echo "::error::tarball is $name, not blowhorn-axi"; exit 1; }
+          [ "$ver" = "$VERSION" ] || { echo "::error::tarball is version $ver, input is $VERSION"; exit 1; }
+          case "$repo" in *github.com/layer5io/blowhorn-site*) ;; *) echo "::error::repository.url ($repo) must be layer5io/blowhorn-site for provenance"; exit 1;; esac
+          if npm view "blowhorn-axi@$VERSION" version >/dev/null 2>&1; then echo "::error::blowhorn-axi@$VERSION is already published"; exit 1; fi
+          tar -tzf "$TARBALL"
+          sha256sum "$TARBALL"
+
+      - name: Publish (OIDC trusted publishing, provenance)
+        env:
+          DIST_TAG: ${{ inputs.dist_tag }}
+        run: npm publish "./$TARBALL" --access public --tag "${DIST_TAG:-latest}"
+
+      - name: Confirm
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          for i in 1 2 3 4 5 6; do
+            npm view "blowhorn-axi@$VERSION" version && exit 0
+            sleep 10
+          done
+          echo "::warning::published, but the registry does not list $VERSION yet"
