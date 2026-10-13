@@ -79,6 +79,7 @@
   --ink-muted: #5B6A70;
   --ink-wordmark: #3C494F;
   --link: var(--teal-deep);
+  --link-hover: var(--near-black);
   --line: #D5DEDD;
   --focus-ring: var(--teal-deep);
   --shadow-pop: 4px 4px 0 0 #1E2117;
@@ -145,6 +146,7 @@
     --ink-muted: #A3AEB2;
     --ink-wordmark: #FFFFFF;
     --link: var(--teal-bright);
+    --link-hover: var(--mint);
     --line: #3C494F;
     --focus-ring: var(--teal-bright);
     --shadow-pop: 4px 4px 0 0 #00D3A9;
@@ -200,13 +202,17 @@ ul, ol { padding: 0; list-style: none; }
 img, svg { display: block; max-width: 100%; height: auto; }
 picture { display: block; }
 
-a {
-  color: var(--link);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
-}
-a:hover { text-decoration-thickness: 2px; }
+/* Links never underline, anywhere on the site, docs included (Lee). One
+  rule for every state; components only change color, never decoration. */
+a,
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:focus-visible,
+a:active { text-decoration: none; }
+a { color: var(--link); }
+a:where(:hover, :focus-visible) { color: var(--link-hover); }
 
 :focus-visible {
   outline: 2px solid var(--focus-ring);
@@ -410,7 +416,7 @@ pre code { background: none; padding: 0; }
   white-space: nowrap;
   padding: var(--space-2) 0;
 }
-.site-nav a:hover { color: var(--link); text-decoration: underline; }
+.site-nav a:hover { color: var(--link); }
 .site-cta { padding-block: var(--space-2); min-height: 40px; }
 @media (max-width: 719px) {
   /* Two rows: the lockup with a compact Download button on its right, then the
@@ -760,7 +766,7 @@ pre code { background: none; padding: 0; }
   color: var(--ink);
   text-decoration: none;
 }
-.footer-col a:hover { color: var(--link); text-decoration: underline; }
+.footer-col a:hover { color: var(--link); }
 .footer-bottom {
   margin-top: var(--space-6);
   padding-inline: var(--space-2);
@@ -847,7 +853,7 @@ pre code { background: none; padding: 0; }
 /* Trust Center (/legal/) */
 .page .section-body > .h2 + .grid { margin-top: var(--space-6); }
 .policy-card .h3 a { color: var(--ink); text-decoration: none; }
-.policy-card .h3 a:hover { color: var(--link); text-decoration: underline; }
+.policy-card .h3 a:hover { color: var(--link); }
 .policy-status {
   display: inline-block;
   background: var(--surface-tint);
