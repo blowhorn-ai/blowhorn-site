@@ -436,6 +436,18 @@ pre code { background: none; padding: 0; }
   .brand img { width: 160px; }
   .site-cta { grid-area: cta; min-height: 36px; padding: var(--space-1) var(--space-4); font-size: 13px; }
   .site-nav { grid-area: nav; gap: var(--space-4); margin-left: 0; min-height: 36px; justify-content: space-between; }
+  /* The section links outgrow a 390px phone (they ran to 421px and scrolled
+     the whole page sideways). The row scrolls on its own instead; the inline
+     padding keeps each link's focus ring inside the scroll box. */
+  .site-nav {
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding-inline: var(--space-1);
+    margin-inline: calc(-1 * var(--space-1));
+  }
+  .site-nav::-webkit-scrollbar { display: none; }
 }
 @media (min-width: 480px) and (max-width: 719px) {
   .site-nav { justify-content: flex-start; gap: var(--space-6); }
