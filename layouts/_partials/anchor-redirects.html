@@ -1,0 +1,6 @@
+{{- /* Old one-page anchors (for example /docs/reference/platforms/#slack)
+  forward to the page that now holds that content. Only outside links still
+  carry these anchors; every internal link points at the dedicated page. */ -}}
+{{- with .Params.anchor_redirects }}
+<script>(function(){var m={{ . | jsonify | safeJS }};var h=decodeURIComponent(location.hash.slice(1));if(h&&m[h]){location.replace(m[h]);}})();</script>
+{{- end }}

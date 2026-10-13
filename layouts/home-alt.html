@@ -59,13 +59,13 @@
           <ul class="sb-signs">
             {{- range slice
               (dict "n" "LinkedIn" "a" "linkedin" "i" "linkedin-in-bug.png")
-              (dict "n" "X" "a" "x-twitter" "i" "x-logo-black.png")
+              (dict "n" "X" "a" "x" "i" "x-logo-black.png")
               (dict "n" "Reddit" "a" "reddit" "i" "reddit-logo.png")
               (dict "n" "Hacker News" "a" "hacker-news" "i" "hacker-news-y18.svg")
               (dict "n" "Slack" "a" "slack" "i" "slack-mark.svg")
               (dict "n" "Bluesky" "a" "bluesky" "i" "bluesky-butterfly-blue.svg")
               (dict "n" "GitHub" "a" "github" "i" "github-invertocat-black.svg") }}
-            <li><a class="sb-sign" href="{{ $plat }}#{{ .a }}"><span class="sb-sign-board"><img src="{{ printf "assets/platforms/%s" .i | relURL }}" alt="" width="36" height="36"></span><span class="sb-sign-name">{{ .n }}</span></a></li>
+            <li><a class="sb-sign" href="{{ $plat }}{{ .a }}/"><span class="sb-sign-board"><img src="{{ printf "assets/platforms/%s" .i | relURL }}" alt="" width="36" height="36"></span><span class="sb-sign-name">{{ .n }}</span></a></li>
             {{- end }}
           </ul>
         </div>

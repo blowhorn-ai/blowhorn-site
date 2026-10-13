@@ -136,7 +136,7 @@ real visit by a real account, so Hacker News can rate-limit it like one.
 
 - [Post content](/docs/how-to/publish/post-content/) - running `blowhorn post` in general.
 - [Reply to a post](/docs/how-to/publish/reply-to-a-post/) - comments on the other platforms.
-- [Platform reference](/docs/reference/platforms/) - every column,
+- [Hacker News platform reference](/docs/reference/platforms/hacker-news/) - every column,
   outcome, and limit.
 - [Reliability and anti-bot design](/docs/explanation/reliability-and-anti-bot-design/) -
   why these rules are strict.

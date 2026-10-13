@@ -6,7 +6,10 @@
      (wcag/h32) and shipped markup uses double quotes throughout.
   2. The section nav carries aria-label="Docs": the page already has the
      Primary and Legal navs, so an unnamed third nav fails unique-landmark.
-  3. No other change: the tree below is upstream byte for byte. */}}
+  3. Collapsible sections: a section with children gets a chevron button
+     (aria-expanded, aria-controls) beside its link, and its list starts
+     hidden unless it holds the current page. assets/js/docs-toggle.js
+     wires the buttons. The links and classes are otherwise upstream. */}}
 {{ $context := .context -}}
 {{ $sidebarRoot := .sidebarRoot -}}
 {{ $sidebarRootID := .sidebarRootID -}}
@@ -167,6 +170,8 @@
       </a> {{- /**/ -}}
     </label>
     {{ else -}}
+      {{ $fold := and $withChild (not $treeRoot) -}}
+      {{ if $fold }}<div class="td-sidebar-row">{{ end -}}
       <a href="{{ $manualLink }}"
         {{- if ne $s.LinkTitle $manualLinkTitle }} title="{{ $manualLinkTitle }}"{{ end -}}
         {{ with $s.Params.manualLinkTarget }} {{/**/ -}}
@@ -189,10 +194,13 @@
       ">
         {{- $s.LinkTitle -}}
       </span></a>
+      {{- if $fold -}}
+      <button type="button" class="td-sidebar-fold" aria-expanded="{{ if $activePath }}true{{ else }}false{{ end }}" aria-controls="{{ $mid }}-ul"><span class="visually-hidden">{{ $s.LinkTitle }}</span></button></div>
+      {{- end -}}
     {{- end -}}
     {{ if $withChild -}}
     {{ $ulNr := add $ulNr 1 }}
-    <ul class="ul-{{ $ulNr }}{{ if (gt $ulNr 1)}} foldable{{end}}">
+    <ul class="ul-{{ $ulNr }}{{ if (gt $ulNr 1)}} foldable{{end}}" id="{{ $mid }}-ul"{{ if and (gt $ulNr 1) (not $activePath) }} hidden{{ end }}>
       {{ range $pages -}}
         {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
           {{ template "section-tree-nav-section" (dict "page" $p "section" . "shouldDelayActive" $shouldDelayActive "sidebarMenuTruncate" $sidebarMenuTruncate "ulNr" $ulNr "ulShow" $ulShow) }}
