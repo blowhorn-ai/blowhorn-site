@@ -6,6 +6,7 @@
 key: linkedin
 name: LinkedIn
 weight: 1
+logo: assets/platforms/linkedin-in-bug.png
 docs: /docs/reference/platforms/linkedin/
 reach: Your own signed-in Chrome, through the Blowhorn extension
 actions:

@@ -2,6 +2,7 @@
 key: x
 name: X (Twitter)
 weight: 2
+logo: assets/platforms/x-logo-black.png
 docs: /docs/reference/platforms/x/
 reach: Your own signed-in Chrome, through the Blowhorn extension
 actions:

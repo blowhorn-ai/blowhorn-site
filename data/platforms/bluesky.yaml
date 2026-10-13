@@ -2,6 +2,7 @@
 key: bluesky
 name: Bluesky
 weight: 6
+logo: assets/platforms/bluesky-butterfly-blue.svg
 docs: /docs/reference/platforms/bluesky/
 reach: Bluesky's API, never the browser
 actions:

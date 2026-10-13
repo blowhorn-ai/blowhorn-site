@@ -2,6 +2,7 @@
 key: github
 name: GitHub
 weight: 7
+logo: assets/platforms/github-invertocat-black.svg
 docs: /docs/reference/platforms/github/
 reach: GitHub's API, never the browser
 actions:

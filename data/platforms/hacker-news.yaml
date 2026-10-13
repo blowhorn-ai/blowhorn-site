@@ -2,6 +2,7 @@
 key: hacker-news
 name: Hacker News
 weight: 4
+logo: assets/platforms/hacker-news-y18.svg
 docs: /docs/reference/platforms/hacker-news/
 reach: Your own Chrome, through the Blowhorn extension
 actions:

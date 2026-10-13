@@ -1605,7 +1605,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .mark-yes { background: var(--teal-shade); }
 .mark-partial { background: linear-gradient(90deg, var(--teal-shade) 50%, transparent 50%); box-shadow: inset 0 0 0 1.5px var(--teal-shade); }
 .mark-no { box-shadow: inset 0 0 0 1.5px var(--line-strong); }
-.compare-fair { display: grid; gap: var(--space-3); max-width: 48rem; padding-left: var(--space-5, 1.25rem); color: var(--ink-muted); }
+.compare-fair { display: grid; gap: var(--space-3); max-width: 48rem; padding-left: var(--space-4); color: var(--ink-muted); }
 .compare-fair li { list-style: disc; }
 .compare-cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); }
 @media (prefers-color-scheme: dark) {
@@ -2615,3 +2615,31 @@ a.docs-card.platform-card:hover::after, a.docs-card.platform-card:focus-visible:
 .supported-actions dd > p + p { margin-top: var(--space-1); }
 .agent-platform-list { display: grid; gap: var(--grid-gap); grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
 .agent-platform > * + * { margin-top: var(--space-3); }
+
+/* Agent pages: supported actions as one table, a row per platform and action,
+   from data/platforms/*.yaml. */
+.agent-actions-wrap { margin-top: var(--space-6); overflow-x: auto; border-radius: var(--radius-md); }
+.agent-actions-table { width: 100%; min-width: 44rem; border-collapse: collapse; }
+.agent-actions-table th, .agent-actions-table td { padding: var(--space-3) var(--space-4); text-align: left; vertical-align: top; }
+.agent-actions-table thead th { font-weight: 600; border-bottom: 1px solid var(--line-strong); }
+.agent-actions-table tr.agent-actions-first > * { border-top: 1px solid var(--line); }
+.agent-actions-table tbody tr:first-child > * { border-top: 0; }
+.agent-actions-name { font-weight: 600; white-space: nowrap; }
+.agent-actions-platform a { display: flex; align-items: center; gap: var(--space-3); font-weight: 600; white-space: nowrap; }
+/* Platform index cards (docs): each card carries its platform's logo, from
+   the same local assets as data/platforms/*.yaml logo. */
+a.docs-card.platform-card { padding-left: calc(var(--space-6) + 44px); }
+a.docs-card.platform-card::before {
+  content: ""; position: absolute; left: var(--space-4); top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--white) no-repeat center / 24px 24px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+a.docs-card.platform-card[href$="/linkedin/"]::before { background-image: url("/assets/platforms/linkedin-in-bug.png"); }
+a.docs-card.platform-card[href$="/x/"]::before { background-image: url("/assets/platforms/x-logo-black.png"); background-size: 20px 20px; }
+a.docs-card.platform-card[href$="/reddit/"]::before { background-image: url("/assets/platforms/reddit-logo.png"); }
+a.docs-card.platform-card[href$="/hacker-news/"]::before { background-image: url("/assets/platforms/hacker-news-y18.svg"); background-size: 20px 20px; }
+a.docs-card.platform-card[href$="/slack/"]::before { background-image: url("/assets/platforms/slack-mark.svg"); }
+a.docs-card.platform-card[href$="/bluesky/"]::before { background-image: url("/assets/platforms/bluesky-butterfly-blue.svg"); }
+a.docs-card.platform-card[href$="/github/"]::before { background-image: url("/assets/platforms/github-invertocat-black.svg"); }
+.agent-actions-platform .logo-tile { width: 36px; height: 36px; }
+.agent-actions-platform .logo-tile img { width: 22px; height: 22px; }

@@ -2,6 +2,7 @@
 key: slack
 name: Slack
 weight: 5
+logo: assets/platforms/slack-mark.svg
 docs: /docs/reference/platforms/slack/
 reach: Slack's API, never the browser
 actions:

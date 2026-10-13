@@ -99,15 +99,25 @@
             <h2 id="platforms-title" class="h2">What {{ $who }} can do on each platform</h2>
             <p class="muted">Every action below is a blowhorn command {{ $who }} can run for you. Each platform's <a href="{{ with $platformsDocs }}{{ .RelPermalink }}{{ end }}">docs page</a> has the details.</p>
           </div>
-          <div class="agent-platform-list">
+          <div class="agent-actions-wrap glass">
+          <table class="agent-actions-table">
+            <thead><tr><th scope="col">Platform</th><th scope="col">Action</th><th scope="col">How it behaves</th><th scope="col">Limits</th></tr></thead>
+            <tbody>
           {{- range sort hugo.Data.platforms "weight" }}
-            <article class="card glass agent-platform">
-              <h3 class="h3"><a href="{{ .docs | relURL }}">{{ .name }}</a></h3>
-              <p class="muted">{{ .reach }}.</p>
-              {{ partial "supported-actions.html" (dict "key" .key) -}}
-              <p><a href="{{ .docs | relURL }}">{{ .name }} docs</a></p>
-            </article>
+            {{- $pl := . }}
+            {{- range $i, $a := .actions }}
+              <tr{{ if eq $i 0 }} class="agent-actions-first"{{ end }}>
+                {{- if eq $i 0 }}
+                <th scope="rowgroup" rowspan="{{ len $pl.actions }}" class="agent-actions-platform"><a href="{{ $pl.docs | relURL }}"><span class="logo-tile"><img src="{{ $pl.logo | relURL }}" alt="" width="28" height="28"></span><span>{{ $pl.name }}</span></a></th>
+                {{- end }}
+                <td class="agent-actions-name">{{ $a.name }}</td>
+                <td>{{ $a.behavior }}</td>
+                <td class="muted">{{ with $a.limits }}{{ . }}{{ else }}None{{ end }}</td>
+              </tr>
+            {{- end }}
           {{- end }}
+            </tbody>
+          </table>
           </div>
         </section>
 
