@@ -145,6 +145,7 @@
 }
 .storybook .sb-major-art { margin: 0; }
 .storybook .sb-major-art img { width: 100%; max-width: 420px; height: auto; display: block; margin-inline: auto; transform-origin: 50% 95%; animation: sb-strut 5s ease-in-out infinite; }
+.storybook .sb-major-print img { max-width: 100%; border-radius: 28px; border: 4px solid var(--sb-line); box-shadow: var(--sb-shadow); animation: none; transform: rotate(-1deg); }
 .storybook .sb-gripes { list-style: none; padding: 0; margin: var(--head-gap) 0 0; display: grid; gap: var(--stack-gap); }
 .storybook .sb-gripes strong { display: block; font-family: var(--sb-serif); color: var(--sb-red-deep); }
 .storybook .sb-split > figure { margin: 0; }
