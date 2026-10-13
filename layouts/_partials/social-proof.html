@@ -41,7 +41,9 @@
     <ul class="proof-grid section-body">
       {{- range . }}
       <li class="proof-card">
-        {{ if .placeholder }}<span class="proof-flag">Placeholder</span>{{ end }}
+        {{- if .placeholder }}
+        <span class="proof-flag">Placeholder</span>
+        {{- end }}
         <blockquote class="body-lg">{{ .quote }}</blockquote>
         <p class="proof-who"><span class="proof-avatar" aria-hidden="true">{{ .initials }}</span><span><strong>{{ .name }}</strong><br><span class="caption muted">{{ .role }}, {{ .company }}</span></span></p>
       </li>
