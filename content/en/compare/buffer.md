@@ -5,7 +5,7 @@
   "description": "Buffer is the friendliest way to keep a steady, approved calendar on 11+ networks, laptop closed. Blowhorn is for the moment you need many real voices on the networks developers use.",
   "layout": "versus",
   "weight": 10,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-13",
   "competitor": "Buffer",
   "mark": "Bu",
   "site_url": "https://buffer.com/",
@@ -21,7 +21,7 @@
     "One post should be amplified by your founders, your team and your supporters, not just published once",
     "You want posting to happen from your own Chrome, as you, on your own Macs"
   ],
-  "price_them": "Free plan; Essentials $5 and Team $10 per channel per month, billed yearly",
+  "price_them": "Free (10 posts a channel); Essentials $5 a channel, Team $10 a channel a month, billed annually",
   "price_src": "https://buffer.com/pricing",
   "rows": [
     {
@@ -62,7 +62,7 @@
     {
       "f": "Price",
       "t": "Per channel",
-      "b": "Free during early access"
+      "b": "Free plan available, see pricing"
     }
   ],
   "signal": "Buffer is honest software and it doesn't sell engagement either, so this one is about reach, not ethics. A calendar publishes your post once, from one account. The conversation starts when people who know you show up in the replies in the first hour. That is the job Blowhorn was built for.",
@@ -80,5 +80,19 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
-  }
+  },
+  "wins": [
+    "No per-channel math: three profiles on four networks is twelve Buffer channels",
+    "Several of your profiles can amplify the same post",
+    "Hacker News, Reddit, GitHub and Slack in the same queue, plus careful LinkedIn outreach"
+  ],
+  "loses": [
+    "Buffer posts with every laptop closed. Blowhorn needs at least one of your Macs awake",
+    "Buffer covers Instagram, TikTok and Pinterest today. Blowhorn does not yet",
+    "Buffer's calendar and approval tools are more polished"
+  ],
+  "aliases": [
+    "/versus/buffer/"
+  ],
+  "featured": true
 }

@@ -5,7 +5,7 @@
   "description": "Postiz is the strongest agent-ready scheduler out there, with 30+ networks, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own Chrome, on your own Macs, plus Hacker News, GitHub and LinkedIn outreach.",
   "layout": "versus",
   "weight": 18,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-13",
   "competitor": "Postiz",
   "mark": "Pz",
   "site_url": "https://postiz.com/",
@@ -21,7 +21,7 @@
     "Hacker News, GitHub and careful LinkedIn outreach matter to you",
     "You run a fleet of Macs and want to pause one action, one Mac or all of them"
   ],
-  "price_them": "$29, $39, $49 and $99 per month (less billed yearly); free to self-host",
+  "price_them": "Standard $29 (5 channels), Team $39, Pro $49, Ultimate $99 a month; self-hosting is free",
   "price_src": "https://postiz.com/pricing",
   "rows": [
     {
@@ -62,7 +62,7 @@
     {
       "f": "Price",
       "t": "Per channel count",
-      "b": "Free during early access"
+      "b": "Free plan available, see pricing"
     }
   ],
   "signal": "Postiz and Blowhorn agree more than they disagree: neither sells engagement. Our bet is on people. Blowhorn's sound wave includes the profiles your teammates and supporters add themselves, so the replies under your post come from people who actually chose to stand behind it.",
@@ -80,5 +80,19 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
-  }
+  },
+  "wins": [
+    "LinkedIn, X and Reddit post from your own Chrome, not from tokens in someone's cloud",
+    "Hacker News submissions",
+    "Careful LinkedIn outreach, plus a dry run and a pause for every action"
+  ],
+  "loses": [
+    "Postiz runs in the cloud, always on",
+    "Postiz covers far more networks",
+    "Postiz already amplifies from accounts you own in its cloud"
+  ],
+  "aliases": [
+    "/versus/postiz/"
+  ],
+  "featured": true
 }

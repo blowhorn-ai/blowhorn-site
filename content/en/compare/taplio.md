@@ -5,7 +5,7 @@
   "description": "Taplio is an all-in-one LinkedIn growth kit: AI writing, inspiration, scheduling and lead tools. Blowhorn is multi-network, and its amplification comes from real people, not auto-engagement.",
   "layout": "versus",
   "weight": 20,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-13",
   "competitor": "Taplio",
   "mark": "Ta",
   "site_url": "https://taplio.com/",
@@ -21,7 +21,7 @@
     "You want your team and supporters to amplify as themselves",
     "You want an agent-friendly CLI instead of AI inside a black box"
   ],
-  "price_them": "Starter $39, Growth $69, Pro $199 per month",
+  "price_them": "Starter $39, Growth $69, Pro $199 a month",
   "price_src": "https://taplio.com/pricing",
   "rows": [
     {
@@ -57,7 +57,7 @@
     {
       "f": "Price",
       "t": "Per month",
-      "b": "Free during early access"
+      "b": "Free plan available, see pricing"
     }
   ],
   "signal": "On LinkedIn, the comments that count are the ones that start a conversation. LinkedIn itself said in March 2026 that it limits automated comments and engagement pods. Blowhorn's view: you write the words, and the people behind the profiles in your account are people who actually know you.",
@@ -71,5 +71,18 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
-  }
+  },
+  "wins": [
+    "Posts to LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky and Slack, not just LinkedIn",
+    "Your own profiles amplify a post while it is still fresh",
+    "Your LinkedIn session stays in your own Chrome on your own Mac"
+  ],
+  "loses": [
+    "Taplio writes LinkedIn posts for you with AI. Blowhorn does not write for you",
+    "Taplio has a library of viral posts for inspiration and makes carousels"
+  ],
+  "aliases": [
+    "/versus/taplio/"
+  ],
+  "featured": true
 }

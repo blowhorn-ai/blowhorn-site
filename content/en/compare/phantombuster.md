@@ -5,7 +5,7 @@
   "description": "PhantomBuster is a powerful data and outreach automation platform across 15+ sites. Blowhorn is narrower on purpose: careful actions and real-person amplification, from your own Chrome.",
   "layout": "versus",
   "weight": 22,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-13",
   "competitor": "PhantomBuster",
   "mark": "Ph",
   "site_url": "https://phantombuster.com/",
@@ -21,7 +21,7 @@
     "No vendor server should log in as you; Blowhorn acts from your own signed-in Chrome",
     "You also speak on X, Reddit, Hacker News, GitHub, Bluesky and Slack, and want your people amplifying"
   ],
-  "price_them": "Start $56, Grow $128, Scale $352 per month, billed annually; free trial",
+  "price_them": "Start $56, Grow $128, Scale $352 a month, billed annually",
   "price_src": "https://phantombuster.com/pricing",
   "rows": [
     {
@@ -62,7 +62,7 @@
     {
       "f": "Price",
       "t": "Per seat or license",
-      "b": "Free during early access"
+      "b": "Free plan available, see pricing"
     }
   ],
   "signal": "Lists and enrichment are about finding people. Blowhorn is about being worth answering when you find them: posts your own people amplify, and replies that turn into conversations.",
@@ -76,5 +76,16 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
-  }
+  },
+  "wins": [
+    "Your LinkedIn session cookie is never copied to a vendor",
+    "Built for speaking: posting and amplifying, not scraping"
+  ],
+  "loses": [
+    "PhantomBuster pulls data from 15+ platforms and builds lead lists. Blowhorn does neither"
+  ],
+  "aliases": [
+    "/versus/phantombuster/"
+  ],
+  "featured": true
 }

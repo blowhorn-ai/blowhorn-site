@@ -46,6 +46,15 @@
               </ul>
             </div>
             <div class="footer-col">
+              <h2 class="footer-title">Comparisons</h2>
+              <ul>
+                {{- range where (site.GetPage "/compare").Pages.ByWeight "Params.featured" true }}
+                <li><a href="{{ .RelPermalink }}">vs {{ .Params.competitor }}</a></li>
+                {{- end }}
+                <li><a href="{{ "versus/" | relURL }}">All comparisons</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
               <h2 class="footer-title">Trust</h2>
               <ul>
                 <li><a href="{{ (site.GetPage "/legal").RelPermalink }}">Trust Center</a></li>

@@ -5,7 +5,7 @@
   "description": "Hootsuite is a full social operations suite for larger teams: inbox, listening, approvals, ads. Blowhorn is a lighter, sharper tool for technical company voices who need real people amplifying on developer networks.",
   "layout": "versus",
   "weight": 11,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-13",
   "competitor": "Hootsuite",
   "mark": "Hs",
   "site_url": "https://www.hootsuite.com/",
@@ -21,7 +21,7 @@
     "Hacker News, Reddit, GitHub and Slack matter as much as LinkedIn and X",
     "You want your people to amplify a post as themselves, without enterprise seat math"
   ],
-  "price_them": "Paid plans start at $99 (Standard), $199 (Professional) and $399 (Advanced); Enterprise custom",
+  "price_them": "Standard $99, Professional $199, Advanced $399 a user a month",
   "price_src": "https://www.hootsuite.com/plans",
   "rows": [
     {
@@ -62,7 +62,7 @@
     {
       "f": "Price",
       "t": "Per user, per month",
-      "b": "Free during early access"
+      "b": "Free plan available, see pricing"
     }
   ],
   "signal": "Hootsuite's boost is paid advertising, and ads are a fair, labeled trade. What Blowhorn adds is the thing ads can't buy: people who know you, replying and reposting because they actually care about what you shipped.",
@@ -80,5 +80,17 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
-  }
+  },
+  "wins": [
+    "A solo voice or small team pays a fraction of the cost",
+    "Hacker News, Reddit and GitHub, where technical people talk",
+    "Real people amplify, without an enterprise contract"
+  ],
+  "loses": [
+    "Hootsuite has a shared inbox, social listening, approvals, SSO and enterprise reporting. Blowhorn has none of these today"
+  ],
+  "aliases": [
+    "/versus/hootsuite/"
+  ],
+  "featured": true
 }

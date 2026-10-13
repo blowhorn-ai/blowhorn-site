@@ -5,7 +5,7 @@
   "description": "SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer networks.",
   "layout": "versus",
   "weight": 15,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-13",
   "competitor": "SocialBee",
   "mark": "SB",
   "site_url": "https://socialbee.com/",
@@ -21,7 +21,7 @@
     "Hacker News, Reddit, GitHub and Slack in the same queue",
     "An agent-friendly CLI and one queue across all your Macs"
   ],
-  "price_them": "From $29 per month (Bootstrap), $49 (Accelerate), $99 (Pro), less billed annually",
+  "price_them": "Bootstrap $29, Accelerate $49, Pro $99 a month",
   "price_src": "https://socialbee.com/pricing/",
   "rows": [
     {
@@ -57,7 +57,7 @@
     {
       "f": "Price",
       "t": "Per plan and profile count",
-      "b": "Free during early access"
+      "b": "Free plan available, see pricing"
     }
   ],
   "signal": "A steady feed is good hygiene. The posts that move a technical audience are the ones people argue about in the replies, and those need real people showing up.",
@@ -71,5 +71,19 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
-  }
+  },
+  "wins": [
+    "Amplify one post across many profiles",
+    "Developer networks: Hacker News, Reddit, GitHub and Slack",
+    "Posts from your own signed-in sessions"
+  ],
+  "loses": [
+    "SocialBee recycles evergreen posts and sorts them into category queues",
+    "SocialBee covers Instagram and TikTok. Blowhorn does not yet",
+    "SocialBee offers client workspaces. Blowhorn does not today"
+  ],
+  "aliases": [
+    "/versus/socialbee/"
+  ],
+  "featured": true
 }

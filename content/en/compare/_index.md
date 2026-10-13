@@ -4,6 +4,8 @@ linkTitle: Compare
 description: Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
 lead: Plenty of tools will post for you. Blowhorn posts as you, from every Mac you own, through one queue you control.
 layout: compare
+aliases:
+  - /versus/
 lastmod: 2026-10-12
 sitemap:
   changefreq: monthly

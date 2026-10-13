@@ -5,7 +5,7 @@
   "description": "Expandi is a serious outbound machine: LinkedIn and email sequences, InMails and personalization at volume. Blowhorn is not a sequencer. It's for careful outreach and real-person amplification, from your own Chrome.",
   "layout": "versus",
   "weight": 21,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-13",
   "competitor": "Expandi",
   "mark": "Ex",
   "site_url": "https://expandi.io/",
@@ -21,7 +21,7 @@
     "No vendor server should log in as you; Blowhorn acts from your own signed-in Chrome",
     "You also speak on X, Reddit, Hacker News, GitHub, Bluesky and Slack, and want your people amplifying"
   ],
-  "price_them": "$99 per seat per month, or $79 billed annually",
+  "price_them": "$99 a seat a month, or $79 a seat billed annually",
   "price_src": "https://expandi.io/pricing/",
   "rows": [
     {
@@ -62,7 +62,7 @@
     {
       "f": "Price",
       "t": "Per seat or license",
-      "b": "Free during early access"
+      "b": "Free plan available, see pricing"
     }
   ],
   "signal": "Outbound volume fills a pipeline. Discussion builds a reputation. Blowhorn caps itself (20 LinkedIn invitations per run, for example) because a few real conversations beat a thousand ignored invites.",
@@ -76,5 +76,18 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
-  }
+  },
+  "wins": [
+    "You never hand over your LinkedIn password or cookie",
+    "Careful LinkedIn outreach: invite to a page, accept invites, withdraw stale ones, with a dry run first",
+    "Posts and amplifies on other networks too"
+  ],
+  "loses": [
+    "Expandi runs far more outreach, around the clock from its cloud",
+    "Expandi adds email steps and CRM sync. Blowhorn is not a sales sequencer"
+  ],
+  "aliases": [
+    "/versus/expandi/"
+  ],
+  "featured": true
 }

@@ -48,10 +48,25 @@
           </div>
         </section>
 
+        {{- if $p.wins }}
+        <section class="agent-section" aria-labelledby="wins-title">
+          <div class="grid grid-2 versus-fit">
+            <div class="card glass versus-us">
+              <h2 id="wins-title" class="h3">Where Blowhorn wins</h2>
+              <ul>{{ range $p.wins }}<li>{{ . }}</li>{{ end }}</ul>
+            </div>
+            <div class="card glass">
+              <h2 class="h3">Where Blowhorn doesn't win</h2>
+              <ul>{{ range $p.loses }}<li>{{ . }}</li>{{ end }}</ul>
+            </div>
+          </div>
+        </section>
+        {{- end }}
+
         <section class="agent-section" aria-labelledby="table-title">
           <div class="section-head">
             <h2 id="table-title" class="h2">Side by side</h2>
-            <p class="muted">{{ $p.competitor }} pricing as of Oct 2026: {{ $p.price_them }} (<a href="{{ $p.price_src }}" rel="noopener">source</a>). Blowhorn: free during early access.</p>
+            <p class="muted">{{ $p.competitor }} pricing as of Oct 2026: {{ $p.price_them }} (<a href="{{ $p.price_src }}" rel="noopener">source</a>). Blowhorn: free plan available, see <a href="{{ "download/" | relURL }}">pricing</a>.</p>
           </div>
           <div class="compare-scroll glass">
             <table class="compare-table versus-table">

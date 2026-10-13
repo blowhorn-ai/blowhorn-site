@@ -5,7 +5,7 @@
   "description": "mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your machine, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.",
   "layout": "versus",
   "weight": 40,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-13",
   "competitor": "mokumokuren",
   "mark": "Mk",
   "site_url": "https://docs-mokumokuren.imakita3gyo.com/en/",
@@ -21,7 +21,7 @@
     "You want scheduling and amplification from every profile in your account",
     "You run more than one Mac"
   ],
-  "price_them": "Free; Pro $7 per month, first month free",
+  "price_them": "Free; Pro $7 a month",
   "price_src": "https://docs-mokumokuren.imakita3gyo.com/en/",
   "rows": [
     {
@@ -71,5 +71,19 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
-  }
+  },
+  "wins": [
+    "LinkedIn, Reddit, Hacker News, GitHub and Slack",
+    "One shared queue across every Mac you own",
+    "Scheduled posting, not only pressing send yourself"
+  ],
+  "loses": [
+    "mokumokuren costs less",
+    "mokumokuren runs on Windows. Blowhorn is Mac only (macOS 13 or newer)",
+    "If you want a human to press every send, mokumokuren is simpler"
+  ],
+  "aliases": [
+    "/versus/mokumokuren/"
+  ],
+  "featured": true
 }
