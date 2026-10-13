@@ -54,6 +54,7 @@
               <span>Google Chrome</span>
               <span>As many social profiles as you want</span>
             </p>
+            {{ partial "social-proof.html" (dict "slot" "hero") }}
           </div>
           <figure class="hero-art">
     <svg class="fan" viewBox="0 -24 560 500" role="img" aria-labelledby="fan-title" focusable="false" xmlns="http://www.w3.org/2000/svg">
@@ -173,6 +174,8 @@
         </div>
       </section>
 
+      {{ partial "social-proof.html" (dict "slot" "interlude") }}
+
       <section id="sound-wave" class="section sound-wave" aria-labelledby="sound-wave-title">
         <div class="wrap">
           <div class="section-head">
@@ -232,6 +235,8 @@
         </div>
       </section>
 
+      {{ partial "social-proof.html" (dict "slot" "grid") }}
+
       <section id="trust" class="section" aria-labelledby="trust-title">
         <div class="wrap">
           <div class="section-head">
@@ -256,6 +261,8 @@
           <p class="section-body"><a class="button button-secondary" href="{{ (site.GetPage "/legal").RelPermalink }}">Visit the Trust Center</a></p>
         </div>
       </section>
+
+      {{ partial "social-proof.html" (dict "slot" "logos") }}
 
       <section id="control" class="section" aria-labelledby="control-title">
         <div class="wrap">
@@ -291,6 +298,7 @@
 
       <section id="download" class="section" aria-labelledby="download-title">
         <div class="wrap">
+          {{ partial "social-proof.html" (dict "slot" "closing") }}
           <div class="download-cta">
             <img class="download-cta-icon" src="{{ "assets/brand/logo/blowhorn-app-icon.svg" | relURL }}" alt="" width="64" height="64" loading="lazy">
             <div class="section-head">

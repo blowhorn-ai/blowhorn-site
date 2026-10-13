@@ -2103,3 +2103,25 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
 @media (prefers-color-scheme: dark) { .army-cic, .army-cic-star, .army-halt { border-color: var(--cream); } }
 .army .army-board, .army .army-cic { grid-template-columns: minmax(0, 1fr); } .army-cic, .army-cic-cmd { min-width: 0; }
 @media (max-width: 419px) { .army-sources { grid-template-columns: minmax(0, 1fr); } }
+
+/* Social proof (layouts/_partials/social-proof.html). Glass surfaces, low density. */
+.proof-flag { display: inline-block; padding: 0.1em 0.55em; border-radius: 999px; background: #FFE08A; color: #3A2E00; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: middle; }
+.proof-avatar, .proof-logo { display: inline-grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--glass-fill-strong); border: var(--stroke-hairline, 1px) solid var(--glass-edge); box-shadow: var(--glass-shadow); font-weight: 700; font-size: 0.8rem; }
+.proof-strip { list-style: none; padding: 0; margin: var(--space-6) 0 0; display: grid; gap: var(--space-3); }
+.proof-chip { display: flex; gap: var(--space-3); align-items: center; padding: var(--space-3) var(--space-4); border-radius: 999px; background: var(--glass-fill); border: 1px solid var(--glass-rim); box-shadow: var(--glass-shadow); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); }
+.proof-big { max-width: 46rem; margin: 0 auto; text-align: center; }
+.proof-big blockquote { margin: 0 0 var(--space-4); }
+.proof-big blockquote::before { content: "\201C"; display: block; font-size: 4rem; line-height: 0.6; color: var(--teal, #00756A); }
+.proof-grid { list-style: none; padding: 0; display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); }
+.proof-card, .proof-logo-card { position: relative; padding: var(--space-6); border-radius: 1.25rem; background: var(--glass-fill); border: 1px solid var(--glass-rim); box-shadow: var(--glass-shadow); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); transition: transform 200ms ease, box-shadow 200ms ease; }
+.proof-card:hover, .proof-logo-card:hover { transform: translateY(-3px); box-shadow: var(--glass-shadow-lift); }
+.proof-card blockquote { margin: var(--space-3) 0 var(--space-4); }
+.proof-who { display: flex; gap: var(--space-3); align-items: center; margin: 0; }
+.proof-logos { list-style: none; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+.proof-logo { width: 3rem; height: 3rem; border-radius: 0.75rem; margin-bottom: var(--space-3); }
+.proof-band { display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin-bottom: var(--space-8); }
+.proof-band figure { margin: 0; padding-left: var(--space-4); border-left: 3px solid var(--teal, #00756A); }
+@media (prefers-reduced-motion: reduce) {
+  .proof-card, .proof-logo-card { transition: none; }
+  .proof-card:hover, .proof-logo-card:hover { transform: none; }
+}
