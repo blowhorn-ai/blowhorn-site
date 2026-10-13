@@ -65,6 +65,6 @@ Keeping this in your account is what lets you install Blowhorn on any number of 
 - A request to your account for your organization's plan features, sent with your account token and your organization's id. The app caches the answer in your Keychain.
 - No usage analytics and no crash reports. The app carries no analytics or crash-reporting library.
 
-## Questions
+## Frequently Asked Questions {#questions}
 
 Open an issue on the [site repository](https://github.com/layer5io/blowhorn-site/issues) for anything about this page, or use the contact channels in the account [privacy policy](https://layer5.io/company/legal/privacy/).

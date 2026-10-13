@@ -28,7 +28,7 @@
 
 {{ .Params.signal }}
 
-## Questions
+## Frequently Asked Questions {#questions}
 {{ range .Params.faq }}
 **{{ .q }}** {{ .a }}
 {{ end }}

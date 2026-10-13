@@ -37,7 +37,7 @@
 - **{{ .t }}**: {{ .b }}
 {{- end }}
 
-## Questions
+## Frequently Asked Questions {#questions}
 {{ range .Params.faq }}
 **{{ .q }}** {{ .a }}
 {{ end }}
