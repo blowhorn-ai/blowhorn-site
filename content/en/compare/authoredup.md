@@ -2,7 +2,7 @@
   "title": "Blowhorn vs AuthoredUp",
   "linkTitle": "AuthoredUp",
   "seo_title": "Blowhorn vs AuthoredUp: honest comparison",
-  "description": "AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that 'your own browser' belief and adds seven networks, a fleet of Macs and real-person amplification.",
+  "description": "AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that 'your own browser' belief and adds more networks, a fleet of Macs and real-person amplification.",
   "layout": "versus",
   "weight": 25,
   "lastmod": "2026-10-12",
@@ -10,7 +10,7 @@
   "mark": "AU",
   "site_url": "https://authoredup.com/",
   "group": "LinkedIn growth tools",
-  "verdict": "AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that 'your own browser' belief and adds seven networks, a fleet of Macs and real-person amplification.",
+  "verdict": "AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that 'your own browser' belief and adds more networks, a fleet of Macs and real-person amplification.",
   "them": [
     "You want the best LinkedIn editor, previews and post analytics",
     "LinkedIn is your one channel",

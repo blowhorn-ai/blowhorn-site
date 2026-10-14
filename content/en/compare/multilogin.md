@@ -37,7 +37,7 @@
     {
       "f": "Queue, schedule, amplify",
       "t": "Generic automation you build",
-      "b": "Built in, across seven networks"
+      "b": "Built in, on every network"
     },
     {
       "f": "Many Macs on one queue",

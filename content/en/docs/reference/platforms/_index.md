@@ -23,11 +23,15 @@ anchor_redirects:
   bluesky-1: "/docs/reference/platforms/bluesky/"
   github: "/docs/reference/platforms/github/"
   github-1: "/docs/reference/platforms/github/"
+  youtube: "/docs/reference/platforms/youtube/"
+  instagram: "/docs/reference/platforms/instagram/"
+  tiktok: "/docs/reference/platforms/tiktok/"
+  facebook: "/docs/reference/platforms/facebook/"
 ---
 
 # Platforms
 
-What Blowhorn can do on each of the seven platforms, how it reaches
+What Blowhorn can do on each platform, how it reaches
 each one, and the limits it honors. This page describes; the steps live
 in the how-to guides linked under Related.
 
@@ -74,7 +78,28 @@ Each platform has its own page, listing its supported actions and how each one b
     <span class="h3">GitHub</span>
     <span>API, never the browser</span>
   </a>
+  <a class="card docs-card platform-card" href="/docs/reference/platforms/youtube/">
+    <span class="h3">YouTube</span>
+    <span>Coming soon - not generally available yet</span>
+  </a>
+  <a class="card docs-card platform-card" href="/docs/reference/platforms/instagram/">
+    <span class="h3">Instagram</span>
+    <span>Coming soon - not generally available yet</span>
+  </a>
+  <a class="card docs-card platform-card" href="/docs/reference/platforms/tiktok/">
+    <span class="h3">TikTok</span>
+    <span>Coming soon - not generally available yet</span>
+  </a>
+  <a class="card docs-card platform-card" href="/docs/reference/platforms/facebook/">
+    <span class="h3">Facebook</span>
+    <span>Coming soon - not generally available yet</span>
+  </a>
 </div>
+
+YouTube, Instagram, TikTok, and Facebook are coming soon. Early work
+exists in the app, but none of them is generally available yet, and
+`blowhorn post --platform` does not list them. Each page says what
+exists today.
 
 ## Related
 

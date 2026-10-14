@@ -51,7 +51,7 @@ rules:
     do: '"For all intensive porpoises, is launch day."'
     dont: Real slurs, real accents or real armies
   - k: Bark at the problem, never the reader
-    do: '"Seven tabs to post one thing? Somebody call a medic."'
+    do: '"Tab after tab to post one thing? Somebody call a medic."'
     dont: '"You call that a post, maggot?"'
 phrases:
   - '"Ears up!"'

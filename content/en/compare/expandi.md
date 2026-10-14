@@ -69,7 +69,7 @@
   "faq": [
     {
       "q": "Is Expandi better than Blowhorn?",
-      "a": "For outbound sequences at volume, yes, and Blowhorn won't pretend otherwise. For careful outreach from your own Chrome plus publishing and amplification across seven networks, we think Blowhorn is the better fit."
+      "a": "For outbound sequences at volume, yes, and Blowhorn won't pretend otherwise. For careful outreach from your own Chrome plus publishing and amplification across many networks, we think Blowhorn is the better fit."
     }
   ],
   "major": "Carpet-bombing inboxes is not a strategy. It's a noise complaint.",
