@@ -190,6 +190,10 @@ docs-sync:
 	@test -n "$(REF)" || (echo "usage: make docs-sync REF=<tag|branch|sha of leecalcote/blowhorn> [SOURCE_DIR=path/to/checkout]"; exit 1)
 	python3 .github/scripts/sync-docs.py "$(SOURCE_DIR)" "$(DOCS_DIR)" --ref "$(REF)"
 
+## Check out the docs-sync branch on the open sync PR's head, or on origin/master when none is open (what sync-docs.yml runs before the sync).
+docs-sync-base:
+	.github/scripts/sync-docs-base-branch.sh "$(SYNC_BRANCH)"
+
 ## Start the site checks on the docs-sync branch after a sync: gh workflow run site.yml (what sync-docs.yml runs after opening the sync PR).
 docs-sync-start-checks:
 	.github/scripts/sync-docs-start-checks.sh "$(SYNC_BRANCH)"
@@ -249,5 +253,6 @@ clean:
 	dmg-verify \
 	dmg-release \
 	docs-sync \
+	docs-sync-base \
 	docs-sync-start-checks \
 	clean
