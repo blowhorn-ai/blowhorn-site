@@ -1,5 +1,6 @@
 ---
 title: Internal
+layout: internal
 description: Internal pages. Rendered only by `hugo --environment internal`.
 # Keep internal pages out of section lists, menus, the search index,
 # llms.txt and related-page lists, even in the internal build. Pages still
@@ -17,5 +18,10 @@ sitemap:
   disable: true
 ---
 
-This section is excluded from the public build by the `public` segment in
-`hugo.toml`. This repository is public: do not commit confidential content here.
+The internal Blowhorn site. Nothing under this section is committed to this
+repository: `make build-internal` copies it from a private checkout at build
+time (see docs/deploy.md). The public build never renders it.
+
+- [GTM strategy](/internal/strategy/)
+- [Assistant comparison](/internal/strategy/compare/)
+- [Break-even analysis](/internal/finance/): report and downloadable XLSX model

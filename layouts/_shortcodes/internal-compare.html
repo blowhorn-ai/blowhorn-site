@@ -1,0 +1,21 @@
+{{- /* The assistant comparison table from the page's compare-assistants.csv
+  resource (copied from leecalcote/blowhorn docs/capability-comparison/ at
+  build time by fetch-internal.sh; never committed). Status values render
+  as icons. */ -}}
+{{- $csv := .Page.Resources.Get "compare-assistants.csv" -}}
+{{- if not $csv }}{{ errorf "internal-compare: compare-assistants.csv is missing; run .github/scripts/fetch-internal.sh" }}{{ end -}}
+{{- $rows := $csv | transform.Unmarshal -}}
+{{- $icons := dict "Highly efficient" (slice "hi" "✓") "Inefficient" (slice "in" "◐") "Cannot do" (slice "no" "✕") "Can't" (slice "no" "✕") "Not assessed" (slice "na" "–") -}}
+<style>
+.cmp td.st{text-align:center}.cmp .ic{display:inline-block;width:1.6em;height:1.6em;line-height:1.6em;border-radius:50%;font-weight:700;text-align:center}
+.cmp .hi .ic{color:#fff;background:#00B39F}.cmp .in .ic{color:#fff;background:#E39A30}.cmp .no .ic{color:#fff;background:#B4533C}.cmp .na .ic{color:#8a8f98;background:rgba(128,128,128,.15)}
+.cmp th{white-space:normal;vertical-align:bottom;min-width:6em}
+</style>
+<p>{{ sub (len $rows) 1 }} rows. ✓ highly efficient · ◐ inefficient · ✕ cannot do · – not assessed.</p>
+<div class="table-wrap cmp"><table>
+<thead><tr>{{ range index $rows 0 }}<th>{{ . }}</th>{{ end }}</tr></thead>
+<tbody>
+{{- range after 1 $rows }}
+<tr>{{ range . }}{{ with index $icons . }}<td class="st {{ index . 0 }}"><span class="ic" role="img" aria-label="{{ index . 0 }}">{{ index . 1 }}</span></td>{{ else }}<td>{{ . }}</td>{{ end }}{{ end }}</tr>
+{{- end }}
+</tbody></table></div>

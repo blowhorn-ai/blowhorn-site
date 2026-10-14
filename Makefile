@@ -42,7 +42,8 @@ include .github/build/Makefile.show-help.mk
 #   site-check         Production build once, then validate-html, check-links,
 #                      check-third-party and check-urls (site.yml).
 #   check-no-internal  Fail if the production build contains /internal/.
-#   build-internal     hugo --environment internal into public-internal/.
+#   build-internal     Fetch /internal/ from leecalcote/blowhorn, then
+#                      hugo --environment internal into public-internal/.
 #   test-scripts       Unit tests for the check scripts in .github/scripts/.
 #   workflow-check     actionlint on this repository's workflows.
 #   check              site-check, test-scripts and workflow-check.
@@ -73,6 +74,8 @@ WORKFLOWS ?= .github/workflows/site.yml .github/workflows/publish-dmg.yml .githu
 # A leecalcote/blowhorn checkout for `make docs-sync` (the sync-docs.yml
 # workflow checks the product repo out at this path).
 SOURCE_DIR ?= product
+# A leecalcote/blowhorn checkout holding marketing/strategy/hugo/ for make build-internal.
+STRATEGY_SOURCE ?= $(SOURCE_DIR)
 DOCS_DIR ?= content/en/docs
 # Branch the sync-docs.yml workflow pushes and opens its pull request from.
 SYNC_BRANCH ?= docs-sync
@@ -136,6 +139,11 @@ build-production: check-go check-deps
 site: check-go check-deps
 	npm run site
 
+## Serve the internal site locally (public pages plus /internal/) at http://localhost:1313: make site-internal STRATEGY_SOURCE=path/to/leecalcote/blowhorn
+site-internal: check-go check-deps
+	.github/scripts/fetch-internal.sh "$(STRATEGY_SOURCE)"
+	npm run _hugo -- server --environment internal --renderToMemory
+
 ## Build and serve the site once with the file-watcher off (no live reload).
 serve: check-go check-deps
 	npm run serve
@@ -163,8 +171,9 @@ site-check: validate-html check-links check-third-party check-urls check-no-inte
 check-no-internal: build-production
 	.github/scripts/check-no-internal.sh $(BUILD_DIR)
 
-## Build the internal site (public pages plus /internal/) into public-internal/.
+## Build the internal site into public-internal/: fetch the internal section from a leecalcote/blowhorn checkout (STRATEGY_SOURCE, default product/), then hugo --environment internal.
 build-internal: check-go check-deps
+	.github/scripts/fetch-internal.sh "$(STRATEGY_SOURCE)"
 	npm run build:internal
 
 ## Run the unit tests for the check scripts in .github/scripts/.
@@ -256,6 +265,7 @@ clean:
 	site-check \
 	check-no-internal \
 	build-internal \
+	site-internal \
 	test-scripts \
 	workflow-check \
 	check \

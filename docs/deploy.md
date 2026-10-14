@@ -288,7 +288,8 @@ Builds:
 | Build | Command | Output |
 | --- | --- | --- |
 | Public (default, what blowhorn.ai deploys) | `hugo` or `make build-production` | `public/`, no `/internal/` |
-| Internal (public pages plus `/internal/`) | `hugo --environment internal` or `make build-internal` | `public-internal/` |
+| Internal (public pages plus `/internal/`) | `make build-internal STRATEGY_SOURCE=path/to/leecalcote/blowhorn` | `public-internal/` |
+| Internal preview server | `make site-internal STRATEGY_SOURCE=path/to/leecalcote/blowhorn` | memory, http://localhost:1313/internal/ |
 
 `hugo.toml` sets `renderSegments = ["public"]`; `config/internal/hugo.toml`
 sets `renderSegments = ["all"]`. The internal section's `_index.md` cascades
@@ -296,20 +297,33 @@ sets `renderSegments = ["all"]`. The internal section's `_index.md` cascades
 search index, llms.txt and related lists even in the internal build, and out
 of the sitemap.
 
+The internal content is never committed here: this repository is public.
+It lives in the private leecalcote/blowhorn repository under
+`marketing/strategy/hugo/` (plus `marketing/strategy/finance/` and
+`docs/capability-comparison/compare-assistants.csv`).
+`.github/scripts/fetch-internal.sh`, run by `make build-internal`, copies it
+into `content/en/internal/` (gitignored, except the placeholder `_index.md`)
+before `hugo --environment internal`. The internal build runs in
+leecalcote/blowhorn's `internal-site.yml` workflow and is uploaded there as a
+private artifact; it never runs in this repository's Actions, whose artifacts
+and logs are public. `docs-sync` only copies the product's `docs/` tree and
+already skips `docs/internal/`, `docs/gtm/` and `internal-paths.txt`.
+
 `make check-no-internal` (part of `make site-check`, and a step in `site.yml`)
-fails when `public/internal` exists or a public page links to `/internal/`.
+fails when `public/internal` exists, a public page links to `/internal/` or names an internal file, or git tracks anything under `content/en/internal/` other than `_index.md`.
 
 Footguns:
 
 - A `--renderSegments` flag on the command line overrides the config.
   `hugo --renderSegments all` publishes the internal section.
-- `hugo server` follows the same config, but any flag or `-e` environment
-  changes it: `hugo server` (public only) versus
-  `hugo server --environment internal` (everything). Check which one you ran
-  before sharing a preview.
+- `hugo server` honours `renderSegments`, but without `--renderToMemory` it
+  also writes to `public/` and serves stale files from there. An internal
+  server run that way leaves `/internal/` pages in `public/`. Preview the
+  internal site with `make site-internal STRATEGY_SOURCE=...` (it passes
+  `--renderToMemory`); `make site` stays public only.
 - A segment name that is not defined renders nothing, with no error. A typo
   in `renderSegments` gives an empty site, not a public one.
 - `renderSegments = ["public", "internal"]` does not render `/internal/` in
   Hugo 0.158: the `public` segment's excludes win. Use `all`.
 - This repository is public. Segments keep pages out of the built site, not
-  out of the source. Do not commit confidential content to `content/en/internal/`.
+  out of the source. Never `git add -f` anything under `content/en/internal/`.

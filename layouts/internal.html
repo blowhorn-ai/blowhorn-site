@@ -1,0 +1,24 @@
+{{- /* Internal pages (content/en/internal/, fetched at build time from
+  leecalcote/blowhorn by .github/scripts/fetch-internal.sh; never committed).
+  Rendered only by `hugo --environment internal`. Publishes every page
+  resource (charts, the XLSX model) and lists the child pages. */ -}}
+{{ define "head" }}<meta name="robots" content="noindex, nofollow, noarchive">{{ end }}
+{{ define "main" }}
+    <main id="main" class="page">
+      <div class="wrap">
+        <div class="page-head">
+          <p class="label">Internal{{ with .Parent }}{{ if ne .RelPermalink "/" }} <span aria-hidden="true">/</span> <a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}{{ end }}</p>
+          <h1 class="h1">{{ .Title }}</h1>
+        </div>
+        <div class="prose">
+          {{ .Content }}
+        </div>
+        {{- $files := where .Resources "MediaType.SubType" "ne" "svg+xml" }}
+        {{- range .Resources }}{{ $_ := .RelPermalink }}{{ end }}
+        {{- with $files }}
+        <h2 class="h2">Files</h2>
+        <ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Name }}</a></li>{{ end }}</ul>
+        {{- end }}
+      </div>
+    </main>
+{{- end }}
