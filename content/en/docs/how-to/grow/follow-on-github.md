@@ -20,10 +20,10 @@ blowhorn follow --platform x --profile marcus --target somehandle --limit 10 --d
 blowhorn follow --platform x --profile marcus --target somehandle --limit 10
 
 # Target-only mode: follow just the named account.
-blowhorn follow --platform github --profile marcus --target octocat --limit 0
+blowhorn follow --platform github --profile marcus --target layer5io --limit 0
 
 # Several accounts at once, only in target-only mode.
-blowhorn follow --platform github --profile marcus --target octocat,github --limit 0
+blowhorn follow --platform github --profile marcus --target layer5io,octocat --limit 0
 
 # Every eligible profile follows from the same target.
 blowhorn follow --platform bluesky --profile all --target somehandle.bsky.social --limit 10 --exclude marcus
@@ -55,7 +55,7 @@ the target's followers and asking GitHub who is already followed, then
 reports exactly who a real run would follow, issuing not a single `PUT`:
 
 ```bash
-blowhorn follow --platform github --profile marcus --target octocat --limit 25 --dry-run
+blowhorn follow --platform github --profile marcus --target layer5io --limit 25 --dry-run
 ```
 
 ## Unfollow on Bluesky

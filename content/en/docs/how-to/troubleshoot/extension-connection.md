@@ -30,7 +30,9 @@ host from the current checkout, then reload the extension on
 ## Version mismatch after an update
 
 A Blowhorn upgrade does not reinstall the extension. After an update, take the
-store update, or reload the unpacked copy on `chrome://extensions`, then run
+[store update](/docs/how-to/set-up/install-the-chrome-extension/#from-the-chrome-web-store)
+(never load it unpacked over a store install), or reload the unpacked copy on
+`chrome://extensions`, then run
 `blowhorn chrome extension-status` again until hello answers.
 
 ## Bridge busy

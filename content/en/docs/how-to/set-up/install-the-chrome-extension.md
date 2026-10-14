@@ -1,6 +1,6 @@
 ---
 title: "Install the Chrome extension"
-description: "Add the Blowhorn extension from the Chrome Web Store, or load it unpacked for edge cases."
+description: "Add the Blowhorn extension from the Chrome Web Store, or load it unpacked during early access."
 weight: 40
 aliases: [/docs/how-to/install-the-chrome-extension/]
 ---
@@ -12,27 +12,48 @@ extension inside each Chrome profile, and the extension drives only the
 profile it is installed in. Install it in every Chrome profile you post
 from.
 
-The usual path is the Chrome Web Store. Use the unpacked or CLI install
-routes below when your account path does not fit (for example a one-off
-profile, a managed install, or while you wait for a store update).
+**Early access:** the Chrome Web Store listing is awaiting review. Until it
+is approved, load the extension unpacked as described below.
 
 ## From the Chrome Web Store
 
 Open the
 [Blowhorn listing](https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf)
 (item `fcflpiagmpcfifgknledeknedfopnapf`) in each Chrome profile you post
-from and choose **Add to Chrome**. Then confirm the extension answers:
+from and choose **Add to Chrome**. Write the native host the extension
+talks to, then confirm the extension answers:
 
 ```bash
+blowhorn chrome extension-install
 blowhorn chrome extension-status
 ```
 
 An answered hello means the extension is loaded in some Chrome profile and
-talking. It does not name which profile.
+talking. The report also lists each Chrome profile with a Web Store
+install and its version.
+
+If it says the extension is too old for this Blowhorn, update it: open
+`chrome://extensions`, turn on **Developer mode**, and choose **Update**
+(or restart Chrome). Do not load it unpacked over a store install.
+
+## Check it from the toolbar
+
+On first install the extension opens the Blowhorn welcome page. Its
+toolbar button shows a red **!** until this Chrome profile is ready.
+Click it to see what is missing, then follow its one button:
+
+- **Download the Blowhorn app** - the app is not installed.
+- **Update the Blowhorn app** - the app is too old for this extension.
+- **Sign in** - opens the app's sign-in.
+- **Map this profile in Blowhorn** - opens the app's mapping screen for
+  this Chrome profile.
+
+When everything is in place the popup names the linked Blowhorn
+profile and signed-in account, and offers **Change mapping**.
 
 ## Load it unpacked in one Chrome profile
 
-For edge cases where your account install is not enough, write the native host and
+When only one Chrome profile needs the extension, write the native host and
 follow the printed steps. Through the Blowhorn mapping:
 
 ```bash
@@ -111,9 +132,10 @@ one row per Chrome profile with the same words the terminal prints.
 ## Move an install made before the extension id changed
 
 Installs made before the current store item used the retired id
-`alogghnpabnbkmhgeceffnlcbcnlpoap`, which has no store listing. After you
-update, the native host accepts only the new id, so an extension still
-running under the old id cannot connect until you move it:
+`alogghnpabnbkmhgeceffnlcbcnlpoap`, which has no store listing and never
+updates on its own. The native host still accepts that id beside the store id
+`fcflpiagmpcfifgknledeknedfopnapf`, so an old copy can connect and tell you it
+is out of date. Move it to the store install so Chrome keeps it current:
 
 1. Run the install again with the flags you used the first time.
 2. In each Chrome profile that loaded the extension unpacked, open
@@ -125,20 +147,6 @@ running under the old id cannot connect until you move it:
 
 Your profile mappings (`blowhorn chrome map`) do not name the extension id
 and do not change.
-
-## Remove the host from before the rename
-
-A plain install keeps `com.outbox.chrome_extension.json` when it is
-present, and names it: a Chrome profile still running the old extension
-connects through it. Load the Blowhorn extension in that profile, then
-remove the old host with:
-
-```bash
-blowhorn chrome extension-install --remove-legacy
-```
-
-That flag warns that a profile still on the old extension loses its
-connection until the Blowhorn extension is loaded there.
 
 ## Related
 

@@ -19,9 +19,11 @@ scope stated once, and the rows that would post now wait instead of
 posting. A store outage puts its line above the board.
 
 The popover footer holds the pause controls and, when an update is
-ready, the update card. The update installs and relaunches the app when
-this machine can reach the release; otherwise it opens the release
-page in your browser.
+ready, the update card. The update downloads the new version, checks it
+against the release's checksums, confirms it is signed by the same Apple
+Developer ID team as the running app and accepted by Gatekeeper, installs it
+and relaunches the app; when it cannot, it opens the release page in your
+browser.
 
 ## The console
 

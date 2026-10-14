@@ -37,19 +37,19 @@ blowhorn profile status --profile marcus --check-platform github
 
 ```bash
 # Every eligible profile reacts to one issue. No content row needed.
-blowhorn post --platform github --profile all --amplify "https://github.com/octocat/Hello-World/issues/1234"
+blowhorn post --platform github --profile all --amplify "https://github.com/layer5io/layer5/issues/1234"
 
 # A pull request is an issue to GitHub's API, so a PR URL routes the same way.
-blowhorn post --platform github --profile all --amplify "https://github.com/octocat/Hello-World/pull/1347"
+blowhorn post --platform github --profile all --amplify "https://github.com/layer5io/layer5/pull/6210"
 
 # One profile, or an explicit subset.
-blowhorn post --platform github --profile marcus --amplify "https://github.com/octocat/Hello-World/issues/42"
+blowhorn post --platform github --profile marcus --amplify "https://github.com/layer5io/layer5/issues/42"
 
 # Hold one profile out of this run.
-blowhorn post --platform github --profile all --exclude marcus --amplify "https://github.com/octocat/Hello-World/issues/42"
+blowhorn post --platform github --profile all --exclude marcus --amplify "https://github.com/layer5io/layer5/issues/42"
 
 # Preview: reads which of the five each profile already left, and adds nothing.
-blowhorn post --platform github --profile all --amplify "https://github.com/octocat/Hello-World/issues/42" --dry-run
+blowhorn post --platform github --profile all --amplify "https://github.com/layer5io/layer5/issues/42" --dry-run
 ```
 
 ## React from the queue

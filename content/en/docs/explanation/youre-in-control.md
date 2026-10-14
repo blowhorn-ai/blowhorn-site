@@ -149,14 +149,17 @@ explicit `--ignore-pause` on a single run.
 ## Your Risk Profile
 
 Think of your Risk Profile as the dials for how much risk you'll take
-and how fast you want things produced. Today those dials are separate
-settings: pace, pointer movement, run size, excluded profiles and dry
-run, alongside the caps Blowhorn always holds itself to. Set them
-cautious for a new account or an unattended run, and quicker for an
-established one you are watching.
+and how fast you want things produced. One choice sets them together:
+cautious, standard (the default) or brisk. It covers caps, spacing
+between actions, quiet hours, outreach, the pause after a sign-in
+challenge and, unless you set the pace yourself, the pace. Pick
+cautious for a new account or an unattended run, and brisk for an
+established one you are watching. A new profile or a new Mac runs
+cautious until it has some history, whatever you chose.
 
-Coming soon: a Risk Profile setting that sets those dials together in
-one choice.
+Choose it in the app under Settings; for one profile or one platform,
+use `blowhorn risk set`. The [configuration reference](/docs/reference/configuration/#risk-profile-presets)
+lists what each preset sets.
 
 ## Related
 

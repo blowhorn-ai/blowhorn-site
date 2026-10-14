@@ -10,9 +10,10 @@ What the Blowhorn extension may do, and why each capability exists.
 The extension acts only on requests from the Blowhorn app on your Mac;
 it makes no requests of its own to any server, sells no data, and
 injects no ads. Its single purpose is carrying out the posting,
-amplifying, and session-check actions you queue, inside the Chrome
-profile you already use. It adds no toolbar button by design: it is a
-companion, not a tool you click.
+engagement, outreach, export and session-check actions you queue or
+start in Blowhorn, inside the Chrome profile you already use. Its
+toolbar button shows status only; every change happens in the Blowhorn
+app.
 
 ## Sites
 
@@ -36,9 +37,9 @@ permission to ignore them.
 |---|---|
 | `nativeMessaging` | Talks to the Blowhorn app on this Mac. Every action is a request from that app |
 | `alarms` | A one-minute alarm re-opens the connection to the app after Chrome suspends the worker, so a scheduled run finds the extension ready |
-| `tabs` | Finds the tab already open on a supported site, or opens one, so the action runs where you are signed in. Only the sites above are queried |
+| `tabs` | Opens one background tab on a supported site, or reuses the one it opened earlier, so the action runs where you are signed in. It looks only among tabs on the sites above, only to find its own, and never navigates, drives or closes any other tab |
 | `cookies` | Reads cookies on the supported sites only when the app asks, to reuse a sign-in you already have. A cookie goes to the local app; the one the app keeps beyond your Mac is your Slack workspace session, kept in your account as that profile's Slack credential |
-| `debugger` | Delivers your queued clicks and keystrokes as real input, watches the page's own requests to tell when an action finished, and takes a screenshot when an action needs a person to check it. Attached only to a tab the app is driving, released when the action ends |
+| `debugger` | Delivers some of your queued clicks and key presses as real input (the rest, and all typing, go through the extension's own script on the page), watches the page's own requests to tell when an action finished, and takes a screenshot when the app asks for one. Attached only to the tab the extension opened, released when the action ends or after a short idle period |
 | `downloads` | Catches the one export you asked for (an analytics or connections export) for the app, then cancels and clears it. A finished file stays where it is; the extension never starts a download on its own |
 
 ## Related

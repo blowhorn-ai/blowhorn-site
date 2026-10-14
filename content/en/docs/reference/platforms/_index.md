@@ -96,10 +96,9 @@ Each platform has its own page, listing its supported actions and how each one b
   </a>
 </div>
 
-YouTube, Instagram, TikTok, and Facebook are coming soon. Early work
-exists in the app, but none of them is generally available yet, and
-`blowhorn post --platform` does not list them. Each page says what
-exists today.
+YouTube, Instagram, TikTok, and Facebook are coming soon. None of them
+is generally available yet, `blowhorn post --platform` does not list
+them, and each page will list its actions once it ships.
 
 ## Related
 

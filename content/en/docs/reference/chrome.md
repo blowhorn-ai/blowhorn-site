@@ -17,7 +17,20 @@ how-to guides under Related.
 `Local State` and `DevToolsActivePort`, and nothing else: never
 cookies, saved passwords, storage, or the keychain. It writes nothing
 there and opens no browser, DevTools, or network connection. Whether
-Chrome is running is one bounded process lookup.
+Chrome is running is one bounded process lookup. The one exception is
+`blowhorn chrome extension-status`, which also reads each Chrome
+profile's `Secure Preferences` and `Preferences` for the extension's
+entry alone (see [its section](#blowhorn-chrome-extension-status)).
+
+The extension's native host reads one more thing, only to answer the
+toolbar popup: it looks for the extension's own random identifier in
+the extension's own IndexedDB files,
+`<profile>/IndexedDB/chrome-extension_<extension id>_0.indexeddb.leveldb/`
+under the data directory of the Chrome that started it (its
+`--user-data-dir`, else Chrome's default), to learn which Chrome profile
+is asking. It
+reads no other extension's files and nothing else in the profile, and
+writes nothing there.
 
 ## The mapping
 
@@ -123,6 +136,16 @@ Chrome.
 Whether the extension is installed, which version answers, and whether
 it says connected. A version older than the run needs is the
 `extension_outdated` refusal above.
+
+It also reads each Chrome profile's `Secure Preferences`, then
+`Preferences`, under the Chrome data directory for the extension's entry,
+and lists every profile whose entry came from the Chrome Web Store
+(`from_webstore`, or location `INTERNAL`) with its version, as
+`webstore_profiles` in `--json`. A loaded-unpacked entry is not listed.
+For a store install the report never says Load unpacked: a version too
+old for this Blowhorn is told to update in `chrome://extensions`, and a
+missing native host is told to run `blowhorn chrome extension-install`.
+It writes nothing in that directory.
 
 ## One run per profile and platform
 

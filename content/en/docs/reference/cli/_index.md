@@ -60,11 +60,11 @@ Blowhorn drives only the installed Google Chrome: `/Applications/Google Chrome.a
 
 `--pace` controls the speed of randomised delays between actions. Use a preset name (`fast` = 0.5×, `normal` = 1.0×, `slow` = 2.0×) or any positive number as a multiplier (e.g. `--pace 0.25` for quarter-speed delays, `--pace 3` for triple). The default is `normal`. Can also be set via the `BLOWHORN_PACE` env var or the `pace` key in `.blowhorn.yaml` defaults; the precedence is always the flag, then the env var, then the config key.
 
-`--pace` is a global flag: every command and subcommand accepts it, and so does the root, so `blowhorn --pace slow post --profile your-profile`, `blowhorn schedule --pace slow tick` and `blowhorn post --profile your-profile --pace slow` all mean the same thing (the flag nearest the subcommand wins when more than one is given). Commands that never sleep - `auth`, `config`, `desktop`, `service`, `store`, `uninstall`, the read-only `schedule` and `profile` subcommands, `report`, `analytics history` / `operations` - still accept it, still resolve it through the same chain and still reject an unrecognised value, but it changes nothing about how they run beyond the `Pace` column of the `-v` summary; each of them says exactly that in its own `--help` rather than implying a delay it never takes.
+`--pace` is a global flag: every command and subcommand accepts it, and so does the root, so `blowhorn --pace slow post --profile your-profile`, `blowhorn schedule --pace slow tick` and `blowhorn post --profile your-profile --pace slow` all mean the same thing (the flag nearest the subcommand wins when more than one is given). Commands that never sleep - `auth`, `config`, `desktop`, `service`, `store`, `uninstall`, `setup`, the read-only `schedule` and `profile` subcommands, `report`, `analytics history` / `operations` - still accept it, still resolve it through the same chain and still reject an unrecognised value, but it changes nothing about how they run beyond the `Pace` column of the `-v` summary; each of them says exactly that in its own `--help` rather than implying a delay it never takes.
 
 For commands that support multi-profile execution (`post`, `accept`, `follow`, `unfollow`, `comment`, `analytics`, `report`), you can pass `--profile all` or a comma-delimited subset such as `--profile profile-a,profile-b` to run only that set of profiles.
 
-All commands accept `--dry-run`, but they do not all preview the same amount. `post`, `report`, `find`, `withdraw`, and `accept` run their real pipeline with every write suppressed, so they print what *would* happen. (`withdraw` goes further: preview is its default and it acts only when you pass `--apply` - for it `--dry-run` simply forces the preview it would have produced anyway. `accept` does the same on the received-invitations page: it opens the page, resolves the same Accept controls a real run would click, names everyone it found, and clicks nobody - see [Accepting incoming invitations](/docs/how-to/grow/accept-invitations/).) The remaining action commands - `follow`, `unfollow`, `comment`, and `analytics` - stop immediately and report `dry-run: no changes made` without doing any work. (`source --platform github` lists the audience and, on `--dry-run`, writes nothing; a real run stores one row per login and prints no email address.) (`follow --platform github` is the one exception inside that list: it has no browser to stop before, so its preview performs the real follower walk and names exactly who would be followed - see [Previewing a GitHub follow run](/docs/how-to/grow/follow-on-github/#previewing-a-github-follow-run).) (`unfollow` runs on Bluesky only, with `--platform bluesky --target <handle>`, and its `--limit` is accepted and not read. On X, or with no platform, the platform is refused by name before a browser opens and the run exits 1, dry run included: X unfollow does not run until a follow-back badge and a confirmed landing are both read. `unfollow` cannot be scheduled.) `schedule`, `desktop`, `service`, `store` and `uninstall` are not covered by that sentence: they implement their own dry-run output (for example `schedule tick --dry-run` reports the rows it would run, `service start --dry-run` prints the command it would run, `store --import --dry-run` prints the import report without writing the connection file, and `uninstall --dry-run` lists every item it would remove or keep). Either way nothing is published.
+All commands accept `--dry-run`, but they do not all preview the same amount. `post`, `report`, `find`, `withdraw`, and `accept` run their real pipeline with every write suppressed, so they print what *would* happen. (`withdraw` goes further: preview is its default and it acts only when you pass `--apply` - for it `--dry-run` simply forces the preview it would have produced anyway. `accept` does the same on the received-invitations page: it opens the page, resolves the same Accept controls a real run would click, names everyone it found, and clicks nobody - see [Accepting incoming invitations](/docs/how-to/grow/accept-invitations/).) The remaining action commands - `follow`, `unfollow`, `comment`, and `analytics` - stop immediately and report `dry-run: no changes made` without doing any work. (`source --platform github` lists the audience and, on `--dry-run`, writes nothing; a real run stores one row per login and prints no email address.) (`follow --platform github` is the one exception inside that list: it has no browser to stop before, so its preview performs the real follower walk and names exactly who would be followed - see [Previewing a GitHub follow run](/docs/how-to/grow/follow-on-github/#previewing-a-github-follow-run).) (`unfollow` runs on Bluesky only, with `--platform bluesky --target <handle>`, and its `--limit` is accepted and not read. On X, or with no platform, the platform is refused by name before a browser opens and the run exits 1, dry run included: X unfollow does not run until a follow-back badge and a confirmed landing are both read. `unfollow` cannot be scheduled.) `schedule`, `desktop`, `service`, `store`, `auth`, `uninstall` and `setup` are not covered by that sentence: they implement their own dry-run output (for example `schedule tick --dry-run` reports the rows it would run, `service start --dry-run` prints the command it would run, `store --import --dry-run` prints the import report without writing the connection file, `auth login --dry-run` names where it would sign you in and opens, waits for and saves nothing, `auth logout --dry-run` lists what it would remove, and `uninstall --dry-run` lists every item it would remove or keep, and `setup --dry-run` reports each step it would write as `planned`). Either way nothing is published.
 
 Because the `COMMAND SUMMARY` footer is shown only when `-v` / `--verbose` is used, a dry run of one of the stop-early commands prints nothing at all without `-v` - except `source --platform github`, which lists the audience it would store. That silence is expected, not a failure.
 
@@ -75,14 +75,19 @@ post      accept    withdraw  follow    source
 unfollow  comment   analytics report    find
 profile   config    schedule  desktop   service
 store     chrome    auth      slack     uninstall
+setup
 ```
 
 `blowhorn auth` is a group of three: `auth status` reports whether an account token and organization id are configured (never the token value), the api base,
 enforcement mode, a summary of the last entitlement attestation, and why the
 last read of the plan failed when it did;
-`auth login` is not available yet (set `BLOWHORN_CLOUD_TOKEN` instead);
-`auth logout` clears the local attestation cache. During early access your
-Blowhorn administrator sets up the token and organization id.
+`auth login` signs you in to Layer5 Cloud in your browser (Layer5 Cloud's
+provider sign-in, the one Meshery uses; create an account there if you are
+new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps the token in the macOS Keychain and reads your plan once, sending
+an account without Blowhorn straight to Layer5 Cloud to start the beta (`--redirect app` is the desktop app's route
+through `blowhorn://auth/callback`; `BLOWHORN_CLOUD_TOKEN` still wins when set);
+`auth logout` forgets the saved token, the account in `cloud.yaml` and the
+local attestation cache.
 
 `blowhorn store` is a single command, not a group: it reports whether this
 machine can reach your account and why not, opens the bastion tunnel
@@ -90,18 +95,26 @@ when nothing is listening, and with `--import` fills the connection once from yo
 administrator. `blowhorn config get
 <key>` reads one option and says which document holds it.
 
+`blowhorn setup` is a single command: it checks that `blowhorn` is on `PATH`,
+reads your Chrome profiles from Chrome's `Local State` file, writes the Chrome
+native host when it is missing or stale - after saying which Chrome profiles it
+reaches and asking - and checks the Layer5 Cloud sign-in, then lists the steps
+left for you. Each step reports `ok`, `changed`, `planned`, `declined`, `todo`
+or `failed`, so a re-run is safe and says what it changed. `--dry-run` writes
+nothing, `--yes` agrees without asking, and `--json` prints one object; without
+`--yes`, a `--json` run or one with no terminal asks nobody and writes nothing.
+It exits 1 when a step failed. See
+[Finish setup on this computer](/docs/how-to/set-up/finish-setup/).
+
 `blowhorn uninstall` is a single command: it removes Blowhorn from this
-machine, in order - the background service (`ai.blowhorn.service` and the
-Outbox-era `io.layer5.outbox.service` / `com.outbox.scheduler`, booted out and
-their LaunchAgent files removed), the Chrome native host (the
-`com.blowhorn.chrome_extension` manifest and the Outbox-era
-`com.outbox.chrome_extension` / `com.outbox.actuator`, their launchers under
-`~/Library/Application Support/Blowhorn` and `Outbox`, and the every-profile
-install entries `chrome extension-install --all-profiles` wrote), the
-`~/.local/bin/blowhorn` launcher and the `outbox` shim (only when they carry the
-installer's marker), `/Applications/Blowhorn.app` and `Outbox.app` (the
-service label they registered is booted out with the service, and each bundle
-first unregisters its own Login Items entries - open at login and the
+machine, in order - the background service (`ai.blowhorn.service`, booted out
+and its LaunchAgent file removed), the Chrome native host (the
+`com.blowhorn.chrome_extension` manifest, its launcher under
+`~/Library/Application Support/Blowhorn`, and the every-profile install entries
+`chrome extension-install --all-profiles` wrote), the `~/.local/bin/blowhorn`
+and `~/.local/bin/blowhorn-axi` launchers (only when they carry the installer's marker),
+`/Applications/Blowhorn.app` (the service label it registered is booted out
+with the service, and the bundle first unregisters its own Login Items entries - open at login and the
 background service - by running `--unregister-login-items`; a bundle whose
 `Info.plist` does not advertise that flag, or a call that fails, is reported
 `not unregistered` with System Settings > General > Login Items named as the
@@ -121,7 +134,7 @@ run, and `--yes` without `--purge` or `--discard-unsynced-runs` is refused), and
 Nothing under a Chrome profile is read or written. It is refused by name, in a
 dry run too, while a scheduler tick, a service pass, an extension run,
 `Blowhorn.app`, a desktop app started from this checkout or, with `--purge`,
-a Chrome on `~/.blowhorn` or `~/.outbox` is running, and in every mode while a
+a Chrome on `~/.blowhorn` is running, and in every mode while a
 write-back spool (`runs/pending-store.ndjson`) this run removes - under the
 checkout's `logs/`, or the app's state under `--purge` - holds run records that
 have not reached your account - run `blowhorn store --replay-spool` first,
@@ -150,10 +163,7 @@ only writers, `chrome attach-chrome [status|start]` reports or starts a
 dedicated second Chrome that is open to remote debugging with no Allow dialog
 (`~/.blowhorn/attach-chrome`, on a port Chrome picks), writing no configuration of its own,
 and `chrome extension-install` writes the native-messaging host manifest Chrome
-launches (`com.blowhorn.chrome_extension.json`) and the executable launcher it names, removes
-the older `com.outbox.actuator` host manifest and launcher when those are the files it wrote,
-keeps and names the pre-rename Outbox host (`com.outbox.chrome_extension.json`) unless
-`--remove-legacy` is given, and prints
+launches (`com.blowhorn.chrome_extension.json`) and the executable launcher it names, and prints
 the unpacked `extension/` directory to load. If you already installed the host, run the
 command again and reload the extension once. `--profile <name>` (through this machine's
 mapping) or `--chrome-profile '<directory>'` names one Chrome profile and prints the steps to
@@ -165,8 +175,9 @@ fragment of the shared plist (other keys in that file are preserved and not
 printed), on Linux the exact JSON Blowhorn's own `blowhorn.json` must contain,
 preserved keys included. It writes nothing.
 It does not launch Chrome. `chrome extension-status` reports whether the extension
-is installed, which install route is on disk, and whether the Chrome extension answers hello. It reads the manifest, the
-launcher, the policy and the socket, stats the external-extensions file and does not read it, and writes only the bridge lock, exiting 0 whatever it
+is installed, which install route is on disk, which Chrome profiles hold a Chrome Web Store install, and whether the
+Chrome extension answers hello. It reads the manifest, the launcher, the policy, each Chrome profile's
+`Secure Preferences` and `Preferences` (only for the extension's entry) and the socket, stats the external-extensions file and does not read it, and writes only the bridge lock, exiting 0 whatever it
 reports.
 All but `chrome unmap`, `chrome extension-install` and `chrome extension-status` read two files under a Chrome data
 directory (`Local State`, `DevToolsActivePort`) and nothing else - `attach-chrome`
@@ -177,7 +188,8 @@ configured Chrome data directory, only to name each Chrome profile there, and
 does not list profiles outside that directory. The policy route applies the
 extension to every Chrome profile on this machine. It does not read `DevToolsActivePort`;
 `chrome extension-status` reads the manifest, the launcher, the unpacked
-extension, the policy file, and the Chrome extension socket it says hello to, stats the external-extensions file and does not read it, and writes nothing but the
+extension, the policy file, each Chrome profile's `Secure Preferences` and
+`Preferences`, and the Chrome extension socket it says hello to, stats the external-extensions file and does not read it, and writes nothing but the
 bridge lock beside that socket; while a run holds the bridge it says so and
 writes no hello.
 Only `attach-chrome start` starts a browser, and it never drives the one it
@@ -205,6 +217,24 @@ and sends a given idempotency key at most once: a key already sent replays its
 `--slack-auth`. Exit codes: 0 sent, replayed or previewed; 1 refused; 2 usage or
 key conflict; 3 store unavailable or a contended key; 4 outcome unknown; 5 rate-limited (with
 `retry_after`). See [Slack](/docs/reference/platforms/slack/).
+
+`blowhorn-axi` is the agent interface to those writes, installed next to
+`blowhorn` by `install.sh`. It runs `blowhorn slack … --json` and prints TOON
+with a `help[]` of next commands: `blowhorn-axi` (home: `count`,
+`session_ready` and each profile's `slack_auth`), `profile list` and
+`profile status` (with `auth.test` session state unless `--offline`), and
+`slack send` with `--profile a,b` (edit, delete and react arrive with `blowhorn slack edit|delete|react`). Every write is a dry run
+unless `--confirm`, always runs under `--slack-auth session` (a profile with
+only an app token is `token_only` and nothing runs), and takes its text from
+`--text -` (stdin), `--text-file <path>` or `--message`, with mrkdwn passed
+through and only one trailing newline dropped. Exit codes: 0 every profile
+succeeded, 1 a refusal, rejection, attribution finding or partial failure, 2
+usage (an unknown flag fails before `blowhorn` runs), 3 store unavailable.
+Confirmed writes for several profiles pause a random 10-30 seconds (scaled by
+`BLOWHORN_PACE`) between profiles, as `blowhorn slack` does; each `blowhorn`
+call is stopped after 300 seconds, and a confirmed write stopped that way is
+`outcome_unknown`. It makes no Slack reads; those stay on the Cursor Slack
+connection.
 
 Desktop app:
 

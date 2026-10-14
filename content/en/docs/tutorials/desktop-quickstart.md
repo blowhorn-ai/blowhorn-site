@@ -23,14 +23,10 @@ The app ships as one universal DMG that runs on Apple silicon and Intel Macs.
    in your browser.
 2. Download `Blowhorn-mac.dmg`, the newest release.
 3. Open the DMG and drag `Blowhorn.app` to `/Applications`.
-4. In Terminal, run:
 
-   ```sh
-   xattr -cr /Applications/Blowhorn.app
-   ```
-
-Step 4 is not optional. Do it before you first open the app, and the app will
-open normally.
+The release is Developer ID signed and notarized, so the first time you open
+it macOS asks once whether to open an app downloaded from the internet. Choose
+**Open**.
 
 ## 2. Open it and meet the Setup screen {#section-2-open-it-and-meet-the-setup-screen}
 
@@ -91,8 +87,7 @@ next launch starts it again. See
 
 ## What you did
 
-You installed the console from its DMG, cleared the quarantine flag macOS puts
-on it, pointed it at your checkout, made every run from the app a rehearsal by
+You installed the console from its DMG, pointed it at your checkout, made every run from the app a rehearsal by
 default, and read the queue.
 
 ## Next

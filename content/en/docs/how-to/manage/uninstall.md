@@ -14,6 +14,18 @@ stays unless you ask for it to go, and your account is never touched.
 macOS only. On Linux the command is refused by name and nothing is read or
 removed.
 
+## A machine that ran Outbox
+
+If the machine still has an install from before the rename to Blowhorn, the
+same run retires it too: the `io.layer5.outbox.service` and
+`com.outbox.scheduler` LaunchAgents (booted out, then their files removed),
+the `com.outbox.chrome_extension` and `com.outbox.actuator` native-host
+manifests and their launchers, and `/Applications/Outbox.app`. Outbox's app
+state, preferences and caches stay unless you pass `--purge`. Outbox's Chrome
+trees under `~/.outbox` are always kept, because they can still be the live
+ones until `blowhorn chrome migrate` has moved them. Remove that folder
+yourself once you've migrated.
+
 ## See what would be removed
 
 Always start with the dry run. It lists everything the installer, the app,
