@@ -31,6 +31,32 @@ enableGitInfo = true
 # The site has no taxonomies and no feeds.
 disableKinds = ["taxonomy", "term", "rss"]
 
+# Segments. `public` is every page outside /internal/; `internal` is the
+# /internal/ section. A plain `hugo` build renders the public segment only.
+# `hugo --environment internal` (config/internal/hugo.toml) renders `all`
+# (public plus internal).
+# Footguns: a --renderSegments flag overrides this setting; a segment name
+# that is not defined renders nothing, with no error. See docs/deploy.md.
+renderSegments = ["public"]
+
+[segments]
+  # A segment with no includes matches nothing, so `public` includes
+  # everything and then excludes /internal/.
+  [segments.public]
+    [[segments.public.includes]]
+      path = "**"
+    [[segments.public.excludes]]
+      path = "{/internal,/internal/**}"
+  [segments.internal]
+    [[segments.internal.includes]]
+      path = "{/internal,/internal/**}"
+  # Hugo 0.158 lets one segment's excludes win over another's includes, so
+  # renderSegments = ["public", "internal"] still drops /internal/. The
+  # internal build renders `all` instead.
+  [segments.all]
+    [[segments.all.includes]]
+      path = "**"
+
 # Pages at the top of content/en/ get ugly URLs (the home page is /index.html;
 # layouts/_partials/canonical.html gives it the site root as its public URL).
 # The legal pages, once /privacy.html and /terms.html, now live in the legal

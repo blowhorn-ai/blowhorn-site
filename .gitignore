@@ -27,3 +27,4 @@ __pycache__/
 
 # Never commit disk images; publish them as GitHub Release assets
 *.dmg
+/public-internal/

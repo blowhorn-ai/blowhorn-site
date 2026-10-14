@@ -41,6 +41,8 @@ include .github/build/Makefile.show-help.mk
 #   check-urls         Production build, then fail on a lost public URL or anchor.
 #   site-check         Production build once, then validate-html, check-links,
 #                      check-third-party and check-urls (site.yml).
+#   check-no-internal  Fail if the production build contains /internal/.
+#   build-internal     hugo --environment internal into public-internal/.
 #   test-scripts       Unit tests for the check scripts in .github/scripts/.
 #   workflow-check     actionlint on this repository's workflows.
 #   check              site-check, test-scripts and workflow-check.
@@ -155,7 +157,15 @@ check-urls: build-production
 	python3 .github/scripts/check-site-contract.py $(BUILD_DIR)
 
 ## Build for production once, then validate-html, check-links, check-third-party and check-urls (what site.yml runs).
-site-check: validate-html check-links check-third-party check-urls
+site-check: validate-html check-links check-third-party check-urls check-no-internal
+
+## Build for production, then fail if the /internal/ section leaked into it.
+check-no-internal: build-production
+	.github/scripts/check-no-internal.sh $(BUILD_DIR)
+
+## Build the internal site (public pages plus /internal/) into public-internal/.
+build-internal: check-go check-deps
+	npm run build:internal
 
 ## Run the unit tests for the check scripts in .github/scripts/.
 test-scripts:
@@ -244,6 +254,8 @@ clean:
 	check-third-party \
 	check-urls \
 	site-check \
+	check-no-internal \
+	build-internal \
 	test-scripts \
 	workflow-check \
 	check \

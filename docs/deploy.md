@@ -273,3 +273,43 @@ chrome-devtools-axi emulate --color-scheme dark
 chrome-devtools-axi screenshot /path/to/evidence/home-390-dark.png --full-page
 chrome-devtools-axi eval 'document.documentElement.scrollWidth > document.documentElement.clientWidth'   # must be false
 ```
+
+## Internal section (Hugo segments)
+
+`content/en/internal/` is the internal section. Hugo segments in `hugo.toml`
+keep it out of the public site:
+
+- `public`: every page except `/internal` and `/internal/**`.
+- `internal`: only `/internal` and `/internal/**`.
+- `all`: every page. Used by the internal build.
+
+Builds:
+
+| Build | Command | Output |
+| --- | --- | --- |
+| Public (default, what blowhorn.ai deploys) | `hugo` or `make build-production` | `public/`, no `/internal/` |
+| Internal (public pages plus `/internal/`) | `hugo --environment internal` or `make build-internal` | `public-internal/` |
+
+`hugo.toml` sets `renderSegments = ["public"]`; `config/internal/hugo.toml`
+sets `renderSegments = ["all"]`. The internal section's `_index.md` cascades
+`build: {list: never}`, so its pages stay out of section lists, menus, the
+search index, llms.txt and related lists even in the internal build, and out
+of the sitemap.
+
+`make check-no-internal` (part of `make site-check`, and a step in `site.yml`)
+fails when `public/internal` exists or a public page links to `/internal/`.
+
+Footguns:
+
+- A `--renderSegments` flag on the command line overrides the config.
+  `hugo --renderSegments all` publishes the internal section.
+- `hugo server` follows the same config, but any flag or `-e` environment
+  changes it: `hugo server` (public only) versus
+  `hugo server --environment internal` (everything). Check which one you ran
+  before sharing a preview.
+- A segment name that is not defined renders nothing, with no error. A typo
+  in `renderSegments` gives an empty site, not a public one.
+- `renderSegments = ["public", "internal"]` does not render `/internal/` in
+  Hugo 0.158: the `public` segment's excludes win. Use `all`.
+- This repository is public. Segments keep pages out of the built site, not
+  out of the source. Do not commit confidential content to `content/en/internal/`.
