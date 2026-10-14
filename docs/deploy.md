@@ -230,8 +230,10 @@ here, on the public site repository.
    the product's file converted. Pages carrying `draft: true` stay
    unpublished until the product ungates them.
 3. The workflow commits the result signed off (DCO) to the `docs-sync`
-   branch, opens or updates the one `docs: sync from <ref>` pull request,
-   and starts the normal site checks on it itself
+   branch (`make docs-sync-base` builds it on the open sync PR's head, or
+   afresh on `master` when none is open, so a branch left by a merged PR
+   is replaced), opens or updates the one `docs: sync from <ref>` pull
+   request, and starts the normal site checks on it itself
    (`make docs-sync-start-checks`, which runs
    `gh workflow run site.yml --ref docs-sync` via `workflow_dispatch`):
    pushes and pull requests made with `github.token` never start

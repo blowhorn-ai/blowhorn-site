@@ -51,6 +51,8 @@ include .github/build/Makefile.show-help.mk
 #   docs-sync          Sync the user docs from a leecalcote/blowhorn checkout
 #                      into content/en/docs/: make docs-sync REF=<tag|branch|sha>
 #                      (see docs/deploy.md).
+#   docs-sync-base     Check out the docs-sync branch on the open sync PR's
+#                      head, or on origin/master when none is open.
 #   docs-sync-start-checks
 #                      Start the site checks on the docs-sync branch after a
 #                      sync: gh workflow run site.yml (see docs/deploy.md).
