@@ -133,8 +133,11 @@ jobs:
             echo "<!-- maintainer: move any warning above that needs a product-side fix here -->"
             echo "- None known."
           } > /tmp/sync-pr-body.md
-          if gh pr view "$SYNC_BRANCH" --json number --jq .number >/dev/null 2>&1; then
-            gh pr edit "$SYNC_BRANCH" --title "$TITLE" --body-file /tmp/sync-pr-body.md
+          # Reuse only an OPEN sync PR: `gh pr view <branch>` also finds a
+          # merged or closed one, which would be edited instead of a new PR.
+          OPEN_PR="$(gh pr list --head "$SYNC_BRANCH" --base master --state open --json number --jq '.[0].number // empty')"
+          if [ -n "$OPEN_PR" ]; then
+            gh pr edit "$OPEN_PR" --title "$TITLE" --body-file /tmp/sync-pr-body.md
           else
             gh pr create --head "$SYNC_BRANCH" --base master \
               --title "$TITLE" --body-file /tmp/sync-pr-body.md
