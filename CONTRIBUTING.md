@@ -60,7 +60,7 @@ Please contribute! blowhorn.ai is a [Hugo](https://gohugo.io) site that uses [Do
 `make setup`
 1. Edit the pages (`content/en/`), templates (`layouts/`), styles (`assets/css/site.css`) or brand files (`static/assets/brand/`).
 1. Run the site locally to preview changes at http://localhost:1313.
-`make site`
+`make preview`
 1. Run the checks CI runs.
 `make check`
 1. Commit, [sign-off](#commit-signing), and push changes to your remote branch.

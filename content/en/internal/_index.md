@@ -19,8 +19,8 @@ sitemap:
 ---
 
 The internal Blowhorn site. Nothing under this section is committed to this
-repository: `make build-internal` copies it from a private checkout at build
-time (see docs/deploy.md). The public build never renders it.
+repository: `make site-internal` mounts it from a private clone as a Hugo
+module (see docs/deploy.md). The public build never renders it.
 
 - [GTM strategy](/internal/strategy/)
 - [Assistant comparison](/internal/strategy/compare/)

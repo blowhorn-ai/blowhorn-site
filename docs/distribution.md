@@ -115,7 +115,7 @@ That plan is tracked with the product repo's productization work.
 
 ```bash
 make site-check                        # production build into public/ (the Pages artifact), then its checks
-make site                              # http://localhost:1313
+make preview                           # http://localhost:1313
 make workflow-check                    # actionlint on this repo's workflows
 make dmg-check DMG=path/to/file.dmg    # UDIF sanity check before publishing
 ```

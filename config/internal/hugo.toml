@@ -1,5 +1,44 @@
-# The internal build: `hugo --environment internal`. Merged over hugo.toml;
-# renders the full public site plus the /internal/ section. Never deploy this
-# output to blowhorn.ai.
+# The internal build: `hugo --environment internal` (make site-internal).
+# Merged over hugo.toml; renders the full public site plus /internal/.
+# Never deploy this output to blowhorn.ai.
+
 # Not ["public", "internal"]: public's excludes would drop /internal/.
 renderSegments = ["all"]
+
+# Hugo replaces module.imports per environment instead of merging, so the
+# base imports are repeated here (keep in step with hugo.toml).
+[module]
+  # The private leecalcote/blowhorn clone. make site-internal sets
+  # HUGO_MODULE_REPLACEMENTS to BLOWHORN_DIR (default ../blowhorn); with no
+  # replacement Hugo would try to download the private repository and fail.
+  [[module.imports]]
+    path = "github.com/google/docsy"
+    disable = false
+  [[module.imports]]
+    path = "github.com/google/docsy/dependencies"
+    disable = false
+  [[module.imports]]
+    path = "github.com/leecalcote/blowhorn"
+    ignoreConfig = true
+    # GTM strategy pages (Hugo markdown and page bundles).
+    [[module.imports.mounts]]
+      source = "marketing/strategy/hugo/strategy"
+      target = "content/internal/strategy"
+    # Break-even page, its report wrapper and the model's downloads.
+    [[module.imports.mounts]]
+      source = "marketing/strategy/hugo/finance"
+      target = "content/internal/finance"
+    [[module.imports.mounts]]
+      source = "marketing/strategy/finance/blowhorn-breakeven-model.xlsx"
+      target = "content/internal/finance/blowhorn-breakeven-model.xlsx"
+    [[module.imports.mounts]]
+      source = "marketing/strategy/finance/blowhorn-breakeven.html"
+      target = "assets/internal/finance/blowhorn-breakeven.html"
+    [[module.imports.mounts]]
+      source = "marketing/strategy/finance/build"
+      target = "assets/internal/finance/build"
+    # Data for /internal/strategy/compare/ (CSV: Hugo's data/ does not take
+    # CSV, so it mounts into assets and the shortcode unmarshals it).
+    [[module.imports.mounts]]
+      source = "docs/capability-comparison/compare-assistants.csv"
+      target = "assets/internal/compare-assistants.csv"

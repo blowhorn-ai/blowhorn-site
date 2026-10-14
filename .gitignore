@@ -28,7 +28,3 @@ __pycache__/
 # Never commit disk images; publish them as GitHub Release assets
 *.dmg
 /public-internal/
-# The internal section is fetched from leecalcote/blowhorn at build time
-# (make build-internal); only the placeholder _index.md is committed.
-/content/en/internal/*
-!/content/en/internal/_index.md

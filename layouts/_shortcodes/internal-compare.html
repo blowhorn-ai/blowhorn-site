@@ -1,9 +1,9 @@
-{{- /* The assistant comparison table from the page's compare-assistants.csv
-  resource (copied from leecalcote/blowhorn docs/capability-comparison/ at
-  build time by fetch-internal.sh; never committed). Status values render
-  as icons. */ -}}
-{{- $csv := .Page.Resources.Get "compare-assistants.csv" -}}
-{{- if not $csv }}{{ errorf "internal-compare: compare-assistants.csv is missing; run .github/scripts/fetch-internal.sh" }}{{ end -}}
+{{- /* The assistant comparison table from leecalcote/blowhorn
+  docs/capability-comparison/compare-assistants.csv, mounted at
+  assets/internal/compare-assistants.csv by config/internal/hugo.toml.
+  Status values render as icons. */ -}}
+{{- $csv := resources.Get "internal/compare-assistants.csv" -}}
+{{- if not $csv }}{{ errorf "internal-compare: assets/internal/compare-assistants.csv is not mounted (run make site-internal)" }}{{ end -}}
 {{- $rows := $csv | transform.Unmarshal -}}
 {{- $icons := dict "Highly efficient" (slice "hi" "✓") "Inefficient" (slice "in" "◐") "Cannot do" (slice "no" "✕") "Can't" (slice "no" "✕") "Not assessed" (slice "na" "–") -}}
 <style>

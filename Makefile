@@ -26,7 +26,7 @@ include .github/build/Makefile.show-help.mk
 #   build              Build locally with draft, future, and expired content.
 #   build-preview      Build for a deploy preview (uses BASE_URL or DEPLOY_PRIME_URL).
 #   build-production   Build for production. Pass BASE_URL=... to set the base URL.
-#   site               Serve locally with live reload.
+#   site               Public build (no /internal/) into public/ (as CI deploys).
 #   serve              Serve locally once, file watcher off (no live reload).
 #   check-links        Check every local link, image and font in the built site.
 #   check-deps         Verify required commands and local dependencies.
@@ -42,8 +42,10 @@ include .github/build/Makefile.show-help.mk
 #   site-check         Production build once, then validate-html, check-links,
 #                      check-third-party and check-urls (site.yml).
 #   check-no-internal  Fail if the production build contains /internal/.
-#   build-internal     Fetch /internal/ from leecalcote/blowhorn, then
-#                      hugo --environment internal into public-internal/.
+#   site-internal      Internal build (hugo --environment internal, mounting
+#                      BLOWHORN_DIR, default ../blowhorn) into public-internal/.
+#   preview, preview-internal
+#                      Live-reload servers for the two builds.
 #   test-scripts       Unit tests for the check scripts in .github/scripts/.
 #   workflow-check     actionlint on this repository's workflows.
 #   check              site-check, test-scripts and workflow-check.
@@ -74,8 +76,11 @@ WORKFLOWS ?= .github/workflows/site.yml .github/workflows/publish-dmg.yml .githu
 # A leecalcote/blowhorn checkout for `make docs-sync` (the sync-docs.yml
 # workflow checks the product repo out at this path).
 SOURCE_DIR ?= product
-# A leecalcote/blowhorn checkout holding marketing/strategy/hugo/ for make build-internal.
-STRATEGY_SOURCE ?= $(SOURCE_DIR)
+# The private leecalcote/blowhorn clone that config/internal/hugo.toml mounts
+# (module import github.com/leecalcote/blowhorn, replaced with this directory).
+BLOWHORN_DIR ?= ../blowhorn
+BLOWHORN_ABS = $(abspath $(BLOWHORN_DIR))
+BLOWHORN_MODULE := github.com/leecalcote/blowhorn
 DOCS_DIR ?= content/en/docs
 # Branch the sync-docs.yml workflow pushes and opens its pull request from.
 SYNC_BRANCH ?= docs-sync
@@ -135,14 +140,25 @@ build-production: check-go check-deps
 		npm run build:production; \
 	fi
 
-## Build and run the site locally with live reload at http://localhost:1313 (draft and future content enabled).
-site: check-go check-deps
+## Build the public site (no /internal/) into public/, as CI deploys it.
+site: build-production
+
+## Build the internal site (public pages plus /internal/ from the leecalcote/blowhorn clone at BLOWHORN_DIR, default ../blowhorn) into public-internal/.
+site-internal: check-go check-deps check-blowhorn
+	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run build:internal
+
+## Serve the public site at http://localhost:1313 with live reload (draft and future content enabled).
+preview: check-go check-deps
 	npm run site
 
-## Serve the internal site locally (public pages plus /internal/) at http://localhost:1313: make site-internal STRATEGY_SOURCE=path/to/leecalcote/blowhorn
-site-internal: check-go check-deps
-	.github/scripts/fetch-internal.sh "$(STRATEGY_SOURCE)"
-	npm run _hugo -- server --environment internal --renderToMemory
+## Serve the internal site at http://localhost:1313 with live reload, rendered in memory so public/ is never touched.
+preview-internal: check-go check-deps check-blowhorn
+	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run _hugo -- server --environment internal --renderToMemory
+
+## Fail unless BLOWHORN_DIR is a leecalcote/blowhorn clone with the internal sources.
+check-blowhorn:
+	@test -d "$(BLOWHORN_ABS)/marketing/strategy/hugo/strategy" || { echo "Error: no leecalcote/blowhorn clone at BLOWHORN_DIR=$(BLOWHORN_DIR) ($(BLOWHORN_ABS)). Clone it beside this repository (git clone https://github.com/leecalcote/blowhorn ../blowhorn) or pass BLOWHORN_DIR=path/to/blowhorn."; exit 1; }
+
 
 ## Build and serve the site once with the file-watcher off (no live reload).
 serve: check-go check-deps
@@ -171,10 +187,8 @@ site-check: validate-html check-links check-third-party check-urls check-no-inte
 check-no-internal: build-production
 	.github/scripts/check-no-internal.sh $(BUILD_DIR)
 
-## Build the internal site into public-internal/: fetch the internal section from a leecalcote/blowhorn checkout (STRATEGY_SOURCE, default product/), then hugo --environment internal.
-build-internal: check-go check-deps
-	.github/scripts/fetch-internal.sh "$(STRATEGY_SOURCE)"
-	npm run build:internal
+## Alias of site-internal.
+build-internal: site-internal
 
 ## Run the unit tests for the check scripts in .github/scripts/.
 test-scripts:
@@ -266,6 +280,9 @@ clean:
 	check-no-internal \
 	build-internal \
 	site-internal \
+	preview \
+	preview-internal \
+	check-blowhorn \
 	test-scripts \
 	workflow-check \
 	check \

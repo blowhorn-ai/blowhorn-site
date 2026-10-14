@@ -197,7 +197,7 @@ layer5io/docs; no page loads them.
 ```bash
 make setup         # once: npm install
 make check         # production build, html-validate, link, third-party and contract checks, check-script tests, actionlint: what CI runs
-make site          # http://localhost:1313 with live reload
+make preview       # http://localhost:1313 with live reload
 ```
 
 ## Product docs sync
@@ -274,56 +274,108 @@ chrome-devtools-axi screenshot /path/to/evidence/home-390-dark.png --full-page
 chrome-devtools-axi eval 'document.documentElement.scrollWidth > document.documentElement.clientWidth'   # must be false
 ```
 
-## Internal section (Hugo segments)
+## Internal section (Hugo segments and module mounts)
 
-`content/en/internal/` is the internal section. Hugo segments in `hugo.toml`
-keep it out of the public site:
+`/internal/` is the internal Blowhorn site. Its source never enters this
+repository, which is public: it lives in the private leecalcote/blowhorn
+repository, and only the internal environment mounts it.
+
+### Builds
+
+| Target | What it does | Output |
+| --- | --- | --- |
+| `make site` | Public build (`hugo`, production environment, `renderSegments = ["public"]`), what CI deploys | `public/`, no `/internal/` |
+| `make site-internal` | Internal build (`hugo --environment internal`, `renderSegments = ["all"]`) with the leecalcote/blowhorn clone mounted | `public-internal/` |
+| `make preview` / `make preview-internal` | Live-reload servers for the two builds (the internal one renders in memory) | http://localhost:1313 |
+
+The internal targets need a leecalcote/blowhorn clone at `BLOWHORN_DIR`
+(default `../blowhorn`, beside this clone) and fail with a clear error when it
+is missing. leecalcote/blowhorn's Makefile has the same `site`,
+`site-internal` and `preview-internal` targets, which run these with
+`BLOWHORN_SITE_DIR` (default `../blowhorn-site`).
+
+### Mounts
+
+`hugo.toml` declares Hugo's default project mounts explicitly
+(`content/en`, `data`, `layouts`, `i18n`, `archetypes`, `assets`, `static`),
+since declaring any mount drops the defaults. `config/internal/hugo.toml`
+adds a module import, `github.com/leecalcote/blowhorn`, with its own mounts:
+
+```toml
+[[module.imports]]
+  path = "github.com/leecalcote/blowhorn"
+  ignoreConfig = true
+  [[module.imports.mounts]]
+    source = "marketing/strategy/hugo/strategy"
+    target = "content/internal/strategy"
+  [[module.imports.mounts]]
+    source = "marketing/strategy/hugo/finance"
+    target = "content/internal/finance"
+  [[module.imports.mounts]]
+    source = "marketing/strategy/finance/blowhorn-breakeven-model.xlsx"
+    target = "content/internal/finance/blowhorn-breakeven-model.xlsx"
+  [[module.imports.mounts]]
+    source = "marketing/strategy/finance/blowhorn-breakeven.html"
+    target = "assets/internal/finance/blowhorn-breakeven.html"
+  [[module.imports.mounts]]
+    source = "marketing/strategy/finance/build"
+    target = "assets/internal/finance/build"
+  [[module.imports.mounts]]
+    source = "docs/capability-comparison/compare-assistants.csv"
+    target = "assets/internal/compare-assistants.csv"
+```
+
+`make site-internal` points the import at the clone with
+`HUGO_MODULE_REPLACEMENTS="github.com/leecalcote/blowhorn -> <abs BLOWHORN_DIR>"`,
+so nothing is downloaded, copied or vendored. Because the import lives
+only in the internal environment, the public build never reads the private
+repository. Hugo replaces `module.imports` per environment instead of
+merging it, so `config/internal/hugo.toml` repeats the two Docsy imports;
+the project's own mounts from `hugo.toml` carry over (`hugo config mounts
+-e internal` lists both). The comparison CSV mounts into `assets/`, not
+`data/`, because Hugo's data directory does not read CSV; the
+`internal-compare` shortcode unmarshals it. The break-even report is wrapped
+by `marketing/strategy/hugo/finance/report/index.md` (layout `internal-raw`),
+and the finance page lists the XLSX and the generator scripts as downloads.
+
+The user docs under `content/en/docs/` stay on the committed docs-sync copy
+(`make docs-sync`) rather than a mount of leecalcote/blowhorn `docs/`: a
+mount would make every public build, including this repository's public CI,
+need a token for the private repository.
+
+### Segments and checks
 
 - `public`: every page except `/internal` and `/internal/**`.
 - `internal`: only `/internal` and `/internal/**`.
 - `all`: every page. Used by the internal build.
 
-Builds:
+The internal section's committed `content/en/internal/_index.md` cascades
+`build: {list: never}`, so internal pages stay out of section lists, menus,
+the search index, llms.txt and the sitemap, even in the internal build.
 
-| Build | Command | Output |
-| --- | --- | --- |
-| Public (default, what blowhorn.ai deploys) | `hugo` or `make build-production` | `public/`, no `/internal/` |
-| Internal (public pages plus `/internal/`) | `make build-internal STRATEGY_SOURCE=path/to/leecalcote/blowhorn` | `public-internal/` |
-| Internal preview server | `make site-internal STRATEGY_SOURCE=path/to/leecalcote/blowhorn` | memory, http://localhost:1313/internal/ |
+`make check-no-internal` (part of `make site-check`, and a step in
+`site.yml`) fails when `public/internal` exists, a public page links to
+`/internal/` or names an internal file, or git tracks anything under
+`content/en/internal/` other than `_index.md`.
 
-`hugo.toml` sets `renderSegments = ["public"]`; `config/internal/hugo.toml`
-sets `renderSegments = ["all"]`. The internal section's `_index.md` cascades
-`build: {list: never}`, so its pages stay out of section lists, menus, the
-search index, llms.txt and related lists even in the internal build, and out
-of the sitemap.
+### Where the internal build runs
 
-The internal content is never committed here: this repository is public.
-It lives in the private leecalcote/blowhorn repository under
-`marketing/strategy/hugo/` (plus `marketing/strategy/finance/` and
-`docs/capability-comparison/compare-assistants.csv`).
-`.github/scripts/fetch-internal.sh`, run by `make build-internal`, copies it
-into `content/en/internal/` (gitignored, except the placeholder `_index.md`)
-before `hugo --environment internal`. The internal build runs in
-leecalcote/blowhorn's `internal-site.yml` workflow and is uploaded there as a
-private artifact; it never runs in this repository's Actions, whose artifacts
-and logs are public. `docs-sync` only copies the product's `docs/` tree and
-already skips `docs/internal/`, `docs/gtm/` and `internal-paths.txt`.
+leecalcote/blowhorn's `.github/workflows/internal-site.yml` checks out both
+repositories side by side, runs `make site-internal` from the blowhorn
+clone and uploads `public-internal/` as a private workflow artifact. There
+is no private host. It never runs in this repository's Actions, whose
+artifacts and logs are public.
 
-`make check-no-internal` (part of `make site-check`, and a step in `site.yml`)
-fails when `public/internal` exists, a public page links to `/internal/` or names an internal file, or git tracks anything under `content/en/internal/` other than `_index.md`.
-
-Footguns:
+### Footguns
 
 - A `--renderSegments` flag on the command line overrides the config.
-  `hugo --renderSegments all` publishes the internal section.
+  `hugo --renderSegments all` renders whatever is mounted.
 - `hugo server` honours `renderSegments`, but without `--renderToMemory` it
-  also writes to `public/` and serves stale files from there. An internal
-  server run that way leaves `/internal/` pages in `public/`. Preview the
-  internal site with `make site-internal STRATEGY_SOURCE=...` (it passes
-  `--renderToMemory`); `make site` stays public only.
-- A segment name that is not defined renders nothing, with no error. A typo
-  in `renderSegments` gives an empty site, not a public one.
+  also writes to `public/` and serves stale files from there; an internal
+  server run that way leaves `/internal/` pages in `public/`. Use
+  `make preview-internal`.
+- A segment name that is not defined renders nothing, with no error.
 - `renderSegments = ["public", "internal"]` does not render `/internal/` in
   Hugo 0.158: the `public` segment's excludes win. Use `all`.
-- This repository is public. Segments keep pages out of the built site, not
-  out of the source. Never `git add -f` anything under `content/en/internal/`.
+- `hugo config` with no `-e` reports a different environment's mounts than
+  `hugo` builds with; pass `-e production` or `-e internal` when checking.

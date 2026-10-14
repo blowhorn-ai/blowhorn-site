@@ -1,7 +1,7 @@
-{{- /* Internal pages (content/en/internal/, fetched at build time from
-  leecalcote/blowhorn by .github/scripts/fetch-internal.sh; never committed).
-  Rendered only by `hugo --environment internal`. Publishes every page
-  resource (charts, the XLSX model) and lists the child pages. */ -}}
+{{- /* Internal pages, mounted from leecalcote/blowhorn by
+  config/internal/hugo.toml and rendered only by `hugo --environment
+  internal`. Publishes every page resource (charts, the XLSX model) and the
+  assets matched by the `downloads` front matter glob, and lists them. */ -}}
 {{ define "head" }}<meta name="robots" content="noindex, nofollow, noarchive">{{ end }}
 {{ define "main" }}
     <main id="main" class="page">
@@ -14,10 +14,11 @@
           {{ .Content }}
         </div>
         {{- $files := where .Resources "MediaType.SubType" "ne" "svg+xml" }}
+        {{- with .Params.downloads }}{{ $files = $files | append (resources.Match .) }}{{ end }}
         {{- range .Resources }}{{ $_ := .RelPermalink }}{{ end }}
         {{- with $files }}
         <h2 class="h2">Files</h2>
-        <ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Name }}</a></li>{{ end }}</ul>
+        <ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ path.Base .Name }}</a></li>{{ end }}</ul>
         {{- end }}
       </div>
     </main>
