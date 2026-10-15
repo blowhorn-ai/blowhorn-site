@@ -1,21 +1,54 @@
 {{- /* The assistant comparison table from leecalcote/blowhorn
   docs/capability-comparison/compare-assistants.csv, mounted at
   assets/internal/compare-assistants.csv by config/internal/hugo.toml.
-  Status values render as icons. */ -}}
+  Status values render as icons, labelled with the status itself.
+
+  Columns are sized from the data, never from their names, because each
+  assistant that rates itself adds columns: a column whose cells are all
+  statuses (or blank) stays narrow; a text column gets room; a long-text
+  column (any cell over 100 characters, such as a notes column) gets a
+  reading width, so its prose wraps into lines instead of a one-word-wide
+  column that stretches every row. The table scrolls sideways inside its own
+  region, as the public compare tables do, and that region takes the page's
+  full width while the text around it keeps the reading measure. */ -}}
 {{- $csv := resources.Get "internal/compare-assistants.csv" -}}
 {{- if not $csv }}{{ errorf "internal-compare: assets/internal/compare-assistants.csv is not mounted (run make site-internal)" }}{{ end -}}
 {{- $rows := $csv | transform.Unmarshal -}}
 {{- $icons := dict "Highly efficient" (slice "hi" "✓") "Inefficient" (slice "in" "◐") "Cannot do" (slice "no" "✕") "Can't" (slice "no" "✕") "Not assessed" (slice "na" "–") -}}
+{{- $head := index $rows 0 -}}
+{{- $body := after 1 $rows -}}
+{{- $kinds := slice -}}
+{{- range $i, $_ := $head -}}
+  {{- $kind := "st" -}}
+  {{- range $body -}}
+    {{- $cell := index . $i -}}
+    {{- if and $cell (not (index $icons $cell)) -}}
+      {{- if gt (len $cell) 100 }}{{ $kind = "long" }}{{ else if ne $kind "long" }}{{ $kind = "text" }}{{ end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $kinds = $kinds | append $kind -}}
+{{- end -}}
 <style>
-.cmp td.st{text-align:center}.cmp .ic{display:inline-block;width:1.6em;height:1.6em;line-height:1.6em;border-radius:50%;font-weight:700;text-align:center}
-.cmp .hi .ic{color:#fff;background:#00B39F}.cmp .in .ic{color:#fff;background:#E39A30}.cmp .no .ic{color:#fff;background:#B4533C}.cmp .na .ic{color:#8a8f98;background:rgba(128,128,128,.15)}
-.cmp th{white-space:normal;vertical-align:bottom;min-width:6em}
+.prose:has(> .cmp) { max-width: none; }
+.prose:has(> .cmp) > :not(.cmp) { max-width: var(--text-measure); }
+.page .cmp { padding: 0; border-radius: 0; }
+.page .cmp table { max-width: none; }
+.cmp th { white-space: normal; vertical-align: bottom; }
+.cmp th.st { min-width: 6em; }
+.cmp th.text { min-width: 8em; }
+.cmp th.long { min-width: 20em; }
+.cmp td.st { text-align: center; }
+.cmp .ic { display: inline-block; width: 1.6em; height: 1.6em; line-height: 1.6em; border-radius: 50%; font-weight: 700; text-align: center; }
+.cmp .hi .ic { color: var(--on-teal); background: var(--teal); }
+.cmp .in .ic { color: var(--near-black); background: var(--amber); }
+.cmp .no .ic { color: var(--white); background: var(--coral-shade); }
+.cmp .na .ic { color: var(--ink-muted); background: var(--surface-raised); }
 </style>
-<p>{{ sub (len $rows) 1 }} rows. ✓ highly efficient · ◐ inefficient · ✕ cannot do · – not assessed.</p>
-<div class="table-wrap cmp"><table>
-<thead><tr>{{ range index $rows 0 }}<th>{{ . }}</th>{{ end }}</tr></thead>
+<p>{{ len $body }} rows. ✓ highly efficient · ◐ inefficient · ✕ cannot do · – not assessed.</p>
+<div class="compare-scroll cmp" role="region" aria-label="Assistant comparison" tabindex="0"><table>
+<thead><tr>{{ range $i, $name := $head }}<th scope="col" class="{{ index $kinds $i }}">{{ $name }}</th>{{ end }}</tr></thead>
 <tbody>
-{{- range after 1 $rows }}
-<tr>{{ range . }}{{ with index $icons . }}<td class="st {{ index . 0 }}"><span class="ic" role="img" aria-label="{{ index . 0 }}">{{ index . 1 }}</span></td>{{ else }}<td>{{ . }}</td>{{ end }}{{ end }}</tr>
+{{- range $body }}
+<tr>{{ range . }}{{ $cell := . }}{{ with index $icons $cell }}<td class="st {{ index . 0 }}"><span class="ic" role="img" aria-label="{{ $cell }}">{{ index . 1 }}</span></td>{{ else }}<td>{{ $cell }}</td>{{ end }}{{ end }}</tr>
 {{- end }}
 </tbody></table></div>

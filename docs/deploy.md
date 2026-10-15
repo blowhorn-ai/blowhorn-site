@@ -334,7 +334,11 @@ merging it, so `config/internal/hugo.toml` repeats the two Docsy imports;
 the project's own mounts from `hugo.toml` carry over (`hugo config mounts
 -e internal` lists both). The comparison CSV mounts into `assets/`, not
 `data/`, because Hugo's data directory does not read CSV; the
-`internal-compare` shortcode unmarshals it. The break-even report is wrapped
+`internal-compare` shortcode unmarshals it. The shortcode sizes each column
+from its cells, never its name, so a column the CSV gains needs no template
+change: all-status columns stay narrow, a column with any cell over 100
+characters gets a reading width, and the table scrolls sideways in its own
+region at the page's full width. The break-even report is wrapped
 by `marketing/strategy/hugo/finance/report/index.md` (layout `internal-raw`),
 and the finance page lists the XLSX and the generator scripts as downloads.
 
