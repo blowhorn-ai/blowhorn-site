@@ -244,6 +244,18 @@ class SyncDocsTest(unittest.TestCase):
         self.assertIn("](../how-to/beta/soon.md)", body)
         self.assertIn("never published", result.stderr)
 
+    def test_internal_paths_txt_under_release_excludes_listed_paths(self):
+        # The product keeps the list at release/internal-paths.txt; missing it
+        # would publish every page it lists.
+        tree = product({
+            "reference/draft-api.md": PAGE.format(title="API", link="x.md"),
+            "reference/ok.md": PAGE.format(title="OK", link="x.md"),
+        })
+        tree["release/internal-paths.txt"] = "# the one list\ndocs/internal/\ndocs/reference/draft-api.md\n"
+        _, site = self.assert_synced(tree)
+        self.assertNotIn("reference/draft-api.md", site)
+        self.assertIn("reference/ok.md", site)
+
     def test_referenced_assets_are_copied(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

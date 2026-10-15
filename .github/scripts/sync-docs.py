@@ -11,8 +11,9 @@ sync-docs.yml calls the same target.
 What is copied: every Markdown page under the four public sections, plus
 any local non-Markdown file those pages reference (images and the like).
 What is never copied: docs/internal/, docs/gtm/, and any path listed in
-the product's internal-paths.txt (docs/internal-paths.txt, falling back
-to internal-paths.txt at the product root), dotfiles, and docs/README.md
+the product's internal-paths.txt (release/internal-paths.txt since the
+product's layout move, then docs/internal-paths.txt, then internal-paths.txt
+at the product root), dotfiles, and docs/README.md
 itself, which maps onto the site-owned docs landing
 (content/en/docs/_index.md): the landing stays and no page is written
 for the README.
@@ -83,7 +84,10 @@ def read_internal_paths(product_root, product_docs):
     is stripped so they compare against docs-relative paths.
     """
     excluded = set(ALWAYS_EXCLUDED)
-    for candidate in (product_docs / "internal-paths.txt",
+    # The product moved the list to release/ (leecalcote/blowhorn #636); a
+    # missed home means no exclusion at all, so every known home is tried.
+    for candidate in (product_root / "release" / "internal-paths.txt",
+                      product_docs / "internal-paths.txt",
                       product_root / "internal-paths.txt"):
         if not candidate.is_file():
             continue

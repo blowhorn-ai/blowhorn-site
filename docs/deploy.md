@@ -221,7 +221,7 @@ here, on the public site repository.
    first H1, aliases colliding with a published URL are dropped, and
    headings whose auto id would not begin with a letter get an explicit
    `{#anchor}`. `docs/internal/`, `docs/gtm/` and any path listed in the
-   product's `internal-paths.txt` (when it exists) are never copied.
+   product's `internal-paths.txt` (when it exists: `release/internal-paths.txt` in the product's current layout, else `docs/` or the product root) are never copied.
 2. `docs/README.md` maps onto the site-owned docs landing
    (`content/en/docs/_index.md`): the landing stays as designed and no
    page is written for the README, whose index role the landing cards and
