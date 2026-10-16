@@ -1,7 +1,7 @@
 ---
 title: blowhorn-axi
 seo_title: blowhorn-axi - the agent interface to Blowhorn
-description: blowhorn-axi lets AI agents use Blowhorn. Compact answers built for agents, rehearsal before every action and clear next steps when something goes wrong. Runs on your Mac with Node 18 or later.
+description: blowhorn-axi lets AI agents use Blowhorn. Compact answers built for agents, rehearsal before every action and clear next steps when something goes wrong. Runs on your machine with Node 18 or later.
 label: AI native
 lead: The agent interface to Blowhorn
 intro: blowhorn-axi is a small command your AI agent runs to use Blowhorn for you. It speaks the agent's language, rehearses before it acts and always says what to do next.
@@ -26,7 +26,7 @@ cards:
     b: Every action is a rehearsal unless the agent adds --confirm. It shows what would be sent, then waits.
   - t: Clear next steps
     b: Every answer, and every error, ends with a help list of the commands to try next. Agents don't get stuck guessing.
-  - t: Your Mac, your limits
-    b: It runs on your own Mac and follows the risk limits you set for each profile. Nothing secret is printed in its answers.
+  - t: Your machine, your limits
+    b: It runs on your own machine and follows the risk limits you set for each profile. Nothing secret is printed in its answers.
 major: Dry run first. Nobody fires live rounds on my range without a rehearsal.
 ---

@@ -2,7 +2,7 @@
 title: How Blowhorn compares
 linkTitle: Compare
 description: Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
-lead: Plenty of tools will post for you. Blowhorn posts as you, from every Mac you own, through one queue you control.
+lead: Plenty of tools will post for you. Blowhorn posts as you, from every machine you own, through one queue you control.
 layout: compare
 aliases:
   - /versus/
@@ -29,7 +29,7 @@ groups:
 # Cell values: yes, no, some, or a short phrase. `level` drives the mark:
 # yes, partial, no.
 rows:
-  - feature: Acts from your own Mac, in your real browser, as you
+  - feature: Acts from your own machine, in your real browser, as you
     blowhorn: { level: yes, text: "Yes" }
     schedulers: { level: no, text: "Vendor servers, via API" }
     linkedin: { level: partial, text: "Mostly the vendor's cloud" }
@@ -84,7 +84,7 @@ rows:
     advocacy: { level: no, text: "Rare" }
     local: { level: partial, text: "Some, via API" }
   - feature: Posts with every laptop closed
-    blowhorn: { level: partial, text: "As long as one Mac is awake" }
+    blowhorn: { level: partial, text: "As long as one machine is awake" }
     schedulers: { level: yes, text: "Yes" }
     linkedin: { level: yes, text: "Yes" }
     advocacy: { level: yes, text: "Yes" }
@@ -99,14 +99,14 @@ why:
   - title: It's you, not a bot
     body: Blowhorn drives the Chrome you already sign in to. No server logs in with your password, session cookie or 2FA secret.
     link: /docs/explanation/your-own-chrome/
-  - title: One queue, every Mac
-    body: Add Macs for coverage. Each action is claimed by one Mac, and whichever Mac is awake keeps the schedule.
+  - title: One queue, every machine
+    body: Add machines for coverage. Each action is claimed by one machine, and whichever machine is awake keeps the schedule.
     link: /docs/explanation/scheduling/
   - title: A fleet behind every post
     body: Amplify reposts and comments from every profile you run while the post is still fresh. Teammates joining your fleet is coming soon.
     link: /docs/explanation/distribution/
   - title: Your hand on the switch
-    body: Pause one action, one Mac or every Mac at once, with the reason recorded. Resume and due times carry forward.
+    body: Pause one action, one machine or every machine at once, with the reason recorded. Resume and due times carry forward.
     link: /docs/explanation/youre-in-control/
   - title: Careful by default
     body: Human-paced typing, built-in caps, one click per run, one automation per platform per profile at a time.

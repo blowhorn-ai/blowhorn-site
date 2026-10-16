@@ -16,7 +16,7 @@
   "prompts": [
     "What does the content queue owe each profile right now?",
     "Turn this README section into a Hacker News row with a title under the limit. Leave it unapproved.",
-    "Show me schedule status for every Mac in one table."
+    "Show me schedule status for every machine in one table."
   ],
   "commands": "blowhorn content list --pending --json\nblowhorn content get 18 --json\nblowhorn schedule status --json\nblowhorn post --check-queue --profile all",
   "commands_lang": "bash",

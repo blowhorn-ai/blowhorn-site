@@ -40,6 +40,6 @@ These were hard-won battles. This manual passes along that value so you can clai
 
 Blowhorn was built around these lessons. It types at human speed with random pauses, clicks a public action once and never retries it on a guess, hands every CAPTCHA and two-factor prompt to you, and skips LinkedIn invitations that LinkedIn flags as risky ([How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/), [Why flagged invitations are skipped](/docs/explanation/invitation-safety/)).
 
-None of that makes a behavior allowed. The rules govern what an account does, not which software clicks. Running in your own Chrome keeps your passwords on your Mac; it doesn't make a pod a good idea. The [action matrix](/field-manual/action-matrix/) shows which Blowhorn actions are safe, which need care and which are risky on each platform.
+None of that makes a behavior allowed. The rules govern what an account does, not which software clicks. Running in your own Chrome keeps your passwords on your machine; it doesn't make a pod a good idea. The [action matrix](/field-manual/action-matrix/) shows which Blowhorn actions are safe, which need care and which are risky on each platform.
 
 Blowhorn posts to LinkedIn, X, Reddit, Hacker News, Bluesky, Slack and GitHub, on macOS 13 or newer ([Platforms](/docs/reference/platforms/)). The pages on Facebook, YouTube, Instagram, TikTok, Threads and Mastodon are general education only: Blowhorn doesn't post to them.

@@ -14,8 +14,8 @@ cards:
     b: Any action an agent asks for is a dry run until it is told to go. It sees exactly what would happen before anything is posted.
   - t: Your limits, every time
     b: The risk limits you set for each profile apply to every agent action. An agent can't post more, or faster, than you allow.
-  - t: Runs on your Mac
-    b: Agents drive Blowhorn on your own Mac, from your own Chrome. Your passwords never leave your computer.
+  - t: Runs on your machine
+    b: Agents drive Blowhorn on your own machine, from your own Chrome. Your passwords never leave your computer.
 ways_title: Two ways in for agents
 ways:
   - path: /ai/blowhorn-axi

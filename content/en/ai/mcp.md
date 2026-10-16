@@ -1,7 +1,7 @@
 ---
 title: Blowhorn MCP server
 seo_title: The Blowhorn MCP server - coming soon
-description: Coming soon. The Blowhorn MCP server will let AI assistants find and use every Blowhorn action, with your approval rules and risk limits applied to every step, all running on your own Mac.
+description: Coming soon. The Blowhorn MCP server will let AI assistants find and use every Blowhorn action, with your approval rules and risk limits applied to every step, all running on your own machine.
 label: AI native
 lead: Every Blowhorn action, ready for any AI assistant
 intro: MCP is a common standard that lets AI assistants plug into apps. The Blowhorn MCP server will let an assistant see everything Blowhorn can do and use it, while you stay in charge.
@@ -24,7 +24,7 @@ rules:
     b: Turn on a setting and an agent must get your OK in the app before it queues or amplifies a post. It is off by default, so you choose.
   - t: Risk limits on every action
     b: The limits you set for each profile apply to everything an agent does, every time.
-  - t: Runs on your Mac
-    b: Every action runs locally on your own Mac, just like the app.
+  - t: Runs on your machine
+    b: Every action runs locally on your own machine, just like the app.
 major: The plans are drawn. Until the server ships, Robo-Recruit reports through blowhorn-axi.
 ---

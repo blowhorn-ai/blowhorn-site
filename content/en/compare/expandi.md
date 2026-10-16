@@ -32,7 +32,7 @@
     {
       "f": "Where it acts",
       "t": "Expandi's cloud, from a dedicated IP",
-      "b": "Your Macs: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Email steps",

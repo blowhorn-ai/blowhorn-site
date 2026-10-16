@@ -78,5 +78,5 @@ dispatches:
     body: Major counted the replies on Friday's launch. Thirty-one real humans, one real question, zero bought thumbs. Major cried a little. Allergies. Is dusty in barracks.
   - date: 2026-10-01
     title: Reveille, new recruits
-    body: New Macs reported for duty this week. Major lined them up, read the rules, and told each one, "You post what queue says. Nothing more." They have not blinked since.
+    body: New machines reported for duty this week. Major lined them up, read the rules, and told each one, "You post what queue says. Nothing more." They have not blinked since.
 ---

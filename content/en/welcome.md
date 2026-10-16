@@ -1,8 +1,8 @@
 ---
 title: Welcome
 heading: Welcome to Blowhorn
-description: You installed the Blowhorn Chrome extension. Three steps finish the setup on your Mac.
-lead: The Blowhorn extension does nothing on its own. It acts only when the Blowhorn app on your Mac asks, so finish these three steps and the extension's toolbar icon turns from "not connected" to connected.
+description: You installed the Blowhorn Chrome extension. Three steps finish the setup on your machine.
+lead: The Blowhorn extension does nothing on its own. It acts only when the Blowhorn app on your machine asks, so finish these three steps and the extension's toolbar icon turns from "not connected" to connected.
 url: /welcome/
 layout: onboarding
 outputs: [html]

@@ -61,8 +61,8 @@ The posts, comments, messages, profiles and other content you put into Blowhorn 
 
 ## The Chrome extension
 
-- The extension is a companion to the Blowhorn app on your Mac. It is not a standalone social client and does nothing without that app.
-- It talks only to the Blowhorn app on your Mac, over Chrome's native messaging. It acts only on the sites Blowhorn supports, only in the Chrome profile you install it in, and only when the app asks.
+- The extension is a companion to the Blowhorn app on your machine. It is not a standalone social client and does nothing without that app.
+- It talks only to the Blowhorn app on your machine, over Chrome's native messaging. It acts only on the sites Blowhorn supports, only in the Chrome profile you install it in, and only when the app asks.
 - On those sites it opens or finds tabs, sends the clicks and keystrokes a queued action needs, reads page state, takes a screenshot when an action needs a person to check it, catches an export you asked for, and reads a sign-in cookie when the app needs to reuse a session you already have.
 - It hands what it reads to the Blowhorn app and to nothing else. What the app keeps and sends is described on the [privacy page](/legal/privacy/).
 - Because the extension acts in your own signed-in session, an action it takes at your instruction is taken by you, on your account.

@@ -27,7 +27,7 @@
     {
       "f": "Where it acts",
       "t": "Publer's cloud",
-      "b": "Your Macs: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Networks",

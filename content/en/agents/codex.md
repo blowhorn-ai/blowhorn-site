@@ -14,7 +14,7 @@
   "extra_lang": "",
   "extra_code": "",
   "prompts": [
-    "Read the last 30 days of operations grouped by host and tell me which Mac is doing the work.",
+    "Read the last 30 days of operations grouped by host and tell me which machine is doing the work.",
     "Schedule a daily report row at 08:00 for all profiles. Show the payload before you run it.",
     "Validate every schedule row and fix the ones that fail, one upsert per row."
   ],
@@ -31,7 +31,7 @@
     },
     {
       "t": "Fleet health",
-      "b": "analytics operations --group-by host shows which Mac ran what, so Codex can spot the one that went quiet."
+      "b": "analytics operations --group-by host shows which machine ran what, so Codex can spot the one that went quiet."
     }
   ],
   "faq": [
@@ -40,8 +40,8 @@
       "a": "Blowhorn reaches the network and your Chrome. Approving it per command is the sensible default."
     },
     {
-      "q": "Will two Macs post the same row?",
-      "a": "Rows are claimed with a lease, coordinated so the same post isn't sent from two Macs."
+      "q": "Will two machines post the same row?",
+      "a": "Rows are claimed with a lease, coordinated so the same post isn't sent from two machines."
     },
     {
       "q": "Does my agent see my social passwords?",

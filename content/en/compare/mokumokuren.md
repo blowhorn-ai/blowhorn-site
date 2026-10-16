@@ -19,7 +19,7 @@
   "us": [
     "LinkedIn, Reddit, Hacker News, GitHub and Slack matter to you",
     "You want scheduling and amplification from every profile in your account",
-    "You run more than one Mac"
+    "You run more than one machine"
   ],
   "price_them": "Free; Pro $7 a month",
   "price_src": "https://docs-mokumokuren.imakita3gyo.com/en/",
@@ -27,7 +27,7 @@
     {
       "f": "Where it acts",
       "t": "Local browser sessions, you send",
-      "b": "Your Macs, in your own signed-in Chrome or platform APIs"
+      "b": "Your machines, in your own signed-in Chrome or platform APIs"
     },
     {
       "f": "Networks",
@@ -37,12 +37,12 @@
     {
       "f": "Scheduling",
       "t": "No, you send",
-      "b": "As long as one of your Macs is awake. Any Mac set up for the profile keeps the schedule"
+      "b": "As long as one of your machines is awake. Any machine set up for the profile keeps the schedule"
     },
     {
-      "f": "Many Macs on one queue",
+      "f": "Many machines on one queue",
       "t": "No",
-      "b": "Unlimited Macs on one queue, coordinated so the same post isn't sent from two Macs"
+      "b": "Unlimited machines on one queue, coordinated so the same post isn't sent from two machines"
     },
     {
       "f": "Amplify one post",
@@ -74,7 +74,7 @@
   },
   "wins": [
     "LinkedIn, Reddit, Hacker News, GitHub and Slack",
-    "One shared queue across every Mac you own",
+    "One shared queue across every machine you own",
     "Scheduled posting, not only pressing send yourself"
   ],
   "loses": [

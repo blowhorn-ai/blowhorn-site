@@ -14,7 +14,7 @@
   "extra_lang": "",
   "extra_code": "",
   "prompts": [
-    "Our launch post is live on X. Dry-run a repost from every profile on this Mac.",
+    "Our launch post is live on X. Dry-run a repost from every profile on this machine.",
     "Find the latest posts mentioning our project since Monday and list the ones worth a reply.",
     "Write tomorrow's X row in my voice from this changelog and leave it unapproved."
   ],
@@ -23,7 +23,7 @@
   "uses": [
     {
       "t": "The sound wave",
-      "b": "One post goes out, then every profile you and your team run repeats it from their own Macs. Grok fires the amplify; Blowhorn coordinates who does what."
+      "b": "One post goes out, then every profile you and your team run repeats it from their own machines. Grok fires the amplify; Blowhorn coordinates who does what."
     },
     {
       "t": "Listening",
@@ -37,11 +37,11 @@
   "faq": [
     {
       "q": "Which Grok tool do I need?",
-      "a": "Any Grok setup that can run shell commands on your Mac. Blowhorn only needs a CLI call."
+      "a": "Any Grok setup that can run shell commands on your machine. Blowhorn only needs a CLI call."
     },
     {
       "q": "Is amplifying everyone at once a good idea?",
-      "a": "Use --dry-run first, then let it go. Blowhorn paces actions and coordinates the fleet so the same post isn't sent from two Macs."
+      "a": "Use --dry-run first, then let it go. Blowhorn paces actions and coordinates the fleet so the same post isn't sent from two machines."
     },
     {
       "q": "Does my agent see my social passwords?",

@@ -40,9 +40,9 @@
       "b": "Built in, on every network"
     },
     {
-      "f": "Many Macs on one queue",
+      "f": "Many machines on one queue",
       "t": "Profile sync",
-      "b": "Unlimited Macs on one queue, coordinated so the same post isn't sent from two Macs"
+      "b": "Unlimited machines on one queue, coordinated so the same post isn't sent from two machines"
     },
     {
       "f": "AI agents",
