@@ -2134,7 +2134,9 @@ section[id],
 .page-head + *,
 section > .h2 + :not(p),
 section > h2 + :not(p) { margin-top: var(--head-gap); }
-.page .prose > .h2, .prose h2 { margin-top: calc(var(--head-gap) * 1.5); }
+.page .prose > .h2, .prose h2 { margin-top: calc(var(--head-gap) * 2); }
+/* An h2 directly under the page h1 keeps the standard head gap, not the doubled section gap. */
+.prose h1 + h2, .prose .h1 + .h2, .prose h1 + .h2 { margin-top: var(--head-gap); }
 .prose h2 + *, .prose .h2 + * { margin-top: var(--intro-gap); }
 .prose h3, .prose .h3 { margin-top: var(--head-gap); }
 
@@ -2145,6 +2147,15 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
 .card > * + * { margin-top: var(--space-3); }
 .card .h3 { margin-top: var(--space-4); }
 .card > .h3:first-child { margin-top: 0; }
+/* Docs cards (Start here, quadrants, platform lists): the children are spans,
+   so without a column layout the title and description run together inline and
+   the margin rhythm above never applies. Stack them with gap instead. */
+a.docs-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+a.card.docs-card > * { margin-top: 0; }
 
 /* Line length. */
 .prose, .versus-belief p, .agent-cta p, .brand-note, .platform-note { max-width: var(--text-measure); }
