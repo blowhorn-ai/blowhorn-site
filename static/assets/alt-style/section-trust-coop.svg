@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="A red chicken coop with a Mac screen for a window: every action happens on your own Mac"><title>A red chicken coop with a Mac screen for a window: every action happens on your own Mac</title><defs><filter id="grain-t" x="0" y="0" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="A red chicken coop with a computer screen for a window: every action happens on your own machine"><title>A red chicken coop with a computer screen for a window: every action happens on your own machine</title><defs><filter id="grain-t" x="0" y="0" width="100%" height="100%">
   <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
   <feColorMatrix type="matrix" values="0 0 0 0 0.23  0 0 0 0 0.14  0 0 0 0 0.08  0 0 0 0.07 0"/>
   <feComposite in2="SourceGraphic" operator="in"/>

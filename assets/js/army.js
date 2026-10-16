@@ -1,6 +1,6 @@
 // Blowhorn's army (home #how), chain of command. Pick who gives the order;
-// Major Blowhorn yells at them, then hands the order to exactly one Mac.
-// Enlist or discharge Macs (1 to 8). The rotation runs only while the section
+// Major Blowhorn yells at them, then hands the order to exactly one machine.
+// Enlist or discharge machines (1 to 8). The rotation runs only while the section
 // is in view, stops for good on first interaction and never runs under
 // reduced motion; the bubble is announced only after the visitor acts.
 (function () {
@@ -59,7 +59,7 @@
     var tpl = macs.querySelector('.army-mac svg').outerHTML, html = '';
     for (var m = 0; m < count; m++) {
       html += '<li class="army-mac' + (m === claim ? ' is-on' : '') + (added && m === count - 1 ? ' is-new' : '') + '">' + tpl +
-        '<span class="army-mac-name">Mac ' + (m + 1) + '</span><span class="army-mac-tag">' + (halted ? 'halted' : m === claim ? 'on it' : 'standing by') + '</span></li>';
+        '<span class="army-mac-name">Machine ' + (m + 1) + '</span><span class="army-mac-tag">' + (halted ? 'halted' : m === claim ? 'on it' : 'standing by') + '</span></li>';
     }
     macs.innerHTML = html;
     wire();
@@ -79,7 +79,7 @@
       var k = job++ % count;
       return new Promise(function (r) { setTimeout(r, reduce ? 0 : 900); }).then(function () {
         if (token !== run) return;
-        shout('"' + s.dataset.order + '." Mac ' + (k + 1) + ', that one\'s yours. Everyone else, as you were.');
+        shout('"' + s.dataset.order + '." Machine ' + (k + 1) + ', that one\'s yours. Everyone else, as you were.');
         return fly('army-w-m' + k, 800, token).then(function () {
           if (token !== run) return;
           drawMacs(k);
@@ -107,16 +107,16 @@
     });
   });
   root.querySelector('[data-army="enlist"]').addEventListener('click', function () {
-    if (count >= 8) { say("Eight Macs. That's a battalion, not a hobby. Carry on."); return; }
+    if (count >= 8) { say("Eight machines. That's a battalion, not a hobby. Carry on."); return; }
     count++; drawMacs(-1, true);
-    say('Mac ' + count + ', welcome to the reserves. One order, one Mac per job. Coordinated so the same post isn\'t sent from two Macs.');
-    note.textContent = count + ' Macs enlisted. Each order goes to exactly one.';
+    say('Machine ' + count + ', welcome to the reserves. One order, one machine per job. Coordinated so the same post isn\'t sent from two machines.');
+    note.textContent = count + ' machines enlisted. Each order goes to exactly one.';
   });
   root.querySelector('[data-army="discharge"]').addEventListener('click', function () {
-    if (count <= 1) { say('One Mac is the minimum. I need someone to yell at.'); return; }
+    if (count <= 1) { say('One machine is the minimum. I need someone to yell at.'); return; }
     count--; drawMacs(-1);
-    say('Mac ' + (count + 1) + ', honorably discharged. The queue carries on without you.');
-    note.textContent = count + (count === 1 ? ' Mac' : ' Macs') + ' enlisted. Each order goes to exactly one.';
+    say('Machine ' + (count + 1) + ', honorably discharged. The queue carries on without you.');
+    note.textContent = count + (count === 1 ? ' machine' : ' machines') + ' enlisted. Each order goes to exactly one.';
   });
   // Commander in Chief: halt freezes the whole army (schedule pause --all).
   var haltBtn = root.querySelector('[data-army="halt"]');

@@ -54,7 +54,7 @@
           <div class="sb-head">
             <p class="sb-eyebrow">Platforms</p>
             <h2 id="platforms-title" class="sb-h2">Say it once. Everywhere</h2>
-            <p class="sb-intro">One queue. As many Macs as you've got.</p>
+            <p class="sb-intro">One queue. As many machines as you've got.</p>
           </div>
           <ul class="sb-signs">
             {{- range slice
@@ -84,9 +84,9 @@
           </div>
           <figure class="sb-plate"><img src="{{ $a }}section-sound-wave.svg" width="1000" height="520" loading="lazy" alt="Major Blowhorn shouts once and a row of recruit chicks crow back in unison"></figure>
           <ul class="sb-cards sb-cards-3">
-            <li class="sb-card"><img class="sb-icon" src="{{ $a }}icon-megaphone.svg" alt="" width="56" height="56" loading="lazy"><h3 class="sb-h3">Schedule it once</h3><p>Queue the post and its reposts, quotes and reactions. Each fires from whichever Mac is awake.</p></li>
+            <li class="sb-card"><img class="sb-icon" src="{{ $a }}icon-megaphone.svg" alt="" width="56" height="56" loading="lazy"><h3 class="sb-h3">Schedule it once</h3><p>Queue the post and its reposts, quotes and reactions. Each fires from whichever machine is awake.</p></li>
             <li class="sb-card"><img class="sb-icon" src="{{ $a }}icon-fleet.svg" alt="" width="56" height="56" loading="lazy"><h3 class="sb-h3">Bring your people</h3><p>Teammates add their profiles to your account. Every profile joins the same wave.</p></li>
-            <li class="sb-card"><img class="sb-icon" src="{{ $a }}icon-wave.svg" alt="" width="56" height="56" loading="lazy"><h3 class="sb-h3">One blast, no echoes</h3><p>Coordinated so the same post isn't sent from two Macs.</p></li>
+            <li class="sb-card"><img class="sb-icon" src="{{ $a }}icon-wave.svg" alt="" width="56" height="56" loading="lazy"><h3 class="sb-h3">One blast, no echoes</h3><p>Coordinated so the same post isn't sent from two machines.</p></li>
           </ul>
           {{ partial "bubble.html" (dict "text" "Fall in, profiles. On my mark, the whole platoon sounds off." "variant" "storybook" "tail" "bottom") }}
           <p class="sb-more"><a href="{{ (site.GetPage "/docs/how-to/publish/amplify-a-post").RelPermalink }}">How amplification works</a>. Team invites are coming soon.</p>
@@ -109,7 +109,7 @@
           </ul>
           <div class="sb-term">
             {{ partial "code-card.html" (dict "code" "blowhorn schedule pause --all" "title" "terminal" "lang" "bash" "prompt" true) }}
-            <p class="sb-term-caption">Halt every scheduled post on every Mac with one command.</p>
+            <p class="sb-term-caption">Halt every scheduled post on every machine with one command.</p>
           </div>
         </div>
       </section>
@@ -136,16 +136,16 @@
             <div class="sb-head">
               <p class="sb-eyebrow">Trust</p>
               <h2 id="trust-title" class="sb-h2">Yours to keep</h2>
-              <p class="sb-intro">Many public voices, one coordinated queue, every action on your own Mac.</p>
+              <p class="sb-intro">Many public voices, one coordinated queue, every action on your own machine.</p>
             </div>
             <ul class="sb-list">
-              <li><img src="{{ $a }}icon-coop.svg" alt="" width="40" height="40" loading="lazy"><div><h3 class="sb-h3">Every action runs on your Mac</h3><p>In <a href="{{ (site.GetPage "/docs/explanation/your-own-chrome").RelPermalink }}">your own Chrome</a> or through a platform's API. Never from a server.</p></div></li>
-              <li><img src="{{ $a }}icon-fleet.svg" alt="" width="40" height="40" loading="lazy"><div><h3 class="sb-h3">One queue, any Mac</h3><p>Your queue and results stay in sync in your account, coordinated so the same post isn't sent from two Macs. <a href="{{ (site.GetPage "/docs/explanation/your-data").RelPermalink }}">Where your data lives</a>.</p></div></li>
+              <li><img src="{{ $a }}icon-coop.svg" alt="" width="40" height="40" loading="lazy"><div><h3 class="sb-h3">Every action runs on your machine</h3><p>In <a href="{{ (site.GetPage "/docs/explanation/your-own-chrome").RelPermalink }}">your own Chrome</a> or through a platform's API. Never from a server.</p></div></li>
+              <li><img src="{{ $a }}icon-fleet.svg" alt="" width="40" height="40" loading="lazy"><div><h3 class="sb-h3">One queue, any machine</h3><p>Your queue and results stay in sync in your account, coordinated so the same post isn't sent from two machines. <a href="{{ (site.GetPage "/docs/explanation/your-data").RelPermalink }}">Where your data lives</a>.</p></div></li>
               <li><img src="{{ $a }}icon-megaphone.svg" alt="" width="40" height="40" loading="lazy"><div><h3 class="sb-h3">Hacker News: submit and comment only</h3><p>Never votes. At most 2 link submissions a day per profile.</p></div></li>
             </ul>
             <p><a class="sb-btn sb-btn-ghost" href="{{ (site.GetPage "/legal").RelPermalink }}">Visit the Trust Center</a></p>
           </div>
-          <figure class="sb-plate"><img src="{{ $a }}section-trust-coop.svg" width="800" height="520" loading="lazy" alt="A red coop with a Mac screen for a window, guarded by two chicks"></figure>
+          <figure class="sb-plate"><img src="{{ $a }}section-trust-coop.svg" width="800" height="520" loading="lazy" alt="A red coop with a computer screen for a window, guarded by two chicks"></figure>
         </div>
       </section>
 
@@ -160,7 +160,7 @@
             </div>
             <dl class="sb-faq">
               <dt><a href="{{ (site.GetPage "/docs/explanation/reliability-and-anti-bot-design").RelPermalink }}">Will I get banned?</a></dt><dd>Blowhorn works at a human pace you choose and never solves a CAPTCHA for you.</dd>
-              <dt><a href="{{ (site.GetPage "/docs/explanation/never-twice").RelPermalink }}">Will it post twice?</a></dt><dd>Your Macs coordinate through one queue, so the same post isn't sent from two of them.</dd>
+              <dt><a href="{{ (site.GetPage "/docs/explanation/never-twice").RelPermalink }}">Will it post twice?</a></dt><dd>Your machines coordinate through one queue, so the same post isn't sent from two of them.</dd>
               <dt><a href="{{ (site.GetPage "/docs/how-to/schedule/pause").RelPermalink }}">What if an AI agent is driving?</a></dt><dd>Agents get the same queue and limits you do. Only approved posts go out.</dd>
             </dl>
           </div>

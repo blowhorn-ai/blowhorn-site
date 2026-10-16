@@ -40,7 +40,7 @@ PAGES = {
         "main", "glance", "policies",
     ],
     "legal/privacy/index.html": [
-        "main", "this-website", "on-your-mac", "in-chrome-through-the-blowhorn-extension",
+        "main", "this-website", "on-your-machine", "in-chrome-through-the-blowhorn-extension",
         "in-your-organizations-store-on-layer5-cloud",
     ],
     "legal/terms/index.html": [
