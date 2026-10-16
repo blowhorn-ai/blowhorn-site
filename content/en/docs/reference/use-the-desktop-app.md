@@ -23,34 +23,55 @@ ready, the update card. The update downloads the new version, checks it
 against the release's checksums, confirms it is signed by the same Apple
 Developer ID team as the running app and accepted by Gatekeeper, installs it
 and relaunches the app; when it cannot, it opens the release page in your
-browser.
+browser. An installed Blowhorn that finds such a release when it opens also
+asks in the console window, before the download, with **Download**, **Later**
+and a **?** help icon;
+what each does is under [Update](/docs/how-to/set-up/install-the-app/#update).
 
 ## The console
 
 The console is the full window, reached from the popover. Its rail, in
-order: "jobs", "content", "runs", "profiles", "analytics", "service",
-"settings". Each screen reads live state on open. Nothing here edits on
-a timer.
+order: "home", "jobs", "content", "runs", "profiles", "analytics",
+"background", "settings". Each screen reads live state on open. Nothing here edits on
+a timer. Until you're signed in and the extension is ready, every rail item
+but "home" is locked; see
+[Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/).
 
 | Screen | Shows | Acts |
 |---|---|---|
+| home | Whether Blowhorn is working, what runs next, and whether it needs you; a pause names which pause holds - this Mac, all Macs, or both | Resume the pause it names (one button per pause while both hold); reconnect an account; finish setting up |
 | jobs | Every schedule row, whether it is due, paused, or held; a job drawer with the row behind it; a bootstrap preview for a starter set | Create, edit, pause or resume one row; run one row now; apply the bootstrap set |
 | content | The queue: pending rows, rows still owed to some profile, clicked-but-unread rows | Edit a row; clearing a clicked row's "Date Promoted" re-queues it |
-| runs | Past runs with their ledger lines; per-job logs under the log directory | Re-run a failure from its row |
+| runs | Past runs with their ledger lines; per-job logs under the log directory's `scheduler/` folder | Re-run a failure from its row |
 | profiles | Every profile, its Chrome mapping, its per-platform sessions | Add a profile; map or unmap its Chrome profile |
 | analytics | Followers, growth, and operations per profile; collection freshness in the header | Collect now; open the HTML report |
-| service | Who registered the background service, whether it runs, the last tick heartbeat | Install, start, stop, restart, update, or uninstall the service |
+| background | Who registered the background service, whether it runs, the last tick heartbeat, the pause for all machines | Check now; pause or resume all machines; open System Settings when the service is turned off there |
 | settings | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, test your account connection |
 
+The jobs table keeps every value on one line. When the list is narrow -
+the drawer is wide, or the window is small - the driver and recurrence
+columns leave first (the drawer still shows both) and a long profile list
+is shortened with an ellipsis; the status is never cut.
+
 The analytics screen states how fresh its numbers are in the header and
-has no refresh control of its own. The runs screen reaches per-job logs
-through the log directory listing, which includes each capture file and
-its rollover. The service screen is the visible face of
-`blowhorn service`; every button there runs the matching command.
+has no refresh control of its own. Its operations heatmap has one row per
+profile; runs recorded for several profiles at once (`all`, or a comma
+list) name no one profile, so they are counted beside it rather than shown
+as a row. The runs screen reaches per-job logs through the log directory
+listing, which includes each capture file and its rollover. The background
+screen is the visible face of `blowhorn service`: it reports the service
+the app registered and never installs, updates or uninstalls one.
+
+Profiles made before profile names were lowercase keep their capitalised
+folder (`data/profiles/Lee`). The app lists them as they are spelled and
+reads and saves them as the lowercase name every command resolves them to.
 
 ## Setup
 
-Setup is the first-run checklist, five rows read from this machine:
+Setup is the engine checklist the app opens on while it can't find its
+checkout or Python environment (otherwise the first run is the guided
+setup; see [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/)),
+five rows read from this machine:
 "blowhorn checkout", "python environment", "store", "chrome profiles",
 and "background service". Each row reports ok, warn, or off with the
 one fix that clears it. The "map chrome profiles" panel and the
@@ -64,7 +85,9 @@ excluded profiles, dry run, notifications, logs, and the Chrome launch
 mode. The engine-defaults card renders from `blowhorn config show`,
 so the app can never offer an option the engine does not know. The
 extension card reports whether the extension is installed, which
-version answers, and whether it says connected. Quitting the app leaves
+version answers, and whether it says connected. **guided setup** at the
+bottom reopens the first-run setup, and **run setup again** opens Setup.
+Quitting the app leaves
 posting to the background service and the keep-running setting; see
 [What runs when the app is closed](/docs/explanation/distribution/).
 

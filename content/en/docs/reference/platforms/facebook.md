@@ -5,8 +5,6 @@ description: "Facebook in Blowhorn: coming soon."
 weight: 244
 ---
 
-# Facebook
-
 **Coming soon.** Facebook isn't available in Blowhorn yet. When it is, Blowhorn
 will work on Facebook in your own signed-in Chrome, and this page will list what
 it can do there.

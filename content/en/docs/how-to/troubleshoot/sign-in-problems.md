@@ -43,7 +43,7 @@ again.
 
 When Reddit reports the session expired, sign in again in the mapped Chrome
 profile and run again. A failed step leaves a screenshot and a scrubbed copy
-of the page under the checkout's `cache/diagnostics/<profile>/` directory, and
+of the page under the checkout's `data/cache/diagnostics/<profile>/` directory, and
 names the step and the reason. Field values are never in that copy.
 
 ## CAPTCHA and second factors

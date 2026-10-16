@@ -1,17 +1,17 @@
 ---
 title: "How scheduling works"
-description: "Ten-minute passes, one shared queue across Macs, leases, and the three pause scopes."
+description: "Ten-minute passes, one shared queue across machines, leases, and the three pause scopes."
 weight: 286
 ---
 
 # How scheduling works
 
 Posting on autopilot means a pass that runs without you, a queue every
-Mac can share, and pauses that mean what they say. This page explains
+machine can share, and pauses that mean what they say. This page explains
 the arrangement; the words and commands are in
 [Job options and schedules](/docs/reference/jobs/).
 
-{{< major >}}One awake Mac, set up for the profile. That's all the schedule needs.{{< /major >}}
+{{< major >}}One awake machine, set up for the profile. That's all the schedule needs.{{< /major >}}
 
 One pass runs every ten minutes. It wakes, claims the rows that are
 due, runs them one at a time, writes the ledger, and sleeps again. A
@@ -19,16 +19,16 @@ pass that finds nothing due costs nothing and changes nothing. The
 service owns the passes while the app is closed; your terminal owns
 the pass you trigger by hand, which never waits for the interval.
 
-Several Macs share one queue through leases, not locks. A claimed row
+Several machines share one queue through leases, not locks. A claimed row
 says running with a lease timestamp, and the holder renews the lease
 as it works. A row whose lease lapsed is some dead machine's, and the
 next pass reclaims it. That is why a row's Status never reads as a
-lock, and why two Macs never work the same row: the claim statement
+lock, and why two machines never work the same row: the claim statement
 reads the lease alone, atomically, and only one claimant wins it.
 
 Three pause scopes cover the three reasons to stop. This machine's
-file stops this Mac and nothing else, for maintenance on one machine.
-The organization-wide pause stops every Mac sharing your account, with a
+file stops this machine and nothing else, for maintenance on one machine.
+The organization-wide pause stops every machine sharing your account, with a
 reason every banner repeats. One row's pause holds that row everywhere
 until resumed. A row is claimed only when none of the three says
 paused, and quitting the app touches none of them: pausing is always
@@ -49,4 +49,4 @@ or needs you.
 - [What runs when the app is closed](/docs/explanation/distribution/) - the service behind the passes.
 - [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - the "jobs" screen.
 - [Collect and read your analytics](/docs/how-to/measure/analytics/) - read what the passes produced.
-- [You're in control](/docs/explanation/youre-in-control/) - pause, one job at a time, one Mac per job.
+- [You're in control](/docs/explanation/youre-in-control/) - pause, one job at a time, one machine per job.

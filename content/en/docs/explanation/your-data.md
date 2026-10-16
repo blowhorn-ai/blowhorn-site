@@ -1,6 +1,6 @@
 ---
 title: "Where your data lives"
-description: "What stays on your Mac, what your account keeps in sync, and what the extension reads."
+description: "What stays on your machine, what your account keeps in sync, and what the extension reads."
 weight: 281
 ---
 
@@ -10,13 +10,13 @@ Three places hold Blowhorn's data, and each holds a different kind.
 Nothing here is a step; for the sharing behind it see
 [How Blowhorn works](/docs/explanation/how-it-works/).
 
-On your Mac: the app, the engine checkout, and your Chrome sessions.
+On your machine: the app, the engine checkout, and your Chrome sessions.
 Browser sessions, meaning the cookies Chrome keeps for LinkedIn, X,
 Reddit and Hacker News, live in your Chrome profiles, where you made
 them; Blowhorn reads them there and copies none of them elsewhere, with
 one exception: a Slack workspace session you capture is kept in your account, below. LinkedIn, X, Reddit and Bluesky runs sign
 in with the password in the profile's local `config.yaml`. Every action
-Blowhorn takes runs on one of your Macs; Blowhorn never signs in or
+Blowhorn takes runs on one of your machines; Blowhorn never signs in or
 acts for you from a server. The daily
 logs, the run ledger copy, and the scheduler heartbeat live under the
 log directory. The account connection file lives outside the checkout at
@@ -25,16 +25,16 @@ for the offline grace.
 
 In your account: the content rows, the schedule, the
 profiles, the ledgers, the run history, and the analytics. Keeping them
-in one account is what lets you install Blowhorn on any number of Macs,
-your own or your teammates', and run them as one: every Mac works from
-the same queue, and the Macs coordinate through it, so the same post
-isn't sent from two of them, and your analytics cover every Mac. Your account holds platform credentials too: GitHub tokens, Hacker News
+in one account is what lets you install Blowhorn on any number of machines,
+your own or your teammates', and run them as one: every machine works from
+the same queue, and the machines coordinate through it, so the same post
+isn't sent from two of them, and your analytics cover every machine. Your account holds platform credentials too: GitHub tokens, Hacker News
 passwords, and Slack tokens and captured sessions. For profiles set up
 before October 2026, it also holds the LinkedIn, X, Reddit and Bluesky
 passwords copied in when those profiles moved to your account. It records
-which Chrome profile each Blowhorn profile uses on each Mac: the Mac's
+which Chrome profile each Blowhorn profile uses on each machine: the machine's
 name, the Chrome profile's folder and display name, and the Google
-account signed in to that Chrome profile. A Mac that isn't signed in to your account runs nothing.
+account signed in to that Chrome profile. A machine that isn't signed in to your account runs nothing.
 
 On the platforms: whatever Blowhorn published, amplified, or followed
 as you, under your name, subject to each destination's own retention.
@@ -43,7 +43,7 @@ the outcome, not the content's master.
 
 The extension queries tabs only on the supported sites and reads
 cookies there only when the app asks, handing both to the Blowhorn app
-on your Mac. Every action Blowhorn takes is executed on one of your Macs,
+on your machine. Every action Blowhorn takes is executed on one of your machines,
 through your Chrome profile or a platform's API; your account keeps the
 queue and results in sync and does not act for you from a server. The
 one browser session the app keeps in your account is your Slack workspace

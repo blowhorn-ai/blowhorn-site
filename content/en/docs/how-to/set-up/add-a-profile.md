@@ -14,7 +14,7 @@ the command line.
 **Early access:** creating a profile resolves the person against a Blowhorn account, and customer onboarding for that account is not open yet.
 This page stays a draft until it is.
 
-A profile is two halves. The directory `profiles/<name>/` holds
+A profile is two halves. The directory `data/profiles/<name>/` holds
 `config.yaml` and the per-profile data; the row in your account's profiles is
 what every job reads to select it. Creating a profile writes both, the row
 first. A profile with a directory and no row looks healthy in
@@ -108,7 +108,7 @@ empty or missing, is refused; fix the file, or pass `PROFILE=sam`.
 blowhorn profile delete sam --yes
 ```
 
-The command retires the profile's row first, then moves `profiles/sam/`
+The command retires the profile's row first, then moves `data/profiles/sam/`
 aside. With your account unreachable the delete is refused and nothing moves.
 
 ## Related

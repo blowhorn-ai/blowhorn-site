@@ -5,8 +5,6 @@ description: "What Blowhorn can do on Bluesky, and how each action behaves there
 weight: 230
 ---
 
-# Bluesky
-
 Blowhorn works on Bluesky through Bluesky's API, never the browser. It uses `BLUESKY_HANDLE` with `BLUESKY_APP_PASSWORD`: an app password, not your main password.
 
 ## Supported actions

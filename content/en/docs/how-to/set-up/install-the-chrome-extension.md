@@ -44,6 +44,10 @@ Click it to see what is missing, then follow its one button:
 
 - **Download the Blowhorn app** - the app is not installed.
 - **Update the Blowhorn app** - the app is too old for this extension.
+- **Finish setup in Blowhorn** - Blowhorn changed in a way that needs the
+  guided setup again; opens it in the app. Updating alone never asks for
+  it again; it appears only when a new version of Blowhorn needs
+  something the earlier setup did not do.
 - **Sign in** - opens the app's sign-in.
 - **Map this profile in Blowhorn** - opens the app's mapping screen for
   this Chrome profile.
@@ -73,7 +77,7 @@ command.
 
 The printed steps are: switch to that Chrome profile, open
 `chrome://extensions`, turn on Developer mode, choose **Load unpacked**,
-select the `extension/` directory the command names, then check with
+select the `apps/extension/` directory the command names, then check with
 `blowhorn chrome extension-status`. There is no file the command can write
 that installs an extension in one profile only, so this route always ends
 with those clicks.
@@ -140,7 +144,7 @@ is out of date. Move it to the store install so Chrome keeps it current:
 1. Run the install again with the flags you used the first time.
 2. In each Chrome profile that loaded the extension unpacked, open
    `chrome://extensions`, remove the old copy, and choose **Load unpacked**
-   again with the `extension/` directory.
+   again with the `apps/extension/` directory.
 3. If you used `--all-profiles`, remove the old id's entry by hand: the
    command adds and removes only the current id.
 4. Check with `blowhorn chrome extension-status`.
@@ -154,4 +158,4 @@ and do not change.
   Chrome profile each Blowhorn profile belongs to.
 - [Chrome reference](/docs/reference/chrome/) - the flags, the files, and
   the JSON shapes.
-- [Requirements](/docs/reference/requirements/) - what each Mac needs
+- [Requirements](/docs/reference/requirements/) - what each machine needs

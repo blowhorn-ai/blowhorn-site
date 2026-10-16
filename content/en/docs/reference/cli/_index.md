@@ -28,7 +28,7 @@ This is a standing rule, not a one-off pass. `tests/test_cli_help_coverage.py` e
 CLI framework: Python `Typer` (inspired by modern CLIs like `docker`, `kubectl`, and `gh`).
 If `typer`/`click` are missing, `blowhorn` attempts a one-time bootstrap install via `python -m pip install typer click` using the active interpreter.
 Should that bootstrap fail, `blowhorn` falls back to an argparse parser built from the same help and example constants as the Typer app, and the same test file asserts the two surfaces expose the same commands with identical prose - so the fallback can never drift into a second, staler help text.
-For a fresh virtualenv, install the full project runtime with `pip install -r requirements.txt`; the CLI depends on `PyYAML`, `requests`, `playwright`, `tweepy`, `psycopg`, `pandas`, and `xlrd` in addition to `typer` and `click` (`gspread` and `oauth2client` are still listed only for the migration script's last step and go with it).
+For a fresh virtualenv, install the full project runtime with `pip install -r src/requirements.txt`; the CLI depends on `PyYAML`, `requests`, `playwright`, `tweepy`, `psycopg`, `pandas`, and `xlrd` in addition to `typer` and `click` (`gspread` and `oauth2client` are still listed only for the migration script's last step and go with it).
 
 Global flags (available on all commands):
 
@@ -83,11 +83,11 @@ enforcement mode, a summary of the last entitlement attestation, and why the
 last read of the plan failed when it did;
 `auth login` signs you in to Layer5 Cloud in your browser (Layer5 Cloud's
 provider sign-in, the one Meshery uses; create an account there if you are
-new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps the token in the macOS Keychain and reads your plan once, sending
+new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps a `purpose=blowhorn` Layer5 Cloud API token in the macOS Keychain (revoking the one the previous sign-in kept) and reads your plan once, sending
 an account without Blowhorn straight to Layer5 Cloud to start the beta (`--redirect app` is the desktop app's route
 through `blowhorn://auth/callback`; `BLOWHORN_CLOUD_TOKEN` still wins when set);
-`auth logout` forgets the saved token, the account in `cloud.yaml` and the
-local attestation cache.
+`auth logout` revokes the saved API token on Layer5 Cloud, then forgets it,
+the account in `cloud.yaml` and the local attestation cache.
 
 `blowhorn store` is a single command, not a group: it reports whether this
 machine can reach your account and why not, opens the bastion tunnel
@@ -121,13 +121,13 @@ background service - by running `--unregister-login-items`; a bundle whose
 step left to you), and the checkout's virtualenv (`--venv-dir`, else
 `BLOWHORN_VENV_DIR`, else `venv/`, removed only when it holds `pyvenv.cfg`; the
 filesystem root, the home directory, the checkout and a directory holding
-either are refused), `node_modules/`, `desktop/node_modules/` and `logs/` -
+either are refused), `node_modules/`, `apps/desktop/node_modules/` and `data/logs/` -
 reporting each item as `removed`, `not present`, `not checked`, `kept`,
 `not unregistered` or `failed`. A failed item does not stop the run; the
 command exits 1 at the end, as it does when a real run leaves a login item
 not unregistered. Local data is kept and named (your account connection file, the
 desktop app's state, Blowhorn's own Chrome trees under `~/.blowhorn`, the app's
-per-user Library state, the checkout's `cache/` and each profile's `browser/`
+per-user Library state, the checkout's `data/cache/` and each profile's `browser/`
 sessions); `--purge` removes it after you type `purge` at the prompt, or with
 `--yes` when there is no terminal (`--json --purge` needs `--yes` outside a dry
 run, and `--yes` without `--purge` or `--discard-unsynced-runs` is refused), and your account is never touched.
@@ -136,7 +136,7 @@ dry run too, while a scheduler tick, a service pass, an extension run,
 `Blowhorn.app`, a desktop app started from this checkout or, with `--purge`,
 a Chrome on `~/.blowhorn` is running, and in every mode while a
 write-back spool (`runs/pending-store.ndjson`) this run removes - under the
-checkout's `logs/`, or the app's state under `--purge` - holds run records that
+checkout's `data/logs/`, or the app's state under `--purge` - holds run records that
 have not reached your account - run `blowhorn store --replay-spool` first,
 or pass `--discard-unsynced-runs` when your account will never be reachable again,
 which names the count it deletes and asks you to type `discard` (`--yes` with no
@@ -146,8 +146,8 @@ is listed as not checked. `--dry-run` lists every item and removes nothing;
 `--json` emits one object (`ok`, `error`, `dry_run`, `purge`, `platform`,
 `refusals`, `not_checked`, `items` with a `result` each, `kept`,
 `unsynced_runs_given_up`, `unsynced_runs_kept`, `discard_unsynced_runs`,
-`store_touched: false`); `--bin-dir` and `--venv-dir` mirror `install.sh`'s.
-`./uninstall.sh` at the checkout root (and `make cli-uninstall`) runs the same
+`store_touched: false`); `--bin-dir` and `--venv-dir` mirror `tools/install.sh`'s.
+`./tools/uninstall.sh` at the checkout root (and `make cli-uninstall`) runs the same
 code with the system Python once the venv is gone, reading
 `defaults.chrome.data_dir` and `defaults.logs.directory` from `.blowhorn.yaml`
 itself. macOS only; Linux and any other platform are refused by name.
@@ -164,7 +164,7 @@ dedicated second Chrome that is open to remote debugging with no Allow dialog
 (`~/.blowhorn/attach-chrome`, on a port Chrome picks), writing no configuration of its own,
 and `chrome extension-install` writes the native-messaging host manifest Chrome
 launches (`com.blowhorn.chrome_extension.json`) and the executable launcher it names, and prints
-the unpacked `extension/` directory to load. If you already installed the host, run the
+the unpacked `apps/extension/` directory to load. If you already installed the host, run the
 command again and reload the extension once. `--profile <name>` (through this machine's
 mapping) or `--chrome-profile '<directory>'` names one Chrome profile and prints the steps to
 load the extension in that profile alone. `--all-profiles` also asks Chrome to
@@ -200,30 +200,52 @@ reads it yet. The directory is `defaults.chrome.data_dir` /
 `BLOWHORN_CHROME_DATA_DIR`. `blowhorn profile status --chrome` shows the mapping
 from the profile's side.
 
-`blowhorn slack` is a group of three for an agent that answers in Slack as a
-person: `slack send` sends one message as one `--profile` (a thread reply from a
+`blowhorn slack` is a group for an agent that answers in Slack as a
+person: `slack send` sends one message (a thread reply from a
 message link, using the link's `?thread_ts=` parent, or a top-level post from a
 channel link), `slack whoami` asks Slack's `auth.test` who that profile's
 credential is, and `slack profiles` lists every profile's captured workspaces
 from your account without calling Slack (a profile whose `config.yaml` still
 carries Slack keys while your account holds no session reads `refused`, as its
-send would be). `send` is a dry run unless `--confirm`,
+send would be). `send` sends as one `--profile`, or as each of several
+(`--profile rian,lee`, or `--profile rian --profile lee`) one after another, waiting a random `--pace`-scaled
+interval before each confirmed send after the first. Each profile gets its own
+idempotency key, ledger entry and result, and one profile's failure never stops
+the next, except an unavailable store, which ends the walk and reports every
+profile from there on as `store_unavailable`. A target or text no profile
+could send (`#general` with no `--workspace`, an empty message) is one usage
+error, before anyone is tried. The `--json` answer is
+`outcome: multi` with `results` and a `summary`; it exits 0 only when every
+profile succeeded, with the shared code when all failed the same way, and 1
+otherwise. `send` is a dry run unless `--confirm`,
 and stays one under `--dry-run`, `BLOWHORN_DRY_RUN` or `defaults.dry_run` even with `--confirm` (its message then names that setting),
 takes its text from `--message`, `--file` or stdin (`-`) and sends it untouched,
 and sends a given idempotency key at most once: a key already sent replays its
 `ts` and permalink (the record is your account's send ledger), and a send whose answer was never recorded (interrupted, or still in flight) is reported as
-`outcome_unknown` (exit 4) and never resent automatically. All three take
-`--json`, print no secret, open no browser, and choose the credential with
+`outcome_unknown` (exit 4) and never resent automatically. Every `slack`
+command takes `--json`, prints no secret, opens no browser, and chooses the credential with
 `--slack-auth`. Exit codes: 0 sent, replayed or previewed; 1 refused; 2 usage or
 key conflict; 3 store unavailable or a contended key; 4 outcome unknown; 5 rate-limited (with
-`retry_after`). See [Slack](/docs/reference/platforms/slack/).
+`retry_after`). `slack edit` (`chat.update`) and `slack delete`
+(`chat.delete`) change only a message the same profile sent with `slack send`:
+your account's send ledger must hold that `ts` for that profile, or the result is
+`not_sent_by_profile` before any Slack call; `edit` takes its new text as `send`
+does. `slack react` adds an emoji
+reaction to any message (`reactions.add`, or `reactions.remove` with
+`--remove`), and a reaction already there is success with `changed: false`.
+All three take a message link, or a bare `ts` with `--channel` and
+`--workspace`, are dry runs unless `--confirm`, take several profiles
+(`--profile a,b` or a repeated `--profile`, waiting between confirmed
+profiles as `send` does), and share `send`'s exit codes.
+See [Slack](/docs/reference/platforms/slack/).
 
 `blowhorn-axi` is the agent interface to those writes, installed next to
-`blowhorn` by `install.sh`. It runs `blowhorn slack … --json` and prints TOON
+`blowhorn` by `tools/install.sh`. It runs `blowhorn slack … --json` and prints TOON
 with a `help[]` of next commands: `blowhorn-axi` (home: `count`,
 `session_ready` and each profile's `slack_auth`), `profile list` and
 `profile status` (with `auth.test` session state unless `--offline`), and
-`slack send` with `--profile a,b` (edit, delete and react arrive with `blowhorn slack edit|delete|react`). Every write is a dry run
+`slack send` with `--profile a,b` (it has no edit, delete or react yet; use
+`blowhorn slack edit|delete|react`). Every write is a dry run
 unless `--confirm`, always runs under `--slack-auth session` (a profile with
 only an app token is `token_only` and nothing runs), and takes its text from
 `--text -` (stdin), `--text-file <path>` or `--message`, with mrkdwn passed
@@ -251,14 +273,14 @@ are colorized; `--json` always returns the unchanged machine-readable result,
 and setting `NO_COLOR` disables terminal color.
 
 `blowhorn desktop start` records the spawned pid (and its log path) under
-`logs/desktop/.desktop-start` in the checkout and refuses a second start while
+`data/logs/desktop/.desktop-start` in the checkout and refuses a second start while
 that pid is still alive, reporting the existing pid and log path and exiting
 non-zero. `--log-dir` moves the log file and never that record, so a second
 start with a different `--log-dir` is refused the same way. `--wait` records
 this process instead and clears the record when the app exits. A claim whose
 pid is dead is ignored and rewritten. If the pid is alive but no longer the
 desktop app (a reused pid after an unclean kill), the refusal names the file to
-delete: remove `logs/desktop/.desktop-start` and start again.
+delete: remove `data/logs/desktop/.desktop-start` and start again.
 
 Command → supported platforms (central mapping):
 
@@ -407,8 +429,8 @@ blowhorn profile set your-profile EMAIL=you@example.com
 blowhorn profile set your-profile GH_TOKEN=ghp_yourtoken  # stored in the store, never in config.yaml
 blowhorn profile set new-profile --create EMAIL=new@example.com   # its row in your account's profiles (bound to the account holding the email), then the directory from the template
 blowhorn profile set new-profile --create EMAIL=new@example.com --subject <uuid>  # name the account when the email alone cannot
-blowhorn profile set new-profile --register           # add a profile that exists only under profiles/ to the store's profiles
-blowhorn profile delete new-profile --yes      # retires the store row, then moves profiles/new-profile to profiles/.trash/
+blowhorn profile set new-profile --register           # add a profile that exists only under data/profiles/ to the store's profiles
+blowhorn profile delete new-profile --yes      # retires the store row, then moves data/profiles/new-profile to data/profiles/.trash/
 blowhorn profile switch your-profile
 blowhorn profile auth --platform x            # a sign-in records the session as valid, checked now
 blowhorn profile auth --platform bluesky --profile your-profile  # prompts for handle + app password; saved only if Bluesky accepts the login

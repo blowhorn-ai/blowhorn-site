@@ -37,6 +37,38 @@ queued Slack rows for that run.
 Nothing is written back, so running the command twice sends the message
 twice.
 
+## Send as an agent, exactly once
+
+`blowhorn slack send` is the same one-off send built for an agent: a dry run
+unless `--confirm`, `--json` output, and each message sent at most once. Name
+several profiles to send the same reply as each of them, one after another:
+
+```bash
+blowhorn slack send --profile rian,lee --target "https://acme.slack.com/archives/C0123/p1776000000000100" --file reply.md --slack-auth session --json
+```
+
+Each profile gets its own idempotency key, ledger entry and result, and a
+refusal for one never stops the others. A confirmed send waits a random
+interval (scaled by `--pace`) after the one before it. If the store becomes
+unavailable partway through, the command stops there, still reports what was
+already sent, and lists the remaining profiles as `store_unavailable`. The
+command exits 0 only when every profile succeeded. See the [CLI reference](/docs/reference/cli/).
+
+## Edit, delete or react
+
+Fix or take back a message you sent with `blowhorn slack send`, or react to
+any message. Each is a dry run until `--confirm`:
+
+```bash
+blowhorn slack edit --profile rian --target "https://acme.slack.com/archives/C0123/p1776000000000400" --file fixed.md --confirm
+blowhorn slack delete --profile rian --target "https://acme.slack.com/archives/C0123/p1776000000000400" --confirm
+blowhorn slack react --profile rian --target "https://acme.slack.com/archives/C0123/p1776000000000100" --emoji white_check_mark --confirm
+```
+
+Edit and delete work only on a message that profile sent through
+`blowhorn slack send`; anything else is refused as `not_sent_by_profile`,
+even when your session could delete it in Slack.
+
 ## Send the queued rows
 
 Queue rows with `Platform` set to Slack. Put where each message goes in

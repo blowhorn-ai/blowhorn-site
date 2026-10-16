@@ -47,7 +47,9 @@ A row is claimed only when none of the three scopes says paused: this machine,
 all machines, or that row. `--all` and `--row` live in your account, so every
 machine sharing it honours them on its next claim; the flagless pause never
 touches your account. In the app the same three scopes are "pause this machine",
-"pause all machines" and "pause this row", each with a reason.
+"pause all machines" and "pause this row", each with a reason. Home says which
+pause holds - "Paused on this Mac", "Paused on all Macs", or both - and its
+resume lifts that pause only.
 
 Lifting one scope leaves the other two as they were. A held row still reads
 `due: yes` beside `paused: yes` in `blowhorn schedule list`: due keeps meaning

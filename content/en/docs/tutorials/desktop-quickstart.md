@@ -30,7 +30,10 @@ it macOS asks once whether to open an app downloaded from the internet. Choose
 
 ## 2. Open it and meet the Setup screen {#section-2-open-it-and-meet-the-setup-screen}
 
-Launch `Blowhorn.app`. Because this is the first run, it opens on **Setup**: four
+Launch `Blowhorn.app`. If it can't find your checkout or its Python
+environment yet, it opens on **Setup**. Otherwise the guided setup opens
+first: finish it ([Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/)),
+then choose **run setup again** at the bottom of Settings. Setup shows four
 checks, each either `ok` or offering the action that fixes it.
 
 Work down the rows:

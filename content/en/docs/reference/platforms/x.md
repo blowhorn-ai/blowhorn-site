@@ -5,8 +5,6 @@ description: "What Blowhorn can do on X (Twitter), and how each action behaves t
 weight: 226
 ---
 
-# X (Twitter)
-
 Blowhorn works on X in your own signed-in Chrome, through the Blowhorn extension. Sign in to X there once, by hand. The credential Blowhorn checks is `X_USERNAME`.
 
 ## Supported actions
@@ -19,7 +17,7 @@ by retweet or quote. Follows accounts with `blowhorn follow`. Analytics
 appends a follower and following trend row per run.
 
 Follows: at most 400 per profile a day and 15 in any 15 minutes,
-counted from that profile's follow log on this Mac.
+counted from that profile's follow log on this machine.
 
 ## X (Twitter) replies
 

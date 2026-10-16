@@ -5,8 +5,6 @@ description: "What Blowhorn can do on Reddit, and how each action behaves there.
 weight: 227
 ---
 
-# Reddit
-
 Blowhorn works on Reddit in your own signed-in Chrome, through the Blowhorn extension. Sign in to Reddit there once, by hand. The credential Blowhorn checks is `RDDT_USERNAME`.
 
 ## Supported actions

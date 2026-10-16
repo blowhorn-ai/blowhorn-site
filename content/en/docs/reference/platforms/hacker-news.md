@@ -5,8 +5,6 @@ description: "What Blowhorn can do on Hacker News, and how each action behaves t
 weight: 228
 ---
 
-# Hacker News
-
 Blowhorn works on Hacker News in your own Chrome, through the Blowhorn extension, signed in with the username and password in your account (`HN_USERNAME` with `HN_PASSWORD`).
 
 ## Supported actions

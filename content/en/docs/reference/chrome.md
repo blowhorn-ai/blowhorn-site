@@ -131,6 +131,11 @@ background window for exactly this reason: headless Chrome sends
 `HeadlessChrome` in every request while its hints still claim Google
 Chrome.
 
+The launched window emulates nothing: the page reads the real screen, the real GPU and
+your own permission state. A viewport override, a GPU switch or a blanket permission grant
+each gave a reading no real Chrome gives, so the launch passes none of them (measured
+2026-10-15).
+
 ## `blowhorn chrome extension-status`
 
 Whether the extension is installed, which version answers, and whether
@@ -150,7 +155,7 @@ It writes nothing in that directory.
 ## One run per profile and platform
 
 A profile's session on a browser platform (LinkedIn, X, Reddit, Hacker
-News) belongs to one Blowhorn process at a time on a Mac. Before a run
+News) belongs to one Blowhorn process at a time on a machine. Before a run
 opens the session it takes a lock keyed by profile and platform, under
 every launch mode. A second run that wants the same profile on the same
 platform is refused with "profile `<name>` on `<platform>` is in use by

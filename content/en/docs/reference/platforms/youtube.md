@@ -5,8 +5,6 @@ description: "YouTube in Blowhorn: coming soon."
 weight: 241
 ---
 
-# YouTube
-
 **Coming soon.** YouTube isn't available in Blowhorn yet. When it is, Blowhorn
 will work on YouTube in your own signed-in Chrome, and this page will list what
 it can do there.

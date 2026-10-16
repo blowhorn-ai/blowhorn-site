@@ -7,7 +7,7 @@ weight: 218
 # Configuration reference
 
 How Blowhorn resolves what a run uses, and where its output goes.
-`blowhorn/config_schema.py` is the one list of options; `blowhorn
+`src/blowhorn/config_schema.py` is the one list of options; `blowhorn
 config show` prints each with its stored, environment, effective, and
 source values. `blowhorn config set` edits the file without rewriting
 it: comments, order, and quoting survive.
@@ -35,7 +35,7 @@ environment variables.
 | `defaults.risk_profile` | `BLOWHORN_RISK_PROFILE` | `standard` | `cautious`, `standard` or `brisk`: caps, spacing, quiet hours, outreach and pace in one choice (see below) |
 | `defaults.risk_profile_by_platform` | none | none | A preset per platform, for example `x: cautious` |
 | `defaults.risk_profiles` | none | none | A preset per profile: a name, or a map with `default` and platform keys |
-| `defaults.logs.directory` | `BLOWHORN_LOG_DIR` | `logs/` in the checkout | Where daily logs go |
+| `defaults.logs.directory` | `BLOWHORN_LOG_DIR` | `data/logs/` in the checkout | Where daily logs go |
 | `defaults.logs.retention_days` | `BLOWHORN_LOG_RETENTION_DAYS` | 30 | Days of daily logs kept; 0 keeps all |
 | `defaults.chrome.launch_mode` | `BLOWHORN_CHROME_LAUNCH` | `extension` | How a run reaches Chrome |
 | `defaults.chrome.automation_data_dir` | `BLOWHORN_CHROME_AUTOMATION_DATA_DIR` | Blowhorn's own directory | Where a launched Chrome keeps its session |
@@ -70,13 +70,13 @@ stay out of `config show`.
 | Retries of a failed scheduled job | 0 | 0 | 1 |
 | Warmup | 14 days | 7 days | 3 days |
 
-Scheduled jobs on a new profile or a new Mac run cautious until the warmup is done, whatever you chose. A run you start yourself is not held by the warmup, only noted; it still follows the caps, quiet hours and outreach setting of the preset you chose. When a run covers several profiles or platforms, a held one is skipped by name and the rest run. To run once anyway, add `--ignore-risk`, or choose **Run anyway** next to a held job in the app's Runs screen. Logins are never retried under any preset. Choose a preset in the app under Settings, or with `blowhorn risk set cautious` (add `--profile` to store it on one profile, `--platform` for one platform); `blowhorn risk show` says which preset is in effect and where it comes from.
+Scheduled jobs on a new profile or a new machine run cautious until the warmup is done, whatever you chose. A run you start yourself is not held by the warmup, only noted; it still follows the caps, quiet hours and outreach setting of the preset you chose. When a run covers several profiles or platforms, a held one is skipped by name and the rest run. To run once anyway, add `--ignore-risk`, or choose **Run anyway** next to a held job in the app's Runs screen. Logins are never retried under any preset. Choose a preset in the app under Settings, or with `blowhorn risk set cautious` (add `--profile` to store it on one profile, `--platform` for one platform); `blowhorn risk show` says which preset is in effect and where it comes from.
 
 ## Output logging
 
 The daily log is a copy; the terminal streams are never dropped, piped
 or not. The directory resolves as `--log-dir`, then `BLOWHORN_LOG_DIR`,
-then `defaults.logs.directory`, then the checkout's `logs/`. A default
+then `defaults.logs.directory`, then the checkout's `data/logs/`. A default
 that cannot be used fails silently; a directory you named reports why.
 Only files the retention pass recognizes by name are ever deleted:
 daily logs past their days (30 by default), and the three dateless

@@ -28,7 +28,7 @@ Chrome the normal way and sign in before you map anything. The extension
 needs Chrome profiles to attach to; without Chrome every browser run
 refuses before it acts.
 
-Python 3.14 is the floor `install.sh` enforces, and it is the only
+Python 3.14 is the floor `tools/install.sh` enforces, and it is the only
 supported version. The desktop app carries its own engine check on the
 Setup screen, so a broken checkout or interpreter shows up there first,
 not mid-run.

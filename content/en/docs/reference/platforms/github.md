@@ -5,8 +5,6 @@ description: "What Blowhorn can do on GitHub, and how each action behaves there.
 weight: 231
 ---
 
-# GitHub
-
 Blowhorn works on GitHub through GitHub's API, never the browser, with the `GH_TOKEN` in your account.
 
 ## Supported actions

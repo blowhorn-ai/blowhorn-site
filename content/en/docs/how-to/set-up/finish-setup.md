@@ -8,7 +8,7 @@ weight: 35
 
 `blowhorn setup` checks what Blowhorn needs on this computer, changes only
 what is missing or out of date, and lists what is left for you to do. It is
-safe to run as often as you like. `./install.sh` runs it for you at the end.
+safe to run as often as you like. `./tools/install.sh` runs it for you at the end.
 
 It never starts, opens or attaches to Chrome, and it installs no extension.
 

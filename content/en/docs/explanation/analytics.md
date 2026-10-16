@@ -19,7 +19,7 @@ LinkedIn. X and Bluesky append one follower and following trend row
 each per run instead of tiles: two counts and a timestamp, growing the
 CSV history the report reads.
 
-`blowhorn analytics` collects into the repository-root `analytics/`
+`blowhorn analytics` collects into the repository-root `data/analytics/`
 directory and records the readings beside the exports, so a later
 collection reads as change, not as a fresh claim. `blowhorn report`
 summarizes the exports already sitting there into

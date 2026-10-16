@@ -11,7 +11,7 @@ running. This page describes; the steps live in the how-to guides
 linked under Related.
 
 A pass runs every ten minutes and claims the rows that are due. Several
-Macs sharing one store share the queue: a running row carries a lease,
+machines sharing one store share the queue: a running row carries a lease,
 and a row whose lease lapsed is reclaimable by the next pass.
 
 ## The row
@@ -62,8 +62,8 @@ A row is claimed only when none of the three scopes says paused:
 
 | Scope | Pauses | Lifted by |
 |---|---|---|
-| `machine` | This Mac only, in `.blowhorn.pause.json` | `blowhorn schedule resume` on this Mac |
-| `all` | Every Mac sharing your account | Resuming the organization-wide pause |
+| `machine` | This machine only, in `.blowhorn.pause.json` | `blowhorn schedule resume` on this machine |
+| `all` | Every machine sharing your account | Resuming the organization-wide pause |
 | `row` | One scheduled row, everywhere | Resuming that row |
 
 `blowhorn schedule pause` pauses; `blowhorn schedule resume` resumes.

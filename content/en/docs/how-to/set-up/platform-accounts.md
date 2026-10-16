@@ -112,4 +112,4 @@ Omit `--workspace` to refresh every workspace already listed under
   is stored.
 - [Eligibility](/docs/explanation/eligibility/) - a credential is
   permission.
-- [Requirements](/docs/reference/requirements/) - what each Mac needs
+- [Requirements](/docs/reference/requirements/) - what each machine needs

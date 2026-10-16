@@ -50,7 +50,7 @@ blowhorn report
 blowhorn report --no-open
 ```
 
-`report` builds `analytics/analytics_report.html` from the exports already on
+`report` builds `data/analytics/analytics_report.html` from the exports already on
 disk and opens it; `--no-open` writes the file and leaves it closed. Collect
 first when you want fresh numbers: the report reads local files only.
 

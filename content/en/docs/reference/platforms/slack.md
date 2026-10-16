@@ -5,8 +5,6 @@ description: "What Blowhorn can do on Slack, and how each action behaves there."
 weight: 229
 ---
 
-# Slack
-
 Blowhorn works on Slack through Slack's API, never the browser, and sends as you. It uses a Slack token in your account (`SLACK_USER_TOKEN` or `SLACK_BOT_TOKEN`) or your Slack session, linked through the Blowhorn extension.
 
 ## Supported actions
@@ -24,8 +22,9 @@ with `--target` sends one message you type, with no row read or marked
 done, and `--target` redirects the run's queued Slack rows. The target
 is a `#channel`, `@user`, channel id, channel link, or message link for
 a thread reply; anything else is refused, never sent somewhere else.
-One profile sends per run, named with `--profile`; the profile from
-the defaults file does not count as named.
+One profile sends a `post` run, named with `--profile`; the profile from
+the defaults file does not count as named. `blowhorn slack send` can send
+as several profiles (`--profile rian,lee`); see the [CLI reference](/docs/reference/cli/).
 
 ## Related
 

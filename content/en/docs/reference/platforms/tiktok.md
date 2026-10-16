@@ -5,8 +5,6 @@ description: "TikTok in Blowhorn: coming soon."
 weight: 243
 ---
 
-# TikTok
-
 **Coming soon.** TikTok isn't available in Blowhorn yet. When it is, Blowhorn
 will work on TikTok in your own signed-in Chrome, and this page will list what
 it can do there.

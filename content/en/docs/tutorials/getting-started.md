@@ -21,7 +21,7 @@ the signed app instead ([Install the app](/docs/how-to/set-up/install-the-app/))
 From the root of the checkout:
 
 ```bash
-./install.sh
+./tools/install.sh
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
@@ -54,7 +54,7 @@ without that checkout. Nothing below works until `blowhorn store` ends in
 
 ## 2. See who Blowhorn can act as {#section-2-see-who-blowhorn-can-act-as}
 
-Blowhorn acts as a *profile*: a directory under `profiles/` holding one
+Blowhorn acts as a *profile*: a directory under `data/profiles/` holding one
 identity's credentials and browser session.
 
 ```bash

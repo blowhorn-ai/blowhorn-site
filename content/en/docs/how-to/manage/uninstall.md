@@ -7,7 +7,7 @@ aliases: [/docs/how-to/uninstall/]
 
 # Uninstall Blowhorn
 
-Remove Blowhorn from your Mac: the background service, the Chrome native host,
+Remove Blowhorn from your machine: the background service, the Chrome native host,
 the launchers, the desktop app and the checkout's build products. Your data
 stays unless you ask for it to go, and your account is never touched.
 
@@ -65,7 +65,7 @@ present`, `not unregistered` or `failed`:
    Blowhorn's own entry in the managed policy, removed with the same
    administrator prompt that wrote them; other keys in that file stay.
 4. **The launchers.** `~/.local/bin/blowhorn` and `~/.local/bin/blowhorn-axi`,
-   when they carry the installer's marker. A file there that `install.sh` did
+   when they carry the installer's marker. A file there that `tools/install.sh` did
    not write is kept and says so.
    Pass `--bin-dir` if you installed elsewhere.
 5. **The desktop app.** `Blowhorn.app` first unregisters its own Login Items
@@ -73,23 +73,23 @@ present`, `not unregistered` or `failed`:
    `not unregistered`, naming the step left to you under System Settings >
    General > Login Items.
 6. **The checkout's build products.** The virtualenv (removed only when it
-   holds `pyvenv.cfg`), `node_modules/`, `desktop/node_modules/` and `logs/`.
+   holds `pyvenv.cfg`), `node_modules/`, `apps/desktop/node_modules/` and `data/logs/`.
 
 A failed item does not stop the run: everything else is still removed, and
 the command exits 1.
 
 Kept at the end, and named: your account connection file, the app's preferences
 and engine record, Blowhorn's own Chrome trees, the per-user Library state,
-the checkout's `cache/`, and the scheduler pause file.
+the checkout's `data/cache/`, and the scheduler pause file.
 
-The checkout itself (for example `~/code/blowhorn`, with `uninstall.sh` in it)
+The checkout itself (for example `~/code/blowhorn`, with `tools/uninstall.sh` in it)
 is never removed, under any flag, and the summary names it. Delete that folder
 yourself if you no longer need it.
 
 The summary ends by saying the shared store was not touched. If your store
 connection shows `127.0.0.1` (for example `postgresql://127.0.0.1:9432`), that
 is the local tunnel Blowhorn opens to your account's database, not a database
-on this Mac.
+on this machine.
 
 ## Remove the local data too
 
@@ -108,13 +108,13 @@ machines keep using it.
 
 ## When the venv is already gone
 
-`uninstall.sh` at the checkout root runs the same code with the system Python
+`tools/uninstall.sh` at the checkout root runs the same code with the system Python
 and takes the same flags:
 
 ```bash
-./uninstall.sh --dry-run
-./uninstall.sh
-./uninstall.sh --purge
+./tools/uninstall.sh --dry-run
+./tools/uninstall.sh
+./tools/uninstall.sh --purge
 ```
 
 ## When it refuses
@@ -155,7 +155,7 @@ rm -rf ~/code/blowhorn
 
 ## Reinstalling afterwards
 
-A fresh `./install.sh` from the same checkout produces a working install.
+A fresh `./tools/install.sh` from the same checkout produces a working install.
 Your kept account connection file is picked up as it was.
 
 ## Related

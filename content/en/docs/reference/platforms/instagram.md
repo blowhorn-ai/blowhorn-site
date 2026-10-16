@@ -5,8 +5,6 @@ description: "Instagram in Blowhorn: coming soon."
 weight: 242
 ---
 
-# Instagram
-
 **Coming soon.** Instagram isn't available in Blowhorn yet. When it is, Blowhorn
 will work on Instagram in your own signed-in Chrome, and this page will list what
 it can do there.

@@ -11,8 +11,8 @@ Sign in to your organization so Blowhorn knows your plan: how many profiles
 you can run and which platforms you can post to.
 
 **Early access:** sign in from the command line or from the desktop app.
-Both go through your browser, and the command line keeps the token in the
-macOS Keychain.
+Both go through your browser, and the command line keeps a Blowhorn API
+token in the macOS Keychain.
 
 ## From the command line
 
@@ -25,8 +25,13 @@ account with the page's Sign up link (`blowhorn auth login --sign-up` says
 so up front). When you finish,
 the browser comes back to Blowhorn and the command:
 
-1. keeps the token: in the macOS Keychain, or elsewhere in a `cloud-token`
-   file only you can read, beside `cloud.yaml`. It never prints it.
+1. keeps a Blowhorn API token: Layer5 Cloud issues it for this sign-in, and
+   it is separate from your browser session. It is listed, named Blowhorn,
+   among your tokens in Layer5 Cloud, where you can revoke it. The command
+   keeps it in the macOS Keychain, or elsewhere in a `cloud-token` file only
+   you can read, beside `cloud.yaml`, and never prints it. Signing in again
+   revokes the token the previous sign-in kept; if that fails, the command
+   says so and you can revoke it in Layer5 Cloud's token list.
 2. writes your organization and name to `cloud.yaml`, replacing those of
    whoever signed in before.
 3. reads your plan once. If your account does not include Blowhorn yet, it
@@ -73,8 +78,10 @@ If your account has no Blowhorn plan yet, the app opens Layer5 Cloud
 blowhorn auth logout
 ```
 
-Signing out removes the saved token, the organization and name in
-`cloud.yaml`, and the cached plan check on this machine. If you exported
+Signing out revokes the saved Blowhorn API token on Layer5 Cloud, then
+removes it, the organization and name in `cloud.yaml`, and the cached plan
+check on this machine. If Layer5 Cloud cannot be reached to revoke it, the
+command says so; revoke it in Layer5 Cloud's token list. If you exported
 `BLOWHORN_CLOUD_TOKEN`, unset it in the shell too. Queued posts and profiles
 stay where they are. `blowhorn auth logout --dry-run` lists what it would
 remove and removes nothing.

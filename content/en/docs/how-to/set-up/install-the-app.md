@@ -47,7 +47,9 @@ extension, which you add to each Chrome profile you post from
 
 ## First run
 
-The app opens on its Setup screen and checks, in order, the Blowhorn
+Until it finds the Blowhorn checkout and its Python environment, the app
+opens on its Setup screen; after that the guided setup takes over (see
+below). Setup checks, in order, the Blowhorn
 checkout, its Python environment, the connection to your organization's
 data, your Chrome profile mappings
 ([Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/)), and
@@ -55,17 +57,17 @@ the background service. Each row says what it found, or what to do next.
 Every row is described under Setup in
 [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/#setup).
 
-Connecting the Blowhorn Chrome extension to this Mac takes no pop-up:
+Connecting the Blowhorn Chrome extension to this machine takes no pop-up:
 
-- **Connect it today:** choose **Connect** in the extension (it opens
-  `blowhorn://onboarding`), or run `blowhorn setup` in Terminal. The extension
-  can then reach the app from every Chrome profile. Chrome is not opened and
-  no Chrome setting changes. A notification says how it went.
+- **Connect it today:** the guided setup's **Getting ready** step connects
+  it, or run `blowhorn setup` in Terminal. The extension can then reach the
+  app from every Chrome profile. Chrome is not opened and no Chrome setting
+  changes.
 - **Launching the app changes nothing:** it only looks. Nothing is written
   until you connect.
 - **Safe to repeat:** if it's already connected, nothing is written again.
-- **Guided setup (preview):** the stepped flow, Getting ready included, is
-  open to try from **try the guided setup (preview)** on the Setup screen.
+- **Guided setup:** the first time you open the app, the guided setup walks
+  you through signing in, Getting ready and the rest, one step at a time.
 
 See [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/).
 
@@ -80,8 +82,18 @@ replace the checkout and Python rows.
 
 Updates come from the same releases page, and you need no GitHub account
 for them. The app checks for a newer release every four hours (or when you
-press **check now**). **Update** downloads the newer `.dmg` and checks it
-twice before it touches your installed app. The release's `SHA256SUMS.txt`
+press **check now**), and once more each time you open it. When an installed
+Blowhorn opens and that check finds a newer release it can install, a
+prompt in the console window asks before anything is downloaded. **Download** downloads, verifies,
+installs and reopens the app; if the install fails, a dialog says so and
+your current version is put back. **Later** installs nothing and skips that
+version, so the next release asks again; **Update** in the app still offers
+it meanwhile. The **?** icon next to the title explains how the update
+installs.
+
+**Update** in the app and **Download** on that dialog take the same path.
+They download the newer `.dmg` and check it twice before touching your
+installed app. The release's `SHA256SUMS.txt`
 catches a corrupted download, and a download that does not match is
 discarded. That file comes from the same release as the `.dmg`, so it cannot
 tell you who built it. What proves that is the code signature: the new app

@@ -22,7 +22,7 @@ publishes nothing, and refusing it would charge for caution. See
 The plan is checked at the moment of publishing, from an attestation
 your account issued after sign-in. Enforcement is
 off unless `BLOWHORN_ENTITLEMENT=required` is set in the environment
-on your Mac; it is a local switch, not an organization setting. With
+on your machine; it is a local switch, not an organization setting. With
 it on, a real run without
 a current attestation, or outside what the plan covers, refuses before
 any browser opens. The check reads no queue and no browser: the answer
