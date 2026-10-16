@@ -91,9 +91,12 @@ SYNC_BRANCH ?= docs-sync
 
 ## Verify required commands and local dependencies are present.
 check-deps:
-	@echo "Checking if 'npm' is installed and 'hugo' is available via node_modules (installed by 'make setup')..."
+	@echo "Checking for npm, hugo and postcss (node_modules/.bin from 'make setup', or system installs)..."
 	@command -v npm > /dev/null || { echo "Error: 'npm' not found. Please install Node.js and npm."; exit 1; }
-	@test -x node_modules/.bin/hugo || { echo "Error: Hugo binary not found in node_modules. Please run 'make setup' first."; exit 1; }
+	@test -x node_modules/.bin/hugo || command -v hugo > /dev/null || { echo "Error: no 'hugo' found. Run 'make setup' for the pinned hugo-extended, or install Hugo (https://gohugo.io/installation/)."; exit 1; }
+	@test -x node_modules/.bin/postcss || command -v postcss > /dev/null || { echo "Error: no 'postcss' found (Docsy's stylesheets need it). Run 'make setup'."; exit 1; }
+	@if test -x node_modules/.bin/hugo; then echo "hugo: node_modules/.bin/hugo (pinned)."; else echo "hugo: $$(command -v hugo) (system; 'make setup' installs the pinned one)."; fi
+	@if test -x node_modules/.bin/postcss; then echo "postcss: node_modules/.bin/postcss (pinned)."; else echo "postcss: $$(command -v postcss) (system)."; fi
 	@echo "Dependencies check passed."
 
 ## Verify Go is installed locally.
