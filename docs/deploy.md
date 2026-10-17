@@ -355,9 +355,15 @@ need a token for the private repository.
 - `internal`: only `/internal` and `/internal/**`.
 - `all`: every page. Used by the internal build.
 
-The internal section's committed `content/en/internal/_index.md` cascades
-`build: {list: never}`, so internal pages stay out of section lists, menus,
-the search index, llms.txt and the sitemap, even in the internal build.
+The internal section's committed `content/en/internal/_index.md` is
+`build: {list: never}` itself and cascades `build: {list: local}` and
+`type: docs` to every internal page. Internal pages stay out of the
+site-wide collections (menus, the search index, llms.txt, the sitemap),
+even in the internal build, but stay in their parents' `.Pages`, so they
+render in the docs shell (`layouts/docs/baseof.html` with
+`layouts/docs/internal.html`) with the docs sidebar, breadcrumb, table of
+contents and prev/next built from the `/internal/` section tree. Page order
+is each page's `weight`. The public build never renders any of it.
 
 `make check-no-internal` (part of `make site-check`, and a step in
 `site.yml`) fails when `public/internal` exists, a public page links to

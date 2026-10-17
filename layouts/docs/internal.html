@@ -1,0 +1,39 @@
+{{- /* Internal pages, mounted from leecalcote/blowhorn by
+  config/internal/hugo.toml and rendered only by `hugo --environment
+  internal`. content/en/internal/_index.md cascades `type: docs`, so they
+  render in the docs shell (layouts/docs/baseof.html) and get its sidebar,
+  breadcrumb and table of contents over the /internal/ section, plus the
+  docs pager. The content keeps the marketing `page` class, so the internal
+  tables and the comparison region keep the site.css styling they had in
+  the marketing shell; the inline rules below, which ship on internal pages
+  only, drop that class's page padding inside the docs column and give a
+  page with no headings (no table of contents) the table of contents'
+  column, as the comparison table needs the width. Publishes every page resource (charts, the XLSX model) and the
+  assets matched by the `downloads` front matter glob, and lists them. */ -}}
+{{ define "head" -}}
+<meta name="robots" content="noindex, nofollow, noarchive">
+<style>
+.docs-main > .page { padding-block: 0; }
+@media (min-width: 1280px) {
+  .docs-wrap:not(:has(#TableOfContents)) { grid-template-columns: 15rem minmax(0, 1fr); }
+  .docs-wrap:not(:has(#TableOfContents)) > .docs-toc { display: none; }
+}
+</style>
+{{- end }}
+{{ define "main" -}}
+<div class="page prose docs-page">
+  <h1 class="h1">{{ .Title }}</h1>
+  {{ with .Description -}}
+  <p class="body-lg docs-lead">{{ . | markdownify }}</p>
+  {{ end -}}
+  {{ .Content }}
+  {{- $files := where .Resources "MediaType.SubType" "ne" "svg+xml" }}
+  {{- with .Params.downloads }}{{ $files = $files | append (resources.Match .) }}{{ end }}
+  {{- range .Resources }}{{ $_ := .RelPermalink }}{{ end }}
+  {{- with $files }}
+  <h2 class="h2">Files</h2>
+  <ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ path.Base .Name }}</a></li>{{ end }}</ul>
+  {{- end }}
+</div>
+{{ partial "pager.html" . -}}
+{{ end -}}
