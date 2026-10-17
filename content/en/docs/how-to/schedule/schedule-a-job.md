@@ -5,7 +5,6 @@ weight: 150
 aliases: [/docs/how-to/schedule-runs/]
 ---
 
-# Schedule a job
 
 Put a command on a schedule so it runs on its own, with or without the app open.
 

@@ -6,7 +6,6 @@ draft: true
 aliases: [/docs/how-to/add-a-profile/]
 ---
 
-# Add a profile
 
 A profile is one voice you post as. Create one from the desktop app or from
 the command line.

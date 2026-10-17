@@ -4,7 +4,6 @@ description: "List a repository's stargazers, contributors, or watchers into you
 weight: 126
 ---
 
-# Build a GitHub audience
 
 List the people around one or more repositories into your account with
 `blowhorn source --platform github`: stargazers unless you name another

@@ -4,7 +4,6 @@ description: "The app, the engine, the extension, the background service, and yo
 weight: 280
 ---
 
-# How Blowhorn works
 
 Blowhorn is a social media console that takes one message and
 broadcasts, reposts and amplifies it across every profile and platform

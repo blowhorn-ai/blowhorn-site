@@ -4,7 +4,6 @@ description: "One click per run, preview first, and what clicked-outcome-not-rea
 weight: 285
 ---
 
-# How Blowhorn avoids repeat posts
 
 A public action cannot be taken back, and a guess repeated is spam.
 Blowhorn therefore clicks once per run and records exactly what it

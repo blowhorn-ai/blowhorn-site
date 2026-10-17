@@ -4,7 +4,6 @@ description: "The posting command in full: pending rows, every flag, and per-pla
 weight: 216
 ---
 
-# `blowhorn post` reference
 
 Publishes the queue's pending rows and amplifies existing content.
 This page describes the command in full; the [CLI reference](/docs/reference/cli/)

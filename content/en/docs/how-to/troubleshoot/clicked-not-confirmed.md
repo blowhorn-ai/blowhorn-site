@@ -4,7 +4,6 @@ description: "Check the platform after a clicked-unread row, then clear it or le
 weight: 191
 ---
 
-# Settle something Blowhorn could not confirm
 
 Blowhorn clicks a public action once per run and never clicks again on a
 guess. When the click lands but nothing read after it confirms the outcome,

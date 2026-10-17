@@ -4,7 +4,6 @@ description: "Run scheduled passes from the background service, and quit cleanly
 weight: 153
 ---
 
-# Keep posting when the app is closed
 
 Scheduled passes keep running with no window open. One background service owns
 the timer and runs a pass every ten minutes, starting with one as soon as it

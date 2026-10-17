@@ -5,7 +5,6 @@ weight: 196
 aliases: [/docs/how-to/uninstall/]
 ---
 
-# Uninstall Blowhorn
 
 Remove Blowhorn from your machine: the background service, the Chrome native host,
 the launchers, the desktop app and the checkout's build products. Your data
@@ -73,18 +72,24 @@ present`, `not unregistered` or `failed`:
    `not unregistered`, naming the step left to you under System Settings >
    General > Login Items.
 6. **The checkout's build products.** The virtualenv (removed only when it
-   holds `pyvenv.cfg`), `node_modules/`, `apps/desktop/node_modules/` and `data/logs/`.
+   holds `pyvenv.cfg`), `node_modules/`, `desktop/node_modules/` and `data/logs/`.
+   For the engine the app carries, the report calls its folder `home/` the
+   checkout: its `data/logs/` goes here, and its `venv/` is kept because it holds
+   only the app's interpreter link.
 
 A failed item does not stop the run: everything else is still removed, and
 the command exits 1.
 
-Kept at the end, and named: your account connection file, the app's preferences
-and engine record, Blowhorn's own Chrome trees, the per-user Library state,
-the checkout's `data/cache/`, and the scheduler pause file.
+Kept at the end, and named: your account connection file, the app's state
+under `~/Library/Application Support/Blowhorn` (its preferences, its engine
+record and, for the engine the app carries, that engine's folder `home/` with
+your profiles' settings), Blowhorn's own Chrome trees, the per-user
+Library state, the checkout's `data/cache/`, and the scheduler pause file.
 
 The checkout itself (for example `~/code/blowhorn`, with `tools/uninstall.sh` in it)
 is never removed, under any flag, and the summary names it. Delete that folder
-yourself if you no longer need it.
+yourself if you no longer need it. The engine's `home/` is not a checkout:
+`--purge` removes it with the rest of the app's state.
 
 The summary ends by saying the shared store was not touched. If your store
 connection shows `127.0.0.1` (for example `postgresql://127.0.0.1:9432`), that
@@ -105,6 +110,20 @@ too, because the prompt would otherwise land in the JSON output.
 Your account, the content queue, the schedule, the profiles and the
 ledgers on it, is not local data and is never touched, under any flag. Other
 machines keep using it.
+
+## Without a checkout
+
+An install from the DMG alone puts no `blowhorn` command on your `PATH`. Run
+the same command through the engine the app carries, with its own interpreter,
+and the same flags:
+
+```bash
+BLOWHORN="$HOME/Library/Application Support/Blowhorn/home"
+"$BLOWHORN/venv/bin/python" "$BLOWHORN/engine/blowhorn.py" uninstall --dry-run
+```
+
+Quit the app before the real run (see [When it refuses](#when-it-refuses));
+the engine in that folder still runs with the app closed.
 
 ## When the venv is already gone
 
@@ -155,8 +174,9 @@ rm -rf ~/code/blowhorn
 
 ## Reinstalling afterwards
 
-A fresh `./tools/install.sh` from the same checkout produces a working install.
-Your kept account connection file is picked up as it was.
+Installing the app again from its DMG, or a fresh `./tools/install.sh` from the
+same checkout, produces a working install. Your kept account connection file is
+picked up as it was.
 
 ## Related
 

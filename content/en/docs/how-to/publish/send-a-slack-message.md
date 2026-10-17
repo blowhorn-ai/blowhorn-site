@@ -4,7 +4,6 @@ description: "Queue Slack rows or send one message typed on the command line."
 weight: 116
 ---
 
-# Send a Slack message
 
 Send a Slack message as yourself, from a queued row or typed on the
 command line. Both send under your captured session, with no app attached.

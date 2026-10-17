@@ -5,7 +5,6 @@ weight: 90
 aliases: [/docs/how-to/amplify-a-post/]
 ---
 
-# Amplify an existing post
 
 Repost, retweet, quote, upvote, or react to something already published,
 from a content row. Put the URL in the row's `Amplify` column and set

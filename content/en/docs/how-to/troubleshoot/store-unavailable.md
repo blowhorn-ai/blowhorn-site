@@ -5,8 +5,6 @@ weight: 195
 draft: true
 ---
 
-# Fix "cannot reach your organization"
-
 Every command that needs your account prints one sentence and exits 3 when your account is unreachable. A tick in that state claims nothing and runs nothing,
 but still writes its heartbeat, so `blowhorn schedule status` keeps answering
 with your account as the last tick saw it.

@@ -5,7 +5,6 @@ weight: 130
 aliases: [/docs/how-to/accept-invitations/]
 ---
 
-# Accept incoming invitations
 
 Answer the LinkedIn invitations other people sent you with
 `blowhorn accept`. It walks your received list accepting one invitation at

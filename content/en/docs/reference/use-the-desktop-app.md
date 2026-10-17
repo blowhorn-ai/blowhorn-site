@@ -4,7 +4,6 @@ description: "The menu-bar popover, the console screens, Setup, Settings, and wh
 weight: 211
 ---
 
-# The Blowhorn app, screen by screen
 
 What each part of the Blowhorn desktop app shows and does. This page
 describes; the steps live in the how-to guides linked under Related.
@@ -46,7 +45,7 @@ but "home" is locked; see
 | profiles | Every profile, its Chrome mapping, its per-platform sessions | Add a profile; map or unmap its Chrome profile |
 | analytics | Followers, growth, and operations per profile; collection freshness in the header | Collect now; open the HTML report |
 | background | Who registered the background service, whether it runs, the last tick heartbeat, the pause for all machines | Check now; pause or resume all machines; open System Settings when the service is turned off there |
-| settings | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, test your account connection |
+| settings | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, choose its mode, test your account connection |
 
 The jobs table keeps every value on one line. When the list is narrow -
 the drawer is wide, or the window is small - the driver and recurrence
@@ -68,12 +67,17 @@ reads and saves them as the lowercase name every command resolves them to.
 
 ## Setup
 
-Setup is the engine checklist the app opens on while it can't find its
-checkout or Python environment (otherwise the first run is the guided
-setup; see [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/)),
+Setup is the engine checklist the app opens on while its engine is not
+ready (otherwise the first run is the guided setup; see
+[Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/)),
 five rows read from this machine:
-"blowhorn checkout", "python environment", "store", "chrome profiles",
-and "background service". Each row reports ok, warn, or off with the
+"Blowhorn folder", "helper tools", "organization connection", "chrome profiles",
+and "background service". The first two check the engine bundled in the
+app, or a contributor's checkout when the app uses one
+([Install the app](/docs/how-to/set-up/install-the-app/#first-run)); the
+engine in the app never needs a clone or an install, so its rows offer
+neither. An app run from its disk image says to move it to Applications
+instead. Each row reports ok, warn, or off with the
 one fix that clears it. The "map chrome profiles" panel and the
 "background service" row act directly: mapping a profile and
 registering the service happen here, not in a terminal.
@@ -85,7 +89,9 @@ excluded profiles, dry run, notifications, logs, and the Chrome launch
 mode. The engine-defaults card renders from `blowhorn config show`,
 so the app can never offer an option the engine does not know. The
 extension card reports whether the extension is installed, which
-version answers, and whether it says connected. **guided setup** at the
+version answers, and whether it says connected, and sets its
+[extension mode](/docs/reference/chrome/#extension-mode-classic-or-background), classic or
+background, on your Layer5 Cloud account. **guided setup** at the
 bottom reopens the first-run setup, and **run setup again** opens Setup.
 Quitting the app leaves
 posting to the background service and the keep-running setting; see

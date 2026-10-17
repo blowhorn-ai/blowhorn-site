@@ -4,7 +4,6 @@ description: "Signed-in Chrome through the extension, APIs where they exist, and
 weight: 283
 ---
 
-# Why Blowhorn uses your own Chrome
 
 Platforms trust people, not programs. A post that arrives from a
 browser you signed in to, carrying your session, your history, and

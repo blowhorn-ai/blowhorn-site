@@ -4,7 +4,6 @@ description: "Recover expired LinkedIn, X and Reddit sessions, and hand CAPTCHAs
 weight: 192
 ---
 
-# Fix a sign-in that stopped working
 
 Sessions expire. When one does, sign in again by hand in the mapped Chrome
 profile, or run `blowhorn profile auth` for that platform. Scheduled passes

@@ -5,7 +5,6 @@ weight: 50
 aliases: [/docs/how-to/map-chrome-profiles/]
 ---
 
-# Map Blowhorn profiles to Chrome profiles
 
 Tell Blowhorn which of your real Google Chrome profiles each Blowhorn
 profile belongs to on this machine. Every run that drives a browser reads

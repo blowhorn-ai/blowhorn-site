@@ -4,7 +4,6 @@ description: "Run blowhorn setup to check this computer, write the Chrome native
 weight: 35
 ---
 
-# Finish setup on this computer
 
 `blowhorn setup` checks what Blowhorn needs on this computer, changes only
 what is missing or out of date, and lists what is left for you to do. It is

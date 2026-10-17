@@ -4,13 +4,14 @@ description: "What stays on your machine, what your account keeps in sync, and w
 weight: 281
 ---
 
-# Where your data lives
 
 Three places hold Blowhorn's data, and each holds a different kind.
 Nothing here is a step; for the sharing behind it see
 [How Blowhorn works](/docs/explanation/how-it-works/).
 
-On your machine: the app, the engine checkout, and your Chrome sessions.
+On your machine: the app with the engine it carries, the engine's folder
+(`~/Library/Application Support/Blowhorn/home`, or a contributor's checkout),
+and your Chrome sessions.
 Browser sessions, meaning the cookies Chrome keeps for LinkedIn, X,
 Reddit and Hacker News, live in your Chrome profiles, where you made
 them; Blowhorn reads them there and copies none of them elsewhere, with
@@ -19,7 +20,7 @@ in with the password in the profile's local `config.yaml`. Every action
 Blowhorn takes runs on one of your machines; Blowhorn never signs in or
 acts for you from a server. The daily
 logs, the run ledger copy, and the scheduler heartbeat live under the
-log directory. The account connection file lives outside the checkout at
+log directory. The account connection file lives outside the engine's folder at
 mode 0600. A plan attestation, once fetched, is kept in your keychain
 for the offline grace.
 

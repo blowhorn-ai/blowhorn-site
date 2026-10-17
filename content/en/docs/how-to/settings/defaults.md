@@ -5,7 +5,6 @@ weight: 170
 aliases: [/docs/how-to/configure-blowhorn/]
 ---
 
-# Change your defaults
 
 Set the defaults every run starts from: pace, excluded profiles, dry-run,
 notifications and logs. Change them in the app's Settings, or with `blowhorn

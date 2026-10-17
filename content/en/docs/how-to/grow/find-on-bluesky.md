@@ -4,7 +4,6 @@ description: "Search Bluesky posts by query, date, author, and other filters."
 weight: 125
 ---
 
-# Find conversations on Bluesky
 
 Search Bluesky for posts matching a query, with date, author, and
 relevancy filters. Read-only: results are printed, never posted, and no

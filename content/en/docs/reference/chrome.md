@@ -4,7 +4,6 @@ description: "The mapping commands, the two launch modes, the extension default,
 weight: 224
 ---
 
-# Chrome reference
 
 How Blowhorn finds and reaches your Google Chrome. Every browser run
 reads the profile mapping first and refuses a profile without one,
@@ -135,6 +134,55 @@ The launched window emulates nothing: the page reads the real screen, the real G
 your own permission state. A viewport override, a GPU switch or a blanket permission grant
 each gave a reading no real Chrome gives, so the launch passes none of them (measured
 2026-10-15).
+
+## Extension mode: classic or background
+
+With the extension driver, a run uses one of two behaviors:
+
+| | classic | background |
+| --- | --- | --- |
+| Blowhorn's tab | opens inactive at the end of the window | opens inactive, grouped beside the tab you are on |
+| focus emulation | from the first action that takes the debugger | from the first page load |
+| visible screenshot | switches to Blowhorn's tab for the capture | captured through the debugger, no tab switch |
+| input | synthetic unless `BLOWHORN_EXTENSION_INPUT=trusted` | trusted unless `BLOWHORN_EXTENSION_INPUT=synthetic` |
+| bringing the tab forward | before an automated login, and for a screenshot | only when you are needed (a code, a challenge, a sign-in you finish yourself) |
+
+classic is the default and is what the Chrome Web Store build has always done.
+Where the mode comes from, top wins:
+
+| layer | spelling |
+| --- | --- |
+| this machine | `BLOWHORN_EXTENSION_ROLLBACK=classic` forces classic |
+| one scheduled job | its `Driver Mode`: `extension-classic` or `extension-background` |
+| your account | the extension mode on Settings, Chrome extension (saved as `extensionMode` in your Layer5 Cloud preferences, so it follows you to every machine) |
+| nothing set | classic |
+
+`BLOWHORN_EXTENSION_ROLLBACK=1` still swaps the driver for Blowhorn's own
+Chrome as before; it says nothing about the mode. `0`, `false` and `off` read
+as unset; any other value is refused before the run starts. On Settings the
+selector is your account setting; the description under it is the mode this
+machine runs, and the card says when the variable overrides the account or
+holds a refused value. The features a
+mode sets are `placement`, `lease_at_goto`, `quiet_screenshot`,
+`checkpoint_front` and `trusted_input`. An extension too old for a background feature runs that feature
+the classic way and the run says so once on stderr. A run whose mode is not
+the classic default names it once on stderr: `extension mode: background,
+from the account setting`.
+
+## `blowhorn chrome extension-mode`
+
+```bash
+blowhorn chrome extension-mode              # the mode a run would use, and why
+blowhorn chrome extension-mode background   # save background to your account
+blowhorn chrome extension-mode default      # clear it, so runs use classic
+```
+
+With no mode it reads your account setting from Layer5 Cloud and writes
+nothing; when Cloud cannot be read it says why (`account_error`) and shows
+the cached setting a run would fall back to. With one it saves `extensionMode` to Layer5 Cloud; sign in
+first with `blowhorn auth login`. `--json` prints one object: `mode`,
+`source` (`rollback`, `account` or `default`), `account`, `account_error`,
+`rollback`, `rollback_error`, `features` and `written`.
 
 ## `blowhorn chrome extension-status`
 

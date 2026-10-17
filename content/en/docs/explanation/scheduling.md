@@ -4,7 +4,6 @@ description: "Ten-minute passes, one shared queue across machines, leases, and t
 weight: 286
 ---
 
-# How scheduling works
 
 Posting on autopilot means a pass that runs without you, a queue every
 machine can share, and pauses that mean what they say. This page explains

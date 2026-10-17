@@ -5,14 +5,12 @@ weight: 30
 aliases: [/docs/how-to/install-the-app/]
 ---
 
-# Install the app
 
 Download the signed Blowhorn app for macOS, verify it, install it, and open
 it.
 
-**Early access:** the app does not bundle its command-line engine yet. On
-first run it asks for a checkout of Blowhorn, which your Blowhorn
-administrator gives you access to (see [First run](#first-run)).
+The app carries its own engine and Python, so you need no copy of the
+Blowhorn repository, no git and no Python on your Mac.
 
 ## Download
 
@@ -39,6 +37,9 @@ The line for `Blowhorn-mac.dmg` must read `OK`.
 2. Drag the app onto **Applications** in the same window. Major Blowhorn
    points at it.
 3. Open it from Applications. A notarized build opens without a warning.
+   Don't run it from the disk image: a copy run from the
+   disk image disappears when you eject it, so the app does not use its
+   engine there and asks you to move it to Applications.
 
 You need macOS 13 or newer and Google Chrome. Chrome is not bundled: Blowhorn
 drives the Chrome profiles you already sign in to, through its Chrome
@@ -47,20 +48,27 @@ extension, which you add to each Chrome profile you post from
 
 ## First run
 
-Until it finds the Blowhorn checkout and its Python environment, the app
-opens on its Setup screen; after that the guided setup takes over (see
-below). Setup checks, in order, the Blowhorn
-checkout, its Python environment, the connection to your organization's
+The app opens on its Setup screen until its engine is ready; after that the
+guided setup takes over (see below). Setup checks, in order, the engine
+(bundled in the app), its helper tools, the connection to your organization's
 data, your Chrome profile mappings
 ([Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/)), and
 the background service. Each row says what it found, or what to do next.
 Every row is described under Setup in
 [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/#setup).
 
+**If you already have a checkout of the Blowhorn repository**, the app keeps
+using it instead of the engine it carries, so your profiles and settings in
+that checkout stay where they are. The app uses a checkout when one is named
+under **blowhorn folder** in Settings' **app paths** card, or when one is at
+`~/code/blowhorn`. To use the engine in the app instead, clear that field and
+move the `~/code/blowhorn` folder away, then reopen the app. Your data stays
+in the checkout and does not move with you.
+
 Connecting the Blowhorn Chrome extension to this machine takes no pop-up:
 
 - **Connect it today:** the guided setup's **Getting ready** step connects
-  it, or run `blowhorn setup` in Terminal. The extension can then reach the
+  it. The extension can then reach the
   app from every Chrome profile. Chrome is not opened and no Chrome setting
   changes.
 - **Launching the app changes nothing:** it only looks. Nothing is written
@@ -74,9 +82,8 @@ See [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/).
 Then check sessions and run a dry-run post. Nothing is published until you
 post without `--dry-run`.
 
-**Early access:** signing in with your Blowhorn account and a bundled
-engine that needs no checkout are still being built. When they ship, they
-replace the checkout and Python rows.
+Your settings and data stay in `~/Library/Application Support/Blowhorn/home`,
+outside the app, so replacing or updating the app keeps them.
 
 ## Update
 
@@ -105,7 +112,10 @@ cannot make that comparison, so it installs nothing and opens the release
 page instead. When the app cannot install the update itself, it opens the
 release page and you download the newer `.dmg`,
 verify it as in [Download](#download), and drag the app over the old copy.
-The background service and your settings are kept.
+The background service and your settings are kept. The engine is part of
+the app, so updating the app updates the engine too. An app that uses a
+checkout instead refreshes that checkout's helper tools when it updates and
+leaves its code to you: pull the checkout to update its engine.
 
 ## Related
 

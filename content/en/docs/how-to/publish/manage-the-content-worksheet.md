@@ -5,7 +5,6 @@ weight: 80
 aliases: [/docs/how-to/manage-the-content-worksheet/]
 ---
 
-# Manage the content queue
 
 Everything you publish waits in the content queue first. Add rows in the
 desktop app's Content screen, from the command line, or with the capture

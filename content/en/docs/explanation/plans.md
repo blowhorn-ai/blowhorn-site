@@ -4,7 +4,6 @@ description: "Why plans count profiles and platforms, the 72-hour offline grace,
 weight: 290
 ---
 
-# Plans, offline use and lapses
 
 Plans count what costs: profiles and platforms. Each posting identity
 is someone's account acting, each platform a destination with its own

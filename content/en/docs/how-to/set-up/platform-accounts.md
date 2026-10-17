@@ -4,7 +4,6 @@ description: "Browser sign-ins, tokens, and app passwords each profile needs bef
 weight: 65
 ---
 
-# Sign a profile in to each platform
 
 One section per platform. LinkedIn, X, and Reddit sign in by hand in your
 Chrome; Bluesky takes a handle and an app password; GitHub takes a token;

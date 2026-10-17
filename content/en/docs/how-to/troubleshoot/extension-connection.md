@@ -4,7 +4,6 @@ description: "Reconnect the extension, resolve version mismatch, and clear bridg
 weight: 194
 ---
 
-# Fix the Chrome extension connection
 
 When a run says the extension is not connected, ask the extension itself
 first. This command opens no tab and contacts no platform:

@@ -5,7 +5,6 @@ weight: 120
 aliases: [/docs/how-to/follow-on-github/]
 ---
 
-# Follow accounts
 
 Follow accounts on X, Bluesky, or GitHub with `blowhorn follow`. One
 contract on all three: `--limit 0` follows only the named target, and a

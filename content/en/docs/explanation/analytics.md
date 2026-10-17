@@ -4,8 +4,6 @@ description: "Measured versus trended counts, what each tile counts, and how fre
 weight: 289
 ---
 
-# What the analytics numbers mean
-
 Analytics counts what the platforms showed, not what Blowhorn hoped.
 Every number is either measured, read off the platform during
 collection, or trended, appended to the profile's history so growth

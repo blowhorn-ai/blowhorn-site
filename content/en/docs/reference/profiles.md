@@ -4,7 +4,6 @@ description: "What a profile is: its directory, its store row, its keys per plat
 weight: 217
 ---
 
-# Profile reference
 
 A profile is one identity Blowhorn posts as: a directory beside a
 store row. The directory holds `config.yaml` and `data/`. Your account

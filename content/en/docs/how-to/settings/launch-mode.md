@@ -5,7 +5,6 @@ weight: 180
 aliases: [/docs/how-to/choose-a-chrome-launch-mode/]
 ---
 
-# Choose how Blowhorn reaches Chrome
 
 Most runs should keep the default: Blowhorn drives Chrome through the Blowhorn
 Chrome extension and launches nothing of its own. Change it only when one run
@@ -92,15 +91,19 @@ its `DevToolsActivePort` behind too, so the refusal names the file to delete.
 
 ## One scheduled job, its own driver
 
-A job names its driver in its `Driver Mode`: `default`, `extension`, `cdp` or
-`persistent`. Set "browser driver" in the job editor, or the key on `blowhorn
+A job names its driver in its `Driver Mode`: `default`, `extension`,
+`extension-classic`, `extension-background`, `cdp` or `persistent`. The two
+`extension-` values pick the extension and its [mode](/docs/reference/chrome/#extension-mode-classic-or-background)
+for that job. Set "browser driver" in the job editor, or the key on `blowhorn
 schedule upsert`. The choice belongs to that job alone and applies to nothing
 else in the pass.
 
 Two explicit overrides still win over the job: a launch mode forced on the
 whole tick (`--chrome-launch` on the tick, or `BLOWHORN_CHROME_LAUNCH` in its
 environment), and `BLOWHORN_EXTENSION_ROLLBACK=1` over a job set to
-`extension`. The job's log names the driver it used and says when an override
+`extension`. A tick forced to `extension` still runs an `extension-classic`
+or `extension-background` job in that job's mode, since the driver is the one
+it asked for. The job's log names the driver it used and says when an override
 beat it.
 
 ## Where the setting is read
@@ -112,7 +115,7 @@ also beats a job set to `extension`, and it replaces whatever the file says.
 | --- | --- |
 | one run | `--chrome-launch auto\|cdp\|persistent\|extension`, on every command |
 | your shell | `BLOWHORN_CHROME_LAUNCH=cdp` |
-| one scheduled job | its `Driver Mode` (`default`, `extension`, `cdp`, `persistent`) |
+| one scheduled job | its `Driver Mode` (`default`, `extension`, `extension-classic`, `extension-background`, `cdp`, `persistent`) |
 | debugging | `BLOWHORN_BROWSER_DRIVER=cdp` (no file key, no flag) |
 | whole process fallback | `BLOWHORN_EXTENSION_ROLLBACK=1` selects launching unless a layer above decides - a job's `cdp` or `persistent`, or the variable's `auto`, `cdp` or `persistent`; a job's `extension`, the variable's `extension` and the file's value all give way to it |
 | this checkout | `defaults.chrome.launch_mode` in `.blowhorn.yaml` |

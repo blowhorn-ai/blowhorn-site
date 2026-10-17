@@ -29,7 +29,6 @@ anchor_redirects:
   facebook: "/docs/reference/platforms/facebook/"
 ---
 
-# Platforms
 
 What Blowhorn can do on each platform, how it reaches
 each one, and the limits it honors. This page describes; the steps live

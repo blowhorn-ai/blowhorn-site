@@ -5,7 +5,6 @@ weight: 40
 aliases: [/docs/how-to/install-the-chrome-extension/]
 ---
 
-# Install the Chrome extension
 
 Blowhorn drives Chrome through its Chrome extension. Chrome keeps an
 extension inside each Chrome profile, and the extension drives only the
@@ -77,7 +76,7 @@ command.
 
 The printed steps are: switch to that Chrome profile, open
 `chrome://extensions`, turn on Developer mode, choose **Load unpacked**,
-select the `apps/extension/` directory the command names, then check with
+select the `extension/` directory the command names, then check with
 `blowhorn chrome extension-status`. There is no file the command can write
 that installs an extension in one profile only, so this route always ends
 with those clicks.
@@ -144,7 +143,7 @@ is out of date. Move it to the store install so Chrome keeps it current:
 1. Run the install again with the flags you used the first time.
 2. In each Chrome profile that loaded the extension unpacked, open
    `chrome://extensions`, remove the old copy, and choose **Load unpacked**
-   again with the `apps/extension/` directory.
+   again with the `extension/` directory.
 3. If you used `--all-profiles`, remove the old id's entry by hand: the
    command adds and removes only the current id.
 4. Check with `blowhorn chrome extension-status`.

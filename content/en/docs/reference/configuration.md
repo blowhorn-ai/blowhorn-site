@@ -4,10 +4,9 @@ description: "Precedence, every `.blowhorn.yaml` option, environment variables, 
 weight: 218
 ---
 
-# Configuration reference
 
 How Blowhorn resolves what a run uses, and where its output goes.
-`src/blowhorn/config_schema.py` is the one list of options; `blowhorn
+`engine/blowhorn/config_schema.py` is the one list of options; `blowhorn
 config show` prints each with its stored, environment, effective, and
 source values. `blowhorn config set` edits the file without rewriting
 it: comments, order, and quoting survive.

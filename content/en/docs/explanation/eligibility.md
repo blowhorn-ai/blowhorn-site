@@ -4,7 +4,6 @@ description: "A credential is permission, a handle is not; a Chrome mapping is i
 weight: 282
 ---
 
-# Who can post as whom
 
 Blowhorn decides who may post as whom from one fact: whether the
 profile holds the platform's credential. Nothing else grants it.

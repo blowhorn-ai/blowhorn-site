@@ -5,7 +5,6 @@ weight: 222
 draft: true
 ---
 
-# Release notes
 
 What changed in each version of Blowhorn. This page is held as a draft
 until the first public release: there are no public releases to list

@@ -5,7 +5,6 @@ weight: 193
 aliases: [/docs/how-to/troubleshoot-x/]
 ---
 
-# Post to X when it will not confirm
 
 Blowhorn posts to X through the browser, not the X API. It clicks Post once
 per row and never a second time in the same run. After the click it reads back

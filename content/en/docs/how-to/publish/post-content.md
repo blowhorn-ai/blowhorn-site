@@ -5,7 +5,6 @@ weight: 70
 aliases: [/docs/how-to/post-content/]
 ---
 
-# Post content
 
 Publish the rows waiting in the content queue.
 

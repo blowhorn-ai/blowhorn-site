@@ -4,7 +4,6 @@ description: "Every command, the shared flags, and profile resolution."
 weight: 215
 ---
 
-# CLI reference
 
 Every command, the flags they share, and how a profile is resolved.
 
@@ -28,7 +27,7 @@ This is a standing rule, not a one-off pass. `tests/test_cli_help_coverage.py` e
 CLI framework: Python `Typer` (inspired by modern CLIs like `docker`, `kubectl`, and `gh`).
 If `typer`/`click` are missing, `blowhorn` attempts a one-time bootstrap install via `python -m pip install typer click` using the active interpreter.
 Should that bootstrap fail, `blowhorn` falls back to an argparse parser built from the same help and example constants as the Typer app, and the same test file asserts the two surfaces expose the same commands with identical prose - so the fallback can never drift into a second, staler help text.
-For a fresh virtualenv, install the full project runtime with `pip install -r src/requirements.txt`; the CLI depends on `PyYAML`, `requests`, `playwright`, `tweepy`, `psycopg`, `pandas`, and `xlrd` in addition to `typer` and `click` (`gspread` and `oauth2client` are still listed only for the migration script's last step and go with it).
+For a fresh virtualenv, install the full project runtime with `pip install -r engine/requirements.txt`; the CLI depends on `PyYAML`, `requests`, `playwright`, `tweepy`, `psycopg`, `pandas`, and `xlrd` in addition to `typer` and `click` (`gspread` and `oauth2client` are still listed only for the migration script's last step and go with it).
 
 Global flags (available on all commands):
 
@@ -121,7 +120,7 @@ background service - by running `--unregister-login-items`; a bundle whose
 step left to you), and the checkout's virtualenv (`--venv-dir`, else
 `BLOWHORN_VENV_DIR`, else `venv/`, removed only when it holds `pyvenv.cfg`; the
 filesystem root, the home directory, the checkout and a directory holding
-either are refused), `node_modules/`, `apps/desktop/node_modules/` and `data/logs/` -
+either are refused), `node_modules/`, `desktop/node_modules/` and `data/logs/` -
 reporting each item as `removed`, `not present`, `not checked`, `kept`,
 `not unregistered` or `failed`. A failed item does not stop the run; the
 command exits 1 at the end, as it does when a real run leaves a login item
@@ -164,7 +163,7 @@ dedicated second Chrome that is open to remote debugging with no Allow dialog
 (`~/.blowhorn/attach-chrome`, on a port Chrome picks), writing no configuration of its own,
 and `chrome extension-install` writes the native-messaging host manifest Chrome
 launches (`com.blowhorn.chrome_extension.json`) and the executable launcher it names, and prints
-the unpacked `apps/extension/` directory to load. If you already installed the host, run the
+the unpacked `extension/` directory to load. If you already installed the host, run the
 command again and reload the extension once. `--profile <name>` (through this machine's
 mapping) or `--chrome-profile '<directory>'` names one Chrome profile and prints the steps to
 load the extension in that profile alone. `--all-profiles` also asks Chrome to
@@ -179,7 +178,7 @@ is installed, which install route is on disk, which Chrome profiles hold a Chrom
 Chrome extension answers hello. It reads the manifest, the launcher, the policy, each Chrome profile's
 `Secure Preferences` and `Preferences` (only for the extension's entry) and the socket, stats the external-extensions file and does not read it, and writes only the bridge lock, exiting 0 whatever it
 reports.
-All but `chrome unmap`, `chrome extension-install` and `chrome extension-status` read two files under a Chrome data
+All but `chrome unmap`, `chrome extension-install`, `chrome extension-status` and `chrome extension-mode` read two files under a Chrome data
 directory (`Local State`, `DevToolsActivePort`) and nothing else - `attach-chrome`
 reads the dedicated tree's pair rather than the daily one's; `chrome unmap`
 reads only your account, so a mapping can be removed when those files are gone;
@@ -192,6 +191,8 @@ extension, the policy file, each Chrome profile's `Secure Preferences` and
 `Preferences`, and the Chrome extension socket it says hello to, stats the external-extensions file and does not read it, and writes nothing but the
 bridge lock beside that socket; while a run holds the bridge it says so and
 writes no hello.
+`chrome extension-mode` reads no Chrome file: it reads or writes the extension
+mode in your Layer5 Cloud account.
 Only `attach-chrome start` starts a browser, and it never drives the one it
 starts. All carry a stable `--json` shape; every detail is in the [Chrome reference](/docs/reference/chrome/),
 the procedure in [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/).

@@ -5,7 +5,6 @@ weight: 160
 aliases: [/docs/how-to/collect-analytics/]
 ---
 
-# Collect and read your analytics
 
 Collect follower numbers from LinkedIn and X, then read them back as dated
 series in the app or the command line.

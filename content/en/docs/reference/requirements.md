@@ -4,7 +4,6 @@ description: "What your Mac needs to run Blowhorn: macOS version, Chrome, and a 
 weight: 210
 ---
 
-# System requirements
 
 What your Mac needs before you install Blowhorn.
 
@@ -12,8 +11,8 @@ What your Mac needs before you install Blowhorn.
 |---|---|---|
 | macOS | 13 or newer, Apple silicon or Intel (one universal build) | The build declares the floor; Setup checks the rest |
 | Browser | Google Chrome, installed and signed in | Setup, "chrome profiles" row; `blowhorn chrome status` |
-| Engine | A Blowhorn checkout with a working Python environment | Setup, "blowhorn checkout" and "python environment" rows |
-| Account | A Blowhorn account your profile belongs to | Setup, "store" row; `blowhorn store` |
+| Engine | Bundled in the app, with its own Python; nothing to install | Setup, "Blowhorn folder" and "helper tools" rows |
+| Account | A Blowhorn account your profile belongs to | Setup, "organization connection" row; `blowhorn store` |
 | Background runs | The background service, registered from the app | Setup, "background service" row |
 
 macOS 13 is the floor the desktop build declares
@@ -28,10 +27,11 @@ Chrome the normal way and sign in before you map anything. The extension
 needs Chrome profiles to attach to; without Chrome every browser run
 refuses before it acts.
 
-Python 3.14 is the floor `tools/install.sh` enforces, and it is the only
-supported version. The desktop app carries its own engine check on the
-Setup screen, so a broken checkout or interpreter shows up there first,
-not mid-run.
+The app carries its engine and Python, so your Mac needs no git and no
+Python. A contributor running the engine from a checkout instead needs
+Python 3.14, the floor `tools/install.sh` enforces and the only supported
+version. Either way the Setup screen checks the engine, so a broken engine
+or interpreter shows up there first, not mid-run.
 
 Network access to your account is required for the content queue, the schedule, profiles, and run history. Your account keeps those in sync; your Mac holds the app, the engine, and your Chrome sessions.
 Offline behavior is a plans question, not a requirements one: see

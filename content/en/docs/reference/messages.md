@@ -4,7 +4,6 @@ description: "Every refusal sentence keyed by its first words, with the cause, t
 weight: 219
 ---
 
-# Messages and exit codes
 
 What a failed run prints, why, and what fixes it. Entries are keyed by
 the sentence's first words. Exits: 0 ran clean; 1 the run failed; 2 the

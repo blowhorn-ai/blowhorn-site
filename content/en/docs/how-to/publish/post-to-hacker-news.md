@@ -5,7 +5,6 @@ weight: 110
 aliases: [/docs/how-to/post-to-hacker-news/]
 ---
 
-# Post to Hacker News
 
 Submit a link or a text post to Hacker News, or comment on an item, from a
 content row.

@@ -4,7 +4,6 @@ description: "Blowhorn is free during early access, with no tiers and no per-act
 weight: 221
 ---
 
-# Plans and limits
 
 Blowhorn is free during early access. There are no tiers, no per-action
 charges, and no limits on the platforms or profiles you run. Every

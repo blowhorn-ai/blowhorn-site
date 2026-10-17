@@ -4,7 +4,6 @@ description: "Comment on LinkedIn, Reddit, and Bluesky rows, and reply on X."
 weight: 115
 ---
 
-# Reply to a post
 
 Comment on a post from a content row. Put the post's URL in `Comment on`
 and the reply in `Message Text`, approve the row, and run `blowhorn

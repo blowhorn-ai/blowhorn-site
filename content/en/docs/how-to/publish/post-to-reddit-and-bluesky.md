@@ -4,7 +4,6 @@ description: "Queue Reddit posts and Bluesky posts, threads, and reposts."
 weight: 105
 ---
 
-# Post to Reddit and Bluesky
 
 Queue posts for Reddit and Bluesky from content rows, then publish them
 with `blowhorn post`.

@@ -5,7 +5,6 @@ weight: 100
 aliases: [/docs/how-to/amplify-on-github/]
 ---
 
-# Amplify an issue or pull request on GitHub
 
 React to an issue or pull request from every eligible profile.
 `blowhorn post --platform github` does exactly one thing: it adds the

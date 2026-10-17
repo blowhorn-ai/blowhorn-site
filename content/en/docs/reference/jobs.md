@@ -4,7 +4,6 @@ description: "Schedule rows, recurrence words, driver mode, and the three pause 
 weight: 214
 ---
 
-# Job options and schedules
 
 What a schedule row holds, when it runs, and what keeps it from
 running. This page describes; the steps live in the how-to guides
@@ -22,7 +21,7 @@ and a row whose lease lapsed is reclaimable by the next pass.
 | Platforms | Row filter, not a posting target: which rows the command reads |
 | Profiles | Which profiles the run acts as |
 | Recurrence | When the row comes due again |
-| Driver mode | How the run reaches Chrome: `default`, `extension`, `cdp`, or `persistent` |
+| Driver mode | How the run reaches Chrome: `default`, `extension`, `extension-classic`, `extension-background`, `cdp`, or `persistent` |
 | Status | Where the row stands; `running` is a lease, never a lock |
 
 `blowhorn schedule list` shows each row and whether it is due.
@@ -53,7 +52,11 @@ Anything else is refused as an unsupported recurrence.
 `default` follows the same precedence every run follows: the
 `--chrome-launch` flag, then the job's own mode, then the configured
 default, which is the extension. Naming `extension`, `cdp`, or
-`persistent` pins the job to that driver. A job pinned to a driver that
+`persistent` pins the job to that driver. `extension-classic` and
+`extension-background` pin the job to the extension and set its
+[extension mode](/docs/reference/chrome/#extension-mode-classic-or-background) for that
+job, outranking your account setting; a tick forced to `extension` with
+`--chrome-launch` keeps that mode. A job pinned to a driver that
 cannot do the work is refused by name before anything opens.
 
 ## Pause scopes

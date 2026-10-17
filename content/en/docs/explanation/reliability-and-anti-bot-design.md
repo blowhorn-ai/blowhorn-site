@@ -4,7 +4,6 @@ description: "Human typing and pauses, per-run pace, and why a failed post is no
 weight: 284
 ---
 
-# How Blowhorn paces itself
 
 Blowhorn acts at human speed, and stops at the first thing it cannot
 confirm. Both are deliberate: speed and retries are what get an

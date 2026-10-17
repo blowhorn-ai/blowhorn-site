@@ -4,7 +4,6 @@ description: "Every worry in one place: getting banned, posting by mistake, post
 weight: 291
 ---
 
-# You're in control
 
 Blowhorn is built for AI. Agents can drive it, queue for it and run it on
 autopilot. But the AI is never in control. You are. Even when you hand

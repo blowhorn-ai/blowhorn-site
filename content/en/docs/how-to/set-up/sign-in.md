@@ -5,7 +5,6 @@ weight: 32
 draft: true
 ---
 
-# Sign in
 
 Sign in to your organization so Blowhorn knows your plan: how many profiles
 you can run and which platforms you can post to.

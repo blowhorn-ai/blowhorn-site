@@ -4,7 +4,6 @@ description: "A flagged invitation is LinkedIn warning you, so Blowhorn walks aw
 weight: 288
 ---
 
-# Why flagged invitations are skipped
 
 Some invitations arrive with a warning, and the only safe answer to a
 warning is to walk away. When LinkedIn is unsure you know the person,

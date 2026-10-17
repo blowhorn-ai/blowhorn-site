@@ -5,7 +5,6 @@ weight: 140
 aliases: [/docs/how-to/withdraw-invitations/]
 ---
 
-# Withdraw stale invitations
 
 Reclaim invitation headroom with `blowhorn withdraw`. Sent invitations
 never expire on their own: they pile up against LinkedIn's ceiling on

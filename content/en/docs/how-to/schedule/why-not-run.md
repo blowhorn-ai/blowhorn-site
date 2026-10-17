@@ -4,7 +4,6 @@ description: "Ask Blowhorn why one scheduled row ran or not, in one read-only co
 weight: 152
 ---
 
-# Find out why a job did not run
 
 One command names the reason a row has or has not run on this machine, in the
 order the scheduler itself decides it, and ends in one plain sentence:

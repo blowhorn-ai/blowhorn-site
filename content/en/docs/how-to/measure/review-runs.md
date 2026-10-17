@@ -4,7 +4,6 @@ description: "Read the runs ledger: what each machine did, what failed, and what
 weight: 161
 ---
 
-# Review what ran
 
 Every action run appends one line per profile and platform to the run ledger,
 dry or real. Read it back in the app's "runs" screen, or grouped any way you

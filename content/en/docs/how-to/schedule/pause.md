@@ -4,7 +4,6 @@ description: "Stop every scheduled claim on one machine, every machine, or one r
 weight: 151
 ---
 
-# Pause and resume posting
 
 Stop Blowhorn from claiming scheduled work without stopping the service. Reach
 for this when a platform challenges a sign-in, when a session expires, or on

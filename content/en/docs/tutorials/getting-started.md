@@ -5,7 +5,6 @@ weight: 10
 draft: true
 ---
 
-# Getting started with the Blowhorn CLI
 
 In this tutorial you will install Blowhorn, confirm it can see your profiles,
 and watch it walk the posting queue end to end - without publishing anything.

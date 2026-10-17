@@ -4,7 +4,6 @@ description: "What each step of the desktop app's first-run setup does, and what
 weight: 33
 ---
 
-# Set up Blowhorn the first time
 
 The guided setup opens by itself the first time you open Blowhorn, and every
 time after that until you finish it. If you quit partway, it picks up at the

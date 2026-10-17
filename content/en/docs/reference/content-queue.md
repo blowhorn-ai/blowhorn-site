@@ -4,7 +4,6 @@ description: "Every content column, what each platform reads from a row, and wha
 weight: 213
 ---
 
-# Content queue columns and row states
 
 The queue is the set of content rows `blowhorn post` publishes. Each
 row is one message; each run publishes the rows that are still owed to

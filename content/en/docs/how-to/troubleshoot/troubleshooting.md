@@ -4,7 +4,6 @@ description: "Start from the symptom: find the fix for what Blowhorn just told y
 weight: 190
 ---
 
-# Troubleshooting
 
 Start from what you saw. Each symptom names its fix page.
 

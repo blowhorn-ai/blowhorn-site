@@ -4,7 +4,6 @@ description: "The background service, quitting, keep-running, and how updates re
 weight: 287
 ---
 
-# What runs when the app is closed
 
 Closing the app stops the window, not the work. The background service
 keeps running the schedule: one pass every ten minutes, claiming due

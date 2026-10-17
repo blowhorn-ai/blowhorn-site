@@ -4,7 +4,6 @@ description: "Where to look first, how to report a problem, and how to report a 
 weight: 223
 ---
 
-# Get help
 
 Start with the self-serve pages: the
 [troubleshooting index](/docs/how-to/troubleshoot/troubleshooting/) for

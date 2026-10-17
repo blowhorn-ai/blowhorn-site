@@ -4,7 +4,6 @@ description: "Create your Blowhorn account, or sign in, from the desktop app's s
 weight: 34
 ---
 
-# Create a Blowhorn account
 
 Your Blowhorn account lives in Layer5 Cloud. The app's **Sign in** step has
 two buttons:
