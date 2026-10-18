@@ -1614,6 +1614,30 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 }
 @media (min-width: 900px) { .compare-section { padding-block: var(--space-16); } }
 
+/* Coverage matrix: a Markdown table tagged {.coverage}. layouts/_markup/render-table.html
+   gives each legend cell a cov-* class; brand tokens only, and every fill is mixed into
+   the surface so the same rules hold in light and dark. */
+.coverage-scroll { overflow-x: auto; max-width: 100%; }
+.coverage-scroll:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.page table.coverage { max-width: none; min-width: 56rem; border-collapse: separate; border-spacing: 3px; }
+.page .coverage th, .page .coverage td { padding: var(--space-2); border-bottom: 0; vertical-align: middle; }
+.page .coverage thead th { vertical-align: bottom; border-bottom: var(--stroke-hairline) solid var(--line); }
+.page .coverage td:first-child { white-space: nowrap; }
+.page .coverage td:nth-child(2) { color: var(--ink-muted); min-width: 11rem; }
+.page .coverage td.cov { text-align: center; font-weight: 600; border-radius: var(--radius-sm); min-width: 2.25rem; }
+.coverage .cov-yes { background: color-mix(in srgb, var(--teal) 32%, var(--surface)); color: var(--ink); }
+.coverage .cov-soon { background: var(--surface-tint); color: var(--link); outline: 1.5px dashed var(--link); outline-offset: -4px; }
+.coverage .cov-partial { background: color-mix(in srgb, var(--yellow) 38%, var(--surface)); color: var(--ink); }
+.coverage .cov-any { background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.coverage .cov-unknown { color: var(--ink-muted); outline: 1px dotted var(--line-strong); outline-offset: -4px; }
+.page .coverage td.cov-no { color: var(--ink-muted); font-weight: 400; }
+.coverage .cov-closed { background: var(--surface-raised); color: var(--ink-muted); text-decoration: line-through; }
+.page .coverage tr.cov-us > td:not(.cov),
+.page .coverage th.cov-us { background: var(--surface-tint); color: var(--ink-wordmark); font-weight: 700; border-radius: var(--radius-sm); }
+.page .coverage tr.cov-us > td:first-child { box-shadow: inset 4px 0 0 var(--teal); }
+.coverage tr.cov-us .cov-yes,
+.coverage td.cov-us.cov-yes { background: color-mix(in srgb, var(--teal) 55%, var(--surface)); }
+
 /* Sound wave section */
 .wave-visual { display: flex; justify-content: center; margin: 1.5rem 0; }
 .wave-visual svg { width: min(100%, 400px); height: auto; overflow: visible; }
