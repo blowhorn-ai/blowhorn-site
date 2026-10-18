@@ -15,11 +15,19 @@ sitemap:
 
 ## This website
 
-blowhorn.ai is a static site served by GitHub Pages. Its fonts, images and styles are all served from this site. It uses Google Analytics to count visits, which is its one script from a third party, and the cookies that Google Analytics sets are the only ones it sets. Its other request to another host is the download page's release lookup. Both are described below. The newsletter form in the footer sends nothing unless you submit it.
+blowhorn.ai is a static site served by GitHub Pages. Its fonts, images and styles are all served from this site. If you accept the cookie notice, it uses Google Analytics to count visits. That is its one script from a third party, and its cookies are the only ones the site sets. Until you accept, Google Analytics doesn't load and nothing is sent to Google. The site's other request to another host is the download page's release lookup. Both are described below. The newsletter form in the footer sends nothing unless you submit it.
 
 - GitHub serves the pages and keeps its own server logs. Those are covered by the [GitHub privacy statement](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement).
-- Google Analytics 4 measures how the site is used: which pages are viewed, how visitors arrived, and roughly where they are and what device and browser they use. Every page loads Google's tag (gtag.js) from `www.googletagmanager.com`, and it sends that usage to Google along with your IP address and the usual request headers. It sets first-party cookies (`_ga` and `_ga_<id>`) on blowhorn.ai so repeat visits can be counted. Layer5 uses the reports only to improve this site and doesn't combine them with your Blowhorn account. Google's handling is covered by the [Google privacy policy](https://policies.google.com/privacy) and [how Google uses information from sites that use its services](https://policies.google.com/technologies/partner-sites). You can block it with a content blocker, by turning JavaScript off, or with Google's [opt-out browser add-on](https://tools.google.com/dlpage/gaoptout). The site works the same without it.
 - The download page asks GitHub's public API for the newest release from your browser. That request reaches GitHub like any other request your browser makes, with your IP address and the usual request headers. With JavaScript off, no request is made and the download button still works.
+
+### Google Analytics {#google-analytics}
+
+Google Analytics 4 runs only if you choose Accept in the cookie notice.
+
+- Before you choose: the site tells Google's tag that every kind of storage is denied (Google Consent Mode), and it doesn't load the tag at all. Nothing goes to Google and no cookie is set. Decline or the close button keeps it that way.
+- If you accept: your browser loads Google's tag (gtag.js) from `www.googletagmanager.com` on each page. It sends Google which pages you view, how you arrived, and roughly where you are and what device and browser you use, along with your IP address and the usual request headers. It sets first-party cookies named `_ga` and `_ga_<id>` on blowhorn.ai so that repeat visits can be counted. Advertising storage stays denied.
+- How it's used: Layer5 uses the reports only to improve this site, and doesn't combine them with your Blowhorn account. Google's handling is covered by the [Google privacy policy](https://policies.google.com/privacy) and [how Google uses information from sites that use its services](https://policies.google.com/technologies/partner-sites).
+- Your choice is kept in your browser's local storage (`blowhorn-consent`), so the notice doesn't come back. To change it, use **Cookie preferences** at the bottom of any page. If you withdraw consent, the page reloads without the tag. You can also delete the `_ga` cookies in your browser settings.
 
 ### Newsletter signup
 

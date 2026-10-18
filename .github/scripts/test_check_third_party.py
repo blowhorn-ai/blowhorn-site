@@ -81,6 +81,16 @@ class CheckThirdPartyTest(unittest.TestCase):
         self.assert_fails_naming({"index.html": page('<script src="https://analytics.example/gtag.js"></script>')},
                                  "analytics.example")
 
+    def test_loaded_script_may_name_the_gtag_host_only(self):
+        self.assert_passes({
+            "index.html": page('<script src="/js/consent.js" defer></script>'),
+            "js/consent.js": "s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;",
+        })
+        self.assert_fails_naming({
+            "index.html": page('<script src="/js/consent.js" defer></script>'),
+            "js/consent.js": "s.src = 'https://tracker.example/t.js';",
+        }, "tracker.example")
+
     def test_inline_script_request_fails(self):
         self.assert_fails_naming({"index.html": page(body='<script>fetch("https://tracker.example/hit")</script>')},
                                  "tracker.example")

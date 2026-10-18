@@ -20,12 +20,13 @@ The marketing and legal pages do not use Docsy's templates: they render through
 ## Rules the site holds
 
 - **No third parties beyond the disclosed ones.** The privacy page discloses exactly three:
-  Google Analytics 4 (`[services.googleAnalytics]` in `hugo.toml`, rendered by Hugo's embedded
-  template through `layouts/_partials/analytics.html` in production builds only), the download
+  Google Analytics 4 (`[services.googleAnalytics]` in `hugo.toml`; consent first: Consent Mode v2
+  defaults in `layouts/_partials/analytics.html`, and `assets/js/consent.js` loads gtag.js only after
+  the cookie notice's Accept; production builds only), the download
   page's release lookup on api.github.com, and the footer newsletter form, which may post only
   to the Mailchimp host in `FORM_ACTION_HOSTS`. Never add another analytics or tracking tag, a
   CDN script or stylesheet, or web fonts from elsewhere, and never copy layer5io/docs' head,
-  navbar or footer (Docsy's head would add a second gtag). A new outside host needs a privacy
+  navbar or footer (Docsy's head would add a second, consent-less gtag). A new outside host needs a privacy
   page update first. `.github/scripts/check-third-party.py` fails the build.
 - **Brand tokens only.** Every colour, type style, radius and shadow in
   `assets/css/site.css` is a token from `static/assets/brand/tokens.json`. Light is the

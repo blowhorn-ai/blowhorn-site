@@ -25,9 +25,10 @@ scripts from third parties other than the ones it discloses: Google Analytics
   redirects).
   A refresh is a top-level navigation the reader asked for by opening that
   path, not a subresource load; every other refresh host fails.
-  A third: <script src> may load Google's gtag.js from a host in
-  ANALYTICS_SCRIPT_HOSTS (Hugo's embedded google_analytics.html template,
-  layouts/_partials/analytics.html). The privacy page discloses Google
+  A third: Google's gtag.js may come from a host in ANALYTICS_SCRIPT_HOSTS,
+  either as a <script src> or named in a script a page loads. Today
+  assets/js/consent.js adds it only after the reader accepts the cookie
+  notice (layouts/_partials/consent.html). The privacy page discloses Google
   Analytics 4. Every other attribute naming that host still fails.
 - CSS: every url(...) and @import in each stylesheet a page loads.
 - JavaScript: every absolute URL in each script a page loads. The Download section's script
@@ -218,7 +219,7 @@ def main(root: Path, first_party: str) -> int:
     for script in sorted(scripts):
         for match in JS_URL.finditer(script.read_text(encoding="utf-8")):
             host = host_of(match.group(0))
-            if host and host not in allowed | SCRIPT_HOSTS:
+            if host and host not in allowed | SCRIPT_HOSTS | ANALYTICS_SCRIPT_HOSTS:
                 problems.append(f"{script.relative_to(root)}: names {match.group(0)}")
     for item in problems:
         print(f"third-party request: {item}", file=sys.stderr)

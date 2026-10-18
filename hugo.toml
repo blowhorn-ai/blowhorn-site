@@ -130,10 +130,11 @@ renderSegments = ["public"]
   priority = 0.5
   filename = "sitemap.xml"
 
-# Google Analytics 4. Hugo's embedded google_analytics.html template renders
-# the gtag.js tag from this id; layouts/_partials/analytics.html adds it to
-# every page head (marketing, legal and /docs/) in production builds only, so
-# `make build`, `make site` and deploy previews send no hits.
+# Google Analytics 4, consent first. layouts/_partials/analytics.html sets
+# Google Consent Mode v2 to denied in every page head (marketing, legal and
+# /docs/), and assets/js/consent.js loads gtag.js with this id only after the
+# reader accepts the cookie notice. Production builds only, so `make build`,
+# `make site` and deploy previews send no hits.
 [services.googleAnalytics]
   id = "G-2ZLYGVE3HN"
 

@@ -2659,3 +2659,63 @@ a.docs-card.platform-card[href$="/youtube/"]::before { background-image: url("/a
 a.docs-card.platform-card[href$="/instagram/"]::before { background-image: url("/assets/platforms/instagram-simple-icons.svg"); background-size: 22px 22px; }
 a.docs-card.platform-card[href$="/tiktok/"]::before { background-image: url("/assets/platforms/tiktok-simple-icons.svg"); background-size: 22px 22px; }
 a.docs-card.platform-card[href$="/facebook/"]::before { background-image: url("/assets/platforms/facebook-simple-icons.svg"); background-size: 22px 22px; }
+
+/* ---------- Cookie notice (layouts/_partials/consent.html) ----------
+  A small glass card in the bottom corner, full width less the gutter on
+  phones. It never covers more than it must and closes with one tap or Esc. */
+.consent {
+  position: fixed;
+  z-index: 1040;
+  inset-inline: var(--space-4);
+  bottom: var(--space-4);
+  max-width: 360px;
+  padding: var(--space-4) var(--space-8) var(--space-4) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--glass-fill-strong);
+  color: var(--ink);
+  box-shadow: var(--glass-shadow);
+}
+.consent[hidden] { display: none; }
+.consent-title { margin: 0 0 var(--space-1); font-size: 14px; line-height: 20px; font-weight: 600; }
+.consent-text { margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.consent-text a { color: var(--link); text-decoration: none; }
+.consent-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.consent-button { min-height: 36px; padding: var(--space-1) var(--space-4); font-size: 13px; }
+.consent-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+.consent-close:hover { background: var(--surface-raised); color: var(--ink); }
+.consent-close svg { fill: none; stroke: currentColor; stroke-width: var(--stroke-icon); stroke-linecap: round; }
+.footer-consent {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.footer-consent:hover { color: var(--link); }
+@media (prefers-reduced-motion: no-preference) {
+  .consent:not([hidden]) { animation: consent-in 200ms ease-out; }
+  @keyframes consent-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+@media (min-width: 480px) {
+  .consent { inset-inline: var(--space-6) auto; bottom: var(--space-6); }
+}
