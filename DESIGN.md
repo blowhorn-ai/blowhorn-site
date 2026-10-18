@@ -82,5 +82,5 @@ Paper, mint and command keep their colours in dark mode so a voice looks the sam
 - Do pick the variant by who is talking, and use the same variant for the same voice on every page.
 - Do keep command to one per section.
 - Don't mix variants within one list, put links or buttons inside a bubble, or use teal (#00B39F) as a fill under white text (2.6:1).
-- The storybook variant is only for the /home-alt/ preview.
+- The storybook variant is retired: its only page, the /home-alt/ preview, was deleted with the flat storybook art.
 

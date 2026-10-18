@@ -720,7 +720,7 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
    surface, surface-tint, mint, teal-deep).
    Tail: .bubble--tail-left | -right | -top | -bottom | -auto (bottom on
    narrow screens, left from 720px). Optional --bubble-tail-at moves it
-   along its side. Variants: --paper, --mint, --command, --storybook
+   along its side. Variants: --paper, --mint, --command
    (default is the neutral one). */
 .bubble {
   --bubble-fill: var(--surface);
@@ -816,23 +816,6 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
 @media (prefers-color-scheme: dark) {
   .agent-prompts .bubble { --bubble-lift: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.4)); }
 }
-/* Storybook: the /home-alt/ preview style (colours from home-alt.css). */
-.bubble--storybook {
-  --bubble-fill: #FFF8EA;
-  --bubble-stroke: var(--sb-ink, #3A2414);
-  --bubble-stroke-w: 4px;
-  --bubble-radius: 28px;
-  --bubble-tail: 18px;
-  --bubble-tail-at: 60px;
-  --bubble-lift: drop-shadow(4px 5px 0 var(--sb-ink, #3A2414));
-  margin-top: var(--head-gap);
-  padding: 18px 26px;
-  color: var(--sb-ink, #3A2414);
-  font-family: var(--sb-serif, Georgia, serif); font-weight: 700; font-size: 1.3rem;
-}
-@media (max-width: 420px) {
-  .bubble--storybook { font-size: 1.1rem; padding: 14px 18px; }
-}
 .major-copy p:not(.bubble) { color: var(--ink-muted); max-width: 36rem; }
 @media (min-width: 720px) {
   .major-card {
@@ -860,7 +843,8 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
 .major-says-art {
   flex: none;
   width: 56px;
-  height: auto;
+  height: 56px;
+  object-fit: cover;
   padding: var(--space-1);
   border-radius: var(--radius-pill);
   background: var(--cream);
@@ -2324,7 +2308,7 @@ a.card.docs-card > * { margin-top: 0; }
   border: 2px solid var(--near-black); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-pop); cursor: pointer;
 }
-.army-src svg { width: 44px; height: 44px; flex: none; }
+.army-src .soldier { width: 44px; height: 44px; flex: none; object-fit: contain; }
 .army-src:hover { background: var(--surface-raised); }
 .army-src:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
 .army-src[aria-pressed="true"] { background: var(--surface-tint); }
@@ -2363,7 +2347,7 @@ a.card.docs-card > * { margin-top: 0; }
   background: var(--surface); border: 2px solid var(--near-black); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-pop); font-weight: 600; transition: transform 0.3s, background 0.3s;
 }
-.army-mac svg { width: 40px; height: 40px; }
+.army-mac .soldier { width: 40px; height: 40px; object-fit: contain; }
 .army-mac-tag { font-size: 0.8125rem; font-weight: 400; color: var(--ink-muted); }
 .army-mac.is-on { background: var(--surface-tint); transform: translateY(-4px); }
 .army-mac.is-on .army-mac-tag { color: var(--link); font-weight: 600; }
@@ -2378,7 +2362,7 @@ a.card.docs-card > * { margin-top: 0; }
 @keyframes army-hop { 50% { transform: translateY(-6px) scale(1.1); } }
 .army-legend { display: grid; gap: var(--space-4); margin-top: var(--head-gap); }
 .army-legend li { display: flex; gap: var(--space-3); align-items: center; }
-.army-legend svg { width: 40px; height: 40px; flex: none; }
+.army-legend .soldier { width: 40px; height: 40px; flex: none; object-fit: contain; }
 .army-blink { animation: army-blink 1s steps(2) infinite; }
 @keyframes army-blink { 50% { opacity: 0.2; } }
 @media (prefers-color-scheme: dark) {
@@ -2418,7 +2402,7 @@ a.card.docs-card > * { margin-top: 0; }
 .army-cic-cmd .term { margin: 0; }
 .army-cic-note { margin: 0; font-size: 0.875rem; color: var(--ink-muted); }
 .army-halt-text { pointer-events: none; }
-.army-board.is-halted .army-src svg, .army-board.is-halted .army-mac svg { filter: grayscale(1); opacity: 0.55; }
+.army-board.is-halted .army-src .soldier, .army-board.is-halted .army-mac .soldier { filter: grayscale(1); opacity: 0.55; }
 .army-board.is-halted .army-src, .army-board.is-halted .army-mac { color: var(--ink-muted); }
 .army-board.is-halted .army-wires path { stroke: var(--coral); }
 .army-board.is-halted .army-mac-tag { color: var(--coral-shade); font-weight: 600; }

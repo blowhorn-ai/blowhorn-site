@@ -56,7 +56,7 @@
   }
   function drawMacs(claim, added) {
     if (halted) claim = -1;
-    var tpl = macs.querySelector('.army-mac svg').outerHTML, html = '';
+    var tpl = macs.querySelector('.army-mac .soldier').outerHTML, html = '';
     for (var m = 0; m < count; m++) {
       html += '<li class="army-mac' + (m === claim ? ' is-on' : '') + (added && m === count - 1 ? ' is-new' : '') + '">' + tpl +
         '<span class="army-mac-name">Machine ' + (m + 1) + '</span><span class="army-mac-tag">' + (halted ? 'halted' : m === claim ? 'on it' : 'standing by') + '</span></li>';

@@ -88,26 +88,26 @@ apps:
   - name: App icon, light
     file: blowhorn-app-icon-light.svg
 mascot:
-  - name: At attention
-    file: major-blowhorn-attention.svg
-    alt: Major Blowhorn standing at attention in his campaign hat
-    w: 460
-    h: 480
-  - name: Hero
-    file: major-blowhorn-hero.svg
-    alt: Major Blowhorn crowing through a megaphone as speech bubbles fly out
-    w: 760
-    h: 610
-  - name: At the desk
-    file: major-blowhorn-desk.svg
-    alt: Major Blowhorn at a desk with a laptop showing a checklist
-    w: 620
-    h: 440
-  - name: Badge
-    file: major-blowhorn-badge.svg
-    alt: Major Blowhorn's head in a round badge
-    w: 328
-    h: 328
+  - name: Hat, facing left
+    file: locked-6/major-6-hat-left
+    alt: Major Blowhorn in his campaign hat, pointing and shouting into his bullhorn, facing left
+    w: 657
+    h: 560
+  - name: Hat, facing right
+    file: locked-6/major-6-hat-right
+    alt: Major Blowhorn in his campaign hat, pointing and shouting into his bullhorn, facing right
+    w: 657
+    h: 560
+  - name: Medals
+    file: locked-6/major-6-medals-right
+    alt: Major Blowhorn with his medals, shouting into his bullhorn
+    w: 660
+    h: 560
+  - name: Plain
+    file: locked-6/major-6-plain-left
+    alt: Major Blowhorn without his hat, shouting into his bullhorn
+    w: 659
+    h: 560
 fonts:
   - family: Bricolage Grotesque
     role: Display
