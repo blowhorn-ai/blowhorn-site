@@ -4,7 +4,7 @@ heading: Blowhorn Trust Center
 description: How Blowhorn handles your data, sessions and accounts, in plain language, and every policy that covers the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.
 lead: Many public voices, one coordinated queue, every action on your own machine. Every policy for the Blowhorn website, desktop app and Chrome extension, each with a plain-language summary. Where a summary differs from its policy, the policy decides.
 layout: trust-center
-lastmod: 2026-10-09
+lastmod: 2026-10-18
 sitemap:
   changefreq: monthly
   priority: 0.5
@@ -19,8 +19,8 @@ glance:
     text: The extension talks only to the Blowhorn app on your machine, over Chrome's native messaging. It acts only on supported sites, only in the Chrome profiles you install it in, and keeps nothing itself.
     link: /legal/privacy/#in-chrome-through-the-blowhorn-extension
     linkText: What the extension reads
-  - title: No analytics, no crash reports, no cookies
-    text: The app carries no analytics or crash-reporting library. This website sets no cookies, runs no analytics and loads nothing from third parties. While you browse, its one outside request is the release lookup on GitHub. The newsletter form sends your email address to Mailchimp only when you submit it, and the privacy page describes both.
+  - title: No analytics or crash reports in the app
+    text: The app carries no analytics or crash-reporting library. This website uses Google Analytics to count visits, and its cookies are the only ones the site sets. Its other outside request is the release lookup on GitHub. The newsletter form sends your email address to Mailchimp only when you submit it. The privacy page describes all three.
     link: /legal/privacy/#this-website
     linkText: What this website does
   - title: One account for your queue, analytics and credentials

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Fail if the built site makes the browser load anything from another host.
 
-The privacy page promises that blowhorn.ai "sets no cookies, runs no analytics
-and loads no fonts, images, styles or scripts from third parties", and
-discloses its one outside request. This check holds the build to it:
+The privacy page promises that blowhorn.ai loads no fonts, images, styles or
+scripts from third parties other than the ones it discloses: Google Analytics
+4 and the download page's release lookup. This check holds the build to it:
 
 - HTML: deny by default. Every attribute value on every element that is an
   absolute http(s) or protocol-relative URL is treated as a fetch; srcset,
@@ -25,6 +25,10 @@ discloses its one outside request. This check holds the build to it:
   redirects).
   A refresh is a top-level navigation the reader asked for by opening that
   path, not a subresource load; every other refresh host fails.
+  A third: <script src> may load Google's gtag.js from a host in
+  ANALYTICS_SCRIPT_HOSTS (Hugo's embedded google_analytics.html template,
+  layouts/_partials/analytics.html). The privacy page discloses Google
+  Analytics 4. Every other attribute naming that host still fails.
 - CSS: every url(...) and @import in each stylesheet a page loads.
 - JavaScript: every absolute URL in each script a page loads. The Download section's script
   (assets/js/download.js) asks GitHub's public API for the newest release, a
@@ -47,6 +51,8 @@ from urllib.parse import urlparse
 FIRST_PARTY = "blowhorn.ai"
 # Hosts a script may name. Each one must be disclosed on the privacy page.
 SCRIPT_HOSTS = {"api.github.com", "github.com"}
+# Hosts a <script src> may load Google Analytics 4 (gtag.js) from. Disclosed on the privacy page.
+ANALYTICS_SCRIPT_HOSTS = {"www.googletagmanager.com"}
 # Hosts a <form action> may post to. Each one must be disclosed on the privacy page.
 FORM_ACTION_HOSTS = {"calcotestudios.us15.list-manage.com"}
 
@@ -181,6 +187,8 @@ def main(root: Path, first_party: str) -> int:
         for tag, attr, ref in collector.refs:
             host = host_of(ref)
             if attr == "refresh" and host in REFRESH_HOSTS:
+                continue
+            if tag == "script" and attr == "src" and host in ANALYTICS_SCRIPT_HOSTS:
                 continue
             if host and host not in allowed:
                 problems.append(f"{page.relative_to(root)}: <{tag} {attr}> loads {ref}")

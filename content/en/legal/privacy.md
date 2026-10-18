@@ -2,12 +2,12 @@
 title: Privacy
 heading: What Blowhorn stores, and where
 description: What the Blowhorn website and the Blowhorn app store, where they store it, and what the app sends.
-lead: Last updated 9 October 2026. This page covers this website, the Blowhorn app and its Chrome extension. Your account is covered by the [account privacy policy](https://layer5.io/company/legal/privacy/) of Layer5, Inc., which makes Blowhorn.
+lead: Last updated 18 October 2026. This page covers this website, the Blowhorn app and its Chrome extension. Your account is covered by the [account privacy policy](https://layer5.io/company/legal/privacy/) of Layer5, Inc., which makes Blowhorn.
 layout: legal
 weight: 10
 aliases:
   - /privacy.html
-lastmod: 2026-10-09
+lastmod: 2026-10-18
 sitemap:
   changefreq: yearly
   priority: 0.3
@@ -15,9 +15,10 @@ sitemap:
 
 ## This website
 
-blowhorn.ai is a static site served by GitHub Pages. It sets no cookies, runs no analytics and loads no fonts, images, styles or scripts from third parties: they are all served from this site. While you browse, its one request to another host is the download page's release lookup, described below. The newsletter form in the footer sends nothing unless you submit it.
+blowhorn.ai is a static site served by GitHub Pages. Its fonts, images and styles are all served from this site. It uses Google Analytics to count visits, which is its one script from a third party, and the cookies that Google Analytics sets are the only ones it sets. Its other request to another host is the download page's release lookup. Both are described below. The newsletter form in the footer sends nothing unless you submit it.
 
 - GitHub serves the pages and keeps its own server logs. Those are covered by the [GitHub privacy statement](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement).
+- Google Analytics 4 measures how the site is used: which pages are viewed, how visitors arrived, and roughly where they are and what device and browser they use. Every page loads Google's tag (gtag.js) from `www.googletagmanager.com`, and it sends that usage to Google along with your IP address and the usual request headers. It sets first-party cookies (`_ga` and `_ga_<id>`) on blowhorn.ai so repeat visits can be counted. Layer5 uses the reports only to improve this site and doesn't combine them with your Blowhorn account. Google's handling is covered by the [Google privacy policy](https://policies.google.com/privacy) and [how Google uses information from sites that use its services](https://policies.google.com/technologies/partner-sites). You can block it with a content blocker, by turning JavaScript off, or with Google's [opt-out browser add-on](https://tools.google.com/dlpage/gaoptout). The site works the same without it.
 - The download page asks GitHub's public API for the newest release from your browser. That request reaches GitHub like any other request your browser makes, with your IP address and the usual request headers. With JavaScript off, no request is made and the download button still works.
 
 ### Newsletter signup

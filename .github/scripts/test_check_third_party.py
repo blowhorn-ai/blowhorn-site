@@ -73,6 +73,14 @@ class CheckThirdPartyTest(unittest.TestCase):
                                  "evil.example")
         self.assert_fails_naming({"index.html": page(body=f'<img src="https://{cloud_host}/x.png" alt="">')}, cloud_host)
 
+    def test_gtag_script_src_is_the_one_allowed_analytics_load(self):
+        self.assert_passes({"index.html": page('<script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZLYGVE3HN"></script>'
+                                               "<script>window.dataLayer = window.dataLayer || [];</script>")})
+        self.assert_fails_naming({"index.html": page('<img src="https://www.googletagmanager.com/x.png" alt="">')},
+                                 "googletagmanager.com")
+        self.assert_fails_naming({"index.html": page('<script src="https://analytics.example/gtag.js"></script>')},
+                                 "analytics.example")
+
     def test_inline_script_request_fails(self):
         self.assert_fails_naming({"index.html": page(body='<script>fetch("https://tracker.example/hit")</script>')},
                                  "tracker.example")

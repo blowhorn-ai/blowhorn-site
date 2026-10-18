@@ -4,11 +4,11 @@
 # The marketing and legal pages render through Blowhorn's own layouts
 # (layouts/home.html, layouts/baseof.html, layouts/trust-center.html,
 # layouts/legal.html, layouts/404.html);
-# Docsy is imported for the /docs/ section. Never add analytics or anything
-# loaded from another host: the privacy page (content/en/legal/privacy.md) promises
-# no cookies, no analytics and no assets from third parties (the Download
-# section's GitHub release lookup is the one disclosed outside request), and
-# `make site-check` fails the build when a page loads from another host.
+# Docsy is imported for the /docs/ section. Google Analytics 4 is the one
+# analytics service ([services.googleAnalytics] below); nothing else may load
+# from another host. The privacy page (content/en/legal/privacy.md) discloses
+# it beside the Download section's GitHub release lookup, and `make site-check`
+# fails the build when a page loads from any other host.
 
 baseURL = "https://blowhorn.ai/"
 title = "Blowhorn"
@@ -129,6 +129,13 @@ renderSegments = ["public"]
   changefreq = "weekly"
   priority = 0.5
   filename = "sitemap.xml"
+
+# Google Analytics 4. Hugo's embedded google_analytics.html template renders
+# the gtag.js tag from this id; layouts/_partials/analytics.html adds it to
+# every page head (marketing, legal and /docs/) in production builds only, so
+# `make build`, `make site` and deploy previews send no hits.
+[services.googleAnalytics]
+  id = "G-2ZLYGVE3HN"
 
 [params]
   # Shared opening of the "Strong signal" section on every /compare/<slug>/ page.

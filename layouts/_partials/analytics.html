@@ -1,0 +1,10 @@
+{{- /* Google Analytics 4 (gtag.js), through Hugo's embedded
+  google_analytics.html template and the id in [services.googleAnalytics] in
+  hugo.toml. Production builds only (`hugo` with no -e flag, as
+  `make build-production` and the deploy run it): the dev build, the live
+  servers and deploy previews (HUGO_PREVIEW=true) render nothing. head.html and
+  docs-head.html both call this partial; Docsy's own head, which would add a
+  second tag, is not used. */ -}}
+{{- if and hugo.IsProduction (ne (getenv "HUGO_PREVIEW") "true") }}
+{{- partial "google_analytics.html" . }}
+{{- end -}}
