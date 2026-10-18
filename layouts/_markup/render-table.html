@@ -1,23 +1,45 @@
 {{- /* Goldmark renders table headers as bare <th> cells, which html-validate
   rejects (wcag/h63 wants a scope). Product tables never use column
-  alignment, so none is rendered here. */ -}}
-<table>
+  alignment, so none is rendered here.
+
+  A table tagged {.coverage} on the line after it (block attributes are on in
+  hugo.toml) renders as a coverage matrix: each body cell holding one legend
+  letter gets a cov-* class (Y live, S coming soon, P partial, A any site,
+  ? unverified, N no, D closed), and the Blowhorn row, or a Blowhorn column,
+  gets cov-us. The Markdown stays a plain table; the colours live in site.css. */ -}}
+{{- $class := .Attributes.class | default "" }}
+{{- $matrix := in (split $class " ") "coverage" }}
+{{- $states := dict "Y" "yes" "S" "soon" "P" "partial" "A" "any" "?" "unknown" "N" "no" "D" "closed" }}
+{{- $usCol := -1 }}
+{{- if $matrix }}
+  {{- range .THead }}{{ range $i, $c := . }}{{ if eq (strings.TrimSpace (string $c.Text)) "Blowhorn" }}{{ $usCol = $i }}{{ end }}{{ end }}{{ end }}
+{{- end }}
+{{- if $matrix }}<div class="coverage-scroll" tabindex="0" role="region" aria-label="Coverage table">{{ end }}
+<table{{ with .Attributes.id }} id="{{ . }}"{{ end }}{{ with $class }} class="{{ . }}"{{ end }}>
   <thead>
     {{- range .THead }}
     <tr>
-      {{- range . }}
-      <th scope="col">{{ .Text }}</th>
+      {{- range $i, $c := . }}
+      <th scope="col"{{ if and $matrix (eq $i $usCol) }} class="cov-us"{{ end }}>{{ $c.Text }}</th>
       {{- end }}
     </tr>
     {{- end }}
   </thead>
   <tbody>
     {{- range .TBody }}
-    <tr>
-      {{- range . }}
-      <td>{{ .Text }}</td>
+    {{- $us := false }}
+    {{- if $matrix }}{{ with index . 0 }}{{ $us = eq (strings.TrimSpace (string .Text)) "Blowhorn" }}{{ end }}{{ end }}
+    <tr{{ if $us }} class="cov-us"{{ end }}>
+      {{- range $i, $c := . }}
+      {{- $cls := slice }}
+      {{- if $matrix }}
+        {{- with index $states (strings.TrimSpace (string $c.Text)) }}{{ $cls = $cls | append "cov" (printf "cov-%s" .) }}{{ end }}
+        {{- if eq $i $usCol }}{{ $cls = $cls | append "cov-us" }}{{ end }}
+      {{- end }}
+      <td{{ with $cls }} class="{{ delimit . " " }}"{{ end }}>{{ $c.Text }}</td>
       {{- end }}
     </tr>
     {{- end }}
   </tbody>
 </table>
+{{- if $matrix }}</div>{{ end }}
