@@ -2,18 +2,25 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://blowhorn.ai/schemas/hero.schema.json",
   "title": "Home page hero variants",
-  "description": "data/hero.json: the headline and subhead variants of the blowhorn.ai home page hero. The default variant is rendered into the static HTML (no-JS visitors, crawlers, social previews); assets/js/hero.js may swap in another at page load. See docs/hero-variants.md.",
+  "description": "data/hero.json: the headline, subhead and art variants of the blowhorn.ai home page hero, and which of them rotate. Every rotating variant is rendered into the static HTML and layouts/_partials/hero-rotation-head.html shows one at page load; the default is what no-JS visitors, crawlers and social previews get. See docs/hero-variants.md.",
   "type": "object",
   "additionalProperties": false,
   "required": ["default", "variants"],
   "properties": {
     "$schema": { "type": "string" },
     "default": {
-      "description": "Id of the variant rendered into the static HTML. Must be one of variants[].id (the build fails otherwise).",
+      "description": "Id of the variant no-JS visitors see, and that the meta, Open Graph and JSON-LD descriptions are built from. Must be one of rotation (the build fails otherwise).",
       "$ref": "#/definitions/id"
     },
+    "rotation": {
+      "description": "Ids of the variants that rotate, in order: the hero shown is rotation[floor(now / interval) % length], with the interval from params.hero_rotation.interval_seconds in hugo.toml. Omit to rotate every variant. Variants not listed stay in the file for later.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/id" }
+    },
     "variants": {
-      "description": "Every variant, in rotation order: the daily rule picks variants[day % length].",
+      "description": "Every variant. Only those listed in rotation are shown.",
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
@@ -22,7 +29,7 @@
   },
   "definitions": {
     "id": {
-      "description": "URL-safe id, used in ?hero=<id> and data-hero-variant.",
+      "description": "URL-safe id, used in ?hero=<id>, data-hero and data-hero-only.",
       "type": "string",
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
       "maxLength": 40
@@ -46,6 +53,11 @@
           "minLength": 1,
           "maxLength": 220,
           "not": { "pattern": "\u2014" }
+        },
+        "art": {
+          "description": "The illustration beside the copy, a partial in layouts/_partials/hero-art/: stage is Major Blowhorn barking into your own Chrome, fan is one message fanning out to every platform. Defaults to stage.",
+          "type": "string",
+          "enum": ["stage", "fan"]
         },
         "differentiators": {
           "description": "Numbers of the claims this copy rests on in Blowhorn's canonical differentiators list. Copy may only state what those claims allow.",

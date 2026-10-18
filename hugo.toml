@@ -155,6 +155,11 @@ renderSegments = ["public"]
   offlineSearch = true
   offlineSearchMaxResults = 10
 
+# The home page hero rotation (data/hero.json "rotation", docs/hero-variants.md):
+# each visitor gets rotation[floor(now / interval) % length] at page load.
+[params.hero_rotation]
+  interval_seconds = 60
+
 [params.llms]
   generate_llms_txt = true
   generate_llms_full_txt = true

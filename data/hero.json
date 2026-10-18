@@ -1,6 +1,7 @@
 {
   "$schema": "../schemas/hero.schema.json",
   "default": "not-a-bot",
+  "rotation": ["not-a-bot", "one-message"],
   "variants": [
     {
       "id": "not-a-bot",
@@ -36,6 +37,14 @@
       "subhead": "The social console that runs in your own Chrome: LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub and Slack from one queue, posted as you. About a minute to set up.",
       "differentiators": [8, 12],
       "note": "After bindplane.com: a category claim with concrete proof (the networks, the setup time) and an ownership close like its \"Own your telemetry. Control your costs.\""
+    },
+    {
+      "id": "one-message",
+      "headline": "One message. Many ears.",
+      "subhead": "Posted as you, from your own Chrome.",
+      "art": "fan",
+      "differentiators": [8],
+      "note": "The hero the page led with before not-a-bot: the broadcast promise over the one-to-many fan. Rotates with not-a-bot."
     }
   ]
 }

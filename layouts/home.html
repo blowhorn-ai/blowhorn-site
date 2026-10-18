@@ -4,6 +4,7 @@
 {{ define "head" }}
     {{- $hero := partial "hero-variant.html" . }}
     {{- $heroDesc := printf "%s %s" $hero.headline $hero.subhead }}
+    {{- partial "hero-rotation-head.html" . }}
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Blowhorn">
     <meta property="og:title" content="Blowhorn: one message, many ears">
@@ -37,14 +38,21 @@
 {{- end }}
 
 {{ define "main" }}
-    {{- $hero := partial "hero-variant.html" . }}
+    {{- /* The hero rotates: data/hero.json "rotation" lists the heroes, every one is
+      rendered once, and the picker in hero-rotation-head.html shows one of them before
+      first paint. Hidden ones are display: none, so only one headline is read out. */}}
+    {{- $rot := partial "hero-rotation.html" . }}
     <main id="main">
-      <section class="hero" aria-labelledby="hero-title" data-hero-variant="{{ $hero.id }}">
+      <section class="hero" aria-labelledby="hero-title">
         <div class="wrap hero-grid">
           <div class="hero-copy">
             <p class="label">Blowhorn · for macOS</p>
-            <h1 id="hero-title" class="display-xl">{{ $hero.headline }}</h1>
-            <p class="body-lg hero-sub">{{ $hero.subhead }}</p>
+            <h1 id="hero-title" class="display-xl">
+              {{- range $rot.heroes }}<span data-hero-only="{{ .id }}">{{ .headline }}</span>{{ end -}}
+            </h1>
+            <p class="body-lg hero-sub">
+              {{- range $rot.heroes }}<span data-hero-only="{{ .id }}">{{ .subhead }}</span>{{ end -}}
+            </p>
             <div class="hero-actions">
               <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">
                 <svg aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#glyph-download"></use></svg>
@@ -57,52 +65,11 @@
             </p>
             {{- partial "social-proof.html" (dict "slot" "hero") }}
           </div>
-          <figure class="hero-art">
-            {{- /* The hero stage: Major Blowhorn (locked-6, cut out of his black ground) barks
-              into your own Chrome while your post types itself, key by key, signed in as you.
-              Layer5 green: Caribbean Green rings, Keppel active tab and Post button.
-              Motion is CSS only and stops under prefers-reduced-motion (styles: "Hero stage"). */}}
-            {{- $major := "assets/brand/mascot/locked-6/major-6-hat-left.webp" | relURL }}
-            <svg class="stage" viewBox="0 0 560 440" role="img" aria-labelledby="hero-art-title" focusable="false" xmlns="http://www.w3.org/2000/svg">
-              <title id="hero-art-title">Major Blowhorn shouts into your own Chrome window, where your post types itself out key by key and goes out signed in as you</title>
-              <defs>
-                <clipPath id="stage-type-1"><rect class="stage-type stage-type-1" x="306" y="152" width="184" height="26"></rect></clipPath>
-                <clipPath id="stage-type-2"><rect class="stage-type stage-type-2" x="306" y="182" width="210" height="26"></rect></clipPath>
-              </defs>
-              <rect class="stage-ground" x="0" y="0" width="560" height="440" rx="24"></rect>
-              <g class="stage-browser">
-                <rect class="stage-window" x="250" y="40" width="290" height="256" rx="14"></rect>
-                <path class="stage-tab" d="M264 70V58Q264 50 272 50H340Q348 50 348 58V70Z"></path>
-                <path class="stage-tab stage-tab-active" d="M352 70V58Q352 50 360 50H428Q436 50 436 58V70Z"></path>
-                <rect class="stage-bar" x="264" y="78" width="262" height="20" rx="10"></rect>
-                <circle class="stage-avatar" cx="318" cy="124" r="12"></circle>
-                <text class="stage-chip" x="338" y="129">Signed in as you</text>
-                <g clip-path="url(#stage-type-1)"><text class="stage-post" x="306" y="170">Big news: v2 ships today.</text></g>
-                <g clip-path="url(#stage-type-2)"><text class="stage-post" x="306" y="200">Written by us, posted by us.</text></g>
-                <rect class="stage-caret" x="306" y="186" width="2" height="18"></rect>
-                <rect class="stage-send" x="450" y="244" width="76" height="32" rx="16"></rect>
-                <text class="stage-send-label" x="488" y="265">Post</text>
-                <g class="stage-done">
-                  <rect x="344" y="244" width="100" height="32" rx="16"></rect>
-                  <text x="394" y="265">Posted as you</text>
-                </g>
-              </g>
-              <image class="stage-major" href="{{ $major }}" x="4" y="148" width="340" height="290" preserveAspectRatio="xMidYMid meet"></image>
-              <g class="stage-rings">
-                <path d="M260 199Q272 215 260 231"></path>
-                <path d="M272 185Q292 215 272 245"></path>
-                <path d="M284 171Q310 215 284 259"></path>
-              </g>
-            </svg>
-            <figcaption class="visually-hidden">Major Blowhorn barks orders into your own Chrome window. Your post types itself out key by key, and goes out signed in as you.</figcaption>
-          </figure>
+          {{- range $rot.arts }}
+          {{ partial (printf "hero-art/%s.html" .) $ }}
+          {{- end }}
         </div>
       </section>
-      {{- $heroJS := resources.Get "js/hero.js" | minify | fingerprint }}
-      {{- $heroVariants := slice }}
-      {{- range site.Data.hero.variants }}{{ $heroVariants = $heroVariants | append (dict "id" .id "headline" .headline "subhead" .subhead) }}{{ end }}
-      <script type="application/json" id="hero-variants">{{ dict "variants" $heroVariants | jsonify | safeJS }}</script>
-      <script src="{{ $heroJS.RelPermalink }}"></script>
 
       <section id="platforms" class="section" aria-labelledby="platforms-title">
         <div class="wrap">
@@ -112,8 +79,8 @@
               <h2 id="platforms-title" class="display">Say it once. Say it everywhere.</h2>
               <p class="body-lg muted">One queue. As many machines as you've got.</p>
             </div>
-            <figure class="hero-art">
-              {{ partial "fan.html" . }}
+            <figure class="hero-art platforms-fan">
+              {{ partial "fan.html" (dict "titleId" "fan-title") }}
               <figcaption class="visually-hidden">One message fans out to every platform, each shown with its own logo: LinkedIn, X, Reddit, Slack, Bluesky, Hacker News and GitHub.</figcaption>
             </figure>
           </div>

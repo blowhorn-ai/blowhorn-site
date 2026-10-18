@@ -1,0 +1,31 @@
+{{- /* The home page hero rotation, from data/hero.json (schema:
+  schemas/hero.schema.json) and params.hero_rotation in hugo.toml. Returns
+  heroes (id, headline, subhead, art, in rotation order), arts (each art once),
+  default (the variant no-JS visitors see) and intervalMs. Fails the build when
+  rotation names an unknown variant, when default is not in the rotation, or when
+  the interval is not a positive number of seconds. See docs/hero-variants.md. */ -}}
+{{- $data := site.Data.hero -}}
+{{- $ids := slice -}}
+{{- with $data.rotation }}{{ $ids = . }}{{ else }}{{ range $data.variants }}{{ $ids = $ids | append .id }}{{ end }}{{ end -}}
+{{- $heroes := slice -}}
+{{- $arts := slice -}}
+{{- range $ids -}}
+  {{- $match := where $data.variants "id" . -}}
+  {{- if not $match -}}
+    {{- errorf "data/hero.json: rotation names %q, which is not one of variants[].id" . -}}
+  {{- end -}}
+  {{- $v := index $match 0 -}}
+  {{- $art := $v.art | default "stage" -}}
+  {{- $heroes = $heroes | append (dict "id" $v.id "headline" $v.headline "subhead" $v.subhead "art" $art) -}}
+  {{- if not (in $arts $art) }}{{ $arts = $arts | append $art }}{{ end -}}
+{{- end -}}
+{{- $default := partial "hero-variant.html" . -}}
+{{- if not (in $ids $default.id) -}}
+  {{- errorf "data/hero.json: default %q must be one of rotation, or no-JS visitors would get no hero" $default.id -}}
+{{- end -}}
+{{- $seconds := 60 -}}
+{{- with site.Params.hero_rotation }}{{ with .interval_seconds }}{{ $seconds = . }}{{ end }}{{ end -}}
+{{- if le (float $seconds) 0 -}}
+  {{- errorf "hugo.toml: params.hero_rotation.interval_seconds must be above 0, got %v" $seconds -}}
+{{- end -}}
+{{- return dict "heroes" $heroes "arts" $arts "default" $default.id "intervalMs" (int (mul (float $seconds) 1000)) -}}

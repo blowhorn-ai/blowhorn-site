@@ -69,7 +69,7 @@ Every CI step that runs repository logic is a make target, and the workflow call
 | `workflow-check` | actionlint on `site.yml`, `publish-dmg.yml` and `sync-docs.yml` | `site.yml` |
 | `test-scripts` | unit tests for the check scripts in `.github/scripts/` | `site.yml` |
 | `site-check` | one production build, then the checks below | `site.yml` |
-| `check-schemas` | `data/hero.json` (the home page hero variants) and `data/roles.json` (the `/for/<role>/` pages) validate against their schemas in `schemas/` ([docs/hero-variants.md](docs/hero-variants.md)) | `site-check` |
+| `check-schemas` | `data/hero.json` (the home page hero variants and rotation) and `data/roles.json` (the `/for/<role>/` pages) validate against their schemas in `schemas/` ([docs/hero-variants.md](docs/hero-variants.md)) | `site-check` |
 | `validate-html` | html-validate on every built page | `site-check` |
 | `check-links` | every local link, image, font and `srcset` reference resolves | `site-check` |
 | `check-third-party` | no page, or stylesheet or script it loads, requests another host (except the disclosed GitHub release lookup) | `site-check` |

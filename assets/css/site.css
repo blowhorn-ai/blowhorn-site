@@ -490,6 +490,10 @@ pre code { background: none; padding: 0; }
   .hero-art { margin-inline: 0 0; }
 }
 
+/* While the fan is the hero (data/hero.json art "fan"), the Platforms section drops its
+   own copy of it so the page never shows the fan twice. */
+html[data-hero-art="fan"] .platforms-fan { display: none; }
+
 /* The one-to-many motif, after archdev.ai's "signal": one source, thin wires, small
    dots travelling outward, and each platform's official logo on its own white tile.
    Only the wires and dots move. The logos never do: Bluesky's and X's guidelines say

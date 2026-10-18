@@ -1,8 +1,10 @@
 {{- /* The one-to-many fan: one message, thin wires, pulses travelling out to each
   platform's own logo on a white tile. Styles: "The one-to-many motif" in assets/css/site.css.
-  Its <title> id fan-title is in the site contract. */ -}}
-<svg class="fan" viewBox="0 -24 560 500" role="img" aria-labelledby="fan-title" focusable="false" xmlns="http://www.w3.org/2000/svg">
-    <title id="fan-title">One message fanning out to every platform</title>
+  Call with (dict "titleId" "<id>"): the Platforms section's copy uses fan-title,
+  which is in the site contract, and the fan hero uses its own id. */ -}}
+{{- $titleId := .titleId | default "fan-title" -}}
+<svg class="fan" viewBox="0 -24 560 500" role="img" aria-labelledby="{{ $titleId }}" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <title id="{{ $titleId }}">One message fanning out to every platform</title>
     
     <!-- Paths -->
     <path class="fan-line" d="M174 226C270 226 240.7 16 350.7 16"></path>
