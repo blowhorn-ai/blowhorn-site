@@ -15,7 +15,7 @@
             {{ partial "bubble.html" (dict "text" "Ears up. Major is talking" "class" "h3" "variant" "paper") }}
           </div>
           <figure class="major-plate major-plate-tall">
-            <img src="{{ printf "%smajor-oil-portrait.webp" $art | relURL }}" alt="An oil-painting-style portrait of Major Blowhorn, a teal rooster in a campaign hat with medals on his chest, in a gilt frame" width="1000" height="1232">
+            <img src="{{ printf "%smajor-portrait-oil.webp" $art | relURL }}" alt="An oil painting of Major Blowhorn, a teal rooster in a campaign hat with a row of medals, a gold bullhorn tucked under his wing and a scowl on his face" width="700" height="720">
             <figcaption class="caption muted">Official portrait. He sat for eleven seconds</figcaption>
           </figure>
         </header>
@@ -25,7 +25,6 @@
           <a href="#blowhard">The Blowhard incident</a>
           <a href="#thunderlung">Old Thunderlung</a>
           <a href="#top-crow">Top crow</a>
-          <a href="#portraits">Portraits</a>
           <a href="#voice">How he talks</a>
           <a href="#dispatches">Dispatches</a>
         </nav>
@@ -49,7 +48,7 @@
                 {{- end }}
               </ol>
               <figure class="major-plate">
-                <img src="{{ printf "%smajor-pushup-breakfast.webp" $art | relURL }}" alt="Major Blowhorn at his field desk at dawn beside a big red bowl of dumbbells, his breakfast of push-ups" width="1400" height="903" loading="lazy">
+                <img src="{{ printf "%smajor-pushup-breakfast-oil.webp" $art | relURL }}" alt="An oil painting of Major Blowhorn at his field desk at dawn, eating from a big red bowl with dumbbells lined up beside it" width="1280" height="720" loading="lazy">
                 <figcaption class="caption muted">Breakfast of champions. Champions are not invited</figcaption>
               </figure>
             </div>
@@ -59,7 +58,7 @@
         <section id="blowhard" class="brand-section" aria-labelledby="blowhard-title">
           <div class="major-split major-split-reverse">
             <figure class="major-plate">
-              <img src="{{ printf "%smajor-blowhard-incident.webp" $art | relURL }}" alt="Major Blowhorn whispering into a giant megaphone on a tripod as speech bubbles blast across a stormy sky" width="1400" height="903" loading="lazy">
+              <img src="{{ printf "%smajor-blowhard-incident-oil.webp" $art | relURL }}" alt="An oil painting of Major Blowhorn whispering into a giant gold megaphone on a tripod as speech bubbles blast across a stormy sky" width="1280" height="720" loading="lazy">
               <figcaption class="caption muted">The incident, as remembered by the weather</figcaption>
             </figure>
             <div class="major-story">
@@ -80,7 +79,7 @@
               <p>He will not let anyone else play it. "Is not instrument," he says. "Is colleague."</p>
             </div>
             <figure class="major-plate">
-              <img src="{{ printf "%smajor-thunderlung.webp" $art | relURL }}" alt="Old Thunderlung, a dented brass trumpet with a red tassel, resting on a red velvet cushion" width="1400" height="903" loading="lazy">
+              <img src="{{ printf "%smajor-thunderlung-oil.webp" $art | relURL }}" alt="An oil painting of Old Thunderlung, a dented brass trumpet with a red tassel, resting on a red velvet cushion beside a medal" width="1280" height="720" loading="lazy">
               <figcaption class="caption muted">Old Thunderlung, at rest. Briefly</figcaption>
             </figure>
           </div>
@@ -89,7 +88,7 @@
         <section id="top-crow" class="brand-section" aria-labelledby="top-crow-title">
           <div class="major-split major-split-reverse">
             <figure class="major-plate">
-              <img src="{{ printf "%smajor-top-crow.webp" $art | relURL }}" alt="Major Blowhorn on a fence post at sunrise, crowing through his megaphone as colorful speech bubbles fly out" width="1400" height="903" loading="lazy">
+              <img src="{{ printf "%smajor-top-crow-oil.webp" $art | relURL }}" alt="An oil painting of Major Blowhorn on a fence post at sunrise, crowing through his bullhorn as colorful speech bubbles fly out" width="1280" height="720" loading="lazy">
               <figcaption class="caption muted">Top cock-a-doodle-doo, on duty</figcaption>
             </figure>
             <div class="major-story">
@@ -98,51 +97,6 @@
               <p>That is how he sees your launch. One message out, many ears in. He does not care who is loudest. He cares who answers.</p>
             </div>
           </div>
-        </section>
-
-        <section id="portraits" class="brand-section" aria-labelledby="portraits-title">
-          <div class="section-head">
-            <h2 id="portraits-title" class="h2">The portrait gallery</h2>
-            <p class="muted">Oil paintings of the Major and his squad, from the barracks wall. He had them hung at eye level. His eye level.</p>
-          </div>
-          <ul class="grid grid-3 major-gallery">
-            <li>
-              <figure class="major-plate">
-                <img src="{{ printf "%smajor-oil-locked6.webp" $art | relURL }}" alt="Oil painting of Major Blowhorn, a teal rooster in a campaign hat, pointing and shouting into a gold bullhorn" width="1024" height="576" loading="lazy" decoding="async">
-                <figcaption class="caption muted">Giving orders. He is always giving orders</figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure class="major-plate">
-                <img src="{{ printf "%sgeneral-oil-locked6.webp" $art | relURL }}" alt="Oil painting of the General, a horned goat in a dark uniform with a green sash, holding a scroll and a cane" width="1024" height="576" loading="lazy" decoding="async">
-                <figcaption class="caption muted">The General. Calm, few words, never a bullhorn</figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure class="major-plate">
-                <img src="{{ printf "%skeyboard-warrior-oil-locked6.webp" $art | relURL }}" alt="Oil painting of the Keyboard Warrior, a rooster in a helmet carrying a glowing green keyboard" width="1024" height="576" loading="lazy" decoding="async">
-                <figcaption class="caption muted">Keyboard Warrior, on patrol</figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure class="major-plate">
-                <img src="{{ printf "%srobo-recruit-oil-locked6.webp" $art | relURL }}" alt="Oil painting of Robo-Recruit, a small teal robot in a top hat, marching with a card in its chest slot" width="1024" height="576" loading="lazy" decoding="async">
-                <figcaption class="caption muted">Robo-Recruit. Has not blinked since reveille</figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure class="major-plate">
-                <img src="{{ printf "%sscene-terminal-oil-locked6.webp" $art | relURL }}" alt="Oil painting of a rooster soldier in a helmet typing at a glowing computer terminal" width="1024" height="576" loading="lazy" decoding="async">
-                <figcaption class="caption muted">Night shift at the terminal</figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure class="major-plate">
-                <img src="{{ printf "%sscene-command-tent-oil-locked6.webp" $art | relURL }}" alt="Oil painting of the whole squad gathered around a glowing table inside a command tent" width="1024" height="576" loading="lazy" decoding="async">
-                <figcaption class="caption muted">Briefing in the command tent. Major has the floor. Major always has the floor</figcaption>
-              </figure>
-            </li>
-          </ul>
         </section>
 
         <section id="voice" class="brand-section" aria-labelledby="voice-title">
