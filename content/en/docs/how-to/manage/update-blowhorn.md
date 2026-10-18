@@ -30,16 +30,21 @@ The card names each step as it happens:
    and macOS Gatekeeper must accept it.
 3. **installing**. The new app is copied into Applications and swapped in.
    If anything fails, your current version is put back.
-4. **relaunching**. Blowhorn closes and the new version opens. If Blowhorn
+4. **finishing setup**. Blowhorn checks its Chrome connection with
+   `blowhorn setup` and, if you installed `blowhorn-axi` globally, updates it
+   too. This usually takes a few seconds. If it fails, your current version
+   is put back.
+5. **relaunching**. Blowhorn closes and the new version opens. If Blowhorn
    asks what to do about work in progress before it closes and you choose
    **stay open**, the new version stays installed and opens the next time you
    start Blowhorn, or when you press **update** again.
 
-Verifying and installing have no bytes to count, so the bar sweeps and the
-card says how long the step usually takes, for example "usually about 25
-seconds". Blowhorn times these steps on your Mac each time it updates and
-uses those timings next time. Until it has its own, it uses timings measured
-on an Intel iMac: about 24 seconds to verify and 20 seconds to copy the app.
+Verifying, installing and finishing setup have no bytes to count, so the bar
+sweeps and the card says how long the step usually takes, for example
+"usually about 25 seconds". Blowhorn times these steps on your Mac each time
+it updates and uses those timings next time. Until it has its own, it uses
+timings measured on an Intel iMac: about 24 seconds to verify, 20 seconds to
+copy the app and a few seconds to finish setup.
 
 ## If an update stalls
 
@@ -48,7 +53,9 @@ its usual time, the card says so and offers two buttons:
 
 - **retry** stops the update and starts it again. Your current version stays
   installed until the new one has been verified. Once the new version is in
-  Applications, retry only reopens it; nothing is downloaded again.
+  Applications, retry cannot stop the update: if finishing setup ends well,
+  Blowhorn reopens on the new version, and if it fails, your current version
+  is put back. Nothing is downloaded again.
 - **release page** opens the release on GitHub so you can update by hand.
 
 The info button after the two buttons says how long nothing has moved.
