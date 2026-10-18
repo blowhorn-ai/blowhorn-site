@@ -29,6 +29,14 @@ Start from what you saw. Each symptom names its fix page.
   typing does not reach X's form either. Sign in by hand in the tab, or run
   with `--chrome-launch cdp`. See [Fix a sign-in that stopped working](/docs/how-to/troubleshoot/sign-in-problems/).
 
+## The app
+
+- **The menu-bar popup says the engine couldn't start, isn't responding, or
+  asks you to move Blowhorn to Applications.** See [Fix Blowhorn when its
+  engine won't start](/docs/how-to/troubleshoot/engine-wont-start/).
+- **An update sits on one step, or says it stalled.** See [Update
+  Blowhorn](/docs/how-to/manage/update-blowhorn/#if-an-update-stalls).
+
 ## Chrome and the extension
 
 - **The extension says not connected, or the versions mismatch.** Re-approve

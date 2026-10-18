@@ -38,7 +38,9 @@ the browser comes back to Blowhorn and the command:
    using the Blowhorn beta. There is no form to fill in.
 
 If no answer comes back within five minutes, the command stops; run it
-again. `blowhorn auth login --dry-run` prints where it would sign you in and
+again. If your browser shows a Layer5 Cloud error page instead of coming
+back, Layer5 Cloud refused the sign-in; if it happens again, send us the
+page's message. `blowhorn auth login --dry-run` prints where it would sign you in and
 opens, waits for and saves nothing.
 
 Then check what the plan says:
@@ -64,9 +66,14 @@ Keychain asks once whether `python` may use the saved sign-in. Choose
 Open `blowhorn://signin`, the link the Blowhorn Chrome extension's **Sign in**
 offers. The app opens Layer5 Cloud in your browser; sign in there, or create
 an account. `blowhorn://signup` starts the same sign-in for a new account
-(see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)). Cloud sends you back
-to the app, and the app finishes the sign-in.
-The token is kept by Blowhorn's command line, never by the app.
+(see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)). Cloud sends its
+answer to Blowhorn's command line on this Mac (`127.0.0.1`), and the browser
+tab says Blowhorn received it: close the tab and return to the app, which has
+finished the sign-in. The token is kept by Blowhorn's command line, never by
+the app. If the browser stays on a Layer5 Cloud error page instead, Cloud
+refused the sign-in: no answer comes back, and once the wait runs out the app
+tells you you're not signed in. Try again, and if that page comes back, send
+us its message.
 
 If your account has no Blowhorn plan yet, the app opens Layer5 Cloud
 (`cloud.layer5.io`) so you can start the beta there.

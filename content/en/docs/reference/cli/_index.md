@@ -83,8 +83,8 @@ last read of the plan failed when it did;
 `auth login` signs you in to Layer5 Cloud in your browser (Layer5 Cloud's
 provider sign-in, the one Meshery uses; create an account there if you are
 new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps a `purpose=blowhorn` Layer5 Cloud API token in the macOS Keychain (revoking the one the previous sign-in kept) and reads your plan once, sending
-an account without Blowhorn straight to Layer5 Cloud to start the beta (`--redirect app` is the desktop app's route
-through `blowhorn://auth/callback`; `BLOWHORN_CLOUD_TOKEN` still wins when set);
+an account without Blowhorn straight to Layer5 Cloud to start the beta (the answer comes back to a one-shot
+listener on `127.0.0.1`, which is what the desktop app runs too; `BLOWHORN_CLOUD_TOKEN` still wins when set);
 `auth logout` revokes the saved API token on Layer5 Cloud, then forgets it,
 the account in `cloud.yaml` and the local attestation cache.
 
@@ -158,9 +158,11 @@ machine), `chrome status` reports whether Chrome is installed, running and open
 to remote debugging with one next-step line when something is off, `chrome
 suggest` prints a name-matched mapping proposal and applies nothing,
 `chrome map <profile> <directory>` / `chrome unmap <profile>` are the mapping's
-only writers, `chrome attach-chrome [status|start]` reports or starts a
+only writers, `chrome attach-chrome [status|start|signin|stop|install-agent|uninstall-agent]` reports, starts,
+signs in, stops or keeps up at login a
 dedicated second Chrome that is open to remote debugging with no Allow dialog
-(`~/.blowhorn/attach-chrome`, on a port Chrome picks), writing no configuration of its own,
+(`~/.blowhorn/attach-chrome`, on a port Chrome picks, bound to 127.0.0.1; any program running as you on
+this Mac can drive it), writing no configuration of its own,
 and `chrome extension-install` writes the native-messaging host manifest Chrome
 launches (`com.blowhorn.chrome_extension.json`) and the executable launcher it names, and prints
 the unpacked `extension/` directory to load. If you already installed the host, run the
@@ -180,7 +182,7 @@ Chrome extension answers hello. It reads the manifest, the launcher, the policy,
 reports.
 All but `chrome unmap`, `chrome extension-install`, `chrome extension-status` and `chrome extension-mode` read two files under a Chrome data
 directory (`Local State`, `DevToolsActivePort`) and nothing else - `attach-chrome`
-reads the dedicated tree's pair rather than the daily one's; `chrome unmap`
+reads the dedicated tree's pair rather than the daily one's, plus its `SingletonLock`; `chrome unmap`
 reads only your account, so a mapping can be removed when those files are gone;
 `chrome extension-install --all-profiles` also reads `Local State` in the
 configured Chrome data directory, only to name each Chrome profile there, and
@@ -193,8 +195,8 @@ bridge lock beside that socket; while a run holds the bridge it says so and
 writes no hello.
 `chrome extension-mode` reads no Chrome file: it reads or writes the extension
 mode in your Layer5 Cloud account.
-Only `attach-chrome start` starts a browser, and it never drives the one it
-starts. All carry a stable `--json` shape; every detail is in the [Chrome reference](/docs/reference/chrome/),
+Only `attach-chrome start` and `attach-chrome signin` start a browser, and neither drives the one it
+starts; `attach-chrome stop` quits only the Chrome holding that tree. All carry a stable `--json` shape; every detail is in the [Chrome reference](/docs/reference/chrome/),
 the procedure in [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/).
 The mapping is identity, never permission, and nothing that runs a browser
 reads it yet. The directory is `defaults.chrome.data_dir` /
@@ -396,6 +398,8 @@ blowhorn chrome suggest
 blowhorn chrome map your-profile 'Profile 12'
 blowhorn chrome unmap your-profile
 blowhorn chrome attach-chrome start --dry-run
+blowhorn chrome attach-chrome signin
+blowhorn chrome attach-chrome stop
 blowhorn profile status --chrome
 ```
 

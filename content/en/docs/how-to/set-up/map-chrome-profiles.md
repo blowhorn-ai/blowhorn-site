@@ -106,8 +106,21 @@ directory, and the directory is not already mapped to another Blowhorn
 profile on this machine. Then it records the display name and signed-in
 account Chrome shows for the directory and prints what it recorded.
 
+Mapping also pairs the profile. The command opens the Blowhorn extension's
+pairing page in that Chrome profile and prints:
+
+```
+opened the pairing page in chrome profile 'Profile 2'; once it says paired, runs for profile ada are checked against that chrome profile
+```
+
+Wait for the page to say the profile is paired. From then on a run for `ada`
+refuses before it does anything if Chrome is on another profile. When the page
+could not be opened, the command says why and what to run once Chrome is open
+on that profile. See [Pairing](/docs/reference/chrome/#pairing).
+
 Quote a directory name that contains a space. Add `--dry-run` to run the
-checks and record nothing; add `--json` for the recorded row as JSON.
+checks and record nothing (and open no pairing page); add `--json` for the
+recorded row and the pairing result as JSON.
 
 Mapping a profile that already has a mapping replaces it. Mapping it to the
 directory it already has refreshes the recorded name and account, which is
@@ -159,6 +172,8 @@ the Chrome profile keeps its sessions.
 A mapping does not install the Chrome extension. Chrome keeps an extension
 per Chrome profile, and the Blowhorn extension drives only the profile it
 is installed in, so install it in every Chrome profile you post from.
+Install it before you map, or map again afterward, so the pairing page has an
+extension to land in.
 
 ## When your account cannot be reached
 

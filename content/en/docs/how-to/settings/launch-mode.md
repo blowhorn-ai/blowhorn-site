@@ -65,29 +65,74 @@ approves nothing: click cancel there and run again.
 For the authenticity of a real Chrome profile with no dialog, run a second
 Chrome on a tree of its own. Chrome 136 and later ignore the classic port
 switch on the default data directory, which is why this is a separate Chrome
-and not your daily one. Mac only:
+and not your daily one. Mac only.
+
+**What you are trading.** That Chrome's debugging port has no password and
+asks for no Allow. It is bound to `127.0.0.1`, so nothing off this Mac can
+reach it, but any program running as you on this Mac can drive that Chrome
+and read its cookies, for every account signed in there. Sign it in only to
+the accounts Blowhorn posts from, never your personal email or bank.
+
+### 1. Sign in once, with no debugging {#section-1-sign-in-once-with-no-debugging}
+
+```bash
+blowhorn chrome attach-chrome signin
+```
+
+That opens Chrome on `~/.blowhorn/attach-chrome` with no remote debugging at
+all, because some sites (Google among them) refuse to sign in inside a browser
+started with debugging on. In that window, add one Chrome profile per Blowhorn
+profile, sign each in to the sites it posts to, then quit Chrome (Cmd-Q) so
+the sign-ins are saved. They carry over to the next step.
+
+### 2. Start it with the port open, and map it {#section-2-start-it-with-the-port-open-and-map-it}
 
 ```bash
 blowhorn chrome attach-chrome start
-```
-
-That starts Chrome on `~/.blowhorn/attach-chrome`, prints the steps it leaves
-to you, and steps back: Blowhorn never drives that Chrome itself. Do them in
-order:
-
-```bash
 blowhorn config set defaults.chrome.data_dir ~/.blowhorn/attach-chrome
 blowhorn chrome profiles
 blowhorn chrome map ada 'Default'
 blowhorn post --profile ada --chrome-launch cdp
 ```
 
-On its own, `blowhorn chrome attach-chrome` reports that tree without starting
-anything, and `start --dry-run` prints the command line without running it.
-The profiles there start empty and are signed in once, like automation
-profiles. Starting is refused when the tree is Chrome's own default data
-directory, or when a port is already recorded there: a crashed Chrome leaves
-its `DevToolsActivePort` behind too, so the refusal names the file to delete.
+`start` launches Chrome with `--remote-debugging-port=0
+--remote-debugging-address=127.0.0.1` (plus
+`--disable-blink-features=AutomationControlled`, so pages do not see
+`navigator.webdriver` turned on by the port) and steps back: Blowhorn never drives
+that process directly, only tabs in it. Chrome picks the port and records it
+in `DevToolsActivePort`. Before every `cdp` run attaches, Blowhorn checks that
+the recorded port is listened on by the Chrome holding the tree (its
+`SingletonLock`), on loopback only, and refuses by name otherwise.
+
+### 3. Keep it up for scheduled jobs {#section-3-keep-it-up-for-scheduled-jobs}
+
+```bash
+blowhorn chrome attach-chrome install-agent
+blowhorn config set defaults.chrome.launch_mode cdp
+```
+
+`install-agent` adds a LaunchAgent, `ai.blowhorn.attach-chrome`, that runs
+`attach-chrome start` once at each login. It never restarts a Chrome you
+quit. With `defaults.chrome.data_dir` pointing at the tree and
+`defaults.chrome.launch_mode` set to `cdp`, every scheduler tick attaches to
+it with no dialog. To pin one job instead of the whole checkout, set that
+job's `Driver Mode` to `cdp`. `uninstall-agent` removes the agent and leaves
+Chrome running. `blowhorn uninstall` removes it
+too.
+
+### Day to day
+
+- `blowhorn chrome attach-chrome` reports the tree: whether a Chrome holds
+  it, its recorded port, and the next step. Any action with `--dry-run`
+  prints what it would do and does nothing.
+- `blowhorn chrome attach-chrome stop` quits that Chrome the way Cmd-Q does
+  (DevTools `Browser.close`, so a sign-in it just refreshed is saved), waits,
+  then sends `SIGTERM`. It never force-kills. Use it before `signin` when a
+  site needs signing in again.
+- Starting is refused when the tree is Chrome's own default data directory,
+  when a Chrome with a port is already up there, and while the tree is open
+  without debugging (the `signin` window). A `DevToolsActivePort` left by a
+  crashed Chrome is cleared, not refused.
 
 ## One scheduled job, its own driver
 
@@ -137,6 +182,9 @@ argv, each job resolves its own driver.
 | `chrome's 'Allow remote debugging?' dialog was not answered within 120 s; …` (20 s for a scheduled job) | click cancel in the dialog still open in Chrome, run again and click allow in the new one, or run with `--chrome-launch persistent` |
 | `profile ada on linkedin is in use by blowhorn process <pid>; …` | another run is acting as that profile: wait for it, or stop it |
 | `… is google chrome's own data directory; …` | the dedicated tree must never be Chrome's own default directory |
+| `… is open in a chrome without remote debugging (pid <n>) …` | quit the `signin` window (Cmd-Q), then `attach-chrome start` |
+| `port <n> is listened on by pid <m>, not by the chrome holding …` | another program has that port: `attach-chrome stop`, then `start` |
+| `no live chrome holds … so port <n> recorded there is left over …` | `blowhorn chrome attach-chrome start` |
 
 ## Related
 

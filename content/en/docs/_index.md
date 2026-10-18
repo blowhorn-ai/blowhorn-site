@@ -9,9 +9,7 @@ cascade:
 
 <p class="label">Docs</p>
 
-# Blowhorn docs
-
-One queue. Every profile. Posted as you, from your own Chrome.
+# One queue. Every profile. Posted as you, from your own Chrome.
 
 <div class="docs-banner" role="note">
 

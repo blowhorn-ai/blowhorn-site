@@ -57,13 +57,12 @@ the background service. Each row says what it found, or what to do next.
 Every row is described under Setup in
 [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/#setup).
 
-**If you already have a checkout of the Blowhorn repository**, the app keeps
-using it instead of the engine it carries, so your profiles and settings in
-that checkout stay where they are. The app uses a checkout when one is named
-under **blowhorn folder** in Settings' **app paths** card, or when one is at
-`~/code/blowhorn`. To use the engine in the app instead, clear that field and
-move the `~/code/blowhorn` folder away, then reopen the app. Your data stays
-in the checkout and does not move with you.
+**The installed app runs only the engine it carries.** It does not look for
+a checkout of the Blowhorn repository, at `~/code/blowhorn` or anywhere else,
+so a checkout you already have keeps its own profiles and settings and the
+app does not read them. If the engine in the app cannot start, Setup says so
+in one line; [Fix an engine that won't start](/docs/how-to/troubleshoot/engine-wont-start/)
+walks through it.
 
 Connecting the Blowhorn Chrome extension to this machine takes no pop-up:
 
@@ -113,9 +112,10 @@ page instead. When the app cannot install the update itself, it opens the
 release page and you download the newer `.dmg`,
 verify it as in [Download](#download), and drag the app over the old copy.
 The background service and your settings are kept. The engine is part of
-the app, so updating the app updates the engine too. An app that uses a
-checkout instead refreshes that checkout's helper tools when it updates and
-leaves its code to you: pull the checkout to update its engine.
+the app, so updating the app updates the engine too.
+
+[Update Blowhorn](/docs/how-to/manage/update-blowhorn/) shows each step the update
+takes and what to do if it stalls.
 
 ## Related
 

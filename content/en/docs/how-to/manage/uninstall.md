@@ -57,7 +57,11 @@ present`, `not unregistered` or `failed`:
 1. **The background service.** A loaded `ai.blowhorn.service` is booted out
    and waited for, then its file under `~/Library/LaunchAgents` is removed. A
    label the app registered as its login item is booted out the same way; its
-   Login Items entry is unregistered by the app itself in step 5.
+   Login Items entry is unregistered by the app itself in step 5. The attach
+   Chrome's login agent, `ai.blowhorn.attach-chrome` (written by
+   `blowhorn chrome attach-chrome install-agent`), is booted out and its file
+   removed the same way, as `uninstall-agent` does; a Chrome it started keeps
+   running.
 2. **The Chrome native host.** The manifest under Chrome's
    `NativeMessagingHosts`, the launcher and the bridge socket beside it.
 3. **The every-profile install entries.** The external-extensions file and

@@ -16,10 +16,13 @@ how-to guides under Related.
 `Local State` and `DevToolsActivePort`, and nothing else: never
 cookies, saved passwords, storage, or the keychain. It writes nothing
 there and opens no browser, DevTools, or network connection. Whether
-Chrome is running is one bounded process lookup. The one exception is
-`blowhorn chrome extension-status`, which also reads each Chrome
+Chrome is running is one bounded process lookup. There are two
+exceptions. `blowhorn chrome extension-status` also reads each Chrome
 profile's `Secure Preferences` and `Preferences` for the extension's
 entry alone (see [its section](#blowhorn-chrome-extension-status)).
+`blowhorn chrome map` also asks Chrome to open a window on the
+extension's pairing page in the mapped Chrome profile, and creates this
+machine's pairing key outside Chrome's directory (see [Pairing](#pairing)).
 
 The extension's native host reads one more thing, only to answer the
 toolbar popup: it looks for the extension's own random identifier in
@@ -46,6 +49,34 @@ Chrome and refuses a name Chrome no longer has. `blowhorn chrome unmap
 <profile>` removes one mapping. A mapping is identity, never
 permission: it says where the run acts, not what it may do, and there
 is never a fallback to another profile.
+
+### Pairing
+
+The Chrome extension drives whichever Chrome profile it is installed in, so a
+mapping alone cannot stop a run from acting in the wrong one. `blowhorn chrome
+map` therefore also pairs the profile: it opens the extension's pairing page in
+the mapped Chrome profile, and the page keeps a token tied to this machine, the
+Blowhorn profile and the Chrome directory. The token is derived from a random
+key Blowhorn keeps on this machine (`chrome_pairing.key`, readable only by you);
+it carries no account data. The extension keeps it in its own storage (the
+`storage` permission, which shows no install warning) and reports it when a run
+connects.
+
+Before any action, a run checks the token. It refuses with one sentence when
+the Chrome profile is not paired, is paired to another Blowhorn profile (the
+sentence names both and the Chrome directory to switch to), or is paired to a
+mapping this machine no longer has. To pair, or to pair again after the
+extension was reinstalled, map the profile to the directory it already has:
+
+```bash
+blowhorn chrome map ada 'Profile 2'
+```
+
+On the desktop app, the Chrome card on a profile has a pair again button that
+does the same. An extension older than pairing cannot report a token; the run
+says so once on stderr and goes ahead. The check starts once Chrome updates the
+extension to a version that pairs and you re-run `blowhorn chrome map` for each
+profile.
 
 ## Launch modes
 
@@ -105,12 +136,37 @@ the same.
 its own (`~/.blowhorn/attach-chrome`), open to remote debugging, so
 `--chrome-launch cdp` can attach unattended with no Allow dialog.
 Chrome 136 and later ignore the debugging switch on the default data
-directory, which is why this is never your daily Chrome. `status`
-reads that tree's two files and opens nothing; `start` launches Chrome
-detached and prints the steps that finish the setup. It writes no
-configuration: pointing `chrome.data_dir` at the tree stays your
-explicit next step. A recorded port is evidence a Chrome is up, not
-proof a connect would succeed.
+directory, which is why this is never your daily Chrome.
+
+The port is bound to `127.0.0.1` and has no password: any program
+running as you on this Mac can drive that Chrome and read its
+cookies. Sign it in only to the accounts Blowhorn posts from.
+
+A debugging port alone makes Chrome report `navigator.webdriver` as
+`true` to every page, so `start` also passes
+`--disable-blink-features=AutomationControlled`, which keeps it
+`false`, as launch mode does by dropping `--enable-automation`.
+
+| action | what it does |
+| --- | --- |
+| `status` (default) | reads the tree's `Local State`, `DevToolsActivePort` and `SingletonLock`; opens nothing |
+| `signin` | opens the tree with no debugging switch, for the one-time sign-in; quit it after |
+| `start` | launches Chrome detached with `--remote-debugging-port=0 --remote-debugging-address=127.0.0.1 --disable-blink-features=AutomationControlled`, then prints the setup steps |
+| `stop` | DevTools `Browser.close`, waits, then `SIGTERM`; signals only the tree's own Chrome, never `SIGKILL` |
+| `install-agent` | writes and loads `~/Library/LaunchAgents/ai.blowhorn.attach-chrome.plist`, which runs `start` at each login and logs to `data/logs/attach-chrome-agent.*.log` (or `--log-dir`) |
+| `uninstall-agent` | unloads and removes that LaunchAgent; Chrome keeps running |
+
+Off macOS every action but `status` is refused by name, and nothing is
+started, signalled or written.
+
+It writes no configuration: pointing `chrome.data_dir` at the tree,
+and `chrome.launch_mode` at `cdp` for scheduled jobs, stay your
+explicit steps. A recorded port counts only while a live Chrome holds
+the tree, and it is evidence, not proof. Before a `cdp` run attaches
+to this tree, it checks with `lsof` that the recorded port is
+listened on by the pid holding the tree, on loopback only, and
+refuses otherwise. `--json` on `status` adds `holder_pid`,
+`stale_port` and `held_without_debugging`.
 
 ## `blowhorn chrome extension-install`
 
@@ -143,11 +199,14 @@ With the extension driver, a run uses one of two behaviors:
 | --- | --- | --- |
 | Blowhorn's tab | opens inactive at the end of the window | opens inactive, grouped beside the tab you are on |
 | focus emulation | from the first action that takes the debugger | from the first page load |
+| Chrome's debugging bar | while an action holds the debugger, gone after a short idle period | for the whole run, from before the site loads |
 | visible screenshot | switches to Blowhorn's tab for the capture | captured through the debugger, no tab switch |
 | input | synthetic unless `BLOWHORN_EXTENSION_INPUT=trusted` | trusted unless `BLOWHORN_EXTENSION_INPUT=synthetic` |
 | bringing the tab forward | before an automated login, and for a screenshot | only when you are needed (a code, a challenge, a sign-in you finish yourself) |
 
-classic is the default and is what the Chrome Web Store build has always done.
+background is the default. classic is what the Chrome Web Store build 1.12.10
+has always done, and `BLOWHORN_EXTENSION_ROLLBACK=classic` forces it on a
+machine.
 Where the mode comes from, top wins:
 
 | layer | spelling |
@@ -155,7 +214,7 @@ Where the mode comes from, top wins:
 | this machine | `BLOWHORN_EXTENSION_ROLLBACK=classic` forces classic |
 | one scheduled job | its `Driver Mode`: `extension-classic` or `extension-background` |
 | your account | the extension mode on Settings, Chrome extension (saved as `extensionMode` in your Layer5 Cloud preferences, so it follows you to every machine) |
-| nothing set | classic |
+| nothing set | background |
 
 `BLOWHORN_EXTENSION_ROLLBACK=1` still swaps the driver for Blowhorn's own
 Chrome as before; it says nothing about the mode. `0`, `false` and `off` read
@@ -163,18 +222,31 @@ as unset; any other value is refused before the run starts. On Settings the
 selector is your account setting; the description under it is the mode this
 machine runs, and the card says when the variable overrides the account or
 holds a refused value. The features a
-mode sets are `placement`, `lease_at_goto`, `quiet_screenshot`,
-`checkpoint_front` and `trusted_input`. An extension too old for a background feature runs that feature
-the classic way and the run says so once on stderr. A run whose mode is not
-the classic default names it once on stderr: `extension mode: background,
-from the account setting`.
+mode sets are `placement`, `first_page`, `lease_at_goto`, `quiet_screenshot`,
+`checkpoint_front` and `trusted_input`. `first_page` is background only: a new
+Blowhorn tab first loads a blank page that belongs to the extension, then the
+site, so the site is the tab's second page. A site loaded as a tab's first page
+reads its window size as zero while it loads; as the second page it often reads
+the real size, but not always (about half the time when measured on
+2026-10-17). An extension too old for a background feature runs that feature
+the classic way, and the run says so once on stderr and carries on, so the
+store build 1.12.10 keeps working in background mode. A run whose mode is not
+the default names it once on stderr: `extension mode: classic, from the
+account setting`.
+
+In background mode Chrome's "started debugging this browser" bar stays up for
+the whole run, and it goes away when the run ends. Closing it, opening
+developer tools on Blowhorn's tab, or closing that tab takes the debugger away:
+for the rest of that run every click, key press or quiet screenshot that needs
+it fails as `input_revoked`, and the error names which of the three happened.
+Run it again and leave the tab and the bar alone.
 
 ## `blowhorn chrome extension-mode`
 
 ```bash
 blowhorn chrome extension-mode              # the mode a run would use, and why
-blowhorn chrome extension-mode background   # save background to your account
-blowhorn chrome extension-mode default      # clear it, so runs use classic
+blowhorn chrome extension-mode classic      # save classic to your account
+blowhorn chrome extension-mode default      # clear it, so runs use background
 ```
 
 With no mode it reads your account setting from Layer5 Cloud and writes

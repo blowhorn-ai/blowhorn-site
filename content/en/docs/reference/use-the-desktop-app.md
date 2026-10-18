@@ -73,10 +73,9 @@ ready (otherwise the first run is the guided setup; see
 five rows read from this machine:
 "Blowhorn folder", "helper tools", "organization connection", "chrome profiles",
 and "background service". The first two check the engine bundled in the
-app, or a contributor's checkout when the app uses one
-([Install the app](/docs/how-to/set-up/install-the-app/#first-run)); the
-engine in the app never needs a clone or an install, so its rows offer
-neither. An app run from its disk image says to move it to Applications
+app, the only engine the installed app runs
+([Install the app](/docs/how-to/set-up/install-the-app/#first-run)); it
+never needs a clone or an install, so those rows offer neither. An app run from its disk image says to move it to Applications
 instead. Each row reports ok, warn, or off with the
 one fix that clears it. The "map chrome profiles" panel and the
 "background service" row act directly: mapping a profile and
