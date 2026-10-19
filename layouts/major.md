@@ -22,6 +22,9 @@ His horn: a dented brass trumpet with a red tassel and one sticky valve, found i
 {{ .tag }}.
 
 {{ .v }}
+{{ range .links }}
+- [{{ .t }}]({{ .u | absURL }})
+{{- end }}
 {{ end }}
 
 ## Dispatches from the barracks
