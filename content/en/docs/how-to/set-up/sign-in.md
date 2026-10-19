@@ -21,8 +21,8 @@ blowhorn auth login
 
 The command opens Layer5 Cloud in your browser. Sign in there, or create an
 account with the page's Sign up link (`blowhorn auth login --sign-up` says
-so up front). When you finish,
-the browser comes back to Blowhorn and the command:
+so up front). Layer5 Cloud then asks whether to allow Blowhorn; choose
+**Allow**. The browser comes back to Blowhorn and the command:
 
 1. keeps a Blowhorn API token: Layer5 Cloud issues it for this sign-in, and
    it is separate from your browser session. It is listed, named Blowhorn,
@@ -65,7 +65,7 @@ Keychain asks once whether `python` may use the saved sign-in. Choose
 
 Open `blowhorn://signin`, the link the Blowhorn Chrome extension's **Sign in**
 offers. The app opens Layer5 Cloud in your browser; sign in there, or create
-an account. `blowhorn://signup` starts the same sign-in for a new account
+an account, then choose **Allow**. `blowhorn://signup` starts the same sign-in for a new account
 (see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)). Cloud sends its
 answer to Blowhorn's command line on this Mac (`127.0.0.1`), and the browser
 tab says Blowhorn received it: close the tab and return to the app, which has

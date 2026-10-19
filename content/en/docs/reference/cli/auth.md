@@ -19,7 +19,7 @@ The `blowhorn auth` commands. Each one's `--help` prints the same text.
 
 Sign in to Layer5 Cloud in your browser.
 
-Opens Layer5 Cloud, where you sign in or create an account, then returns here and keeps the token in the macOS Keychain (elsewhere a file only you can read beside cloud.yaml). It uses Layer5 Cloud's provider sign-in, the one Meshery uses; there is no client secret, and the token is never printed. After sign-in it reads your plan once; an account without Blowhorn is sent straight to Layer5 Cloud to start the beta. --redirect loopback (the default, and what the desktop app runs) listens on 127.0.0.1 for the answer; --redirect app reads a blowhorn://auth/callback link from stdin, which Layer5 Cloud refuses today. With --json the browser is not opened; the first line names the URL to open. --dry-run names where it would sign in and opens, waits for and saves nothing.
+Opens Layer5 Cloud, where you sign in or create an account and allow Blowhorn, then returns here and keeps the token in the macOS Keychain (elsewhere a file only you can read beside cloud.yaml). It uses Layer5 Cloud's native client sign-in: Cloud answers on 127.0.0.1 with a one-time code this command redeems with a PKCE verifier; there is no client secret, and the token is never printed. After sign-in it reads your plan once; an account without Blowhorn is sent straight to Layer5 Cloud to start the beta. --no-browser prints the sign-in address instead of opening it; --json opens no browser either, its first line names the address to open (the desktop app runs --no-browser --json and opens it itself). --dry-run names where it would sign in and opens, waits for and saves nothing.
 
 ```text
 blowhorn auth login [OPTIONS]
@@ -27,8 +27,8 @@ blowhorn auth login [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--redirect` | string |  | Where Layer5 Cloud sends the answer: 'loopback' (default, a one-shot listener on 127.0.0.1) or 'app' (blowhorn://auth/callback read from stdin; Layer5 Cloud refuses custom-scheme returns today). A directive, never a fallback. |
 | `--sign-up` | boolean | `false` | Open Layer5 Cloud to create a new account instead of signing in; it comes back the same way. |
+| `--no-browser` | boolean | `false` | Print the sign-in address and wait for the answer on 127.0.0.1 without opening a browser (--json implies it). |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string |  | Accepted and ignored by 'blowhorn auth': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by 'blowhorn auth login' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -40,7 +40,7 @@ Examples:
 ```bash
 blowhorn auth login
 blowhorn auth login --sign-up
-blowhorn auth login --redirect loopback --json
+blowhorn auth login --no-browser --json
 ```
 
 Output: json with --json, text otherwise.

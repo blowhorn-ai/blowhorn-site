@@ -31,6 +31,17 @@ the read without touching a platform. Bluesky page-style tiles do not
 exist: Bluesky gives the trend row, and asking the tiles for more
 would be inventing numbers the platform never showed.
 
+An activity's result keeps the same line. Its delivery is measured: the
+recorded promotion stamp and link, and the run that ended just after the
+stamp, which names the computer and Chrome profile. Its reception is
+measured too, read from the "All posts" sheet of the page's content export
+and dated by that export. A post the export lists but no content row links
+to is kept and marked unmatched rather than dropped. The comparison to the
+page median and the follower change around the activity are derived, and
+labelled so: the follower change is the readings before and a week after,
+which shows correlation, not cause. Where nothing was collected, the result
+says so and why, instead of showing a zero.
+
 ## Related
 
 - [Collect and read your analytics](/docs/how-to/measure/analytics/) - collect now, read the report.

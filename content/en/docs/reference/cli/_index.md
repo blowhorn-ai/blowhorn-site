@@ -79,7 +79,7 @@ and checked against it, so a page says what `--help` says.
 | Command | What it does |
 | --- | --- |
 | [`blowhorn accept`](/docs/reference/cli/accept/) | Accept pending LinkedIn connection invitations other people have sent you, one at a time with a randomized pause between each. |
-| [`blowhorn analytics`](/docs/reference/cli/analytics/) | blowhorn analytics: history, operations. |
+| [`blowhorn analytics`](/docs/reference/cli/analytics/) | blowhorn analytics: activity, history, import-exports, operations. |
 | [`blowhorn auth`](/docs/reference/cli/auth/) | blowhorn auth: login, logout, status. |
 | [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap. |
 | [`blowhorn comment`](/docs/reference/cli/comment/) | Post LinkedIn, Reddit, or Bluesky comments from scheduled rows or ad-hoc target/message flags. |
@@ -110,10 +110,12 @@ and checked against it, so a page says what `--help` says.
 enforcement mode, a summary of the last entitlement attestation, and why the
 last read of the plan failed when it did;
 `auth login` signs you in to Layer5 Cloud in your browser (Layer5 Cloud's
-provider sign-in, the one Meshery uses; create an account there if you are
+native client sign-in: you allow Blowhorn on Cloud's consent page and Cloud
+answers on 127.0.0.1 with a one-time code redeemed with a PKCE verifier; create an account there if you are
 new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps a `purpose=blowhorn` Layer5 Cloud API token in the macOS Keychain (revoking the one the previous sign-in kept) and reads your plan once, sending
-an account without Blowhorn straight to Layer5 Cloud to start the beta (the answer comes back to a one-shot
-listener on `127.0.0.1`, which is what the desktop app runs too; `BLOWHORN_CLOUD_TOKEN` still wins when set);
+an account without Blowhorn straight to Layer5 Cloud to start the beta (`--no-browser` prints the
+address instead of opening it, and `--json` opens nothing either, its first line naming the address,
+which is how the desktop app runs it; `BLOWHORN_CLOUD_TOKEN` still wins when set);
 `auth logout` revokes the saved API token on Layer5 Cloud, then forgets it,
 the account in `cloud.yaml` and the local attestation cache.
 

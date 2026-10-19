@@ -1,7 +1,7 @@
 ---
 title: "blowhorn analytics"
 linkTitle: "analytics"
-description: "blowhorn analytics: history, operations."
+description: "blowhorn analytics: activity, history, import-exports, operations."
 weight: 101
 ---
 
@@ -11,8 +11,39 @@ The `blowhorn analytics` commands. Each one's `--help` prints the same text.
 
 | Command | What it does |
 | --- | --- |
+| [`analytics activity`](#blowhorn-analytics-activity) | Print one activity's result, read from the store. |
 | [`analytics history`](#blowhorn-analytics-history) | Print the follower history the collectors have already recorded, as one dated series read from the store: every LinkedIn page and every profile's X trend, whichever machine collected them. |
+| [`analytics import-exports`](#blowhorn-analytics-import-exports) | Read the LinkedIn page content exports already on disk and record each activity's reception figures in the store. |
 | [`analytics operations`](#blowhorn-analytics-operations) | Aggregate the run ledger, read from the store, into operations per profile, per platform, per command, per day or per host. |
+
+## blowhorn analytics activity
+
+Print one activity's result, read from the store: for each profile and platform it is addressed to, whether it went out (when, the live link, which computer and browser profile ran it, and on a failure the error and the fix), how it was received where reception is collected (LinkedIn page activities, from the page content exports, with the date the figures were read and a comparison with the page's typical activity), and the follower change around it, labelled derived. Anything not collected says so, with a reason, never as a zero. A computer with no store prints a short explanation and exits 3.
+
+```text
+blowhorn analytics activity [OPTIONS] row
+```
+
+| Argument | Required | Description |
+| --- | --- | --- |
+| `row` | yes | Activity number, as 'content list' prints it |
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--platform` | string | `all` | Platform scope for 'blowhorn analytics'. One of: bluesky, linkedin, x, all ('all' means every platform listed here) |
+| `--pace` | string |  | Accepted by 'blowhorn analytics activity' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn analytics activity 164 --json
+blowhorn analytics activity 164 --profile lee
+```
+
+Output: json with --json, text otherwise.
 
 ## blowhorn analytics history
 
@@ -38,6 +69,35 @@ Examples:
 blowhorn analytics history --json --since 12m
 blowhorn analytics history --json --subject Layer5 --since all
 blowhorn analytics history --subject lee --since 90d
+```
+
+Output: json with --json, text otherwise.
+
+## blowhorn analytics import-exports
+
+Read the LinkedIn page content exports already on disk and record each activity's reception figures in the store: impressions, views, clicks, click-through rate, likes, comments, reposts, follows and engagement rate from each export's All posts sheet, dated by the export. Each activity is matched to its content row by its link; activities made outside Blowhorn are kept and marked unmatched. Prints rows read, matched and stored per file. Safe to run again: a reading lands once per activity and export date. --dry-run reads and matches without writing.
+
+```text
+blowhorn analytics import-exports [OPTIONS] [paths...]
+```
+
+| Argument | Required | Description |
+| --- | --- | --- |
+| `paths ...` | no | Export files to read (default: every content export in the analytics folder) |
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--platform` | string | `all` | Platform scope for 'blowhorn analytics'. One of: bluesky, linkedin, x, all ('all' means every platform listed here) |
+| `--pace` | string |  | Accepted by 'blowhorn analytics import-exports' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn analytics import-exports
+blowhorn analytics import-exports data/analytics/layer5_content_20260719_033126.xls --dry-run --json
 ```
 
 Output: json with --json, text otherwise.

@@ -1,7 +1,7 @@
 ---
 title: "blowhorn unfollow"
 linkTitle: "unfollow"
-description: "Unfollow one Bluesky account (--platform bluesky --target <handle>) through the Bluesky API."
+description: "Unfollow one Bluesky account (--platform bluesky --target &lt;handle&gt;) through the Bluesky API."
 weight: 120
 ---
 
