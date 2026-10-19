@@ -28,7 +28,12 @@ and a row whose lease lapsed is reclaimable by the next pass.
 `blowhorn schedule get` returns one row with all fields.
 `blowhorn schedule upsert` creates or updates a row from a JSON
 payload (`--row` names the row; `--expected-fingerprint` rejects the
-write when the row changed underneath you). `blowhorn schedule delete`
+write when the row changed underneath you). An update that gives a
+completed or failed row a new `Next Run At`, or changes its `Run At`,
+schedules it again on the same row: `Status` becomes `scheduled` and
+`Retry Count` 0, so it gets its full `Max Retries` again, and its last run
+and last error are kept. Raising `Max Retries` alone does not (see
+[Schedule a job](/docs/how-to/schedule/schedule-a-job/)). `blowhorn schedule delete`
 removes a row by number. `blowhorn schedule validate` checks every row
 against the schema. `blowhorn schedule bootstrap` previews or writes a
 starter set. `blowhorn schedule trigger-now` forces one row to run
@@ -79,7 +84,7 @@ exactly what they said.
 ## Related
 
 - [Schedule a job](/docs/how-to/schedule/schedule-a-job/) - create, pause, and resume jobs.
-- [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - the "jobs" screen and the popover boards.
+- [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - the "schedule" view of the "posts" screen and the popover boards.
 - [Settings and configuration](/docs/reference/configuration/) - the launch-mode default a job inherits.
 - [How scheduling works](/docs/explanation/scheduling/) - passes, leases, and why a row waited.
 - [CLI reference](/docs/reference/cli/) - the schedule commands.

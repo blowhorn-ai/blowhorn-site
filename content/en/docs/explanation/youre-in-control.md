@@ -82,7 +82,7 @@ and [Why flagged invitations are skipped](/docs/explanation/invitation-safety/).
 - **Rehearse first.** `--check-queue` lists what a run would do, and
   `--dry-run` walks it end to end without publishing, following or
   writing anything. Make dry run your default until you trust a setup.
-- **Stop it any time.** Pause this machine, every machine in your organization,
+- **Stop it any time.** Pause this Mac, every machine in your organization,
   or one scheduled job, each with a reason. A job already running
   finishes first, because killing a browser mid-post can leave a
   half-done action on the platform.

@@ -1,13 +1,13 @@
 ---
 title: "Manage the content queue"
-description: "Add, edit, and track queued posts in the Content screen and from the command line."
+description: "Add, edit, and track queued posts in the app's posts screen and from the command line."
 weight: 80
 aliases: [/docs/how-to/manage-the-content-worksheet/]
 ---
 
 
 Everything you publish waits in the content queue first. Add rows in the
-desktop app's Content screen, from the command line, or with the capture
+desktop app's posts screen, from the command line, or with the capture
 bookmarklet. `blowhorn post` publishes from these rows and nothing else.
 
 ## The columns a run reads
@@ -83,9 +83,9 @@ and unknown fields are all refused with the reason named.
 The bookmarklet turns the page you are reading into a new content entry
 without retyping it. It holds no credential and reaches no account: it hands
 the page's address, title, and any selected text to the desktop app, which
-opens the Content screen on a new entry pre-filled from it.
+opens the posts screen on a new entry pre-filled from it.
 
-To install it: in the app, **Content → Bookmarklet → Copy code**, then add
+To install it: in the app, **posts → from browser → copy code**, then add
 a bookmark in your browser named `Blowhorn: capture` and paste the code as
 its address.
 

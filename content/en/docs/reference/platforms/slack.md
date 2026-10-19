@@ -26,6 +26,15 @@ One profile sends a `post` run, named with `--profile`; the profile from
 the defaults file does not count as named. `blowhorn slack send` can send
 as several profiles (`--profile rian,lee`); see the [CLI reference](/docs/reference/cli/).
 
+## From the command line
+
+[`blowhorn slack`](/docs/reference/cli/slack/) has six verbs: `send`, `edit`, `delete`,
+`react`, `whoami` and `profiles`. Each write is a dry run until `--confirm`, and
+`edit` and `delete` change only a message that profile sent with Blowhorn. For
+an AI agent, [`blowhorn-axi`](/docs/reference/cli/blowhorn-axi/) wraps the same writes:
+your own session only, compact output with the next commands to run, and no
+Slack reads.
+
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.

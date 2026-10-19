@@ -6,7 +6,7 @@ weight: 161
 
 
 Every action run appends one line per profile and platform to the run ledger,
-dry or real. Read it back in the app's "runs" screen, or grouped any way you
+dry or real. Read it back on the app's "activity" screen, or grouped any way you
 like:
 
 ```bash
@@ -24,8 +24,8 @@ A dry run counts apart and never as an operation: a preview is not work done.
 Records exist from the first run after this command shipped, so an older
 window reports zero rather than history.
 
-To re-run a failure, run its command again by hand or trigger its row; a dry
-run first shows what the retry would do.
+To re-run a failure, run its command again by hand, or choose "try again" on
+it in the app's "activity" screen; a dry run first shows what the retry would do.
 
 ## Related
 

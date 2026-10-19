@@ -5,7 +5,8 @@ weight: 215
 ---
 
 
-Every command, the flags they share, and how a profile is resolved.
+Every command, the flags they share, and how a profile is resolved. Each command's flags and
+examples are on [its own page](#command-pages).
 
 {{< major >}}Your agent gives the order. I carry it out. Once.{{< /major >}}
 
@@ -67,15 +68,43 @@ All commands accept `--dry-run`, but they do not all preview the same amount. `p
 
 Because the `COMMAND SUMMARY` footer is shown only when `-v` / `--verbose` is used, a dry run of one of the stop-early commands prints nothing at all without `-v` - except `source --platform github`, which lists the audience it would store. That silence is expected, not a failure.
 
-Top-level commands:
+## Command pages
 
-```
-post      accept    withdraw  follow    source
-unfollow  comment   analytics report    find
-profile   config    schedule  desktop   service
-store     chrome    auth      slack     uninstall
-setup
-```
+Every command has a page of its own, with its flags, their types and defaults, and worked
+examples. The pages are generated from the CLI's schema, which is itself generated from the CLI
+and checked against it, so a page says what `--help` says.
+
+<!-- BEGIN generated command table: release/scripts/cli_reference/build.py; do not edit -->
+
+| Command | What it does |
+| --- | --- |
+| [`blowhorn accept`](/docs/reference/cli/accept/) | Accept pending LinkedIn connection invitations other people have sent you, one at a time with a randomized pause between each. |
+| [`blowhorn analytics`](/docs/reference/cli/analytics/) | blowhorn analytics: history, operations. |
+| [`blowhorn auth`](/docs/reference/cli/auth/) | blowhorn auth: login, logout, status. |
+| [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap. |
+| [`blowhorn comment`](/docs/reference/cli/comment/) | Post LinkedIn, Reddit, or Bluesky comments from scheduled rows or ad-hoc target/message flags. |
+| [`blowhorn config`](/docs/reference/cli/config/) | blowhorn config: get, path, set, show. |
+| [`blowhorn content`](/docs/reference/cli/content/) | blowhorn content: delete, get, list, upsert. |
+| [`blowhorn desktop`](/docs/reference/cli/desktop/) | blowhorn desktop: build, install, start, status. |
+| [`blowhorn find`](/docs/reference/cli/find/) | Search Bluesky for posts matching a query with optional date, author, and relevancy filters. |
+| [`blowhorn follow`](/docs/reference/cli/follow/) | Follow accounts on X, Bluesky, or GitHub. |
+| [`blowhorn post`](/docs/reference/cli/post/) | Publish pending posts or amplify existing content across supported platforms. |
+| [`blowhorn profile`](/docs/reference/cli/profile/) | blowhorn profile: auth, current, delete, get, list, set, status, switch. |
+| [`blowhorn report`](/docs/reference/cli/report/) | Generate a consolidated report summary from the exports already sitting in the repository-root data/analytics/ directory. |
+| [`blowhorn risk`](/docs/reference/cli/risk/) | blowhorn risk: set, show. |
+| [`blowhorn schedule`](/docs/reference/cli/schedule/) | blowhorn schedule: bootstrap, delete, get, list, pause, resume, status, tick, trigger-now, upsert, validate, why. |
+| [`blowhorn service`](/docs/reference/cli/service/) | blowhorn service: adopt, cancel, install, restart, run, start, status, stop, test, tick-now, uninstall, update. |
+| [`blowhorn setup`](/docs/reference/cli/setup/) | Set up Blowhorn on this computer, safely and repeatably. |
+| [`blowhorn slack`](/docs/reference/cli/slack/) | blowhorn slack: delete, edit, profiles, react, send, whoami. |
+| [`blowhorn source`](/docs/reference/cli/source/) | GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login. |
+| [`blowhorn store`](/docs/reference/cli/store/) | Report whether this machine can reach the Blowhorn database, and say why not when it cannot. |
+| [`blowhorn unfollow`](/docs/reference/cli/unfollow/) | Unfollow one Bluesky account (--platform bluesky --target &lt;handle&gt;) through the Bluesky API. |
+| [`blowhorn uninstall`](/docs/reference/cli/uninstall/) | Remove Blowhorn from this machine. |
+| [`blowhorn withdraw`](/docs/reference/cli/withdraw/) | Withdraw LinkedIn invitations that have been pending longer than --older-than days, freeing headroom under LinkedIn's cap on unaccepted invitations. |
+| [Shared flags and exit codes](/docs/reference/cli/shared-flags/) | The flags most blowhorn commands take, and its exit codes. |
+| [`blowhorn-axi`](/docs/reference/cli/blowhorn-axi/) | Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs --confirm. |
+
+<!-- END generated command table -->
 
 `blowhorn auth` is a group of three: `auth status` reports whether an account token and organization id are configured (never the token value), the api base,
 enforcement mode, a summary of the last entitlement attestation, and why the
@@ -243,12 +272,17 @@ profiles as `send` does), and share `send`'s exit codes.
 See [Slack](/docs/reference/platforms/slack/).
 
 `blowhorn-axi` is the agent interface to those writes, installed next to
-`blowhorn` by `tools/install.sh`. It runs `blowhorn slack … --json` and prints TOON
+`blowhorn` by `tools/install.sh` ([its reference](/docs/reference/cli/blowhorn-axi/)). It runs `blowhorn slack … --json` and prints TOON
 with a `help[]` of next commands: `blowhorn-axi` (home: `count`,
 `session_ready` and each profile's `slack_auth`), `profile list` and
-`profile status` (with `auth.test` session state unless `--offline`), and
-`slack send` with `--profile a,b` (it has no edit, delete or react yet; use
-`blowhorn slack edit|delete|react`). Every write is a dry run
+`profile status` (with `auth.test` session state unless `--offline`),
+`slack send` with `--profile a,b`, `slack edit` and `slack delete` by
+`--permalink` (only a message that profile sent with Blowhorn, else
+`not_sent_by_profile`), and `slack react --emoji` (`--remove` takes it back; a
+reaction already there is `changed: no`). An unknown flag is a usage error that
+lists the command's flags; `-v`, `-V` and `--version` print the version. The `blowhorn-axi`
+npm launcher adds `setup hooks`, which gives Claude Code, Codex and OpenCode the
+home view at the start of every session, and ships an agent skill. Every write is a dry run
 unless `--confirm`, always runs under `--slack-auth session` (a profile with
 only an app token is `token_only` and nothing runs), and takes its text from
 `--text -` (stdin), `--text-file <path>` or `--message`, with mrkdwn passed

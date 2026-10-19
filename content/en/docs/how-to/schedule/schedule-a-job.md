@@ -1,6 +1,6 @@
 ---
 title: "Schedule a job"
-description: "Run posts and other commands on a schedule, from the Jobs screen or the command line."
+description: "Run posts and other commands on a schedule, from the app's schedule view or the command line."
 weight: 150
 aliases: [/docs/how-to/schedule-runs/]
 ---
@@ -10,17 +10,32 @@ Put a command on a schedule so it runs on its own, with or without the app open.
 
 ## From the app
 
-Open the "jobs" screen and choose "new job". Pick the command, the profiles and
+Open "posts" in the rail and switch to its "schedule" view. It opens on a week calendar; switch to "day",
+"month" or "list" above it, and the screen remembers your choice. Clicking a
+day in the month opens that day, and the day view becomes the one it
+remembers.
+
+To add a job, choose "schedule something", or click a free time in the day or week
+calendar to start one at that time. Pick the command, the profiles and
 platforms it runs for, and how often it repeats. The "browser driver" control
 pins which Chrome route that job uses; leave it at the default unless one job
 needs its own route.
 
-If the schedule is empty, the screen offers "bootstrap schedule" instead: it
+To move a job, drag its next time to another time. Only the next one moves, and
+only to a time still ahead; the dashed times after it follow on their own. From
+the keyboard, open the job and choose "edit", then change "when".
+
+A job that has finished (it ran once, or gave up after its retries) has no
+next time. To run it again, open it, choose "edit" and give it a new "when":
+it is scheduled again on the same row, with its full set of retries, and its
+last run stays in its history.
+
+If the schedule is empty, the screen offers "add a sample schedule…" instead: it
 previews a starter set of rows first, and writes them only when you apply the
 preview. It never edits a schedule that already holds rows.
 
-Open a row to change it, or run it now without waiting for its time. A dry run
-previews the pass and claims nothing.
+Open a job (click it, or focus it and press Enter) to change it, or choose "do it now"
+to run it without waiting for its time. With "preview only" on, it previews the pass and claims nothing.
 
 ## From the command line
 
@@ -64,6 +79,20 @@ blowhorn schedule delete 4
 
 `upsert` and `delete` accept the fingerprint `schedule get` returns, and refuse
 a stale edit rather than writing over someone else's change.
+
+To move a job, change its `Run At`. Its next run moves with it unless the same
+payload sets `Next Run At` itself.
+
+A row that has completed or given up has no next run in `schedule list`.
+Giving it a new time - a `Run At` that changes, or a `Next Run At` - runs it
+again: the same write sets its `Status` back to `scheduled` and its `Retry
+Count` to 0, so it gets its full `Max Retries` again, and keeps its `Last Run
+At`, `Last Error` and `Last Log Path`. Raising `Max Retries` alone does not run
+it again, and a payload that sets `Status` itself decides the status instead.
+
+```bash
+blowhorn schedule upsert --row 4 --payload '{"Run At": "2026-10-20 09:00:00"}'
+```
 
 ## What a job can run
 

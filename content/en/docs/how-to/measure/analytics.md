@@ -22,7 +22,7 @@ blowhorn analytics --platform x --profile all
 
 LinkedIn exports honour `--lookback`; X appends a follower and following trend
 row per profile. Each run prints a receipt of the rows it collected. In the
-app, the "analytics" screen collects on demand with "collect now" and draws
+app, the "results" screen collects on demand with "collect now" and draws
 the same series.
 
 ## Read the history

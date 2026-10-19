@@ -13,7 +13,7 @@ What your Mac needs before you install Blowhorn.
 | Browser | Google Chrome, installed and signed in | Setup, "chrome profiles" row; `blowhorn chrome status` |
 | Engine | Bundled in the app, with its own Python; nothing to install | Setup, "Blowhorn folder" and "helper tools" rows |
 | Account | A Blowhorn account your profile belongs to | Setup, "organization connection" row; `blowhorn store` |
-| Background runs | The background service, registered from the app | Setup, "background service" row |
+| Background runs | The background service, registered from the app | Setup, "this Mac on watch" row |
 
 macOS 13 is the floor the desktop build declares
 (`minimumSystemVersion: 13.0`), and every release is one universal DMG

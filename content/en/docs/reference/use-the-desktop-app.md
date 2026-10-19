@@ -30,8 +30,10 @@ what each does is under [Update](/docs/how-to/set-up/install-the-app/#update).
 ## The console
 
 The console is the full window, reached from the popover. Its rail, in
-order: "home", "jobs", "content", "runs", "profiles", "analytics",
-"background", "settings". Each screen reads live state on open. Nothing here edits on
+order: "home", "posts", "activity", "profiles", "results", "this Mac",
+"settings". "posts" is one page with two views, switched at the top of the
+screen: "posts" (what you want to say) and "schedule" (when and where things
+go out). Each screen reads live state on open. Nothing here edits on
 a timer. Until you're signed in and the extension is ready, every rail item
 but "home" is locked; see
 [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/).
@@ -39,27 +41,39 @@ but "home" is locked; see
 | Screen | Shows | Acts |
 |---|---|---|
 | home | Whether Blowhorn is working, what runs next, and whether it needs you; a pause names which pause holds - this Mac, all Macs, or both | Resume the pause it names (one button per pause while both hold); reconnect an account; finish setting up |
-| jobs | Every schedule row, whether it is due, paused, or held; a job drawer with the row behind it; a bootstrap preview for a starter set | Create, edit, pause or resume one row; run one row now; apply the bootstrap set |
-| content | The queue: pending rows, rows still owed to some profile, clicked-but-unread rows | Edit a row; clearing a clicked row's "Date Promoted" re-queues it |
-| runs | Past runs with their ledger lines; per-job logs under the log directory's `scheduler/` folder | Re-run a failure from its row |
+| posts › posts | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones | Add or edit a post; clearing a clicked post's "Date Promoted" queues it again |
+| posts › schedule | The schedule as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the next check; a drawer for one item; a preview of a sample schedule | Add an item, from "schedule something" or by clicking a free time; move an item's next time by dragging it; edit, pause or resume one item; "do it now"; add the sample schedule |
+| activity | Everything Blowhorn did, newest first, with each one's detailed log under the log directory's `scheduler/` folder | "try again" on a failure |
 | profiles | Every profile, its Chrome mapping, its per-platform sessions | Add a profile; map or unmap its Chrome profile |
-| analytics | Followers, growth, and operations per profile; collection freshness in the header | Collect now; open the HTML report |
-| background | Who registered the background service, whether it runs, the last tick heartbeat, the pause for all machines | Check now; pause or resume all machines; open System Settings when the service is turned off there |
+| results | Followers, growth, and operations per profile; collection freshness in the header | Collect now; open the HTML report |
+| this Mac | Who registered the background service, whether it is on watch, the last check, the pause for all machines | "check now" (with "preview only" to see what would go out); pause or resume all machines; open System Settings when the service is turned off there |
 | settings | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, choose its mode, test your account connection |
 
-The jobs table keeps every value on one line. When the list is narrow -
-the drawer is wide, or the window is small - the driver and recurrence
+The schedule list layout keeps every value on one line. When the list is narrow -
+the drawer is wide, or the window is small - the browser and recurrence
 columns leave first (the drawer still shows both) and a long profile list
 is shortened with an ellipsis; the status is never cut.
 
-The analytics screen states how fresh its numbers are in the header and
+The schedule view opens on the week calendar and remembers the layout you
+pick; opening a day from the month makes the day view the remembered one.
+The tabs ("coming up", "due now", "going out", "failed", "all") and the
+filter box choose which items it shows, in every layout. An item's next time
+is a fact; the times after it are drawn dashed, because Blowhorn schedules
+each one from when the last one finished, so they drift. An item that repeats
+more often than every hour shows its next time only (the month shows daily
+and slower). Moving one asks your account first and refuses if someone else
+changed that item since you loaded it. A finished item (it happened once, or
+gave up after its retries) shows its last time and no next one; giving it a
+new "when" in its editor schedules it again, with its full set of retries.
+
+The results screen states how fresh its numbers are in the header and
 has no refresh control of its own. Its operations heatmap has one row per
-profile; runs recorded for several profiles at once (`all`, or a comma
+profile; attempts recorded for several profiles at once (`all`, or a comma
 list) name no one profile, so they are counted beside it rather than shown
-as a row. The runs screen reaches per-job logs through the log directory
-listing, which includes each capture file and its rollover. The background
-screen is the visible face of `blowhorn service`: it reports the service
-the app registered and never installs, updates or uninstalls one.
+as a row. The activity screen reaches each item's detailed log through the
+log directory listing, which includes each capture file and its rollover.
+The this Mac screen is the visible face of `blowhorn service`: it reports the
+service the app registered and never installs, updates or uninstalls one.
 
 Profiles made before profile names were lowercase keep their capitalised
 folder (`data/profiles/Lee`). The app lists them as they are spelled and
@@ -72,13 +86,13 @@ ready (otherwise the first run is the guided setup; see
 [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/)),
 five rows read from this machine:
 "Blowhorn folder", "helper tools", "organization connection", "chrome profiles",
-and "background service". The first two check the engine bundled in the
+and "this Mac on watch". The first two check the engine bundled in the
 app, the only engine the installed app runs
 ([Install the app](/docs/how-to/set-up/install-the-app/#first-run)); it
 never needs a clone or an install, so those rows offer neither. An app run from its disk image says to move it to Applications
 instead. Each row reports ok, warn, or off with the
 one fix that clears it. The "map chrome profiles" panel and the
-"background service" row act directly: mapping a profile and
+"this Mac on watch" row act directly: mapping a profile and
 registering the service happen here, not in a terminal.
 
 ## Settings

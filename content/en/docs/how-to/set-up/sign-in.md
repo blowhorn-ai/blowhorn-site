@@ -34,7 +34,7 @@ the browser comes back to Blowhorn and the command:
 2. writes your organization and name to `cloud.yaml`, replacing those of
    whoever signed in before.
 3. reads your plan once. If your account does not include Blowhorn yet, it
-   opens Layer5 Cloud (<https://cloud.layer5.io>) in your browser to start
+   opens Layer5 Cloud (<https://cloud.blowhorn.ai>) in your browser to start
    using the Blowhorn beta. There is no form to fill in.
 
 If no answer comes back within five minutes, the command stops; run it
@@ -76,7 +76,7 @@ tells you you're not signed in. Try again, and if that page comes back, send
 us its message.
 
 If your account has no Blowhorn plan yet, the app opens Layer5 Cloud
-(`cloud.layer5.io`) so you can start the beta there.
+(`cloud.blowhorn.ai`) so you can start the beta there.
 
 ## Sign out
 

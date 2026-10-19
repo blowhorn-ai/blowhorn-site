@@ -38,15 +38,15 @@ checks, each either `ok` or offering the action that fixes it.
 
 Work down the rows:
 
-1. **blowhorn engine** - `bundled in the app`. If it asks you to move
+1. **Blowhorn folder** - `bundled in the app`. If it asks you to move
    Blowhorn to Applications, do that and open it again; see
    [Fix Blowhorn when its engine won't start](/docs/how-to/troubleshoot/engine-wont-start/).
-2. **bundled engine** - its Python ships in the app, so this row has
+2. **helper tools** - its Python ships in the app, so this row has
    nothing to install.
-3. **store** - the connection to your account. If it is not configured yet, click
+3. **organization connection** - the connection to your account. If it is not configured yet, click
    its **import** action and follow
    Connect to your account.
-4. **background service** - nothing to do here: once the rows above are ok
+4. **this Mac on watch** - nothing to do here: once the rows above are ok
    the app registers the service itself, and this row only reports it. You do
    not need it to finish this tutorial.
 
@@ -55,7 +55,7 @@ connection**), so a row that cannot answer will tell you rather than hang.
 
 ## 3. Turn on dry-run before anything else {#section-3-turn-on-dry-run-before-anything-else}
 
-Still on the Setup screen, find the **dry-run by default** switch below the
+Still on the Setup screen, find the **preview only by default** switch below the
 four rows and turn it **on**.
 
 This is the important step of this tutorial. With it on, runs you start from
@@ -66,8 +66,8 @@ Now click **open console**.
 
 ## 4. Look at the queue {#section-4-look-at-the-queue}
 
-The console's Content screen reads the same content queue the CLI does - it
-runs `blowhorn content list --json` once and its pending tab shows the rows that
+The console's "posts" screen reads the same content queue the CLI does - it
+runs `blowhorn content list --json` once and its "ready" tab shows the rows that
 are due, each with who would post it (the same selection
 `blowhorn post --check-queue` prints).
 
@@ -84,8 +84,8 @@ content in the console's rail - and **scheduled to post** lists what waits for
 a later `Promote On`.
 
 Installing the app is what installed the background service, and quitting the
-app does **not** stop it - the switch **keep the background service running
-after quit**, on by default, is the one thing that decides that. With it off,
+app does **not** stop it - the switch **keep this Mac on watch after
+quit**, on by default, is the one thing that decides that. With it off,
 quitting stops the service (asking you first if a pass is in flight), and the
 next launch starts it again. See
 [What runs when the app is closed](/docs/explanation/distribution/).
