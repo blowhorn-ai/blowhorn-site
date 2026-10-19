@@ -20,9 +20,9 @@ The marketing and legal pages do not use Docsy's templates: they render through
 ## Rules the site holds
 
 - **No third parties beyond the disclosed ones.** The privacy page discloses exactly three:
-  Google Analytics 4 (`[services.googleAnalytics]` in `hugo.toml`; consent first: Consent Mode v2
-  defaults in `layouts/_partials/analytics.html`, and `assets/js/consent.js` loads gtag.js only after
-  the cookie notice's Accept; production builds only), the download
+  Google Analytics 4 (`[services.googleAnalytics]` in `hugo.toml`;
+  `layouts/_partials/analytics.html` loads gtag.js on every production page with
+  analytics storage enabled and advertising storage denied), the download
   page's release lookup on api.github.com, and the footer newsletter form, which may post only
   to the Mailchimp host in `FORM_ACTION_HOSTS`. Never add another analytics or tracking tag, a
   CDN script or stylesheet, or web fonts from elsewhere, and never copy layer5io/docs' head,

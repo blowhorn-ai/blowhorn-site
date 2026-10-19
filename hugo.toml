@@ -130,11 +130,10 @@ renderSegments = ["public"]
   priority = 0.5
   filename = "sitemap.xml"
 
-# Google Analytics 4, consent first. layouts/_partials/analytics.html sets
-# Google Consent Mode v2 to denied in every page head (marketing, legal and
-# /docs/), and assets/js/consent.js loads gtag.js with this id only after the
-# reader accepts the cookie notice. Production builds only, so `make build`,
-# `make site` and deploy previews send no hits.
+# Google Analytics 4 on every production page. layouts/_partials/analytics.html
+# enables analytics storage while keeping advertising storage and
+# personalization denied (marketing, legal and /docs/). Development builds and
+# deploy previews send no hits.
 [services.googleAnalytics]
   id = "G-2ZLYGVE3HN"
 

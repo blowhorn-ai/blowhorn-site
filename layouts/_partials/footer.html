@@ -80,13 +80,9 @@
         <div class="footer-bottom caption">
           <span>&copy; 2026 {{ site.Params.copyright }}</span>
           {{ $status | safeHTML }}
-          {{- if partial "analytics-enabled.html" . }}
-          <button type="button" class="footer-consent" data-consent-open aria-controls="consent">Cookie preferences</button>
-          {{- end }}
           {{- if ne .Kind "404" }}
           <span class="footer-tm">LinkedIn, X, Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube, Instagram, TikTok and Facebook are trademarks of their respective owners. Blowhorn is not affiliated with or endorsed by any of them.</span>
           {{- end }}
         </div>
       </div>
     </footer>
-    {{- partial "consent.html" . }}

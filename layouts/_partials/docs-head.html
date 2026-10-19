@@ -1,7 +1,7 @@
 {{- /* The head for every /docs/ page. Docsy renders the docs section, but the
   head is rebuilt from Blowhorn's own: no CDN and no web fonts from another
-  host. The one exception is Google Analytics 4 (analytics.html), loaded only
-  with consent and disclosed on the privacy page; `make site-check` fails on any other host. jQuery and lunr are the same bytes Docsy loads from its CDN,
+  host. The one exception is Google Analytics 4 (analytics.html), loaded on
+  every production page and disclosed on the privacy page; `make site-check` fails on any other host. jQuery and lunr are the same bytes Docsy loads from its CDN,
   vendored under assets/js/vendor/ (see THIRD-PARTY-NOTICES.md). */ -}}
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
