@@ -2,6 +2,7 @@
 
 import importlib.util
 import pathlib
+import sys
 import unittest
 
 SPEC = importlib.util.spec_from_file_location(
@@ -37,6 +38,55 @@ class FlowTest(unittest.TestCase):
         flow = {"messages": [{"text": "Account not active yet. Did you forget to verify your email address?"}],
                 "nodes": [{"attributes": {"name": "password"}, "messages": [{"text": "too short"}]}]}
         self.assertEqual(len(drive.messages(flow)), 2)
+
+
+CONSENT_PAGE = """<!doctype html><html><body><h1>Allow blowhorn to sign in as a@example.com?</h1>
+<form method="get" action="/search"><input type="hidden" name="q" value="decoy"></form>
+<form method="post" action="/api/identity/native/authorize">
+<input type="hidden" name="clientName" value="blowhorn">
+<input type="hidden" name="port" value="53682">
+<input type="hidden" name="codeChallenge" value="abc-_123">
+<input type="hidden" name="codeChallengeMethod" value="S256">
+<input type="hidden" name="state" value="s&amp;t">
+<input type="text" name="ignored" value="x">
+<button type="submit">Allow</button><a href="/">Cancel</a>
+</form></body></html>"""
+
+
+class ConsentFormTest(unittest.TestCase):
+    def test_allow_submits_the_native_forms_hidden_fields_unchanged(self):
+        action, fields = drive.consent_form(CONSENT_PAGE)
+        self.assertEqual(action, "/api/identity/native/authorize")
+        self.assertEqual(fields, {"clientName": "blowhorn", "port": "53682", "codeChallenge": "abc-_123",
+                                  "codeChallengeMethod": "S256", "state": "s&t"})
+
+    def test_a_page_without_the_native_form_is_a_failure(self):
+        with self.assertRaises(drive.Failure):
+            drive.consent_form("<form action=\"/search\"><input type=\"hidden\" name=\"q\" value=\"x\"></form>")
+
+
+class LoginArgsTest(unittest.TestCase):
+    def _engine(self, help_text):
+        import tempfile, textwrap
+        root = pathlib.Path(tempfile.mkdtemp())
+        (root / "bin").mkdir()
+        (root / "engine").mkdir()
+        (root / "engine" / "blowhorn.py").write_text(f"print({help_text!r})\n")
+        python = root / "bin" / "python"
+        python.write_text(textwrap.dedent(f"""\
+            #!/bin/sh
+            exec {sys.executable} "$@"
+            """))
+        python.chmod(0o755)
+        return root
+
+    def test_a_release_with_redirect_answers_on_the_loopback_route(self):
+        cli = drive.Cli(self._engine("Options: --redirect [loopback|app] --json"), None)
+        self.assertEqual(cli.login_args(), ["--redirect", "loopback", "--json"])
+
+    def test_a_pkce_release_needs_only_json(self):
+        cli = drive.Cli(self._engine("Options: --sign-up --no-browser --json"), None)
+        self.assertEqual(cli.login_args(), ["--json"])
 
 
 if __name__ == "__main__":

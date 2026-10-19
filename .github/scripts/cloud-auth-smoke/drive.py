@@ -5,8 +5,10 @@
 Runs the bundled engine of a Blowhorn release (the same `blowhorn auth ...`
 a user runs) against Blowhorn Cloud, and plays the person's part over plain
 HTTPS: it opens the authorize URL the CLI prints, fills in Cloud's own email
-and password form, follows Hydra's consent and Cloud's callback, and hands
-the answer to the CLI's 127.0.0.1 listener, exactly where a browser would.
+and password form, follows Hydra's consent and Cloud's callback, answers
+Cloud's native sign-in consent page with Allow (releases that sign in with
+PKCE), and hands the answer to the CLI's 127.0.0.1 listener, exactly where a
+browser would.
 
     drive.py signin  --engine DIR --cloud URL   # login, status, logout, revoked token refused
     drive.py signup  --engine DIR --cloud URL   # a fresh account through Cloud's sign-up
@@ -20,8 +22,10 @@ here prints a password, a token or a cookie.
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -37,6 +41,9 @@ except ImportError:  # pragma: no cover
 
 UA = "blowhorn-cloud-auth-smoke/1"
 TIMEOUT = 30
+#: Cloud's native client consent page (meshery/schemas v1beta3/token): the
+#: CLI's PKCE sign-in lands here once the account is signed in.
+NATIVE_AUTHORIZE_PATH = "/api/identity/native/authorize"
 
 
 class Failure(Exception):
@@ -87,8 +94,19 @@ class Cli:
         final["_exit"] = done.returncode
         return final
 
+    def login_args(self) -> list[str]:
+        """``auth login`` flags for a browserless run with the answer on 127.0.0.1.
+
+        Releases with ``--redirect`` (up to the provider-token flow) need
+        ``--redirect loopback``; the PKCE sign-in always answers on the loopback,
+        and ``--json`` alone opens no browser.
+        """
+        done = subprocess.run(self.argv("auth", "login", "--help"), env=self.env, cwd=self.dir, capture_output=True,
+                              text=True, timeout=60, check=False)
+        return ["--redirect", "loopback", "--json"] if "--redirect" in done.stdout else ["--json"]
+
     def start_login(self, *extra: str) -> tuple[subprocess.Popen, str, list[str]]:
-        proc = subprocess.Popen(self.argv("auth", "login", "--redirect", "loopback", "--json", *extra), env=self.env, cwd=self.dir,
+        proc = subprocess.Popen(self.argv("auth", "login", *self.login_args(), *extra), env=self.env, cwd=self.dir,
                                 stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         lines: list[str] = []
         threading.Thread(target=lambda: lines.extend(proc.stdout), daemon=True).start()
@@ -134,14 +152,14 @@ def session() -> requests.Session:
     return s
 
 
-def walk(s: requests.Session, url: str, *, data=None, hops: int = 20) -> str:
+def walk(s: requests.Session, url: str, *, data=None, headers=None, hops: int = 20) -> str:
     """Follow redirects by hand; stop at the loopback answer or a page. Returns the last URL."""
     method = "POST" if data is not None else "GET"
     for _ in range(hops):
         if url.startswith("http://127.0.0.1"):
             return url
-        r = s.request(method, url, data=data, allow_redirects=False, timeout=TIMEOUT)
-        method, data = "GET", None
+        r = s.request(method, url, data=data, headers=headers, allow_redirects=False, timeout=TIMEOUT)
+        method, data, headers = "GET", None, None
         q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
         if urllib.parse.urlparse(url).path.rstrip("/") == "/error" or "error" in q:
             raise Failure(f"Cloud refused at {redact(url)}: {(q.get('error') or ['no message'])[0]}")
@@ -193,6 +211,40 @@ def messages(flow: dict) -> list[str]:
     return [t for t in texts if t]
 
 
+CONSENT_FORM = re.compile(r'<form\b[^>]*\baction="([^"]*)"[^>]*>(.*?)</form>', re.S | re.I)
+HIDDEN_INPUT = re.compile(r'<input\b[^>]*>', re.I)
+ATTR = re.compile(r'\b(type|name|value)="([^"]*)"', re.I)
+
+
+def consent_form(page_html: str) -> tuple[str, dict]:
+    """The action and hidden fields of Cloud's native consent form (the Allow button submits them as is)."""
+    for action, body in CONSENT_FORM.findall(page_html):
+        if html.unescape(action) != NATIVE_AUTHORIZE_PATH:
+            continue
+        fields = {}
+        for tag in HIDDEN_INPUT.findall(body):
+            attrs = {k.lower(): html.unescape(v) for k, v in ATTR.findall(tag)}
+            if attrs.get("type", "").lower() == "hidden" and attrs.get("name"):
+                fields[attrs["name"]] = attrs.get("value", "")
+        return NATIVE_AUTHORIZE_PATH, fields
+    raise Failure("Cloud's native sign-in consent page has no Allow form")
+
+
+def allow_native_consent(s: requests.Session, page: str) -> str:
+    """Choose Allow on Cloud's native consent page at *page*, as the browser would. Returns the loopback URL."""
+    base = origin(page)
+    shown = s.get(page, timeout=TIMEOUT)  # the page walk stopped at; it is rendered again, unchanged
+    if shown.status_code != 200:
+        raise Failure(f"Cloud's native sign-in consent page answered HTTP {shown.status_code}")
+    action, fields = consent_form(shown.text)
+    # Cloud refuses a cross-site post; a browser submitting its own form sends these.
+    headers = {"Origin": base, "Referer": page, "Sec-Fetch-Site": "same-origin"}
+    answer = walk(s, base + action, data=fields, headers=headers)
+    if not answer.startswith("http://127.0.0.1"):
+        raise Failure(f"Allow on Cloud's consent page led to {redact(answer)}, not the CLI's 127.0.0.1 listener")
+    return answer
+
+
 def sign_in_with_password(s: requests.Session, authorize_url: str, email: str, password: str) -> str:
     """From the CLI's authorize URL to the answer for its loopback. Returns the loopback URL."""
     page = walk(s, authorize_url)
@@ -204,6 +256,9 @@ def sign_in_with_password(s: requests.Session, authorize_url: str, email: str, p
         raise Failure("Cloud's sign-in page offers no email and password sign-in")
     answer = walk(s, base + flow["action"], data={"csrf_token": csrf(flow), "identifier": email,
                                                   "password": password, "method": "password"})
+    if urllib.parse.urlparse(answer).path == NATIVE_AUTHORIZE_PATH:
+        log("ok   Cloud signed the account in and showed its native sign-in consent page")
+        answer = allow_native_consent(s, answer)
     if not answer.startswith("http://127.0.0.1"):
         again = get_flow(s, base, "login", flow_id(answer))["flow"] if "flow=" in answer else {}
         raise Failure(f"sign-in stopped at {redact(answer)}: {'; '.join(messages(again)) or 'no message'}")
