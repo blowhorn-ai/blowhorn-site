@@ -9,7 +9,9 @@ printed are this script's fixed step labels, each step's exit status, and the
 pass/fail counts parsed out of the test runners' summary lines (numbers and a
 fixed set of words, nothing copied verbatim). The commands run without the
 runner's file-command variables (GITHUB_STEP_SUMMARY and the like), so they
-cannot write a job summary, step output or environment change either.
+cannot write a job summary, step output or environment change either, and
+without the calling make's state (MAKEFLAGS, MAKELEVEL), so they run as the
+product's own CI runs them.
 
 Usage: run.py --product DIR --log FILE python|desktop
 Exit status: 0 when every step passed, else the failing step's status.
@@ -34,6 +36,11 @@ PYTEST_COUNT = re.compile(r"\b(\d+) (passed|failed|skipped|xfailed|xpassed|error
 VITEST_LINE = re.compile(r"^\s*(Test Files|Tests)\s+(.*)$")
 VITEST_COUNT = re.compile(r"\b(\d+) (passed|failed|skipped|todo)\b")
 FILE_COMMANDS = frozenset({"GITHUB_ENV", "GITHUB_OUTPUT", "GITHUB_PATH", "GITHUB_STATE", "GITHUB_STEP_SUMMARY"})
+#: `make product-ci` starts this script, so its environment carries the calling
+#: make's state. The product's own CI runs pytest directly, and its tests run
+#: `make` and compare the output: an inherited MAKELEVEL adds "Entering
+#: directory" lines and MAKEFLAGS passes this make's variables down.
+MAKE_STATE = frozenset({"MAKEFLAGS", "MAKELEVEL", "MFLAGS", "MAKEOVERRIDES"})
 
 
 @dataclass(frozen=True)
@@ -97,7 +104,7 @@ COUNTERS = {"pytest": pytest_counts, "vitest": vitest_counts}
 def run_steps(steps: list[Step], product: Path, log: Path, out=sys.stdout) -> int:
     """Run *steps* in order inside *product*, every byte of output to *log*; stop at the first failure."""
     log.parent.mkdir(parents=True, exist_ok=True)
-    env = {name: value for name, value in os.environ.items() if name not in FILE_COMMANDS}
+    env = {name: value for name, value in os.environ.items() if name not in FILE_COMMANDS | MAKE_STATE}
     with log.open("ab") as sink:
         for step in steps:
             started = time.monotonic()

@@ -122,6 +122,15 @@ class RunStepsTest(unittest.TestCase):
             self.assertEqual(path.read_text(), "", name)
         self.assertIn("KEEP=kept", self.log.read_text())
 
+    def test_a_step_does_not_inherit_the_calling_make(self):
+        show = "import os; print('MAKE_STATE=' + repr([os.environ.get(n) for n in ('MAKEFLAGS', 'MAKELEVEL', 'MFLAGS', 'MAKEOVERRIDES')]))"
+        calling_make = {"MAKEFLAGS": " -- SUITE=python PRODUCT_DIR=product", "MAKELEVEL": "1", "MFLAGS": "-s",
+                        "MAKEOVERRIDES": "${-*-command-variables-*-}"}
+        with mock.patch.dict("os.environ", calling_make):
+            status, _out = self._run([run.Step("make state", _py(show))])
+        self.assertEqual(status, 0)
+        self.assertIn("MAKE_STATE=[None, None, None, None]", self.log.read_text())
+
     def test_steps_run_in_their_own_directory_of_the_product(self):
         (self.product / "desktop").mkdir()
         status, _out = self._run([run.Step("here", _py("open('marker', 'w').write('x')"), cwd="desktop")])
