@@ -9,8 +9,8 @@
       "lead": "LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub and Slack in one queue, posted from your own Chrome, signed in as you. Your agent drafts and dry-runs; you hold the switch.",
       "description": "Blowhorn for developer relations: one queue for the networks developers use, including Hacker News and GitHub, posted as you from your own Chrome.",
       "art": {
-        "src": "assets/brand/cast/keyboard-warrior-right.webp",
-        "alt": "Keyboard Warrior, a teal rooster in a charcoal helmet, hammering a gold keyboard strapped to his chest, its Enter key lit in Layer5 green"
+        "src": "assets/brand/cast/keyboard-warrior-base.webp",
+        "alt": "Keyboard Warrior, a gold rooster in a teal helmet holding a keyboard with green keys like a shield"
       },
       "pains": [
         {
@@ -83,8 +83,8 @@
       "lead": "Schedule one message and have every profile you add amplify it at the moment you pick: real teammates and supporters, each posting as themselves, in the first hour. No 100-seat minimum.",
       "description": "Blowhorn for marketing managers: make a sound wave from your team's own profiles, each posting as themselves, coordinated from one queue.",
       "art": {
-        "src": "assets/brand/cast/general-left.webp",
-        "alt": "The General, a teal goat in a peaked cap with a Caribbean Green sash of gold star medals, holding his cane and sealed orders"
+        "src": "assets/brand/cast/general-base.webp",
+        "alt": "The General, an old gray billy goat with a white beard and a coral cap band, holding a bugle to his ear and leaning on his cane"
       },
       "pains": [
         {
@@ -235,8 +235,8 @@
       "lead": "Publish and amplify project milestones across project and maintainer profiles on GitHub, Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, from one queue.",
       "description": "Blowhorn for open source maintainers: announce releases and milestones on GitHub, Slack, Hacker News and every social network from one queue, as yourself.",
       "art": {
-        "src": "assets/brand/cast/trench-trooper-right.webp",
-        "alt": "Trench Trooper, a teal rooster in a charcoal helmet, watching through a gold periscope behind a trench wall of browser tabs, the active tab in Layer5 green"
+        "src": "assets/brand/cast/trench-trooper-periscope.webp",
+        "alt": "Trench Trooper, a muddy pig in a helmet, watching through a gold periscope from behind sandbags, tab bayonet at the ready"
       },
       "pains": [
         {
@@ -309,8 +309,8 @@
       "lead": "Announce to community Slack workspaces as yourself, then have maintainers and supporters amplify milestones from their own profiles in the first hour. No Blowhorn app taking a slot in your workspace.",
       "description": "Blowhorn for community managers: Slack announcements as yourself with no app to install, and supporters amplifying from their own profiles.",
       "art": {
-        "src": "assets/brand/cast/recruit-chick-right.webp",
-        "alt": "A recruit chick, a small round gold chick in a Caribbean Green helmet, saluting"
+        "src": "assets/brand/cast/recruit-chick-salute.webp",
+        "alt": "Recruit Chick, a yellow chick in a green helmet with a belt of heart, repost and thumbs-up icons, saluting"
       },
       "pains": [
         {
@@ -383,8 +383,8 @@
       "lead": "Run several clients' profiles from one desk, in real Chrome profiles on your own machine. Dry-run every action, pause one client instantly, and never hand a vendor a client's 2FA secret.",
       "description": "Blowhorn for agencies and consultants: client profiles in real Chrome on your own machine, with dry-run and pause on every action.",
       "art": {
-        "src": "assets/brand/cast/mouse-marine-left.webp",
-        "alt": "Mouse Marine, a teal rooster in a Caribbean Green beret, saluting from the top of a gold mouse landing craft"
+        "src": "assets/brand/cast/mouse-marine-salute.webp",
+        "alt": "Mouse Marine, a mallard in a green beret saluting from a gold trackball on a small tank, cursor spear in hand"
       },
       "pains": [
         {
