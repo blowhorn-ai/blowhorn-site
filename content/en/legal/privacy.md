@@ -58,7 +58,7 @@ The extension works only for the Blowhorn app on your machine, over Chrome's nat
 - Your communications: the posts, comments and messages the app asks it to enter and send as you.
 - Page content: what a page shows, read to tell when an action has finished; a screenshot when an action needs a person to check it; and an export you asked a site for, such as an analytics or connections export, which it catches and hands to the app.
 
-### In your Blowhorn account {#in-your-organizations-store-on-layer5-cloud}
+### In your Blowhorn account {#in-your-blowhorn-account}
 
 Keeping this in your account is what lets you install Blowhorn on any number of machines, your own or your teammates', and run them as one. Every machine works from the same queue, and the machines coordinate through it, so the same post isn't sent from two of them. Your analytics cover every machine. Your content still goes out as long as one of those machines is awake. Your account holds:
 

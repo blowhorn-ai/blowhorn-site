@@ -177,7 +177,7 @@ The public URLs are a contract, checked by `make site-check`:
   `layouts/onboarding.html`), and the short paths `/download/`, `/install/`,
   `/signup/`, `/login/` and `/early-access/`, each a meta refresh rendered by
   `layouts/redirect.html`. `/signup/`, `/login/` and `/early-access/` go to
-  Layer5 Cloud (no early-access form: anyone without a plan starts the beta
+  Blowhorn (no early-access form: anyone without a plan starts the beta
   there), whose URL is `params.cloud_url` in `hugo.toml` alone. None of these
   is listed in `sitemap.xml` or `llms.txt`.
 - `/assets/brand/...` (from `static/assets/brand/`), `/favicon.ico`, `/CNAME`.

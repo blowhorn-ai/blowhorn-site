@@ -25,7 +25,7 @@ glance:
     linkText: What this website does
   - title: One account for your queue, analytics and credentials
     text: Your account keeps your queue, schedule, profiles, run history, analytics and platform credentials in sync, so any number of machines, yours or your teammates', run as one fleet. They share one queue, coordinated so the same post isn't sent from two of them. The account privacy policy governs that data.
-    link: /legal/privacy/#in-your-organizations-store-on-layer5-cloud
+    link: /legal/privacy/#in-your-blowhorn-account
     linkText: What your account keeps
   - title: You approve what goes out
     text: Blowhorn publishes the rows you approve and the commands you run, from the accounts you configure. A dry run publishes nothing, and on Hacker News Blowhorn submits and comments only; it never votes.

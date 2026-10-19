@@ -20,7 +20,7 @@ scripts from third parties other than the ones it discloses: Google Analytics
   they submit it. The footer's newsletter signup posts to Layer5's Mailchimp
   list, the same endpoint as the layer5.io footer, and the privacy page
   discloses it. Every other form host fails.
-  A second: <meta http-equiv="refresh"> may navigate to the Layer5 Cloud host
+  A second: <meta http-equiv="refresh"> may navigate to the Blowhorn host
   named by params.cloud_url in hugo.toml (the /signup, /login and /early-access
   redirects).
   A refresh is a top-level navigation the reader asked for by opening that

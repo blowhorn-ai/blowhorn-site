@@ -147,7 +147,7 @@ renderSegments = ["public"]
   github_branch = "master"
   # The account service URL. /signup, /login and
   # /early-access redirect here, and the welcome page links to it.
-  # Blowhorn Cloud, Layer5 Cloud's Blowhorn-branded front door. Keep in step
+  # The Blowhorn account service. Keep in step
   # with DEFAULT_CLOUD_URL in leecalcote/blowhorn blowhorn/cloud/settings.py.
   cloud_url = "https://cloud.blowhorn.ai"
   # Docsy's offline search, with lunr bundled locally (layouts/_partials/docs-head.html).
