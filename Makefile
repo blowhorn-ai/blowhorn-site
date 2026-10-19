@@ -73,7 +73,7 @@ BIN_DIR ?= .bin
 # actionlint from PATH when installed; otherwise a pinned copy is downloaded into $(BIN_DIR).
 ACTIONLINT ?= $(shell command -v actionlint 2>/dev/null)
 # Workflows owned by this repo. Template workflows (labeler and friends) are left as-is.
-WORKFLOWS ?= .github/workflows/site.yml .github/workflows/publish-dmg.yml .github/workflows/sync-docs.yml .github/workflows/cloud-auth-smoke.yml
+WORKFLOWS ?= .github/workflows/site.yml .github/workflows/publish-dmg.yml .github/workflows/sync-docs.yml .github/workflows/cloud-auth-smoke.yml .github/workflows/product-ci.yml
 # A leecalcote/blowhorn checkout for `make docs-sync` (the sync-docs.yml
 # workflow checks the product repo out at this path).
 SOURCE_DIR ?= product
@@ -247,6 +247,15 @@ cloud-auth-smoke:
 	  BLOWHORN_PREDATES_CLOUD_FIXES=$$predates "$(ENGINE)/bin/python" .github/scripts/cloud-auth-smoke/drive.py $(CHECK) --engine "$(ENGINE)" --cloud "$(CLOUD_URL)" $(if $(SIGNUP_TAG),--signup-tag $(SIGNUP_TAG)); \
 	fi
 
+## Run the private product repository's CI on a checkout of it, printing only step results and
+## pass/fail counts (its output goes to PRODUCT_CI_LOG, never printed; product-ci.yml runs this):
+## make product-ci SUITE=python|desktop PRODUCT_DIR=<leecalcote/blowhorn checkout> [PRODUCT_CI_LOG=<file>]
+PRODUCT_DIR ?= product
+PRODUCT_CI_LOG ?= $(or $(RUNNER_TEMP),/tmp)/product-ci/$(SUITE).log
+product-ci:
+	@test -n "$(SUITE)" || (echo "usage: make product-ci SUITE=python|desktop PRODUCT_DIR=<checkout>"; exit 1)
+	python3 .github/scripts/product-ci/run.py $(SUITE) --product "$(PRODUCT_DIR)" --log "$(PRODUCT_CI_LOG)"
+
 ## Sync the user docs from a leecalcote/blowhorn checkout at $(SOURCE_DIR) into $(DOCS_DIR): make docs-sync REF=<tag|branch|sha> (see docs/deploy.md).
 docs-sync:
 	@test -n "$(REF)" || (echo "usage: make docs-sync REF=<tag|branch|sha of leecalcote/blowhorn> [SOURCE_DIR=path/to/checkout]"; exit 1)
@@ -326,6 +335,7 @@ clean:
 	dmg-check \
 	cloud-auth-smoke \
 	cloud-auth-smoke-mount \
+	product-ci \
 	dmg-resolve \
 	dmg-download \
 	dmg-package \

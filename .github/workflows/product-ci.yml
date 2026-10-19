@@ -1,0 +1,102 @@
+name: Product CI
+
+# Runs the product repository's own CI (its ci.yml: the Python suite and the
+# desktop typecheck, lint, test and build) on this public repository's free
+# runners. The product repository is private and has no Actions minutes, so
+# nothing runs there; this workflow checks it out at one commit instead.
+#
+# The logs here are public, so they must never show private code:
+#   - every command's output goes to a log under RUNNER_TEMP that is never
+#     printed, uploaded or cached (.github/scripts/product-ci/run.py)
+#   - the step output is fixed labels, exit statuses and pass/fail counts only
+#   - no cache, no artifact, no job summary; the checkout keeps no credential
+#   - DMG_SOURCE_TOKEN (read-only) is used by the product checkout step alone
+# A failure says which step failed; run `make tests` in a product checkout to
+# see why.
+#
+# Run: gh workflow run product-ci.yml -R layer5io/blowhorn-site -f ref=<40-char commit sha>
+# The result is reported on the product commit as the "product-ci" status.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Product commit to test (full 40-character SHA)"
+        required: true
+        type: string
+
+run-name: Product CI ${{ inputs.ref }}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: product-ci-${{ inputs.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: python (py3.14)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check the requested commit
+        env:
+          REF: ${{ inputs.ref }}
+        run: |
+          [[ "$REF" =~ ^[0-9a-f]{40}$ ]] || { echo "ref must be a full 40-character commit SHA"; exit 1; }
+
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Check out the product commit (read-only)
+        uses: actions/checkout@v4
+        with:
+          repository: leecalcote/blowhorn
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.DMG_SOURCE_TOKEN }}
+          path: product
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Python suite (output withheld)
+        run: make product-ci SUITE=python PRODUCT_DIR=product PRODUCT_CI_LOG="$RUNNER_TEMP/product-ci/python.log"
+
+  desktop:
+    name: desktop (typecheck, lint, test, build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check the requested commit
+        env:
+          REF: ${{ inputs.ref }}
+        run: |
+          [[ "$REF" =~ ^[0-9a-f]{40}$ ]] || { echo "ref must be a full 40-character commit SHA"; exit 1; }
+
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Check out the product commit (read-only)
+        uses: actions/checkout@v4
+        with:
+          repository: leecalcote/blowhorn
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.DMG_SOURCE_TOKEN }}
+          path: product
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.1.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Desktop checks (output withheld)
+        run: make product-ci SUITE=desktop PRODUCT_DIR=product PRODUCT_CI_LOG="$RUNNER_TEMP/product-ci/desktop.log"

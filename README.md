@@ -66,7 +66,7 @@ Every CI step that runs repository logic is a make target, and the workflow call
 | Target | What it runs | Run by |
 |---|---|---|
 | `setup-ci` | `npm ci` (the locked dependencies) | `site.yml` |
-| `workflow-check` | actionlint on `site.yml`, `publish-dmg.yml` and `sync-docs.yml` | `site.yml` |
+| `workflow-check` | actionlint on `site.yml`, `publish-dmg.yml`, `sync-docs.yml`, `cloud-auth-smoke.yml` and `product-ci.yml` | `site.yml` |
 | `test-scripts` | unit tests for the check scripts in `.github/scripts/` | `site.yml` |
 | `site-check` | one production build, then the checks below | `site.yml` |
 | `check-schemas` | `data/hero.json` (the home page hero variants and rotation) and `data/roles.json` (the `/for/<role>/` pages) validate against their schemas in `schemas/` ([docs/hero-variants.md](docs/hero-variants.md)) | `site-check` |
@@ -79,6 +79,7 @@ Every CI step that runs repository logic is a make target, and the workflow call
 | `dmg-sync-docs` | after a public release, start `sync-docs.yml` at the product tag `desktop-<version>` | `publish-dmg.yml` |
 | `docs-cli-reference` | regenerate the CLI reference pages in the product checkout from its CLI schema and parser, before the sync ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
 | `docs-sync REF=...` | copy the product docs from a `leecalcote/blowhorn` checkout into `content/en/docs/` ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
+| `product-ci SUITE=python\|desktop` | run the private product repo's CI on a checkout of it, printing only step results and pass/fail counts (output stays in a private log; public logs never show product code) | `product-ci.yml` |
 | `docs-sync-base` | check out the `docs-sync` branch on the open sync PR's head, or on `master` when none is open ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
 | `docs-sync-start-checks` | start `site.yml` on the `docs-sync` branch after a sync ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
 
