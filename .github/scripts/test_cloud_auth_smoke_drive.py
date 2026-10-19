@@ -66,12 +66,12 @@ class ConsentFormTest(unittest.TestCase):
 
 
 class LoginArgsTest(unittest.TestCase):
-    def _engine(self, help_text):
+    def _engine(self, help_text, status=0):
         import tempfile, textwrap
         root = pathlib.Path(tempfile.mkdtemp())
         (root / "bin").mkdir()
         (root / "engine").mkdir()
-        (root / "engine" / "blowhorn.py").write_text(f"print({help_text!r})\n")
+        (root / "engine" / "blowhorn.py").write_text(f"import sys\nprint({help_text!r})\nsys.exit({status})\n")
         python = root / "bin" / "python"
         python.write_text(textwrap.dedent(f"""\
             #!/bin/sh
@@ -87,6 +87,12 @@ class LoginArgsTest(unittest.TestCase):
     def test_a_pkce_release_needs_only_json(self):
         cli = drive.Cli(self._engine("Options: --sign-up --no-browser --json"), None)
         self.assertEqual(cli.login_args(), ["--json"])
+
+    def test_a_failing_help_is_a_failure_not_a_guess(self):
+        cli = drive.Cli(self._engine("Options: --redirect [loopback|app] --json", status=1), None)
+        with self.assertRaises(drive.Failure) as raised:
+            cli.login_args()
+        self.assertIn("exited 1", str(raised.exception))
 
 
 if __name__ == "__main__":

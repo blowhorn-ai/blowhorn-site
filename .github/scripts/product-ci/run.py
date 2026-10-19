@@ -29,6 +29,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
+PYTEST_SUMMARY = re.compile(r"^=*\s*(.*?) in \d+(?:\.\d+)?s(?: \(\d+:\d\d:\d\d\))?\s*=*\s*$")
 PYTEST_COUNT = re.compile(r"\b(\d+) (passed|failed|skipped|xfailed|xpassed|errors?|deselected|warnings?)\b")
 VITEST_LINE = re.compile(r"^\s*(Test Files|Tests)\s+(.*)$")
 VITEST_COUNT = re.compile(r"\b(\d+) (passed|failed|skipped|todo)\b")
@@ -68,11 +69,11 @@ def desktop_steps(pnpm: str = "pnpm") -> list[Step]:
 
 
 def pytest_counts(text: str) -> str:
-    """'6905 passed, 526 skipped' from pytest's last summary line; '' when there is none."""
+    """'6905 passed, 526 skipped' from pytest's last summary line ('... in 300.12s'); '' when there is none."""
     for line in reversed(ANSI.sub("", text).splitlines()):
-        found = PYTEST_COUNT.findall(line)
-        if found:
-            return ", ".join(f"{n} {word}" for n, word in found)
+        summary = PYTEST_SUMMARY.match(line)
+        if summary:
+            return ", ".join(f"{n} {word}" for n, word in PYTEST_COUNT.findall(summary.group(1)))
     return ""
 
 

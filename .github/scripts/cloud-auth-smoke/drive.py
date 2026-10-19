@@ -103,6 +103,8 @@ class Cli:
         """
         done = subprocess.run(self.argv("auth", "login", "--help"), env=self.env, cwd=self.dir, capture_output=True,
                               text=True, timeout=60, check=False)
+        if done.returncode != 0:
+            raise Failure(f"`blowhorn auth login --help` exited {done.returncode}: {done.stderr[-300:]}")
         return ["--redirect", "loopback", "--json"] if "--redirect" in done.stdout else ["--json"]
 
     def start_login(self, *extra: str) -> tuple[subprocess.Popen, str, list[str]]:

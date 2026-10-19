@@ -67,10 +67,25 @@ class RunStepsTest(unittest.TestCase):
         self.assertNotIn("never runs", out)
 
     def test_a_summary_line_cannot_smuggle_text_through(self):
-        code = f"print('7 passed {SECRET} 2 failed')"
-        _status, out = self._run([run.Step("test suite", _py(code), counts="pytest")])
+        code = f"print('7 passed ' + {SECRET!r} + ' 2 failed in 1.00s')"
+        status, out = self._run([run.Step("test suite", _py(code), counts="pytest")])
+        self.assertEqual(status, 0)
         self.assertNotIn("hunter2", out)
         self.assertIn("[7 passed, 2 failed]", out)
+
+    def test_pytest_counts_come_from_its_summary_line_only(self):
+        code = ("print('== 5 passed in 312.40s (0:05:12) ==');"
+                "print('found 3 errors in the fixture');"
+                "print('Fatal Python error: Aborted')")
+        _status, out = self._run([run.Step("test suite", _py(code), counts="pytest")])
+        self.assertIn("[5 passed]", out)
+        self.assertNotIn("3 errors", out)
+
+    def test_no_pytest_summary_prints_no_counts(self):
+        code = "import sys; print('found 3 errors'); print('2 failed checks'); sys.exit(134)"
+        _status, out = self._run([run.Step("test suite", _py(code), counts="pytest")])
+        self.assertIn("test suite: failed (exit 134)", out)
+        self.assertNotIn("[", out)
 
     def test_vitest_counts_come_from_its_summary_lines_only(self):
         code = ("print('\\x1b[32m✓\\x1b[0m tests/private-file.test.ts (3)');"
