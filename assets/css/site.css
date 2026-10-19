@@ -134,7 +134,7 @@
   /* Layout */
   --measure: 1120px;
   --gutter: var(--space-4);
-  --header-h: 116px;
+  --header-h: 72px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -171,7 +171,7 @@
 }
 
 @media (min-width: 720px) {
-  :root { --gutter: var(--space-8); --header-h: 72px; }
+  :root { --gutter: var(--space-8); }
 }
 
 /* ---------- Base ---------- */
@@ -386,77 +386,221 @@ pre code { background: none; padding: 0; }
 .button svg { width: 18px; height: 18px; flex: none; }
 .brand-page .button svg { fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ---------- Header ---------- */
+/* ---------- Header ----------
+   One bar: lockup, primary nav, Download. Five nav groups open a panel that
+   spans the bar's width (a mega menu); Pricing and Docs are plain links. Below
+   1080px a Menu button opens the nav as a sheet under the bar, with each group
+   expanding in place. Behaviour in assets/js/nav.js; without it (no
+   .is-enhanced), hover and focus open the panels and small screens list the
+   groups open. */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 5;
+  z-index: 20;
   background: var(--surface);
   border-bottom: var(--stroke-hairline) solid var(--line);
 }
 .site-header .wrap {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-3) var(--space-6);
   min-height: var(--header-h);
   padding-block: var(--space-3);
 }
-.brand { display: inline-flex; align-items: center; }
+.brand { display: inline-flex; align-items: center; flex: none; }
 .brand img { width: 176px; height: auto; }
-.site-nav {
-  display: flex;
+.site-nav { margin-left: auto; }
+.mm-list { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--space-1); }
+.mm-trigger,
+.mm-top {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-6);
-  margin-left: auto;
-}
-.site-nav a {
+  gap: 6px;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font: inherit;
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
   color: var(--ink);
-  text-decoration: none;
   white-space: nowrap;
-  padding: var(--space-2) 0;
+  cursor: pointer;
 }
-.site-nav a:hover { color: var(--link); }
-.site-cta { padding-block: var(--space-2); min-height: 40px; }
-@media (max-width: 719px) {
-  /* Two rows: the lockup with a compact Download button on its right, then the
-     section links across the full width. DOM and tab order stay brand, nav, CTA;
-     the grid places the CTA beside the lockup so the links get the whole second
-     row and never run into it (they collided at 320px when they shared a row).
-     --header-h is 12 + 44 + 12 + 36 + 12. */
-  .site-header .wrap {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: "brand cta" "nav nav";
-    gap: var(--space-3);
+.mm-trigger:hover,
+.mm-top:hover,
+.mm-item.is-open > .mm-trigger { color: var(--link); background: var(--glass-sheen); }
+.mm-chev {
+  width: 7px;
+  height: 7px;
+  margin-top: -3px;
+  border-right: 1.75px solid currentColor;
+  border-bottom: 1.75px solid currentColor;
+  transform: rotate(45deg);
+}
+.mm-item.is-open > .mm-trigger .mm-chev { margin-top: 3px; transform: rotate(-135deg); }
+.site-cta { padding-block: var(--space-2); min-height: 40px; flex: none; }
+
+/* Panels */
+.mm-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% - var(--space-2));
+  left: var(--gutter);
+  right: var(--gutter);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--space-6) var(--space-8);
+  padding: var(--space-6) var(--space-8);
+  border-radius: var(--radius-lg);
+  /* Near-opaque: the header's own backdrop filter stops a nested one from
+     blurring the page, so the panel carries the glass look without relying on it. */
+  background:
+    linear-gradient(180deg, var(--glass-sheen), transparent 46%),
+    var(--glass-fill-solid);
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-specular),
+    inset 0 0 0 1px var(--glass-rim),
+    0 0 0 1px var(--glass-edge),
+    var(--glass-shadow);
+}
+.mm-panel-wide { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.site-header:not(.is-enhanced) .mm-item:hover > .mm-panel,
+.site-header:not(.is-enhanced) .mm-item:focus-within > .mm-panel,
+.mm-item.is-open > .mm-panel { display: grid; }
+@media (prefers-reduced-motion: no-preference) {
+  .mm-item.is-open > .mm-panel { animation: mm-in 160ms ease-out; }
+  @keyframes mm-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+}
+.mm-intro-title,
+.mm-group-title {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.mm-intro-title a,
+.mm-group-title a { color: inherit; }
+.mm-intro-title a:hover,
+.mm-group-title a:hover { color: var(--link); }
+.mm-intro-text { margin: var(--space-3) 0 0; font-family: var(--font-display); font-weight: 700; font-size: 18px; line-height: 24px; color: var(--ink-wordmark); max-width: 22rem; }
+.mm-intro-more { margin: var(--space-4) 0 0; font-size: 14px; font-weight: 600; }
+.mm-intro-more a::after { content: " \2192"; }
+.mm-links { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1) var(--space-4); align-content: start; }
+.mm-group .mm-links { margin-top: var(--space-3); }
+.mm-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.mm-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.mm-link {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  margin-inline: calc(-1 * var(--space-3));
+  border-radius: var(--radius-md);
+  color: var(--ink);
+}
+.mm-link:hover,
+.mm-link:focus-visible { background: var(--glass-sheen); color: var(--ink); box-shadow: inset 0 0 0 1px var(--glass-rim); }
+.mm-link-title { font-size: 14px; line-height: 20px; font-weight: 600; }
+.mm-link:hover .mm-link-title { color: var(--link); }
+.mm-link-desc { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.mm-compact .mm-link { padding-block: 6px; }
+
+/* Menu button (small screens) */
+.mm-toggle {
+  display: none;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--glass-sheen);
+  box-shadow: inset 0 0 0 1px var(--glass-rim), 0 0 0 1px var(--glass-edge);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+.mm-toggle[hidden] { display: none !important; }
+.mm-toggle-bars { display: grid; gap: 4px; width: 16px; }
+.mm-toggle-bars span { display: block; height: 2px; border-radius: 2px; background: currentColor; }
+@media (prefers-reduced-motion: no-preference) {
+  .mm-toggle-bars span { transition: transform 160ms ease, opacity 160ms ease; }
+}
+.is-menu-open .mm-toggle-bars span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.is-menu-open .mm-toggle-bars span:nth-child(2) { opacity: 0; }
+.is-menu-open .mm-toggle-bars span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 1079px) {
+  .site-header .wrap { flex-wrap: wrap; }
+  .mm-toggle { display: inline-flex; margin-left: auto; order: 2; }
+  .site-cta { order: 3; }
+  .site-nav { order: 4; flex-basis: 100%; margin-left: 0; }
+  .site-header.is-enhanced .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: var(--space-2) var(--gutter) var(--space-6);
+    background: var(--glass-fill-solid);
+    box-shadow: inset 0 1px 0 0 var(--glass-edge), 0 24px 40px -24px rgba(30, 33, 23, 0.45);
   }
-  .brand { grid-area: brand; justify-self: start; }
-  .brand img { width: 160px; }
-  .site-cta { grid-area: cta; min-height: 36px; padding: var(--space-1) var(--space-4); font-size: 13px; }
-  .site-nav { grid-area: nav; gap: var(--space-4); margin-left: 0; min-height: 36px; justify-content: space-between; }
-  /* The section links outgrow a 390px phone (they ran to 421px and scrolled
-     the whole page sideways). The row scrolls on its own instead; the inline
-     padding keeps each link's focus ring inside the scroll box. */
-  .site-nav {
-    min-width: 0;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
-    padding-inline: var(--space-1);
-    margin-inline: calc(-1 * var(--space-1));
+  .site-header.is-enhanced.is-menu-open .site-nav { display: block; }
+  .mm-list { flex-direction: column; align-items: stretch; gap: 0; }
+  .mm-item { border-bottom: var(--stroke-hairline) solid var(--line); }
+  .mm-item:last-child { border-bottom: 0; }
+  .mm-trigger,
+  .mm-top { width: 100%; justify-content: space-between; min-height: 48px; padding-inline: 0; border-radius: 0; font-size: 16px; font-weight: 600; }
+  .mm-trigger:hover,
+  .mm-top:hover,
+  .mm-item.is-open > .mm-trigger { background: transparent; }
+  .mm-panel,
+  .mm-panel-wide {
+    position: static;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    padding: 0 0 var(--space-4);
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    border-radius: 0;
+    animation: none !important;
   }
-  .site-nav::-webkit-scrollbar { display: none; }
+  .site-header:not(.is-enhanced) .mm-panel { display: grid; }
+  .mm-intro-text { display: none; }
+  .mm-cols-2 { grid-template-columns: minmax(0, 1fr); }
+  .mm-cols-3,
+  .mm-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mm-link { margin-inline: 0; padding-inline: 0; min-height: 44px; align-content: center; }
+  .mm-link:hover, .mm-link:focus-visible { box-shadow: none; background: transparent; }
 }
-@media (min-width: 480px) and (max-width: 719px) {
-  .site-nav { justify-content: flex-start; gap: var(--space-6); }
+@media (min-width: 600px) and (max-width: 1079px) {
+  .mm-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mm-cols-3, .mm-compact { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mm-panel-wide { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mm-panel-wide .mm-compact { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 359px) {
-  .brand img { width: 144px; }
-  .site-nav { gap: var(--space-2); }
-  .site-nav a { font-size: 13px; }
-  .site-cta { padding-inline: var(--space-3); }
+@media (max-width: 399px) {
+  .brand img { width: 140px; }
+  .mm-toggle-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .mm-toggle { padding-inline: var(--space-3); }
+  .site-cta { padding-inline: var(--space-3); font-size: 13px; min-height: 36px; }
+}
+@media (min-width: 1080px) and (max-width: 1199px) {
+  .brand img { width: 150px; }
+  .mm-trigger, .mm-top { padding-inline: 10px; }
 }
 
 /* ---------- Hero ---------- */
@@ -876,9 +1020,9 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
 }
 
 /* ---------- Footer ----------
-   Laid out as
-   brand and newsletter on the left, short titled columns on the right, then a
-   bottom bar. The panel is a glass surface (see "Liquid glass" below). */
+   A glass panel: a top band (brand left, newsletter right), then one row of
+   short titled columns with Compare spanning two, then a bottom bar. The
+   panel is a glass surface (see "Liquid glass" below). */
 .site-footer {
   padding-block: var(--space-12) var(--space-8);
   color: var(--ink-muted);
@@ -888,6 +1032,12 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   gap: var(--space-8);
   padding: var(--space-8) var(--space-6);
   border-radius: var(--radius-xl);
+}
+.footer-top {
+  display: grid;
+  gap: var(--space-6);
+  padding-bottom: var(--space-8);
+  border-bottom: var(--stroke-hairline) solid var(--line);
 }
 .footer-logo { display: inline-block; }
 .footer-logo img { width: 200px; height: auto; }
@@ -900,11 +1050,14 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   letter-spacing: -0.005em;
   color: var(--ink-wordmark);
 }
+.footer-news .newsletter { margin-top: 0; max-width: none; }
 .footer-cols {
   display: grid;
   gap: var(--space-8) var(--space-6);
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+.footer-col-wide { grid-column: 1 / -1; }
+.footer-col-wide ul { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(6, auto); grid-auto-flow: column; column-gap: var(--space-6); }
 .footer-title {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -914,7 +1067,7 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   text-transform: uppercase;
   color: var(--ink-muted);
 }
-.footer-col ul { margin-top: var(--space-3); display: grid; gap: var(--space-1); }
+.footer-col ul { margin-top: var(--space-3); display: grid; gap: var(--space-1); align-content: start; }
 .footer-col a {
   display: inline-block;
   padding-block: var(--space-1);
@@ -923,6 +1076,7 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   font-weight: 500;
   color: var(--ink);
   text-decoration: none;
+  white-space: nowrap;
 }
 .footer-col a:hover { color: var(--link); }
 .footer-bottom {
@@ -934,15 +1088,16 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   gap: var(--space-2) var(--space-6);
 }
 .footer-tm { flex-basis: 100%; }
-@media (min-width: 480px) {
+@media (min-width: 720px) {
+  .footer-top { grid-template-columns: minmax(0, 1fr) minmax(0, 26rem); align-items: center; gap: var(--space-8); }
   .footer-cols { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .footer-col-wide ul { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(3, auto); }
 }
-@media (min-width: 900px) {
-  .footer-panel {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-    gap: var(--space-12);
-    padding: var(--space-12);
-  }
+@media (min-width: 1080px) {
+  .footer-panel { padding: var(--space-12); gap: var(--space-8); }
+  .footer-cols { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .footer-col-wide { grid-column: span 2; }
+  .footer-col-wide ul { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(6, auto); }
 }
 /* Service status: ported from a shared footer pattern (
    src/sections/General/Footer/footer.style.js, .status-link and .pulse-icon). */
@@ -2157,8 +2312,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .page .agent-section { padding-block: var(--section-y); margin-top: 0; }
 
 /* In-page section anchors (#platforms, #how, #trust, #download, ...): html
-   scroll-padding-top already clears the sticky header (--header-h is 116px below
-   720px, 72px from 720px up). Pull back by the section's own block padding so
+   scroll-padding-top already clears the sticky header (--header-h is 72px). Pull back by the section's own block padding so
    the label lands just under the bar after --section-y grew. */
 section[id],
 .section[id],

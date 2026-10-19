@@ -1,23 +1,29 @@
-{{- /* One footer for every page: the brand and newsletter on
-  the left, short titled link columns on the right, and a bottom bar with the
-  copyright, the "Status" pill and the trademark note. The 404
-  page keeps only the bottom bar. Off the home page the in-page links lead
-  back to the home page's sections. */ -}}
+{{- /* One footer for every page: a top band with the brand on the left and
+  the newsletter on the right, then one row of short titled link columns
+  (Compare spans two and lists in two columns), and a bottom bar with the
+  copyright, the "Status" pill and the trademark note. The header menus carry
+  the longer lists (roles, agent guides) with a line about each. The 404 page
+  keeps only the bottom bar. Off the home page the in-page links lead back to
+  the home page's sections. */ -}}
 {{- $home := cond .IsHome "" ("" | relURL) -}}
 {{- $status := `<a class="status-link" href="https://layer5.statuspage.io" target="_blank" rel="noreferrer">Status <span class="pulse-icon" aria-hidden="true"></span></a>` -}}
 <footer class="site-footer">
       <div class="wrap">
         {{- if ne .Kind "404" }}
         <div class="footer-panel glass">
-          <div class="footer-brand">
-            <a class="footer-logo" href="{{ "" | relURL }}" aria-label="Blowhorn home">
-              <picture>
-                <source media="(prefers-color-scheme: dark)" srcset="{{ "assets/brand/logo/layer5-blowhorn-lockup-on-dark.svg" | relURL }}">
-                <img src="{{ "assets/brand/logo/layer5-blowhorn-lockup.svg" | relURL }}" alt="Layer5 Blowhorn" width="220" height="60">
-              </picture>
-            </a>
-            <p class="footer-tagline">One message out, many ears in.</p>
-            {{ partial "newsletter.html" . }}
+          <div class="footer-top">
+            <div class="footer-brand">
+              <a class="footer-logo" href="{{ "" | relURL }}" aria-label="Blowhorn home">
+                <picture>
+                  <source media="(prefers-color-scheme: dark)" srcset="{{ "assets/brand/logo/layer5-blowhorn-lockup-on-dark.svg" | relURL }}">
+                  <img src="{{ "assets/brand/logo/layer5-blowhorn-lockup.svg" | relURL }}" alt="Layer5 Blowhorn" width="220" height="60">
+                </picture>
+              </a>
+              <p class="footer-tagline">One message out, many ears in.</p>
+            </div>
+            <div class="footer-news">
+              {{ partial "newsletter.html" . }}
+            </div>
           </div>
           <nav class="footer-cols" aria-label="Footer">
             <div class="footer-col">
@@ -27,11 +33,7 @@
                 <li><a href="{{ "pricing/" | relURL }}">Pricing</a></li>
                 <li><a href="https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf">Chrome extension</a></li>
                 <li><a href="{{ site.Params.github_repo }}/releases">Releases</a></li>
-                <li><a href="{{ (site.GetPage "/compare").RelPermalink }}">Compare</a></li>
-                <li><a href="{{ (site.GetPage "/field-manual").RelPermalink }}">Field Manual</a></li>
-                <li><a href="{{ "ai/" | relURL }}">AI native</a></li>
-                <li><a href="{{ "ai/blowhorn-axi/" | relURL }}">blowhorn-axi</a></li>
-                <li><a href="{{ "ai/mcp/" | relURL }}">MCP server (soon)</a></li>
+                <li><a href="{{ $home }}#platforms">Platforms</a></li>
               </ul>
             </div>
             <div class="footer-col">
@@ -39,24 +41,9 @@
               <ul>
                 <li><a href="{{ (site.GetPage "/docs").RelPermalink }}">Docs</a></li>
                 <li><a href="{{ (site.GetPage "/docs/reference/support").RelPermalink }}">Get help</a></li>
+                <li><a href="{{ (site.GetPage "/field-manual").RelPermalink }}">Field Manual</a></li>
+                <li><a href="{{ (site.GetPage "/major").RelPermalink }}">Meet Major</a></li>
                 <li><a href="{{ (site.GetPage "/brand").RelPermalink }}">Brand</a></li>
-              </ul>
-            </div>
-            <div class="footer-col">
-              <h2 class="footer-title">Agentic AI Marketing</h2>
-              <ul>
-                {{- range (site.GetPage "/agents").Pages.ByWeight }}
-                <li><a href="{{ .RelPermalink }}">{{ .Params.tool }}</a></li>
-                {{- end }}
-              </ul>
-            </div>
-            <div class="footer-col">
-              <h2 class="footer-title">Comparisons</h2>
-              <ul>
-                {{- range where (site.GetPage "/compare").Pages.ByWeight "Params.featured" true }}
-                <li><a href="{{ .RelPermalink }}">vs {{ .Params.competitor }}</a></li>
-                {{- end }}
-                <li><a href="{{ "versus/" | relURL }}">All comparisons</a></li>
               </ul>
             </div>
             <div class="footer-col">
@@ -66,6 +53,25 @@
                 <li><a href="{{ (site.GetPage "/legal/privacy").RelPermalink }}">Privacy</a></li>
                 <li><a href="{{ (site.GetPage "/legal/terms").RelPermalink }}">Terms</a></li>
                 <li><a href="mailto:security@blowhorn.ai">Security</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h2 class="footer-title">AI native</h2>
+              <ul>
+                <li><a href="{{ "ai/" | relURL }}">AI native</a></li>
+                <li><a href="{{ "ai/blowhorn-axi/" | relURL }}">blowhorn-axi</a></li>
+                <li><a href="{{ "ai/mcp/" | relURL }}">MCP server (soon)</a></li>
+                <li><a href="{{ (site.GetPage "/agents").RelPermalink }}">Agent guides</a></li>
+              </ul>
+            </div>
+            <div class="footer-col footer-col-wide">
+              <h2 class="footer-title">Compare</h2>
+              <ul>
+                <li><a href="{{ (site.GetPage "/compare").RelPermalink }}">How we compare</a></li>
+                {{- range where (site.GetPage "/compare").Pages.ByWeight "Params.featured" true }}
+                <li><a href="{{ .RelPermalink }}" aria-label="Blowhorn vs {{ .Params.competitor }}">{{ .LinkTitle }}</a></li>
+                {{- end }}
+                <li><a href="{{ "versus/" | relURL }}">All comparisons</a></li>
               </ul>
             </div>
           </nav>
