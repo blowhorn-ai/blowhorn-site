@@ -82,7 +82,7 @@ blowhorn profile current [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--platform` | string |  | Platform scope for 'blowhorn profile'. One of: bluesky, linkedin, reddit, slack, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn profile current' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--pace` | string |  | Accepted by 'blowhorn profile current' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -112,7 +112,7 @@ blowhorn profile delete [OPTIONS] name
 | `--yes` | boolean | `false` | Confirm the move to data/profiles/.trash/; without it the command refuses and exits 1 |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string |  | Platform scope for 'blowhorn profile'. One of: bluesky, linkedin, reddit, slack, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn profile delete' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--pace` | string |  | Accepted by 'blowhorn profile delete' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -141,7 +141,7 @@ blowhorn profile get [OPTIONS] name
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string |  | Platform scope for 'blowhorn profile'. One of: bluesky, linkedin, reddit, slack, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn profile get' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--pace` | string |  | Accepted by 'blowhorn profile get' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -165,7 +165,7 @@ blowhorn profile list [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--platform` | string |  | Platform scope for 'blowhorn profile'. One of: bluesky, linkedin, reddit, slack, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn profile list' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--pace` | string |  | Accepted by 'blowhorn profile list' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -202,7 +202,7 @@ blowhorn profile set [OPTIONS] name [assignments...]
 | `--allow-unknown` | boolean | `false` | Accept keys outside the config.yaml template (the template keys, GH_USERNAME, slack_workspaces and &lt;WORKSPACE&gt;_SLACK_\* are always accepted) |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string |  | Platform scope for 'blowhorn profile'. One of: bluesky, linkedin, reddit, slack, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn profile set' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--pace` | string |  | Accepted by 'blowhorn profile set' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -271,7 +271,7 @@ blowhorn profile switch [OPTIONS] name
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--platform` | string |  | Platform scope for 'blowhorn profile'. One of: bluesky, linkedin, reddit, slack, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn profile switch' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--pace` | string |  | Accepted by 'blowhorn profile switch' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 

@@ -1,6 +1,6 @@
 ---
 title: "Install the Chrome extension"
-description: "Add the Blowhorn extension from the Chrome Web Store, or load it unpacked during early access."
+description: "Add the Blowhorn extension in the Blowhorn app or from the Chrome Web Store, or load it unpacked in one profile."
 weight: 40
 aliases: [/docs/how-to/install-the-chrome-extension/]
 ---
@@ -11,8 +11,27 @@ extension inside each Chrome profile, and the extension drives only the
 profile it is installed in. Install it in every Chrome profile you post
 from.
 
-**Early access:** the Chrome Web Store listing is awaiting review. Until it
-is approved, load the extension unpacked as described below.
+## In the Blowhorn app
+
+The guided setup does this for you in **Getting ready**. Blowhorn adds the
+extension to every Chrome profile on this computer, with no administrator
+password. Chrome downloads it from the Chrome Web Store and adds it
+turned off, so each profile needs one click:
+
+1. Next to a profile that says **Turned off** or **Not added yet**, press
+   **Enable in** and the profile's name.
+2. Chrome opens Blowhorn's store page in that profile. Click
+   **Enable now** (or **Add to Chrome** if Chrome was already open).
+3. Chrome opens the Blowhorn welcome page, and the profile reads
+   **Ready** in the app within a few seconds.
+
+If Getting ready says **This is taking longer than usual**, press
+**Start again**: Blowhorn stops the attempt still running and begins a new
+one.
+
+One ready profile is enough to carry on. If a profile still says **Not on
+yet** after a minute and a half, press **Open** and the profile's name
+**again**. You can turn it on in more profiles any time later.
 
 ## From the Chrome Web Store
 

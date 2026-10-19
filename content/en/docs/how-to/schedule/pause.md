@@ -29,7 +29,8 @@ A job already running finishes first. Killing a browser flow mid-post can leave
 a half-done action on the platform, so the pause stops the next claim, never
 the running job.
 
-In the app, choose "pause this Mac" in the popover or on the console. While
+In the app, choose "pause this computer" in the popover, the menu, or the
+console rail. It is one toggle: choose it again to turn the pause off. While
 paused, the app also skips its session probe, so a paused Blowhorn opens no
 browser at all.
 
@@ -45,10 +46,11 @@ blowhorn schedule resume --row 7
 A row is claimed only when none of the three scopes says paused: this machine,
 all machines, or that row. `--all` and `--row` live in your account, so every
 machine sharing it honours them on its next claim; the flagless pause never
-touches your account. In the app the same three scopes are "pause this Mac",
-"pause all machines" and "pause this one" (in an item's drawer), each with a reason. Home says which
-pause holds - "Paused on this Mac", "Paused on all Macs", or both - and its
-resume lifts that pause only.
+touches your account. In the app the same three scopes are "pause this
+computer", "pause all computers" and "pause this one" (in an item's drawer),
+each with a reason; the first two are toggles you press again to turn the
+pause off. Home says which pause holds - "Paused on this computer", "Paused
+on all computers", or both - and its "Turn pause off" lifts that pause only.
 
 Lifting one scope leaves the other two as they were. A held row still reads
 `due: yes` beside `paused: yes` in `blowhorn schedule list`: due keeps meaning

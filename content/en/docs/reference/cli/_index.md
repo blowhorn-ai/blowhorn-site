@@ -81,7 +81,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn accept`](/docs/reference/cli/accept/) | Accept pending LinkedIn connection invitations other people have sent you, one at a time with a randomized pause between each. |
 | [`blowhorn analytics`](/docs/reference/cli/analytics/) | blowhorn analytics: activity, history, import-exports, operations. |
 | [`blowhorn auth`](/docs/reference/cli/auth/) | blowhorn auth: login, logout, status. |
-| [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap. |
+| [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, extension-enable, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap. |
 | [`blowhorn comment`](/docs/reference/cli/comment/) | Post LinkedIn, Reddit, or Bluesky comments from scheduled rows or ad-hoc target/message flags. |
 | [`blowhorn config`](/docs/reference/cli/config/) | blowhorn config: get, path, set, show. |
 | [`blowhorn content`](/docs/reference/cli/content/) | blowhorn content: delete, get, list, upsert. |
@@ -211,7 +211,12 @@ is installed, which install route is on disk, which Chrome profiles hold a Chrom
 Chrome extension answers hello. It reads the manifest, the launcher, the policy, each Chrome profile's
 `Secure Preferences` and `Preferences` (only for the extension's entry) and the socket, stats the external-extensions file and does not read it, and writes only the bridge lock, exiting 0 whatever it
 reports.
-All but `chrome unmap`, `chrome extension-install`, `chrome extension-status` and `chrome extension-mode` read two files under a Chrome data
+`chrome extension-enable --chrome-profile '<directory>'` asks Chrome to open the extension's
+Chrome Web Store page in each Chrome profile named (repeat the flag for more than one), so one click there turns the extension on; it reads only `Local State` to check each
+directory, writes nothing, and with `--json` reports `ok: false` and exits 1 when Chrome was
+asked in no profile. `chrome extension-status --json` reports each profile's state as
+`profile_states` (`enabled`, `disabled`, `removed` or `absent`).
+All but `chrome unmap`, `chrome extension-install`, `chrome extension-status`, `chrome extension-enable` and `chrome extension-mode` read two files under a Chrome data
 directory (`Local State`, `DevToolsActivePort`) and nothing else - `attach-chrome`
 reads the dedicated tree's pair rather than the daily one's, plus its `SingletonLock`; `chrome unmap`
 reads only your account, so a mapping can be removed when those files are gone;
@@ -226,8 +231,9 @@ bridge lock beside that socket; while a run holds the bridge it says so and
 writes no hello.
 `chrome extension-mode` reads no Chrome file: it reads or writes the extension
 mode in your Layer5 Cloud account.
-Only `attach-chrome start` and `attach-chrome signin` start a browser, and neither drives the one it
-starts; `attach-chrome stop` quits only the Chrome holding that tree. All carry a stable `--json` shape; every detail is in the [Chrome reference](/docs/reference/chrome/),
+`attach-chrome start` and `attach-chrome signin` start a browser, and neither drives the one it
+starts; `chrome map` and `chrome extension-enable` ask the installed Chrome to open a window on one
+page, which starts Chrome and leaves it running when none is running, and drive nothing; `attach-chrome stop` quits only the Chrome holding that tree. All carry a stable `--json` shape; every detail is in the [Chrome reference](/docs/reference/chrome/),
 the procedure in [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/).
 The mapping is identity, never permission, and nothing that runs a browser
 reads it yet. The directory is `defaults.chrome.data_dir` /

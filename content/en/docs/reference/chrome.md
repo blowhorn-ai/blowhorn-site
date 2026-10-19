@@ -16,13 +16,18 @@ how-to guides under Related.
 `Local State` and `DevToolsActivePort`, and nothing else: never
 cookies, saved passwords, storage, or the keychain. It writes nothing
 there and opens no browser, DevTools, or network connection. Whether
-Chrome is running is one bounded process lookup. There are two
+Chrome is running is one bounded process lookup. There are three
 exceptions. `blowhorn chrome extension-status` also reads each Chrome
 profile's `Secure Preferences` and `Preferences` for the extension's
 entry alone (see [its section](#blowhorn-chrome-extension-status)).
 `blowhorn chrome map` also asks Chrome to open a window on the
 extension's pairing page in the mapped Chrome profile, and creates this
 machine's pairing key outside Chrome's directory (see [Pairing](#pairing)).
+`blowhorn chrome extension-enable` asks Chrome to open a window on the
+extension's Chrome Web Store page in each Chrome profile you name (see
+[its section](#blowhorn-chrome-extension-enable)). When no Chrome is
+running, either one starts Chrome to open that window and leaves it
+running; neither drives anything in it.
 
 The extension's native host reads one more thing, only to answer the
 toolbar popup: it looks for the extension's own random identifier in
@@ -271,6 +276,41 @@ For a store install the report never says Load unpacked: a version too
 old for this Blowhorn is told to update in `chrome://extensions`, and a
 missing native host is told to run `blowhorn chrome extension-install`.
 It writes nothing in that directory.
+
+`--json` also carries `profile_states`: one item per Chrome profile
+directory (`Default` and `Profile N` with a `Preferences` file), each
+`{profile, state, version}`, read from the same two files. `state` is:
+
+- `enabled` - the extension is in that profile and turned on.
+- `disabled` - it is in that profile and turned off. The external route
+  always adds it this way until you turn it on there.
+- `removed` - Chrome added it from the external-extensions file and you
+  removed it. Chrome does not add it again by itself; the store page can.
+- `absent` - nothing is recorded there yet: Chrome has not opened that
+  profile since the file was written, or no install route is on.
+
+## `blowhorn chrome extension-enable`
+
+```bash
+blowhorn chrome extension-enable --chrome-profile 'Profile 1'
+blowhorn chrome extension-enable --chrome-profile Default --chrome-profile 'Profile 1' --json
+```
+
+Asks Chrome to open the extension's Chrome Web Store page in each
+Chrome profile you name, so you can turn the extension on there with one
+click: **Enable now** where Chrome already added it turned off, **Add to
+Chrome** where Chrome has not picked it up yet. Name a profile with
+`--chrome-profile`, the directory `blowhorn chrome profiles` prints, more
+than once for several. Each directory must be in Chrome's `Local State`,
+the one file it reads; a directory Chrome does not have, or a blank one,
+is refused before anything opens. It writes nothing, and whether you then turned the extension on
+is read by `blowhorn chrome extension-status` (`profile_states`), never
+by this command. `--dry-run` opens nothing.
+
+`--json` prints `ok`, `dry_run`, `url` (the store page) and `profiles`,
+one `{directory, display_name, opened, detail}` per profile, where
+`detail` says why the page did not open (`chrome could not open the Chrome Web Store page: <reason>`). When it opened in no
+profile, `ok` is `false` and the command exits 1.
 
 ## One run per profile and platform
 
