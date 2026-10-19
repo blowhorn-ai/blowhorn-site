@@ -7,7 +7,9 @@ lines must never reach a log here. Every command's output goes to a log file
 outside the workspace that is never printed or uploaded. The only lines
 printed are this script's fixed step labels, each step's exit status, and the
 pass/fail counts parsed out of the test runners' summary lines (numbers and a
-fixed set of words, nothing copied verbatim).
+fixed set of words, nothing copied verbatim). The commands run without the
+runner's file-command variables (GITHUB_STEP_SUMMARY and the like), so they
+cannot write a job summary, step output or environment change either.
 
 Usage: run.py --product DIR --log FILE python|desktop
 Exit status: 0 when every step passed, else the failing step's status.
@@ -18,6 +20,7 @@ To see why a step failed, run the same suite locally in the product checkout
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import subprocess
 import sys
@@ -29,6 +32,7 @@ ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 PYTEST_COUNT = re.compile(r"\b(\d+) (passed|failed|skipped|xfailed|xpassed|errors?|deselected|warnings?)\b")
 VITEST_LINE = re.compile(r"^\s*(Test Files|Tests)\s+(.*)$")
 VITEST_COUNT = re.compile(r"\b(\d+) (passed|failed|skipped|todo)\b")
+FILE_COMMANDS = frozenset({"GITHUB_ENV", "GITHUB_OUTPUT", "GITHUB_PATH", "GITHUB_STATE", "GITHUB_STEP_SUMMARY"})
 
 
 @dataclass(frozen=True)
@@ -92,6 +96,7 @@ COUNTERS = {"pytest": pytest_counts, "vitest": vitest_counts}
 def run_steps(steps: list[Step], product: Path, log: Path, out=sys.stdout) -> int:
     """Run *steps* in order inside *product*, every byte of output to *log*; stop at the first failure."""
     log.parent.mkdir(parents=True, exist_ok=True)
+    env = {name: value for name, value in os.environ.items() if name not in FILE_COMMANDS}
     with log.open("ab") as sink:
         for step in steps:
             started = time.monotonic()
@@ -99,7 +104,7 @@ def run_steps(steps: list[Step], product: Path, log: Path, out=sys.stdout) -> in
             sink.flush()
             before = sink.tell()
             try:
-                status = subprocess.run(step.argv, cwd=product / step.cwd, stdin=subprocess.DEVNULL,
+                status = subprocess.run(step.argv, cwd=product / step.cwd, env=env, stdin=subprocess.DEVNULL,
                                         stdout=sink, stderr=subprocess.STDOUT, timeout=step.timeout_s).returncode
                 verdict = "ok" if status == 0 else f"failed (exit {status})"
             except subprocess.TimeoutExpired:

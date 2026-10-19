@@ -9,7 +9,9 @@ name: Product CI
 #   - every command's output goes to a log under RUNNER_TEMP that is never
 #     printed, uploaded or cached (.github/scripts/product-ci/run.py)
 #   - the step output is fixed labels, exit statuses and pass/fail counts only
-#   - no cache, no artifact, no job summary; the checkout keeps no credential
+#   - no cache, no artifact, no job summary (the commands run without
+#     GITHUB_STEP_SUMMARY and the other file-command variables); the checkout
+#     keeps no credential
 #   - DMG_SOURCE_TOKEN (read-only) is used by the product checkout step alone
 # A failure says which step failed; run `make tests` in a product checkout to
 # see why.

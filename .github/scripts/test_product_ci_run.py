@@ -11,6 +11,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
@@ -89,6 +90,22 @@ class RunStepsTest(unittest.TestCase):
         self.assertEqual(status, 127)
         self.assertIn("missing: failed (could not start", out)
         self.assertNotIn("Traceback", out)
+
+    def test_a_step_cannot_write_to_the_runner_file_commands(self):
+        files = {name: Path(self.tmp.name) / name.lower() for name in sorted(run.FILE_COMMANDS)}
+        for path in files.values():
+            path.write_text("")
+        write_all = ("import os\n"
+                     f"for name in {sorted(files)!r}:\n"
+                     "    if os.environ.get(name):\n"
+                     f"        open(os.environ[name], 'a').write({SECRET!r})\n"
+                     "print('KEEP=' + os.environ.get('KEEP', ''))")
+        with mock.patch.dict("os.environ", {**{k: str(v) for k, v in files.items()}, "KEEP": "kept"}):
+            status, _out = self._run([run.Step("summary", _py(write_all))])
+        self.assertEqual(status, 0)
+        for name, path in files.items():
+            self.assertEqual(path.read_text(), "", name)
+        self.assertIn("KEEP=kept", self.log.read_text())
 
     def test_steps_run_in_their_own_directory_of_the_product(self):
         (self.product / "desktop").mkdir()
