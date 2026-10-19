@@ -2278,6 +2278,9 @@ a.card.docs-card > * { margin-top: 0; }
 .major-follow { margin-top: calc(var(--grid-gap) * 2); padding: var(--card-pad); }
 .major-follow p { margin: var(--intro-gap) 0 var(--stack-gap); }
 .major-meet { margin-top: var(--stack-gap); }
+.major-troops { list-style: none; padding: 0; margin: 0; }
+.major-troop .label { display: block; }
+.major-troop-art { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #000; border-radius: 10px; }
 @media (min-width: 900px) {
   .major-hero { grid-template-columns: 1.2fr 1fr; }
   .major-split { grid-template-columns: 1fr 1fr; align-items: center; }

@@ -1,6 +1,6 @@
 {{- /* Major Blowhorn's page at /major/ (content/en/major/_index.md). The story
-  sections are written here; the dossier, routine, speech rules, rivals and
-  dispatches come from front matter so new installments are one list entry.
+  sections are written here; the dossier, routine, speech rules, rivals, troops
+  and dispatches come from front matter so new installments are one list entry.
   Canonical lore: marketing/brand/major-blowhorn/ in leecalcote/blowhorn.
   The feed is /major/feed.xml (the "dispatches" output format). */ -}}
 {{ define "main" }}
@@ -31,6 +31,7 @@
           <a href="#blowhard">The Blowhard incident</a>
           <a href="#thunderlung">Old Thunderlung</a>
           <a href="#top-crow">Top crow</a>
+          <a href="#troops">The troops</a>
           <a href="#voice">How he talks</a>
           <a href="#dispatches">Dispatches</a>
         </nav>
@@ -103,6 +104,24 @@
               <p>That is how he sees your launch. One message out, many ears in. He does not care who is loudest. He cares who answers.</p>
             </div>
           </div>
+        </section>
+
+        <section id="troops" class="brand-section" aria-labelledby="troops-title">
+          <div class="section-head">
+            <h2 id="troops-title" class="h2">Meet the troops</h2>
+            <p class="muted">Every soldier has one job. Major made sure they know it. Twice.</p>
+          </div>
+          <ul class="grid grid-2 major-troops">
+            {{- range .Params.troops }}
+            {{- $t := . }}
+            <li class="card major-troop">
+              {{- with $t.img }}<img class="major-troop-art" src="{{ . | relURL }}" alt="{{ $t.alt }}" loading="lazy" decoding="async">{{ end }}
+              <h3 class="h3">{{ .name }}</h3>
+              <p class="label">{{ .tag }}</p>
+              <p>{{ .v }}</p>
+            </li>
+            {{- end }}
+          </ul>
         </section>
 
         <section id="voice" class="brand-section" aria-labelledby="voice-title">

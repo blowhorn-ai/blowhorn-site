@@ -15,6 +15,15 @@ Young Private Blowhorn was told to whisper "lights out" to one barracks. He whis
 
 His horn: a dented brass trumpet with a red tassel and one sticky valve, found in the henhouse rafters. "Is not instrument. Is colleague."
 
+## Meet the troops
+{{ range .Params.troops }}
+### {{ .name }}
+
+{{ .tag }}.
+
+{{ .v }}
+{{ end }}
+
 ## Dispatches from the barracks
 {{ range sort .Params.dispatches "date" "desc" }}
 ### {{ (time.AsTime .date).Format "2006-01-02" }}: {{ .title }}
