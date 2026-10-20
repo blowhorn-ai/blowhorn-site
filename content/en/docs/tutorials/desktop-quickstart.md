@@ -46,7 +46,7 @@ Work down the rows:
 3. **organization connection** - the connection to your account. If it is not configured yet, click
    its **import** action and follow
    Connect to your account.
-4. **this Mac on watch** - nothing to do here: once the rows above are ok
+4. **this computer on watch** - nothing to do here: once the rows above are ok
    the app registers the service itself, and this row only reports it. You do
    not need it to finish this tutorial.
 
@@ -84,7 +84,7 @@ content in the console's rail - and **scheduled to post** lists what waits for
 a later `Promote On`.
 
 Installing the app is what installed the background service, and quitting the
-app does **not** stop it - the switch **keep this Mac on watch after
+app does **not** stop it - the switch **keep this computer on watch after
 quit**, on by default, is the one thing that decides that. With it off,
 quitting stops the service (asking you first if a pass is in flight), and the
 next launch starts it again. See

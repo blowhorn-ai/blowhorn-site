@@ -16,7 +16,7 @@ The `blowhorn risk` commands. Each one's `--help` prints the same text.
 
 ## blowhorn risk set
 
-Choose a Risk Profile: cautious, standard (the built-in default) or brisk. With no --profile it is written to .blowhorn.yaml (defaults.risk_profile, or defaults.risk_profile_by_platform with --platform). With --profile it is stored on that profile in the store (Risk Profile, or Risk Profile By Platform with --platform), so every Mac reads the same choice. --dry-run says what would change and writes nothing.
+Choose a Risk Profile: cautious, standard (the built-in default) or brisk. With no --profile it is written to .blowhorn.yaml (defaults.risk_profile, or defaults.risk_profile_by_platform with --platform). With --profile it is stored on that profile in the store (Risk Profile, or Risk Profile By Platform with --platform), so every computer reads the same choice. --dry-run says what would change and writes nothing.
 
 ```text
 blowhorn risk set [OPTIONS] preset
@@ -47,7 +47,7 @@ Output: json with --json, text otherwise.
 
 ## blowhorn risk show
 
-Show the Risk Profile in effect for each platform: the one chosen, the source that chose it (--profile reads the profile's choice from the store, otherwise .blowhorn.yaml, BLOWHORN_RISK_PROFILE and the built-in standard) and what the preset sets. A new profile or Mac still runs cautious until it is warm, whatever is chosen.
+Show the Risk Profile in effect for each platform: the one chosen, the source that chose it (--profile reads the profile's choice from the store, otherwise .blowhorn.yaml, BLOWHORN_RISK_PROFILE and the built-in standard) and what the preset sets. A new profile or computer still runs cautious until it is warm, whatever is chosen.
 
 ```text
 blowhorn risk show [OPTIONS]

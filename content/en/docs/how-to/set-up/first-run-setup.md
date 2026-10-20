@@ -34,9 +34,11 @@ Blowhorn needs something your earlier setup did not do.
 
 ## The rest of the app unlocks after Getting ready
 
-- **Locked until then:** the rail, platforms, the queue and Settings stay
-  locked until you're signed in and the extension is ready. The locked screen
-  says what's missing and has a **Back to setup** link.
+- **Locked until then:** the rail's places, New activity, platforms, the queue
+  and Settings stay locked until you're signed in and the extension is ready.
+  The locked screen says what's missing and has a **Back to setup** link. The
+  account button at the foot of the rail stays usable, so you can still sign
+  out or open the docs.
 - **It checks for real:** the lock reads your actual sign-in and extension
   state each time you come back to the window, so signing out later locks it
   again until you sign back in. The extension counts as ready once it's

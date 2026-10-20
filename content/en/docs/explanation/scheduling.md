@@ -46,6 +46,6 @@ or needs you.
 - [Find out why a job did not run](/docs/how-to/schedule/why-not-run/) - read `schedule why`.
 - [Job options and schedules](/docs/reference/jobs/) - recurrence words and scopes.
 - [What runs when the app is closed](/docs/explanation/distribution/) - the service behind the passes.
-- [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - the "schedule" view of the "posts" screen.
+- [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - the Routines view of Activity.
 - [Collect and read your analytics](/docs/how-to/measure/analytics/) - read what the passes produced.
 - [You're in control](/docs/explanation/youre-in-control/) - pause, one job at a time, one machine per job.

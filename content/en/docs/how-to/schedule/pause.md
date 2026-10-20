@@ -29,8 +29,9 @@ A job already running finishes first. Killing a browser flow mid-post can leave
 a half-done action on the platform, so the pause stops the next claim, never
 the running job.
 
-In the app, choose "pause this computer" in the popover, the menu, or the
-console rail. It is one toggle: choose it again to turn the pause off. While
+In the app, choose "pause this computer" in the popover or the menu, or
+**Pause** beside the status line at the bottom of the console rail. It is one
+toggle: choose it again to turn the pause off. While
 paused, the app also skips its session probe, so a paused Blowhorn opens no
 browser at all.
 

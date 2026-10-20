@@ -67,7 +67,7 @@ Open `blowhorn://signin`, the link the Blowhorn Chrome extension's **Sign in**
 offers. The app opens [Blowhorn](https://cloud.blowhorn.ai) in your browser; sign in there, or create
 an account, then choose **Allow**. `blowhorn://signup` starts the same sign-in for a new account
 (see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)). The sign-in sends its
-answer to the command line on this Mac (`127.0.0.1`), and the browser
+answer to the command line on this computer (`127.0.0.1`), and the browser
 tab says Blowhorn received it: close the tab and return to the app, which has
 finished the sign-in. The token is kept by Blowhorn's command line, never by
 the app. If the browser stays on a Blowhorn error page instead, the sign-in was refused: no answer comes back, and once the wait runs out the app
