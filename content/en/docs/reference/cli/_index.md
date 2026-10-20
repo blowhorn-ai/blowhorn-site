@@ -98,11 +98,11 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn slack`](/docs/reference/cli/slack/) | blowhorn slack: delete, edit, profiles, react, send, whoami. |
 | [`blowhorn source`](/docs/reference/cli/source/) | GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login. |
 | [`blowhorn store`](/docs/reference/cli/store/) | Report whether this machine can reach the Blowhorn database, and say why not when it cannot. |
-| [`blowhorn unfollow`](/docs/reference/cli/unfollow/) | Unfollow one Bluesky account (--platform bluesky --target &lt;handle&gt;) through the Bluesky API. |
+| [`blowhorn unfollow`](/docs/reference/cli/unfollow/) | Unfollow one Bluesky account (`--platform` bluesky `--target` &lt;handle&gt;) through the Bluesky API. |
 | [`blowhorn uninstall`](/docs/reference/cli/uninstall/) | Remove Blowhorn from this machine. |
-| [`blowhorn withdraw`](/docs/reference/cli/withdraw/) | Withdraw LinkedIn invitations that have been pending longer than --older-than days, freeing headroom under LinkedIn's cap on unaccepted invitations. |
+| [`blowhorn withdraw`](/docs/reference/cli/withdraw/) | Withdraw LinkedIn invitations that have been pending longer than `--older-than` days, freeing headroom under LinkedIn's cap on unaccepted invitations. |
 | [Shared flags and exit codes](/docs/reference/cli/shared-flags/) | The flags most blowhorn commands take, and its exit codes. |
-| [`blowhorn-axi`](/docs/reference/cli/blowhorn-axi/) | Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs --confirm. |
+| [`blowhorn-axi`](/docs/reference/cli/blowhorn-axi/) | Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs `--confirm`. |
 
 <!-- END generated command table -->
 

@@ -9,7 +9,7 @@ weight: 112
 
 ## blowhorn report
 
-Generate a consolidated report summary from the exports already sitting in the repository-root data/analytics/ directory. Reads local files only - run 'blowhorn analytics' first if you want fresh numbers.
+Generate a consolidated report summary from the exports already sitting in the repository-root data/analytics/ directory. Reads local files only - run `blowhorn analytics` first if you want fresh numbers.
 
 ```text
 blowhorn report [OPTIONS]
@@ -19,8 +19,8 @@ blowhorn report [OPTIONS]
 | --- | --- | --- | --- |
 | `--no-open` | boolean | `false` | Write data/analytics/analytics_report.html without opening a browser |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope. 'blowhorn report' is not platform-specific, so the only accepted value is 'all' (the default) |
-| `--pace` | string |  | Accepted by 'blowhorn report' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Platform scope. `blowhorn report` is not platform-specific, so the only accepted value is `all` (the default) |
+| `--pace` | string |  | Accepted by `blowhorn report` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -33,4 +33,4 @@ blowhorn report --no-open --json
 blowhorn analytics --profile lee && blowhorn report -v
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.

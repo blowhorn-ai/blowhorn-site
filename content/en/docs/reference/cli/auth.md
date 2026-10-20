@@ -19,7 +19,7 @@ The `blowhorn auth` commands. Each one's `--help` prints the same text.
 
 Sign in to Blowhorn at https://cloud.blowhorn.ai in your browser.
 
-Opens https://cloud.blowhorn.ai, where you sign in or create an account and allow the Blowhorn app, then returns here and keeps the token in the macOS Keychain (elsewhere a file only you can read beside cloud.yaml). It uses Blowhorn's native client sign-in: the browser answers on 127.0.0.1 with a one-time code this command redeems with a PKCE verifier; there is no client secret, and the token is never printed. After sign-in it reads your plan once; an account without a Blowhorn plan is sent straight to https://cloud.blowhorn.ai to start the beta. --no-browser prints the sign-in address instead of opening it; --json opens no browser either, its first line names the address to open (the desktop app runs --no-browser --json and opens it itself). --dry-run names where it would sign in and opens, waits for and saves nothing.
+Opens https://cloud.blowhorn.ai, where you sign in or create an account and allow the Blowhorn app, then returns here and keeps the token in the macOS Keychain (elsewhere a file only you can read beside cloud.yaml). It uses Blowhorn's native client sign-in: the browser answers on 127.0.0.1 with a one-time code this command redeems with a PKCE verifier; there is no client secret, and the token is never printed. After sign-in it reads your plan once; an account without a Blowhorn plan is sent straight to https://cloud.blowhorn.ai to start the beta. `--no-browser` prints the sign-in address instead of opening it; `--json` opens no browser either, its first line names the address to open (the desktop app runs `--no-browser` `--json` and opens it itself). `--dry-run` names where it would sign in and opens, waits for and saves nothing.
 
 ```text
 blowhorn auth login [OPTIONS]
@@ -28,10 +28,10 @@ blowhorn auth login [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--sign-up` | boolean | `false` | Open https://cloud.blowhorn.ai to create a new account instead of signing in; it comes back the same way. |
-| `--no-browser` | boolean | `false` | Print the sign-in address and wait for the answer on 127.0.0.1 without opening a browser (--json implies it). |
+| `--no-browser` | boolean | `false` | Print the sign-in address and wait for the answer on 127.0.0.1 without opening a browser (`--json` implies it). |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn auth': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Accepted by 'blowhorn auth login' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn auth`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn auth login` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -43,13 +43,13 @@ blowhorn auth login --sign-up
 blowhorn auth login --no-browser --json
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn auth logout
 
 Sign out of Blowhorn and clear the local entitlement attestation cache.
 
-Removes the token 'blowhorn auth login' saved (Keychain item ai.blowhorn.cloud-token), the account it wrote to cloud.yaml (organization_id, display_name and the account facts), the process cache and the Keychain attestation item (ai.blowhorn.entitlement.v2). Unset BLOWHORN_CLOUD_TOKEN in the shell if it was exported.
+Removes the token `blowhorn auth login` saved (Keychain item ai.blowhorn.cloud-token), the account it wrote to cloud.yaml (organization_id, display_name and the account facts), the process cache and the Keychain attestation item (ai.blowhorn.entitlement.v2). Unset `BLOWHORN_CLOUD_TOKEN` in the shell if it was exported.
 
 ```text
 blowhorn auth logout [OPTIONS]
@@ -58,8 +58,8 @@ blowhorn auth logout [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn auth': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Accepted by 'blowhorn auth logout' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn auth`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn auth logout` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -70,13 +70,13 @@ blowhorn auth logout
 blowhorn auth logout --json
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn auth status
 
 Show whether Blowhorn credentials and an entitlement attestation are present.
 
-Reports token configured (never the token value), organization id, api_base, enforcement mode (BLOWHORN_ENTITLEMENT), and a summary of the last Feature read. Live, it first re-reads the signed-in account from Blowhorn (name, photo, organizations, plan) into cloud.yaml and follows the organization your Blowhorn session in the browser has selected; BLOWHORN_CLOUD_ORGANIZATION still wins when set. --offline answers from presence checks only: it reads no saved secret, so macOS shows no Keychain prompt, and it makes no network request (the desktop app runs it at launch).
+Reports token configured (never the token value), organization id, api_base, enforcement mode (`BLOWHORN_ENTITLEMENT`), and a summary of the last Feature read. Live, it first re-reads the signed-in account from Blowhorn (name, photo, organizations, plan) into cloud.yaml and follows the organization your Blowhorn session in the browser has selected; `BLOWHORN_CLOUD_ORGANIZATION` still wins when set. `--offline` answers from presence checks only: it reads no saved secret, so macOS shows no Keychain prompt, and it makes no network request (the desktop app runs it at launch).
 
 ```text
 blowhorn auth status [OPTIONS]
@@ -86,8 +86,8 @@ blowhorn auth status [OPTIONS]
 | --- | --- | --- | --- |
 | `--offline` | boolean | `false` | Check only whether a token and a saved plan are present; read no secret and make no request. |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn auth': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Accepted by 'blowhorn auth status' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn auth`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn auth status` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -99,4 +99,4 @@ blowhorn auth status --json
 blowhorn auth status --offline --json
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
