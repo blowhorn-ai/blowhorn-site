@@ -2049,6 +2049,10 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
    (Apache-2.0), drawn in Blowhorn tokens. Token colours are Chroma classes
    (markup.highlight noClasses = false); every colour clears WCAG AA on its
    window fill in both themes. */
+/* In prose flow the card takes the standard block gap above it, like every
+   other block; its own margin: 0 below would otherwise win the cascade over
+   .prose > * + * and glue the card to the paragraph above. */
+.prose > * + .term { margin-top: var(--space-4); }
 .term {
   --term-bg: rgba(251, 253, 252, 0.86);
   --term-bar: rgba(244, 247, 246, 0.9);
