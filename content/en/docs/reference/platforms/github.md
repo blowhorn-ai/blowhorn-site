@@ -7,16 +7,16 @@ weight: 231
 
 Blowhorn works on GitHub through GitHub's API, never the browser, with the `GH_TOKEN` in your account.
 
-## Supported actions
-
-{{< supported-actions "github" >}}
-
 Follows accounts with `blowhorn follow` and lists an audience with
 `blowhorn source --platform github --repo`. Under `post`, GitHub
 amplifies only: it adds all five uplifting reactions (+1, laugh,
 hooray, heart, rocket) to the issue or pull request the `--amplify`
 flag or the row's "Amplify" column names, from every selected profile
 under its own token. Re-running adds none of them twice.
+
+## Supported actions
+
+{{< supported-actions "github" >}}
 
 ## Related
 

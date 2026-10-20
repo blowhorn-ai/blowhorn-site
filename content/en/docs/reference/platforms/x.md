@@ -7,10 +7,6 @@ weight: 226
 
 Blowhorn works on X in your own signed-in Chrome, through the Blowhorn extension. Sign in to X there once, by hand. The credential Blowhorn checks is `X_USERNAME`.
 
-## Supported actions
-
-{{< supported-actions "x" >}}
-
 Posts from a row; a message past 274 characters goes out as a thread.
 Replies go through a post row that targets the conversation. Amplifies
 by retweet or quote. Follows accounts with `blowhorn follow`. Analytics
@@ -18,6 +14,10 @@ appends a follower and following trend row per run.
 
 Follows: at most 400 per profile a day and 15 in any 15 minutes,
 counted from that profile's follow log on this machine.
+
+## Supported actions
+
+{{< supported-actions "x" >}}
 
 ## X (Twitter) replies
 

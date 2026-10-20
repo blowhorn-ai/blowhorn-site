@@ -7,13 +7,13 @@ weight: 229
 
 Blowhorn works on Slack through Slack's API, never the browser, and sends as you. It uses a Slack token in your account (`SLACK_USER_TOKEN` or `SLACK_BOT_TOKEN`) or your Slack session, linked through the Blowhorn extension.
 
-## Supported actions
-
-{{< supported-actions "slack" >}}
-
 Sends a message as you to a channel, a person, or a thread. One
 profile sends. `blowhorn post --platform slack --message` sends one
 ad-hoc message with no queue row.
+
+## Supported actions
+
+{{< supported-actions "slack" >}}
 
 ## Slack messages
 

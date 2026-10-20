@@ -7,12 +7,12 @@ weight: 225
 
 Blowhorn works on LinkedIn in your own signed-in Chrome, through the Blowhorn extension, in the Chrome profile you mapped. Sign in to LinkedIn there once, by hand. The credential Blowhorn checks is `LI_USERNAME` with `LI_PASSWORD`.
 
+Posts to the feed from a row; comments on a post when the row's "Comment on"
+holds its address; amplifies by reposting.
+
 ## Supported actions
 
 {{< supported-actions "linkedin" >}}
-
-Posts to the feed from a row; comments on a post when the row's "Comment on"
-holds its address; amplifies by reposting.
 
 ## LinkedIn comments
 
