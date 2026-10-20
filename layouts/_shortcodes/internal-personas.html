@@ -25,8 +25,8 @@
   {{- $kinds = $kinds | append $kind -}}
 {{- end -}}
 <style>
-.prose:has(> .cmp) { max-width: none; }
-.prose:has(> .cmp) > :not(.cmp) { max-width: var(--text-measure); }
+.prose:has(> [data-cmp-block]) { max-width: none; }
+.prose:has(> [data-cmp-block]) > :not([data-cmp-block]) { max-width: var(--text-measure); }
 .page .cmp { padding: 0; border-radius: 0; }
 .page .cmp table { max-width: none; }
 .cmp th { white-space: normal; vertical-align: bottom; }
@@ -39,11 +39,15 @@
 .cmp .sc .ic { color: var(--near-black); background: var(--amber); }
 .cmp .nt .ic { color: var(--ink-muted); background: var(--surface-raised); }
 </style>
+<div data-cmp-block>
 <p>{{ len $body }} personas. ● primary · ◐ secondary · – not targeted.</p>
-<div class="compare-scroll cmp" role="region" aria-label="Persona targeting matrix" tabindex="0"><table>
+<div class="cmp-bar"><button type="button" class="cmp-btn" data-cmp-maximize aria-label="Open the persona targeting matrix in an expanded view">⛶ Maximize</button></div>
+<div class="compare-scroll cmp" data-cmp-region role="region" aria-label="Persona targeting matrix" tabindex="0"><table>
 <thead><tr>{{ range $i, $name := $head }}<th scope="col" class="{{ index $kinds $i }}">{{ $name }}</th>{{ end }}</tr></thead>
 <tbody>
 {{- range $body }}
 <tr>{{ range . }}{{ $cell := . }}{{ with index $icons $cell }}<td class="st {{ index . 0 }}"><span class="ic" role="img" aria-label="{{ $cell }}">{{ index . 1 }}</span></td>{{ else }}<td>{{ $cell }}</td>{{ end }}{{ end }}</tr>
 {{- end }}
 </tbody></table></div>
+</div>
+{{ partial "cmp-tools.html" .Page }}
