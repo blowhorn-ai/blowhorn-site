@@ -1433,23 +1433,44 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 }
 @media (min-width: 900px) { .brand-hero { gap: var(--space-12); } }
 
+/* On-this-page index for the Brand and Major pages: a contents strip, not a
+   row of pill buttons. Hairlines above and below, a kicker, and a mono
+   section number (CSS counter, so new links number themselves) per entry. */
 .brand-index {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  align-items: baseline;
+  gap: var(--space-3) var(--space-6);
   margin-top: var(--space-12);
+  padding-block: var(--space-4);
+  border-top: var(--stroke-hairline) solid var(--line);
+  border-bottom: var(--stroke-hairline) solid var(--line);
+  counter-reset: brand-index;
+}
+.brand-index::before {
+  content: "On this page";
+  font: 500 11px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
 }
 .brand-index a {
-  padding: var(--space-1) var(--space-3);
-  min-height: 32px;
   display: inline-flex;
-  align-items: center;
-  border: var(--stroke-hairline) solid var(--line);
-  border-radius: var(--radius-pill);
+  align-items: baseline;
+  gap: var(--space-2);
   color: var(--ink);
   text-decoration: none;
+  counter-increment: brand-index;
 }
-.brand-index a:hover { background: var(--surface-raised); color: var(--link); }
+.brand-index a::before {
+  content: counter(brand-index, decimal-leading-zero);
+  font: 500 11px var(--font-mono);
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+.brand-index a:hover { color: var(--link); text-decoration: underline; text-underline-offset: 4px; }
+.brand-index a:hover::before { color: var(--teal); }
+.brand-index a:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
 
 .brand-section {
   padding-block: var(--space-12);
@@ -2934,33 +2955,33 @@ a.docs-card.platform-card:hover::after, a.docs-card.platform-card:focus-visible:
 }
 
 /* Tabbed examples: tokens only, so Reveille and Signal both pick them up.
-   Without JS every pane is visible. JS adds .is-enhanced and [hidden]. */
+   Without JS every pane is visible. JS adds .is-enhanced and [hidden].
+   The tabs are navigation, not labels: plain text on a baseline rule, the
+   active tab at full strength with the rule turned teal beneath it. No
+   pills, no filled boxes. */
 .tabs { margin: var(--space-4) 0 var(--space-8); }
 .tabs-list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
-  margin: 0 0 var(--space-4);
+  gap: var(--space-1) var(--space-6);
+  margin: 0 0 var(--space-5);
+  border-bottom: var(--stroke-hairline) solid var(--line-strong);
 }
 .tabs-tab {
   display: inline-flex;
   align-items: center;
-  height: 38px;
-  padding: 0 16px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--line-strong);
-  background: transparent;
-  color: var(--ink);
-  font: 600 14px var(--font-sans);
+  padding: var(--space-2) 2px var(--space-3);
+  margin-bottom: calc(-1 * var(--stroke-hairline));
+  border-bottom: 2px solid transparent;
+  color: var(--ink-muted);
+  font: 600 14.5px var(--font-sans);
   text-decoration: none;
 }
+.tabs-tab:hover { color: var(--ink); text-decoration: none; }
 .tabs-tab.is-on, .tabs-tab[aria-selected="true"], .tabs-tab[aria-current="true"] {
-  background: var(--teal);
-  color: var(--on-teal);
-  border-color: var(--teal);
+  color: var(--ink);
+  border-bottom-color: var(--teal);
 }
-.tabs-tab:hover { text-decoration: none; }
-.tabs-tab.is-on:hover, .tabs-tab[aria-selected="true"]:hover { color: var(--on-teal); }
 .tabs-tab:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
