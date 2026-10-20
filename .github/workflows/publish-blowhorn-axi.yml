@@ -16,7 +16,9 @@ name: Publish blowhorn-axi to npm
 #   gh workflow run publish-blowhorn-axi.yml -R layer5io/blowhorn-site \
 #     -f version=0.1.0 -f release_tag=axi-v0.1.0
 #
-# One-time setup on npmjs.com (package Settings > Trusted publishing): GitHub
+# Before the first run, publish an initial package version once with an npm
+# token: npm trusted publishing can only publish to an existing package.
+# Then configure npmjs.com (package Settings > Trusted publishing): GitHub
 # Actions, organization layer5io, repository blowhorn-site, workflow
 # publish-blowhorn-axi.yml, allowed action npm publish.
 
@@ -66,6 +68,9 @@ jobs:
         run: |
           npm install -g npm@^11.5.1
           npm --version
+
+      - name: Check npm package exists
+        run: make npm-package-check
 
       - name: Fetch the tarball
         env:

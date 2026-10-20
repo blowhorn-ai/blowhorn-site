@@ -67,6 +67,7 @@ Every CI step that runs repository logic is a make target, and the workflow call
 |---|---|---|
 | `setup-ci` | `npm ci` (the locked dependencies) | `site.yml` |
 | `workflow-check` | actionlint on `site.yml`, `publish-dmg.yml`, `sync-docs.yml`, `cloud-auth-smoke.yml` and `product-ci.yml` | `site.yml` |
+| `npm-package-check` | verify `blowhorn-axi` exists before trusted publishing | `publish-blowhorn-axi.yml` |
 | `test-scripts` | unit tests for the check scripts in `.github/scripts/` | `site.yml` |
 | `site-check` | one production build, then the checks below | `site.yml` |
 | `check-schemas` | `data/hero.json` (the home page hero variants and rotation) and `data/roles.json` (the `/for/<role>/` pages) validate against their schemas in `schemas/` ([docs/hero-variants.md](docs/hero-variants.md)) | `site-check` |

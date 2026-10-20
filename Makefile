@@ -48,6 +48,7 @@ include .github/build/Makefile.show-help.mk
 #                      Live-reload servers for the two builds.
 #   test-scripts       Unit tests for the check scripts in .github/scripts/.
 #   workflow-check     actionlint on this repository's workflows.
+#   npm-package-check  Verify blowhorn-axi exists before trusted publishing.
 #   check              site-check, test-scripts and workflow-check.
 #   ci                 setup-ci, then everything site.yml's check job runs.
 #   dmg-check          Sanity-check a disk image: make dmg-check DMG=path/to/file.dmg
@@ -210,6 +211,13 @@ ifeq ($(ACTIONLINT),)
 else
 	$(ACTIONLINT) -color $(WORKFLOWS)
 endif
+
+## Verify blowhorn-axi exists before trusted publishing can publish new versions.
+npm-package-check:
+	@npm view blowhorn-axi name >/dev/null || { \
+		echo "::error::blowhorn-axi must already exist on npm before trusted publishing can publish it. Publish an initial version once with an npm token, then configure this workflow as the package's trusted publisher."; \
+		exit 1; \
+	}
 
 ## Run every check: site-check, test-scripts and workflow-check.
 check: site-check test-scripts workflow-check
