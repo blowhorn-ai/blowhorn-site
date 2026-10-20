@@ -1,7 +1,7 @@
 ---
 title: "blowhorn withdraw"
 linkTitle: "withdraw"
-description: "Withdraw LinkedIn invitations that have been pending longer than --older-than days, freeing headroom under LinkedIn's cap on unaccepted invitations."
+description: "Withdraw LinkedIn invitations that have been pending longer than `--older-than` days, freeing headroom under LinkedIn's cap on unaccepted invitations."
 weight: 122
 ---
 
@@ -9,7 +9,7 @@ weight: 122
 
 ## blowhorn withdraw
 
-Withdraw LinkedIn invitations that have been pending longer than --older-than days, freeing headroom under LinkedIn's cap on unaccepted invitations. People only, never Pages. Previews by default; clicks only with --apply.
+Withdraw LinkedIn invitations that have been pending longer than `--older-than` days, freeing headroom under LinkedIn's cap on unaccepted invitations. People only, never Pages. Previews by default; clicks only with `--apply`.
 
 ```text
 blowhorn withdraw [OPTIONS]
@@ -19,9 +19,9 @@ blowhorn withdraw [OPTIONS]
 | --- | --- | --- | --- |
 | `--older-than` | integer | `21` | Minimum days an invitation must have been pending to be eligible. LinkedIn renders only relative ages, and one worded in a way Blowhorn cannot read is always kept and reported under Unreadable. |
 | `--limit` | integer | `20` | Maximum withdrawals confirmed in one run. A click is not a withdrawal: only a card confirmed gone from the sent list counts. 0 means withdraw nothing. |
-| `--apply` | boolean | `false` | Actually withdraw. Without it the run clicks nothing and only lists what it would withdraw. LinkedIn blocks resending to a withdrawn person for up to 3 weeks, so this is not reversible; --dry-run overrides this flag. |
-| `--platform` | string |  | Platform scope for 'blowhorn withdraw'. One of: linkedin, all ('all' means every platform listed here) |
-| `--pace` | string |  | Pace of the random delays between 'blowhorn withdraw' actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--apply` | boolean | `false` | Actually withdraw. Without it the run clicks nothing and only lists what it would withdraw. LinkedIn blocks resending to a withdrawn person for up to 3 weeks, so this is not reversible; `--dry-run` overrides this flag. |
+| `--platform` | string |  | Platform scope for `blowhorn withdraw`. One of: linkedin, all (`all` means every platform listed here) |
+| `--pace` | string |  | Pace of the random delays between `blowhorn withdraw` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 

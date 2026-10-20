@@ -11,7 +11,8 @@ it can do there.
 
 ## Supported actions
 
-{{< supported-actions "facebook" >}}
+None yet. Facebook is coming soon, so `blowhorn post` doesn't support
+it today. See [All platforms](/docs/reference/platforms/) for the platforms you can use now.
 
 ## Related
 

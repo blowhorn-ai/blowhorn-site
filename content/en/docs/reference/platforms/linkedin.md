@@ -11,6 +11,9 @@ Blowhorn works on LinkedIn in your own signed-in Chrome, through the Blowhorn ex
 
 {{< supported-actions "linkedin" >}}
 
+Posts to the feed from a row; comments on a post when the row's "Comment on"
+holds its address; amplifies by reposting.
+
 ## LinkedIn comments
 
 A row with "Comment on" set to a `linkedin.com` post address and a

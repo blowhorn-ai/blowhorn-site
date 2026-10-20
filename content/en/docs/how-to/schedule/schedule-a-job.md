@@ -1,6 +1,6 @@
 ---
 title: "Schedule a job"
-description: "Run posts and other commands on a schedule, from the app's schedule view or the command line."
+description: "Run posts and other commands on a schedule, from Activity › Routines or the command line."
 weight: 150
 aliases: [/docs/how-to/schedule-runs/]
 ---
@@ -10,7 +10,7 @@ Put a command on a schedule so it runs on its own, with or without the app open.
 
 ## From the app
 
-Open "posts" in the rail and switch to its "schedule" view. It opens on a week calendar; switch to "day",
+Open **Activity** in the rail and switch to its **Routines** view. It opens on a week calendar; switch to "day",
 "month" or "list" above it, and the screen remembers your choice. Clicking a
 day in the month opens that day, and the day view becomes the one it
 remembers.

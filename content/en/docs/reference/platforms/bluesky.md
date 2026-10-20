@@ -11,6 +11,12 @@ Blowhorn works on Bluesky through Bluesky's API, never the browser. It uses `BLU
 
 {{< supported-actions "bluesky" >}}
 
+Posts up to 300 characters per post; longer messages split into
+threads. Reposts for amplify rows. Follows with `blowhorn follow`,
+unfollows one account with `blowhorn unfollow`, searches posts with
+`blowhorn find`. Analytics appends a follower and following trend row
+per run.
+
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.

@@ -11,16 +11,16 @@ The `blowhorn slack` commands. Each one's `--help` prints the same text.
 
 | Command | What it does |
 | --- | --- |
-| [`slack delete`](#blowhorn-slack-delete) | Delete a Slack message this profile sent with 'blowhorn slack send' (chat.delete). |
-| [`slack edit`](#blowhorn-slack-edit) | Replace the text of a Slack message this profile sent with 'blowhorn slack send' (chat.update). |
-| [`slack profiles`](#blowhorn-slack-profiles) | List every profile's captured Slack workspaces (or only the --profile names given), the credentials each holds (session, user-token, bot-token) and which one --slack-auth would use. |
-| [`slack react`](#blowhorn-slack-react) | Add an emoji reaction to any Slack message as the profile (reactions.add), or take yours back with --remove (reactions.remove). |
-| [`slack send`](#blowhorn-slack-send) | Send one message to Slack as one profile, or as each of several (--profile a,b: one after another, each with its own idempotency key, ledger entry and result; one profile's failure never stops the... |
-| [`slack whoami`](#blowhorn-slack-whoami) | Ask Slack (auth.test) who a profile's Slack credential is in one workspace: user, user id and team, with the credential --slack-auth allowed and whether that was a fallback. |
+| [`slack delete`](#blowhorn-slack-delete) | Delete a Slack message this profile sent with `blowhorn slack send` (chat.delete). |
+| [`slack edit`](#blowhorn-slack-edit) | Replace the text of a Slack message this profile sent with `blowhorn slack send` (chat.update). |
+| [`slack profiles`](#blowhorn-slack-profiles) | List every profile's captured Slack workspaces (or only the `--profile` names given), the credentials each holds (session, user-token, bot-token) and which one `--slack-auth` would use. |
+| [`slack react`](#blowhorn-slack-react) | Add an emoji reaction to any Slack message as the profile (reactions.add), or take yours back with `--remove` (reactions.remove). |
+| [`slack send`](#blowhorn-slack-send) | Send one message to Slack as one profile, or as each of several (`--profile` a,b: one after another, each with its own idempotency key, ledger entry and result; one profile's failure never stops the... |
+| [`slack whoami`](#blowhorn-slack-whoami) | Ask Slack (auth.test) who a profile's Slack credential is in one workspace: user, user id and team, with the credential `--slack-auth` allowed and whether that was a fallback. |
 
 ## blowhorn slack delete
 
-Delete a Slack message this profile sent with 'blowhorn slack send' (chat.delete). Only your own messages, by the store's send ledger (not_sent_by_profile otherwise, before any Slack call), even when the session is a workspace admin's. A dry run unless --confirm. Exit codes as 'slack send'.
+Delete a Slack message this profile sent with `blowhorn slack send` (chat.delete). Only your own messages, by the store's send ledger (not_sent_by_profile otherwise, before any Slack call), even when the session is a workspace admin's. A dry run unless `--confirm`. Exit codes as `slack send`.
 
 ```text
 blowhorn slack delete [OPTIONS]
@@ -28,14 +28,14 @@ blowhorn slack delete [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--target` | string |  | The message: a Slack message link, or its ts with --channel and --workspace |
-| `--channel` | string |  | The channel id (C…, D… or G…) when --target is a bare ts |
-| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when --target does not name one; for whoami, which workspace to ask |
+| `--target` | string |  | The message: a Slack message link, or its ts with `--channel` and `--workspace` |
+| `--channel` | string |  | The channel id (C…, D… or G…) when `--target` is a bare ts |
+| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when `--target` does not name one; for whoami, which workspace to ask |
 | `--confirm` | boolean | `false` | Actually send. Without it the command is a dry run that sends nothing |
-| `--slack-auth` | string |  | Which Slack credential may send, for one run: 'session' (your captured signed-in web session; the message is yours, with no app attached), 'user-token' (an xoxp- app token for you) or 'bot-token' (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. 'session,user-token,bot-token'). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then BLOWHORN_SLACK_AUTH, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
+| `--slack-auth` | string |  | Which Slack credential may send, for one run: `session` (your captured signed-in web session; the message is yours, with no app attached), `user-token` (an xoxp- app token for you) or `bot-token` (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. `session,user-token,bot-token`). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then `BLOWHORN_SLACK_AUTH`, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn slack': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Pace of the one random wait 'blowhorn slack delete' takes: before each confirmed delete after the first when --profile names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Pace of the one random wait `blowhorn slack delete` takes: before each confirmed delete after the first when `--profile` names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -45,11 +45,11 @@ Examples:
 blowhorn slack delete --profile rian --target 'https://mesheryio.slack.com/archives/C0123/p1776000000000400' --slack-auth session --confirm
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn slack edit
 
-Replace the text of a Slack message this profile sent with 'blowhorn slack send' (chat.update). Only your own messages: the store's send ledger must show this profile sent that ts, or the result is not_sent_by_profile before any Slack call. A dry run unless --confirm. --target is the message link (its own ts, never the ?thread_ts= parent) or a bare ts with --channel and --workspace; the text comes from --message, --file or stdin ('-') and is sent untouched. Several profiles (--profile a,b) run one after another. Exit codes as 'slack send'.
+Replace the text of a Slack message this profile sent with `blowhorn slack send` (chat.update). Only your own messages: the store's send ledger must show this profile sent that ts, or the result is not_sent_by_profile before any Slack call. A dry run unless `--confirm`. `--target` is the message link (its own ts, never the ?thread_ts= parent) or a bare ts with `--channel` and `--workspace`; the text comes from `--message`, `--file` or stdin (`-`) and is sent untouched. Several profiles (`--profile` a,b) run one after another. Exit codes as `slack send`.
 
 ```text
 blowhorn slack edit [OPTIONS]
@@ -57,16 +57,16 @@ blowhorn slack edit [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--target` | string |  | The message: a Slack message link, or its ts with --channel and --workspace |
-| `--channel` | string |  | The channel id (C…, D… or G…) when --target is a bare ts |
-| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when --target does not name one; for whoami, which workspace to ask |
+| `--target` | string |  | The message: a Slack message link, or its ts with `--channel` and `--workspace` |
+| `--channel` | string |  | The channel id (C…, D… or G…) when `--target` is a bare ts |
+| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when `--target` does not name one; for whoami, which workspace to ask |
 | `--confirm` | boolean | `false` | Actually send. Without it the command is a dry run that sends nothing |
-| `--message` | string |  | The message text, sent untouched (Slack mrkdwn included); '-' reads it from stdin |
-| `--file` | string |  | Read the message text from this file ('-' for stdin), sent untouched |
-| `--slack-auth` | string |  | Which Slack credential may send, for one run: 'session' (your captured signed-in web session; the message is yours, with no app attached), 'user-token' (an xoxp- app token for you) or 'bot-token' (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. 'session,user-token,bot-token'). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then BLOWHORN_SLACK_AUTH, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
+| `--message` | string |  | The message text, sent untouched (Slack mrkdwn included); `-` reads it from stdin |
+| `--file` | string |  | Read the message text from this file (`-` for stdin), sent untouched |
+| `--slack-auth` | string |  | Which Slack credential may send, for one run: `session` (your captured signed-in web session; the message is yours, with no app attached), `user-token` (an xoxp- app token for you) or `bot-token` (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. `session,user-token,bot-token`). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then `BLOWHORN_SLACK_AUTH`, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn slack': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Pace of the one random wait 'blowhorn slack edit' takes: before each confirmed edit after the first when --profile names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Pace of the one random wait `blowhorn slack edit` takes: before each confirmed edit after the first when `--profile` names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -77,11 +77,11 @@ blowhorn slack edit --profile rian --target 'https://mesheryio.slack.com/archive
 blowhorn slack edit --profile rian --target 'https://mesheryio.slack.com/archives/C0123/p1776000000000400' --file fixed.md --slack-auth session --confirm --json
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn slack profiles
 
-List every profile's captured Slack workspaces (or only the --profile names given), the credentials each holds (session, user-token, bot-token) and which one --slack-auth would use. Reads the store and makes no Slack call. A profile whose config.yaml still carries Slack keys while the store holds no session reads 'refused', with the fix the send gives. No secret is printed.
+List every profile's captured Slack workspaces (or only the `--profile` names given), the credentials each holds (session, user-token, bot-token) and which one `--slack-auth` would use. Reads the store and makes no Slack call. A profile whose config.yaml still carries Slack keys while the store holds no session reads `refused`, with the fix the send gives. No secret is printed.
 
 ```text
 blowhorn slack profiles [OPTIONS]
@@ -89,10 +89,10 @@ blowhorn slack profiles [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--slack-auth` | string |  | Which Slack credential may send, for one run: 'session' (your captured signed-in web session; the message is yours, with no app attached), 'user-token' (an xoxp- app token for you) or 'bot-token' (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. 'session,user-token,bot-token'). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then BLOWHORN_SLACK_AUTH, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
+| `--slack-auth` | string |  | Which Slack credential may send, for one run: `session` (your captured signed-in web session; the message is yours, with no app attached), `user-token` (an xoxp- app token for you) or `bot-token` (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. `session,user-token,bot-token`). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then `BLOWHORN_SLACK_AUTH`, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn slack': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Accepted by 'blowhorn slack profiles' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn slack profiles` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -103,11 +103,11 @@ blowhorn slack profiles --json
 blowhorn slack profiles --profile rian --slack-auth session
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn slack react
 
-Add an emoji reaction to any Slack message as the profile (reactions.add), or take yours back with --remove (reactions.remove). A dry run unless --confirm. A reaction already there (or already gone) is success with changed: false. --emoji takes white_check_mark or :white_check_mark:. Several profiles (--profile a,b) each react, one after another. Exit codes as 'slack send'.
+Add an emoji reaction to any Slack message as the profile (reactions.add), or take yours back with `--remove` (reactions.remove). A dry run unless `--confirm`. A reaction already there (or already gone) is success with changed: false. `--emoji` takes white_check_mark or :white_check_mark:. Several profiles (`--profile` a,b) each react, one after another. Exit codes as `slack send`.
 
 ```text
 blowhorn slack react [OPTIONS]
@@ -115,16 +115,16 @@ blowhorn slack react [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--target` | string |  | The message: a Slack message link, or its ts with --channel and --workspace |
-| `--channel` | string |  | The channel id (C…, D… or G…) when --target is a bare ts |
-| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when --target does not name one; for whoami, which workspace to ask |
+| `--target` | string |  | The message: a Slack message link, or its ts with `--channel` and `--workspace` |
+| `--channel` | string |  | The channel id (C…, D… or G…) when `--target` is a bare ts |
+| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when `--target` does not name one; for whoami, which workspace to ask |
 | `--confirm` | boolean | `false` | Actually send. Without it the command is a dry run that sends nothing |
 | `--emoji` | string |  | The emoji name, with or without colons (white_check_mark, :+1:) |
 | `--remove` | boolean | `false` | Take the reaction back (reactions.remove) instead of adding it |
-| `--slack-auth` | string |  | Which Slack credential may send, for one run: 'session' (your captured signed-in web session; the message is yours, with no app attached), 'user-token' (an xoxp- app token for you) or 'bot-token' (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. 'session,user-token,bot-token'). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then BLOWHORN_SLACK_AUTH, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
+| `--slack-auth` | string |  | Which Slack credential may send, for one run: `session` (your captured signed-in web session; the message is yours, with no app attached), `user-token` (an xoxp- app token for you) or `bot-token` (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. `session,user-token,bot-token`). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then `BLOWHORN_SLACK_AUTH`, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn slack': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Pace of the one random wait 'blowhorn slack react' takes: before each confirmed reaction after the first when --profile names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Pace of the one random wait `blowhorn slack react` takes: before each confirmed reaction after the first when `--profile` names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -135,11 +135,11 @@ blowhorn slack react --profile rian --target 'https://mesheryio.slack.com/archiv
 blowhorn slack react --profile rian,lee --target 'https://mesheryio.slack.com/archives/C0123/p1776000000000100' --emoji +1 --slack-auth session --confirm --json
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn slack send
 
-Send one message to Slack as one profile, or as each of several (--profile a,b: one after another, each with its own idempotency key, ledger entry and result; one profile's failure never stops the next, and exit is 0 only when every profile succeeded), exactly once. A dry run unless --confirm: the dry run resolves the credential, the target and the idempotency key and says what would happen. --target takes a message link (a thread reply: the ?thread_ts= parent when the link is a reply's), a channel link (a top-level post), or #channel, @user or a channel id with --workspace. The text comes from --message, --file &lt;path&gt;, or stdin with --message - or --file -, and is sent untouched (Slack mrkdwn included). Every send carries a client_msg_id and is claimed in the store's send ledger under its idempotency key (--idempotency-key, else derived from profile, workspace, channel, thread and text) before it goes out: a key already sent replays its ts and link without sending again, and a send whose answer was never recorded is 'outcome unknown' and is never resent automatically. The result names the credential that ran (--slack-auth), whether that was a fallback, warns when a token may show a Slack app's attribution, and reports bot_id, app_id, bot_profile or subtype on Slack's answer. Exit codes: 0 sent, replayed or previewed; 1 refused (credential or Slack); 2 usage or key conflict; 3 store unavailable or a contended key; 4 outcome unknown; 5 rate-limited (Retry-After kept).
+Send one message to Slack as one profile, or as each of several (`--profile` a,b: one after another, each with its own idempotency key, ledger entry and result; one profile's failure never stops the next, and exit is 0 only when every profile succeeded), exactly once. A dry run unless `--confirm`: the dry run resolves the credential, the target and the idempotency key and says what would happen. `--target` takes a message link (a thread reply: the ?thread_ts= parent when the link is a reply's), a channel link (a top-level post), or #channel, @user or a channel id with `--workspace`. The text comes from `--message`, `--file` &lt;path&gt;, or stdin with `--message` - or `--file` -, and is sent untouched (Slack mrkdwn included). Every send carries a client_msg_id and is claimed in the store's send ledger under its idempotency key (`--idempotency-key`, else derived from profile, workspace, channel, thread and text) before it goes out: a key already sent replays its ts and link without sending again, and a send whose answer was never recorded is 'outcome unknown' and is never resent automatically. The result names the credential that ran (`--slack-auth`), whether that was a fallback, warns when a token may show a Slack app's attribution, and reports bot_id, app_id, bot_profile or subtype on Slack's answer. Exit codes: 0 sent, replayed or previewed; 1 refused (credential or Slack); 2 usage or key conflict; 3 store unavailable or a contended key; 4 outcome unknown; 5 rate-limited (Retry-After kept).
 
 ```text
 blowhorn slack send [OPTIONS]
@@ -147,16 +147,16 @@ blowhorn slack send [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--target` | string |  | Where to send: a Slack message link (thread reply), a channel link (top-level post), or #channel, @user or a channel id with --workspace |
-| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when --target does not name one; for whoami, which workspace to ask |
-| `--message` | string |  | The message text, sent untouched (Slack mrkdwn included); '-' reads it from stdin |
-| `--file` | string |  | Read the message text from this file ('-' for stdin), sent untouched |
+| `--target` | string |  | Where to send: a Slack message link (thread reply), a channel link (top-level post), or #channel, @user or a channel id with `--workspace` |
+| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when `--target` does not name one; for whoami, which workspace to ask |
+| `--message` | string |  | The message text, sent untouched (Slack mrkdwn included); `-` reads it from stdin |
+| `--file` | string |  | Read the message text from this file (`-` for stdin), sent untouched |
 | `--confirm` | boolean | `false` | Actually send. Without it the command is a dry run that sends nothing |
 | `--idempotency-key` | string |  | The key this send is recorded under; a key already sent is replayed, never sent twice (default: derived from profile, workspace, channel, thread and text) |
-| `--slack-auth` | string |  | Which Slack credential may send, for one run: 'session' (your captured signed-in web session; the message is yours, with no app attached), 'user-token' (an xoxp- app token for you) or 'bot-token' (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. 'session,user-token,bot-token'). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then BLOWHORN_SLACK_AUTH, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
+| `--slack-auth` | string |  | Which Slack credential may send, for one run: `session` (your captured signed-in web session; the message is yours, with no app attached), `user-token` (an xoxp- app token for you) or `bot-token` (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. `session,user-token,bot-token`). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then `BLOWHORN_SLACK_AUTH`, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn slack': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Pace of the one random wait 'blowhorn slack send' takes: before each confirmed send after the first when --profile names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Pace of the one random wait `blowhorn slack send` takes: before each confirmed send after the first when `--profile` names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -170,11 +170,11 @@ blowhorn slack send --profile rian,lee --target 'https://mesheryio.slack.com/arc
 blowhorn slack send --profile rian --workspace mesheryio.slack.com --target '#general' --message - --confirm
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn slack whoami
 
-Ask Slack (auth.test) who a profile's Slack credential is in one workspace: user, user id and team, with the credential --slack-auth allowed and whether that was a fallback. Sends no message. --workspace may be left out when the profile has captured exactly one workspace.
+Ask Slack (auth.test) who a profile's Slack credential is in one workspace: user, user id and team, with the credential `--slack-auth` allowed and whether that was a fallback. Sends no message. `--workspace` may be left out when the profile has captured exactly one workspace.
 
 ```text
 blowhorn slack whoami [OPTIONS]
@@ -182,11 +182,11 @@ blowhorn slack whoami [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when --target does not name one; for whoami, which workspace to ask |
-| `--slack-auth` | string |  | Which Slack credential may send, for one run: 'session' (your captured signed-in web session; the message is yours, with no app attached), 'user-token' (an xoxp- app token for you) or 'bot-token' (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. 'session,user-token,bot-token'). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then BLOWHORN_SLACK_AUTH, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
+| `--workspace` | string |  | The workspace host (e.g. mesheryio.slack.com) when `--target` does not name one; for whoami, which workspace to ask |
+| `--slack-auth` | string |  | Which Slack credential may send, for one run: `session` (your captured signed-in web session; the message is yours, with no app attached), `user-token` (an xoxp- app token for you) or `bot-token` (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. `session,user-token,bot-token`). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then `BLOWHORN_SLACK_AUTH`, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn slack': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Accepted by 'blowhorn slack whoami' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn slack whoami` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -197,4 +197,4 @@ blowhorn slack whoami --profile rian --workspace mesheryio.slack.com --slack-aut
 blowhorn slack whoami --profile rian --workspace mesheryio.slack.com --json
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.

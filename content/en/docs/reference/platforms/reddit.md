@@ -11,6 +11,10 @@ Blowhorn works on Reddit in your own signed-in Chrome, through the Blowhorn exte
 
 {{< supported-actions "reddit" >}}
 
+Posts to the subreddit the row's "Destination" names as `r/<name>`; with
+no subreddit the row is skipped, never guessed. Comments when "Comment
+on" holds a Reddit post or comment address. Amplifies with an upvote.
+
 ## Reddit posts and comments
 
 Posting needs the subreddit in "Destination" or, for an upvote, in

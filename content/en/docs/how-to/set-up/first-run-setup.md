@@ -18,11 +18,13 @@ Blowhorn needs something your earlier setup did not do.
   account opens the sign-in page; follow its **Sign up** link. See
   [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/).
 - **Getting ready:** Blowhorn finds your Chrome profiles and adds its
-  extension to all of them quietly. Each profile gets a check, right on the
-  step. macOS may ask for your Mac's password once, so the extension can be
-  added for every profile. See
+  extension to all of them quietly, with no administrator password. Each
+  step shows as it runs, with the time left, and **Start again** appears if
+  it takes longer than usual. Chrome adds the extension turned off, so each
+  profile then gets an **Enable in** button: one click there, then **Enable
+  now** in Chrome. One ready profile is enough to go on. See
   [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/).
-- **Assign your troops:** choose which Blowhorn profile posts from each Chrome
+- **Assign troops:** choose which Blowhorn profile posts from each Chrome
   profile. See [Map Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/).
 - **First post:** write a post and pick where it goes. It lands in your queue
   as a draft, and nothing is posted until you approve it in Content. You can
@@ -32,15 +34,17 @@ Blowhorn needs something your earlier setup did not do.
 
 ## The rest of the app unlocks after Getting ready
 
-- **Locked until then:** the rail, platforms, the queue and Settings stay
-  locked until you're signed in and the extension is ready. The locked screen
-  says what's missing and has a **Back to setup** link.
+- **Locked until then:** the rail's places, New activity, platforms, the queue
+  and Settings stay locked until you're signed in and the extension is ready.
+  The locked screen says what's missing and has a **Back to setup** link. The
+  account button at the foot of the rail stays usable, so you can still sign
+  out or open the docs.
 - **It checks for real:** the lock reads your actual sign-in and extension
   state each time you come back to the window, so signing out later locks it
-  again until you sign back in. The extension counts as ready once it's set
-  up for every profile, added from the Chrome Web Store, or answering.
-  Getting ready uses the same check, so it never adds the extension again
-  where it's already in.
+  again until you sign back in. The extension counts as ready once it's
+  turned on in at least one Chrome profile, installed for every profile by
+  your organization's policy, or answering. Getting ready never adds the
+  extension twice: once Chrome is set to add it, it writes nothing again.
 - **Open it again any time:** choose **guided setup** at the bottom of
   Settings.
 - **Missing tools come first:** if Blowhorn's own tools aren't set up on this
