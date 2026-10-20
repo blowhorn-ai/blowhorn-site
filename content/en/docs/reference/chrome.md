@@ -218,7 +218,7 @@ Where the mode comes from, top wins:
 | --- | --- |
 | this machine | `BLOWHORN_EXTENSION_ROLLBACK=classic` forces classic |
 | one scheduled job | its `Driver Mode`: `extension-classic` or `extension-background` |
-| your account | the extension mode on Settings, Chrome extension (saved as `extensionMode` in your Layer5 Cloud preferences, so it follows you to every machine) |
+| your account | the extension mode on Settings, Chrome extension (saved as `extensionMode` in your Blowhorn preferences, so it follows you to every machine) |
 | nothing set | background |
 
 `BLOWHORN_EXTENSION_ROLLBACK=1` still swaps the driver for Blowhorn's own
@@ -254,9 +254,9 @@ blowhorn chrome extension-mode classic      # save classic to your account
 blowhorn chrome extension-mode default      # clear it, so runs use background
 ```
 
-With no mode it reads your account setting from Layer5 Cloud and writes
-nothing; when Cloud cannot be read it says why (`account_error`) and shows
-the cached setting a run would fall back to. With one it saves `extensionMode` to Layer5 Cloud; sign in
+With no mode it reads your account setting from Blowhorn and writes
+nothing; when it cannot be read it says why (`account_error`) and shows
+the cached setting a run would fall back to. With one it saves `extensionMode` to Blowhorn; sign in
 first with `blowhorn auth login`. `--json` prints one object: `mode`,
 `source` (`rollback`, `account` or `default`), `account`, `account_error`,
 `rollback`, `rollback_error`, `features` and `written`.

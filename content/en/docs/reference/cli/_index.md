@@ -109,14 +109,14 @@ and checked against it, so a page says what `--help` says.
 `blowhorn auth` is a group of three: `auth status` reports whether an account token and organization id are configured (never the token value), the api base,
 enforcement mode, a summary of the last entitlement attestation, and why the
 last read of the plan failed when it did;
-`auth login` signs you in to Layer5 Cloud in your browser (Layer5 Cloud's
-native client sign-in: you allow Blowhorn on Cloud's consent page and Cloud
+`auth login` signs you in to [Blowhorn](https://cloud.blowhorn.ai) in your browser (Blowhorn's
+native client sign-in: you allow the app on the consent page and Blowhorn
 answers on 127.0.0.1 with a one-time code redeemed with a PKCE verifier; create an account there if you are
-new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps a `purpose=blowhorn` Layer5 Cloud API token in the macOS Keychain (revoking the one the previous sign-in kept) and reads your plan once, sending
-an account without Blowhorn straight to Layer5 Cloud to start the beta (`--no-browser` prints the
+new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps a `purpose=blowhorn` Blowhorn API token in the macOS Keychain (revoking the one the previous sign-in kept) and reads your plan once, sending
+an account without Blowhorn straight to Blowhorn to start the beta (`--no-browser` prints the
 address instead of opening it, and `--json` opens nothing either, its first line naming the address,
 which is how the desktop app runs it; `BLOWHORN_CLOUD_TOKEN` still wins when set);
-`auth logout` revokes the saved API token on Layer5 Cloud, then forgets it,
+`auth logout` revokes the saved API token on Blowhorn, then forgets it,
 the account in `cloud.yaml` and the local attestation cache.
 
 `blowhorn store` is a single command, not a group: it reports whether this
@@ -128,7 +128,7 @@ administrator. `blowhorn config get
 `blowhorn setup` is a single command: it checks that `blowhorn` is on `PATH`,
 reads your Chrome profiles from Chrome's `Local State` file, writes the Chrome
 native host when it is missing or stale - after saying which Chrome profiles it
-reaches and asking - and checks the Layer5 Cloud sign-in, then lists the steps
+reaches and asking - and checks the Blowhorn sign-in, then lists the steps
 left for you. Each step reports `ok`, `changed`, `planned`, `declined`, `todo`
 or `failed`, so a re-run is safe and says what it changed. `--dry-run` writes
 nothing, `--yes` agrees without asking, and `--json` prints one object; without
@@ -230,7 +230,7 @@ extension, the policy file, each Chrome profile's `Secure Preferences` and
 bridge lock beside that socket; while a run holds the bridge it says so and
 writes no hello.
 `chrome extension-mode` reads no Chrome file: it reads or writes the extension
-mode in your Layer5 Cloud account.
+mode in your Blowhorn account.
 `attach-chrome start` and `attach-chrome signin` start a browser, and neither drives the one it
 starts; `chrome map` and `chrome extension-enable` ask the installed Chrome to open a window on one
 page, which starts Chrome and leaves it running when none is running, and drive nothing; `attach-chrome stop` quits only the Chrome holding that tree. All carry a stable `--json` shape; every detail is in the [Chrome reference](/docs/reference/chrome/),

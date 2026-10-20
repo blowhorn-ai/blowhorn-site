@@ -76,7 +76,7 @@ Output: json with --json, text otherwise.
 
 Show whether Layer5 Cloud credentials and an entitlement attestation are present.
 
-Reports token configured (never the token value), organization id, api_base, enforcement mode (BLOWHORN_ENTITLEMENT), and a summary of the last Feature read.
+Reports token configured (never the token value), organization id, api_base, enforcement mode (BLOWHORN_ENTITLEMENT), and a summary of the last Feature read. --offline answers from presence checks only: it reads no saved secret, so macOS shows no Keychain prompt, and it makes no network request (the desktop app runs it at launch).
 
 ```text
 blowhorn auth status [OPTIONS]
@@ -84,6 +84,7 @@ blowhorn auth status [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
+| `--offline` | boolean | `false` | Check only whether a token and a saved plan are present; read no secret and make no request. |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string |  | Accepted and ignored by 'blowhorn auth': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by 'blowhorn auth status' because --pace is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -95,6 +96,7 @@ Examples:
 ```bash
 blowhorn auth status
 blowhorn auth status --json
+blowhorn auth status --offline --json
 ```
 
 Output: json with --json, text otherwise.

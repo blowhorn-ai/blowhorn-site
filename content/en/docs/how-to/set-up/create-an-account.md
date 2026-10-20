@@ -5,24 +5,24 @@ weight: 34
 ---
 
 
-Your Blowhorn account lives in Layer5 Cloud. The app's **Sign in** step has
+Your Blowhorn account lives in [Blowhorn](https://cloud.blowhorn.ai). The app's **Sign in** step has
 two buttons:
 
 - **Sign in:** opens your browser to sign in to an account you already have.
 - **Create account:** opens your browser so you can sign up.
 
-Either way, Layer5 Cloud then asks whether to allow Blowhorn to sign in as
+Either way, Blowhorn then asks whether to allow the app to sign in as
 you; choose **Allow**. The browser tab then says Blowhorn received the
 answer: close it and return to the app, where the step has ticked off. The
 app never sees your password.
 
 ## How Create account works today
 
-- **Your browser opens Layer5 Cloud's sign-in page:** choose **Sign up** there.
-  Cloud's sign-up page can't send you back to Blowhorn yet, so the app starts
+- **Your browser opens Blowhorn's sign-in page:** choose **Sign up** there.
+  The sign-up page can't send you back to the app yet, so the app starts
   from the sign-in page, which can.
 - **Google and GitHub work too:** they always run in your browser.
 - **Nothing to copy or paste:** when sign-up finishes and you choose **Allow**,
-  Cloud hands you back to Blowhorn and the step ticks off.
+  It hands you back to the app and the step ticks off.
 
 From the command line, `blowhorn auth login --sign-up` does the same thing.

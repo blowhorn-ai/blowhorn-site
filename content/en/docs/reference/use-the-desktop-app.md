@@ -105,7 +105,7 @@ so the app can never offer an option the engine does not know. The
 extension card reports whether the extension is installed, which
 version answers, and whether it says connected, and sets its
 [extension mode](/docs/reference/chrome/#extension-mode-classic-or-background), classic or
-background, on your Layer5 Cloud account. **guided setup** at the
+background, on your Blowhorn account. **guided setup** at the
 bottom reopens the first-run setup, and **run setup again** opens Setup.
 Quitting the app leaves
 posting to the background service and the keep-running setting; see
