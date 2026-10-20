@@ -67,7 +67,7 @@ Examples:
 
 ```bash
 blowhorn analytics history --json --since 12m
-blowhorn analytics history --json --subject Layer5 --since all
+blowhorn analytics history --json --subject Acme --since all
 blowhorn analytics history --subject lee --since 90d
 ```
 
@@ -97,7 +97,7 @@ Examples:
 
 ```bash
 blowhorn analytics import-exports
-blowhorn analytics import-exports data/analytics/layer5_content_20260719_033126.xls --dry-run --json
+blowhorn analytics import-exports data/analytics/acme_content_20260719_033126.xls --dry-run --json
 ```
 
 Output: json with --json, text otherwise.

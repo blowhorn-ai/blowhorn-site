@@ -279,7 +279,7 @@ Examples:
 
 ```bash
 blowhorn profile switch james
-blowhorn profile switch layer5
+blowhorn profile switch acme
 ```
 
 Output: text.

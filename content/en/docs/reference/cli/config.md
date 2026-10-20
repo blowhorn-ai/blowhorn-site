@@ -95,13 +95,13 @@ Examples:
 ```bash
 blowhorn config set defaults.profile lee
 blowhorn config set defaults.pace slow
-blowhorn config set defaults.exclude layer5,lee,meshery,kanvas
+blowhorn config set defaults.exclude acme,lee,meshery,kanvas
 blowhorn config set defaults.logs.directory ~/blowhorn-logs
 blowhorn config set defaults.logs.retention_days 365
 blowhorn config set defaults.logs.retention_days -- -1
 blowhorn config set defaults.exclude ''
 blowhorn config set defaults.headless true --json
-blowhorn config set defaults.store.organization layer5
+blowhorn config set defaults.store.organization acme
 blowhorn config set store.tunnel.target someone@bastion.example.com
 blowhorn config set store.password
 blowhorn config set store.password ''

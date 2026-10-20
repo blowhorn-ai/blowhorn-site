@@ -51,13 +51,13 @@ blowhorn post --platform slack --target "@alice"
 blowhorn post --platform slack --target "https://acme.slack.com/archives/C0123/p1776000000000100"
 blowhorn post --platform slack --profile lee
 blowhorn post --platform bluesky --profile lee
-blowhorn post --platform github --profile all --amplify "https://github.com/layer5io/meshery/issues/1234"
+blowhorn post --platform github --profile all --amplify "https://github.com/acme/widgets/issues/1234"
 blowhorn post --platform github --profile all --amplify "https://github.com/meshery/meshery/pull/21625"
-blowhorn post --platform github --profile lee --amplify "https://github.com/layer5io/layer5/issues/42"
-blowhorn post --platform github --profile lee,kate,rian --amplify "https://github.com/layer5io/layer5/issues/42"
-blowhorn post --platform github --profile all --exclude lee --amplify "https://github.com/layer5io/layer5/issues/42"
-blowhorn post --platform github --profile all --amplify "https://github.com/layer5io/layer5/issues/42" --dry-run
-blowhorn post --platform github --profile lee --amplify "https://github.com/layer5io/layer5/issues/42" --dry-run -v
+blowhorn post --platform github --profile lee --amplify "https://github.com/acme/widgets/issues/42"
+blowhorn post --platform github --profile lee,kate,rian --amplify "https://github.com/acme/widgets/issues/42"
+blowhorn post --platform github --profile all --exclude lee --amplify "https://github.com/acme/widgets/issues/42"
+blowhorn post --platform github --profile all --amplify "https://github.com/acme/widgets/issues/42" --dry-run
+blowhorn post --platform github --profile lee --amplify "https://github.com/acme/widgets/issues/42" --dry-run -v
 blowhorn post --platform github --profile lee
 ```
 

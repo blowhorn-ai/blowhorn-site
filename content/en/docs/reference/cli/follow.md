@@ -36,9 +36,9 @@ blowhorn follow --profile kate,rian --target mia --limit 0
 blowhorn follow --platform github --profile lee --target meshery --limit 5 --dry-run -v
 blowhorn follow --platform github --profile lee --target meshery --limit 25
 blowhorn follow --platform github --profile lee --target meshery --limit 25 --dry-run
-blowhorn follow --platform github --profile lee --target layer5io --limit 0
-blowhorn follow --platform github --profile lee --target layer5io,meshery,kanvas --limit 0
-blowhorn follow --platform github --profile lee --target layer5io,meshery --limit 0 --dry-run
+blowhorn follow --platform github --profile lee --target acme --limit 0
+blowhorn follow --platform github --profile lee --target acme,meshery,kanvas --limit 0
+blowhorn follow --platform github --profile lee --target acme,meshery --limit 0 --dry-run
 blowhorn follow --platform github --profile all --target meshery --limit 10
 blowhorn follow --platform github --profile kate,rian --target meshery --limit 10
 blowhorn follow --platform github --profile all --target meshery --limit 10 --exclude lee

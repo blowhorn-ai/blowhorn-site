@@ -131,7 +131,7 @@ Examples:
 
 ```bash
 blowhorn content upsert --payload '{"Platform":"linkedin","Profile":"kate","Message Text":"Meshery v0.9 is out","Approved?":"yes","Promote On":"2026-09-01 09:00:00"}' --json
-blowhorn content upsert --payload '{"Platform":"github","Profile":"all","Amplify":"https://github.com/layer5io/meshery/issues/1234","Approved?":"yes"}' --json
+blowhorn content upsert --payload '{"Platform":"github","Profile":"all","Amplify":"https://github.com/acme/widgets/issues/1234","Approved?":"yes"}' --json
 blowhorn content upsert --row 12 --payload '{"Approved?":"yes"}' --expected-fingerprint 3f2a1c --json
 blowhorn content upsert --payload '{"Platform":"x","Profile":"kate","Message Text":"hello"}' --dry-run
 ```
