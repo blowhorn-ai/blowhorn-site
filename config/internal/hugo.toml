@@ -42,3 +42,8 @@ renderSegments = ["all"]
     [[module.imports.mounts]]
       source = "marketing/capability-comparison/compare-assistants.csv"
       target = "assets/internal/compare-assistants.csv"
+    # Data for /internal/strategy/persona-matrix/ (same pattern as the
+    # assistant comparison above).
+    [[module.imports.mounts]]
+      source = "marketing/capability-comparison/compare-personas.csv"
+      target = "assets/internal/compare-personas.csv"
