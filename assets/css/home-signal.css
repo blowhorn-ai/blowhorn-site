@@ -124,19 +124,323 @@
   box-shadow: none;
 }
 
-/* How-it-works terminals: wrap the command so it isn't clipped, and keep the
-   window title ("terminal") instead of ellipsizing it to "ter...". */
-.home-signal .signal-steps .term-lang,
-.home-signal .signal-steps .term-copy-text { display: none; }
-.home-signal .signal-steps .term-title {
-  overflow: visible;
-  text-overflow: unset;
+/* How it works: the machines designs (Muster, Battalion Map, One Thunder,
+   Call to Arms) rotate by the time rule in data/machines.json; the head
+   script in layouts/_partials/machines-rotation-head.html picks one and
+   the [data-machines-only] CSS there shows only it. Panels are black like
+   the cast scenes, so the art blends in. See docs/machines-variants.md. */
+html[data-machines="battalion-map"] #how .section-head { margin-inline: auto; text-align: center; }
+html[data-machines="battalion-map"] #how .section-head .body-lg { margin-inline: auto; }
+.machines-card {
+  background: #000;
+  color: var(--app-ink, #E9EFED);
+  border: 1px solid var(--app-line, #26302D);
+  border-radius: 14px;
+  padding: var(--card-pad);
+  text-align: left;
+}
+.machines-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font: 500 10.5px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-muted, #9AA8A4);
+  margin-bottom: var(--space-4);
+}
+.machines-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  background: var(--app-live, #6AE3B6);
+  box-shadow: 0 0 6px var(--app-live, #6AE3B6);
+  flex: none;
+}
+.machines-dot.is-gold { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
+.machines-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: 500 10.5px/1 var(--font-mono);
+  color: var(--app-live, #6AE3B6);
+  background: var(--app-tint, rgba(106, 227, 182, 0.10));
+  border: 1px solid color-mix(in srgb, var(--app-live, #6AE3B6) 30%, transparent);
+  padding: 4px 7px;
+  border-radius: 5px;
+  white-space: nowrap;
+  margin: 0;
+}
+.machines-pill.is-enlist {
+  color: var(--yellow);
+  background: transparent;
+  border-color: color-mix(in srgb, var(--yellow) 55%, transparent);
+}
+.machines-pill.is-pending {
+  color: var(--yellow);
+  background: color-mix(in srgb, var(--yellow) 10%, transparent);
+  border-color: color-mix(in srgb, var(--yellow) 35%, transparent);
+}
+.machines-unit-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--app-ink, #E9EFED);
   white-space: nowrap;
 }
-.home-signal .signal-steps .term-body pre {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+.machines-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.machines-actions-end { justify-content: flex-end; margin-bottom: var(--space-4); }
+.machines-note { color: var(--app-muted, #9AA8A4); font-size: 13px; margin: 0; }
+.machines-footnote { color: var(--ink-muted); font-size: 13.5px; margin: var(--space-4) 0 0; }
+
+/* Muster */
+.machines-split { display: grid; gap: var(--grid-gap); }
+@media (min-width: 900px) { .machines-split { grid-template-columns: 5fr 7fr; } }
+.machines-roll { list-style: none; margin: 0 0 var(--space-6); padding: 0; }
+.machines-roll li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--app-line, #26302D);
+}
+.machines-roll li:last-child { border-bottom: 0; }
+.machines-roll-n { font: 400 11px var(--font-mono); color: var(--app-muted, #9AA8A4); }
+.machines-roll-name { flex: 1; font-weight: 500; }
+.machines-roll li.is-next .machines-roll-name { color: var(--app-muted, #9AA8A4); }
+.machines-formation { margin: 0; display: flex; flex-direction: column; }
+.machines-strength {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  font: 500 10.5px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--app-live, #6AE3B6) 35%, transparent);
+  border-radius: var(--radius-pill);
+  padding: 5px 10px;
+  margin: 0 0 var(--space-4);
+}
+.machines-formation-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+.machines-formation-grid img { width: 100%; border-radius: 6px; display: block; }
+.machines-add {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  border: 1px dashed color-mix(in srgb, var(--teal) 60%, transparent);
+  border-radius: 6px;
+  color: var(--teal);
+  font-size: 22px;
+}
+.machines-formation-front {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+.machines-front-unit { display: grid; justify-items: center; gap: var(--space-2); }
+.machines-front-unit img { width: 104px; border-radius: 6px; display: block; }
+.machines-formation-front .machines-major { width: min(216px, 42%); margin-left: auto; border-radius: 6px; display: block; }
+.machines-formation .machines-note { margin-top: var(--space-4); }
+
+/* Battalion Map */
+.machines-map-wrap { display: grid; gap: var(--grid-gap); }
+@media (min-width: 1024px) { .machines-map-wrap { grid-template-columns: minmax(0, 1fr) 300px; } }
+.machines-map-stage {
+  position: relative;
+  min-height: 30rem;
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 56px 56px;
+}
+.machines-map-wires { position: absolute; inset: 0; width: 100%; height: 100%; }
+.machines-map-wires line {
+  stroke: color-mix(in srgb, var(--teal) 45%, transparent);
+  stroke-width: 0.35;
+  stroke-dasharray: 2 1.6;
+}
+.machines-node, .machines-hq {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+}
+.machines-map-stage > span:nth-of-type(1) { --x: 18%; --y: 24%; }
+.machines-map-stage > span:nth-of-type(2) { --x: 82%; --y: 24%; }
+.machines-map-stage > span:nth-of-type(3) { --x: 14%; --y: 76%; }
+.machines-map-stage > span:nth-of-type(4) { --x: 86%; --y: 76%; }
+.machines-map-stage > span:nth-of-type(5) { --x: 50%; --y: 13%; }
+.machines-map-stage > span:nth-of-type(6) { --x: 66%; --y: 90%; }
+.machines-hq { left: 50%; top: 50%; }
+.machines-node img {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--teal) 65%, transparent);
+  display: block;
+}
+.machines-node.is-mate img { border-color: color-mix(in srgb, var(--yellow) 70%, transparent); }
+.machines-node.is-add .machines-add { width: 56px; height: 56px; aspect-ratio: auto; border-radius: 50%; }
+.machines-hq img {
+  width: 148px;
+  height: 148px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+  display: block;
+}
+.machines-reports { display: flex; flex-direction: column; }
+.machines-report-list { list-style: none; margin: 0 0 var(--space-4); padding: 0; display: grid; gap: var(--space-4); }
+.machines-report-list li { display: flex; gap: var(--space-3); }
+.machines-report-list time { font: 400 11px var(--font-mono); color: var(--app-muted, #9AA8A4); padding-top: 2px; }
+.machines-report-list span { color: var(--app-muted, #9AA8A4); font-size: 13.5px; }
+.machines-report-list b { display: block; color: var(--app-ink, #E9EFED); font-size: 13.5px; }
+.machines-report-list li.is-mate b, .machines-report-list li.is-mate time { color: var(--yellow); }
+.machines-legend {
+  display: flex;
+  margin-top: var(--space-2);
+  gap: var(--space-6);
+  font: 500 10.5px var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-6);
+}
+.machines-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.machines-reports .button { margin-top: auto; justify-content: center; }
+
+/* One Thunder */
+.machines-thunder {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+@media (min-width: 900px) { .machines-thunder { grid-template-columns: auto minmax(0, 1fr) auto; } }
+.machines-thunder-people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, auto));
+  gap: var(--space-4) var(--space-6);
+}
+.machines-voice { display: grid; justify-items: start; gap: var(--space-2); }
+.machines-voice img { width: 112px; border-radius: 6px; display: block; }
+.machines-thunder-major { margin: 0; position: relative; justify-self: center; }
+.machines-thunder-major > img { width: min(430px, 100%); border-radius: 6px; display: block; }
+.machines-arcs {
+  position: absolute;
+  right: -72px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 150px;
+  height: 160px;
+  overflow: visible;
+}
+.machines-arcs path { fill: none; stroke: var(--teal); stroke-width: 6; stroke-linecap: round; }
+.machines-arcs path:nth-child(1) { opacity: 0.95; }
+.machines-arcs path:nth-child(2) { opacity: 0.7; }
+.machines-arcs path:nth-child(3) { opacity: 0.45; }
+.machines-arcs path:nth-child(4) { opacity: 0.25; }
+.machines-thunder-plats { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); justify-items: center; }
+.machines-thunder-plats li {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--white);
+  display: grid;
+  place-items: center;
+}
+.machines-thunder-plats img { width: 24px; height: 24px; }
+.machines-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: flex-end; margin: 0; }
+@media (min-width: 900px) { .machines-chips { grid-column: 1 / -1; } }
+@media (max-width: 899px) {
+  .machines-thunder-plats { grid-template-columns: repeat(6, auto); justify-content: center; }
+  .machines-thunder-people { justify-content: center; }
+  .machines-chips { justify-content: center; }
+}
+
+/* Call to Arms */
+.machines-story {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--grid-gap);
+}
+@media (min-width: 640px) { .machines-story { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .machines-story { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.machines-beat { display: flex; flex-direction: column; gap: var(--space-3); }
+.machines-beat-copy { margin-top: auto; }
+.machines-beat .machines-pill { align-self: flex-start; }
+.machines-beat-tag {
+  font: 500 10.5px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0;
+}
+.machines-beat > img, .machines-beat-duo img { width: 100%; border-radius: 6px; display: block; }
+.machines-beat-duo { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+.machines-beat-copy { margin-inline: 0; margin-bottom: 0; font-size: 14.5px; }
+.machines-beat.is-final { border-color: color-mix(in srgb, var(--teal) 55%, transparent); }
+@keyframes machines-beat {
+  0%, 22% { border-color: color-mix(in srgb, var(--teal) 65%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--teal) 35%, transparent); }
+  30%, 100% { border-color: var(--app-line, #26302D); box-shadow: none; }
+}
+.machines-beat { animation: machines-beat 4.8s linear infinite; animation-delay: calc(var(--beat) * 1.2s); }
+.machines-beat:nth-child(1) { --beat: 0; }
+.machines-beat:nth-child(2) { --beat: 1; }
+.machines-beat:nth-child(3) { --beat: 2; }
+.machines-beat:nth-child(4) { --beat: 3; }
+.machines-tl-dot:nth-of-type(1) { --beat: 0; }
+.machines-tl-dot:nth-of-type(2) { --beat: 1; }
+.machines-tl-dot:nth-of-type(3) { --beat: 2; }
+.machines-tl-dot:nth-of-type(4) { --beat: 3; }
+.machines-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  margin-top: var(--space-6);
+}
+.machines-timeline::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: var(--app-line, #26302D);
+}
+.machines-tl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--app-control, #22302C);
+  z-index: 1;
+}
+@keyframes machines-tl {
+  0%, 22% { background: var(--teal); box-shadow: 0 0 8px var(--teal); }
+  30%, 100% { background: var(--app-control, #22302C); box-shadow: none; }
+}
+.machines-tl-dot { animation: machines-tl 4.8s linear infinite; animation-delay: calc(var(--beat) * 1.2s); }
+.machines-tl-time { font: 400 10.5px var(--font-mono); color: var(--ink-muted); margin-top: var(--space-2); }
+.machines-panel[data-machines-only="call-to-arms"] .machines-actions { margin-top: var(--space-6); }
+@media (prefers-reduced-motion: reduce) {
+  .machines-beat, .machines-tl-dot { animation: none; }
 }
 
 .hero-video { margin: 0; position: relative; }

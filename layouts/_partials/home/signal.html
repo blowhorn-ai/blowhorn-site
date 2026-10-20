@@ -2,6 +2,7 @@
   come from data/integrations.json via platform-counts.html. Hero variants
   still come from data/hero.json. */ -}}
     {{- $rot := partial "hero-rotation.html" . -}}
+    {{- $mrot := partial "machines-rotation.html" . -}}
     {{- $int := site.Data.integrations -}}
     <main id="main" class="home-signal">
       <section class="hero hero-signal" aria-labelledby="hero-title">
@@ -35,29 +36,19 @@
         <div class="wrap">
           <div class="section-head">
             <p class="label">How it works</p>
-            <h2 id="how-title" class="display">You give the orders. Your machines carry them out.</h2>
-            <p class="body-lg muted">Your Blowhorn account keeps your queue, profiles and history in sync. The work itself happens in the desktop app on machines you own.</p>
+            <h2 id="how-title" class="display">
+              {{- range $mrot.variants }}<span data-machines-only="{{ .id }}">{{ .headline }}</span>{{ end -}}
+            </h2>
+            <p class="body-lg muted">
+              {{- range $mrot.variants }}<span data-machines-only="{{ .id }}">{{ .subhead }}</span>{{ end -}}
+            </p>
           </div>
-          <ol class="grid grid-3 section-body signal-steps">
-            <li class="card">
-              <p class="label">01</p>
-              <h3 class="h3">Write it once</h3>
-              <p>Draft the post in the desktop app, from the Python CLI, or let your agent draft it. Nothing goes out until you approve it.</p>
-              {{ partial "code-card.html" (dict "code" "blowhorn post --check-queue --profile all\n" "title" "terminal" "lang" "bash" "prompt" true) }}
-            </li>
-            <li class="card">
-              <p class="label">02</p>
-              <h3 class="h3">Pick the moment</h3>
-              <p>Queue it for now or for launch o'clock. Add the reposts, quotes, comments and reactions your team will send after it. Preview any run first.</p>
-              {{ partial "code-card.html" (dict "code" "blowhorn post --profile all --dry-run\n" "title" "terminal" "lang" "bash" "prompt" true) }}
-            </li>
-            <li class="card">
-              <p class="label">03</p>
-              <h3 class="h3">It goes out as you</h3>
-              <p>Your machine does the typing and clicking in your own Chrome, at a human pace, signed in as you. Every result lands in Activity.</p>
-              {{ partial "code-card.html" (dict "code" "blowhorn report\n" "title" "terminal" "lang" "bash" "prompt" true) }}
-            </li>
-          </ol>
+          <div class="section-body">
+            {{ partial "home/machines/muster.html" . }}
+            {{ partial "home/machines/battalion-map.html" . }}
+            {{ partial "home/machines/one-thunder.html" . }}
+            {{ partial "home/machines/call-to-arms.html" . }}
+          </div>
         </div>
       </section>
 
