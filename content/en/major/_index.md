@@ -5,7 +5,7 @@ description: The life, legend and loud opinions of Major Blowhorn, Blowhorn's dr
 lead: Thirty years of basic training. One horn. Zero patience for messages nobody hears.
 layout: major
 outputs: ["HTML", "md", "dispatches"]
-lastmod: 2026-10-18
+lastmod: 2026-10-20
 sitemap:
   changefreq: weekly
   priority: 0.4
@@ -123,7 +123,7 @@ troops:
     id: 'sleeper-cell'
     img: 'assets/brand/cast/sleeper-cell-base.webp'
     alt: 'Sleeper Cell, a black-faced sheep in a watch cap, monocle and coral scarf, crouched behind a padlock shield with a radar cloaker'
-    v: 'Do not let the name fool you. This black-faced sheep has not slept since basic training. He guards your privacy from inside your own Chrome: each Blowhorn profile gets its own Chrome profile, and your logged-in sessions stay on your machine instead of in some vendor''s cloud. His radar dish never stops sweeping, and the monocle is purely for intimidation.'
+    v: 'Do not let the name fool you. This black-faced sheep has not slept since basic training. He guards your privacy from inside your own Chrome: each Blowhorn profile gets its own Chrome profile, and LinkedIn, X, Reddit and Hacker News sessions stay in that Chrome. Slack is stored in your account. His radar dish never stops sweeping, and the monocle is purely for intimidation.'
     links:
       - t: "One Chrome profile per Blowhorn profile"
         u: '/docs/how-to/set-up/map-chrome-profiles/'
@@ -184,7 +184,7 @@ troops:
     id: 'gi-donkey'
     img: 'assets/brand/cast/gi-donkey-base.webp'
     alt: 'The G.I., a grumpy donkey in a helmet with a coral blanket and padlocked saddlebags'
-    v: 'A grumpy donkey hauling padlocked saddlebags full of your passwords. Other tools ask you to hand your logins to their cloud. He keeps them on your own Mac and doesn''t lend them out, not even to Major. Stubborn? Absolutely. That''s the job description.'
+    v: 'A grumpy donkey hauling padlocked saddlebags. Other tools post from their cloud. LinkedIn, X, Reddit and Hacker News sessions stay in Chrome on your Mac; Slack is stored in your account. Stubborn? Absolutely. That''s the job description.'
     links:
       - t: "Where your data lives"
         u: '/docs/explanation/your-data/'

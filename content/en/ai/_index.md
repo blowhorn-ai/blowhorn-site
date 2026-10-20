@@ -7,7 +7,7 @@ label: AI native
 lead: Built for you and the AI agents that work for you
 layout: ai
 weight: 1
-lastmod: 2026-10-13
+lastmod: 2026-10-20
 cards_title: Three promises to every human in charge
 cards:
   - t: Rehearsal first
@@ -15,7 +15,7 @@ cards:
   - t: Your limits, every time
     b: The risk limits you set for each profile apply to every agent action. An agent can't post more, or faster, than you allow.
   - t: Runs on your machine
-    b: Agents drive Blowhorn on your own machine, from your own Chrome. Your passwords never leave your computer.
+    b: Agents drive Blowhorn on your own machine, from your own Chrome. LinkedIn, X, Reddit and Hacker News actions run there; posts go out from that Mac.
 ways_title: Two ways in for agents
 ways:
   - path: /ai/blowhorn-axi

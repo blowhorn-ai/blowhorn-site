@@ -106,8 +106,8 @@
           "b": "Queue the launch post and its reposts, quotes and reactions ahead of time. Every profile you add joins the same wave."
         },
         {
-          "t": "Their sessions stay theirs",
-          "b": "Each teammate's browser session stays in their own Chrome; Blowhorn acts as them there."
+          "t": "LinkedIn, X, Reddit and HN stay theirs",
+          "b": "Each teammate's LinkedIn, X, Reddit and Hacker News sessions stay in their own Chrome; Blowhorn acts as them there."
         },
         {
           "t": "One pause for the whole wave",
@@ -123,7 +123,7 @@
       "faq": [
         {
           "q": "Do teammates hand over their passwords?",
-          "a": "No. Their browser sessions stay in their own Chrome, and Blowhorn acts as them there."
+          "a": "No. Their LinkedIn, X, Reddit and Hacker News sessions stay in their own Chrome, and Blowhorn acts as them there."
         },
         {
           "q": "Can I invite my team?",
@@ -157,7 +157,7 @@
       "slug": "founders",
       "name": "Founders",
       "weight": 30,
-      "headline": "You're the company's voice. Keep its keys.",
+      "headline": "You're the company's voice. Post as you.",
       "lead": "Every launch, across your personal, company and project profiles, from one queue on machines you own. Blowhorn does the typing and clicking in your own Chrome, so nobody else holds the sign-ins that are your company.",
       "description": "Blowhorn for founders: every profile you speak for, from one queue on your own machines, posted as you from your own Chrome.",
       "art": {
@@ -201,7 +201,7 @@
       "faq": [
         {
           "q": "What lives in my account?",
-          "a": "Your queue, schedule, profiles, run history and analytics, so every machine stays in sync. Browser cookies stay in Chrome on each machine, and your account never posts."
+          "a": "Your queue, schedule, profiles, run history and analytics, so every machine stays in sync. LinkedIn, X, Reddit and Hacker News sessions stay in Chrome on each machine; Slack is stored in your account. Your account never posts."
         },
         {
           "q": "Will it post twice?",
@@ -349,7 +349,7 @@
       "faq": [
         {
           "q": "Does a supporter give me their password?",
-          "a": "No. A supporter adds their own profile, signed in from their own Chrome."
+          "a": "No. A supporter adds their own profile. LinkedIn, X, Reddit and Hacker News sessions stay in their Chrome."
         },
         {
           "q": "Does Blowhorn install a Slack app?",
@@ -427,7 +427,7 @@
         },
         {
           "q": "Where do client credentials live?",
-          "a": "Browser cookies stay in Chrome on each machine. GitHub, Hacker News and Slack credentials sync from your account."
+          "a": "LinkedIn, X, Reddit and Hacker News sessions stay in Chrome on each machine. Slack is stored in your account, with GitHub and Hacker News credentials."
         },
         {
           "q": "Is this an antidetect browser?",

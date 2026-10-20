@@ -2,9 +2,9 @@
 title: Pricing
 seo_title: Blowhorn pricing - plans for one voice or a whole team
 description: Start free. Solo is $19 a month, Pro is $39 a month for 10 profiles, Team is $35 a seat a month. Pay yearly and get two months free.
-lead: Start free, upgrade when you need more profiles or more platforms. Every plan posts from your own Chrome, as you, without handing anyone your password.
+lead: Start free, upgrade when you need more profiles or more platforms. Every plan posts from your own Chrome, as you.
 layout: pricing
-lastmod: 2026-10-13
+lastmod: 2026-10-20
 sitemap:
   changefreq: monthly
   priority: 0.8
@@ -72,8 +72,8 @@ tiers:
       - Full LinkedIn invite tidy-up (send, accept, withdraw)
       - Up to 3 machines per seat
 included:
-  - title: No passwords handed over
-    body: Blowhorn posts from your own signed-in Chrome. We never ask for your password, cookies or two-factor codes.
+  - title: Through your Chrome
+    body: Blowhorn signs in to LinkedIn, X and Reddit through the Chrome you already use, and hands two-factor prompts to you.
   - title: No license keys
     body: Your plan lives in your account. Sign in on a machine and it just knows what you have.
   - title: Keeps going offline
