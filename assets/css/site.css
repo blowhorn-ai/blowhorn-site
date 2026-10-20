@@ -2960,37 +2960,50 @@ a.docs-card.platform-card:hover::after, a.docs-card.platform-card:focus-visible:
 
 /* Tabbed examples: tokens only, so Reveille and Signal both pick them up.
    Without JS every pane is visible. JS adds .is-enhanced and [hidden].
-   The tabs are navigation, not labels: plain text on a baseline rule, the
-   active tab at full strength with the rule turned teal beneath it. No
-   pills, no filled boxes. */
+   Enclosed tabs: each tab is bordered and shaded, and the active tab
+   shares the panel's surface and opens into it (its bottom border is the
+   panel's own colour), so the strip and the pane read as one unit with
+   content under the selected tab. Never pills: the shape is a folder tab,
+   squared at the bottom, joined to its panel. */
 .tabs { margin: var(--space-4) 0 var(--space-8); }
 .tabs-list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1) var(--space-6);
-  margin: 0 0 var(--space-5);
-  border-bottom: var(--stroke-hairline) solid var(--line-strong);
+  gap: var(--space-1);
+  margin: 0;
 }
 .tabs-tab {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  padding: var(--space-2) 2px var(--space-3);
-  margin-bottom: calc(-1 * var(--stroke-hairline));
-  border-bottom: 2px solid transparent;
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: -1px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: var(--surface-raised);
   color: var(--ink-muted);
   font: 600 14.5px var(--font-sans);
   text-decoration: none;
 }
 .tabs-tab:hover { color: var(--ink); text-decoration: none; }
 .tabs-tab.is-on, .tabs-tab[aria-selected="true"], .tabs-tab[aria-current="true"] {
+  z-index: 1;
+  background: var(--surface);
   color: var(--ink);
-  border-bottom-color: var(--teal);
+  border-bottom-color: var(--surface);
+  box-shadow: inset 0 2px 0 var(--teal);
 }
 .tabs-tab:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
-.tabs-panel { margin-top: var(--stack-gap); }
+.tabs-panel {
+  margin-top: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--line-strong);
+  border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+  background: var(--surface);
+}
 .tabs-panel + .tabs-panel { margin-top: var(--space-6); }
 .tabs.is-enhanced .tabs-panel[hidden] { display: none; }
 .tabs.is-enhanced .tabs-panel { margin-top: 0; }
