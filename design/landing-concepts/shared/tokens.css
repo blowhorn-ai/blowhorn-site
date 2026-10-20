@@ -1,0 +1,113 @@
+/* Blowhorn landing concepts: shared tokens.
+   Layer 1, brand primitives: copied from leecalcote/blowhorn marketing/brand/tokens.json v1
+   (same names as layer5io/blowhorn-site assets/css/site.css and the desktop app's
+   desktop/src/renderer/colors_and_type.css).
+   Layer 2, desktop app tokens: the Figma "Blowhorn" file (mM9B4Zv9ON3pIyh3IvB4Il),
+   variables read from the desktop shell frame 56:21 (desktop/*, signal-*, space/*, radius/*).
+   Layer 3, semantic page tokens: what every section component reads. A theme file
+   only overrides layer 3 (and the --app-* group), never a component. */
+
+@font-face { font-family: "Bricolage Grotesque"; src: url("../assets/fonts/BricolageGrotesque-Variable.woff2") format("woff2"); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("../assets/fonts/InstrumentSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("../assets/fonts/InstrumentSans-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("../assets/fonts/InstrumentSans-SemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("../assets/fonts/JetBrainsMono-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("../assets/fonts/JetBrainsMono-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+
+:root {
+  /* Layer 1: brand primitives (tokens.json v1) */
+  --teal: #00B39F;          /* Layer5 Keppel */
+  --teal-bright: #00D3A9;   /* Layer5 Caribbean Green */
+  --teal-shade: #008F80;
+  --teal-deep: #00756A;
+  --charcoal: #3C494F;
+  --near-black: #1E2117;
+  --yellow: #EBC017;
+  --coral: #EE5A44;         /* rooster only, never UI */
+  --cream: #FFF6E0;
+  --mint: #A6EBDF;
+  --white: #FFFFFF;
+  --line-strong: #7A878C;
+  --on-teal: #1E2117;
+  --surface-light: #FFFFFF;
+  --surface-raised-light: #F4F7F6;
+  --surface-tint-light: #DDF4F1;
+  --ink-light: #1E2117;
+  --ink-muted-light: #5B6A70;
+  --ink-wordmark-light: #3C494F;
+  --line-light: #D5DEDD;
+
+  /* Layer 2: Figma desktop variables (node 56:21) */
+  --desktop-canvas: #0E1312;
+  --desktop-rail: #141B19;
+  --desktop-line: #26302D;
+  --desktop-control: #22302C;
+  --desktop-selected: #1F2A27;
+  --desktop-ink: #E9EFED;
+  --desktop-ink-muted: #9AA8A4;
+  --desktop-on-accent: #04110F;
+  --desktop-pending: #E8B04A;
+  --desktop-error: #E5675A;
+  --signal-live: #6AE3B6;
+  --signal-pending: #FFD86B;
+
+  /* Type: tokens.json families and scale (display-xl 72/72, display 56/60, h1 40/46,
+     h2 28/34, h3 20/26, body-lg 18/28, body 16/24, ui 14/20, caption 12/16, label 11/16 mono 0.14em) */
+  --font-display: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+  --font-sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Spacing (tokens.json space-1..16 = Figma space/1..8) */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --space-24: 96px; --space-32: 128px;
+
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px; --radius-xl: 24px; --radius-pill: 999px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --motion-base: 160ms; --motion-slow: 280ms;
+
+  /* Layer 3: semantic page tokens (defaults = light brand theme) */
+  --bg: var(--surface-light);
+  --bg-alt: var(--surface-raised-light);
+  --surface: var(--surface-light);
+  --surface-2: var(--surface-raised-light);
+  --surface-tint: var(--surface-tint-light);
+  --ink: var(--ink-light);
+  --ink-strong: var(--ink-wordmark-light);
+  --ink-muted: var(--ink-muted-light);
+  --line: var(--line-light);
+  --accent: var(--teal);
+  --accent-text: var(--teal-deep);
+  --on-accent: var(--on-teal);
+  --focus: var(--teal-deep);
+  --glow: transparent;
+  --card-shadow: 0 8px 24px rgba(30, 33, 23, 0.12);
+  --pop-shadow: 4px 4px 0 0 #1E2117;
+  --card-radius: var(--radius-lg);
+  --btn-radius: var(--radius-md);
+  --wrap: 1200px;
+  --gutter: 24px;
+  --section-pad: 120px;
+
+  --display-family: var(--font-display);
+  --display-weight: 800;
+  --display-tracking: -0.02em;
+  --hero-size: clamp(44px, 6.2vw, 88px);
+  --hero-lh: 0.98;
+  --h2-size: clamp(32px, 3.6vw, 56px);
+  --eyebrow-family: var(--font-mono);
+
+  /* App mock (defaults = Figma dark desktop) */
+  --app-canvas: var(--desktop-canvas);
+  --app-rail: var(--desktop-rail);
+  --app-line: var(--desktop-line);
+  --app-control: var(--desktop-control);
+  --app-selected: var(--desktop-selected);
+  --app-ink: var(--desktop-ink);
+  --app-muted: var(--desktop-ink-muted);
+  --app-accent: var(--teal);
+  --app-on-accent: var(--desktop-on-accent);
+  --app-live: var(--signal-live);
+  --app-pending: var(--desktop-pending);
+  --app-tint: rgba(106, 227, 182, 0.10);
+}
