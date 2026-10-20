@@ -25,7 +25,10 @@ PAGES = {
         "how-title", "trust", "trust-title", "download", "download-title", "pricing", "pricing-title",
     ],
     "integrations/index.html": [
-        "main", "integrations-title",
+        "main", "integrations-title", "action-filter",
+        "action-post", "action-comment", "action-reply", "action-amplify",
+        "action-react", "action-follow", "action-unfollow", "action-accept",
+        "action-withdraw", "action-find", "action-analytics",
     ],
     "home-reveille/index.html": [
         "main", "hero-title", "hero-art-title", "fan-title", "platforms", "platforms-title", "how",

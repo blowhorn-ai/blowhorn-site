@@ -1,0 +1,16 @@
+{{- /* Merge one data/platforms action row with data/actions.json.
+  Input: map with id, optional behavior, optional limits.
+  Output: id, name, description, limits, slug (#action-<id>).
+  Name always comes from the vocabulary. Description is the vocabulary
+  default unless the yaml row sets behavior. */ -}}
+{{- $vocab := dict -}}
+{{- range site.Data.actions.actions -}}
+  {{- $vocab = merge $vocab (dict .id .) -}}
+{{- end -}}
+{{- $id := .id -}}
+{{- if not $id }}{{ errorf "platform action is missing id; use an id from data/actions.json" }}{{ end -}}
+{{- $base := index $vocab $id -}}
+{{- if not $base }}{{ errorf "unknown action id %q; add it to data/actions.json" $id }}{{ end -}}
+{{- $desc := $base.description -}}
+{{- with .behavior }}{{ $desc = . }}{{ end -}}
+{{- return dict "id" $id "name" $base.name "description" $desc "limits" (.limits | default "") "slug" (printf "action-%s" $id) -}}

@@ -6,8 +6,8 @@ logo: assets/platforms/hacker-news-y18.svg
 docs: /docs/reference/platforms/hacker-news/
 reach: Your own Chrome, through the Blowhorn extension
 actions:
-  - name: Post
+  - id: post
     behavior: Submits a link or a text post. Titles hold up to 80 characters; a longer title is refused, never cut short, because a submission can't be edited once it's up.
     limits: At most 2 link submissions per profile a day. Preview first with --dry-run, because every submission is permanent.
-  - name: Comment
+  - id: comment
     behavior: Comments on the Hacker News item your post is addressed to, under your name.

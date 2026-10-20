@@ -6,10 +6,10 @@ logo: assets/platforms/reddit-logo.png
 docs: /docs/reference/platforms/reddit/
 reach: Your own signed-in Chrome, through the Blowhorn extension
 actions:
-  - name: Post
+  - id: post
     behavior: Publishes your post to the subreddit you name, as r/<name>.
     limits: A post with no subreddit is skipped, never guessed.
-  - name: Comment
+  - id: comment
     behavior: Comments on the Reddit post or comment you point it at.
-  - name: Amplify
+  - id: amplify
     behavior: Upvotes a post from each of your profiles.

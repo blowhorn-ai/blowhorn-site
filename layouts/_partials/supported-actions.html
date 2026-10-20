@@ -1,13 +1,37 @@
-{{- /* Supported actions for one platform, from data/platforms/<key>.yaml.
-  The platform docs page (shortcode supported-actions) and the agent pages
-  both render through this partial, so the two can't drift apart.
+{{- /* Supported actions for one platform, from data/platforms/<key>.yaml
+  plus data/actions.json. The platform docs page (shortcode supported-actions)
+  and the agent pages both render through this partial, so the two can't
+  drift. Table columns: action, what it does, limits/notes, example.
   Usage: partial "supported-actions.html" (dict "key" "linkedin") */ -}}
 {{- $d := index hugo.Data.platforms .key -}}
 {{- if not $d }}{{ errorf "supported-actions: no data/platforms/%s.yaml" .key }}{{ end -}}
-<dl class="supported-actions">
+{{- $key := .key -}}
+<section class="supported-actions-wrap" tabindex="0" aria-label="Supported actions">
+<table class="supported-actions">
+  <thead>
+    <tr>
+      <th scope="col">Action</th>
+      <th scope="col">What it does</th>
+      <th scope="col">Limits / notes</th>
+      <th scope="col">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{- range $d.actions }}
+    {{- $a := partial "action-resolve.html" . -}}
+    <tr>
+      <th scope="row"><a href="#{{ $a.slug }}">{{ $a.name }}</a></th>
+      <td>{{ $a.description }}</td>
+      <td>{{ with $a.limits }}{{ . }}{{ else }}None{{ end }}</td>
+      <td><a href="#{{ $a.slug }}">See example</a></td>
+    </tr>
+  {{- end }}
+  </tbody>
+</table>
+</section>
+<h2 id="examples">Examples</h2>
 {{- range $d.actions }}
-<dt>{{ .name }}</dt>
-<dd><p>{{ .behavior }}</p>{{ with .limits }}<p class="muted"><strong>Limits:</strong> {{ . }}</p>{{ end }}</dd>
-{{- end }}
-</dl>
+  {{- $a := partial "action-resolve.html" . -}}
+  {{ partial "action-examples.html" (dict "platform" $key "action" $a.id) }}
+{{- end -}}
 {{- /**/ -}}

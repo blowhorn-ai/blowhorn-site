@@ -62,12 +62,12 @@ def write_tmp(payload):
     return Path(tmp.name)
 
 
-def yaml_action_names(platform_id):
+def yaml_action_ids(platform_id):
     yaml_path = ROOT / "data" / "platforms" / f"{platform_id}.yaml"
     return [
-        line.split("name:", 1)[1].strip()
+        line.split("id:", 1)[1].strip()
         for line in yaml_path.read_text(encoding="utf-8").splitlines()
-        if line.startswith("  - name:")
+        if line.startswith("  - id:")
     ]
 
 
@@ -77,7 +77,7 @@ def counts_from(payload):
     for item in payload["platforms"]:
         if item["status"] == "supported":
             platforms += 1
-            activities += len(yaml_action_names(item["id"]))
+            activities += len(yaml_action_ids(item["id"]))
     return platforms, activities
 
 
@@ -124,7 +124,9 @@ class IntegrationsSchemaTest(unittest.TestCase):
         self.assertGreaterEqual(activities, platforms)
         github = next(p for p in payload["platforms"] if p["id"] == "github")
         self.assertFalse(github["posts"])
-        self.assertNotIn("Post", yaml_action_names("github"))
+        self.assertNotIn("post", yaml_action_ids("github"))
+        ids = {t["id"] for t in payload["treatments"]}
+        self.assertIn("action", ids)
 
     def test_github_cannot_claim_to_post(self):
         payload = json.loads((ROOT / "data/integrations.json").read_text(encoding="utf-8"))
@@ -156,6 +158,19 @@ class IntegrationsSchemaTest(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
         finally:
             tmp.unlink(missing_ok=True)
+
+
+class ThemeContentSplitTest(unittest.TestCase):
+    def test_only_approved_theme_content_file(self):
+        import check_theme
+
+        self.assertEqual(check_theme.extra_theme_content(), [])
+        self.assertIn("content/en/home-reveille.md", check_theme.APPROVED_THEME_CONTENT)
+
+    def test_home_signal_content_would_fail(self):
+        import check_theme
+
+        self.assertIn("signal", check_theme.theme_ids())
 
 
 class HeroDemoSchemaTest(unittest.TestCase):

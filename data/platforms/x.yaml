@@ -6,15 +6,15 @@ logo: assets/platforms/x-logo-black.png
 docs: /docs/reference/platforms/x/
 reach: Your own signed-in Chrome, through the Blowhorn extension
 actions:
-  - name: Post
+  - id: post
     behavior: Publishes your message, with an image if you add one. A message longer than 274 characters goes out as a thread.
-  - name: Reply
+  - id: reply
     behavior: Replies in a conversation when your post is addressed to it.
-  - name: Amplify
+  - id: amplify
     behavior: Retweets or quotes a post from each of your profiles.
-  - name: Follow
+  - id: follow
     behavior: Follows the accounts you list, skipping anyone you already follow.
     limits: At most 400 follows per profile a day, and 15 in any 15 minutes.
-  - name: Analytics
+  - id: analytics
     behavior: Records your follower and following counts on each run, so you can watch the trend.
     limits: Read-only.

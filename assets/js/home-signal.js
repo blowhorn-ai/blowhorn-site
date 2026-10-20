@@ -139,10 +139,12 @@
   }
 
   function bindPlatforms(section) {
+    section.classList.add("is-plat-enhanced");
     var tabs = Array.prototype.slice.call(section.querySelectorAll("[data-plat-tab]"));
     tabs.forEach(function (tab, index) {
       tab.tabIndex = tab.classList.contains("is-on") ? 0 : -1;
-      tab.addEventListener("click", function () {
+      tab.addEventListener("click", function (ev) {
+        ev.preventDefault();
         selectTab(section, tab.getAttribute("data-plat-tab"));
       });
       tab.addEventListener("keydown", function (ev) {
@@ -187,6 +189,13 @@
         item.style.setProperty("--n", n || String(i));
       });
     });
+
+    var hash = (window.location.hash || "").replace(/^#/, "");
+    if (hash.indexOf("plat-panel-") === 0) {
+      selectTab(section, hash.slice("plat-panel-".length));
+    } else if (hash.indexOf("action-") === 0) {
+      selectTab(section, "action");
+    }
 
     section.querySelectorAll("[data-constellation]").forEach(function (wrap) {
       var btn = wrap.querySelector("[data-constellation-pause]");

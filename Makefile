@@ -181,8 +181,9 @@ check-third-party: build-production
 check-urls: build-production
 	python3 .github/scripts/check-site-contract.py $(BUILD_DIR)
 
-## Validate every data file that has a JSON Schema in schemas/ (data/hero.json, data/roles.json, data/use_cases.json, data/themes.json, data/integrations.json, data/hero_demo.json).
+## Validate every data file that has a JSON Schema in schemas/ (data/hero.json, data/roles.json, data/use_cases.json, data/themes.json, data/integrations.json, data/hero_demo.json, data/actions.json, data/action_examples.json).
 ## Role and use-case schemas $ref shared line/text/card types; ajv -r loads that file.
+## check_action_examples.py also requires every supported YAML action to have an example.
 check-schemas:
 	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/hero.schema.json -d data/hero.json
 	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/roles.schema.json -r schemas/defs/cast-page.schema.json -d data/roles.json
@@ -190,8 +191,11 @@ check-schemas:
 	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/themes.schema.json -d data/themes.json
 	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/integrations.schema.json -d data/integrations.json
 	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/hero_demo.schema.json -d data/hero_demo.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/actions.schema.json -d data/actions.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/action_examples.schema.json -d data/action_examples.json
+	python3 .github/scripts/check_action_examples.py
 
-## Production build, then fail if / is not the home-page theme (themes.json default plus _index.md front matter) or the Reveille preview lost today's look.
+## Production build, then fail if / is not the home-page theme (themes.json default plus _index.md front matter), the Reveille preview lost today's look, or a theme-specific content file appeared outside content/en/home-reveille.md.
 check-theme: build-production
 	python3 .github/scripts/check_theme.py $(BUILD_DIR)
 

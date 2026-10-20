@@ -6,7 +6,8 @@
 {{- $jsSearch := resources.Get "js/offline-search.js" }}
 {{- $jsToggle := resources.Get "js/docs-toggle.js" }}
 {{- $jsCode := resources.Get "js/code-card.js" }}
-{{- $js := slice $jsSearch $jsToggle $jsCode | resources.Concat "js/docs.js" }}
+{{- $jsTabs := resources.Get "js/tabs.js" }}
+{{- $js := slice $jsSearch $jsToggle $jsCode $jsTabs | resources.Concat "js/docs.js" }}
 {{- if hugo.IsProduction }}{{ $js = $js | minify | fingerprint }}{{ end }}
 <script src="{{ $js.RelPermalink }}"{{ with $js.Data.Integrity }} integrity="{{ . }}" crossorigin="anonymous"{{ end }} defer></script>
 {{ partial "anchor-redirects.html" . }}

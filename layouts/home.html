@@ -29,7 +29,7 @@
     {{- $army := resources.Get "js/army.js" | minify | fingerprint }}
     <script src="{{ $army.RelPermalink }}" defer></script>
     {{- else -}}
-    {{- $signal := resources.Get "js/home-signal.js" | minify | fingerprint }}
+    {{- $signal := slice (resources.Get "js/home-signal.js") (resources.Get "js/action-filter.js") | resources.Concat "js/home-signal.js" | minify | fingerprint }}
     <script src="{{ $signal.RelPermalink }}" defer></script>
     {{- end -}}
 {{ end }}

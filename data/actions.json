@@ -1,0 +1,60 @@
+{
+  "$schema": "../schemas/actions.schema.json",
+  "actions": [
+    {
+      "id": "post",
+      "name": "Post",
+      "description": "Publish a message as you."
+    },
+    {
+      "id": "comment",
+      "name": "Comment",
+      "description": "Comment on an existing post."
+    },
+    {
+      "id": "reply",
+      "name": "Reply",
+      "description": "Reply in a conversation or thread."
+    },
+    {
+      "id": "amplify",
+      "name": "Amplify",
+      "description": "Repost, retweet, quote, or upvote existing content from each of your profiles."
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "description": "Add reactions to an issue or pull request."
+    },
+    {
+      "id": "follow",
+      "name": "Follow",
+      "description": "Follow the accounts you list."
+    },
+    {
+      "id": "unfollow",
+      "name": "Unfollow",
+      "description": "Unfollow an account."
+    },
+    {
+      "id": "accept",
+      "name": "Accept",
+      "description": "Accept inbound invitations."
+    },
+    {
+      "id": "withdraw",
+      "name": "Withdraw",
+      "description": "Withdraw invitations you sent that have waited long enough."
+    },
+    {
+      "id": "find",
+      "name": "Find",
+      "description": "Search posts or list people so you can choose whom to reach."
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics",
+      "description": "Record reach figures so you can watch the trend."
+    }
+  ]
+}

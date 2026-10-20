@@ -39,11 +39,13 @@
 
 ## What {{ cond (eq .File.ContentBaseName "cli") "the CLI" .Params.tool }} can do on each platform
 {{ range sort hugo.Data.platforms "weight" }}
-### {{ .name }}
+{{- $pl := . }}
+### {{ $pl.name }}
 
-{{ .reach }}. [{{ .name }} docs]({{ .docs | absURL }})
-{{ range .actions }}
-- **{{ .name }}**: {{ .behavior }}{{ with .limits }} Limits: {{ . }}{{ end }}
+{{ $pl.reach }}. [{{ $pl.name }} docs]({{ $pl.docs | absURL }})
+{{ range $pl.actions }}
+{{- $act := partial "action-resolve.html" . }}
+- **[{{ $act.name }}]({{ $pl.docs | absURL }}#{{ $act.slug }})**: {{ $act.description }}{{ with $act.limits }} Limits: {{ . }}{{ end }}
 {{- end }}
 {{ end }}
 ## Frequently Asked Questions {#questions}

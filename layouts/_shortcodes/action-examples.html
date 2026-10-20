@@ -1,0 +1,15 @@
+{{- /* {{< action-examples platform="linkedin" action="comment" >}} one action.
+  {{< action-examples platform="linkedin" >}} every supported action on it. */ -}}
+{{- $platform := .Get "platform" | default (.Get 0) -}}
+{{- $action := .Get "action" -}}
+{{- if not $platform }}{{ errorf "action-examples: set platform" }}{{ end -}}
+{{- if $action -}}
+  {{ partial "action-examples.html" (dict "platform" $platform "action" $action) }}
+{{- else -}}
+  {{- $yaml := index hugo.Data.platforms $platform -}}
+  {{- if not $yaml }}{{ errorf "action-examples: no data/platforms/%s.yaml" $platform }}{{ end -}}
+  {{- range $yaml.actions }}
+    {{- $a := partial "action-resolve.html" . -}}
+    {{ partial "action-examples.html" (dict "platform" $platform "action" $a.id) }}
+  {{- end -}}
+{{- end -}}

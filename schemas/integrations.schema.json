@@ -28,8 +28,8 @@
     "defaultTreatment": { "$ref": "#/definitions/treatmentId" },
     "treatments": {
       "type": "array",
-      "minItems": 3,
-      "maxItems": 3,
+      "minItems": 4,
+      "maxItems": 4,
       "uniqueItems": true,
       "items": { "$ref": "#/definitions/treatment" }
     },
@@ -59,7 +59,7 @@
     },
     "treatmentId": {
       "type": "string",
-      "enum": ["category", "role", "constellation"]
+      "enum": ["category", "role", "constellation", "action"]
     },
     "copy": {
       "type": "string",

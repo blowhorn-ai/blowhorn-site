@@ -6,18 +6,18 @@ logo: assets/platforms/bluesky-butterfly-blue.svg
 docs: /docs/reference/platforms/bluesky/
 reach: Bluesky's API, never the browser
 actions:
-  - name: Post
+  - id: post
     behavior: Publishes your message. A message longer than 300 characters goes out as a thread.
-  - name: Reply
+  - id: reply
     behavior: Replies to the Bluesky post you point it at.
-  - name: Amplify
+  - id: amplify
     behavior: Reposts a post from each of your profiles.
-  - name: Follow
+  - id: follow
     behavior: Follows the accounts you list.
-  - name: Unfollow
+  - id: unfollow
     behavior: Unfollows one account.
-  - name: Find
+  - id: find
     behavior: Searches Bluesky posts for the words you give it.
-  - name: Analytics
+  - id: analytics
     behavior: Records your follower and following counts on each run, so you can watch the trend.
     limits: Read-only.

@@ -19,6 +19,11 @@
       "id": "constellation",
       "label": "The map",
       "kind": "constellation"
+    },
+    {
+      "id": "action",
+      "label": "By action",
+      "kind": "action"
     }
   ],
   "categories": [

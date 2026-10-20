@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://blowhorn.ai/schemas/action_examples.schema.json",
+  "title": "Per-platform action examples",
+  "description": "data/action_examples.json: one entry per supported platform+action, with App, CLI, REST API, MCP and Skill surfaces. status is available or placeholder. Hyphens never em dashes. Coverage is checked so a supported action cannot drop silently.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["surfaces", "examples"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "surfaces": {
+      "description": "Fixed tab order. Templates must render in this order, never from object key iteration.",
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/definitions/surfaceId" }
+    },
+    "examples": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/example" }
+    }
+  },
+  "definitions": {
+    "surfaceId": {
+      "type": "string",
+      "enum": ["app", "cli", "rest", "mcp", "skill"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["available", "placeholder"]
+    },
+    "copy": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 400,
+      "not": { "pattern": "\u2014" }
+    },
+    "platformId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 40
+    },
+    "actionId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "maxLength": 40
+    },
+    "appSurface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "screenshot"],
+      "properties": {
+        "status": { "$ref": "#/definitions/status" },
+        "screenshot": {
+          "description": "Path under static/, so assets/docs/actions/linkedin/comment.png is served at /assets/docs/actions/linkedin/comment.png. Dropping a PNG there fills the pane.",
+          "type": "string",
+          "pattern": "^assets/docs/actions/[a-z0-9-]+/[a-z0-9-]+\\.png$"
+        }
+      }
+    },
+    "cliSurface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "$ref": "#/definitions/status" },
+        "command": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "not": { "pattern": "\u2014" }
+        },
+        "notes": { "$ref": "#/definitions/copy" },
+        "cliRef": {
+          "type": "string",
+          "pattern": "^/docs/reference/cli/[a-z0-9-]+/$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "available" } },
+            "required": ["status"]
+          },
+          "then": { "required": ["command", "cliRef"] }
+        }
+      ]
+    },
+    "restSurface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "$ref": "#/definitions/status" },
+        "notes": { "$ref": "#/definitions/copy" }
+      }
+    },
+    "mcpSurface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "$ref": "#/definitions/status" },
+        "prompt": { "$ref": "#/definitions/copy" },
+        "notes": { "$ref": "#/definitions/copy" }
+      }
+    },
+    "skillSurface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "$ref": "#/definitions/status" },
+        "notes": { "$ref": "#/definitions/copy" }
+      }
+    },
+    "example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["platform", "action", "surfaces"],
+      "properties": {
+        "platform": { "$ref": "#/definitions/platformId" },
+        "action": { "$ref": "#/definitions/actionId" },
+        "surfaces": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["app", "cli", "rest", "mcp", "skill"],
+          "properties": {
+            "app": { "$ref": "#/definitions/appSurface" },
+            "cli": { "$ref": "#/definitions/cliSurface" },
+            "rest": { "$ref": "#/definitions/restSurface" },
+            "mcp": { "$ref": "#/definitions/mcpSurface" },
+            "skill": { "$ref": "#/definitions/skillSurface" }
+          }
+        }
+      }
+    }
+  }
+}

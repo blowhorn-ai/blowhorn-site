@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://blowhorn.ai/schemas/actions.schema.json",
+  "title": "Action vocabulary",
+  "description": "data/actions.json: one id, display name and default description per action. data/platforms/<id>.yaml lists which of these a platform supports (id plus optional behavior override and limits). Never hand-list action names in templates. Hyphens never em dashes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["actions"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/action" }
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "maxLength": 40
+    },
+    "copy": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "not": { "pattern": "\u2014" }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "description"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "not": { "pattern": "\u2014" }
+        },
+        "description": { "$ref": "#/definitions/copy" }
+      }
+    }
+  }
+}

@@ -71,6 +71,10 @@ Please contribute! blowhorn.ai is a [Hugo](https://gohugo.io) site that uses [Do
 #### Tests
 `make check` runs what CI runs: a production build, html-validate on every page, the local link check, the check that no page loads anything from another host except the disclosed GitHub release lookup, the check that every public URL and anchor still exists, unit tests for those check scripts, and actionlint on the workflows. Visual changes also need the screenshots [docs/deploy.md](docs/deploy.md#local-checks-and-evidence) describes.
 
+## Adding a platform action example
+
+Platform docs examples are data, not Markdown. Follow [docs/action-examples.md](docs/action-examples.md): add the action id to `data/actions.json` if it is new, list it on the platform YAML, fill `data/action_examples.json` (placeholders allowed), and drop a PNG at the documented path when the App screenshot exists. Hyphens, never em dashes. `make check-schemas` fails when a supported action has no example.
+
 # <a name="maintaining"> Reviews</a>
 All contributors are invited to review pull requests. See this short video on [how to review a pull request](https://www.youtube.com/watch?v=isLfo7jfE6g&feature=youtu.be).
 

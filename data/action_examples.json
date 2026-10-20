@@ -1,0 +1,798 @@
+{
+  "$schema": "../schemas/action_examples.schema.json",
+  "surfaces": [
+    "app",
+    "cli",
+    "rest",
+    "mcp",
+    "skill"
+  ],
+  "examples": [
+    {
+      "platform": "linkedin",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform linkedin --profile lee",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Publish this announcement to my LinkedIn feed as me.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "comment",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/comment.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn comment --platform linkedin --target \"https://www.linkedin.com/feed/update/urn:li:activity:123/\" --message \"Great post!\"",
+          "cliRef": "/docs/reference/cli/comment/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Comment on this LinkedIn post as me: https://www.linkedin.com/feed/update/urn:li:activity:123/ with the message Great post!",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "amplify",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/amplify.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform linkedin --profile lee --amplify \"https://www.linkedin.com/feed/update/urn:li:activity:123/\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Repost this LinkedIn post from each of my profiles: https://www.linkedin.com/feed/update/urn:li:activity:123/",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "accept",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/accept.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn accept --profile marcus --limit 5",
+          "cliRef": "/docs/reference/cli/accept/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Accept pending LinkedIn invitations for my Marcus profile, at most five.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "withdraw",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/withdraw.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn withdraw --profile lee --apply",
+          "cliRef": "/docs/reference/cli/withdraw/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Withdraw LinkedIn invitations I sent that have waited long enough, for my Lee profile.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "analytics",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/analytics.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn analytics history --platform linkedin --json --since 12m",
+          "cliRef": "/docs/reference/cli/analytics/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Show my LinkedIn follower history for the last 12 months.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform x --profile lee",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Publish this announcement on X as me.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "reply",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/reply.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform x --profile lee",
+          "cliRef": "/docs/reference/cli/post/",
+          "notes": "X replies ride with blowhorn post, not blowhorn comment. Put the tweet URL in the queue's Comment on column."
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Reply on X to https://x.com/user/status/123 as me with this message.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "amplify",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/amplify.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform x --amplify \"https://x.com/user/status/123\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Retweet or quote https://x.com/user/status/123 from each of my X profiles.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "follow",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/follow.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn follow --platform x --profile lee --target mesheryio --limit 0",
+          "cliRef": "/docs/reference/cli/follow/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Follow mesheryio on X from my Lee profile, target only.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "analytics",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/analytics.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn analytics history --platform x --json --since 12m",
+          "cliRef": "/docs/reference/cli/analytics/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Show my X follower history for the last 12 months.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "reddit",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/reddit/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform reddit --profile lee",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Publish this post to the subreddit in the queue row as me.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "reddit",
+      "action": "comment",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/reddit/comment.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn comment --platform reddit --target \"https://www.reddit.com/r/k8s/comments/abc/post/\" --message \"Thanks for sharing.\"",
+          "cliRef": "/docs/reference/cli/comment/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Comment on this Reddit post as me: https://www.reddit.com/r/k8s/comments/abc/post/ with Thanks for sharing.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "reddit",
+      "action": "amplify",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/reddit/amplify.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform reddit --amplify \"https://www.reddit.com/r/k8s/comments/abc/post/\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Upvote this Reddit post from each of my profiles: https://www.reddit.com/r/k8s/comments/abc/post/",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "hacker-news",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/hacker-news/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform hn --profile lee --dry-run",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Preview a Hacker News submission for my Lee profile, then publish it.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "hacker-news",
+      "action": "comment",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/hacker-news/comment.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform hn --profile lee --dry-run",
+          "cliRef": "/docs/reference/cli/post/",
+          "notes": "Hacker News comments use the queue's Comment on column. blowhorn comment does not take --platform hn."
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Comment on this Hacker News item as me, from the queue row.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "slack",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/slack/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform slack --profile lee --target \"#announcements\" --message \"Maintenance is complete\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Send Maintenance is complete to #announcements on Slack as me.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "slack",
+      "action": "reply",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/slack/reply.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform slack --target \"https://acme.slack.com/archives/C0123/p1776000000000100\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Reply in this Slack thread as me: https://acme.slack.com/archives/C0123/p1776000000000100",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform bluesky --profile lee",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Publish this announcement on Bluesky as me.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "reply",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/reply.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn comment --platform bluesky --target \"https://bsky.app/profile/alice.bsky.social/post/3kx...\" --message \"Nice thread.\"",
+          "cliRef": "/docs/reference/cli/comment/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Reply on Bluesky to https://bsky.app/profile/alice.bsky.social/post/3kx... as me with Nice thread.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "amplify",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/amplify.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform bluesky --profile lee --amplify \"https://bsky.app/profile/you/post/3kx...\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Repost this Bluesky post from each of my profiles: https://bsky.app/profile/you/post/3kx...",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "follow",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/follow.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn follow --platform bluesky --profile lee --target alice.bsky.social --limit 0",
+          "cliRef": "/docs/reference/cli/follow/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Follow alice.bsky.social on Bluesky from my Lee profile, target only.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "unfollow",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/unfollow.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn unfollow --platform bluesky --profile lee --target alice.bsky.social",
+          "cliRef": "/docs/reference/cli/unfollow/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Unfollow alice.bsky.social on Bluesky from my Lee profile.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "find",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/find.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn find --query \"service mesh\" --sort latest --limit 10 --platform bluesky",
+          "cliRef": "/docs/reference/cli/find/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Search Bluesky for recent posts about service mesh.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "analytics",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/analytics.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn analytics history --platform bluesky --json --since 12m",
+          "cliRef": "/docs/reference/cli/analytics/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Show my Bluesky follower history for the last 12 months.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "github",
+      "action": "react",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/github/react.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform github --profile lee --amplify \"https://github.com/layer5io/meshery/issues/1234\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Add the five upbeat reactions to https://github.com/layer5io/meshery/issues/1234 from my Lee profile.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "github",
+      "action": "follow",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/github/follow.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn follow --platform github --profile lee --target layer5io --limit 0",
+          "cliRef": "/docs/reference/cli/follow/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "Follow layer5io on GitHub from my Lee profile, target only.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    },
+    {
+      "platform": "github",
+      "action": "find",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/github/find.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn source --platform github --profile lee --repo layer5io/meshery --audience stargazers --dry-run",
+          "cliRef": "/docs/reference/cli/source/"
+        },
+        "rest": {
+          "status": "placeholder",
+          "notes": "The Blowhorn REST API for this action is not published yet."
+        },
+        "mcp": {
+          "status": "placeholder",
+          "prompt": "List stargazers of layer5io/meshery so I can choose whom to reach. Do not follow anyone.",
+          "notes": "Coming soon. This is the shape of the prompt to give an AI agent connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "placeholder",
+          "notes": "A Blowhorn skill for this action is not available yet."
+        }
+      }
+    }
+  ]
+}

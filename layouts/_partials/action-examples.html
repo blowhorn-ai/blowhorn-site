@@ -1,0 +1,27 @@
+{{- /* Tabbed examples for one platform action, from data/action_examples.json.
+  Input: platform, action. Surfaces follow data.action_examples.surfaces. */ -}}
+{{- $platform := .platform -}}
+{{- $action := .action -}}
+{{- if not $platform }}{{ errorf "action-examples: set platform" }}{{ end -}}
+{{- if not $action }}{{ errorf "action-examples: set action" }}{{ end -}}
+{{- $ex := false -}}
+{{- range site.Data.action_examples.examples -}}
+  {{- if and (eq .platform $platform) (eq .action $action) }}{{ $ex = . }}{{ end -}}
+{{- end -}}
+{{- if not $ex }}{{ errorf "action-examples: no data/action_examples.json entry for %s %s" $platform $action }}{{ end -}}
+{{- $resolved := partial "action-resolve.html" (dict "id" $action) -}}
+{{- $labels := dict "app" "App" "cli" "CLI" "rest" "REST API" "mcp" "MCP" "skill" "Skill" -}}
+{{- $panes := slice -}}
+{{- $prefix := printf "ex-%s-%s" $platform $action -}}
+{{- range site.Data.action_examples.surfaces }}
+  {{- $sid := . -}}
+  {{- $surf := index $ex.surfaces $sid -}}
+  {{- if not $surf }}{{ errorf "action-examples: %s %s missing surface %s" $platform $action $sid }}{{ end -}}
+  {{- $inner := partial "action-example-pane.html" (dict "surface" $sid "data" $surf "platform" $platform "action" $action "actionName" $resolved.name) -}}
+  {{- $panes = $panes | append (dict "id" $sid "name" (index $labels $sid) "inner" $inner) -}}
+{{- end -}}
+<section class="action-example" id="{{ $resolved.slug }}" aria-labelledby="{{ $resolved.slug }}-title">
+  <h3 id="{{ $resolved.slug }}-title" class="h3">{{ $resolved.name }}</h3>
+  {{ partial "tabs.html" (dict "id" $prefix "group" "surface" "label" (printf "%s %s examples" $platform $resolved.name) "panes" $panes) }}
+</section>
+{{- /**/ -}}

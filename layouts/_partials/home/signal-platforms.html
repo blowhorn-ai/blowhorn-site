@@ -1,12 +1,14 @@
-{{- /* Signal platforms section: three switchable treatments driven by
-  data/integrations.json. Reuses logo-tile. Old "Say it once" line is not
-  used here. Supported name/logo come from hugo.Data.platforms. */ -}}
+{{- /* Signal platforms section: treatments driven by data/integrations.json.
+  Reuses logo-tile. Old "Say it once" line is not used here. Supported
+  name/logo/actions come from hugo.Data.platforms plus data/actions.json.
+  By-action chips are those vocabulary ids that yaml actually lists. */ -}}
 {{- $data := site.Data.integrations -}}
 {{- $counts := partial "platform-counts.html" . -}}
 {{- $rows := slice -}}
 {{- range $data.platforms }}{{ $rows = $rows | append (partial "integration-row.html" .) }}{{ end -}}
 {{- $byId := dict -}}
 {{- range $rows }}{{ $byId = merge $byId (dict .id .) }}{{ end -}}
+{{- $actions := partial "action-index.html" $rows -}}
       <section id="platforms" class="section platforms-signal" aria-labelledby="platforms-title" data-platforms>
         <div class="wrap">
           <div class="section-head section-head-center">
@@ -17,14 +19,14 @@
           <div class="plat-toolbar">
             <div class="plat-tabs" role="tablist" aria-label="Compare how the map looks">
               {{- range $i, $t := $data.treatments }}
-              <button type="button" class="plat-tab{{ if eq $t.id $data.defaultTreatment }} is-on{{ end }}" role="tab" id="plat-tab-{{ $t.id }}" aria-selected="{{ if eq $t.id $data.defaultTreatment }}true{{ else }}false{{ end }}" aria-controls="plat-panel-{{ $t.id }}" data-plat-tab="{{ $t.id }}">{{ $t.label }}</button>
+              <a class="plat-tab{{ if eq $t.id $data.defaultTreatment }} is-on{{ end }}" role="tab" id="plat-tab-{{ $t.id }}" href="#plat-panel-{{ $t.id }}" aria-selected="{{ if eq $t.id $data.defaultTreatment }}true{{ else }}false{{ end }}" aria-controls="plat-panel-{{ $t.id }}" data-plat-tab="{{ $t.id }}">{{ $t.label }}</a>
               {{- end }}
             </div>
             <p class="plat-count caption" data-plat-count><span data-count-platforms>{{ $counts.platforms }}</span> supported now<span class="muted"> · <span data-count-soon>{{ $counts.comingSoon }}</span> coming soon</span></p>
           </div>
 
           {{- range $data.treatments }}
-          <div class="plat-panel{{ if eq .id $data.defaultTreatment }} is-on{{ end }}" id="plat-panel-{{ .id }}" role="tabpanel" aria-labelledby="plat-tab-{{ .id }}" data-plat-panel="{{ .id }}"{{ if ne .id $data.defaultTreatment }} hidden{{ end }}>
+          <div class="plat-panel{{ if eq .id $data.defaultTreatment }} is-on{{ end }}" id="plat-panel-{{ .id }}" role="tabpanel" aria-labelledby="plat-tab-{{ .id }}" data-plat-panel="{{ .id }}">
             {{- if eq .kind "category" }}
             <ul class="plat-cats">
               {{- range $data.categories }}
@@ -92,6 +94,34 @@
                 {{- end }}
               </ul>
             </div>
+            {{- else if eq .kind "action" }}
+            <div class="plat-actions" data-action-filter>
+              <nav class="plat-action-picks" aria-label="Show platforms by action">
+                {{- range $actions }}
+                <a class="plat-action" href="#{{ .slug }}" data-action-chip="{{ .id }}">{{ .name }}</a>
+                {{- end }}
+              </nav>
+              {{- range $actions }}
+              {{- $act := . }}
+              <section class="action-group" id="{{ $act.slug }}" data-action-group="{{ $act.id }}" aria-labelledby="{{ $act.slug }}-title">
+                <h3 id="{{ $act.slug }}-title" class="h3">{{ $act.name }}</h3>
+                <p class="caption muted">{{ $act.description }}</p>
+                <ul class="plat-row">
+                  {{- range $act.platforms }}
+                  <li>
+                    <a class="platform" href="{{ .docs | relURL }}#{{ $act.slug }}">
+                      <span class="logo-tile"><img src="{{ .logo | relURL }}" alt="" width="28" height="28"></span>
+                      <span class="ui">{{ .name }}</span>
+                      <span class="caption">{{ .viaLabel }}</span>
+                    </a>
+                  </li>
+                  {{- end }}
+                </ul>
+              </section>
+              {{- end }}
+            </div>
+            {{- else -}}
+              {{ errorf "integrations treatment kind %q is not category, role, constellation or action" .kind }}
             {{- end }}
           </div>
           {{- end }}
