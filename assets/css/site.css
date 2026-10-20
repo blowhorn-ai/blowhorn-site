@@ -2880,7 +2880,7 @@ a.docs-card.platform-card:hover::after, a.docs-card.platform-card:focus-visible:
 }
 .supported-actions {
   width: 100%;
-  min-width: 36rem;
+  min-width: 28rem;
   border-collapse: collapse;
   font-size: 14px;
   line-height: 20px;
@@ -2888,11 +2888,43 @@ a.docs-card.platform-card:hover::after, a.docs-card.platform-card:focus-visible:
 .supported-actions th, .supported-actions td {
   text-align: left;
   vertical-align: top;
-  padding: var(--space-3) var(--space-4) var(--space-3) 0;
+  padding: var(--space-3) var(--space-3) var(--space-3) 0;
   border-bottom: var(--stroke-hairline) solid var(--line);
 }
 .supported-actions thead th { font-weight: 600; color: var(--ink-wordmark); }
 .supported-actions tbody th { font-weight: 600; color: var(--ink); }
+.supported-actions th:last-child,
+.supported-actions td:last-child { white-space: nowrap; padding-right: 0; }
+@media (max-width: 719px) {
+  .supported-actions-wrap { overflow-x: visible; }
+  .supported-actions { min-width: 0; }
+  .supported-actions thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .supported-actions tbody tr {
+    display: block;
+    padding: var(--space-4) 0;
+    border-bottom: var(--stroke-hairline) solid var(--line);
+  }
+  .supported-actions tbody tr:last-child { border-bottom: 0; }
+  .supported-actions tbody th,
+  .supported-actions tbody td {
+    display: block;
+    width: 100%;
+    padding: var(--space-1) 0;
+    border: 0;
+    white-space: normal;
+  }
+  .supported-actions tbody th { font-size: 16px; padding-bottom: var(--space-2); }
+  .supported-actions tbody td {
+    display: grid;
+    grid-template-columns: minmax(8rem, 32%) minmax(0, 1fr);
+    column-gap: var(--space-3);
+  }
+  .supported-actions tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--ink-wordmark);
+  }
+}
 
 /* Tabbed examples: tokens only, so Reveille and Signal both pick them up.
    Without JS every pane is visible. JS adds .is-enhanced and [hidden]. */

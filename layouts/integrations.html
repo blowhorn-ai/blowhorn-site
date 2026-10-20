@@ -39,7 +39,7 @@
               <a class="integration-card-main" href="{{ $p.docs | relURL }}">
                 <span class="logo-tile"><img src="{{ $p.logo | relURL }}" alt="" width="28" height="28"></span>
                 <h3 class="h3">{{ $p.name }}</h3>
-                <p>{{ $p.viaLabel }}{{ if eq $p.status "coming-soon" }} · Coming soon{{ end }}</p>
+                <p>{{ $p.viaLabel }}</p>
               </a>
               {{- if $p.actionLinks }}
               <ul class="integration-actions">

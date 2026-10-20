@@ -21,9 +21,9 @@
     {{- $a := partial "action-resolve.html" . -}}
     <tr>
       <th scope="row"><a href="#{{ $a.slug }}">{{ $a.name }}</a></th>
-      <td>{{ $a.description }}</td>
-      <td>{{ with $a.limits }}{{ . }}{{ else }}None{{ end }}</td>
-      <td><a href="#{{ $a.slug }}">See example</a></td>
+      <td data-label="What it does">{{ $a.description }}</td>
+      <td data-label="Limits / notes">{{ with $a.limits }}{{ . }}{{ else }}None{{ end }}</td>
+      <td data-label="Example"><a href="#{{ $a.slug }}">See example</a></td>
     </tr>
   {{- end }}
   </tbody>
