@@ -1,0 +1,56 @@
+/* Theme: Signal. After bindplane.com: centered category claim, two CTAs, and the
+   product itself as the hero; dark technical grounds from the Figma desktop
+   variables (desktop/canvas, desktop/rail, desktop/line), teal glow, grid lines. */
+[data-theme="signal"] {
+  color-scheme: dark;
+  --bg: #070B0A;
+  --bg-alt: var(--desktop-canvas);
+  --surface: #0F1513;
+  --surface-2: var(--desktop-rail);
+  --surface-tint: #173A34;
+  --ink: var(--desktop-ink);
+  --ink-strong: #FFFFFF;
+  --ink-muted: var(--desktop-ink-muted);
+  --line: var(--desktop-line);
+  --line-strong: #3C494F;
+  --accent: var(--teal);
+  --accent-text: var(--teal-bright);
+  --focus: var(--teal-bright);
+  --pop-shadow: 4px 4px 0 0 var(--teal-bright);
+  --card-radius: 14px;
+  --show-on-dark: block; --show-on-light: none;
+  --nav-bg: rgba(7, 11, 10, 0.72);
+  --hero-size: clamp(46px, 6.6vw, 96px);
+  --hero-lh: 0.96;
+  --display-tracking: -0.035em;
+  --hero-bg:
+    radial-gradient(60% 50% at 50% 0%, rgba(0, 211, 169, 0.22), transparent 70%),
+    radial-gradient(40% 40% at 85% 60%, rgba(0, 179, 159, 0.10), transparent 70%),
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 56px 56px;
+  --app-shadow: 0 0 0 1px rgba(0,211,169,.18), 0 50px 140px -30px rgba(0, 211, 169, 0.35), 0 30px 80px -20px rgba(0,0,0,.8);
+  --pricing-bg: linear-gradient(135deg, #0F1513, #173A34);
+  --pricing-dot-ring: #12201D;
+  --role-art-bg: #000;
+  --code-ink: var(--teal-bright);
+}
+[data-theme="signal"] .hero { text-align: center; padding-top: 104px; }
+[data-theme="signal"] .hero__bg { mask-image: linear-gradient(#000 55%, transparent); }
+[data-theme="signal"] .hero__grid { justify-items: center; gap: var(--space-6); }
+[data-theme="signal"] .hero__copy, [data-theme="signal"] .hero__aside { display: flex; flex-direction: column; align-items: center; }
+[data-theme="signal"] .hero__sub { margin-inline: auto; }
+[data-theme="signal"] .hero__ctas { justify-content: center; }
+[data-theme="signal"] .hero__title .accent { background: linear-gradient(90deg, var(--teal-bright), var(--teal) 60%, #6AE3B6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+[data-theme="signal"] .eyebrow { border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; background: rgba(255,255,255,.02); }
+[data-theme="signal"] .shead .eyebrow, [data-theme="signal"] .role .eyebrow, [data-theme="signal"] .footer .eyebrow, [data-theme="signal"] .major .eyebrow, [data-theme="signal"] .pricing .eyebrow { border: 0; padding: 0; background: none; }
+[data-theme="signal"] .hero__visual { max-width: 1240px; }
+[data-theme="signal"] .hero__visual::before { content: ""; position: absolute; inset: -1px; border-radius: 15px; padding: 1px; background: linear-gradient(180deg, rgba(0,211,169,.6), transparent 40%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; z-index: 3; pointer-events: none; }
+[data-theme="signal"] .section:nth-of-type(even) { background: var(--bg-alt); }
+[data-theme="signal"] .section { border-top: 1px solid var(--line); }
+[data-theme="signal"] .plat .ptile, [data-theme="signal"] .xchip .ptile { box-shadow: 0 0 0 4px rgba(0,211,169,.08); }
+[data-theme="signal"] .plat:hover { box-shadow: 0 0 40px -10px rgba(0,211,169,.5); }
+[data-theme="signal"] .step { background: linear-gradient(180deg, #111816, #0B100F); }
+[data-theme="signal"] .wave__list .avatar { background: #173A34; color: var(--teal-bright); }
+[data-theme="signal"] .major__grid { border: 1px solid var(--line); }
+[data-theme="signal"] .cta { background: radial-gradient(50% 70% at 50% 100%, rgba(0, 211, 169, .2), transparent 70%), var(--bg); }
+[data-theme="signal"] .footer { background: #050807; }

@@ -1,0 +1,69 @@
+/* Theme: Open Field. After codewiki.google: a centered title, one big input as the
+   first interaction, glowing floating cards, then an explorable grid. Light and
+   airy, built on the site's light tokens and glass ambient (blowhorn-site site.css),
+   with the light desktop frames (Figma 73:1582, 73:2495) as the product view. */
+[data-theme="open-field"] {
+  color-scheme: light;
+  --bg: #FFFFFF;
+  --bg-alt: #F6FBFA;
+  --surface: rgba(255,255,255,.78);
+  --surface-2: var(--surface-raised-light);
+  --display-weight: 700;
+  --display-tracking: -0.03em;
+  --hero-size: clamp(44px, 6vw, 84px);
+  --card-radius: 20px;
+  --btn-radius: 999px;
+  --pop-shadow: 0 10px 30px -10px rgba(0, 117, 106, .55);
+  --card-shadow: 0 1px 2px rgba(30, 33, 23, 0.05), 0 12px 32px -12px rgba(30, 33, 23, 0.18);
+  --xbox-shadow: 0 2px 4px rgba(30, 33, 23, 0.06), 0 30px 60px -20px rgba(0, 117, 106, 0.35), 0 0 0 6px rgba(0, 211, 169, .10);
+  --role-art-bg: var(--surface-tint-light);
+  --hero-bg:
+    radial-gradient(40% 50% at 50% 30%, rgba(0, 211, 169, 0.20), transparent 70%),
+    radial-gradient(30% 30% at 15% 20%, rgba(166, 235, 223, 0.55), transparent 70%),
+    radial-gradient(30% 30% at 85% 15%, rgba(235, 192, 23, 0.14), transparent 70%),
+    linear-gradient(180deg, #F6FBFA 0%, #FFFFFF 60%);
+  /* light desktop tokens, desktop/src/renderer/colors_and_type.css light block */
+  --app-canvas: #FFFFFF;
+  --app-rail: #F4F7F6;
+  --app-line: #D5DEDD;
+  --app-control: #E3EAE8;
+  --app-selected: #DDF4F1;
+  --app-ink: #1E2117;
+  --app-muted: #5B6A70;
+  --app-on-accent: #1E2117;
+  --app-live: var(--teal-deep);
+  --app-pending: #8A6C00;
+  --app-tint: rgba(0, 179, 159, 0.08);
+  --app-shadow: 0 2px 4px rgba(30,33,23,.06), 0 40px 80px -30px rgba(0, 117, 106, .35);
+}
+[data-theme="open-field"] .hero { text-align: center; padding-top: 96px; }
+[data-theme="open-field"] .hero__grid { justify-items: center; gap: var(--space-4); }
+[data-theme="open-field"] .hero__copy, [data-theme="open-field"] .hero__aside { display: flex; flex-direction: column; align-items: center; }
+[data-theme="open-field"] .hero:has(.hero__explore) .hero__ctas { display: none; }
+[data-theme="open-field"] .hero__sub { margin: 0 auto; max-width: 54ch; }
+[data-theme="open-field"] .hero:has(.hero__explore) .hero__note { display: none; }
+[data-theme="open-field"] .eyebrow { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; color: var(--teal-deep); box-shadow: var(--card-shadow); }
+[data-theme="open-field"] .shead .eyebrow, [data-theme="open-field"] .role .eyebrow, [data-theme="open-field"] .footer .eyebrow, [data-theme="open-field"] .major .eyebrow, [data-theme="open-field"] .pricing .eyebrow, [data-theme="open-field"] .usecases .eyebrow { background: none; border: 0; padding: 0; box-shadow: none; }
+[data-theme="open-field"] .hero__explore { margin-top: var(--space-12); }
+[data-theme="open-field"] .hero__explore .xbox__field textarea { font-size: 18px; }
+[data-theme="open-field"] .hero__explore-note { font: 500 13px var(--font-sans); color: var(--ink-muted); margin: var(--space-6) 0 0; }
+[data-theme="open-field"] .xcards { max-width: 1100px; margin: var(--space-8) auto 0; text-align: left; perspective: 1200px; }
+[data-theme="open-field"] .xcard { box-shadow: var(--card-shadow); backdrop-filter: blur(16px); border-color: rgba(30,33,23,.08); }
+[data-theme="open-field"] .xcard:nth-child(3n+2) { transform: translateY(18px); }
+[data-theme="open-field"] .xcard.reveal.is-in:nth-child(3n+2) { transform: translateY(18px); }
+[data-theme="open-field"] .xcard:hover { box-shadow: 0 0 0 1px rgba(0,179,159,.4), 0 24px 48px -16px rgba(0,117,106,.35); }
+[data-theme="open-field"] .hero__visual { margin-top: var(--space-24); }
+[data-theme="open-field"] .hero__visual::before { content: "See it land in the app"; display: block; font: 500 11px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); text-align: center; margin-bottom: var(--space-6); }
+[data-theme="open-field"] .section { background: var(--bg); }
+[data-theme="open-field"] .section:nth-of-type(odd) { background: var(--bg-alt); }
+[data-theme="open-field"] .plat, [data-theme="open-field"] .step, [data-theme="open-field"] .role, [data-theme="open-field"] .fact, [data-theme="open-field"] .wave__list { box-shadow: var(--card-shadow); border-color: rgba(30,33,23,.08); background: #fff; }
+[data-theme="open-field"] .role:hover, [data-theme="open-field"] .step:hover { box-shadow: 0 0 0 1px rgba(0,179,159,.35), 0 24px 48px -16px rgba(0,117,106,.3); }
+[data-theme="open-field"] .major__grid { border-radius: 28px; }
+[data-theme="open-field"] .pricing__card { background: linear-gradient(135deg, #DDF4F1, #FFFFFF 70%); box-shadow: var(--card-shadow); border-color: rgba(30,33,23,.06); }
+[data-theme="open-field"] .pricing__list li::before { --pricing-dot-ring: #EAF8F5; }
+[data-theme="open-field"] .cta { background: radial-gradient(40% 60% at 50% 100%, rgba(0, 211, 169, .22), transparent 70%), var(--bg); }
+[data-theme="open-field"] .footer { background: var(--surface-raised-light); }
+@media (max-width: 860px) {
+  [data-theme="open-field"] .xcard:nth-child(3n+2), [data-theme="open-field"] .xcard.reveal.is-in:nth-child(3n+2) { transform: none; }
+  [data-theme="open-field"] .xcards .xcard:nth-child(n+4) { display: none; }
+}
