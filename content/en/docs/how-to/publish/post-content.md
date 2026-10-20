@@ -84,6 +84,6 @@ file to the post. Two things are worth knowing when such a post fails:
 - [Reply to a post](/docs/how-to/publish/reply-to-a-post/) - comments and replies.
 - [Send a Slack message](/docs/how-to/publish/send-a-slack-message/) - the one-off message
   that needs no row.
-- [`blowhorn post` reference](/docs/reference/post/) - every flag, what
+- [`blowhorn post` reference](/docs/reference/post/) - what
   "pending" means, and what a run writes back.
 - [You're in control](/docs/explanation/youre-in-control/) - what stops a run going wrong
