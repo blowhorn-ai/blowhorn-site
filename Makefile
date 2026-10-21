@@ -225,7 +225,7 @@ site-internal-verify:
 
 ## Unit tests for the internal Worker's Access token check.
 test-internal-worker:
-	node --test internal-worker/
+	node --test internal-worker/worker.test.mjs
 
 ## Fail unless BLOWHORN_DIR is a blowhorn clone with the internal sources.
 check-blowhorn:

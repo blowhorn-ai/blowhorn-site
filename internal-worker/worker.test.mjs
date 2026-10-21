@@ -1,4 +1,4 @@
-// node --test internal-worker/: the Access token check fails closed.
+// node --test internal-worker/worker.test.mjs (make test-internal-worker): the Access token check fails closed.
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { generateKeyPairSync, createSign } from 'node:crypto';
