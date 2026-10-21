@@ -117,7 +117,7 @@ class ActionExamplesSchemaTest(unittest.TestCase):
             "x",
             "reply",
             {
-                "command": "blowhorn post --platform x --profile lee",
+                "command": "blowhorn post --platform x --profile alex",
                 "cliRef": "/docs/reference/cli/comment/",
             },
         )

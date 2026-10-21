@@ -204,7 +204,7 @@ make site          # http://localhost:1313 with live reload
 ## Product docs sync
 
 The user docs under `/docs/` live in the private product repository
-(`leecalcote/blowhorn`, `docs/{tutorials,how-to,reference,explanation}`
+(`blowhorn`, `docs/{tutorials,how-to,reference,explanation}`
 and `docs/README.md`) and are mirrored into `content/en/docs/` by
 [`sync-docs.yml`](../.github/workflows/sync-docs.yml). The private
 repository runs no moderate or heavy Actions of its own, so the work runs
@@ -290,7 +290,7 @@ chrome-devtools-axi eval 'document.documentElement.scrollWidth > document.docume
 ## Internal section (Hugo segments and module mounts)
 
 `/internal/` is the internal Blowhorn site. Its source never enters this
-repository, which is public: it lives in the private leecalcote/blowhorn
+repository, which is public: it lives in the private blowhorn
 repository, and only the internal environment mounts it.
 
 ### Builds and local servers
@@ -298,12 +298,12 @@ repository, and only the internal environment mounts it.
 | Target | What it does | Output |
 | --- | --- | --- |
 | `make site-build` | Public build (`hugo`, production environment, `renderSegments = ["public"]`), what CI deploys | `public/`, no `/internal/` |
-| `make site-internal-build` | Internal build (`hugo --environment internal`, `renderSegments = ["internal"]`) with the leecalcote/blowhorn clone mounted; renders only `/internal/`, with its own header, footer and navigation, and no search index; the output's root page redirects to `/internal/` | `public-internal/`, only `/internal/` |
+| `make site-internal-build` | Internal build (`hugo --environment internal`, `renderSegments = ["internal"]`) with the blowhorn clone mounted; renders only `/internal/`, with its own header, footer and navigation, and no search index; the output's root page redirects to `/internal/` | `public-internal/`, only `/internal/` |
 | `make site` / `make site-internal` | Live-reload servers for the two builds (the internal one renders in memory) | http://localhost:1313 |
 
-The internal targets need a leecalcote/blowhorn clone at `BLOWHORN_DIR`
+The internal targets need a blowhorn clone at `BLOWHORN_DIR`
 (default `../blowhorn`, beside this clone) and fail with a clear error when it
-is missing. leecalcote/blowhorn's Makefile has the same four targets
+is missing. blowhorn's Makefile has the same four targets
 (`site`, `site-internal`, `site-build`, `site-internal-build`), which run
 these with `BLOWHORN_SITE_DIR` (default `../blowhorn-site`).
 
@@ -358,7 +358,7 @@ by `marketing/strategy/hugo/finance/report/index.md` (layout `internal-raw`),
 and the finance page lists the XLSX and the generator scripts as downloads.
 
 The user docs under `content/en/docs/` stay on the committed docs-sync copy
-(`make docs-sync`) rather than a mount of leecalcote/blowhorn `docs/`: a
+(`make docs-sync`) rather than a mount of the blowhorn repository's `docs/`: a
 mount would make every public build, including this repository's public CI,
 need a token for the private repository.
 
@@ -385,7 +385,7 @@ is each page's `weight`. The public build never renders any of it.
 
 ### Where the internal build runs
 
-leecalcote/blowhorn's `.github/workflows/internal-site.yml` checks out both
+blowhorn's `.github/workflows/internal-site.yml` checks out both
 repositories side by side, runs `make site-internal-build` from the blowhorn
 clone and uploads `public-internal/` as a private workflow artifact. There
 is no private host. It never runs in this repository's Actions, whose

@@ -3,7 +3,7 @@
   navigation, noindex, out of sitemap.xml and llms.txt. Styles live in
   assets/css/home-oil.css and are scoped to .oil, so no other page changes.
   Paintings: static/assets/oil-style/ (sources and prompts in
-  leecalcote/blowhorn marketing/brand/oil-style/). */ -}}
+  the blowhorn repository's marketing/brand/oil-style/). */ -}}
 {{ define "head" }}
     {{- $css := resources.Get "css/home-oil.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">

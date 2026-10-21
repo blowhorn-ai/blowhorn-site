@@ -23,7 +23,7 @@ renderSegments = ["internal"]
   [[module.mounts]]
     source = "static-internal"
     target = "static"
-  # The private leecalcote/blowhorn clone. make site-internal sets
+  # The private blowhorn clone. make site-internal sets
   # HUGO_MODULE_REPLACEMENTS to BLOWHORN_DIR (default ../blowhorn); with no
   # replacement Hugo would try to download the private repository and fail.
   [[module.imports]]

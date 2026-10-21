@@ -16,7 +16,7 @@ product repository's `marketing/brand/major-blowhorn/cutouts/major-6-hat-left.pn
 copied unchanged; the `.webp` beside it is
 a lossy re-encode of that file for the home page hero, with no other change.
 
-The cast art (`cast/*.webp`) is 960x540 re-encodes of the cast Lee locked on 18 Oct 2026
+The cast art (`cast/*.webp`) is 960x540 re-encodes of the cast locked on 18 Oct 2026
 (`marketing/brand/cast/` in the product repository), unchanged otherwise, plus the four
 machine Recruit Chicks (`cast/recruit-chick-macbook`, `-imac`, `-laptop-lap` and `-mac-studio`) added on
 20 Oct 2026. The `cast/icons/*.webp` files are square crops of the same art with the black ground keyed out. `cast/major-6-hat-left-horn.webp` is the locked
@@ -75,5 +75,5 @@ each owner's brand guidelines, and are not licensed for any other use.
 
 ## Alternate oil-painting style (/home-oil/)
 
-- The paintings in `static/assets/oil-style/` are original Blowhorn artwork. Sources and the prompts log live in leecalcote/blowhorn `marketing/brand/oil-style/`.
+- The paintings in `static/assets/oil-style/` are original Blowhorn artwork. Sources and the prompts log live in the blowhorn repository, `marketing/brand/oil-style/`.
 - The page reuses Fraunces from `static/assets/alt-style/` (SIL Open Font License 1.1).

@@ -19,7 +19,7 @@ include .github/build/Makefile.show-help.mk
 # layer5io/docs. You need Go (Hugo modules), Node.js and npm (the pinned
 # hugo-extended and postcss come from package.json), Python 3 (checks) and make.
 #
-# MAIN TARGETS (the website targets of leecalcote/blowhorn, mirrored so the
+# MAIN TARGETS (the website targets of the blowhorn repository, mirrored so the
 # two repositories share one vocabulary; the layer5io/docs names
 # build-production, build-internal and preview-internal are kept as aliases)
 #
@@ -65,7 +65,7 @@ include .github/build/Makefile.show-help.mk
 #   dmg-resolve, dmg-download, dmg-package, dmg-verify, dmg-release,
 #   dmg-pin-download, dmg-sync-docs
 #                      The steps of publish-dmg.yml (see docs/distribution.md).
-#   docs-sync          Sync the user docs from a leecalcote/blowhorn checkout
+#   docs-sync          Sync the user docs from a blowhorn checkout
 #                      into content/en/docs/: make docs-sync REF=<tag|branch|sha>
 #                      (see docs/deploy.md).
 #   docs-sync-base     Check out the docs-sync branch on the open sync PR's
@@ -86,10 +86,10 @@ BIN_DIR ?= .bin
 ACTIONLINT ?= $(shell command -v actionlint 2>/dev/null)
 # Workflows owned by this repo. Template workflows (labeler and friends) are left as-is.
 WORKFLOWS ?= .github/workflows/site.yml .github/workflows/publish-dmg.yml .github/workflows/sync-docs.yml .github/workflows/cloud-auth-smoke.yml .github/workflows/product-ci.yml
-# A leecalcote/blowhorn checkout for `make docs-sync` (the sync-docs.yml
+# A blowhorn checkout for `make docs-sync` (the sync-docs.yml
 # workflow checks the product repo out at this path).
 SOURCE_DIR ?= product
-# The private leecalcote/blowhorn clone that config/internal/hugo.toml mounts
+# The private blowhorn clone that config/internal/hugo.toml mounts
 # (module import github.com/leecalcote/blowhorn, replaced with this directory).
 BLOWHORN_DIR ?= ../blowhorn
 BLOWHORN_ABS = $(abspath $(BLOWHORN_DIR))
@@ -156,7 +156,7 @@ site-build: check-go check-deps
 		npm run build:production; \
 	fi
 
-## Build the internal site (only /internal/, mounted from the leecalcote/blowhorn clone at BLOWHORN_DIR, default ../blowhorn) into public-internal/.
+## Build the internal site (only /internal/, mounted from the blowhorn clone at BLOWHORN_DIR, default ../blowhorn) into public-internal/.
 site-internal-build: check-go check-deps check-blowhorn
 	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run build:internal
 
@@ -169,9 +169,9 @@ site-internal: check-go check-deps check-blowhorn
 	@echo "Internal site: http://localhost:1313/internal/ (the root redirects there)"
 	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run _hugo -- server --cleanDestinationDir --environment internal --renderToMemory
 
-## Fail unless BLOWHORN_DIR is a leecalcote/blowhorn clone with the internal sources.
+## Fail unless BLOWHORN_DIR is a blowhorn clone with the internal sources.
 check-blowhorn:
-	@test -d "$(BLOWHORN_ABS)/marketing/strategy/hugo/strategy" || { echo "Error: no leecalcote/blowhorn clone at BLOWHORN_DIR=$(BLOWHORN_DIR) ($(BLOWHORN_ABS)). Clone it beside this repository (git clone https://github.com/leecalcote/blowhorn ../blowhorn) or pass BLOWHORN_DIR=path/to/blowhorn."; exit 1; }
+	@test -d "$(BLOWHORN_ABS)/marketing/strategy/hugo/strategy" || { echo "Error: no blowhorn clone at BLOWHORN_DIR=$(BLOWHORN_DIR) ($(BLOWHORN_ABS)). Clone it beside this repository (git clone https://github.com/leecalcote/blowhorn ../blowhorn) or pass BLOWHORN_DIR=path/to/blowhorn."; exit 1; }
 
 
 ## Build and serve the site once with the file-watcher off (no live reload).
@@ -301,16 +301,16 @@ cloud-auth-smoke:
 
 ## Run the private product repository's CI on a checkout of it, printing only step results and
 ## pass/fail counts (its output goes to PRODUCT_CI_LOG, never printed; product-ci.yml runs this):
-## make product-ci SUITE=python|desktop PRODUCT_DIR=<leecalcote/blowhorn checkout> [PRODUCT_CI_LOG=<file>]
+## make product-ci SUITE=python|desktop PRODUCT_DIR=<blowhorn checkout> [PRODUCT_CI_LOG=<file>]
 PRODUCT_DIR ?= product
 PRODUCT_CI_LOG ?= $(or $(RUNNER_TEMP),/tmp)/product-ci/$(SUITE).log
 product-ci:
 	@test -n "$(SUITE)" || (echo "usage: make product-ci SUITE=python|desktop PRODUCT_DIR=<checkout>"; exit 1)
 	python3 .github/scripts/product-ci/run.py $(SUITE) --product "$(PRODUCT_DIR)" --log "$(PRODUCT_CI_LOG)"
 
-## Sync the user docs from a leecalcote/blowhorn checkout at $(SOURCE_DIR) into $(DOCS_DIR): make docs-sync REF=<tag|branch|sha> (see docs/deploy.md).
+## Sync the user docs from a blowhorn checkout at $(SOURCE_DIR) into $(DOCS_DIR): make docs-sync REF=<tag|branch|sha> (see docs/deploy.md).
 docs-sync:
-	@test -n "$(REF)" || (echo "usage: make docs-sync REF=<tag|branch|sha of leecalcote/blowhorn> [SOURCE_DIR=path/to/checkout]"; exit 1)
+	@test -n "$(REF)" || (echo "usage: make docs-sync REF=<tag|branch|sha of blowhorn> [SOURCE_DIR=path/to/checkout]"; exit 1)
 	python3 .github/scripts/sync-docs.py "$(SOURCE_DIR)" "$(DOCS_DIR)" --ref "$(REF)"
 
 ## Regenerate the CLI reference pages in the $(SOURCE_DIR) checkout from its schema and parser (what sync-docs.yml runs before the sync; needs typer and PyYAML).

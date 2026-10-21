@@ -204,7 +204,7 @@ ul, ol { padding: 0; list-style: none; }
 img, svg { display: block; max-width: 100%; height: auto; }
 picture { display: block; }
 
-/* Links never underline, anywhere on the site, docs included (Lee). One
+/* Links never underline, anywhere on the site, docs included. One
   rule for every state; components only change color, never decoration. */
 a,
 a:link,
@@ -1196,7 +1196,7 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   .empty-state { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
 }
 
-/* Whole-card links (Lee, 10 Oct): the card is the link, no underlines on card text. */
+/* Whole-card links (10 Oct): the card is the link, no underlines on card text. */
 a.card-link, a.platform, a.docs-card {
   display: block;
   color: inherit;
@@ -2212,7 +2212,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 /* Four presentation patterns, one per kind of information, so the page reads as
    a sequence instead of a stack of identical cards (tokens: --teal, --teal-deep,
    --teal-bright, --surface-tint, --line, --line-strong, --ink-muted, --radius-lg,
-   --space-*; see leecalcote/blowhorn marketing/brand/tokens.json).
+   --space-*; see the blowhorn repository's marketing/brand/tokens.json).
    1. Split: two open columns under a rule; Blowhorn's rule is teal. No card.
    2. Ledger: one glass panel, check marks for wins, open circles with a dash for gaps.
    3. Table: an open data table with a ruled header; Blowhorn's column tinted.
@@ -2757,7 +2757,7 @@ a.card.docs-card > * { margin-top: 0; }
    drop shadow, so it reads as part of the glass card. In dark mode the two
    single-colour black marks (X, GitHub) render white, the official on-dark
    version of each; every other mark keeps its colours. Docs keep their tiles.
-   Tokens (leecalcote/blowhorn marketing/brand/tokens.json): surface-tint,
+   Tokens (blowhorn repository, marketing/brand/tokens.json): surface-tint,
    near-black, white, radius-pill. */
 #platforms .logo-tile {
   width: 64px;
@@ -2791,7 +2791,7 @@ a.card.docs-card > * { margin-top: 0; }
    two at-rest cues that static cards never get: a teal-tinted edge and a round
    arrow chip. Hover keeps its lift and fills the chip teal; keyboard focus gets
    a visible ring; reduced motion drops the movement, not the cues.
-   Tokens (leecalcote/blowhorn marketing/brand/tokens.json): teal, teal-deep,
+   Tokens (blowhorn repository, marketing/brand/tokens.json): teal, teal-deep,
    teal-bright, surface-tint, near-black (on-teal), radius-pill, space-*. */
 :root { --card-cue-edge: color-mix(in srgb, var(--teal) 34%, transparent); }
 @media (prefers-color-scheme: dark) {

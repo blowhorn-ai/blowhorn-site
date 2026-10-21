@@ -19,7 +19,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn post --platform linkedin --profile lee",
+          "command": "blowhorn post --platform linkedin --profile alex",
           "cliRef": "/docs/reference/cli/post/"
         },
         "rest": {
@@ -75,7 +75,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn post --platform linkedin --profile lee --amplify \"https://www.linkedin.com/feed/update/urn:li:activity:123/\"",
+          "command": "blowhorn post --platform linkedin --profile alex --amplify \"https://www.linkedin.com/feed/update/urn:li:activity:123/\"",
           "cliRef": "/docs/reference/cli/post/"
         },
         "rest": {
@@ -131,7 +131,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn withdraw --profile lee --apply",
+          "command": "blowhorn withdraw --profile alex --apply",
           "cliRef": "/docs/reference/cli/withdraw/"
         },
         "rest": {
@@ -140,7 +140,7 @@
         },
         "mcp": {
           "status": "available",
-          "prompt": "Withdraw LinkedIn invitations I sent that have waited long enough, for my Lee profile.",
+          "prompt": "Withdraw LinkedIn invitations I sent that have waited long enough, for my Alex profile.",
           "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
         },
         "skill": {
@@ -187,7 +187,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn post --platform x --profile lee",
+          "command": "blowhorn post --platform x --profile alex",
           "cliRef": "/docs/reference/cli/post/"
         },
         "rest": {
@@ -270,7 +270,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn follow --platform x --profile lee --target mesheryio --limit 0",
+          "command": "blowhorn follow --platform x --profile alex --target mesheryio --limit 0",
           "cliRef": "/docs/reference/cli/follow/"
         },
         "rest": {
@@ -279,7 +279,7 @@
         },
         "mcp": {
           "status": "available",
-          "prompt": "Follow mesheryio on X from my Lee profile, target only.",
+          "prompt": "Follow mesheryio on X from my Alex profile, target only.",
           "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
         },
         "skill": {
@@ -326,7 +326,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn post --platform reddit --profile lee",
+          "command": "blowhorn post --platform reddit --profile alex",
           "cliRef": "/docs/reference/cli/post/"
         },
         "rest": {
@@ -410,7 +410,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn post --platform hn --profile lee --dry-run",
+          "command": "blowhorn post --platform hn --profile alex --dry-run",
           "cliRef": "/docs/reference/cli/post/"
         },
         "rest": {
@@ -419,7 +419,7 @@
         },
         "mcp": {
           "status": "available",
-          "prompt": "Preview a Hacker News submission for my Lee profile, then publish it.",
+          "prompt": "Preview a Hacker News submission for my Alex profile, then publish it.",
           "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
         },
         "skill": {
@@ -465,7 +465,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn post --platform slack --profile lee --target \"#announcements\" --message \"Maintenance is complete\"",
+          "command": "blowhorn post --platform slack --profile alex --target \"#announcements\" --message \"Maintenance is complete\"",
           "cliRef": "/docs/reference/cli/post/"
         },
         "rest": {
@@ -521,7 +521,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn post --platform bluesky --profile lee",
+          "command": "blowhorn post --platform bluesky --profile alex",
           "cliRef": "/docs/reference/cli/post/"
         },
         "rest": {
@@ -577,7 +577,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn post --platform bluesky --profile lee --amplify \"https://bsky.app/profile/you/post/3kx...\"",
+          "command": "blowhorn post --platform bluesky --profile alex --amplify \"https://bsky.app/profile/you/post/3kx...\"",
           "cliRef": "/docs/reference/cli/post/"
         },
         "rest": {
@@ -605,7 +605,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn follow --platform bluesky --profile lee --target alice.bsky.social --limit 0",
+          "command": "blowhorn follow --platform bluesky --profile alex --target alice.bsky.social --limit 0",
           "cliRef": "/docs/reference/cli/follow/"
         },
         "rest": {
@@ -614,7 +614,7 @@
         },
         "mcp": {
           "status": "available",
-          "prompt": "Follow alice.bsky.social on Bluesky from my Lee profile, target only.",
+          "prompt": "Follow alice.bsky.social on Bluesky from my Alex profile, target only.",
           "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
         },
         "skill": {
@@ -633,7 +633,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn unfollow --platform bluesky --profile lee --target alice.bsky.social",
+          "command": "blowhorn unfollow --platform bluesky --profile alex --target alice.bsky.social",
           "cliRef": "/docs/reference/cli/unfollow/"
         },
         "rest": {
@@ -642,7 +642,7 @@
         },
         "mcp": {
           "status": "available",
-          "prompt": "Unfollow alice.bsky.social on Bluesky from my Lee profile.",
+          "prompt": "Unfollow alice.bsky.social on Bluesky from my Alex profile.",
           "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
         },
         "skill": {
@@ -717,7 +717,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn post --platform github --profile lee --amplify \"https://github.com/layer5io/meshery/issues/1234\"",
+          "command": "blowhorn post --platform github --profile alex --amplify \"https://github.com/layer5io/meshery/issues/1234\"",
           "cliRef": "/docs/reference/cli/post/"
         },
         "rest": {
@@ -726,7 +726,7 @@
         },
         "mcp": {
           "status": "available",
-          "prompt": "Add the five upbeat reactions to https://github.com/layer5io/meshery/issues/1234 from my Lee profile.",
+          "prompt": "Add the five upbeat reactions to https://github.com/layer5io/meshery/issues/1234 from my Alex profile.",
           "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
         },
         "skill": {
@@ -745,7 +745,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn follow --platform github --profile lee --target layer5io --limit 0",
+          "command": "blowhorn follow --platform github --profile alex --target layer5io --limit 0",
           "cliRef": "/docs/reference/cli/follow/"
         },
         "rest": {
@@ -754,7 +754,7 @@
         },
         "mcp": {
           "status": "available",
-          "prompt": "Follow layer5io on GitHub from my Lee profile, target only.",
+          "prompt": "Follow layer5io on GitHub from my Alex profile, target only.",
           "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
         },
         "skill": {
@@ -773,7 +773,7 @@
         },
         "cli": {
           "status": "available",
-          "command": "blowhorn source --platform github --profile lee --repo layer5io/meshery --audience stargazers --dry-run",
+          "command": "blowhorn source --platform github --profile alex --repo layer5io/meshery --audience stargazers --dry-run",
           "cliRef": "/docs/reference/cli/source/"
         },
         "rest": {

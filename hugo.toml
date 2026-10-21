@@ -148,7 +148,7 @@ renderSegments = ["public"]
   # The account service URL. /signup, /login and
   # /early-access redirect here, and the welcome page links to it.
   # The Blowhorn account service. Keep in step
-  # with DEFAULT_CLOUD_URL in leecalcote/blowhorn blowhorn/cloud/settings.py.
+  # with DEFAULT_CLOUD_URL in the blowhorn repository's blowhorn/cloud/settings.py.
   cloud_url = "https://cloud.blowhorn.ai"
   # Docsy's offline search, with lunr bundled locally (layouts/_partials/docs-head.html).
   offlineSearch = true
@@ -174,7 +174,7 @@ renderSegments = ["public"]
     disable = false
   # Defining any mount drops Hugo's default mounts, so all of them are
   # declared here. The internal environment (config/internal/hugo.toml)
-  # adds the private leecalcote/blowhorn mounts on a module import and
+  # adds the private blowhorn repository's mounts on a module import and
   # leaves these project mounts as they are.
   [[module.mounts]]
     source = "content/en"

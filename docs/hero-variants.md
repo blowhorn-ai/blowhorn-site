@@ -89,7 +89,7 @@ default hero's.
 `static/assets/video/`, a `poster`, its `width` and `height`, and an
 accessible `label` and `description`. Captions are burned into the picture.
 The default is the Battalion Thunder film (source:
-leecalcote/blowhorn `marketing/videos/blowhorn-battalion-thunder`), 1080p,
+blowhorn `marketing/videos/blowhorn-battalion-thunder`), 1080p,
 about 2.1 MB MP4 and 2.2 MB WebM.
 
 `media.video.placement` is `inline-expand` (the only placement): the film

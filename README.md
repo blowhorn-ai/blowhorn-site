@@ -38,13 +38,13 @@ The Chrome extension ships through the Chrome Web Store, not from this repositor
 | How the site deploys and how the domain is wired | [`docs/deploy.md`](docs/deploy.md) |
 | How releases are published | [`docs/distribution.md`](docs/distribution.md) |
 | Release binaries | [Releases](https://github.com/layer5io/blowhorn-site/releases) on this repository |
-| Product source and build pipeline | Private: [`leecalcote/blowhorn`](https://github.com/leecalcote/blowhorn) |
+| Product source and build pipeline | Private: [`blowhorn`](https://github.com/leecalcote/blowhorn) |
 
 **Reporting problems.** The product repository is private, so use [this repository's issues](https://github.com/layer5io/blowhorn-site/issues) for everything public: site content, a download that will not open, a wrong checksum, or a bug in the app. Maintainers triage app bugs into the product repository. The [Layer5 Slack](https://slack.layer5.io) works too.
 
 ## Working on the site
 
-You need Go (Hugo modules), Node.js and npm (the pinned Hugo extended and postcss come from `package.json`), Python 3 and `make`. The build targets mirror leecalcote/blowhorn's website targets; the [layer5io/docs](https://github.com/layer5io/docs/blob/master/Makefile) names (`build-production`, `build-internal`, `preview-internal`) are kept as aliases. `make help` lists every target.
+You need Go (Hugo modules), Node.js and npm (the pinned Hugo extended and postcss come from `package.json`), Python 3 and `make`. The build targets mirror the blowhorn repository's website targets; the [layer5io/docs](https://github.com/layer5io/docs/blob/master/Makefile) names (`build-production`, `build-internal`, `preview-internal`) are kept as aliases. `make help` lists every target.
 
 ```bash
 make setup             # npm install: the pinned Hugo extended and postcss
@@ -77,7 +77,7 @@ Every CI step that runs repository logic is a make target, and the workflow call
 | `dmg-check DMG=...` | sanity-check a disk image before publishing | `dmg-package` runs the same script (`check-dmg.sh`) |
 | `dmg-sync-docs` | after a public release, start `sync-docs.yml` at the product tag `desktop-<version>` | `publish-dmg.yml` |
 | `docs-cli-reference` | regenerate the CLI reference pages in the product checkout from its CLI schema and parser, before the sync ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
-| `docs-sync REF=...` | copy the product docs from a `leecalcote/blowhorn` checkout into `content/en/docs/` ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
+| `docs-sync REF=...` | copy the product docs from a `blowhorn` checkout into `content/en/docs/` ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
 | `docs-sync-base` | check out the `docs-sync` branch on the open sync PR's head, or on `master` when none is open ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
 | `docs-sync-start-checks` | start `site.yml` on the `docs-sync` branch after a sync ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
 | `product-ci SUITE=python\|desktop` | run the private product repo's CI on a checkout of it, printing only step results and pass/fail counts (output stays in a private log; public logs never show product code) | `product-ci.yml` |
