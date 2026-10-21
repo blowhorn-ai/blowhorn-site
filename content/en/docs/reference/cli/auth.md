@@ -1,7 +1,7 @@
 ---
 title: "blowhorn auth"
 linkTitle: "auth"
-description: "blowhorn auth: login, logout, status."
+description: "blowhorn auth: login, logout, status, switch-organization."
 weight: 102
 ---
 
@@ -14,6 +14,7 @@ The `blowhorn auth` commands. Each one's `--help` prints the same text.
 | [`auth login`](#blowhorn-auth-login) | Sign in to Blowhorn at https://cloud.blowhorn.ai in your browser. |
 | [`auth logout`](#blowhorn-auth-logout) | Sign out of Blowhorn and clear the local entitlement attestation cache. |
 | [`auth status`](#blowhorn-auth-status) | Show whether Blowhorn credentials and an entitlement attestation are present. |
+| [`auth switch-organization`](#blowhorn-auth-switch-organization) | Switch the signed-in account to another of its organizations. |
 
 ## blowhorn auth login
 
@@ -76,7 +77,7 @@ Output: json with `--json`, text otherwise.
 
 Show whether Blowhorn credentials and an entitlement attestation are present.
 
-Reports token configured (never the token value), organization id, api_base, enforcement mode (`BLOWHORN_ENTITLEMENT`), and a summary of the last Feature read. Live, it first re-reads the signed-in account from Blowhorn (name, photo, organizations, plan) into cloud.yaml and follows the organization your Blowhorn session in the browser has selected; `BLOWHORN_CLOUD_ORGANIZATION` still wins when set. `--offline` answers from presence checks only: it reads no saved secret, so macOS shows no Keychain prompt, and it makes no network request (the desktop app runs it at launch).
+Reports token configured (never the token value), organization id, api_base, enforcement mode (`BLOWHORN_ENTITLEMENT`), and a summary of the last Feature read. Live, it first re-reads the signed-in account from Blowhorn (name, photo, organizations, plan) into cloud.yaml and follows the organization your Blowhorn session in the browser has selected; `BLOWHORN_CLOUD_ORGANIZATION` still wins when set, and the plan read and shown is that organization's. `--offline` answers from presence checks only: it reads no saved secret, so macOS shows no Keychain prompt, and it makes no network request (the desktop app runs it at launch).
 
 ```text
 blowhorn auth status [OPTIONS]
@@ -97,6 +98,37 @@ Examples:
 blowhorn auth status
 blowhorn auth status --json
 blowhorn auth status --offline --json
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn auth switch-organization
+
+Switch the signed-in account to another of its organizations.
+
+Makes `ORGANIZATION_ID` the organization the account's Blowhorn session has selected, with the same write Blowhorn's and Meshery's own organization switchers send (PUT /api/identity/users/preferences, selectedOrganizationId), so the browser and this computer follow it. `ORGANIZATION_ID` must be one of the account's organizations ('auth status `--json`' lists them as account.organizations). Then reports what `auth status` reports, read live for the new organization. `BLOWHORN_CLOUD_ORGANIZATION`, when set, still names the organization this computer reports. `--dry-run` checks the id and sends nothing.
+
+```text
+blowhorn auth switch-organization [OPTIONS] ORGANIZATION_ID
+```
+
+| Argument | Required | Description |
+| --- | --- | --- |
+| `ORGANIZATION_ID` | yes | The id of one of the account's organizations (auth status `--json`: account.organizations). |
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--platform` | string |  | Accepted and ignored by `blowhorn auth`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn auth switch-organization` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn auth switch-organization 6f0c2a4e-8d3b-4c1a-9e57-1b2d3c4e5f60
+blowhorn auth switch-organization 6f0c2a4e-8d3b-4c1a-9e57-1b2d3c4e5f60 --json
 ```
 
 Output: json with `--json`, text otherwise.

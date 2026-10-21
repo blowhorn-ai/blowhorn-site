@@ -80,7 +80,7 @@ and checked against it, so a page says what `--help` says.
 | --- | --- |
 | [`blowhorn accept`](/docs/reference/cli/accept/) | Accept pending LinkedIn connection invitations other people have sent you, one at a time with a randomized pause between each. |
 | [`blowhorn analytics`](/docs/reference/cli/analytics/) | blowhorn analytics: activity, history, import-exports, operations. |
-| [`blowhorn auth`](/docs/reference/cli/auth/) | blowhorn auth: login, logout, status. |
+| [`blowhorn auth`](/docs/reference/cli/auth/) | blowhorn auth: login, logout, status, switch-organization. |
 | [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, confirm, discover, extension-enable, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap. |
 | [`blowhorn comment`](/docs/reference/cli/comment/) | Post LinkedIn, Reddit, or Bluesky comments from scheduled rows or ad-hoc target/message flags. |
 | [`blowhorn config`](/docs/reference/cli/config/) | blowhorn config: get, path, set, show. |
@@ -106,7 +106,7 @@ and checked against it, so a page says what `--help` says.
 
 <!-- END generated command table -->
 
-`blowhorn auth` is a group of three: `auth status` reports whether an account token and organization id are configured (never the token value), the api base,
+`blowhorn auth` is a group of four: `auth status` reports whether an account token and organization id are configured (never the token value), the api base,
 enforcement mode, a summary of the last entitlement attestation, and why the
 last read of the plan failed when it did;
 `auth login` signs you in to [Blowhorn](https://cloud.blowhorn.ai) in your browser (Blowhorn's
@@ -117,7 +117,9 @@ an account without Blowhorn straight to Blowhorn to start the beta (`--no-browse
 address instead of opening it, and `--json` opens nothing either, its first line naming the address,
 which is how the desktop app runs it; `BLOWHORN_CLOUD_TOKEN` still wins when set);
 `auth logout` revokes the saved API token on Blowhorn, then forgets it,
-the account in `cloud.yaml` and the local attestation cache.
+the account in `cloud.yaml` and the local attestation cache;
+`auth switch-organization` switches the signed-in account to another of its organizations in place
+([auth switch-organization](/docs/reference/cli/auth/#blowhorn-auth-switch-organization)).
 
 `blowhorn store` is a single command, not a group: it reports whether this
 machine can reach your account and why not, opens the bastion tunnel

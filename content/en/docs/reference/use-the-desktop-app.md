@@ -54,13 +54,15 @@ again to turn the pause off (⌘⇧P does the same). Under the status line, the
 account button (desktop v1.27.2) shows who is signed in: your Blowhorn profile photo, or
 your initials, your name, and your organization and plan (for example "Acme ·
 Free plan"). The organization is the one your Blowhorn session has
-selected, the same one [cloud.blowhorn.ai](https://cloud.blowhorn.ai) shows, and every organization
-is on the Free plan unless an active subscription names another. It opens the
+selected, the same one [cloud.blowhorn.ai](https://cloud.blowhorn.ai) shows, unless
+`BLOWHORN_CLOUD_ORGANIZATION` names another; the plan is that organization's.
+Every organization is on the Free plan unless an active subscription names another. It opens the
 account menu: your name, email, organization and plan, then **Your account and
 plan** (your Blowhorn account page at cloud.blowhorn.ai, in your browser), **Team** (coming
 soon), **Switch organization** when you belong to more than one (it lists them
-with yours checked; picking one switches it at cloud.blowhorn.ai in your browser, and
-Blowhorn follows when you come back), **Settings** (⌘,), **Help and docs**, and
+with yours checked; picking one switches your account to it right here, the same
+switch cloud.blowhorn.ai makes, so your browser follows too; `blowhorn auth
+switch-organization` does it from Terminal), **Settings** (⌘,), **Help and docs**, and
 **Sign out**. Opening the menu refreshes your name, photo, organizations and
 plan from your Blowhorn account. Signed out, the button is **Sign in**. While
 Blowhorn checks your account it shows a spinner; when it can't reach
