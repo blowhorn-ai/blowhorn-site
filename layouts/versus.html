@@ -1,11 +1,11 @@
 {{- /* One honest comparison page per competitor in our competitive landscape:
   /compare/<slug>/ (content/en/compare/<slug>.md, JSON front matter written
-  from leecalcote/blowhorn marketing/compare/). Shared layout, per-competitor
+  from the blowhorn repository's marketing/compare/). Shared layout, per-competitor
   copy. Every competitor fact is dated and links to the vendor page it came
   from. No competitor logos: their licensing for this use is not clear. */ -}}
 {{ define "head" }}
     {{- $faq := slice -}}
-    {{- range .Params.faq }}{{ $faq = $faq | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end }}
+    {{- range .Params.faq }}{{ $a := .a }}{{ with .link }}{{ $a = printf "%s %s: %s" $a .label .href }}{{ end }}{{ $faq = $faq | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" $a)) }}{{ end }}
     <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $faq | jsonify | safeJS }}</script>
 {{- end }}
 {{ define "main" }}
@@ -96,7 +96,7 @@
           </div>
           <div class="agent-faq versus-faq">
             {{- range $p.faq }}
-            <details class="glass"><summary class="ui">{{ .q }}</summary><p>{{ .a }}</p></details>
+            <details class="glass"><summary class="ui">{{ .q }}</summary><p>{{ .a }}{{ with .link }} <a href="{{ .href }}">{{ .label }}</a>{{ end }}</p></details>
             {{- end }}
           </div>
         </section>

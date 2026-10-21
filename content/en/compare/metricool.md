@@ -19,7 +19,7 @@
   "us": [
     "You need many real profiles to lift one post",
     "Hacker News, Reddit, GitHub and Slack matter",
-    "You want everything to run from your own Chrome on your own machines"
+    "You want everything to run from your own Chrome on your own computers"
   ],
   "price_them": "Free plan; Starter from $20 per month, Advanced from $53 per month",
   "price_src": "https://metricool.com/pricing/",
@@ -27,12 +27,12 @@
     {
       "f": "Where it acts",
       "t": "Metricool's cloud",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Analytics and ads reporting",
       "t": "Deep",
-      "b": "LinkedIn, X and Bluesky analytics across all your machines"
+      "b": "LinkedIn, X and Bluesky analytics across all your computers"
     },
     {
       "f": "Many people amplifying one post",
@@ -47,7 +47,7 @@
     {
       "f": "AI agents",
       "t": "AI assistant and MCP",
-      "b": "Full CLI: --help with examples, --json, --dry-run on writes. Your agent drives, you hold pause"
+      "b": "MCP server, REST API, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause"
     },
     {
       "f": "Bought engagement",

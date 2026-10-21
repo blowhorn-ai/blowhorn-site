@@ -146,24 +146,19 @@ renderSegments = ["public"]
   github_branch = "master"
   # The account service URL. /signup, /login and
   # /early-access redirect here, and the welcome page links to it.
-  # Blowhorn Cloud, Layer5 Cloud's Blowhorn-branded front door. Keep in step
-  # with DEFAULT_CLOUD_URL in leecalcote/blowhorn blowhorn/cloud/settings.py.
+  # The Blowhorn account service. Keep in step
+  # with DEFAULT_CLOUD_URL in the blowhorn repository's blowhorn/cloud/settings.py.
   cloud_url = "https://cloud.blowhorn.ai"
   # Docsy's offline search, with lunr bundled locally (layouts/_partials/docs-head.html).
   offlineSearch = true
   offlineSearchMaxResults = 10
-
-# The home page hero rotation (data/hero.json "rotation", docs/hero-variants.md):
-# each visitor gets rotation[floor(now / interval) % length] at page load.
-[params.hero_rotation]
-  interval_seconds = 60
 
 [params.llms]
   generate_llms_txt = true
   generate_llms_full_txt = true
   # The redirect and onboarding pages at the site root stay out of llms.txt,
   # as they stay out of sitemap.xml.
-  exclude = ["/download/thanks/", "/home-oil/", "/install/", "/signup/", "/login/", "/welcome/", "/early-access/"]
+  exclude = ["/download/thanks/", "/home-oil/", "/home-reveille/", "/install/", "/signup/", "/login/", "/welcome/", "/early-access/"]
 
 # Hugo module configuration, as layer5io/docs.
 [module]
@@ -178,7 +173,7 @@ renderSegments = ["public"]
     disable = false
   # Defining any mount drops Hugo's default mounts, so all of them are
   # declared here. The internal environment (config/internal/hugo.toml)
-  # adds the private leecalcote/blowhorn mounts on a module import and
+  # adds the private blowhorn repository's mounts on a module import and
   # leaves these project mounts as they are.
   [[module.mounts]]
     source = "content/en"

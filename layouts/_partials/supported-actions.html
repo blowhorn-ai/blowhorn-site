@@ -1,13 +1,60 @@
-{{- /* Supported actions for one platform, from data/platforms/<key>.yaml.
-  The platform docs page (shortcode supported-actions) and the agent pages
-  both render through this partial, so the two can't drift apart.
+{{- /* Supported actions for one platform, from data/platforms/<key>.yaml
+  plus data/actions.json. The platform docs page (shortcode supported-actions)
+  and the agent pages both render through this partial, so the two can't
+  drift. Table columns: action, what it does, limits/notes. Each action
+  name links to its usage section (#action-<id>) rendered below the table,
+  so there is no separate Example column. A listed action is supported, so
+  rows carry no Supported label or check; only an exception (a coming-soon
+  platform) shows a status, as an icon with an accessible name and tooltip.
+  Coming-soon platforms with no YAML still get this table, empty of actions.
   Usage: partial "supported-actions.html" (dict "key" "linkedin") */ -}}
-{{- $d := index hugo.Data.platforms .key -}}
-{{- if not $d }}{{ errorf "supported-actions: no data/platforms/%s.yaml" .key }}{{ end -}}
-<dl class="supported-actions">
-{{- range $d.actions }}
-<dt>{{ .name }}</dt>
-<dd><p>{{ .behavior }}</p>{{ with .limits }}<p class="muted"><strong>Limits:</strong> {{ . }}</p>{{ end }}</dd>
-{{- end }}
-</dl>
+{{- $key := .key -}}
+{{- if not $key }}{{ errorf "supported-actions: set key" }}{{ end -}}
+{{- $d := index hugo.Data.platforms $key -}}
+{{- $row := false -}}
+{{- range site.Data.integrations.platforms -}}
+  {{- if eq .id $key }}{{ $row = . }}{{ end -}}
+{{- end -}}
+{{- if not $row }}{{ errorf "supported-actions: %q is not in data/integrations.json platforms" $key }}{{ end -}}
+{{- if and (not $d) (ne $row.status "coming-soon") -}}
+  {{ errorf "supported-actions: no data/platforms/%s.yaml for supported platform" $key }}
+{{- end -}}
+{{- $actions := slice -}}
+{{- if $d }}{{ with $d.actions }}{{ $actions = . }}{{ end }}{{ end -}}
+<section class="supported-actions-wrap" tabindex="0" aria-label="Supported actions" data-supported-actions="{{ $key }}">
+<table class="supported-actions">
+  <thead>
+    <tr>
+      <th scope="col">Action</th>
+      <th scope="col">What it does</th>
+      <th scope="col">Limits / notes</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{- if $actions }}
+    {{- range $actions }}
+      {{- $a := partial "action-resolve.html" . -}}
+      <tr>
+        <th scope="row"><a href="#{{ $a.slug }}">{{ $a.name }}</a></th>
+        <td data-label="What it does">{{ $a.description }}</td>
+        <td data-label="Limits / notes">{{ with $a.limits }}{{ . }}{{ else }}None{{ end }}</td>
+      </tr>
+    {{- end }}
+  {{- else }}
+    <tr>
+      <th scope="row">None yet <span class="supported-actions-status" role="img" aria-label="Coming soon" title="Coming soon" data-action-status="coming-soon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span></th>
+      <td data-label="What it does">This platform isn't available yet.</td>
+      <td data-label="Limits / notes">None</td>
+    </tr>
+  {{- end }}
+  </tbody>
+</table>
+</section>
+{{- if $actions }}
+<h2 id="examples">Examples</h2>
+{{- range $actions }}
+  {{- $a := partial "action-resolve.html" . -}}
+  {{ partial "action-examples.html" (dict "platform" $key "action" $a.id) }}
+{{- end -}}
+{{- end -}}
 {{- /**/ -}}

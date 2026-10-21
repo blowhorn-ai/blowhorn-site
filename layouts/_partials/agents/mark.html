@@ -1,4 +1,11 @@
-{{- /* The tool's mark on the Agentic AI Marketing pages: a text monogram in a
-  glass tile. Text on purpose: no third-party logo is used here because their
-  licensing for this use is not clear. Context: the agent page. */ -}}
-<span class="agent-mark{{ with .size }} agent-mark-{{ . }}{{ end }}" aria-hidden="true">{{ .page.Params.mark }}</span>
+{{- /* The tool's mark on the Agentic AI Marketing pages: the provider's
+  logo in a glass tile when the page names one (front matter logo:, the
+  SVG inlined from assets/agents/), else a text monogram. The logos are
+  nominative: each identifies the tool its guide covers. Sources:
+  Claude, OpenAI, DeepSeek and OpenCode from Simple Icons (CC0); Grok
+  from LobeHub's icon set; Pi from pi.dev. Monochrome marks take their
+  colour from the .agent-mark-<logo> rules in site.css so they read in
+  light and dark; brand-colour marks keep their own. Context: a dict
+  with page and optional size. */ -}}
+{{- $logo := .page.Params.logo -}}
+<span class="agent-mark{{ with .size }} agent-mark-{{ . }}{{ end }}{{ with $logo }} agent-mark-logo agent-mark-{{ . }}{{ end }}" aria-hidden="true">{{ if $logo }}{{ with resources.Get (printf "agents/%s.svg" $logo) }}{{ .Content | safeHTML }}{{ end }}{{ else }}{{ .page.Params.mark }}{{ end }}</span>

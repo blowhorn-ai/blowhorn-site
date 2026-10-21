@@ -5,6 +5,7 @@
   their own tags in the "head" block of baseof.html. */ -}}
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{- partial "theme-head.html" . }}
     <title>{{ if .IsHome }}{{ .Title }}{{ else if .Params.seo_title }}{{ .Params.seo_title }}{{ else if eq .Kind "404" }}Page not found: {{ site.Title }}{{ else }}{{ .Title }}: {{ site.Title }}{{ end }}</title>
     {{- if eq (getenv "HUGO_PREVIEW") "true" }}
     <meta name="robots" content="noindex, nofollow">
@@ -17,11 +18,16 @@
     {{- if ne .Kind "404" }}
     <link rel="canonical" href="{{ partial "canonical.html" . }}">
     {{- end }}
+    {{- $theme := partial "theme.html" . -}}
+    {{- if eq $theme.colorScheme "dark" }}
+    <meta name="theme-color" content="#070B0A">
+    {{- else }}
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E2117">
+    {{- end }}
     <link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="32x32">
     <link rel="icon" href="{{ "assets/brand/logo/blowhorn-favicon-32.svg" | relURL }}" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{{ "assets/brand/logo/blowhorn-apple-touch-icon-180.png" | relURL }}">
-    {{- $css := resources.Get "css/site.css" | minify | fingerprint }}
+    {{- $css := slice (resources.Get "css/site.css") (resources.Get "css/themes.css") (resources.Get "css/home-signal.css") (resources.Get "css/action-matrix.css") | resources.Concat "css/site.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
     {{- partial "analytics.html" . }}

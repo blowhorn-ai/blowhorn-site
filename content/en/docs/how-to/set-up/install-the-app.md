@@ -10,18 +10,17 @@ Download the signed Blowhorn app for macOS, verify it, install it, and open
 it.
 
 The app carries its own engine and Python, so you need no copy of the
-Blowhorn repository, no git and no Python on your Mac.
+Blowhorn repository, no git and no Python on your computer.
 
 ## Download
 
-Download the latest build from the
-[blowhorn-site releases](https://github.com/layer5io/blowhorn-site/releases),
-the same place the [blowhorn.ai/download](https://blowhorn.ai/download/) button links:
+Download the latest build from
+[blowhorn.ai/download](https://blowhorn.ai/download/): it hands you the
+current release's files from the
+[blowhorn-site releases](https://github.com/layer5io/blowhorn-site/releases).
 
-- [Blowhorn-mac.dmg](https://github.com/layer5io/blowhorn-site/releases/latest/download/Blowhorn-mac.dmg) -
-  always the latest build, for Apple silicon and Intel Macs.
-- [SHA256SUMS.txt](https://github.com/layer5io/blowhorn-site/releases/latest/download/SHA256SUMS.txt) -
-  the checksums for that release.
+- `Blowhorn-mac.dmg` - the latest build, for Apple silicon and Intel Macs.
+- `SHA256SUMS.txt` - the checksums for that release.
 
 Verify the download before you open it. With both files in the same folder:
 
@@ -64,7 +63,7 @@ app does not read them. If the engine in the app cannot start, Setup says so
 in one line; [Fix an engine that won't start](/docs/how-to/troubleshoot/engine-wont-start/)
 walks through it.
 
-Connecting the Blowhorn Chrome extension to this machine takes no pop-up:
+Connecting the Blowhorn Chrome extension to this computer takes no pop-up:
 
 - **Connect it today:** the guided setup's **Getting ready** step connects
   it. The extension can then reach the

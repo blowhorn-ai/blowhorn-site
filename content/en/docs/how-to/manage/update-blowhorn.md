@@ -45,7 +45,7 @@ The card names each step as it happens:
 
 Verifying, installing and finishing setup have no bytes to count, so the bar
 sweeps and the card says how long the step usually takes, for example
-"usually about 25 seconds". Blowhorn times these steps on your Mac each time
+"usually about 25 seconds". Blowhorn times these steps on your computer each time
 it updates and uses those timings next time. Until it has its own, it uses
 timings measured on an Intel iMac: about 24 seconds to verify, 20 seconds to
 copy the app and a few seconds to finish setup.

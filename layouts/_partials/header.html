@@ -1,12 +1,14 @@
 {{- /* The site header: lockup, primary navigation and the Download button.
   Five groups open a panel under the bar (Product, Solutions, Compare, Resources,
   Trust); Pricing and Docs are plain links. Below 1080px a Menu button opens the
-  same groups as a sheet. Behaviour in assets/js/nav.js: click, Enter or Space
+  same groups as a sheet, and Download leaves the bar to close the sheet as its
+  last item. Behaviour in assets/js/nav.js: click, Enter or Space
   opens a group, Escape closes it, a mouse can also hover. Without the script,
   hover and keyboard focus still open each panel, and on small screens the
   groups are listed open. Off the home page the section links lead back to the
   home page's sections. */ -}}
 {{- $home := cond .IsHome "" ("" | relURL) -}}
+{{- $useCases := site.Data.use_cases.use_cases -}}
 {{- $compare := site.GetPage "/compare" -}}
 {{- $agents := site.GetPage "/agents" -}}
 {{- define "_partials/mm-link.html" -}}
@@ -15,10 +17,8 @@
 <header class="site-header">
       <div class="wrap">
         <a class="brand" href="{{ "" | relURL }}" aria-label="Blowhorn home">
-          <picture>
-            <source media="(prefers-color-scheme: dark)" srcset="{{ "assets/brand/logo/blowhorn-lockup-horizontal-on-dark.svg" | relURL }}">
-            <img src="{{ "assets/brand/logo/blowhorn-lockup-horizontal.svg" | relURL }}" alt="Blowhorn" width="176" height="44">
-          </picture>
+          <img class="logo-on-light" src="{{ "assets/brand/logo/blowhorn-lockup-horizontal.svg" | relURL }}" alt="Blowhorn" width="176" height="44">
+          <img class="logo-on-dark" src="{{ "assets/brand/logo/blowhorn-lockup-horizontal-on-dark.svg" | relURL }}" alt="" width="176" height="44">
         </a>
         <button type="button" class="mm-toggle" aria-expanded="false" aria-controls="site-menu" hidden>
           <span class="mm-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -31,12 +31,13 @@
               <div class="mm-panel" id="mm-product">
                 <div class="mm-intro">
                   <p class="mm-intro-title">Product</p>
-                  <p class="mm-intro-text">One queue that posts as you, from your own Chrome, on every Mac you own.</p>
+                  <p class="mm-intro-text">One queue that posts as you, from your own Chrome, on every computer you own.</p>
                 </div>
                 <ul class="mm-links mm-cols-2">
                   {{- partial "mm-link.html" (dict "href" (printf "%s#platforms" $home) "title" "Platforms" "desc" "LinkedIn, X, Reddit, Hacker News and more") }}
-                  {{- partial "mm-link.html" (dict "href" (printf "%s#how" $home) "title" "How you run it" "desc" "You give the orders. Your Macs carry them out") }}
-                  {{- partial "mm-link.html" (dict "href" ("download/" | relURL) "title" "Download" "desc" "The Mac app and the Chrome extension") }}
+                  {{- with site.Data.integrations.matrix }}{{ partial "mm-link.html" (dict "href" ((strings.TrimPrefix "/" .path) | relURL) "title" .label "desc" (strings.TrimSuffix "." .headline)) }}{{ end }}
+                  {{- partial "mm-link.html" (dict "href" (printf "%s#how" $home) "title" "How you run it" "desc" "You give the orders. Your computers carry them out") }}
+                  {{- partial "mm-link.html" (dict "href" ("download/" | relURL) "title" "Download" "desc" "The desktop app and the Chrome extension") }}
                   {{- partial "mm-link.html" (dict "href" "https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf" "title" "Chrome extension" "desc" "Add Blowhorn to Chrome") }}
                   {{- partial "mm-link.html" (dict "href" (printf "%s/releases" site.Params.github_repo) "title" "Releases" "desc" "What changed in each version") }}
                   {{- partial "mm-link.html" (dict "href" ("pricing/" | relURL) "title" "Pricing" "desc" "Free to start. Plans from $19 a month") }}
@@ -51,6 +52,14 @@
                   <ul class="mm-links">
                     {{- range sort site.Data.roles.roles "weight" }}
                     {{- partial "mm-link.html" (dict "href" (printf "for/%s/" .slug | relURL) "title" .name) }}
+                    {{- end }}
+                  </ul>
+                </div>
+                <div class="mm-group">
+                  <p class="mm-group-title"><a href="{{ "use-cases/" | relURL }}">By use case</a></p>
+                  <ul class="mm-links">
+                    {{- range sort $useCases "weight" }}
+                    {{- partial "mm-link.html" (dict "href" (printf "use-cases/%s/" .slug | relURL) "title" .name) }}
                     {{- end }}
                   </ul>
                 </div>
@@ -101,6 +110,7 @@
                   {{- partial "mm-link.html" (dict "href" (site.GetPage "/docs/reference/support").RelPermalink "title" "Get help" "desc" "Support and troubleshooting") }}
                   {{- partial "mm-link.html" (dict "href" (site.GetPage "/major").RelPermalink "title" "Meet Major" "desc" "Our mascot and his troops") }}
                   {{- partial "mm-link.html" (dict "href" (site.GetPage "/brand").RelPermalink "title" "Brand" "desc" "Logo, colors and the brand kit") }}
+                  {{- partial "mm-link.html" (dict "href" "https://tells.blowhorn.ai/" "title" "Am I a Bot?" "desc" "Free check: what sites can see about your browser") }}
                 </ul>
               </div>
             </li>
@@ -109,7 +119,7 @@
               <div class="mm-panel" id="mm-trust">
                 <div class="mm-intro">
                   <p class="mm-intro-title">Trust</p>
-                  <p class="mm-intro-text">Every action runs on your own machine. Here is how we handle the rest.</p>
+                  <p class="mm-intro-text">Every action runs on your own computer. Here is how we handle the rest.</p>
                 </div>
                 <ul class="mm-links mm-cols-2">
                   {{- partial "mm-link.html" (dict "href" (site.GetPage "/legal").RelPermalink "title" "Trust Center" "desc" "Your data, sessions and accounts") }}
@@ -122,6 +132,7 @@
             </li>
             <li class="mm-item"><a class="mm-top" href="{{ "pricing/" | relURL }}">Pricing</a></li>
             <li class="mm-item"><a class="mm-top" href="{{ "docs/" | relURL }}">Docs</a></li>
+            <li class="mm-item mm-item-download"><a class="button button-primary mm-download" href="{{ "download/" | relURL }}">Download</a></li>
           </ul>
         </nav>
         <a class="button button-primary site-cta" href="{{ "download/" | relURL }}">Download</a>

@@ -1,8 +1,9 @@
 {
   "tool": "OpenCode",
   "mark": "OC",
+  "logo": "opencode",
   "weight": 20,
-  "description": "Use OpenCode with Blowhorn: AGENTS.md instructions, per-command bash permissions and opencode run for marketing jobs across every machine.",
+  "description": "Use OpenCode with Blowhorn: AGENTS.md instructions, per-command bash permissions and opencode run for marketing jobs across every computer.",
   "lead": "OpenCode reads AGENTS.md and lets you set bash permissions per command. That is exactly the leash a marketing agent needs.",
   "hook": "AGENTS.md and per-command permissions",
   "wire_title": "Write the rules where OpenCode looks",
@@ -14,7 +15,7 @@
   "extra_lang": "json",
   "extra_code": "{\n  \"permission\": {\n    \"bash\": {\n      \"blowhorn schedule list*\": \"allow\",\n      \"blowhorn content list*\": \"allow\",\n      \"blowhorn schedule pause*\": \"allow\",\n      \"blowhorn post*\": \"ask\",\n      \"*\": \"ask\"\n    }\n  }\n}",
   "prompts": [
-    "List every scheduled row that is due this week and the machine that will claim it.",
+    "List every scheduled row that is due this week and the computer that will claim it.",
     "Draft three Bluesky rows for profile team-dev from docs/launch.md, unapproved, so I can edit them.",
     "Explain why row 7 did not run.",
     "Pause row 12 only, the rest of the schedule keeps going."
@@ -32,7 +33,7 @@
     },
     {
       "t": "One row at a time",
-      "b": "schedule pause --row N parks a single job on every machine while the rest of the launch keeps moving."
+      "b": "schedule pause --row N parks a single job on every computer while the rest of the launch keeps moving."
     }
   ],
   "faq": [

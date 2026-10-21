@@ -1,13 +1,13 @@
 ---
 title: "Manage the content queue"
-description: "Add, edit, and track queued posts in the app's posts screen and from the command line."
+description: "Add, edit, and track queued posts under Activity › Upcoming and from the command line."
 weight: 80
 aliases: [/docs/how-to/manage-the-content-worksheet/]
 ---
 
 
 Everything you publish waits in the content queue first. Add rows in the
-desktop app's posts screen, from the command line, or with the capture
+desktop app under Activity › Upcoming, from the command line, or with the capture
 bookmarklet. `blowhorn post` publishes from these rows and nothing else.
 
 ## The columns a run reads
@@ -20,7 +20,7 @@ bookmarklet. `blowhorn post` publishes from these rows and nothing else.
 | `Message Text` | The post itself |
 | `Title` | Hacker News and Reddit titles |
 | `Approved?` | `yes` to let a run pick the row up |
-| `Promote On` | `YYYY-MM-DD HH:MM:SS` in this machine's own zone; blank means now |
+| `Promote On` | `YYYY-MM-DD HH:MM:SS` in this computer's own zone; blank means now |
 | `Image URL`, `GDrive Link`, `Video URL` | One attachment for the post |
 | `Amplify` | URL of existing content to amplify instead of publishing ([Amplify an existing post](/docs/how-to/publish/amplify-a-post/)) |
 | `Comment on` | URL to reply to, with the reply in `Message Text` ([Reply to a post](/docs/how-to/publish/reply-to-a-post/)) |
@@ -83,9 +83,9 @@ and unknown fields are all refused with the reason named.
 The bookmarklet turns the page you are reading into a new content entry
 without retyping it. It holds no credential and reaches no account: it hands
 the page's address, title, and any selected text to the desktop app, which
-opens the posts screen on a new entry pre-filled from it.
+opens Activity › Upcoming on a new entry pre-filled from it.
 
-To install it: in the app, **posts → from browser → copy code**, then add
+To install it: in the app, **Activity › Upcoming → from browser → copy code**, then add
 a bookmark in your browser named `Blowhorn: capture` and paste the code as
 its address.
 

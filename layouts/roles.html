@@ -1,18 +1,3 @@
-{{- /* The /for/ index (content/en/for/_index.md): every role page. */ -}}
 {{ define "main" }}
-    <main id="main" class="page agent-page role-page">
-      <div class="wrap">
-        <header class="agent-hero agent-hero-index glass">
-          <div class="agent-hero-copy">
-            <p class="label">{{ .LinkTitle }}</p>
-            <h1 id="roles-title" class="display">{{ .Title }}</h1>
-            <p class="body-lg muted">{{ .Params.lead }}</p>
-          </div>
-        </header>
-        <section class="agent-section" aria-labelledby="pick-title">
-          <div class="section-head"><h2 id="pick-title" class="h2">Pick your role</h2></div>
-          {{ partial "role-list.html" (dict "section" . "current" nil) }}
-        </section>
-      </div>
-    </main>
+    {{- partial "cast-index.html" (dict "page" . "titleId" "roles-title" "pickTitle" "Pick your role" "kind" "role") }}
 {{- end }}

@@ -1,0 +1,7 @@
+{{- /* {{< tab id="cli" name="CLI" >}}content{{< /tab >}} inside tabs. */ -}}
+{{- if not .Parent }}{{ errorf "tab: must be nested in tabs" }}{{ end -}}
+{{- $id := .Get "id" | default (.Get "name" | urlize) -}}
+{{- $name := .Get "name" | default $id -}}
+{{- if not $id }}{{ errorf "tab: set id or name" }}{{ end -}}
+{{- $panes := .Parent.Scratch.Get "tab-panes" | default slice -}}
+{{- .Parent.Scratch.Set "tab-panes" ($panes | append (dict "id" $id "name" $name "inner" .Inner)) -}}

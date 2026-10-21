@@ -1,0 +1,53 @@
+{{- /* The persona targeting matrix from the blowhorn repository
+  marketing/capability-comparison/compare-personas.csv, mounted at
+  assets/internal/compare-personas.csv by config/internal/hugo.toml.
+  One row per persona, one column per product in the assistant comparison;
+  cells rate how directly the vendor's own positioning targets the persona.
+  Status values render as icons, labelled with the status itself, in the
+  same visual language as internal-compare. Column widths follow the data:
+  status columns stay narrow, text columns get room, and the table scrolls
+  sideways inside its own region at the page's full width. */ -}}
+{{- $csv := resources.Get "internal/compare-personas.csv" -}}
+{{- if not $csv }}{{ errorf "internal-personas: assets/internal/compare-personas.csv is not mounted (run make site-internal)" }}{{ end -}}
+{{- $rows := $csv | transform.Unmarshal -}}
+{{- $icons := dict "Primary" (slice "pr" "●") "Secondary" (slice "sc" "◐") "Not targeted" (slice "nt" "–") -}}
+{{- $head := index $rows 0 -}}
+{{- $body := after 1 $rows -}}
+{{- $kinds := slice -}}
+{{- range $i, $_ := $head -}}
+  {{- $kind := "st" -}}
+  {{- range $body -}}
+    {{- $cell := index . $i -}}
+    {{- if and $cell (not (index $icons $cell)) -}}
+      {{- if gt (len $cell) 100 }}{{ $kind = "long" }}{{ else if ne $kind "long" }}{{ $kind = "text" }}{{ end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $kinds = $kinds | append $kind -}}
+{{- end -}}
+<style>
+.prose:has(> [data-cmp-block]) { max-width: none; }
+.prose:has(> [data-cmp-block]) > :not([data-cmp-block]) { max-width: var(--text-measure); }
+.page .cmp { padding: 0; border-radius: 0; }
+.page .cmp table { max-width: none; }
+.cmp th { white-space: normal; vertical-align: bottom; }
+.cmp th.st { min-width: 6em; }
+.cmp th.text { min-width: 8em; }
+.cmp th.long { min-width: 20em; }
+.cmp td.st { text-align: center; }
+.cmp .ic { display: inline-block; width: 1.6em; height: 1.6em; line-height: 1.6em; border-radius: 50%; font-weight: 700; text-align: center; }
+.cmp .pr .ic { color: var(--on-teal); background: var(--teal); }
+.cmp .sc .ic { color: var(--near-black); background: var(--amber); }
+.cmp .nt .ic { color: var(--ink-muted); background: var(--surface-raised); }
+</style>
+<div data-cmp-block>
+<p>{{ len $body }} personas. ● primary · ◐ secondary · – not targeted.</p>
+<div class="cmp-bar"><button type="button" class="cmp-btn" data-cmp-maximize aria-label="Open the persona targeting matrix in an expanded view">⛶ Maximize</button></div>
+<div class="compare-scroll cmp" data-cmp-region role="region" aria-label="Persona targeting matrix" tabindex="0"><table>
+<thead><tr>{{ range $i, $name := $head }}<th scope="col" class="{{ index $kinds $i }}">{{ $name }}</th>{{ end }}</tr></thead>
+<tbody>
+{{- range $body }}
+<tr>{{ range . }}{{ $cell := . }}{{ with index $icons $cell }}<td class="st {{ index . 0 }}"><span class="ic" role="img" aria-label="{{ $cell }}">{{ index . 1 }}</span></td>{{ else }}<td>{{ $cell }}</td>{{ end }}{{ end }}</tr>
+{{- end }}
+</tbody></table></div>
+</div>
+{{ partial "cmp-tools.html" .Page }}

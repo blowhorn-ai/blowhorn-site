@@ -51,7 +51,7 @@ rules:
     do: '"For all intensive porpoises, is launch day."'
     dont: Real slurs, real accents or real armies
   - k: Bark at the problem, never the reader
-    do: '"Tab after tab to post one thing? Somebody call a medic."'
+    do: '"Write it once. Deploy to every front."'
     dont: '"You call that a post, maggot?"'
 phrases:
   - '"Ears up!"'
@@ -123,7 +123,7 @@ troops:
     id: 'sleeper-cell'
     img: 'assets/brand/cast/sleeper-cell-base.webp'
     alt: 'Sleeper Cell, a black-faced sheep in a watch cap, monocle and coral scarf, crouched behind a padlock shield with a radar cloaker'
-    v: 'Do not let the name fool you. This black-faced sheep has not slept since basic training. He guards your privacy from inside your own Chrome: each Blowhorn profile gets its own Chrome profile, and your logged-in sessions stay on your machine instead of in some vendor''s cloud. His radar dish never stops sweeping, and the monocle is purely for intimidation.'
+    v: 'Do not let the name fool you. This black-faced sheep has not slept since basic training. He guards your privacy from inside your own Chrome: each Blowhorn profile gets its own Chrome profile, and your logged-in sessions stay on your computer instead of in some vendor''s cloud. His radar dish never stops sweeping, and the monocle is purely for intimidation.'
     links:
       - t: "One Chrome profile per Blowhorn profile"
         u: '/docs/how-to/set-up/map-chrome-profiles/'
@@ -160,9 +160,9 @@ troops:
     id: 'platoon-private'
     img: 'assets/brand/cast/platoon-private-base.webp'
     alt: 'Platoon Private, an orange chicken in a charcoal cap with a coral rank stripe, holding one bayonet rifle'
-    v: 'Backpack full of queued posts, bayonet fixed, never late for formation. He keeps one shared queue across all your Macs, and whichever one is awake picks up the next job. When your post goes out, your teammates'' profiles show up to cheer, with no "hey, can everyone like this?" begging in Slack.'
+    v: 'Backpack full of queued posts, bayonet fixed, never late for formation. He keeps one shared queue across every computer you own, and whichever one is awake picks up the next job. When your post goes out, your teammates'' profiles show up to cheer, with no "hey, can everyone like this?" begging in Slack.'
     links:
-      - t: "How your Macs share one queue"
+      - t: "How your computers share one queue"
         u: '/docs/explanation/scheduling/'
       - t: "How teammates share one account"
         u: '/docs/explanation/your-data/'
@@ -184,7 +184,7 @@ troops:
     id: 'gi-donkey'
     img: 'assets/brand/cast/gi-donkey-base.webp'
     alt: 'The G.I., a grumpy donkey in a helmet with a coral blanket and padlocked saddlebags'
-    v: 'A grumpy donkey hauling padlocked saddlebags full of your passwords. Other tools ask you to hand your logins to their cloud. He keeps them on your own Mac and doesn''t lend them out, not even to Major. Stubborn? Absolutely. That''s the job description.'
+    v: 'A grumpy donkey hauling padlocked saddlebags full of your passwords. Other tools ask you to hand your logins to their cloud. He keeps them on your own computer and doesn''t lend them out, not even to Major. Stubborn? Absolutely. That''s the job description.'
     links:
       - t: "Where your data lives"
         u: '/docs/explanation/your-data/'
@@ -199,5 +199,5 @@ dispatches:
     body: Major counted the replies on Friday's launch. Thirty-one real humans, one real question, zero bought thumbs. Major cried a little. Allergies. Is dusty in barracks.
   - date: 2026-10-01
     title: Reveille, new recruits
-    body: New machines reported for duty this week. Major lined them up, read the rules, and told each one, "You post what queue says. Nothing more." They have not blinked since.
+    body: New computers reported for duty this week. Major lined them up, read the rules, and told each one, "You post what queue says. Nothing more." They have not blinked since.
 ---

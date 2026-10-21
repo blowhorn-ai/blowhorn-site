@@ -1,12 +1,12 @@
 ---
 title: "Review what ran"
-description: "Read the runs ledger: what each machine did, what failed, and what was a preview."
+description: "Read the runs ledger: what each computer did, what failed, and what was a preview."
 weight: 161
 ---
 
 
 Every action run appends one line per profile and platform to the run ledger,
-dry or real. Read it back on the app's "activity" screen, or grouped any way you
+dry or real. Read it back in the app under Activity › History, or grouped any way you
 like:
 
 ```bash
@@ -16,8 +16,8 @@ blowhorn analytics operations --kind tick
 ```
 
 `--group-by` takes `profile`, `platform`, `command`, `day` or `host`: the
-ledger has always recorded which machine a run happened on, so grouping by
-host shows who did what across the machines sharing your organization. `--kind
+ledger has always recorded which computer a run happened on, so grouping by
+host shows who did what across the computers sharing your organization. `--kind
 tick` aggregates the scheduler's own passes instead of the action runs.
 
 A dry run counts apart and never as an operation: a preview is not work done.
@@ -25,7 +25,7 @@ Records exist from the first run after this command shipped, so an older
 window reports zero rather than history.
 
 To re-run a failure, run its command again by hand, or choose "try again" on
-it in the app's "activity" screen; a dry run first shows what the retry would do.
+it in the app under Activity › History; a dry run first shows what the retry would do.
 
 ## Related
 

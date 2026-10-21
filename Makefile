@@ -19,13 +19,14 @@ include .github/build/Makefile.show-help.mk
 # layer5io/docs. You need Go (Hugo modules), Node.js and npm (the pinned
 # hugo-extended and postcss come from package.json), Python 3 (checks) and make.
 #
-# MAIN TARGETS (the shared target contract of layer5io/docs: same names,
-# prerequisites and npm scripts; see https://github.com/layer5io/docs/blob/master/Makefile)
+# MAIN TARGETS (the website targets of the blowhorn repository, mirrored so the
+# two repositories share one vocabulary; the layer5io/docs names
+# build-production, build-internal and preview-internal are kept as aliases)
 #
 #   setup              Install site dependencies (npm install).
 #   build              Build locally with draft, future, and expired content.
 #   build-preview      Build for a deploy preview (uses BASE_URL or DEPLOY_PRIME_URL).
-#   build-production   Build for production. Pass BASE_URL=... to set the base URL.
+#   site-build         Build for production. Pass BASE_URL=... to set the base URL.
 #   site               Serve locally with live reload.
 #   serve              Serve locally once, file watcher off (no live reload).
 #   check-links        Check every local link, image and font in the built site.
@@ -40,20 +41,42 @@ include .github/build/Makefile.show-help.mk
 #   check-third-party  Production build, then fail on any request to another host.
 #   check-urls         Production build, then fail on a lost public URL or anchor.
 #   site-check         Production build once, then validate-html, check-links,
-#                      check-third-party and check-urls (site.yml).
+#                      check-third-party, check-urls, check-no-internal,
+#                      check-theme, check-platform-docs, check-naming
+#                      check-action-matrix and check-download-links (site.yml).
 #   check-no-internal  Fail if the production build contains /internal/.
-#   site-internal      Internal build (hugo --environment internal, mounting
+#   check-platform-docs Production build, then fail if a supported platform
+#                      lacks a docs page, a page skips the shared actions
+#                      table, or a docs page carries a hand-written action list.
+#   check-action-matrix Production build, then fail if the site action matrix
+#                      (/integrations/actions/) or the docs all-actions table
+#                      drifts from data/actions.json plus data/platforms/, or
+#                      links to a dead page or anchor.
+#   site-internal-build
+#                      Internal build (hugo --environment internal, mounting
 #                      BLOWHORN_DIR, default ../blowhorn) into public-internal/.
-#   preview, preview-internal
+#                      BASE_URL=... sets the base URL (the deploy passes
+#                      https://internal.blowhorn.ai/).
+#   site, site-internal
 #                      Live-reload servers for the two builds.
+#   site-internal-deploy
+#                      Run internal-site.yml (build, Cloudflare Access, Worker
+#                      deploy at internal.blowhorn.ai, verify) and watch it:
+#                      make site-internal-deploy [REF=<blowhorn ref>] [WATCH=0].
+#   site-internal-access, site-internal-access-check, site-internal-worker-deploy,
+#   site-internal-verify
+#                      The steps of internal-site.yml (see docs/deploy.md).
+#   test-internal-worker
+#                      Unit tests for the internal Worker's Access token check.
 #   test-scripts       Unit tests for the check scripts in .github/scripts/.
 #   workflow-check     actionlint on this repository's workflows.
 #   check              site-check, test-scripts and workflow-check.
 #   ci                 setup-ci, then everything site.yml's check job runs.
 #   dmg-check          Sanity-check a disk image: make dmg-check DMG=path/to/file.dmg
-#   dmg-resolve, dmg-download, dmg-package, dmg-verify, dmg-release
+#   dmg-resolve, dmg-download, dmg-package, dmg-verify, dmg-release,
+#   dmg-pin-download, dmg-sync-docs
 #                      The steps of publish-dmg.yml (see docs/distribution.md).
-#   docs-sync          Sync the user docs from a leecalcote/blowhorn checkout
+#   docs-sync          Sync the user docs from a blowhorn checkout
 #                      into content/en/docs/: make docs-sync REF=<tag|branch|sha>
 #                      (see docs/deploy.md).
 #   docs-sync-base     Check out the docs-sync branch on the open sync PR's
@@ -73,11 +96,11 @@ BIN_DIR ?= .bin
 # actionlint from PATH when installed; otherwise a pinned copy is downloaded into $(BIN_DIR).
 ACTIONLINT ?= $(shell command -v actionlint 2>/dev/null)
 # Workflows owned by this repo. Template workflows (labeler and friends) are left as-is.
-WORKFLOWS ?= .github/workflows/site.yml .github/workflows/publish-dmg.yml .github/workflows/sync-docs.yml .github/workflows/cloud-auth-smoke.yml .github/workflows/product-ci.yml
-# A leecalcote/blowhorn checkout for `make docs-sync` (the sync-docs.yml
+WORKFLOWS ?= .github/workflows/site.yml .github/workflows/publish-dmg.yml .github/workflows/sync-docs.yml .github/workflows/cloud-auth-smoke.yml .github/workflows/product-ci.yml .github/workflows/internal-site.yml
+# A blowhorn checkout for `make docs-sync` (the sync-docs.yml
 # workflow checks the product repo out at this path).
 SOURCE_DIR ?= product
-# The private leecalcote/blowhorn clone that config/internal/hugo.toml mounts
+# The private blowhorn clone that config/internal/hugo.toml mounts
 # (module import github.com/leecalcote/blowhorn, replaced with this directory).
 BLOWHORN_DIR ?= ../blowhorn
 BLOWHORN_ABS = $(abspath $(BLOWHORN_DIR))
@@ -85,6 +108,10 @@ BLOWHORN_MODULE := github.com/leecalcote/blowhorn
 DOCS_DIR ?= content/en/docs
 # Branch the sync-docs.yml workflow pushes and opens its pull request from.
 SYNC_BRANCH ?= docs-sync
+# The internal site's hosting workflow (site-internal-deploy) and its blowhorn ref.
+INTERNAL_SITE_REPO ?= layer5io/blowhorn-site
+INTERNAL_WORKFLOW ?= internal-site.yml
+REF ?= master
 
 # ---------------------------------------------------------------------------
 # MAINTENANCE
@@ -107,7 +134,7 @@ check-go:
 	@echo "Go is installed."
 
 ## Check every local link, image, font and srcset reference in a production build.
-check-links: build-production
+check-links: site-build
 	npm run check:links
 
 ## List every target with its description.
@@ -134,7 +161,7 @@ build-preview: check-go check-deps
 	npm run build:preview
 
 ## Build blowhorn.ai for production with optional base URL (what CI deploys).
-build-production: check-go check-deps
+site-build: check-go check-deps
 	set -e; \
 	if [ -n "$(BASE_URL)" ]; then \
 		base_url="$(BASE_URL)"; \
@@ -144,60 +171,143 @@ build-production: check-go check-deps
 		npm run build:production; \
 	fi
 
-## Build the internal site (public pages plus /internal/ from the leecalcote/blowhorn clone at BLOWHORN_DIR, default ../blowhorn) into public-internal/.
-site-internal: check-go check-deps check-blowhorn
-	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run build:internal
+## Build the internal site (only /internal/, mounted from the blowhorn clone at BLOWHORN_DIR, default ../blowhorn) into public-internal/. Pass BASE_URL=... to set the base URL.
+site-internal-build: check-go check-deps check-blowhorn
+	set -e; \
+	if [ -n "$(BASE_URL)" ]; then \
+		base_url="$(BASE_URL)"; \
+		base_url="$${base_url%/}/"; \
+		HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run build:internal -- --baseURL "$$base_url"; \
+	else \
+		HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run build:internal; \
+	fi
 
 ## Build and run the site locally with live reload (draft and future content enabled).
 site: check-go check-deps
 	npm run site
 
-## Serve the internal site at http://localhost:1313 with live reload, rendered in memory so public/ is never touched.
-preview-internal: check-go check-deps check-blowhorn
-	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run _hugo -- server --environment internal --renderToMemory
+## Serve the internal site at http://localhost:1313/internal/ with live reload, rendered in memory so public/ is never touched.
+site-internal: check-go check-deps check-blowhorn
+	@echo "Internal site: http://localhost:1313/internal/ (the root redirects there)"
+	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run _hugo -- server --cleanDestinationDir --environment internal --renderToMemory
 
-## Fail unless BLOWHORN_DIR is a leecalcote/blowhorn clone with the internal sources.
+# ---------------------------------------------------------------------------
+# INTERNAL SITE HOSTING (internal-worker/, .github/workflows/internal-site.yml)
+# ---------------------------------------------------------------------------
+
+## Run internal-site.yml, which builds the internal site and deploys it to the blowhorn-internal Worker behind Cloudflare Access, then watch it: make site-internal-deploy [REF=<blowhorn ref>] [WATCH=0].
+site-internal-deploy:
+	@command -v gh > /dev/null || { echo "Error: gh not found (https://cli.github.com)."; exit 1; }
+	gh workflow run $(INTERNAL_WORKFLOW) -R $(INTERNAL_SITE_REPO) -f blowhorn_ref="$(REF)"
+	@if [ "$(WATCH)" != "0" ]; then \
+		sleep 5; \
+		run_id="$$(gh run list -R $(INTERNAL_SITE_REPO) --workflow $(INTERNAL_WORKFLOW) --event workflow_dispatch -L 1 --json databaseId --jq '.[0].databaseId')"; \
+		echo "Watching run $$run_id"; \
+		gh run watch "$$run_id" -R $(INTERNAL_SITE_REPO) --exit-status; \
+	fi
+
+## Read-only: confirm CLOUDFLARE_API_TOKEN can read Zero Trust, Access applications and policies, and Workers.
+site-internal-access-check:
+	python3 .github/scripts/internal_access.py check
+
+## Create or update the Cloudflare Access application and allow policy (internal-worker/access.json), then verify they are default-deny.
+site-internal-access:
+	python3 .github/scripts/internal_access.py ensure
+
+## Deploy public-internal/ to the blowhorn-internal Worker (needs TEAM_DOMAIN and POLICY_AUD from site-internal-access), then confirm workers.dev is off.
+site-internal-worker-deploy:
+	.github/scripts/internal-deploy.sh
+	python3 .github/scripts/internal_access.py verify-worker
+
+## Fail unless unauthenticated requests to the internal hostname get the Cloudflare Access login, never a page.
+site-internal-verify:
+	.github/scripts/internal-verify.sh
+
+## Unit tests for the internal Worker's Access token check.
+test-internal-worker:
+	node --test internal-worker/worker.test.mjs
+
+## Fail unless BLOWHORN_DIR is a blowhorn clone with the internal sources.
 check-blowhorn:
-	@test -d "$(BLOWHORN_ABS)/marketing/strategy/hugo/strategy" || { echo "Error: no leecalcote/blowhorn clone at BLOWHORN_DIR=$(BLOWHORN_DIR) ($(BLOWHORN_ABS)). Clone it beside this repository (git clone https://github.com/leecalcote/blowhorn ../blowhorn) or pass BLOWHORN_DIR=path/to/blowhorn."; exit 1; }
+	@test -d "$(BLOWHORN_ABS)/marketing/strategy/hugo/strategy" || { echo "Error: no blowhorn clone at BLOWHORN_DIR=$(BLOWHORN_DIR) ($(BLOWHORN_ABS)). Clone it beside this repository (git clone https://github.com/leecalcote/blowhorn ../blowhorn) or pass BLOWHORN_DIR=path/to/blowhorn."; exit 1; }
 
 
 ## Build and serve the site once with the file-watcher off (no live reload).
 serve: check-go check-deps
 	npm run serve
 
+## Alias of site-build (the layer5io/docs name, kept working).
+build-production: site-build
+
+## Alias of site-internal-build (the layer5io/docs name, kept working).
+build-internal: site-internal-build
+
+## Alias of site-internal (the former name of the internal server).
+preview-internal: site-internal
+
 # ---------------------------------------------------------------------------
 # CHECKS
 # ---------------------------------------------------------------------------
 
 ## Build for production, then run html-validate on every page.
-validate-html: build-production
+validate-html: site-build
 	npx --yes html-validate@$(HTML_VALIDATE_VERSION) "$(BUILD_DIR)/**/*.html"
 
 ## Build for production, then fail if a page, or a stylesheet or script it loads, requests another host.
-check-third-party: build-production
+check-third-party: site-build
 	python3 .github/scripts/check-third-party.py $(BUILD_DIR)
 
 ## Build for production, then fail if a published URL or anchor is gone.
-check-urls: build-production
+check-urls: site-build
 	python3 .github/scripts/check-site-contract.py $(BUILD_DIR)
 
-## Validate every data file that has a JSON Schema in schemas/ (data/hero.json, data/roles.json).
+## Validate every data file that has a JSON Schema in schemas/ (data/hero.json, data/machines.json, data/home_ai.json, data/roles.json, data/use_cases.json, data/themes.json, data/integrations.json, data/hero_demo.json, data/actions.json, data/action_examples.json).
+## Role and use-case schemas $ref shared line/text/card types; ajv -r loads that file.
+## check_action_examples.py also requires every supported YAML action to have an example.
+## check_action_matrix.py --source checks action groups, matrix exceptions and platform order.
 check-schemas:
 	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/hero.schema.json -d data/hero.json
-	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/roles.schema.json -d data/roles.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/machines.schema.json -d data/machines.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/home_ai.schema.json -d data/home_ai.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/roles.schema.json -r schemas/defs/cast-page.schema.json -d data/roles.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/use_cases.schema.json -r schemas/defs/cast-page.schema.json -d data/use_cases.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/themes.schema.json -d data/themes.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/integrations.schema.json -d data/integrations.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/hero_demo.schema.json -d data/hero_demo.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/actions.schema.json -d data/actions.json
+	npx --yes ajv-cli@$(AJV_CLI_VERSION) validate --strict=false -s schemas/action_examples.schema.json -d data/action_examples.json
+	python3 .github/scripts/check_action_examples.py
+	python3 .github/scripts/check_action_matrix.py --source
+
+## Production build, then fail if / is not the home-page theme (themes.json default plus _index.md front matter), the Reveille preview lost today's look, or a theme-specific content file appeared outside content/en/home-reveille.md.
+check-theme: site-build
+	python3 .github/scripts/check_theme.py $(BUILD_DIR)
+
+## Production build, then fail if a supported platform has no docs page, a platform docs page skips the shared actions table, or a docs page carries a hand-written action list.
+check-platform-docs: site-build
+	python3 .github/scripts/check_platform_docs.py $(BUILD_DIR)
+
+## Production build, then fail if the action matrix page or the docs all-actions table drifts from data/actions.json and data/platforms/, links to a dead page or anchor, or loses its links from / and /integrations/.
+check-action-matrix: site-build
+	python3 .github/scripts/check_action_matrix.py $(BUILD_DIR)
 
 ## Build for production once, then validate-html, check-links, check-third-party and check-urls, plus check-schemas (what site.yml runs).
-site-check: check-schemas validate-html check-links check-third-party check-urls check-no-internal
+site-check: check-schemas validate-html check-links check-third-party check-urls check-no-internal check-theme check-platform-docs check-naming check-action-matrix check-download-links
+
+## Production build, then fail if any built page or script links to /releases/latest/download (an axi release can hold Latest; build download URLs from data/download.json).
+check-download-links: site-build
+	python3 .github/scripts/check_download_links.py $(BUILD_DIR)
+
+## Production build, then fail if a page says Layer5 Cloud or Blowhorn Cloud, or names Layer5 outside the footer and the legal pages (users see Blowhorn).
+check-naming: site-build
+	python3 .github/scripts/check_naming.py $(BUILD_DIR)
 
 ## Build for production, then fail if the /internal/ section leaked into it.
-check-no-internal: build-production
+check-no-internal: site-build
 	.github/scripts/check-no-internal.sh $(BUILD_DIR)
 
-## Alias of site-internal.
-build-internal: site-internal
-
 ## Run the unit tests for the check scripts in .github/scripts/.
-test-scripts:
+test-scripts: test-internal-worker
 	python3 -m unittest discover -s .github/scripts -p 'test_*.py'
 
 ## Lint this repo's GitHub Actions workflows with actionlint.
@@ -249,16 +359,16 @@ cloud-auth-smoke:
 
 ## Run the private product repository's CI on a checkout of it, printing only step results and
 ## pass/fail counts (its output goes to PRODUCT_CI_LOG, never printed; product-ci.yml runs this):
-## make product-ci SUITE=python|desktop PRODUCT_DIR=<leecalcote/blowhorn checkout> [PRODUCT_CI_LOG=<file>]
+## make product-ci SUITE=python|desktop PRODUCT_DIR=<blowhorn checkout> [PRODUCT_CI_LOG=<file>]
 PRODUCT_DIR ?= product
 PRODUCT_CI_LOG ?= $(or $(RUNNER_TEMP),/tmp)/product-ci/$(SUITE).log
 product-ci:
 	@test -n "$(SUITE)" || (echo "usage: make product-ci SUITE=python|desktop PRODUCT_DIR=<checkout>"; exit 1)
 	python3 .github/scripts/product-ci/run.py $(SUITE) --product "$(PRODUCT_DIR)" --log "$(PRODUCT_CI_LOG)"
 
-## Sync the user docs from a leecalcote/blowhorn checkout at $(SOURCE_DIR) into $(DOCS_DIR): make docs-sync REF=<tag|branch|sha> (see docs/deploy.md).
+## Sync the user docs from a blowhorn checkout at $(SOURCE_DIR) into $(DOCS_DIR): make docs-sync REF=<tag|branch|sha> (see docs/deploy.md).
 docs-sync:
-	@test -n "$(REF)" || (echo "usage: make docs-sync REF=<tag|branch|sha of leecalcote/blowhorn> [SOURCE_DIR=path/to/checkout]"; exit 1)
+	@test -n "$(REF)" || (echo "usage: make docs-sync REF=<tag|branch|sha of blowhorn> [SOURCE_DIR=path/to/checkout]"; exit 1)
 	python3 .github/scripts/sync-docs.py "$(SOURCE_DIR)" "$(DOCS_DIR)" --ref "$(REF)"
 
 ## Regenerate the CLI reference pages in the $(SOURCE_DIR) checkout from its schema and parser (what sync-docs.yml runs before the sync; needs typer and PyYAML).
@@ -296,7 +406,11 @@ dmg-verify:
 dmg-release:
 	.github/scripts/publish-dmg/release.sh
 
-## publish-dmg step 6: after a public release, start sync-docs.yml at the product tag desktop-$(VERSION) (a draft starts nothing).
+## publish-dmg step 6: after a public release, pin data/download.json on master to VERSION and start site.yml (a draft, prerelease or older version changes nothing).
+dmg-pin-download:
+	.github/scripts/publish-dmg/pin-download.sh
+
+## publish-dmg step 7: after a public release, start sync-docs.yml at the product tag desktop-$(VERSION) (a draft starts nothing).
 dmg-sync-docs:
 	.github/scripts/publish-dmg/sync-docs.sh
 
@@ -308,10 +422,14 @@ clean:
 
 .PHONY: \
 	check-schemas \
+	check-theme \
+	check-platform-docs \
+	check-action-matrix \
 	setup \
 	build \
 	build-preview \
 	build-production \
+	site-build \
 	site \
 	serve \
 	check-links \
@@ -326,6 +444,13 @@ clean:
 	check-no-internal \
 	build-internal \
 	site-internal \
+	site-internal-build \
+	site-internal-deploy \
+	site-internal-access \
+	site-internal-access-check \
+	site-internal-worker-deploy \
+	site-internal-verify \
+	test-internal-worker \
 	preview-internal \
 	check-blowhorn \
 	test-scripts \
@@ -341,6 +466,7 @@ clean:
 	dmg-package \
 	dmg-verify \
 	dmg-release \
+	dmg-pin-download \
 	dmg-sync-docs \
 	docs-cli-reference \
 	docs-sync \

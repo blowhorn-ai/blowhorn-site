@@ -1,0 +1,35 @@
+{{- /* WAI-ARIA tabs. Without JS every pane is visible (stacked) and the
+  tablist is in-page links. JS adds roles, keyboard arrows, hides inactive
+  panes, and syncs a group (localStorage) so picking CLI switches every
+  tabset in that group.
+  Params: id (prefix), group (optional, e.g. surface), label, panes
+  (slice of dict id, name, status, inner HTML), fallback (optional pane id
+  to open on when every pane is a placeholder; default the first pane). */ -}}
+{{- $prefix := .id -}}
+{{- $group := .group | default "" -}}
+{{- $label := .label | default "Examples" -}}
+{{- $panes := .panes -}}
+{{- $fallback := .fallback | default "" -}}
+{{- if not $panes }}{{ errorf "tabs: no panes" }}{{ end -}}
+{{- $initial := "" -}}
+{{- range $panes }}
+  {{- if and (eq $initial "") (ne .status "placeholder") }}{{ $initial = .id }}{{ end }}
+{{- end -}}
+{{- if not $initial }}
+  {{- range $panes }}{{ if eq .id $fallback }}{{ $initial = .id }}{{ end }}{{ end -}}
+{{- end -}}
+{{- if not $initial }}{{ $initial = (index $panes 0).id }}{{ end -}}
+<div class="tabs" data-tabs{{ with $group }} data-tabs-group="{{ . }}"{{ end }} data-tabs-id="{{ $prefix }}">
+  <div class="tabs-list">
+    {{- range $p := $panes }}
+    <a class="tabs-tab{{ if eq $p.id $initial }} is-on{{ end }}" id="{{ $prefix }}-tab-{{ $p.id }}" href="#{{ $prefix }}-{{ $p.id }}" data-tab="{{ $p.id }}"{{ with $p.status }} data-tab-status="{{ . }}"{{ end }}>{{ $p.name }}</a>
+    {{- end }}
+  </div>
+  {{- range $i, $p := $panes }}
+  <div class="tabs-panel" id="{{ $prefix }}-{{ $p.id }}" data-tab-panel="{{ $p.id }}" data-tab-index="{{ $i }}">
+    {{ $p.inner | safeHTML }}
+  </div>
+  {{- end }}
+  <p class="visually-hidden">{{ $label }}</p>
+</div>
+{{- /**/ -}}

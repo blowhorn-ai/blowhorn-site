@@ -15,6 +15,7 @@
     <div class="td-toc-title">
       <span class="td-toc-title__text">{{ $tocLabel }}</span>
       <a class="td-toc-title__link" title="{{ i18n "toc_top_of_page" }}" href="#"><span class="visually-hidden">{{ i18n "toc_top_of_page" }}</span></a>
+      <button type="button" class="td-toc-toggle" data-toc-toggle aria-expanded="true"><span class="td-toc-toggle__label visually-hidden">Hide table of contents</span></button>
     </div>
     {{ replace $toc `<nav id="TableOfContents">` (printf `<nav id="TableOfContents" aria-label="%s">` $tocLabel) | safeHTML }}
   {{ end -}}

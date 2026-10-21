@@ -1,4 +1,4 @@
-{{- /* Internal pages, mounted from leecalcote/blowhorn by
+{{- /* Internal pages, mounted from the blowhorn repository by
   config/internal/hugo.toml and rendered only by `hugo --environment
   internal`. content/en/internal/_index.md cascades `type: docs`, so they
   render in the docs shell (layouts/docs/baseof.html) and get its sidebar,
@@ -14,6 +14,10 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <style>
 .docs-main > .page { padding-block: 0; }
+.internal-contents { padding-left: 1.25rem; }
+.internal-contents > li { margin-block: 0.35rem; }
+.internal-contents .internal-contents { margin-top: 0.35rem; }
+.internal-contents-desc { color: var(--ink-muted); }
 @media (min-width: 1280px) {
   .docs-wrap:not(:has(#TableOfContents)) { grid-template-columns: 15rem minmax(0, 1fr); }
   .docs-wrap:not(:has(#TableOfContents)) > .docs-toc { display: none; }
@@ -27,6 +31,7 @@
   <p class="body-lg docs-lead">{{ . | markdownify }}</p>
   {{ end -}}
   {{ .Content }}
+  {{- if .Params.contents }}{{ partial "internal-contents.html" . }}{{ end }}
   {{- $files := where .Resources "MediaType.SubType" "ne" "svg+xml" }}
   {{- with .Params.downloads }}{{ $files = $files | append (resources.Match .) }}{{ end }}
   {{- range .Resources }}{{ $_ := .RelPermalink }}{{ end }}

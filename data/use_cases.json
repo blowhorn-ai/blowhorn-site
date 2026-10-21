@@ -1,0 +1,242 @@
+{
+  "$schema": "../schemas/use_cases.schema.json",
+  "use_cases": [
+    {
+      "slug": "launch-day",
+      "name": "Launch day",
+      "title": "Blowhorn for launch day",
+      "weight": 10,
+      "headline": "The first hour is the launch.",
+      "lead": "Schedule the announcement and its amplifications ahead of time. Every profile you run joins the same sound wave at the moment you pick.",
+      "description": "Plan a product launch so the announcement goes out everywhere at the right moment, and every profile you add amplifies it in the first hour.",
+      "art": {
+        "src": "assets/brand/cast/major-6-hat-left-horn.webp",
+        "alt": "Major Blowhorn, a teal rooster drill sergeant in a campaign hat, pointing and shouting through his gold bullhorn, Caribbean Green sound waves pouring out of it"
+      },
+      "pains": [
+        {
+          "t": "The first hour is gone",
+          "b": "The announcement goes out, then you chase people in Slack while the moment passes."
+        },
+        {
+          "t": "A tab per profile",
+          "b": "Personal, company and project profiles, each in its own composer, for every network."
+        },
+        {
+          "t": "The schedule lives on one laptop",
+          "b": "Close that lid and the wave waits. A meeting or a flight should not kill the launch."
+        }
+      ],
+      "gets": [
+        {
+          "t": "Queue the whole wave",
+          "b": "Schedule the launch post and its reposts, quotes and reactions ahead of time."
+        },
+        {
+          "t": "Every profile joins at once",
+          "b": "Every profile you run joins the same sound wave at the moment you pick, each posting as itself."
+        },
+        {
+          "t": "One pause, sent once",
+          "b": "Coordinated so the same post isn't sent from two computers. One command pauses the whole wave."
+        },
+        {
+          "t": "One complete picture",
+          "b": "Run history and analytics from every computer in one place. Analytics cover LinkedIn, X and Bluesky."
+        }
+      ],
+      "prompt": "Queue the launch post for Tuesday 9:00, have every profile amplify it, then --dry-run the whole wave.",
+      "major": "Sound the horn at oh-nine-hundred. Every profile, one wave.",
+      "faq": [
+        {
+          "q": "Does a computer have to be awake?",
+          "a": "One set up for the profile does. Install Blowhorn on as many computers as you like; as long as one of them is awake, it covers the schedule. The queue lives in your Blowhorn account."
+        },
+        {
+          "q": "How does it post?",
+          "a": "LinkedIn, X, Reddit and Hacker News: Blowhorn types in your own Chrome, signed in as you. Slack, Bluesky and GitHub go through their APIs. The desktop app and the Python CLI share the same queue."
+        },
+        {
+          "q": "Will the same post go out twice?",
+          "a": "Your computers coordinate through one queue, so the same post isn't sent from two of them."
+        }
+      ],
+      "related": [
+        {
+          "label": "Blowhorn for founders",
+          "page": "/for/founders"
+        },
+        {
+          "label": "Blowhorn for DevRel",
+          "page": "/for/devrel"
+        },
+        {
+          "label": "Blowhorn for marketing managers",
+          "page": "/for/marketing"
+        },
+        {
+          "label": "How amplification works",
+          "page": "/docs/how-to/publish/amplify-a-post"
+        }
+      ]
+    },
+    {
+      "slug": "open-source-release",
+      "name": "Open source release",
+      "title": "Blowhorn for open source releases",
+      "weight": 20,
+      "headline": "Ship the tag. Tell every channel, as you.",
+      "lead": "Announce a release on Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, and rally reactions on the GitHub issue, from one queue, as you.",
+      "description": "Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, and rally GitHub reactions, from one queue, as yourself.",
+      "art": {
+        "src": "assets/brand/cast/trench-trooper-base.webp",
+        "alt": "Trench Trooper, a muddy pig in a helmet holding a rifle with a teal tab bayonet and a gold periscope"
+      },
+      "pains": [
+        {
+          "t": "Schedulers skip developer channels",
+          "b": "None of the schedulers we checked support Hacker News, and most skip GitHub and Slack."
+        },
+        {
+          "t": "Maintainers are scattered",
+          "b": "Everyone means to share the release. Few remember in the first hour."
+        },
+        {
+          "t": "One spammy post costs trust",
+          "b": "Developers notice votes, blast posts and bot-branded messages."
+        }
+      ],
+      "gets": [
+        {
+          "t": "Every developer channel, one queue",
+          "b": "GitHub reactions, Slack as you, Hacker News submit and comment, plus LinkedIn, X, Reddit and Bluesky, from one queue."
+        },
+        {
+          "t": "Amplify from your profiles",
+          "b": "Queue the release from every profile you run, each posting as itself. Team invites are coming soon."
+        },
+        {
+          "t": "Slack as you, no bot to invite",
+          "b": "Sends as you through Slack's API, using your Slack session linked through the Blowhorn extension or a Slack token you add. Either one is kept in your Blowhorn account."
+        },
+        {
+          "t": "Human-paced by design",
+          "b": "Types key by key in your own Chrome for LinkedIn, X, Reddit and Hacker News. Caps itself. CAPTCHA and 2FA stay with you."
+        }
+      ],
+      "prompt": "Draft the release posts from CHANGELOG.md, react on the GitHub issue, submit to Hacker News, then --dry-run the rest.",
+      "major": "A release without a roll call is a secret. Sound off.",
+      "faq": [
+        {
+          "q": "Does it vote on Hacker News?",
+          "a": "Never. It submits stories and comments, nothing else. Link submissions are capped at 2 per profile per day."
+        },
+        {
+          "q": "Does Blowhorn install a Slack app?",
+          "a": "No. Blowhorn works on Slack through Slack's API, never the browser, and sends as you with your Slack session, linked through the Blowhorn extension, or a Slack token you add. Either one is kept in your Blowhorn account."
+        },
+        {
+          "q": "Does every maintainer need macOS?",
+          "a": "Each computer that acts needs macOS 13 or newer today. Windows and Linux: not today. The queue lives in your Blowhorn account."
+        }
+      ],
+      "related": [
+        {
+          "label": "Blowhorn for open source maintainers",
+          "page": "/for/open-source"
+        },
+        {
+          "label": "Blowhorn for DevRel",
+          "page": "/for/devrel"
+        },
+        {
+          "label": "Post to Hacker News",
+          "page": "/docs/how-to/publish/post-to-hacker-news"
+        },
+        {
+          "label": "Every platform",
+          "page": "/docs/reference/platforms"
+        }
+      ]
+    },
+    {
+      "slug": "conference",
+      "name": "Conference",
+      "title": "Blowhorn for conferences",
+      "weight": 30,
+      "headline": "Queue the week. Walk the floor.",
+      "lead": "Queue the pre-event, day-of and follow-up posts once. As long as one of your computers set up for that profile is awake, it covers the schedule while you're at the booth.",
+      "description": "Promote a talk, booth or meetup before, during and after the event, from one queue, while any awake computer covers the schedule.",
+      "art": {
+        "src": "assets/brand/cast/sleeper-cell-base.webp",
+        "alt": "Sleeper Cell, a black-faced sheep in a watch cap, teal monocle and coral scarf, crouched behind a padlock shield with a radar cloaker"
+      },
+      "pains": [
+        {
+          "t": "The schedule is in your bag",
+          "b": "The talk post is queued on the laptop you closed when you left for the venue."
+        },
+        {
+          "t": "Speakers forget to share",
+          "b": "Everyone meant to post. The session started anyway."
+        },
+        {
+          "t": "A comment is another tab",
+          "b": "Sending a comment or reply means another composer for LinkedIn, X, Reddit and Hacker News, while you're on the floor."
+        }
+      ],
+      "gets": [
+        {
+          "t": "Queue the week once",
+          "b": "Pre-event, day-of and follow-up posts in one queue, on any awake computer set up for the profile."
+        },
+        {
+          "t": "Your profiles join the wave",
+          "b": "Queue the week from every profile you run, each posting as itself. Team invites are coming soon."
+        },
+        {
+          "t": "Many profiles, one desk",
+          "b": "Every brand and project profile you run, from one menu bar app."
+        },
+        {
+          "t": "Reply without seven tabs",
+          "b": "Send comments and replies from the same queue you posted from. LinkedIn, X, Reddit and Hacker News run in your own Chrome."
+        }
+      ],
+      "prompt": "Queue pre-event, day-of and follow-up posts for the talk, then --dry-run.",
+      "major": "The floor is yours. The queue holds the line.",
+      "faq": [
+        {
+          "q": "What if my laptop is closed?",
+          "a": "As long as one of your computers is awake and set up for that profile, it covers the schedule. The queue lives in your Blowhorn account; your account never posts."
+        },
+        {
+          "q": "Can speakers join from their own laptops?",
+          "a": "You can install Blowhorn on as many of your own computers as you like. Speakers and teammates joining your account with their own profiles is coming soon."
+        },
+        {
+          "q": "Windows or Linux at the booth?",
+          "a": "Not today. Blowhorn runs on macOS 13 or newer, as the desktop app or the Python CLI."
+        }
+      ],
+      "related": [
+        {
+          "label": "Blowhorn for DevRel",
+          "page": "/for/devrel"
+        },
+        {
+          "label": "Blowhorn for founders",
+          "page": "/for/founders"
+        },
+        {
+          "label": "Blowhorn for community managers",
+          "page": "/for/community"
+        },
+        {
+          "label": "How scheduling works",
+          "page": "/docs/explanation/scheduling"
+        }
+      ]
+    }
+  ]
+}

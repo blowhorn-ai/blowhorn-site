@@ -25,20 +25,27 @@ Pages hosts only the marketing site and small static files.
   - `Blowhorn-<version>-mac-<arch>.dmg`, where `<arch>` is `universal`, `arm64`, or `x64`
   - `Blowhorn-mac.dmg`, a copy of the same file under a fixed name
   - `SHA256SUMS.txt`
-- **Always-latest download URL** (used by the site and install docs):
+- **Download URL** (used by the site): the versioned alias URL of the current
+  desktop release,
 
   ```
-  https://github.com/layer5io/blowhorn-site/releases/latest/download/Blowhorn-mac.dmg
+  https://github.com/layer5io/blowhorn-site/releases/download/v<version>/Blowhorn-mac.dmg
   ```
 
-  GitHub resolves `latest` to the newest published, non-draft, non-prerelease
-  release. Until the first stable release exists, this URL returns 404 and the
-  site says the first public build is on its way. The site's Download section
+  The version is pinned in `data/download.json`. `publish-dmg.yml` bumps it
+  on master and redeploys the site after every public release (its `pin`
+  job, `make dmg-pin-download`); a draft published by hand later needs the
+  same `make dmg-pin-download` run, or a one-line PR. Never build a download link on
+  `/releases/latest`: this repository also publishes blowhorn-axi releases
+  (`axi-vX.Y.Z`), GitHub resolves `latest` to whichever stable release was
+  created most recently, and the always-latest URL 404s whenever an axi
+  release is the newest. The site's Download section
   (`assets/js/download.js`) reads the release list from GitHub's API in the
-  visitor's browser and shows a download button on the always-latest URL for
-  the newest stable release, the "on its way" copy while there is none, and a
-  "lookup failed" state with a link to the releases page on any error, so an
-  outage or rate limit is never reported as "no build".
+  visitor's browser and fills in the newest desktop release by the same rule
+  the app's update check uses (the newest non-draft, non-prerelease release
+  whose tag is exactly `vX.Y.Z` and which carries `Blowhorn-mac.dmg`), so an
+  outage or rate limit only means the pinned version's details show, never a
+  dead link.
 - **Versioned URL:**
   `https://github.com/layer5io/blowhorn-site/releases/download/v1.0.0/Blowhorn-1.0.0-mac-universal.dmg`
 - Releases are never overwritten. Ship a new patch version instead.
@@ -101,8 +108,9 @@ are identical for both paths.
 
 The product pipeline can also run `gh release create` against this repo with
 the same token. It must follow the asset naming above (including the
-`Blowhorn-mac.dmg` alias and `SHA256SUMS.txt`) so the always-latest URL keeps
-working. Prefer Option B so the naming rules live in one place.
+`Blowhorn-mac.dmg` alias and `SHA256SUMS.txt`) so the pinned download URLs keep
+working, pass `--latest`, and bump `data/download.json` in the same pass.
+Prefer Option B so the naming rules live in one place.
 
 ## Chrome extension
 

@@ -1,4 +1,4 @@
 {{- /* A self-contained HTML report mounted into assets/internal/ from
-  leecalcote/blowhorn (config/internal/hugo.toml), emitted as is, outside
+  the blowhorn repository (config/internal/hugo.toml), emitted as is, outside
   baseof. The page names it with the `report` front matter key. */ -}}
 {{- with resources.Get .Params.report }}{{ .Content | safeHTML }}{{ else }}{{ errorf "internal-raw: %s is not mounted (run make site-internal)" $.Params.report }}{{ end -}}

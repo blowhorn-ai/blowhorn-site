@@ -22,36 +22,13 @@
   },
   "definitions": {
     "line": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 80,
-      "not": {
-        "pattern": "—"
-      }
+      "$ref": "https://blowhorn.ai/schemas/defs/cast-page.schema.json#/definitions/line"
     },
     "text": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 320,
-      "not": {
-        "pattern": "—"
-      }
+      "$ref": "https://blowhorn.ai/schemas/defs/cast-page.schema.json#/definitions/text"
     },
     "card": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "t",
-        "b"
-      ],
-      "properties": {
-        "t": {
-          "$ref": "#/definitions/line"
-        },
-        "b": {
-          "$ref": "#/definitions/text"
-        }
-      }
+      "$ref": "https://blowhorn.ai/schemas/defs/cast-page.schema.json#/definitions/card"
     },
     "role": {
       "type": "object",
@@ -158,6 +135,24 @@
               },
               "a": {
                 "$ref": "#/definitions/text"
+              },
+              "link": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "href",
+                  "label"
+                ],
+                "description": "Optional link after the answer, for a page outside this site (a site page goes in related).",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "pattern": "^https://"
+                  },
+                  "label": {
+                    "$ref": "#/definitions/line"
+                  }
+                }
               }
             }
           }

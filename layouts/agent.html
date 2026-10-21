@@ -106,13 +106,14 @@
           {{- range sort hugo.Data.platforms "weight" }}
             {{- $pl := . }}
             {{- range $i, $a := .actions }}
+              {{- $act := partial "action-resolve.html" $a -}}
               <tr{{ if eq $i 0 }} class="agent-actions-first"{{ end }}>
                 {{- if eq $i 0 }}
                 <th scope="rowgroup" rowspan="{{ len $pl.actions }}" class="agent-actions-platform"><a href="{{ $pl.docs | relURL }}"><span class="logo-tile"><img src="{{ $pl.logo | relURL }}" alt="" width="28" height="28"></span><span>{{ $pl.name }}</span></a></th>
                 {{- end }}
-                <td class="agent-actions-name">{{ $a.name }}</td>
-                <td>{{ $a.behavior }}</td>
-                <td class="muted">{{ with $a.limits }}{{ . }}{{ else }}None{{ end }}</td>
+                <td class="agent-actions-name"><a href="{{ $pl.docs | relURL }}#{{ $act.slug }}">{{ $act.name }}</a></td>
+                <td>{{ $act.description }}</td>
+                <td class="muted">{{ with $act.limits }}{{ . }}{{ else }}None{{ end }}</td>
               </tr>
             {{- end }}
           {{- end }}

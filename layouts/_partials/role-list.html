@@ -1,14 +1,18 @@
-{{- /* Cards linking every /for/<slug>/ page, by weight; "current" is skipped. */ -}}
+{{- /* Cards linking pages in .section, by weight; "current" is skipped.
+  .kind (role | use-case) selects labelPrefix from cast-kind.html. */ -}}
 {{- $cur := .current -}}
+{{- $kind := .kind -}}
+{{- $meta := partial "cast-kind.html" (dict "kind" $kind) -}}
+{{- $prefix := $meta.labelPrefix -}}
 <ul class="grid grid-3 role-list">
   {{- range .section.Pages.ByWeight }}
   {{- if ne . $cur }}
-  {{- $r := partial "role-data.html" . }}
+  {{- $item := partial "role-data.html" (dict "page" . "kind" $kind) }}
   <li>
     <a class="card card-link glass role-card" href="{{ .RelPermalink }}">
-      <img src="{{ $r.art.src | relURL }}" alt="" width="960" height="540" loading="lazy">
-      <span class="label">For {{ $r.name }}</span>
-      <span class="h3">{{ $r.headline }}</span>
+      <img src="{{ $item.art.src | relURL }}" alt="" width="960" height="540" loading="lazy">
+      <span class="label">{{ $prefix }}{{ $item.name }}</span>
+      <span class="h3">{{ $item.headline }}</span>
     </a>
   </li>
   {{- end }}

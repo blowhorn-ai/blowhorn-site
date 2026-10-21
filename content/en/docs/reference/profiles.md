@@ -34,10 +34,10 @@ Chrome, and follower counts grant nothing.
 
 | Platform | Keys | Where the run reads them |
 |---|---|---|
-| LinkedIn | `LI_USERNAME`, `LI_PASSWORD` | `config.yaml` |
+| LinkedIn | `LI_USERNAME`, and `LI_PASSWORD` or `LI_CHROME_SESSION` | `config.yaml` |
 | X | `X_USERNAME` (password beside it for automated sign-in) | `config.yaml` |
 | Reddit | `RDDT_USERNAME` (password beside it for automated sign-in) | `config.yaml` |
-| Hacker News | `HN_USERNAME`, `HN_PASSWORD` | Your account |
+| Hacker News | `HN_USERNAME`, and `HN_PASSWORD` or `HN_CHROME_SESSION` | Your account |
 | Slack | `SLACK_USER_TOKEN`, `SLACK_BOT_TOKEN`, or a captured workspace session | Your account, never `config.yaml` |
 | Bluesky | `BLUESKY_HANDLE`, `BLUESKY_APP_PASSWORD` | `config.yaml` |
 | GitHub | `GH_TOKEN` | Your account |
@@ -48,6 +48,16 @@ keys there. Every other platform still reads `config.yaml` until its
 module moves. `blowhorn profile auth --platform slack` captures a
 workspace session through the run's browser driver and lands it in your account; no Slack app install is needed.
 
+LinkedIn and Hacker News also accept a **confirmed Chrome session**
+instead of a password: `LI_CHROME_SESSION` and `HN_CHROME_SESSION` name
+the Chrome profile directory whose signed-in session the person
+confirmed on setup's Confirm troops step. The run then works through
+that profile's live session in its mapped Chrome profile. If the session
+has signed out and no password is stored, the run says so and stops for
+that platform. The session counts toward eligibility only because the
+credential row exists - a browser that merely happens to be signed in
+grants nothing.
+
 A profile you name that holds no credential for anything in scope stops
 the run with the reason naming it. `--profile all` skips such profiles
 quietly.
@@ -55,7 +65,7 @@ quietly.
 ## The Chrome column
 
 Your account row beside each profile carries the Chrome column: which real
-Chrome profile this Blowhorn profile acts in on this machine, keyed by
+Chrome profile this Blowhorn profile acts in on this computer, keyed by
 hostname. `blowhorn chrome map` writes it; `blowhorn chrome unmap`
 clears it. A browser run with no mapping for its profile refuses
 before anything opens, and never falls back to another profile. The

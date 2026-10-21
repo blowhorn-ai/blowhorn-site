@@ -6,6 +6,7 @@
       "kind" "page"
       "path" .slug
       "title" (printf "Blowhorn for %s" .name)
-      "params" (dict "role" .slug "description" .description "weight" .weight "lastmod" "2026-10-17")
+      "weight" .weight
+      "params" (dict "slug" .slug "description" .description)
   ) }}
 {{- end }}

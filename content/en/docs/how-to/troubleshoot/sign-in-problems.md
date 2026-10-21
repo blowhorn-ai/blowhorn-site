@@ -52,10 +52,17 @@ completes nothing on your behalf, and leaves the page where it is. Complete
 the challenge once by hand, then run again. For a login that always needs you
 present, run with `--headed` so the window stays visible.
 
+If challenges keep coming back in one Chrome profile, open the free check at
+[Blowhorn Tells](https://tells.blowhorn.ai/) in that profile. It shows what
+sites can see about the browser, such as a VPN or proxy, an automation flag, or
+a WebRTC address that doesn't match your connection. Pause the schedule while
+you sort it out.
+
 ## Related
 
 - [Post to X when it will not confirm](/docs/how-to/troubleshoot/x-posting/) - the X composer and its confirmation
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - start from a symptom instead
+- [Blowhorn Tells](https://tells.blowhorn.ai/) - a free check of what sites can see about your browser
 - [Pause and resume posting](/docs/how-to/schedule/pause/) - hold the schedule while a challenge clears
 - [Choose how Blowhorn reaches Chrome](/docs/how-to/settings/launch-mode/) - which mode a sign-in runs under
 - [You're in control](/docs/explanation/youre-in-control/) - why CAPTCHAs and 2FA are left to you

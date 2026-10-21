@@ -80,8 +80,8 @@ and checked against it, so a page says what `--help` says.
 | --- | --- |
 | [`blowhorn accept`](/docs/reference/cli/accept/) | Accept pending LinkedIn connection invitations other people have sent you, one at a time with a randomized pause between each. |
 | [`blowhorn analytics`](/docs/reference/cli/analytics/) | blowhorn analytics: activity, history, import-exports, operations. |
-| [`blowhorn auth`](/docs/reference/cli/auth/) | blowhorn auth: login, logout, status. |
-| [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap. |
+| [`blowhorn auth`](/docs/reference/cli/auth/) | blowhorn auth: login, logout, status, switch-organization. |
+| [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, confirm, discover, extension-enable, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap. |
 | [`blowhorn comment`](/docs/reference/cli/comment/) | Post LinkedIn, Reddit, or Bluesky comments from scheduled rows or ad-hoc target/message flags. |
 | [`blowhorn config`](/docs/reference/cli/config/) | blowhorn config: get, path, set, show. |
 | [`blowhorn content`](/docs/reference/cli/content/) | blowhorn content: delete, get, list, upsert. |
@@ -98,26 +98,28 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn slack`](/docs/reference/cli/slack/) | blowhorn slack: delete, edit, profiles, react, send, whoami. |
 | [`blowhorn source`](/docs/reference/cli/source/) | GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login. |
 | [`blowhorn store`](/docs/reference/cli/store/) | Report whether this machine can reach the Blowhorn database, and say why not when it cannot. |
-| [`blowhorn unfollow`](/docs/reference/cli/unfollow/) | Unfollow one Bluesky account (--platform bluesky --target &lt;handle&gt;) through the Bluesky API. |
+| [`blowhorn unfollow`](/docs/reference/cli/unfollow/) | Unfollow one Bluesky account (`--platform` bluesky `--target` &lt;handle&gt;) through the Bluesky API. |
 | [`blowhorn uninstall`](/docs/reference/cli/uninstall/) | Remove Blowhorn from this machine. |
-| [`blowhorn withdraw`](/docs/reference/cli/withdraw/) | Withdraw LinkedIn invitations that have been pending longer than --older-than days, freeing headroom under LinkedIn's cap on unaccepted invitations. |
+| [`blowhorn withdraw`](/docs/reference/cli/withdraw/) | Withdraw LinkedIn invitations that have been pending longer than `--older-than` days, freeing headroom under LinkedIn's cap on unaccepted invitations. |
 | [Shared flags and exit codes](/docs/reference/cli/shared-flags/) | The flags most blowhorn commands take, and its exit codes. |
-| [`blowhorn-axi`](/docs/reference/cli/blowhorn-axi/) | Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs --confirm. |
+| [`blowhorn-axi`](/docs/reference/cli/blowhorn-axi/) | Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs `--confirm`. |
 
 <!-- END generated command table -->
 
-`blowhorn auth` is a group of three: `auth status` reports whether an account token and organization id are configured (never the token value), the api base,
+`blowhorn auth` is a group of four: `auth status` reports whether an account token and organization id are configured (never the token value), the api base,
 enforcement mode, a summary of the last entitlement attestation, and why the
 last read of the plan failed when it did;
-`auth login` signs you in to Layer5 Cloud in your browser (Layer5 Cloud's
-native client sign-in: you allow Blowhorn on Cloud's consent page and Cloud
+`auth login` signs you in to [Blowhorn](https://cloud.blowhorn.ai) in your browser (Blowhorn's
+native client sign-in: you allow the app on the consent page and Blowhorn
 answers on 127.0.0.1 with a one-time code redeemed with a PKCE verifier; create an account there if you are
-new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps a `purpose=blowhorn` Layer5 Cloud API token in the macOS Keychain (revoking the one the previous sign-in kept) and reads your plan once, sending
-an account without Blowhorn straight to Layer5 Cloud to start the beta (`--no-browser` prints the
+new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps a `purpose=blowhorn` Blowhorn API token in the macOS Keychain (revoking the one the previous sign-in kept) and reads your plan once, sending
+an account without Blowhorn straight to Blowhorn to start the beta (`--no-browser` prints the
 address instead of opening it, and `--json` opens nothing either, its first line naming the address,
 which is how the desktop app runs it; `BLOWHORN_CLOUD_TOKEN` still wins when set);
-`auth logout` revokes the saved API token on Layer5 Cloud, then forgets it,
-the account in `cloud.yaml` and the local attestation cache.
+`auth logout` revokes the saved API token on Blowhorn, then forgets it,
+the account in `cloud.yaml` and the local attestation cache;
+`auth switch-organization` switches the signed-in account to another of its organizations in place
+([auth switch-organization](/docs/reference/cli/auth/#blowhorn-auth-switch-organization)).
 
 `blowhorn store` is a single command, not a group: it reports whether this
 machine can reach your account and why not, opens the bastion tunnel
@@ -128,7 +130,7 @@ administrator. `blowhorn config get
 `blowhorn setup` is a single command: it checks that `blowhorn` is on `PATH`,
 reads your Chrome profiles from Chrome's `Local State` file, writes the Chrome
 native host when it is missing or stale - after saying which Chrome profiles it
-reaches and asking - and checks the Layer5 Cloud sign-in, then lists the steps
+reaches and asking - and checks the Blowhorn sign-in, then lists the steps
 left for you. Each step reports `ok`, `changed`, `planned`, `declined`, `todo`
 or `failed`, so a re-run is safe and says what it changed. `--dry-run` writes
 nothing, `--yes` agrees without asking, and `--json` prints one object; without
@@ -211,7 +213,12 @@ is installed, which install route is on disk, which Chrome profiles hold a Chrom
 Chrome extension answers hello. It reads the manifest, the launcher, the policy, each Chrome profile's
 `Secure Preferences` and `Preferences` (only for the extension's entry) and the socket, stats the external-extensions file and does not read it, and writes only the bridge lock, exiting 0 whatever it
 reports.
-All but `chrome unmap`, `chrome extension-install`, `chrome extension-status` and `chrome extension-mode` read two files under a Chrome data
+`chrome extension-enable --chrome-profile '<directory>'` asks Chrome to open the extension's
+Chrome Web Store page in each Chrome profile named (repeat the flag for more than one), so one click there turns the extension on; it reads only `Local State` to check each
+directory, writes nothing, and with `--json` reports `ok: false` and exits 1 when Chrome was
+asked in no profile. `chrome extension-status --json` reports each profile's state as
+`profile_states` (`enabled`, `disabled`, `removed` or `absent`).
+All but `chrome unmap`, `chrome extension-install`, `chrome extension-status`, `chrome extension-enable` and `chrome extension-mode` read two files under a Chrome data
 directory (`Local State`, `DevToolsActivePort`) and nothing else - `attach-chrome`
 reads the dedicated tree's pair rather than the daily one's, plus its `SingletonLock`; `chrome unmap`
 reads only your account, so a mapping can be removed when those files are gone;
@@ -225,9 +232,10 @@ extension, the policy file, each Chrome profile's `Secure Preferences` and
 bridge lock beside that socket; while a run holds the bridge it says so and
 writes no hello.
 `chrome extension-mode` reads no Chrome file: it reads or writes the extension
-mode in your Layer5 Cloud account.
-Only `attach-chrome start` and `attach-chrome signin` start a browser, and neither drives the one it
-starts; `attach-chrome stop` quits only the Chrome holding that tree. All carry a stable `--json` shape; every detail is in the [Chrome reference](/docs/reference/chrome/),
+mode in your Blowhorn account.
+`attach-chrome start` and `attach-chrome signin` start a browser, and neither drives the one it
+starts; `chrome map` and `chrome extension-enable` ask the installed Chrome to open a window on one
+page, which starts Chrome and leaves it running when none is running, and drive nothing; `attach-chrome stop` quits only the Chrome holding that tree. All carry a stable `--json` shape; every detail is in the [Chrome reference](/docs/reference/chrome/),
 the procedure in [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/).
 The mapping is identity, never permission, and nothing that runs a browser
 reads it yet. The directory is `defaults.chrome.data_dir` /
@@ -242,7 +250,7 @@ credential is, and `slack profiles` lists every profile's captured workspaces
 from your account without calling Slack (a profile whose `config.yaml` still
 carries Slack keys while your account holds no session reads `refused`, as its
 send would be). `send` sends as one `--profile`, or as each of several
-(`--profile rian,lee`, or `--profile rian --profile lee`) one after another, waiting a random `--pace`-scaled
+(`--profile rian,alex`, or `--profile rian --profile alex`) one after another, waiting a random `--pace`-scaled
 interval before each confirmed send after the first. Each profile gets its own
 idempotency key, ledger entry and result, and one profile's failure never stops
 the next, except an unavailable store, which ends the walk and reports every

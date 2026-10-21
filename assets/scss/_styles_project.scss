@@ -38,6 +38,45 @@
   }
 }
 
+// ---------- Table of contents collapse ----------
+
+// The toggle sits in the TOC header (layouts/_partials/toc.html); the
+// state rides on .docs-wrap and persists across docs pages
+// (assets/js/docs-toggle.js). Collapsed, the TOC column shrinks to a
+// narrow rail holding only the toggle, and the content takes the freed
+// width — the same trade the internal layout makes for a page with no
+// table of contents at all. Below 1280px the TOC is hidden anyway and
+// the class is inert.
+.td-toc-toggle {
+  padding: 0 var(--space-1);
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.td-toc-toggle::after {
+  content: "»";
+  font-weight: 700;
+}
+
+@media (min-width: 1280px) {
+  .docs-wrap.toc-collapsed {
+    grid-template-columns: 15rem minmax(0, 1fr) 2.5rem;
+  }
+
+  .docs-wrap.toc-collapsed .td-toc-title__text,
+  .docs-wrap.toc-collapsed .td-toc-title__link,
+  .docs-wrap.toc-collapsed #TableOfContents {
+    display: none;
+  }
+
+  .docs-wrap.toc-collapsed .td-toc-toggle::after {
+    content: "«";
+  }
+}
+
 // ---------- Docs type ----------
 
 // Section and leaf titles come from the template with the brand h1 class.

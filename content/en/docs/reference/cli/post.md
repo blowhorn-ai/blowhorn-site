@@ -9,7 +9,7 @@ weight: 110
 
 ## blowhorn post
 
-Publish pending posts or amplify existing content across supported platforms. GitHub is the one platform 'blowhorn post' cannot publish to: it is amplify-only, so '--platform github' needs an issue or pull-request URL (from --amplify or a github row's 'Amplify' column) and refuses without one. That amplification adds all five uplifting reactions -- +1, laugh, hooray, heart, rocket -- to the target from every selected profile under its own GH_TOKEN, over the REST API with no browser, and re-running it adds none of them twice.
+Publish pending posts or amplify existing content across supported platforms. GitHub is the one platform `blowhorn post` cannot publish to: it is amplify-only, so `--platform github` needs an issue or pull-request URL (from `--amplify` or a github row's `Amplify` column) and refuses without one. That amplification adds all five uplifting reactions -- +1, laugh, hooray, heart, rocket -- to the target from every selected profile under its own `GH_TOKEN`, over the REST API with no browser, and re-running it adds none of them twice.
 
 ```text
 blowhorn post [OPTIONS]
@@ -18,47 +18,47 @@ blowhorn post [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--ignore-risk` | boolean | `false` | Run this once even if your Risk Profile would hold it (a daily cap, quiet hours, outreach turned off or a pause after a sign-in challenge). Only this run; your Risk Profile stays as it is |
-| `--target` | string |  | Ad-hoc target that overrides the row's values for this run. Slack: '#channel', '@user', a Slack channel link, or a Slack message link (posts as a thread reply); a link also picks that workspace's credentials. Other platforms: generally leave unset and use the row's 'Comment on' column for replies. |
-| `--message` | string |  | Send this text as one ad-hoc Slack message instead of posting from the content queue: no row is read or marked done. Needs --platform slack, one profile named with --profile (not all, not a list) and --target ('#channel', '@user', a Slack channel link, or a Slack message link for a thread reply -- anything else is refused, never sent to #general); a profile from .blowhorn.yaml or BLOWHORN_PROFILE does not count as named. A link also picks the workspace's credentials. Refused with --check-queue or --amplify. --dry-run says what would be sent and sends nothing. |
-| `--amplify` | string |  | URL of existing content to amplify instead of publishing something new. Overrides the row's 'Amplify' column for this run. LinkedIn repost, X retweet/quote, Reddit upvote, Bluesky repost, GitHub reactions. On GitHub it names an issue or pull request and blowhorn adds all five uplifting reactions to it (+1, laugh, hooray, heart, rocket) from every selected profile under that profile's own GH_TOKEN; re-running adds none of them twice. --platform github REQUIRES a target -- this flag, or a github row's 'Amplify' column -- because it amplifies only and cannot publish a new GitHub post; it refuses the run rather than doing nothing. Ignored for Slack -- use --target instead; Slack's 'Amplify' column selects the channel/DM/thread target, not an amplified source. |
-| `--check-queue` | boolean | `false` | Show pending posts from the content queue without publishing anything. Honors --platform / --profile / --exclude for filtering. |
-| `--platform` | string |  | Platform scope for 'blowhorn post'. One of: bluesky, github, hn, linkedin, reddit, slack, x, all ('all' means every platform listed here) |
-| `--slack-auth` | string |  | Which Slack credential may send, for one run: 'session' (your captured signed-in web session; the message is yours, with no app attached), 'user-token' (an xoxp- app token for you) or 'bot-token' (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. 'session,user-token,bot-token'). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then BLOWHORN_SLACK_AUTH, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
-| `--pace` | string |  | Pace of the random delays between 'blowhorn post' actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--target` | string |  | Ad-hoc target that overrides the row's values for this run. Slack: `#channel`, `@user`, a Slack channel link, or a Slack message link (posts as a thread reply); a link also picks that workspace's credentials. Other platforms: generally leave unset and use the row's `Comment on` column for replies. |
+| `--message` | string |  | Send this text as one ad-hoc Slack message instead of posting from the content queue: no row is read or marked done. Needs `--platform` slack, one profile named with `--profile` (not all, not a list) and `--target` (`#channel`, `@user`, a Slack channel link, or a Slack message link for a thread reply -- anything else is refused, never sent to #general); a profile from .blowhorn.yaml or `BLOWHORN_PROFILE` does not count as named. A link also picks the workspace's credentials. Refused with `--check-queue` or `--amplify`. `--dry-run` says what would be sent and sends nothing. |
+| `--amplify` | string |  | URL of existing content to amplify instead of publishing something new. Overrides the row's `Amplify` column for this run. LinkedIn repost, X retweet/quote, Reddit upvote, Bluesky repost, GitHub reactions. On GitHub it names an issue or pull request and blowhorn adds all five uplifting reactions to it (+1, laugh, hooray, heart, rocket) from every selected profile under that profile's own `GH_TOKEN`; re-running adds none of them twice. `--platform` github REQUIRES a target -- this flag, or a github row's `Amplify` column -- because it amplifies only and cannot publish a new GitHub post; it refuses the run rather than doing nothing. Ignored for Slack -- use `--target` instead; Slack's `Amplify` column selects the channel/DM/thread target, not an amplified source. |
+| `--check-queue` | boolean | `false` | Show pending posts from the content queue without publishing anything. Honors `--platform` / `--profile` / `--exclude` for filtering. |
+| `--platform` | string |  | Platform scope for `blowhorn post`. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--slack-auth` | string |  | Which Slack credential may send, for one run: `session` (your captured signed-in web session; the message is yours, with no app attached), `user-token` (an xoxp- app token for you) or `bot-token` (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. `session,user-token,bot-token`). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then `BLOWHORN_SLACK_AUTH`, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
+| `--pace` | string |  | Pace of the random delays between `blowhorn post` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
 Examples:
 
 ```bash
-blowhorn post --profile lee
+blowhorn post --profile alex
 blowhorn post --check-queue --profile all
-blowhorn post --profile lee --dry-run
-blowhorn post --profile all --exclude lee
-blowhorn post --platform linkedin --profile lee --headless
-blowhorn post --profile lee -v
-blowhorn post --profile lee --pace slow
-blowhorn post --platform linkedin --profile lee
-blowhorn post --platform x --profile lee
+blowhorn post --profile alex --dry-run
+blowhorn post --profile all --exclude alex
+blowhorn post --platform linkedin --profile alex --headless
+blowhorn post --profile alex -v
+blowhorn post --profile alex --pace slow
+blowhorn post --platform linkedin --profile alex
+blowhorn post --platform x --profile alex
 blowhorn post --platform x --amplify "https://x.com/user/status/123"
-blowhorn post --platform reddit --profile lee
+blowhorn post --platform reddit --profile alex
 blowhorn post --platform reddit --amplify "https://www.reddit.com/r/k8s/comments/abc/post/"
-blowhorn post --platform hn --profile lee
-blowhorn post --platform hn --profile lee --dry-run
+blowhorn post --platform hn --profile alex
+blowhorn post --platform hn --profile alex --dry-run
 blowhorn post --platform slack --target "#announcements"
-blowhorn post --platform slack --profile lee --target "#announcements" --message "Maintenance is complete"
+blowhorn post --platform slack --profile alex --target "#announcements" --message "Maintenance is complete"
 blowhorn post --platform slack --target "@alice"
 blowhorn post --platform slack --target "https://acme.slack.com/archives/C0123/p1776000000000100"
-blowhorn post --platform slack --profile lee
-blowhorn post --platform bluesky --profile lee
-blowhorn post --platform github --profile all --amplify "https://github.com/layer5io/meshery/issues/1234"
+blowhorn post --platform slack --profile alex
+blowhorn post --platform bluesky --profile alex
+blowhorn post --platform github --profile all --amplify "https://github.com/acme/widgets/issues/1234"
 blowhorn post --platform github --profile all --amplify "https://github.com/meshery/meshery/pull/21625"
-blowhorn post --platform github --profile lee --amplify "https://github.com/layer5io/layer5/issues/42"
-blowhorn post --platform github --profile lee,kate,rian --amplify "https://github.com/layer5io/layer5/issues/42"
-blowhorn post --platform github --profile all --exclude lee --amplify "https://github.com/layer5io/layer5/issues/42"
-blowhorn post --platform github --profile all --amplify "https://github.com/layer5io/layer5/issues/42" --dry-run
-blowhorn post --platform github --profile lee --amplify "https://github.com/layer5io/layer5/issues/42" --dry-run -v
-blowhorn post --platform github --profile lee
+blowhorn post --platform github --profile alex --amplify "https://github.com/acme/widgets/issues/42"
+blowhorn post --platform github --profile alex,kate,rian --amplify "https://github.com/acme/widgets/issues/42"
+blowhorn post --platform github --profile all --exclude alex --amplify "https://github.com/acme/widgets/issues/42"
+blowhorn post --platform github --profile all --amplify "https://github.com/acme/widgets/issues/42" --dry-run
+blowhorn post --platform github --profile alex --amplify "https://github.com/acme/widgets/issues/42" --dry-run -v
+blowhorn post --platform github --profile alex
 ```
 
 Output: text.

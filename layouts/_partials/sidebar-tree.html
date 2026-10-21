@@ -1,5 +1,5 @@
 {{/* Forked from Docsy v0.14.3 layouts/_partials/sidebar-tree.html.
-  Three changes from upstream, nothing else:
+  Four changes from upstream, nothing else:
   1. The search box is inlined below (offline search only: this site never
      configures another backend) with double quotes, no stray whitespace,
      and a visually-hidden submit button, because a form needs one
@@ -9,7 +9,12 @@
   3. Collapsible sections: a section with children gets a chevron button
      (aria-expanded, aria-controls) beside its link, and its list starts
      hidden unless it holds the current page. assets/js/docs-toggle.js
-     wires the buttons. The links and classes are otherwise upstream. */}}
+     wires the buttons. The links and classes are otherwise upstream.
+  4. The internal build renders no search box and generates no search
+     index: the offline index covers the public pages, which the internal
+     build does not render, and internal pages stay out of the index by
+     design (content/en/internal/_index.md). The mobile nav toggle that
+     shares the search row is kept. */}}
 {{ $context := .context -}}
 {{ $sidebarRoot := .sidebarRoot -}}
 {{ $sidebarRootID := .sidebarRootID -}}
@@ -20,16 +25,24 @@
 {{/* When the sidebar is cached, "active" class is set client side. */ -}}
 {{ $shouldDelayActive := $cacheSidebar -}}
 
+{{ $offlineSearchLink := "" -}}
+{{ $offlineSearchMaxResults := .Site.Params.offlineSearchMaxResults | default 10 -}}
+{{ $searchLabel := T "ui_search" -}}
+{{ if ne hugo.Environment "internal" -}}
 {{ $offlineSearchIndex := resources.Get "json/offline-search-index.json" | resources.ExecuteAsTemplate "offline-search-index.json" . -}}
 {{ if hugo.IsProduction -}}
 {{ $offlineSearchIndex = $offlineSearchIndex | fingerprint "md5" -}}
 {{ end -}}
-{{ $offlineSearchLink := $offlineSearchIndex.RelPermalink -}}
-{{ $offlineSearchMaxResults := .Site.Params.offlineSearchMaxResults | default 10 -}}
-{{ $searchLabel := T "ui_search" -}}
+{{ $offlineSearchLink = $offlineSearchIndex.RelPermalink -}}
+{{ end -}}
 
 <div id="td-sidebar-menu" class="td-sidebar__inner{{ if $shouldDelayActive }} d-none{{ end }}">
-  {{ if not .Site.Params.ui.sidebar_search_disable -}}
+  {{ if eq hugo.Environment "internal" -}}
+  <div class="td-sidebar__search d-flex align-items-center">
+    <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </div>
+  {{ else if not .Site.Params.ui.sidebar_search_disable -}}
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>

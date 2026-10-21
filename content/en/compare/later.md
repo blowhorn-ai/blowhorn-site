@@ -32,7 +32,7 @@
     {
       "f": "Where it acts",
       "t": "Later's cloud",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Visual planning, link in bio",
@@ -52,7 +52,7 @@
     {
       "f": "AI agents",
       "t": "AI caption writer",
-      "b": "Full CLI: --help with examples, --json, --dry-run on writes. Your agent drives, you hold pause"
+      "b": "MCP server, REST API, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause"
     },
     {
       "f": "Bought engagement",

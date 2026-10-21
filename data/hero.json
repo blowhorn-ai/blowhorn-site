@@ -1,28 +1,86 @@
 {
   "$schema": "../schemas/hero.schema.json",
-  "default": "not-a-bot",
-  "rotation": ["not-a-bot", "one-message"],
+  "default": "scripted-ai-ready",
+  "rotation": {
+    "mode": "utc-day",
+    "ids": ["plug-in-ai", "scripted-ai-ready", "same-rules", "ai-optional", "human-or-ai"]
+  },
+  "media": {
+    "default": "video",
+    "video": {
+      "mp4": "assets/video/battalion-thunder.mp4",
+      "webm": "assets/video/battalion-thunder.webm",
+      "poster": "assets/video/battalion-thunder-poster.jpg",
+      "width": 1920,
+      "height": 1080,
+      "placement": "inline-expand",
+      "playback": { "autoplay": false, "loop": false, "sound": true, "end": "poster" },
+      "label": "From one recruit to one thunder",
+      "description": "A 41-second film with burned-in captions: install Blowhorn on as many computers as you like, they fall in as one unit, from a fireteam up, one order goes to one computer, your team joins as a squad, and Major Blowhorn's one call lands on LinkedIn, X, Bluesky, Reddit, GitHub, Hacker News and Slack.",
+      "source": "blowhorn marketing/videos/blowhorn-battalion-thunder"
+    }
+  },
   "variants": [
+    {
+      "id": "plug-in-ai",
+      "headline": "Automate your social voice. Plug in AI anytime.",
+      "subhead": "Blowhorn posts exactly what you approve to LinkedIn, X, Reddit, Hacker News and more, from your own Chrome. Bring any AI agent, model or assistant.",
+      "cta": { "label": "See how AI fits in", "href": "/ai" },
+      "differentiators": [8, 10, 12],
+      "note": "AI hybrid messaging (Yi, 2026-10-20). What Blowhorn is in four words, then the hybrid: scripted posting, AI whenever you want it."
+    },
+    {
+      "id": "scripted-ai-ready",
+      "headline": "Scripted where it counts. AI where it helps.",
+      "subhead": "Every post, reply and amplify runs exactly as written. Drafts, agents and assistants plug in through MCP, a REST API and a scriptable CLI.",
+      "cta": { "label": "Meet the AI side", "href": "/ai" },
+      "differentiators": [8, 10],
+      "note": "AI hybrid messaging, default and fallback (Yi, 2026-10-20 8:01 PM). The hybrid as a rule: deterministic actions, AI by choice, and the agent surfaces named."
+    },
+    {
+      "id": "same-rules",
+      "headline": "You post. Your agent posts. Same rules.",
+      "subhead": "Drive LinkedIn, X, Reddit, Hacker News and more from the app, the CLI, MCP or your AI assistant. One queue, one set of limits.",
+      "cta": { "label": "Wire up your agent", "href": "/agents" },
+      "differentiators": [3, 10, 12],
+      "note": "AI hybrid messaging. For the agent-heavy Alex persona: one queue and one set of limits, person or agent."
+    },
+    {
+      "id": "ai-optional",
+      "headline": "Your voice, automated. AI optional, never in charge.",
+      "subhead": "Blowhorn runs your schedule like clockwork, signed in as you. Write every word yourself, bring your own model, or let Blowhorn draft it.",
+      "cta": { "label": "Your model or ours", "href": "#ai-content" },
+      "differentiators": [8, 10],
+      "note": "AI hybrid messaging. AI assists, the person decides; points at the content generation teaser."
+    },
+    {
+      "id": "human-or-ai",
+      "headline": "One queue. Every profile. Human or AI.",
+      "subhead": "Publish and amplify from every profile you run, on every computer you own. Drive it by hand, by script or by AI agent.",
+      "cta": { "label": "See how it works", "href": "#how" },
+      "differentiators": [1, 10, 13],
+      "note": "AI hybrid messaging. The fleet plus agents: any number of computers and profiles, three ways to drive."
+    },
     {
       "id": "not-a-bot",
       "headline": "Not a bot. You, at full volume.",
-      "subhead": "Blowhorn does the typing and clicking in your own Chrome, signed in as you, on machines you own. No Blowhorn server ever logs in as you.",
+      "subhead": "Blowhorn does the typing and clicking in your own Chrome, signed in as you, on computers you own. No Blowhorn server ever logs in as you.",
       "differentiators": [8, 9],
-      "note": "Default. Leads with the claim every competitor group lacks: real Chrome, really you."
+      "note": "Default and fallback. Leads with the claim every competitor group lacks: real Chrome, really you."
     },
     {
       "id": "real-you",
       "headline": "The real you, everywhere at once.",
-      "subhead": "Not a cloud bot borrowing your password. Your own Chrome, on your own machines, doing exactly what you queued.",
+      "subhead": "Not a cloud bot borrowing your password. Your own Chrome, on your own computers, doing exactly what you queued.",
       "differentiators": [8, 10],
       "note": "Same claim, framed against the LinkedIn tools that ask for your password."
     },
     {
       "id": "your-fleet",
       "headline": "Your fleet. Your Chrome. Your voice.",
-      "subhead": "Install Blowhorn on every machine you own. They share one queue, act as you, and are coordinated so the same post isn't sent from two of them.",
+      "subhead": "Install Blowhorn on every computer you own. They share one queue, act as you, and are coordinated so the same post isn't sent from two of them.",
       "differentiators": [1, 4, 8],
-      "note": "The fleet of your own machines behind one coordinated queue."
+      "note": "The fleet of your own computers behind one coordinated queue."
     },
     {
       "id": "sound-wave",
@@ -37,14 +95,6 @@
       "subhead": "The social console that runs in your own Chrome: LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub and Slack from one queue, posted as you. About a minute to set up.",
       "differentiators": [8, 12],
       "note": "After bindplane.com: a category claim with concrete proof (the networks, the setup time) and an ownership close like its \"Own your telemetry. Control your costs.\""
-    },
-    {
-      "id": "one-message",
-      "headline": "One message. Many ears.",
-      "subhead": "Posted as you, from your own Chrome.",
-      "art": "fan",
-      "differentiators": [8],
-      "note": "The hero the page led with before not-a-bot: the broadcast promise over the one-to-many fan. Rotates with not-a-bot."
     }
   ]
 }

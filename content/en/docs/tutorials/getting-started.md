@@ -88,7 +88,7 @@ each profile in scope.
 Narrow it to one profile and one platform:
 
 ```bash
-blowhorn post --check-queue --profile lee --platform linkedin
+blowhorn post --check-queue --profile alex --platform linkedin
 ```
 
 ## 4. Rehearse a real run {#section-4-rehearse-a-real-run}
@@ -96,7 +96,7 @@ blowhorn post --check-queue --profile lee --platform linkedin
 Now run the posting command itself, in rehearsal mode:
 
 ```bash
-blowhorn post --profile lee --dry-run
+blowhorn post --profile alex --dry-run
 ```
 
 Watch what it prints. It resolves the profile, selects rows, opens the flow
@@ -105,7 +105,7 @@ rows are not marked done, so the same rows are still pending afterwards.
 Confirm that:
 
 ```bash
-blowhorn post --check-queue --profile lee
+blowhorn post --check-queue --profile alex
 ```
 
 The same rows are still there. Nothing you have done so far has changed
@@ -116,7 +116,7 @@ anything outside your terminal.
 Blowhorn paces itself to look human. You can make it slower:
 
 ```bash
-blowhorn post --profile lee --pace slow --dry-run
+blowhorn post --profile alex --pace slow --dry-run
 ```
 
 `--pace` is global - it works before or after the command word - and takes

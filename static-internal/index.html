@@ -1,0 +1,20 @@
+<!-- The internal build's root page: the build renders only /internal/, so
+  without this file the output's root is a dead end (locally,
+  http://localhost:1313/ answers 404). This redirect sends the root to
+  /internal/. It is served only by the internal build: config/internal/
+  hugo.toml adds this directory to staticDir for that environment alone,
+  so the public build never sees it. The URL is relative so the redirect
+  also works when the output is served from a subpath. -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Blowhorn internal</title>
+<meta http-equiv="refresh" content="0; url=internal/">
+<link rel="canonical" href="internal/">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<p>This build contains only the internal site. Go to <a href="internal/">/internal/</a>.</p>
+</body>
+</html>

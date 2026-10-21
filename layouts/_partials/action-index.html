@@ -1,0 +1,22 @@
+{{- /* Actions that at least one supported platform lists, in vocabulary
+  order, each with the platforms that support it. Never hand-list ids.
+  Input: slice of integration-row maps. Returns slice of
+  dict id, name, description, slug, platforms. */ -}}
+{{- $rows := . -}}
+{{- $bucket := newScratch -}}
+{{- range $rows }}
+  {{- $p := . -}}
+  {{- range $p.actionIds }}
+    {{- $id := . -}}
+    {{- $cur := $bucket.Get $id | default slice -}}
+    {{- $bucket.Set $id ($cur | append $p) -}}
+  {{- end -}}
+{{- end -}}
+{{- $out := slice -}}
+{{- range site.Data.actions.actions }}
+  {{- $plats := $bucket.Get .id -}}
+  {{- if $plats -}}
+    {{- $out = $out | append (dict "id" .id "name" .name "description" .description "slug" (printf "action-%s" .id) "platforms" $plats) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

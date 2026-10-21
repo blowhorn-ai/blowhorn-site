@@ -1,11 +1,11 @@
 ---
 title: "System requirements"
-description: "What your Mac needs to run Blowhorn: macOS version, Chrome, and a Blowhorn account."
+description: "What your computer needs to run Blowhorn: macOS version, Chrome, and a Blowhorn account."
 weight: 210
 ---
 
 
-What your Mac needs before you install Blowhorn.
+What your computer needs before you install Blowhorn.
 
 | Need | Requirement | Checked by |
 |---|---|---|
@@ -13,7 +13,7 @@ What your Mac needs before you install Blowhorn.
 | Browser | Google Chrome, installed and signed in | Setup, "chrome profiles" row; `blowhorn chrome status` |
 | Engine | Bundled in the app, with its own Python; nothing to install | Setup, "Blowhorn folder" and "helper tools" rows |
 | Account | A Blowhorn account your profile belongs to | Setup, "organization connection" row; `blowhorn store` |
-| Background runs | The background service, registered from the app | Setup, "this Mac on watch" row |
+| Background runs | The background service, registered from the app | Setup, "this computer on watch" row |
 
 macOS 13 is the floor the desktop build declares
 (`minimumSystemVersion: 13.0`), and every release is one universal DMG
@@ -27,13 +27,13 @@ Chrome the normal way and sign in before you map anything. The extension
 needs Chrome profiles to attach to; without Chrome every browser run
 refuses before it acts.
 
-The app carries its engine and Python, so your Mac needs no git and no
+The app carries its engine and Python, so your computer needs no git and no
 Python. A contributor running the engine from a checkout instead needs
 Python 3.14, the floor `tools/install.sh` enforces and the only supported
 version. Either way the Setup screen checks the engine, so a broken engine
 or interpreter shows up there first, not mid-run.
 
-Network access to your account is required for the content queue, the schedule, profiles, and run history. Your account keeps those in sync; your Mac holds the app, the engine, and your Chrome sessions.
+Network access to your account is required for the content queue, the schedule, profiles, and run history. Your account keeps those in sync; your computer holds the app, the engine, and your Chrome sessions.
 Offline behavior is a plans question, not a requirements one: see
 [Plans and limits](/docs/reference/plans/).
 

@@ -68,8 +68,8 @@ switch on the default data directory, which is why this is a separate Chrome
 and not your daily one. Mac only.
 
 **What you are trading.** That Chrome's debugging port has no password and
-asks for no Allow. It is bound to `127.0.0.1`, so nothing off this Mac can
-reach it, but any program running as you on this Mac can drive that Chrome
+asks for no Allow. It is bound to `127.0.0.1`, so nothing off this computer can
+reach it, but any program running as you on this computer can drive that Chrome
 and read its cookies, for every account signed in there. Sign it in only to
 the accounts Blowhorn posts from, never your personal email or bank.
 
@@ -96,13 +96,22 @@ blowhorn post --profile ada --chrome-launch cdp
 ```
 
 `start` launches Chrome with `--remote-debugging-port=0
---remote-debugging-address=127.0.0.1` (plus
-`--disable-blink-features=AutomationControlled`, so pages do not see
-`navigator.webdriver` turned on by the port) and steps back: Blowhorn never drives
+--remote-debugging-address=127.0.0.1`,
+`--disable-blink-features=AutomationControlled` and `--test-type` (the
+same pair launch mode passes, which keeps `navigator.webdriver` false
+and the unsupported-flag infobar off), plus `--no-startup-window`, so it
+starts with no window and never comes in front of what you are doing. To sign
+a profile in, click Chrome in the Dock to open its window. Then `start`
+steps back: Blowhorn never drives
 that process directly, only tabs in it. Chrome picks the port and records it
 in `DevToolsActivePort`. Before every `cdp` run attaches, Blowhorn checks that
 the recorded port is listened on by the Chrome holding the tree (its
 `SingletonLock`), on loopback only, and refuses by name otherwise.
+
+One step can still bring Chrome forward for a moment: when a `cdp` run proves
+which profile it is in, it hands Chrome a `--new-window` command line so the
+right profile opens the proof tab. That handoff is kept because the profile
+proof depends on it; replacing it is tracked in #680.
 
 ### 3. Keep it up for scheduled jobs {#section-3-keep-it-up-for-scheduled-jobs}
 

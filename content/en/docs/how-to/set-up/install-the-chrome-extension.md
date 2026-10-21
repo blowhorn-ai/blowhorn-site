@@ -1,6 +1,6 @@
 ---
 title: "Install the Chrome extension"
-description: "Add the Blowhorn extension from the Chrome Web Store, or load it unpacked during early access."
+description: "Add the Blowhorn extension in the Blowhorn app or from the Chrome Web Store, or load it unpacked in one profile."
 weight: 40
 aliases: [/docs/how-to/install-the-chrome-extension/]
 ---
@@ -11,8 +11,47 @@ extension inside each Chrome profile, and the extension drives only the
 profile it is installed in. Install it in every Chrome profile you post
 from.
 
-**Early access:** the Chrome Web Store listing is awaiting review. Until it
-is approved, load the extension unpacked as described below.
+## In the Blowhorn app
+
+The guided setup does this for you. On **Confirm troops** you mark each
+Chrome profile in use or not in use, and **Getting ready**, the step
+after, adds the extension only to the ones you marked. If that is every
+Chrome profile on this computer, it uses Chrome's policy route: macOS
+asks for your administrator password once, for every profile at once,
+and Chrome then installs the extension, turned on, in every profile.
+Chrome shows **Managed by your organization**; that is the install
+working, not a problem. There is nothing to click in each profile.
+
+If you left a profile out, no computer-wide file is written for the
+others: both files above reach every profile, so either would put the
+extension in the profile you left out. Each profile you chose instead
+gets it one at a time, with the **Enable in** steps below - Chrome opens
+Blowhorn's store page in that one profile, and your click there installs
+it only there. A profile you leave out is never given the extension by
+guided setup; if an earlier setup already put it there, setup cannot
+remove it from that one profile - see
+[Leaving a Chrome profile out](/docs/how-to/set-up/first-run-setup/#leaving-a-chrome-profile-out).
+
+A computer that already has the extension from an earlier setup - put
+there by Chrome's external-extensions file - stays on that route
+instead. Chrome adds it turned off there, so each profile you marked in
+use needs one click:
+
+1. Next to a profile that says **Turned off** or **Not added yet**, press
+   **Enable in** and the profile's name.
+2. Chrome opens Blowhorn's store page in that profile. Click
+   **Enable now** (or **Add to Chrome** if Chrome was already open).
+3. Chrome opens the Blowhorn welcome page, and the profile reads
+   **Ready** in the app within a few seconds.
+
+If Getting ready says **This is taking longer than usual**, press
+**Start again**: Blowhorn stops the attempt still running and begins a new
+one.
+
+One ready profile is enough to carry on. On the external route, if a
+profile still says **Not on yet** after a minute and a half, press
+**Open** and the profile's name **again**. You can turn it on in more
+profiles any time later.
 
 ## From the Chrome Web Store
 
@@ -87,12 +126,12 @@ See the files first, and write nothing:
 blowhorn chrome extension-install --profile kate --dry-run
 ```
 
-## Every Chrome profile on this machine
+## Every Chrome profile on this computer
 
 **Every profile** (the default) writes Chrome's
 `ExtensionInstallForcelist`. Chrome installs the extension the next time
 each profile starts, with no click in that profile. That is every Chrome
-profile on this machine, including ones no Blowhorn profile uses. Chrome
+profile on this computer, including ones no Blowhorn profile uses. Chrome
 shows **Managed by your organization**. macOS asks for an administrator
 password once. Cancelling that dialog writes nothing.
 
@@ -157,4 +196,4 @@ and do not change.
   Chrome profile each Blowhorn profile belongs to.
 - [Chrome reference](/docs/reference/chrome/) - the flags, the files, and
   the JSON shapes.
-- [Requirements](/docs/reference/requirements/) - what each machine needs
+- [Requirements](/docs/reference/requirements/) - what each computer needs

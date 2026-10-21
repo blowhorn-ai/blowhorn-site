@@ -19,7 +19,8 @@ every push to `master`:
    Every step is a make target (`make setup-ci` installs the dependencies);
    `make ci` runs the whole job locally in the same order.
 3. `make site-check` builds for production into `public/` once
-   (`hugo --minify --gc`, which minifies CSS and JavaScript and leaves HTML
+   (`hugo --cleanDestinationDir --minify --gc`, which cleans stale files out
+   of the destination, minifies CSS and JavaScript and leaves HTML
    readable), then checks that output:
    - `make validate-html`: html-validate on every page;
    - `make check-links`: every local link, image, font and `srcset` reference
@@ -157,7 +158,7 @@ Every page and asset reference is root-relative (`/css/site.<hash>.css`,
 `/assets/brand/...`), built from `baseURL` in [`hugo.toml`](../hugo.toml)
 (`https://blowhorn.ai/`). That is what lets `404.html` work for any missing
 path, nested ones included. A build with a different base URL
-(`make build-production BASE_URL=...` or `make build-preview`) prefixes every
+(`make site-build BASE_URL=...` or `make build-preview`) prefixes every
 reference with that URL's path. The project URL
 `layer5io.github.io/blowhorn-site/` redirects to blowhorn.ai, so nothing is
 served under that path in production.
@@ -177,7 +178,7 @@ The public URLs are a contract, checked by `make site-check`:
   `layouts/onboarding.html`), and the short paths `/download/`, `/install/`,
   `/signup/`, `/login/` and `/early-access/`, each a meta refresh rendered by
   `layouts/redirect.html`. `/signup/`, `/login/` and `/early-access/` go to
-  Layer5 Cloud (no early-access form: anyone without a plan starts the beta
+  Blowhorn (no early-access form: anyone without a plan starts the beta
   there), whose URL is `params.cloud_url` in `hugo.toml` alone. None of these
   is listed in `sitemap.xml` or `llms.txt`.
 - `/assets/brand/...` (from `static/assets/brand/`), `/favicon.ico`, `/CNAME`.
@@ -203,7 +204,7 @@ make site          # http://localhost:1313 with live reload
 ## Product docs sync
 
 The user docs under `/docs/` live in the private product repository
-(`leecalcote/blowhorn`, `docs/{tutorials,how-to,reference,explanation}`
+(`blowhorn`, `docs/{tutorials,how-to,reference,explanation}`
 and `docs/README.md`) and are mirrored into `content/en/docs/` by
 [`sync-docs.yml`](../.github/workflows/sync-docs.yml). The private
 repository runs no moderate or heavy Actions of its own, so the work runs
@@ -278,7 +279,7 @@ confirm there is no horizontal scroll from 320 to 1440 px. With
 chrome-devtools-axi:
 
 ```bash
-make build-production && python3 -m http.server 8080 --directory public
+make site-build && python3 -m http.server 8080 --directory public
 chrome-devtools-axi open http://localhost:8080/
 chrome-devtools-axi resize 390 844
 chrome-devtools-axi emulate --color-scheme dark
@@ -289,22 +290,22 @@ chrome-devtools-axi eval 'document.documentElement.scrollWidth > document.docume
 ## Internal section (Hugo segments and module mounts)
 
 `/internal/` is the internal Blowhorn site. Its source never enters this
-repository, which is public: it lives in the private leecalcote/blowhorn
+repository, which is public: it lives in the private blowhorn
 repository, and only the internal environment mounts it.
 
 ### Builds and local servers
 
 | Target | What it does | Output |
 | --- | --- | --- |
-| `make build-production` | Public build (`hugo`, production environment, `renderSegments = ["public"]`), what CI deploys | `public/`, no `/internal/` |
-| `make site-internal` | Internal build (`hugo --environment internal`, `renderSegments = ["all"]`) with the leecalcote/blowhorn clone mounted | `public-internal/` |
-| `make site` / `make preview-internal` | Live-reload servers for the two builds (the internal one renders in memory) | http://localhost:1313 |
+| `make site-build` | Public build (`hugo`, production environment, `renderSegments = ["public"]`), what CI deploys | `public/`, no `/internal/` |
+| `make site-internal-build` | Internal build (`hugo --environment internal`, `renderSegments = ["internal"]`) with the blowhorn clone mounted; renders only `/internal/`, with its own header, footer and navigation, and no search index; the output's root page redirects to `/internal/` | `public-internal/`, only `/internal/` |
+| `make site` / `make site-internal` | Live-reload servers for the two builds (the internal one renders in memory) | http://localhost:1313 |
 
-The internal targets need a leecalcote/blowhorn clone at `BLOWHORN_DIR`
+The internal targets need a blowhorn clone at `BLOWHORN_DIR`
 (default `../blowhorn`, beside this clone) and fail with a clear error when it
-is missing. leecalcote/blowhorn's Makefile has the same `site`,
-`site-internal` and `preview-internal` targets, which run these with
-`BLOWHORN_SITE_DIR` (default `../blowhorn-site`).
+is missing. blowhorn's Makefile has the same four targets
+(`site`, `site-internal`, `site-build`, `site-internal-build`), which run
+these with `BLOWHORN_SITE_DIR` (default `../blowhorn-site`).
 
 ### Mounts
 
@@ -335,9 +336,11 @@ adds a module import, `github.com/leecalcote/blowhorn`, with its own mounts:
   [[module.imports.mounts]]
     source = "marketing/capability-comparison/compare-assistants.csv"
     target = "assets/internal/compare-assistants.csv"
+    source = "marketing/capability-comparison/compare-personas.csv"
+    target = "assets/internal/compare-personas.csv"
 ```
 
-`make site-internal` points the import at the clone with
+`make site-internal-build` points the import at the clone with
 `HUGO_MODULE_REPLACEMENTS="github.com/leecalcote/blowhorn -> <abs BLOWHORN_DIR>"`,
 so nothing is downloaded, copied or vendored. Because the import lives
 only in the internal environment, the public build never reads the private
@@ -355,7 +358,7 @@ by `marketing/strategy/hugo/finance/report/index.md` (layout `internal-raw`),
 and the finance page lists the XLSX and the generator scripts as downloads.
 
 The user docs under `content/en/docs/` stay on the committed docs-sync copy
-(`make docs-sync`) rather than a mount of leecalcote/blowhorn `docs/`: a
+(`make docs-sync`) rather than a mount of the blowhorn repository's `docs/`: a
 mount would make every public build, including this repository's public CI,
 need a token for the private repository.
 
@@ -382,8 +385,8 @@ is each page's `weight`. The public build never renders any of it.
 
 ### Where the internal build runs
 
-leecalcote/blowhorn's `.github/workflows/internal-site.yml` checks out both
-repositories side by side, runs `make site-internal` from the blowhorn
+blowhorn's `.github/workflows/internal-site.yml` checks out both
+repositories side by side, runs `make site-internal-build` from the blowhorn
 clone and uploads `public-internal/` as a private workflow artifact. There
 is no private host. It never runs in this repository's Actions, whose
 artifacts and logs are public.
@@ -395,9 +398,86 @@ artifacts and logs are public.
 - `hugo server` honours `renderSegments`, but without `--renderToMemory` it
   also writes to `public/` and serves stale files from there; an internal
   server run that way leaves `/internal/` pages in `public/`. Use
-  `make preview-internal`.
+  `make site-internal`.
 - A segment name that is not defined renders nothing, with no error.
 - `renderSegments = ["public", "internal"]` does not render `/internal/` in
   Hugo 0.158: the `public` segment's excludes win. Use `all`.
 - `hugo config` with no `-e` reports a different environment's mounts than
   `hugo` builds with; pass `-e production` or `-e internal` when checking.
+
+## Internal site hosting (internal.blowhorn.ai, Cloudflare Access)
+
+The internal build is served by the `blowhorn-internal` Cloudflare Worker
+(`internal-worker/`) at https://internal.blowhorn.ai/, behind a Cloudflare
+Access application. Nobody reaches a page, asset or file there without
+signing in to Access as one of the named emails in
+`internal-worker/access.json`.
+
+| Layer | What it enforces |
+| --- | --- |
+| Access application (self-hosted, the whole hostname) | Login required; one reusable `allow` policy whose only rules are the named emails in `access.json`. Anything not allowed is denied. |
+| Worker (`internal-worker/src/worker.js`, `run_worker_first`) | Every request, assets included, must carry an Access token signed by the team's keys, for this application's audience, unexpired, for an email on the same list. Otherwise 403. A missing or misconfigured Access application fails closed. |
+| `wrangler.json` | Custom domain only: `workers_dev` and `preview_urls` are off, so no other hostname serves the Worker. `verify-worker` confirms it after each deploy. |
+
+The root (`/`) serves the `/internal/` page, whose table of contents
+(`layouts/_partials/internal-contents.html`) is generated from the content
+tree on every build. Locally, `make site-internal` still redirects `/` to
+`/internal/`.
+
+### Shipping an update
+
+From a leecalcote/blowhorn clone (or here): `make site-internal-deploy`
+(`REF=<branch|tag|sha>` to build something other than master, `WATCH=0` to
+not wait). It runs `.github/workflows/internal-site.yml` by
+`workflow_dispatch`; other workflows in this repository can call the same file
+with `workflow_call` and `secrets: inherit`. Ship after a change to the
+internal documents (`marketing/strategy/**`, the comparison CSVs) merges.
+
+The workflow, in order (each step is a make target):
+
+1. Fails unless `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` and the
+   `BLOWHORN_INTERNAL_READ_KEY` environment secret are set.
+2. `site-internal-access-check`: read-only probe of the token's permissions.
+3. `site-internal-access`: creates or updates the Access policy and
+   application, reads them back, and fails unless they are exactly the
+   managed default-deny pair. This runs before any private content reaches
+   the runner.
+4. Checks out leecalcote/blowhorn (sparse: `marketing/strategy`,
+   `marketing/capability-comparison`) with the read-only deploy key.
+5. `site-internal-build` with `BASE_URL=https://internal.blowhorn.ai/`, output
+   suppressed.
+6. `site-internal-worker-deploy`: `wrangler deploy` with a filtered summary,
+   then `verify-worker` (workers.dev and previews off).
+7. `site-internal-verify`: unauthenticated probes of `/`, a deep link, an
+   asset and a guessed URL must all redirect to the Access login. A 2xx
+   deletes the Worker and fails the run.
+
+### This repository is public
+
+Its Actions logs are world-readable. The workflow uploads no artifact,
+prints no build or wrangler output beyond an allow-listed summary, never uses
+`set -x`, `tree`, `ls` or `find` on the build, and removes the private
+checkout after building. Keep it that way in any change to the workflow or
+`.github/scripts/internal-*`. Debug a failed build locally with
+`make site-internal-build`, never by adding output to the workflow.
+
+### Credentials
+
+- `CLOUDFLARE_API_TOKEN` (repository secret) needs: Account > Workers
+  Scripts > Edit; Account > Account Settings > Read; Zone (blowhorn.ai) >
+  Workers Routes > Edit; Account > Access: Apps and Policies > Edit;
+  Account > Access: Organizations, Identity Providers, and Groups > Read.
+- `CLOUDFLARE_ACCOUNT_ID` (repository secret).
+- `BLOWHORN_INTERNAL_READ_KEY` (secret of the `internal-site` environment,
+  which deploys from master only): the private half of an SSH deploy key
+  added read-only to leecalcote/blowhorn. It can read that one repository and
+  cannot write to it or reach any other. Rotate it by adding a new deploy key
+  and replacing the secret; revoke it by deleting the deploy key.
+
+### Changing who can read it
+
+Edit `allowed_emails` in `internal-worker/access.json` in a pull request (so
+the change is reviewed), merge, and run `make site-internal-deploy`. The
+workflow updates the Access policy and the Worker's list together. Do not edit
+the policy in the Cloudflare dashboard: the next deploy resets it, and a
+mismatch fails verification.

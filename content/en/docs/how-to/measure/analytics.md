@@ -33,7 +33,7 @@ blowhorn analytics history --subject ada --json
 ```
 
 `history` renders every LinkedIn page and every X profile as one dated series
-from your account, whichever machine collected it. `--since` takes days, weeks,
+from your account, whichever computer collected it. `--since` takes days, weeks,
 months, years or `all`, and filters which points print, never what the 30-day
 figures compute from.
 
@@ -98,7 +98,7 @@ first when you want fresh numbers: the report reads local files only.
 
 ## Related
 
-- [Review what ran](/docs/how-to/measure/review-runs/) - per-machine operations from the same ledger
+- [Review what ran](/docs/how-to/measure/review-runs/) - per-computer operations from the same ledger
 - [Schedule a job](/docs/how-to/schedule/schedule-a-job/) - collect on a schedule
 - [Change your defaults](/docs/how-to/settings/defaults/) - pace, excluded profiles, logs
 - [What the analytics numbers mean](/docs/explanation/analytics/) - measured versus trended

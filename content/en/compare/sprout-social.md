@@ -32,7 +32,7 @@
     {
       "f": "Where it acts",
       "t": "Sprout's cloud, through official apps",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Reporting and listening",
@@ -52,7 +52,7 @@
     {
       "f": "AI agents",
       "t": "AI Assist",
-      "b": "Full CLI: --help with examples, --json, --dry-run on writes. Your agent drives, you hold pause"
+      "b": "MCP server, REST API, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause"
     },
     {
       "f": "Bought engagement",
@@ -73,7 +73,7 @@
     },
     {
       "q": "Can Blowhorn replace Sprout's reporting?",
-      "a": "No. Blowhorn's analytics cover LinkedIn, X and Bluesky across all your machines, which is useful but not a reporting suite."
+      "a": "No. Blowhorn's analytics cover LinkedIn, X and Bluesky across all your computers, which is useful but not a reporting suite."
     }
   ],
   "major": "Measure the battle all you like. Someone still has to charge.",

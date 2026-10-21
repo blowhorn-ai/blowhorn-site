@@ -12,7 +12,7 @@ The `blowhorn desktop` commands. Each one's `--help` prints the same text.
 | Command | What it does |
 | --- | --- |
 | [`desktop build`](#blowhorn-desktop-build) | Package the Electron desktop app as an ad-hoc-signed universal macOS build. |
-| [`desktop install`](#blowhorn-desktop-install) | Install the Electron desktop app dependencies with pnpm (pnpm install --frozen-lockfile). |
+| [`desktop install`](#blowhorn-desktop-install) | Install the Electron desktop app dependencies with pnpm (pnpm install `--frozen-lockfile`). |
 | [`desktop start`](#blowhorn-desktop-start) | Launch the Electron desktop app through pnpm dev; refuse when one is already running. |
 | [`desktop status`](#blowhorn-desktop-status) | Show whether desktop dependencies and packaged output are present. |
 
@@ -28,8 +28,8 @@ blowhorn desktop build [OPTIONS]
 | --- | --- | --- | --- |
 | `--dir-only` | boolean | `false` | Build the unpacked app directory instead of a distributable |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn desktop': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Accepted by 'blowhorn desktop build' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn desktop`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn desktop build` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -40,11 +40,11 @@ blowhorn desktop build
 blowhorn desktop build --dir-only
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn desktop install
 
-Install the Electron desktop app dependencies with pnpm (pnpm install --frozen-lockfile).
+Install the Electron desktop app dependencies with pnpm (pnpm install `--frozen-lockfile`).
 
 ```text
 blowhorn desktop install [OPTIONS]
@@ -53,8 +53,8 @@ blowhorn desktop install [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn desktop': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Accepted by 'blowhorn desktop install' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn desktop`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn desktop install` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -65,7 +65,7 @@ blowhorn desktop install
 blowhorn desktop install --dry-run
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn desktop start
 
@@ -79,8 +79,8 @@ blowhorn desktop start [OPTIONS]
 | --- | --- | --- | --- |
 | `--wait` | boolean | `false` | Wait for the desktop app process to exit instead of detaching |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn desktop': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Accepted by 'blowhorn desktop start' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn desktop`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn desktop start` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -91,11 +91,11 @@ blowhorn desktop start
 blowhorn desktop start --wait
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn desktop status
 
-Show whether desktop dependencies and packaged output are present. Read-only: it names the package manager an install would start from (a matching pnpm, else corepack unprobed, else npm exec) and runs no corepack download; 'desktop install' is what checks corepack can run the pinned pnpm.
+Show whether desktop dependencies and packaged output are present. Read-only: it names the package manager an install would start from (a matching pnpm, else corepack unprobed, else npm exec) and runs no corepack download; `desktop install` is what checks corepack can run the pinned pnpm.
 
 ```text
 blowhorn desktop status [OPTIONS]
@@ -104,8 +104,8 @@ blowhorn desktop status [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Accepted and ignored by 'blowhorn desktop': this command never acts on a platform, so --platform has no effect here -- including a value inherited from BLOWHORN_PLATFORM or defaults.platform in .blowhorn.yaml |
-| `--pace` | string |  | Accepted by 'blowhorn desktop status' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Accepted and ignored by `blowhorn desktop`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn desktop status` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -116,4 +116,4 @@ blowhorn desktop status
 blowhorn desktop status --json
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.

@@ -1,6 +1,6 @@
 ---
 title: Download
-description: Download Blowhorn for Mac and add the Blowhorn extension to Chrome. One disk image for Apple silicon and Intel Macs.
+description: Download Blowhorn for Mac and add the Blowhorn extension to Chrome. One macOS disk image for Apple silicon and Intel.
 layout: download
 sitemap:
   changefreq: weekly

@@ -43,7 +43,7 @@ unless `--confirm`, `--json` output, and each message sent at most once. Name
 several profiles to send the same reply as each of them, one after another:
 
 ```bash
-blowhorn slack send --profile rian,lee --target "https://acme.slack.com/archives/C0123/p1776000000000100" --file reply.md --slack-auth session --json
+blowhorn slack send --profile rian,alex --target "https://acme.slack.com/archives/C0123/p1776000000000100" --file reply.md --slack-auth session --json
 ```
 
 Each profile gets its own idempotency key, ledger entry and result, and a

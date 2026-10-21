@@ -14,10 +14,8 @@
           <div class="footer-top">
             <div class="footer-brand">
               <a class="footer-logo" href="{{ "" | relURL }}" aria-label="Blowhorn home">
-                <picture>
-                  <source media="(prefers-color-scheme: dark)" srcset="{{ "assets/brand/logo/layer5-blowhorn-lockup-on-dark.svg" | relURL }}">
-                  <img src="{{ "assets/brand/logo/layer5-blowhorn-lockup.svg" | relURL }}" alt="Layer5 Blowhorn" width="220" height="60">
-                </picture>
+                <img class="logo-on-light" src="{{ "assets/brand/logo/layer5-blowhorn-lockup.svg" | relURL }}" alt="Layer5 Blowhorn" width="220" height="60">
+                <img class="logo-on-dark" src="{{ "assets/brand/logo/layer5-blowhorn-lockup-on-dark.svg" | relURL }}" alt="" width="220" height="60">
               </a>
               <p class="footer-tagline">One message out, many ears in.</p>
             </div>
@@ -34,6 +32,9 @@
                 <li><a href="https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf">Chrome extension</a></li>
                 <li><a href="{{ site.Params.github_repo }}/releases">Releases</a></li>
                 <li><a href="{{ $home }}#platforms">Platforms</a></li>
+                {{- with site.Data.integrations.matrix }}
+                <li><a href="{{ (strings.TrimPrefix "/" .path) | relURL }}">{{ .label }}</a></li>
+                {{- end }}
               </ul>
             </div>
             <div class="footer-col">
@@ -44,6 +45,7 @@
                 <li><a href="{{ (site.GetPage "/field-manual").RelPermalink }}">Field Manual</a></li>
                 <li><a href="{{ (site.GetPage "/major").RelPermalink }}">Meet Major</a></li>
                 <li><a href="{{ (site.GetPage "/brand").RelPermalink }}">Brand</a></li>
+                <li><a href="https://tells.blowhorn.ai/">Am I a Bot? Free check</a></li>
               </ul>
             </div>
             <div class="footer-col">

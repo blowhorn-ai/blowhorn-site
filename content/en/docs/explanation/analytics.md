@@ -45,6 +45,6 @@ says so and why, instead of showing a zero.
 ## Related
 
 - [Collect and read your analytics](/docs/how-to/measure/analytics/) - collect now, read the report.
-- [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - the results screen.
+- [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - the Performance screen.
 - [Platforms](/docs/reference/platforms/) - which platforms collect what.
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - dry runs print shapes too.

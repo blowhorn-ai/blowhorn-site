@@ -32,7 +32,7 @@
     {
       "f": "Where it acts",
       "t": "A Chrome extension in your session, or Dux-Soup's cloud on the Cloud tier",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "LinkedIn outreach",

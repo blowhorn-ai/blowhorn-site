@@ -1,10 +1,13 @@
 {{- /* /download/thanks/ (content/en/download/thanks.md): where the download
   button lands. assets/js/download-thanks.js starts the disk image download;
-  "click here" is the same always-latest URL for anyone it missed. The four
+  "click here" is the same URL for anyone it missed. The version is pinned in
+  data/download.json: /releases/latest cannot be used here, it resolves to
+  whichever stable release on this repository was created most recently,
+  including blowhorn-axi's, whose releases carry no disk image. The four
   illustrations are HTML and SVG, decorative (aria-hidden): each step's caption
   carries the meaning. Not indexed and not in the sitemap. */ -}}
 {{ define "main" }}
-    {{- $dmg := "https://github.com/layer5io/blowhorn-site/releases/latest/download/Blowhorn-mac.dmg" }}
+    {{- $dmg := printf "https://github.com/layer5io/blowhorn-site/releases/download/v%s/Blowhorn-mac.dmg" site.Data.download.version }}
     {{- $cws := "https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf" }}
     {{- $icon := "assets/brand/logo/blowhorn-app-icon.svg" | relURL }}
     {{- $cursor := `<svg class="mini-cursor" viewBox="0 0 16 22" aria-hidden="true" focusable="false"><path d="M1.5 1.5v16.2l4.1-3.9 2.6 6.1 3-1.3-2.6-6h5.9z" /></svg>` | safeHTML }}

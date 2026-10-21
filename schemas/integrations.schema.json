@@ -1,0 +1,259 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://blowhorn.ai/schemas/integrations.schema.json",
+  "title": "Integrations catalog and platforms section",
+  "description": "data/integrations.json: homepage platforms-section treatments and the map of networks. Supported name, logo and actions come from data/platforms/<id>.yaml via hugo.Data.platforms. Coming-soon rows keep their own name and logo. Hyphens never em dashes. GitHub must set posts to false.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["headline", "lede", "major", "catalogPath", "matrix", "defaultTreatment", "treatments", "categories", "roles", "platforms"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "headline": {
+      "description": "Platforms section h2. Stronger than the old Say it once line, which is not a hero.",
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 80,
+      "not": { "pattern": "\u2014" }
+    },
+    "lede": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 400,
+      "not": { "pattern": "\u2014" }
+    },
+    "major": { "$ref": "#/definitions/major" },
+    "catalogPath": {
+      "type": "string",
+      "const": "/integrations/"
+    },
+    "matrix": { "$ref": "#/definitions/matrix" },
+    "defaultTreatment": { "$ref": "#/definitions/treatmentId" },
+    "treatments": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/treatment" }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/category" }
+    },
+    "roles": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/definitions/role" }
+    },
+    "platforms": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/platform" }
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 40
+    },
+    "treatmentId": {
+      "type": "string",
+      "enum": ["category", "role", "constellation", "action"]
+    },
+    "copy": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "not": { "pattern": "\u2014" }
+    },
+    "major": {
+      "description": "Signal home Major card. supporting takes one %s, filled with the first supported platform names from data/platforms, in integrations.json order.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["headline", "supporting"],
+      "properties": {
+        "headline": { "$ref": "#/definitions/copy" },
+        "supporting": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[^%]*%s[^%]*$",
+          "not": { "pattern": "\u2014" }
+        }
+      }
+    },
+    "matrix": {
+      "description": "Copy for the action matrix page (path) and the docs all-actions table (docsPath). Rows, columns and cells come from data/actions.json and data/platforms/<id>.yaml; never list actions or platforms here. Status is shown by exception: a listed action is supported and carries no label or check, so exceptions names only coming-soon (an icon on the platform, with this label as its accessible name and tooltip) and none (an empty cell, with this label as screen-reader text), in that order.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "docsPath", "label", "headline", "lede", "cta", "docsCta", "catalogCta", "tally", "exceptions"],
+      "properties": {
+        "path": { "type": "string", "const": "/integrations/actions/" },
+        "docsPath": { "type": "string", "const": "/docs/reference/platforms/actions/" },
+        "label": { "$ref": "#/definitions/copy" },
+        "headline": { "$ref": "#/definitions/copy" },
+        "lede": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240,
+          "not": { "pattern": "\u2014" }
+        },
+        "cta": { "$ref": "#/definitions/copy" },
+        "docsCta": { "$ref": "#/definitions/copy" },
+        "catalogCta": { "$ref": "#/definitions/copy" },
+        "tally": {
+          "description": "Three %d, filled in order with live actions, supported platforms and coming-soon platforms from platform-counts.html.",
+          "type": "string",
+          "maxLength": 160,
+          "pattern": "^[^%]*%d[^%]*%d[^%]*%d[^%]*$",
+          "not": { "pattern": "\\u2014" }
+        },
+        "exceptions": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            { "allOf": [{ "$ref": "#/definitions/matrixStatus" }, { "properties": { "id": { "const": "coming-soon" } } }] },
+            { "allOf": [{ "$ref": "#/definitions/matrixStatus" }, { "properties": { "id": { "const": "none" } } }] }
+          ]
+        }
+      }
+    },
+    "matrixStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label"],
+      "properties": {
+        "id": { "type": "string", "enum": ["coming-soon", "none"] },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 24,
+          "not": { "pattern": "(\u2014|[Ss]upported)" }
+        }
+      }
+    },
+    "treatment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "kind"],
+      "properties": {
+        "id": { "$ref": "#/definitions/treatmentId" },
+        "label": { "$ref": "#/definitions/copy" },
+        "kind": { "$ref": "#/definitions/treatmentId" }
+      }
+    },
+    "category": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "summary", "platforms"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "name": { "$ref": "#/definitions/copy" },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "not": { "pattern": "\u2014" }
+        },
+        "platforms": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/definitions/id" }
+        }
+      }
+    },
+    "role": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "platforms"],
+      "properties": {
+        "id": {
+          "description": "Must match a slug in data/roles.json. Name and page come from that file.",
+          "$ref": "#/definitions/id"
+        },
+        "platforms": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/definitions/id" }
+        }
+      }
+    },
+    "platform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "viaLabel", "posts", "docs"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "name": { "$ref": "#/definitions/copy" },
+        "status": {
+          "type": "string",
+          "enum": ["supported", "coming-soon"]
+        },
+        "viaLabel": { "$ref": "#/definitions/copy" },
+        "posts": {
+          "description": "true when Blowhorn can publish a post or message as you. GitHub is false: reactions on issues only.",
+          "type": "boolean"
+        },
+        "logo": {
+          "type": "string",
+          "pattern": "^assets/platforms/.+"
+        },
+        "docs": {
+          "type": "string",
+          "pattern": "^/docs/reference/platforms/[a-z0-9-]+/$"
+        },
+        "exampleLink": {
+          "type": "string",
+          "maxLength": 80,
+          "not": { "pattern": "\u2014" }
+        },
+        "demoMeta": {
+          "type": "string",
+          "maxLength": 80,
+          "not": { "pattern": "\u2014" }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "id": { "const": "github" } },
+            "required": ["id"]
+          },
+          "then": {
+            "properties": { "posts": { "const": false } },
+            "required": ["posts"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "status": { "const": "supported" } },
+            "required": ["status"]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                { "required": ["name"] },
+                { "required": ["logo"] }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "status": { "const": "coming-soon" } },
+            "required": ["status"]
+          },
+          "then": {
+            "required": ["name", "logo"]
+          }
+        }
+      ]
+    }
+  }
+}

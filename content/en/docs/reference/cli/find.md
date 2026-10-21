@@ -18,7 +18,7 @@ blowhorn find [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--query`, `-q` | string |  | Search query string (Lucene syntax supported) |
-| `--sort` | string |  | Ranking order: 'top' or 'latest' (default: latest) |
+| `--sort` | string |  | Ranking order: `top` or `latest` (default: latest) |
 | `--since` | string |  | Filter posts after date (YYYY-MM-DD) |
 | `--until` | string |  | Filter posts before date (YYYY-MM-DD) |
 | `--author` | string |  | Filter by author handle |
@@ -28,8 +28,8 @@ blowhorn find [OPTIONS]
 | `--url` | string |  | Filter by linked URL |
 | `--tag` | string |  | Filter by hashtag(s), comma-delimited |
 | `--limit` | integer | `25` | Max results (1-100, default 25) |
-| `--platform` | string |  | Platform scope for 'blowhorn find'. One of: bluesky, all ('all' means every platform listed here) |
-| `--pace` | string |  | Pace of the random delays between 'blowhorn find' actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Platform scope for `blowhorn find`. One of: bluesky, all (`all` means every platform listed here) |
+| `--pace` | string |  | Pace of the random delays between `blowhorn find` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 

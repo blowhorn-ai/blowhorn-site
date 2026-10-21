@@ -6,11 +6,11 @@ logo: assets/platforms/github-invertocat-black.svg
 docs: /docs/reference/platforms/github/
 reach: GitHub's API, never the browser
 actions:
-  - name: React
+  - id: react
     behavior: Adds the five upbeat reactions (+1, laugh, hooray, heart, rocket) to an issue or pull request from each of your profiles. Running it again adds none of them twice.
     limits: GitHub doesn't publish posts; it needs an issue or pull request link.
-  - name: Follow
+  - id: follow
     behavior: Follows the accounts you list.
-  - name: Find
+  - id: find
     behavior: Lists the people around a repository, so you can choose whom to reach.
     limits: Lists only; it doesn't follow or react.

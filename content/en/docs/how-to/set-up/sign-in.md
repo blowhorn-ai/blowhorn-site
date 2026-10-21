@@ -19,27 +19,27 @@ token in the macOS Keychain.
 blowhorn auth login
 ```
 
-The command opens Layer5 Cloud in your browser. Sign in there, or create an
+The command opens [Blowhorn](https://cloud.blowhorn.ai) in your browser. Sign in there, or create an
 account with the page's Sign up link (`blowhorn auth login --sign-up` says
-so up front). Layer5 Cloud then asks whether to allow Blowhorn; choose
+so up front). The page then asks you to allow the app; choose
 **Allow**. The browser comes back to Blowhorn and the command:
 
-1. keeps a Blowhorn API token: Layer5 Cloud issues it for this sign-in, and
+1. keeps a Blowhorn API token: Blowhorn issues it for this sign-in, and
    it is separate from your browser session. It is listed, named Blowhorn,
-   among your tokens in Layer5 Cloud, where you can revoke it. The command
+   among your tokens in Blowhorn, where you can revoke it. The command
    keeps it in the macOS Keychain, or elsewhere in a `cloud-token` file only
    you can read, beside `cloud.yaml`, and never prints it. Signing in again
    revokes the token the previous sign-in kept; if that fails, the command
-   says so and you can revoke it in Layer5 Cloud's token list.
+   says so and you can revoke it in Blowhorn's token list.
 2. writes your organization and name to `cloud.yaml`, replacing those of
    whoever signed in before.
 3. reads your plan once. If your account does not include Blowhorn yet, it
-   opens Layer5 Cloud (<https://cloud.blowhorn.ai>) in your browser to start
+   opens [Blowhorn](https://cloud.blowhorn.ai) in your browser to start
    using the Blowhorn beta. There is no form to fill in.
 
 If no answer comes back within five minutes, the command stops; run it
-again. If your browser shows a Layer5 Cloud error page instead of coming
-back, Layer5 Cloud refused the sign-in; if it happens again, send us the
+again. If your browser shows a Blowhorn error page instead of coming
+back, Blowhorn refused the sign-in; if it happens again, send us the
 page's message. `blowhorn auth login --dry-run` prints where it would sign you in and
 opens, waits for and saves nothing.
 
@@ -54,7 +54,7 @@ organization id, and the plan it read. It writes nothing.
 
 A token you export as `BLOWHORN_CLOUD_TOKEN` wins over the saved one.
 
-The saved token is not renewed. When Layer5 Cloud stops accepting it, a
+The saved token is not renewed. When Blowhorn stops accepting it, a
 publishing run asks you to sign in: run `blowhorn auth login` again.
 
 On a Mac, after Python is upgraded or Blowhorn's environment is rebuilt, the
@@ -64,19 +64,19 @@ Keychain asks once whether `python` may use the saved sign-in. Choose
 ## From the app
 
 Open `blowhorn://signin`, the link the Blowhorn Chrome extension's **Sign in**
-offers. The app opens Layer5 Cloud in your browser; sign in there, or create
+offers. The app opens [Blowhorn](https://cloud.blowhorn.ai) in your browser; sign in there, or create
 an account, then choose **Allow**. `blowhorn://signup` starts the same sign-in for a new account
-(see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)). Cloud sends its
-answer to Blowhorn's command line on this Mac (`127.0.0.1`), and the browser
+(see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)). The sign-in sends its
+answer to the command line on this computer (`127.0.0.1`), and the browser
 tab says Blowhorn received it: close the tab and return to the app, which has
 finished the sign-in. The token is kept by Blowhorn's command line, never by
-the app. If the browser stays on a Layer5 Cloud error page instead, Cloud
-refused the sign-in: no answer comes back, and once the wait runs out the app
-tells you you're not signed in. Try again, and if that page comes back, send
-us its message.
+the app. If the browser stays on a Blowhorn error page instead, the sign-in was refused: no answer comes back. In guided setup, **Cancel** on the
+waiting screen stops the wait at once; left alone, the app tells you
+you're not signed in once the wait runs out. Try again, and if that page
+comes back, send us its message.
 
-If your account has no Blowhorn plan yet, the app opens Layer5 Cloud
-(`cloud.blowhorn.ai`) so you can start the beta there.
+If your account has no Blowhorn plan yet, the app opens [Blowhorn](https://cloud.blowhorn.ai)
+so you can start the beta there.
 
 ## Sign out
 
@@ -84,10 +84,10 @@ If your account has no Blowhorn plan yet, the app opens Layer5 Cloud
 blowhorn auth logout
 ```
 
-Signing out revokes the saved Blowhorn API token on Layer5 Cloud, then
+Signing out revokes the saved Blowhorn API token on Blowhorn, then
 removes it, the organization and name in `cloud.yaml`, and the cached plan
-check on this machine. If Layer5 Cloud cannot be reached to revoke it, the
-command says so; revoke it in Layer5 Cloud's token list. If you exported
+check on this computer. If Blowhorn cannot be reached to revoke it, the
+command says so; revoke it in Blowhorn's token list. If you exported
 `BLOWHORN_CLOUD_TOKEN`, unset it in the shell too. Queued posts and profiles
 stay where they are. `blowhorn auth logout --dry-run` lists what it would
 remove and removes nothing.

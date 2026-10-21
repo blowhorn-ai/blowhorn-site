@@ -1,0 +1,12 @@
+{{- /* One /use-cases/<slug>/ page per use case in data/use_cases.json (schema:
+  schemas/use_cases.schema.json). The copy lives in the data file;
+  layouts/use-case.html renders it through the shared cast-page partial. */ -}}
+{{- range site.Data.use_cases.use_cases }}
+  {{- $.AddPage (dict
+      "kind" "page"
+      "path" .slug
+      "title" .title
+      "weight" .weight
+      "params" (dict "slug" .slug "description" .description)
+    ) }}
+{{- end }}

@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://blowhorn.ai/schemas/actions.schema.json",
+  "title": "Action vocabulary",
+  "description": "data/actions.json: one id, display name, group and default description per action, plus the ordered groups that row the action matrix (/integrations/actions/ and the docs all-actions table). Every action group must be a groups[].id and every group must hold an action (check_action_matrix.py --source, run by make check-schemas). data/platforms/<id>.yaml lists which of these a platform supports (id plus optional behavior override and limits). Never hand-list action names in templates. Hyphens never em dashes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["groups", "actions"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "groups": {
+      "description": "Matrix row groups, in display order.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/group" }
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/action" }
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "maxLength": 40
+    },
+    "copy": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "not": { "pattern": "\u2014" }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "summary"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 24,
+          "not": { "pattern": "\u2014" }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "not": { "pattern": "\u2014" }
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "group", "description"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "not": { "pattern": "\u2014" }
+        },
+        "group": {
+          "description": "A groups[].id from this file.",
+          "$ref": "#/definitions/id"
+        },
+        "description": { "$ref": "#/definitions/copy" }
+      }
+    }
+  }
+}

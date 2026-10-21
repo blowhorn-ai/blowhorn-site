@@ -9,32 +9,49 @@ Copy may only state what those differentiators allow, in their wording rules.
 
 ## The rotation
 
-`rotation` lists the ids of the heroes that take turns, in order. Today that is two:
+`rotation` is the config object. `rotation.mode` is `utc-day` (production) or
+`interval`. `rotation.ids` lists the heroes that take turns, in order. Omit `ids`
+to rotate every variant. Variants not listed never rotate, but still render after the
+rotating ones, so `?hero=<id>` reaches them for review (`?hero=<n>` counts rotating heroes only).
 
-1. `not-a-bot`: "Not a bot. You, at full volume." over the hero stage, Major Blowhorn
-   barking into your own Chrome while the post types itself.
-2. `one-message`: "One message. Many ears." over the one-to-many fan.
+Production rotates these five, one per UTC day (the AI hybrid messaging, Yi, 2026-10-20):
 
-The other variants stay in the file, out of rotation, until they are added to the list.
-Leave `rotation` out to rotate every variant.
+1. `plug-in-ai`: "Automate your social voice. Plug in AI anytime."
+2. `scripted-ai-ready`: "Scripted where it counts. AI where it helps." Default and fallback (Yi, 2026-10-20).
+3. `same-rules`: "You post. Your agent posts. Same rules."
+4. `ai-optional`: "Your voice, automated. AI optional, never in charge."
+5. `human-or-ai`: "One queue. Every profile. Human or AI."
 
-At page load each visitor gets
+The earlier five (`not-a-bot`, `real-you`, `your-fleet`, `sound-wave`,
+`own-your-voice`) stay in the file outside the rotation, so their `?hero=` links
+still work.
+
+Each variant may set `cta` (`label` and `href`, a site path or an on-page
+anchor): its secondary button beside Download. Without it the button reads
+"See how it works" and goes to `#how`. A path that is not a page fails the build.
+
+The platforms section headline lives in `data/integrations.json` (`headline`).
+It is not a hero. The old line "Say it once. Say it everywhere." stays on the
+Reveille homepage only.
+
+At page load each visitor gets one of
 
 ```
-rotation[floor(now / interval) % rotation.length]
+rotation.ids[floor(UTC days since the epoch) % length]   # mode: utc-day
+rotation.ids[floor(now / intervalSeconds) % length]      # mode: interval
 ```
 
-where `now` is the browser's clock in milliseconds since the epoch and `interval` is
-`params.hero_rotation.interval_seconds` in [`hugo.toml`](../hugo.toml) (60 seconds by
-default, so the switch is easy to see; raise it to 86400 for a daily turn). Every visitor
-sees the same hero in the same interval. The pick happens once: the hero never changes
-while someone is reading the page.
+`utc-day` is whole UTC days since the Unix epoch, so every visitor sees the same
+hero on the same day and the turn happens at 00:00 UTC. `interval` needs
+`rotation.intervalSeconds` (a positive integer). The pick happens once: the hero
+never changes while someone is reading the page.
 
 ## How it renders
 
 - [`layouts/_partials/hero-rotation.html`](../layouts/_partials/hero-rotation.html) reads
-  the data and the interval and fails the build if `rotation` names an unknown variant,
-  if `default` is not in `rotation`, or if the interval is not above 0.
+  the data file and fails the build if `rotation.ids` names an unknown variant
+  or if `default` is not in the rotating ids. Mode and `intervalSeconds` are
+  schema-checked (`make check-schemas`).
 - [`layouts/home.html`](../layouts/home.html) renders the hero once: one `h1` and one
   subhead holding a `<span data-hero-only="<id>">` per rotating hero, the shared label,
   buttons and social proof, and one figure per art used by the rotation, each from its own
@@ -57,19 +74,68 @@ while someone is reading the page.
 - Each art keeps its own motion and `prefers-reduced-motion` rules. Switching heroes adds
   no transition.
 
+## Hero media
+
+The hero visual comes from `media` in `data/hero.json`
+(schema: `schemas/hero.schema.json`). `media.default` names it for every
+hero: `video` (the hero film) or `demo` (the interactive pseudo-app demo
+from `data/hero_demo.json`). A hero can set its own `"media": "demo"` or
+`"media": "video"` to override it, and `?hero=<id>` picks the hero and so
+its media. The pre-paint picker sets `data-hero-media` on `<html>` and only
+the matching `[data-hero-media-only]` visual shows; no-JS visitors get the
+default hero's.
+
+`media.video` holds the film: `mp4` (H.264, faststart) and `webm` (VP9) under
+`static/assets/video/`, a `poster`, its `width` and `height`, and an
+accessible `label` and `description`. Captions are burned into the picture.
+The default is the Battalion Thunder film (source:
+blowhorn `marketing/videos/blowhorn-battalion-thunder`), 1080p,
+about 2.1 MB MP4 and 2.2 MB WebM.
+
+`media.video.placement` is `inline-expand` (the only placement): the film
+sits small in the hero beside the headline, subhead and calls to action
+(below them on phones), on its poster with a Play the film button.
+`?hero=<id>` still swaps the copy. `assets/js/hero-video.js` then:
+
+- grows the frame in one FLIP motion from its spot to 90% of the window
+  width (all of it at 640 px and under), centered and fitted to the window
+  height, as a modal dialog (`role="dialog"`, `aria-modal`) over a dimmed
+  backdrop, and plays it once it has grown;
+- traps focus in the dialog (Sound, Pause, Close) and locks page scroll;
+- closes on Escape, a backdrop click or Close: it pauses the film, shrinks
+  it back to exactly its spot and returns focus to the Play button (now
+  Resume the film).
+
+Under `prefers-reduced-motion: reduce` it opens and closes without the
+motion. Without JavaScript the native video controls show inline.
+
+`media.video.playback` (schema-checked): `autoplay` is always `false`;
+`loop` replays it from the start; `sound` starts it with sound on Play (the
+click is the user gesture browsers need for audio); `end` is `poster` or
+`last-frame` when it ends without looping, with a Watch again button in
+the dialog. Production is no loop, sound on, `end: poster`.
+
+To re-encode after a new render:
+
+```sh
+ffmpeg -i film.mp4 -c:v libx264 -profile:v high -crf 25 -tune animation -preset slow -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 64k -ac 1 static/assets/video/battalion-thunder.mp4
+ffmpeg -i film.mp4 -c:v libvpx-vp9 -crf 38 -b:v 0 -row-mt 1 -c:a libopus -b:a 48k -ac 1 static/assets/video/battalion-thunder.webm
+ffmpeg -ss 12.2 -i film.mp4 -frames:v 1 -q:v 3 static/assets/video/battalion-thunder-poster.jpg
+```
+
 ## Adding a hero
 
 1. Add the variant to `variants` (with `art` if it is not the stage).
-2. Add its id to `rotation`.
+2. Add its id to `rotation.ids`.
 3. For a new illustration, add `layouts/_partials/hero-art/<art>.html` (a `figure` with
    `class="hero-art"` and `data-hero-art-only="<art>"`, every id in it unique on the
    page) and add `<art>` to the `art` enum in the schema.
 
 ## Review URLs
 
-`?hero=<n>` (1-based position in `rotation`) or `?hero=<id>` (any id in `rotation`)
-forces a hero, for example `https://blowhorn.ai/?hero=2` or
-`http://localhost:1313/?hero=one-message` on a local `make site`. Anything else is
+`?hero=<n>` (1-based position in `rotation.ids`) or `?hero=<id>` (any id in
+`rotation.ids`) forces a hero, for example `https://blowhorn.ai/?hero=2` or
+`http://localhost:1313/?hero=real-you` on a local `make site`. Anything else is
 ignored and the time rule applies.
 
 No analytics or third-party script may be added to measure heroes (`check-third-party`).

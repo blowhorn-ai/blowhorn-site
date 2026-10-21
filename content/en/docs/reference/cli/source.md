@@ -9,7 +9,7 @@ weight: 118
 
 ## blowhorn source
 
-GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login. A GitHub run lists the audience with the profile's stored GH_TOKEN. --dry-run lists that audience and writes nothing. Addresses are not printed. It does not follow, connect, or send mail.
+GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login. A GitHub run lists the audience with the profile's stored `GH_TOKEN`. `--dry-run` lists that audience and writes nothing. Addresses are not printed. It does not follow, connect, or send mail.
 
 ```text
 blowhorn source [OPTIONS]
@@ -20,16 +20,16 @@ blowhorn source [OPTIONS]
 | `--repo` | string, repeatable |  | GitHub only, repeatable: a repository as owner/name. At least one is required |
 | `--audience` | string |  | GitHub only: which people to list (default stargazers). One of owner, contributors, forks, stargazers, watchers, subscribers, issues; all is their union and applies only when you type it |
 | `--limit` | integer |  | Maximum people examined in the run (default: no limit) |
-| `--platform` | string |  | Platform scope for 'blowhorn source'. One of: github (any other platform, including 'all', is rejected) |
-| `--pace` | string |  | Pace of the random delays between 'blowhorn source' actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Platform scope for `blowhorn source`. One of: github (any other platform, including `all`, is rejected) |
+| `--pace` | string |  | Pace of the random delays between `blowhorn source` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
 Examples:
 
 ```bash
-blowhorn source --platform github --profile lee --repo layer5io/meshery --audience stargazers --dry-run
-blowhorn source --platform github --profile lee --repo layer5io/meshery --repo meshery/meshery --audience contributors --limit 100 --dry-run
+blowhorn source --platform github --profile alex --repo acme/widgets --audience stargazers --dry-run
+blowhorn source --platform github --profile alex --repo acme/widgets --repo meshery/meshery --audience contributors --limit 100 --dry-run
 ```
 
 Output: text.

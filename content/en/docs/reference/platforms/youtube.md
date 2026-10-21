@@ -11,8 +11,7 @@ it can do there.
 
 ## Supported actions
 
-None yet. YouTube is coming soon, so `blowhorn post` doesn't support
-it today. See [All platforms](/docs/reference/platforms/) for the platforms you can use now.
+{{< supported-actions "youtube" >}}
 
 ## Related
 

@@ -7,13 +7,13 @@ weight: 229
 
 Blowhorn works on Slack through Slack's API, never the browser, and sends as you. It uses a Slack token in your account (`SLACK_USER_TOKEN` or `SLACK_BOT_TOKEN`) or your Slack session, linked through the Blowhorn extension.
 
-## Supported actions
-
-{{< supported-actions "slack" >}}
-
 Sends a message as you to a channel, a person, or a thread. One
 profile sends. `blowhorn post --platform slack --message` sends one
 ad-hoc message with no queue row.
+
+## Supported actions
+
+{{< supported-actions "slack" >}}
 
 ## Slack messages
 
@@ -24,7 +24,7 @@ is a `#channel`, `@user`, channel id, channel link, or message link for
 a thread reply; anything else is refused, never sent somewhere else.
 One profile sends a `post` run, named with `--profile`; the profile from
 the defaults file does not count as named. `blowhorn slack send` can send
-as several profiles (`--profile rian,lee`); see the [CLI reference](/docs/reference/cli/).
+as several profiles (`--profile rian,alex`); see the [CLI reference](/docs/reference/cli/).
 
 ## From the command line
 

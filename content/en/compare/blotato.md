@@ -13,7 +13,7 @@
   "verdict": "Blotato is an AI content engine with a hosted MCP that publishes to 9 networks through official APIs. Blowhorn is for real-person amplification on developer networks, driven by your agent through a CLI.",
   "them": [
     "You generate AI media and video at volume",
-    "You build in n8n or Make and want a hosted MCP",
+    "You build in n8n or Make",
     "Instagram, TikTok, YouTube and Facebook are core"
   ],
   "us": [
@@ -32,7 +32,7 @@
     {
       "f": "Where it acts",
       "t": "Blotato's cloud, through official APIs",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "AI media generation",
@@ -52,7 +52,7 @@
     {
       "f": "AI agents",
       "t": "Hosted MCP, REST API, n8n and Make",
-      "b": "Full CLI: --help with examples, --json, --dry-run on writes. Your agent drives, you hold pause"
+      "b": "MCP server, REST API, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause"
     },
     {
       "f": "Bought engagement",

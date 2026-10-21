@@ -30,7 +30,7 @@
     "name": "Jason Fish",
     "role": "Marketing Manager",
     "company": "QuikTrip",
-    "quote": "Speed matters in our world. I can draft a post in the morning and have it live across every store-region profile before lunch — with a dry run first, so nothing goes out half-baked.",
+    "quote": "Speed matters in our world. I can draft a post in the morning and have it live across every store-region profile before lunch, with a dry run first, so nothing goes out half-baked.",
     "placeholder": false,
     "picture": "/assets/testimonials/jason-fish.jpeg",
     "placements": [
@@ -56,7 +56,7 @@
     "name": "Lovely Villamor",
     "role": "Content Creator",
     "company": "VaynerMedia",
-    "quote": "My old outreach tool wanted my LinkedIn password. With Blowhorn my logins stay in my own Chrome on my own Mac.",
+    "quote": "My old outreach tool wanted my LinkedIn password. With Blowhorn my logins stay in my own Chrome on my own computer.",
     "placeholder": false,
     "picture": "/assets/testimonials/lovely-villamor.jpeg",
     "placements": [
@@ -69,7 +69,7 @@
     "name": "Dylan Wiley",
     "role": "Developer Relations",
     "company": "Roblox",
-    "quote": "DevRel is half announcements. I write the update once and Blowhorn puts it everywhere our developers actually are — same message, every channel, no copy-paste drift.",
+    "quote": "DevRel is half announcements. I write the update once and Blowhorn puts it everywhere our developers actually are: same message, every channel, no copy-paste drift.",
     "placeholder": false,
     "picture": "/assets/testimonials/dylan-wiley.jpeg",
     "placements": [

@@ -7,15 +7,15 @@ weight: 230
 
 Blowhorn works on Bluesky through Bluesky's API, never the browser. It uses `BLUESKY_HANDLE` with `BLUESKY_APP_PASSWORD`: an app password, not your main password.
 
-## Supported actions
-
-{{< supported-actions "bluesky" >}}
-
 Posts up to 300 characters per post; longer messages split into
 threads. Reposts for amplify rows. Follows with `blowhorn follow`,
 unfollows one account with `blowhorn unfollow`, searches posts with
 `blowhorn find`. Analytics appends a follower and following trend row
 per run.
+
+## Supported actions
+
+{{< supported-actions "bluesky" >}}
 
 ## Related
 

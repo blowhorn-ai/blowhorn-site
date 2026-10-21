@@ -1,0 +1,35 @@
+{{- /* Maps kind (role | use-case) to the data file, collection and labels.
+  Call with dict "kind" and optional "name" (the item name, so the gets
+  title can be filled in). */ -}}
+{{- $kind := .kind -}}
+{{- $out := dict -}}
+{{- if eq $kind "role" -}}
+  {{- $getsTitle := "" -}}
+  {{- if .name -}}
+    {{- $getsTitle = printf "What Blowhorn does for %s" .name -}}
+  {{- end -}}
+  {{- $out = dict
+    "kind" "role"
+    "kindName" "role"
+    "file" "data/roles.json"
+    "collection" site.Data.roles.roles
+    "labelPrefix" "For "
+    "titleId" "role-title"
+    "moreTitle" "Blowhorn for other roles"
+    "getsTitle" $getsTitle
+  -}}
+{{- else if eq $kind "use-case" -}}
+  {{- $out = dict
+    "kind" "use-case"
+    "kindName" "use case"
+    "file" "data/use_cases.json"
+    "collection" site.Data.use_cases.use_cases
+    "labelPrefix" ""
+    "titleId" "use-case-title"
+    "moreTitle" "Other use cases"
+    "getsTitle" "How Blowhorn runs it"
+  -}}
+{{- else -}}
+  {{ errorf "unknown kind %q" $kind }}
+{{- end -}}
+{{- return $out -}}

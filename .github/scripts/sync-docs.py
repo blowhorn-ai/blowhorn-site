@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Copy the Blowhorn product docs into the site's Docsy section.
 
-The user docs live in the private leecalcote/blowhorn repository under
+The user docs live in the private blowhorn repository under
 docs/{tutorials,how-to,reference,explanation} and docs/README.md. This
 script mirrors them into the site's content/en/docs/ so the normal site
 checks (make site-check) hold the synced pages to the same contract as
@@ -49,7 +49,7 @@ directories are pruned.
 
 Usage: sync-docs.py SOURCE_DIR DOCS_DIR --ref REF
 
-  SOURCE_DIR  root of a leecalcote/blowhorn checkout (reads SOURCE_DIR/docs)
+  SOURCE_DIR  root of a blowhorn checkout (reads SOURCE_DIR/docs)
   DOCS_DIR    site directory the pages sync into (content/en/docs)
   --ref       tag, branch or SHA of the product repo being synced; recorded
               in the report only
@@ -87,7 +87,7 @@ def read_internal_paths(product_root, product_docs):
     is stripped so they compare against docs-relative paths.
     """
     excluded = set(ALWAYS_EXCLUDED)
-    # The product moved the list to release/ (leecalcote/blowhorn #636); a
+    # The product moved the list to release/ (blowhorn #636); a
     # missed home means no exclusion at all, so every known home is tried.
     for candidate in (product_root / "release" / "internal-paths.txt",
                       product_docs / "internal-paths.txt",
@@ -399,7 +399,7 @@ def sync(source_dir, docs_dir, ref):
     product_docs = source_dir / "docs"
     if not product_docs.is_dir():
         print(f"sync-docs: {product_docs} is not a directory: "
-              "SOURCE_DIR must be the root of a leecalcote/blowhorn checkout",
+              "SOURCE_DIR must be the root of a blowhorn checkout",
               file=sys.stderr)
         return 2
     excluded = read_internal_paths(source_dir, product_docs)

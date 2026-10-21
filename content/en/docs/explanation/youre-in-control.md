@@ -29,7 +29,7 @@ Here is how that is enforced today:
 
 - **One profile, one platform, one process.** Before a run opens a
   LinkedIn, X, Reddit or Hacker News session for a profile, it takes a
-  lock on that profile and platform on this machine. A second run that wants
+  lock on that profile and platform on this computer. A second run that wants
   the same profile on the same platform is refused with "profile ... is
   in use by another blowhorn process; wait for it to finish or stop it",
   and its rows stay in the queue for the next pass. The lock is the same
@@ -70,6 +70,10 @@ stop instead of guessing:
 Read more in [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/)
 and [Why flagged invitations are skipped](/docs/explanation/invitation-safety/).
 
+Curious what sites can see about your browser? Run the free check at
+[Blowhorn Tells](https://tells.blowhorn.ai/). It shows what a page can read,
+not what a platform will decide.
+
 <!-- Video placeholder: "Will I get banned?" Typing at slow and normal pace side by side, a rate cap stopping a run, and a CAPTCHA left for the user. -->
 
 ## Will it post something I didn't mean to?
@@ -82,7 +86,7 @@ and [Why flagged invitations are skipped](/docs/explanation/invitation-safety/).
 - **Rehearse first.** `--check-queue` lists what a run would do, and
   `--dry-run` walks it end to end without publishing, following or
   writing anything. Make dry run your default until you trust a setup.
-- **Stop it any time.** Pause this Mac, every machine in your organization,
+- **Stop it any time.** Pause this computer, every computer in your organization,
   or one scheduled job, each with a reason. A job already running
   finishes first, because killing a browser mid-post can leave a
   half-done action on the platform.
@@ -93,8 +97,8 @@ and [Why flagged invitations are skipped](/docs/explanation/invitation-safety/).
 - **"Clicked, outcome not read" is not a retry.** When Blowhorn clicked
   but could not read a confirmation, the row is recorded as clicked and
   held for you. It is neither sent again nor marked done.
-- **One machine per job.** Every machine sharing your organization's queue claims
-  a scheduled job before it runs it, under a lease, so two machines can't
+- **One computer per job.** Every computer sharing your organization's queue claims
+  a scheduled job before it runs it, under a lease, so two computers can't
   run the same job at once.
 - **Done is recorded per profile.** `Date Promoted` records when each
   profile published a row, so the next run skips it.
@@ -132,7 +136,7 @@ explicit `--ignore-pause` on a single run.
 | Dry run | Walks a run without publishing, following or writing | `--dry-run` on every action command; `defaults.dry_run`; Settings in the app | [Configuration](/docs/reference/configuration/), [`blowhorn post`](/docs/reference/post/) |
 | Check the queue | Lists what a run would do, opening nothing | `blowhorn post --check-queue` | [`blowhorn post`](/docs/reference/post/) |
 | Approval gate | Only approved rows are published | The `Approved?` column of each content row | [Content queue](/docs/reference/content-queue/) |
-| Pause | Stops new claims on this machine, every machine, or one scheduled job | `blowhorn schedule pause`, with `--all` or `--row`; the pause controls in the app's popover and console | [Pause and resume posting](/docs/how-to/schedule/pause/) |
+| Pause | Stops new claims on this computer, every computer, or one scheduled job | `blowhorn schedule pause`, with `--all` or `--row`; the pause controls in the app's popover and console | [Pause and resume posting](/docs/how-to/schedule/pause/) |
 | Stop the current pass | Ends the background service's pass at its next safe point; the row in progress returns to the queue | `blowhorn service cancel` | [CLI reference](/docs/reference/cli/) |
 | Pace | How fast Blowhorn types and how long it pauses between actions | `--pace fast`, `normal`, `slow` or a number; `defaults.pace`; Settings in the app | [Change your defaults](/docs/how-to/settings/defaults/) |
 | Pointer movement | Turns the pointer movement before clicks on or off | `defaults.no_mouse_move`; Settings in the app | [Configuration](/docs/reference/configuration/) |
@@ -140,9 +144,9 @@ explicit `--ignore-pause` on a single run.
 | Excluded profiles | Leaves profiles out of `--profile all` | `--exclude`; `defaults.exclude`; Settings in the app | [Change your defaults](/docs/how-to/settings/defaults/) |
 | Rate caps | 2 Hacker News submissions per profile per day; 400 X follows per profile a day and 15 per 15 minutes | Built in | [Platforms](/docs/reference/platforms/) |
 | No blind retries | Within a run, Blowhorn doesn't retry a failed post; it moves on to the next item. If a post goes out but Blowhorn can't record it, it stops that profile's queue rather than risk posting twice. Scheduled jobs only re-run a failure if you turn on retries, and they're off by default. | Built in; scheduled-job retries are opt-in | [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/) |
-| One automation per platform per profile | A second run for the same profile and platform on this machine is refused | Built in | [Chrome reference](/docs/reference/chrome/) |
+| One automation per platform per profile | A second run for the same profile and platform on this computer is refused | Built in | [Chrome reference](/docs/reference/chrome/) |
 | One send per action | The send control is clicked once; an unread outcome is held for you | Built in | [How Blowhorn avoids repeat posts](/docs/explanation/never-twice/) |
-| One machine per job | A scheduled job is claimed by one machine at a time | Built in, through your account | [How scheduling works](/docs/explanation/scheduling/) |
+| One computer per job | A scheduled job is claimed by one computer at a time | Built in, through your account | [How scheduling works](/docs/explanation/scheduling/) |
 | CAPTCHA and 2FA | Left for you; never solved | Built in | [Fix sign-in problems](/docs/how-to/troubleshoot/sign-in-problems/) |
 
 ## Your Risk Profile
@@ -153,7 +157,7 @@ cautious, standard (the default) or brisk. It covers caps, spacing
 between actions, quiet hours, outreach, the pause after a sign-in
 challenge and, unless you set the pace yourself, the pace. Pick
 cautious for a new account or an unattended run, and brisk for an
-established one you are watching. A new profile or a new machine runs
+established one you are watching. A new profile or a new computer runs
 cautious until it has some history, whatever you chose.
 
 Choose it in the app under Settings; for one profile or one platform,

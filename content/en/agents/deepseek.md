@@ -1,6 +1,7 @@
 {
   "tool": "DeepSeek",
   "mark": "DS",
+  "logo": "deepseek",
   "weight": 60,
   "description": "Run Blowhorn from a DeepSeek-powered agent harness: the same CLI, the same JSON, whichever terminal agent you point at DeepSeek.",
   "lead": "DeepSeek is a model, and the harness around it decides how it runs commands. Blowhorn fits any harness with a shell tool.",
@@ -41,7 +42,7 @@
     },
     {
       "q": "Where does my data live?",
-      "a": "Your queue, schedule and results stay in sync in your account; the posting happens on your machines."
+      "a": "Your queue, schedule and results stay in sync in your account; the posting happens on your computers."
     },
     {
       "q": "Does my agent see my social passwords?",

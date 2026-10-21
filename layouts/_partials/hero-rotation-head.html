@@ -1,11 +1,13 @@
 {{- /* Picks the home page hero before first paint. Put in the page's "head" block.
   The CSS hides every hero's copy ([data-hero-only]) and art ([data-hero-art-only])
-  except the one named on <html data-hero data-hero-art>; with no JavaScript those
+  and Signal hero visual ([data-hero-media-only]) except the one named on
+  <html data-hero data-hero-art data-hero-media>; with no JavaScript those
   attributes are never set and the default variant shows. The script sets them:
   ?hero=<n> (1-based) or ?hero=<id> forces a hero, for review; otherwise
-  floor(now / interval) modulo the number of heroes, so every visitor sees the
-  same hero in the same interval. It runs once, at load: the hero never changes
-  under a reader. See docs/hero-variants.md. */ -}}
+  utc-day uses floor(UTC days since the epoch) modulo the number of heroes, and
+  interval uses floor(now / intervalSeconds). Config comes from data/hero.json
+  via hero-rotation.html. It runs once, at load: the hero never changes under
+  a reader. See docs/hero-variants.md. */ -}}
 {{- $rot := partial "hero-rotation.html" . -}}
 {{- $defaultArt := "stage" -}}
 {{- range $rot.heroes }}{{ if eq .id $rot.default }}{{ $defaultArt = .art }}{{ end }}{{ end -}}
@@ -13,17 +15,24 @@
 {{- range $rot.heroes }}{{ $copy = $copy | append (printf `html[data-hero="%s"] [data-hero-only="%s"]` .id .id) }}{{ end -}}
 {{- $art := slice (printf `html:not([data-hero]) [data-hero-art-only="%s"]` $defaultArt) -}}
 {{- range $rot.arts }}{{ $art = $art | append (printf `html[data-hero-art="%s"] [data-hero-art-only="%s"]` . .) }}{{ end -}}
+{{- $media := slice (printf `html:not([data-hero]) [data-hero-media-only="%s"]` $rot.defaultMedia) -}}
+{{- range $rot.medias }}{{ $media = $media | append (printf `html[data-hero-media="%s"] [data-hero-media-only="%s"]` . .) }}{{ end -}}
 {{- $picks := slice -}}
-{{- range $rot.heroes }}{{ $picks = $picks | append (dict "id" .id "art" .art) }}{{ end }}
-    <style>{{ printf `[data-hero-only], [data-hero-art-only] { display: none; } %s { display: revert; } %s { display: revert; }` (delimit $copy ", ") (delimit $art ", ") | safeCSS }}</style>
+{{- range $rot.heroes }}{{ $picks = $picks | append (dict "id" .id "art" .art "media" .media) }}{{ end }}
+    <style>{{ printf `[data-hero-only], [data-hero-art-only], [data-hero-media-only] { display: none; } %s { display: revert; } %s { display: revert; } %s { display: revert; }` (delimit $copy ", ") (delimit $art ", ") (delimit $media ", ") | safeCSS }}</style>
     <script>
       (function () {
-        var heroes = {{ $picks | jsonify | safeJS }}, ms = {{ $rot.intervalMs }}, i = -1, q = null, k;
+        var heroes = {{ $picks | jsonify | safeJS }}, n = {{ $rot.rotating }}, mode = {{ $rot.mode | jsonify | safeJS }}, seconds = {{ $rot.intervalSeconds }}, i = -1, q = null, k;
         try { q = new URLSearchParams(window.location.search).get('hero'); } catch (e) {}
-        if (q && /^[0-9]+$/.test(q)) { i = parseInt(q, 10) - 1; }
+        if (q && /^[0-9]+$/.test(q)) { i = parseInt(q, 10) - 1; if (i >= n) { i = -1; } }
         else if (q) { for (k = 0; k < heroes.length; k++) { if (heroes[k].id === q) { i = k; } } }
-        if (!(i >= 0 && i < heroes.length)) { i = Math.floor(Date.now() / ms) % heroes.length; }
+        if (!(i >= 0 && i < heroes.length)) {
+          i = mode === 'interval'
+            ? Math.floor(Date.now() / (seconds * 1000)) % n
+            : Math.floor(Date.now() / 86400000) % n;
+        }
         document.documentElement.setAttribute('data-hero', heroes[i].id);
         document.documentElement.setAttribute('data-hero-art', heroes[i].art);
+        document.documentElement.setAttribute('data-hero-media', heroes[i].media);
       })();
     </script>

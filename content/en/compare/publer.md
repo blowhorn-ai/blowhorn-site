@@ -14,7 +14,7 @@
   "them": [
     "You want budget-friendly scheduling across many networks, including Telegram and WordPress",
     "Bulk scheduling, recycling and RSS automation save you hours",
-    "You need an API or MCP for a publishing pipeline"
+    "You need a cloud publishing pipeline across many networks"
   ],
   "us": [
     "One post should be lifted by many real profiles, not recycled",
@@ -27,7 +27,7 @@
     {
       "f": "Where it acts",
       "t": "Publer's cloud",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Networks",
@@ -52,7 +52,7 @@
     {
       "f": "AI agents",
       "t": "API and MCP on higher plans",
-      "b": "Full CLI: --help with examples, --json, --dry-run on writes. Your agent drives, you hold pause"
+      "b": "MCP server, REST API, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause"
     },
     {
       "f": "Bought engagement",

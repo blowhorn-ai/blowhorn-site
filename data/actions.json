@@ -1,0 +1,93 @@
+{
+  "$schema": "../schemas/actions.schema.json",
+  "groups": [
+    {
+      "id": "broadcast",
+      "name": "Broadcast",
+      "summary": "Put your words on the wire."
+    },
+    {
+      "id": "rally",
+      "name": "Rally",
+      "summary": "Bring every profile in behind a post."
+    },
+    {
+      "id": "ranks",
+      "name": "Ranks",
+      "summary": "Grow the ranks and keep them in order."
+    },
+    {
+      "id": "recon",
+      "name": "Recon",
+      "summary": "Scout the ground and read the results."
+    }
+  ],
+  "actions": [
+    {
+      "id": "post",
+      "name": "Post",
+      "group": "broadcast",
+      "description": "Publish a message as you."
+    },
+    {
+      "id": "comment",
+      "name": "Comment",
+      "group": "broadcast",
+      "description": "Comment on an existing post."
+    },
+    {
+      "id": "reply",
+      "name": "Reply",
+      "group": "broadcast",
+      "description": "Reply in a conversation or thread."
+    },
+    {
+      "id": "amplify",
+      "name": "Amplify",
+      "group": "rally",
+      "description": "Repost, retweet, quote, or upvote existing content from each of your profiles."
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "group": "rally",
+      "description": "Add reactions to an issue or pull request."
+    },
+    {
+      "id": "follow",
+      "name": "Follow",
+      "group": "ranks",
+      "description": "Follow the accounts you list."
+    },
+    {
+      "id": "unfollow",
+      "name": "Unfollow",
+      "group": "ranks",
+      "description": "Unfollow an account."
+    },
+    {
+      "id": "accept",
+      "name": "Accept",
+      "group": "ranks",
+      "description": "Accept inbound invitations."
+    },
+    {
+      "id": "withdraw",
+      "name": "Withdraw",
+      "group": "ranks",
+      "description": "Withdraw invitations you sent that have waited long enough."
+    },
+    {
+      "id": "find",
+      "name": "Find",
+      "group": "recon",
+      "description": "Search posts or list people so you can choose whom to reach."
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics",
+      "group": "recon",
+      "description": "Record reach figures so you can watch the trend."
+    }
+  ]
+}

@@ -13,7 +13,7 @@ name: Cloud auth smoke
 #             verification. Weekly or on request: each run leaves one
 #             unverified account behind.
 #   default - the CLI's default Cloud is cloud_url (an error from the first
-#             release after 1.24.0, which still defaults to cloud.layer5.io)
+#             release after 1.24.0, which still defaults to cloud.blowhorn.ai)
 #
 # Secrets: BLOWHORN_SMOKE_EMAIL, BLOWHORN_SMOKE_PASSWORD (the test account).
 # Run: gh workflow run cloud-auth-smoke.yml -R layer5io/blowhorn-site [-f register=true]

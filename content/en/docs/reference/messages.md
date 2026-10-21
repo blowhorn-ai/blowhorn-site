@@ -45,7 +45,7 @@ short; prefer the extension default.
 `extension_outdated` with two versions: the installed extension is older
 than the run needs. Reload or update the extension and run again.
 
-A profile with no Chrome mapping on this machine, a mapped directory
+A profile with no Chrome mapping on this computer, a mapped directory
 Chrome no longer has, or an identity that drifted since binding is
 refused by name before anything opens, with the command that re-maps
 it. There is never a fallback to another profile.

@@ -17,7 +17,7 @@
     "You already pay for Claude and want to stay in one tool"
   ],
   "us": [
-    "You want a queue, a schedule, many profiles and many machines",
+    "You want a queue, a schedule, many profiles and many computers",
     "Actions should be scripted and rehearsed with --dry-run, not decided click by click",
     "You want your agent to drive Blowhorn instead of driving the browser itself"
   ],
@@ -32,7 +32,7 @@
     {
       "f": "Where it acts",
       "t": "Your Chrome and your logins",
-      "b": "Your machines, in your own signed-in Chrome or platform APIs"
+      "b": "Your computers, in your own signed-in Chrome or platform APIs"
     },
     {
       "f": "Queue, schedule, profiles",
@@ -40,9 +40,9 @@
       "b": "Yes"
     },
     {
-      "f": "Many machines on one queue",
+      "f": "Many computers on one queue",
       "t": "No",
-      "b": "Unlimited machines on one queue, coordinated so the same post isn't sent from two machines"
+      "b": "Unlimited computers on one queue, coordinated so the same post isn't sent from two computers"
     },
     {
       "f": "Amplify one post",

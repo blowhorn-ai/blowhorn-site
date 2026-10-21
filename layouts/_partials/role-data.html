@@ -1,6 +1,11 @@
-{{- /* The data/roles.json entry for a /for/<slug>/ page (its "role" param).
-  Fails the build when the page names no role. */ -}}
-{{- $slug := .Params.role -}}
-{{- $match := where site.Data.roles.roles "slug" $slug -}}
-{{- if not $match }}{{ errorf "data/roles.json: no role %q for %s" $slug .Path }}{{ end -}}
+{{- /* The data entry for a /for/<slug>/ or /use-cases/<slug>/ page.
+  Call with dict "page" and "kind" (role | use-case). Kind selects the
+  collection through cast-kind.html; the page's params.slug is the entry. */ -}}
+{{- $kind := .kind -}}
+{{- $page := .page -}}
+{{- $meta := partial "cast-kind.html" (dict "kind" $kind) -}}
+{{- $slug := $page.Params.slug -}}
+{{- if not $slug }}{{ errorf "no slug param for %s" $page.Path }}{{ end -}}
+{{- $match := where $meta.collection "slug" $slug -}}
+{{- if not $match }}{{ errorf "%s: no %s %q for %s" $meta.file $meta.kindName $slug $page.Path }}{{ end -}}
 {{- return index $match 0 -}}

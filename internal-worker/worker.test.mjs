@@ -1,0 +1,77 @@
+// node --test internal-worker/worker.test.mjs (make test-internal-worker): the Access token check fails closed.
+import { test, beforeEach } from 'node:test';
+import assert from 'node:assert/strict';
+import { generateKeyPairSync, createSign } from 'node:crypto';
+import { handle, resetCertsCache } from './src/worker.js';
+
+const TEAM_HOST = 'example-team.cloudflareaccess.com';
+const TEAM = `https://${TEAM_HOST}`;
+const AUD = 'test-aud';
+const { privateKey, publicKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
+const jwk = { ...publicKey.export({ format: 'jwk' }), kid: 'k1', alg: 'RS256' };
+const other = generateKeyPairSync('rsa', { modulusLength: 2048 }).privateKey;
+
+const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
+function sign(claims, key = privateKey, kid = 'k1') {
+  const head = b64({ alg: 'RS256', kid, typ: 'JWT' });
+  const body = b64(claims);
+  const s = createSign('RSA-SHA256').update(`${head}.${body}`).sign(key).toString('base64url');
+  return `${head}.${body}.${s}`;
+}
+const now = () => Math.floor(Date.now() / 1000);
+const good = (over = {}) => ({ aud: [AUD], iss: TEAM, email: 'Lee.Calcote@layer5.io', exp: now() + 600, iat: now(), ...over });
+
+const env = {
+  TEAM_DOMAIN: TEAM_HOST,
+  POLICY_AUD: AUD,
+  ALLOWED_EMAILS: 'lee.calcote@layer5.io',
+  ASSETS: { fetch: async (r) => new Response(`asset:${new URL(r.url).pathname}`, { status: 200 }) },
+};
+const certsFetch = async (url) => {
+  assert.equal(url, `${TEAM}/cdn-cgi/access/certs`);
+  return new Response(JSON.stringify({ keys: [jwk] }), { status: 200 });
+};
+const req = (headers = {}) => new Request('https://internal.blowhorn.ai/internal/finance/report/', { headers });
+const status = async (r, e = env, f = certsFetch) => (await handle(r, e, f)).status;
+
+beforeEach(() => resetCertsCache());
+
+test('no token is denied', async () => assert.equal(await status(req()), 403));
+test('valid header token is served', async () => {
+  const res = await handle(req({ 'cf-access-jwt-assertion': sign(good()) }), env, certsFetch);
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get('cache-control'), 'private, no-store');
+});
+test('valid cookie token is served', async () =>
+  assert.equal(await status(req({ cookie: `a=b; CF_Authorization=${sign(good())}` })), 200));
+test('wrong signing key is denied', async () =>
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': sign(good(), other) })), 403));
+test('unknown kid is denied', async () =>
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': sign(good(), privateKey, 'nope') })), 403));
+test('wrong audience is denied', async () =>
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': sign(good({ aud: ['other'] })) })), 403));
+test('wrong issuer is denied', async () =>
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': sign(good({ iss: 'https://evil.cloudflareaccess.com' })) })), 403));
+test('expired token is denied', async () =>
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': sign(good({ exp: now() - 1 })) })), 403));
+test('email not on the allow list is denied', async () =>
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': sign(good({ email: 'someone@example.com' })) })), 403));
+test('alg none is denied', async () => {
+  const t = `${b64({ alg: 'none', kid: 'k1' })}.${b64(good())}.`;
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': t })), 403);
+});
+test('garbage token is denied', async () =>
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': 'x.y.z' })), 403));
+test('missing configuration fails closed', async () =>
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': sign(good()) }), { ...env, POLICY_AUD: '' }), 503));
+test('certs outage fails closed', async () =>
+  assert.equal(await status(req({ 'cf-access-jwt-assertion': sign(good()) }), env, async () => new Response('', { status: 500 })), 503));
+test('root serves the /internal/ contents page', async () => {
+  const t = sign(good());
+  const r = new Request('https://internal.blowhorn.ai/', { headers: { 'cf-access-jwt-assertion': t } });
+  const res = await handle(r, env, certsFetch);
+  assert.equal(res.status, 200);
+  assert.equal(await res.text(), 'asset:/internal/');
+});
+test('root without a token is denied', async () =>
+  assert.equal(await status(new Request('https://internal.blowhorn.ai/')), 403));

@@ -12,11 +12,11 @@
     },
     {
       "t": "A fleet behind every post",
-      "b": "Every machine signed in to your account works one schedule, coordinated so the same post isn't sent from two machines."
+      "b": "Every computer signed in to your account works one schedule, coordinated so the same post isn't sent from two computers."
     },
     {
       "t": "Your hand on the switch",
-      "b": "schedule pause --all stops every machine at once. --row N parks one job everywhere."
+      "b": "schedule pause --all stops every computer at once. --row N parks one job everywhere."
     }
   ],
   "major": "Your agent ships code at 3 AM. Your launch post ships never. That ends today.",

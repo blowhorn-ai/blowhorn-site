@@ -152,6 +152,39 @@ jobs:
           DRAFT: ${{ needs.fetch.outputs.draft }}
         run: make dmg-release
 
+  # After a public release, pin blowhorn.ai's downloads to it: data/download.json
+  # on master moves to this version and site.yml redeploys. Every download URL
+  # on the site comes from that file, never /releases/latest, because
+  # blowhorn-axi releases here can hold GitHub's Latest.
+  pin:
+    name: Pin the site's downloads to this release
+    needs:
+      - fetch
+      - publish
+    if: needs.publish.result == 'success' && needs.fetch.outputs.draft == 'false' && needs.fetch.outputs.prerelease == 'false'
+    runs-on: ubuntu-latest
+    permissions:
+      # Pushes the data/download.json bump to master.
+      contents: write
+      # Starts site.yml, since a push made with github.token starts no workflow.
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Pin data/download.json and redeploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          VERSION: ${{ needs.fetch.outputs.version }}
+          DRAFT: ${{ needs.fetch.outputs.draft }}
+          PRERELEASE: ${{ needs.fetch.outputs.prerelease }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          make dmg-pin-download
+
   # After a public release, sync the docs at the product's release tag so the
   # published docs (the generated CLI reference included) match what shipped.
   # A draft starts nothing; run the docs sync by hand once it is published.

@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://blowhorn.ai/schemas/themes.schema.json",
+  "title": "Site themes",
+  "description": "data/themes.json: the named token layers a page can wear. default is the site-wide theme when a page does not set front matter theme:. ?theme=<id> previews the token layer only, not homepage layout (see layouts/_partials/theme-head.html). Each theme is a token layer over shared components; home names which homepage variant to render.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["default", "previewParam", "themes"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "default": { "$ref": "#/definitions/id" },
+    "previewParam": {
+      "description": "Query parameter that previews a theme without rebuilding. Must be theme.",
+      "type": "string",
+      "const": "theme"
+    },
+    "themes": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/theme" }
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "enum": ["signal", "reveille"]
+    },
+    "theme": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "home", "colorScheme"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "not": { "pattern": "\u2014" }
+        },
+        "home": {
+          "description": "Homepage variant partial under layouts/_partials/home/.",
+          "type": "string",
+          "enum": ["signal", "reveille"]
+        },
+        "colorScheme": {
+          "description": "dark is always dark. light-dark follows the OS, which is Reveille (today's look).",
+          "type": "string",
+          "enum": ["dark", "light", "light-dark"]
+        }
+      }
+    }
+  }
+}

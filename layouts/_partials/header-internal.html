@@ -1,0 +1,33 @@
+{{- /* The internal build's header (layouts/docs/baseof.html, internal
+  environment only): the brand, an Internal marker, and links to the
+  internal sections, plus one link out to the public site. The public
+  header's mega menu links to pages the internal build does not render,
+  so it is not reused here. Self-contained styling: no nav.js, no
+  panels; on narrow screens the links wrap under the brand. */ -}}
+<style>
+.iheader-in { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3) var(--space-6); }
+.iheader-badge { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-text); border: 1px solid var(--teal); border-radius: var(--radius-sm); padding: 0.15em 0.6em; }
+.iheader-nav { margin-left: auto; }
+.iheader-nav ul { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); margin: 0; padding: 0; list-style: none; }
+.iheader-nav a { font-weight: 600; color: var(--ink); text-decoration: none; }
+.iheader-nav a:hover { color: var(--teal-text); text-decoration: underline; }
+</style>
+<header class="site-header">
+  <div class="wrap iheader-in">
+    <a class="brand" href="{{ "internal/" | relURL }}" aria-label="Blowhorn internal home">
+      <img class="logo-on-light" src="{{ "assets/brand/logo/blowhorn-lockup-horizontal.svg" | relURL }}" alt="Blowhorn" width="176" height="44">
+      <img class="logo-on-dark" src="{{ "assets/brand/logo/blowhorn-lockup-horizontal-on-dark.svg" | relURL }}" alt="" width="176" height="44">
+    </a>
+    <span class="iheader-badge">Internal</span>
+    <nav class="iheader-nav" aria-label="Internal">
+      <ul>
+        <li><a href="{{ "internal/strategy/" | relURL }}">Strategy</a></li>
+        <li><a href="{{ "internal/strategy/compare/" | relURL }}">Compare assistants</a></li>
+        <li><a href="{{ "internal/strategy/personas/" | relURL }}">Personas</a></li>
+        <li><a href="{{ "internal/strategy/persona-matrix/" | relURL }}">Persona matrix</a></li>
+        <li><a href="{{ "internal/finance/" | relURL }}">Break-even</a></li>
+        <li><a href="https://blowhorn.ai/">Public site</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

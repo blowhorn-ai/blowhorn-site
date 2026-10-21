@@ -64,11 +64,11 @@ wordmarks:
     note: White, for dark grounds
     file: blowhorn-wordmark-white.svg
     stage: dark
-  - name: Layer5 Blowhorn
+  - name: Company lockup
     note: The formal lockup, with the company mark
     file: layer5-blowhorn-lockup.svg
     stage: light
-  - name: Layer5 Blowhorn, on dark
+  - name: Company lockup, on dark
     note: The same, after hours
     file: layer5-blowhorn-lockup-on-dark.svg
     stage: dark

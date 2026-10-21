@@ -69,7 +69,7 @@ stay out of `config show`.
 | Retries of a failed scheduled job | 0 | 0 | 1 |
 | Warmup | 14 days | 7 days | 3 days |
 
-Scheduled jobs on a new profile or a new machine run cautious until the warmup is done, whatever you chose. A run you start yourself is not held by the warmup, only noted; it still follows the caps, quiet hours and outreach setting of the preset you chose. When a run covers several profiles or platforms, a held one is skipped by name and the rest run. To run once anyway, add `--ignore-risk`, or choose **Do it anyway** next to a held item on the app's activity screen. Logins are never retried under any preset. Choose a preset in the app under Settings, or with `blowhorn risk set cautious` (add `--profile` to store it on one profile, `--platform` for one platform); `blowhorn risk show` says which preset is in effect and where it comes from.
+Scheduled jobs on a new profile or a new computer run cautious until the warmup is done, whatever you chose. A run you start yourself is not held by the warmup, only noted; it still follows the caps, quiet hours and outreach setting of the preset you chose. When a run covers several profiles or platforms, a held one is skipped by name and the rest run. To run once anyway, add `--ignore-risk`, or choose **Do it anyway** next to a held item under Activity › History. Logins are never retried under any preset. Choose a preset in the app under Settings, or with `blowhorn risk set cautious` (add `--profile` to store it on one profile, `--platform` for one platform); `blowhorn risk show` says which preset is in effect and where it comes from.
 
 ## Output logging
 

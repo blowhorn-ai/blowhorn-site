@@ -26,6 +26,37 @@
     });
   });
 
+  // Table of contents collapse (layouts/_partials/toc.html): the toggle
+  // in the TOC header collapses the whole TOC column to a rail so the
+  // content takes the width; the choice persists across docs pages.
+  ready(function () {
+    var wrap = document.querySelector('.docs-wrap');
+    var btn = document.querySelector('[data-toc-toggle]');
+    if (!wrap || !btn) {
+      return;
+    }
+    var label = btn.querySelector('.td-toc-toggle__label');
+    var collapsed = false;
+    try {
+      collapsed = window.localStorage.getItem('blowhorn-toc-collapsed') === '1';
+    } catch (e) { /* private mode: session-only state is fine */ }
+    function apply(state) {
+      wrap.classList.toggle('toc-collapsed', state);
+      btn.setAttribute('aria-expanded', state ? 'false' : 'true');
+      if (label) {
+        label.textContent = state ? 'Show table of contents' : 'Hide table of contents';
+      }
+    }
+    apply(collapsed);
+    btn.addEventListener('click', function () {
+      collapsed = !collapsed;
+      try {
+        window.localStorage.setItem('blowhorn-toc-collapsed', collapsed ? '1' : '0');
+      } catch (e) { /* the toggle still works for this page */ }
+      apply(collapsed);
+    });
+  });
+
   // Collapsible sections in the sidebar tree (layouts/_partials/sidebar-tree.html):
   // each chevron button shows or hides the list it controls.
   ready(function () {

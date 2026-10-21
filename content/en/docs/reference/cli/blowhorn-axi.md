@@ -1,6 +1,6 @@
 ---
 title: "blowhorn-axi"
-description: "Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs --confirm."
+description: "Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs `--confirm`."
 weight: 90
 ---
 
@@ -25,12 +25,12 @@ Exit codes:
 | [`blowhorn-axi slack send`](#blowhorn-axi-slack-send) | Send one message (a thread reply from a message link) as each profile, once. |
 | [`blowhorn-axi slack edit`](#blowhorn-axi-slack-edit) | Replace the text of a message the profile sent with blowhorn (the send ledger says so). |
 | [`blowhorn-axi slack delete`](#blowhorn-axi-slack-delete) | Delete a message the profile sent with blowhorn (the send ledger says so). |
-| [`blowhorn-axi slack react`](#blowhorn-axi-slack-react) | Add (or with --remove take back) an emoji reaction to any message as each profile. |
+| [`blowhorn-axi slack react`](#blowhorn-axi-slack-react) | Add (or with `--remove` take back) an emoji reaction to any message as each profile. |
 | [`blowhorn-axi setup hooks`](#blowhorn-axi-setup-hooks) | Install or repair the SessionStart hooks that show this home view to Claude Code, Codex and OpenCode. |
 
 ## blowhorn-axi
 
-Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs --confirm.
+Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs `--confirm`.
 
 ```text
 blowhorn-axi
@@ -86,7 +86,7 @@ blowhorn-axi profile status --profile rian --full
 
 ## blowhorn-axi slack send
 
-Send one message (a thread reply from a message link) as each profile, once. Dry run unless --confirm. Session only: a profile with only an app token is refused (token_only). Slack reads (history, search, threads) are out of scope; use the Cursor Slack connection.
+Send one message (a thread reply from a message link) as each profile, once. Dry run unless `--confirm`. Session only: a profile with only an app token is refused (token_only). Slack reads (history, search, threads) are out of scope; use the Cursor Slack connection.
 
 ```text
 blowhorn-axi slack send [-h] [--profile PROFILE] [--confirm] [--dry-run] [--to TO] [--workspace WORKSPACE] [--idempotency-key IDEMPOTENCY_KEY] [--offline] [--full] [--text TEXT] [--text-file TEXT_FILE] [--message MESSAGE]
@@ -96,13 +96,13 @@ blowhorn-axi slack send [-h] [--profile PROFILE] [--confirm] [--dry-run] [--to T
 | --- | --- | --- | --- |
 | `--profile` | string, repeatable |  | Profile to act as; repeat it or give a,b for several |
 | `--confirm` | boolean | `false` | Actually do it; without it nothing is written to Slack |
-| `--dry-run` | boolean | `false` | Rehearse (the default); --confirm --dry-run is an error |
-| `--to` | string |  | A Slack message link (thread reply), channel link, or #channel with --workspace |
-| `--workspace` | string |  | The workspace host when --to does not name one |
+| `--dry-run` | boolean | `false` | Rehearse (the default); `--confirm` `--dry-run` is an error |
+| `--to` | string |  | A Slack message link (thread reply), channel link, or #channel with `--workspace` |
+| `--workspace` | string |  | The workspace host when `--to` does not name one |
 | `--idempotency-key` | string |  | The key the send is recorded under (default: derived) |
 | `--offline` | boolean | `false` | Skip the auth.test session check |
 | `--full` | boolean | `false` | Do not truncate the message preview |
-| `--text` | string |  | '-' reads the text from stdin (mrkdwn passes through untouched) |
+| `--text` | string |  | `-` reads the text from stdin (mrkdwn passes through untouched) |
 | `--text-file` | string |  | Read the text from this UTF-8 file |
 | `--message` | string |  | One line of text |
 
@@ -110,13 +110,13 @@ Examples:
 
 ```bash
 blowhorn-axi slack send --profile rian --to https://acme.slack.com/archives/C0123/p1776000000000100 --text-file reply.md
-blowhorn-axi slack send --profile rian,lee --to https://acme.slack.com/archives/C0123/p1776000000000100 --text-file reply.md --confirm
+blowhorn-axi slack send --profile rian,alex --to https://acme.slack.com/archives/C0123/p1776000000000100 --text-file reply.md --confirm
 blowhorn-axi slack send --profile rian --to '#general' --workspace acme.slack.com --text - --confirm
 ```
 
 ## blowhorn-axi slack edit
 
-Replace the text of a message the profile sent with blowhorn (the send ledger says so). Dry run unless --confirm. Session only: a profile with only an app token is refused (token_only). Slack reads (history, search, threads) are out of scope; use the Cursor Slack connection.
+Replace the text of a message the profile sent with blowhorn (the send ledger says so). Dry run unless `--confirm`. Session only: a profile with only an app token is refused (token_only). Slack reads (history, search, threads) are out of scope; use the Cursor Slack connection.
 
 ```text
 blowhorn-axi slack edit [-h] [--profile PROFILE] [--confirm] [--dry-run] [--permalink PERMALINK] [--full] [--text TEXT] [--text-file TEXT_FILE] [--message MESSAGE]
@@ -126,10 +126,10 @@ blowhorn-axi slack edit [-h] [--profile PROFILE] [--confirm] [--dry-run] [--perm
 | --- | --- | --- | --- |
 | `--profile` | string, repeatable |  | Profile to act as; repeat it or give a,b for several |
 | `--confirm` | boolean | `false` | Actually do it; without it nothing is written to Slack |
-| `--dry-run` | boolean | `false` | Rehearse (the default); --confirm --dry-run is an error |
+| `--dry-run` | boolean | `false` | Rehearse (the default); `--confirm` `--dry-run` is an error |
 | `--permalink` | string |  | The Slack message link of the message to edit |
 | `--full` | boolean | `false` | Do not truncate the message preview |
-| `--text` | string |  | '-' reads the text from stdin (mrkdwn passes through untouched) |
+| `--text` | string |  | `-` reads the text from stdin (mrkdwn passes through untouched) |
 | `--text-file` | string |  | Read the text from this UTF-8 file |
 | `--message` | string |  | One line of text |
 
@@ -142,7 +142,7 @@ blowhorn-axi slack edit --profile rian --permalink https://acme.slack.com/archiv
 
 ## blowhorn-axi slack delete
 
-Delete a message the profile sent with blowhorn (the send ledger says so). Dry run unless --confirm. Session only: a profile with only an app token is refused (token_only). Slack reads (history, search, threads) are out of scope; use the Cursor Slack connection.
+Delete a message the profile sent with blowhorn (the send ledger says so). Dry run unless `--confirm`. Session only: a profile with only an app token is refused (token_only). Slack reads (history, search, threads) are out of scope; use the Cursor Slack connection.
 
 ```text
 blowhorn-axi slack delete [-h] [--profile PROFILE] [--confirm] [--dry-run] [--permalink PERMALINK]
@@ -152,7 +152,7 @@ blowhorn-axi slack delete [-h] [--profile PROFILE] [--confirm] [--dry-run] [--pe
 | --- | --- | --- | --- |
 | `--profile` | string, repeatable |  | Profile to act as; repeat it or give a,b for several |
 | `--confirm` | boolean | `false` | Actually do it; without it nothing is written to Slack |
-| `--dry-run` | boolean | `false` | Rehearse (the default); --confirm --dry-run is an error |
+| `--dry-run` | boolean | `false` | Rehearse (the default); `--confirm` `--dry-run` is an error |
 | `--permalink` | string |  | The Slack message link of the message to delete |
 
 Examples:
@@ -164,7 +164,7 @@ blowhorn-axi slack delete --profile rian --permalink https://acme.slack.com/arch
 
 ## blowhorn-axi slack react
 
-Add (or with --remove take back) an emoji reaction to any message as each profile. Dry run unless --confirm. Session only: a profile with only an app token is refused (token_only). Slack reads (history, search, threads) are out of scope; use the Cursor Slack connection.
+Add (or with `--remove` take back) an emoji reaction to any message as each profile. Dry run unless `--confirm`. Session only: a profile with only an app token is refused (token_only). Slack reads (history, search, threads) are out of scope; use the Cursor Slack connection.
 
 ```text
 blowhorn-axi slack react [-h] [--profile PROFILE] [--confirm] [--dry-run] [--permalink PERMALINK] [--emoji EMOJI] [--remove]
@@ -174,7 +174,7 @@ blowhorn-axi slack react [-h] [--profile PROFILE] [--confirm] [--dry-run] [--per
 | --- | --- | --- | --- |
 | `--profile` | string, repeatable |  | Profile to act as; repeat it or give a,b for several |
 | `--confirm` | boolean | `false` | Actually do it; without it nothing is written to Slack |
-| `--dry-run` | boolean | `false` | Rehearse (the default); --confirm --dry-run is an error |
+| `--dry-run` | boolean | `false` | Rehearse (the default); `--confirm` `--dry-run` is an error |
 | `--permalink` | string |  | The Slack message link of the message to react to |
 | `--emoji` | string |  | The emoji name, with or without colons (white_check_mark, :+1:) |
 | `--remove` | boolean | `false` | Take the reaction back (reactions.remove) |
@@ -182,7 +182,7 @@ blowhorn-axi slack react [-h] [--profile PROFILE] [--confirm] [--dry-run] [--per
 Examples:
 
 ```bash
-blowhorn-axi slack react --profile rian,lee --permalink https://acme.slack.com/archives/C0123/p1776000000000100 --emoji white_check_mark --confirm
+blowhorn-axi slack react --profile rian,alex --permalink https://acme.slack.com/archives/C0123/p1776000000000100 --emoji white_check_mark --confirm
 blowhorn-axi slack react --profile rian --permalink https://acme.slack.com/archives/C0123/p1776000000000100 --emoji eyes --remove --confirm
 ```
 

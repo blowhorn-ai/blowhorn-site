@@ -6,8 +6,8 @@ logo: assets/platforms/slack-mark.svg
 docs: /docs/reference/platforms/slack/
 reach: Slack's API, never the browser
 actions:
-  - name: Post
+  - id: post
     behavior: "Sends a message as you to a channel or to a person, as #channel, @user, a channel ID, or a channel link. Shows a preview until you confirm."
     limits: One profile sends per run. A target Blowhorn can't read is refused, never sent somewhere else.
-  - name: Reply
+  - id: reply
     behavior: Replies in a thread when you give it the link to the message.

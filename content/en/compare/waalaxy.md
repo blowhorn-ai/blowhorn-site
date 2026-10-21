@@ -13,7 +13,7 @@
   "verdict": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own Chrome and adds publishing and amplification across many networks.",
   "them": [
     "You want simple LinkedIn plus email prospecting campaigns",
-    "Running in the cloud, with nothing on your machine, suits you",
+    "Running in the cloud, with nothing on your computer, suits you",
     "You want a friendly prospecting tool at an accessible price"
   ],
   "us": [
@@ -32,7 +32,7 @@
     {
       "f": "Where it acts",
       "t": "Waalaxy's cloud",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "LinkedIn outreach",

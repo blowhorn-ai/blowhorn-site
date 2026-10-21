@@ -1,6 +1,7 @@
 ---
 title: "Blowhorn: one message, many ears"
-description: Not a bot. You, at full volume. Blowhorn does the typing and clicking in your own Chrome, signed in as you, on machines you own. No Blowhorn server ever logs in as you.
+description: Scripted where it counts. AI where it helps. Every post, reply and amplify runs exactly as written. Drafts, agents and assistants plug in through MCP, a REST API and a scriptable CLI.
+theme: signal
 sitemap:
   changefreq: weekly
   priority: 1.0

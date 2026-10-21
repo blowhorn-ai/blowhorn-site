@@ -9,13 +9,36 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 blowhorn.ai is Hugo with Docsy as a Hugo module, built like layer5io/docs. Run
 `make setup` once (npm install) for the pinned toolchain (the dependency check
 also accepts system `hugo` and `postcss`), then `make site`
-(live reload, http://localhost:1313) or `make build-production` (writes `public/`).
+(live reload, http://localhost:1313) or `make site-build` (writes `public/`).
 `make check` is exactly what CI runs. Go must be on PATH: Hugo fetches Docsy through it.
 
 The marketing and legal pages do not use Docsy's templates: they render through
 `layouts/home.html`, `layouts/trust-center.html` (the Trust Center hub at `/legal/`),
 `layouts/legal.html` (each policy at `/legal/<name>/`), `layouts/brand.html` (the Brand page at `/brand/`) and `layouts/404.html` inside
 `layouts/baseof.html`, with the header, footer and icon sprite in `layouts/_partials/`.
+
+Themes are schema-driven (`data/themes.json`, `schemas/themes.schema.json`). A
+theme is tokens, CSS and layout partials over the same data and content.
+Reveille copy is approved; do not add a per-theme content file (`check_theme.py`
+fails those except `content/en/home-reveille.md`). Site default is Reveille
+(today's look: light, dark follows the OS). The public home page sets front
+matter `theme: signal`. Docs, legal, pricing and download stay Reveille.
+`?theme=` swaps the token layer only, not homepage layout. Homepage variants
+live in `layouts/_partials/home/`. Platform counts and the platforms section
+treatments come from `data/integrations.json` plus `data/platforms/*.yaml`.
+The action vocabulary is `data/actions.json`; YAML rows use those ids.
+Examples live in `data/action_examples.json` ([docs/action-examples.md](docs/action-examples.md)).
+Platform docs pages render actions through `{{< supported-actions "id" >}}` (`layouts/_partials/supported-actions.html`); `make check-platform-docs` fails a missing page, a skipped table, or a hand-written action list.
+The central action matrix (`/integrations/actions/`, `layouts/action-matrix.html`) and the docs all-actions table (`{{< all-actions >}}`, `layouts/_partials/action-table.html`) both render from `layouts/_partials/action-matrix.html`: rows are `data/actions.json` (grouped by its `groups`), columns are `data/integrations.json` platforms, page copy is `data/integrations.json` `matrix`. Status is shown by exception: no "Supported" label or check anywhere; a supported cell is a neutral dot, a coming-soon platform gets one clock on its logo. `make check-action-matrix` fails drift or a dead `#action-<id>` link.
+The Signal hero demo is `data/hero_demo.json`.
+
+Role pages (`/for/<slug>/`) and use-case pages (`/use-cases/<slug>/`) are
+schema-driven from `data/roles.json` and `data/use_cases.json`. Shared
+`line`/`text`/`card` types live in `schemas/defs/cast-page.schema.json`
+(`make check-schemas` loads it with ajv `-r`). Kind labels live in
+`cast-kind.html`; lookups go through `role-data.html` / `role-list.html`.
+Pages share `layouts/_partials/cast-page.html` and the role-page CSS.
+Do not duplicate those.
 
 ## Rules the site holds
 
@@ -40,6 +63,11 @@ The marketing and legal pages do not use Docsy's templates: they render through
   it on a public page.
 - **The product repository is private.** Never link its files, issues or pull requests
   from a page; every reader would get a 404.
+- **Every Hugo run cleans its destination.** Each `hugo` invocation in `package.json`
+  and the `Makefile` passes `--cleanDestinationDir`, builds and servers alike, so a
+  stale file from an earlier build can never linger in `public/` or `public-internal/`
+  and pass for current output. Hugo has no config-level default for this; the flag
+  rides on the command line, so keep it on any new invocation.
 
 ## CI runs through make
 

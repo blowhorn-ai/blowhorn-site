@@ -16,11 +16,7 @@ Blowhorn is a social media console that takes one message and broadcasts, repost
 
 ## Download
 
-Once the first stable release is public, this link always points at the newest universal macOS build:
-
-```
-https://github.com/layer5io/blowhorn-site/releases/latest/download/Blowhorn-mac.dmg
-```
+Download the current universal macOS build from [blowhorn.ai/download](https://blowhorn.ai/download/). (This repository also publishes blowhorn-axi releases, so GitHub's `latest` is not reliably the desktop release and no always-latest asset link is offered here.)
 
 Every release carries a `SHA256SUMS.txt`. Check the image before you open it:
 
@@ -42,21 +38,21 @@ The Chrome extension ships through the Chrome Web Store, not from this repositor
 | How the site deploys and how the domain is wired | [`docs/deploy.md`](docs/deploy.md) |
 | How releases are published | [`docs/distribution.md`](docs/distribution.md) |
 | Release binaries | [Releases](https://github.com/layer5io/blowhorn-site/releases) on this repository |
-| Product source and build pipeline | Private: [`leecalcote/blowhorn`](https://github.com/leecalcote/blowhorn) |
+| Product source and build pipeline | Private: [`blowhorn`](https://github.com/leecalcote/blowhorn) |
 
 **Reporting problems.** The product repository is private, so use [this repository's issues](https://github.com/layer5io/blowhorn-site/issues) for everything public: site content, a download that will not open, a wrong checksum, or a bug in the app. Maintainers triage app bugs into the product repository. The [Layer5 Slack](https://slack.layer5.io) works too.
 
 ## Working on the site
 
-You need Go (Hugo modules), Node.js and npm (the pinned Hugo extended and postcss come from `package.json`), Python 3 and `make`. The build targets follow the shared contract of [layer5io/docs](https://github.com/layer5io/docs/blob/master/Makefile). `make help` lists every target.
+You need Go (Hugo modules), Node.js and npm (the pinned Hugo extended and postcss come from `package.json`), Python 3 and `make`. The build targets mirror the blowhorn repository's website targets; the [layer5io/docs](https://github.com/layer5io/docs/blob/master/Makefile) names (`build-production`, `build-internal`, `preview-internal`) are kept as aliases. `make help` lists every target.
 
 ```bash
 make setup             # npm install: the pinned Hugo extended and postcss
 make site              # serve at http://localhost:1313 with live reload
 make serve             # serve once, without live reload
 make build             # local build with draft, future and expired content
-make build-production  # public production build into public/, what CI deploys
-make site-internal     # internal build into public-internal/ (needs ../blowhorn)
+make site-build        # public production build into public/, what CI deploys
+make site-internal-build # internal build into public-internal/ (needs ../blowhorn)
 make check             # every check, against a fresh production build
 make ci                # exactly what site.yml's check job runs, starting with npm ci
 ```
@@ -69,7 +65,10 @@ Every CI step that runs repository logic is a make target, and the workflow call
 | `workflow-check` | actionlint on `site.yml`, `publish-dmg.yml`, `sync-docs.yml`, `cloud-auth-smoke.yml` and `product-ci.yml` | `site.yml` |
 | `test-scripts` | unit tests for the check scripts in `.github/scripts/` | `site.yml` |
 | `site-check` | one production build, then the checks below | `site.yml` |
-| `check-schemas` | `data/hero.json` (the home page hero variants and rotation) and `data/roles.json` (the `/for/<role>/` pages) validate against their schemas in `schemas/` ([docs/hero-variants.md](docs/hero-variants.md)) | `site-check` |
+| `check-schemas` | `data/hero.json`, `data/roles.json`, `data/use_cases.json`, `data/themes.json`, `data/integrations.json`, `data/hero_demo.json`, `data/actions.json` and `data/action_examples.json` validate against `schemas/`; role and use-case schemas `$ref` shared `line`/`text`/`card` types in `schemas/defs/cast-page.schema.json` (ajv `-r`) ([docs/hero-variants.md](docs/hero-variants.md)). Every supported YAML action must have an example ([docs/action-examples.md](docs/action-examples.md)). Every action group in `data/actions.json` exists and holds an action (`check_action_matrix.py --source`) | `site-check` |
+| `check-theme` | `/` uses `data/themes.json` default plus `content/en/_index.md` front matter (Signal). `/home-reveille/` keeps today's look. Counts in `data-count-*` spans match supported YAML actions. `?theme=` swaps tokens only, not layout. Fails a new theme-specific content file outside the approved `content/en/home-reveille.md` | `site-check` |
+| `check-platform-docs` | Every supported platform has a docs page that renders the shared `supported-actions` table from YAML. Fails a missing page, a page that skips the shortcode, or a docs page that still carries a hand-written action list or Action / What it does table | `site-check` |
+| `check-action-matrix` | The site action matrix (`/integrations/actions/`) and the docs all-actions table (`/docs/reference/platforms/actions/`, shortcode `all-actions`) hold exactly the cells `data/actions.json` plus `data/platforms/*.yaml` give, in order, with the right link. Status is shown by exception: fails a rendered "supported" label or check mark, a coming-soon column without its clock, or an exception label that drifts from `data/integrations.json` `matrix.exceptions`. Fails a dead page or `#action-<id>` anchor, a hand-written table, or a lost link from `/` or `/integrations/` | `site-check` |
 | `validate-html` | html-validate on every built page | `site-check` |
 | `check-links` | every local link, image, font and `srcset` reference resolves | `site-check` |
 | `check-third-party` | no page, or stylesheet or script it loads, requests another host (except the disclosed GitHub release lookup) | `site-check` |
@@ -78,14 +77,20 @@ Every CI step that runs repository logic is a make target, and the workflow call
 | `dmg-check DMG=...` | sanity-check a disk image before publishing | `dmg-package` runs the same script (`check-dmg.sh`) |
 | `dmg-sync-docs` | after a public release, start `sync-docs.yml` at the product tag `desktop-<version>` | `publish-dmg.yml` |
 | `docs-cli-reference` | regenerate the CLI reference pages in the product checkout from its CLI schema and parser, before the sync ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
-| `docs-sync REF=...` | copy the product docs from a `leecalcote/blowhorn` checkout into `content/en/docs/` ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
+| `docs-sync REF=...` | copy the product docs from a `blowhorn` checkout into `content/en/docs/` ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
 | `docs-sync-base` | check out the `docs-sync` branch on the open sync PR's head, or on `master` when none is open ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
 | `docs-sync-start-checks` | start `site.yml` on the `docs-sync` branch after a sync ([docs/deploy.md](docs/deploy.md#product-docs-sync)) | `sync-docs.yml` |
 | `product-ci SUITE=python\|desktop` | run the private product repo's CI on a checkout of it, printing only step results and pass/fail counts (output stays in a private log; public logs never show product code) | `product-ci.yml` |
 
 Each check target builds for production first, so it also runs on its own. `labeler.yml`, `label-commenter.yml` and `slack.yml` only call third-party actions and run no repository logic, so they have no target.
 
-The site follows the brand kit exactly: every colour, type style, spacing, radius and shadow in `assets/css/site.css` is a token from `static/assets/brand/tokens.json`, with light as the default theme and dark following the operating system. Brand SVGs are used as files and never recoloured. The one-to-many hero illustration and the platform marks are inline SVG drawn in `currentColor`.
+The site follows the brand kit exactly: every colour, type style, spacing, radius and shadow in `assets/css/site.css` is a token from `static/assets/brand/tokens.json`. Brand SVGs are used as files and never recoloured. The one-to-many hero illustration and the platform marks are inline SVG drawn in `currentColor`.
+
+### Themes
+
+A theme is presentation: tokens, CSS, and layout partials that read the **same** data and content. Reveille copy is approved. Signal and any future theme do not get their own copy of a page. Do not add `content/en/home-signal.md` or another theme-named content file; `make check-theme` fails those. The one approved exception is [`content/en/home-reveille.md`](content/en/home-reveille.md), which keeps today's homepage at `/home-reveille/` so we can still look at it.
+
+Reveille is the site-wide default (light, dark follows the OS). Signal is a dark token layer on the public home page (`theme: signal` in `content/en/_index.md`). Homepage *layout* still comes from the theme's `home` field in `data/themes.json` (`layouts/_partials/home/signal.html` vs `reveille.html`); those partials consume `data/integrations.json`, `data/actions.json`, `data/platforms/*.yaml` and the same Markdown. `?theme=signal` and `?theme=reveille` swap the token layer on any page; they do not change homepage layout (`/` stays Signal, `/home-reveille/` stays today's look).
 
 Nothing on the site loads from another host except Google Analytics 4: no CDN and no web fonts from elsewhere. The id is in `[services.googleAnalytics]` in `hugo.toml`. `layouts/_partials/analytics.html` loads gtag.js on every production page, enables analytics storage and keeps advertising storage denied. It renders only in production builds. The other request to another host while browsing is the download page's release lookup on GitHub's API (`assets/js/download.js`). The footer newsletter form posts to Layer5's Mailchimp list only when submitted. The [privacy page](https://blowhorn.ai/privacy.html) discloses all three. `make site-check` fails a build that loads anything else from another host. The public URLs (`/`, `/privacy.html`, `/terms.html`, `/assets/brand/...`) and the home page's anchors (`#platforms`, `#how`, `#trust`, `#download`) are linked from outside this repository; the same check fails a build that loses one.
 

@@ -1,0 +1,18 @@
+{{- /* Shared index for /for/ and /use-cases/. Reuses role-page CSS.
+  .kind (role | use-case) selects labelPrefix through role-list.html. */ -}}
+{{- $page := .page -}}
+    <main id="main" class="page agent-page role-page">
+      <div class="wrap">
+        <header class="agent-hero agent-hero-index glass">
+          <div class="agent-hero-copy">
+            <p class="label">{{ $page.LinkTitle }}</p>
+            <h1 id="{{ .titleId }}" class="display">{{ $page.Title }}</h1>
+            <p class="body-lg muted">{{ $page.Params.lead }}</p>
+          </div>
+        </header>
+        <section class="agent-section" aria-labelledby="pick-title">
+          <div class="section-head"><h2 id="pick-title" class="h2">{{ .pickTitle }}</h2></div>
+          {{ partial "role-list.html" (dict "section" $page "current" nil "kind" .kind) }}
+        </section>
+      </div>
+    </main>

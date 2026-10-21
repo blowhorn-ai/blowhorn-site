@@ -21,7 +21,18 @@ from pathlib import Path
 PAGES = {
     "index.html": [
         "glyph-menubar", "glyph-terminal", "glyph-clock", "glyph-extension",
-        "glyph-download", "main", "hero-title", "hero-art-title", "fan-title", "platforms", "platforms-title", "how",
+        "glyph-download", "main", "hero-title", "hero-art-title", "platforms", "platforms-title",
+        "plat-panel-category", "plat-panel-role", "plat-panel-constellation", "plat-panel-action", "how",
+        "how-title", "trust", "trust-title", "download", "download-title", "pricing", "pricing-title",
+    ],
+    "integrations/index.html": [
+        "main", "integrations-title", "action-filter",
+        "action-post", "action-comment", "action-reply", "action-amplify",
+        "action-react", "action-follow", "action-unfollow", "action-accept",
+        "action-withdraw", "action-find", "action-analytics",
+    ],
+    "home-reveille/index.html": [
+        "main", "hero-title", "hero-art-title", "fan-title", "platforms", "platforms-title", "how",
         "how-title", "trust", "trust-title", "download", "download-title",
     ],
     "download/index.html": [
@@ -39,6 +50,7 @@ PAGES = {
     "legal/privacy/index.html": [
         "main", "this-website", "on-your-machine", "in-chrome-through-the-blowhorn-extension",
         "in-your-organizations-store-on-layer5-cloud",
+        "in-your-blowhorn-account",
     ],
     "legal/terms/index.html": [
         "main", "your-accounts", "downloads",
@@ -90,6 +102,18 @@ PAGES = {
     ],
     "for/agencies/index.html": [
         "main", "role-title", "pains-title", "gets-title", "faq-title", "cta-title",
+    ],
+    "use-cases/index.html": [
+        "main", "use-cases-title", "pick-title",
+    ],
+    "use-cases/launch-day/index.html": [
+        "main", "use-case-title", "pains-title", "gets-title", "faq-title", "cta-title",
+    ],
+    "use-cases/open-source-release/index.html": [
+        "main", "use-case-title", "pains-title", "gets-title", "faq-title", "cta-title",
+    ],
+    "use-cases/conference/index.html": [
+        "main", "use-case-title", "pains-title", "gets-title", "faq-title", "cta-title",
     ],
     "compare/index.html": [
         "main", "matrix-title", "versus-title",

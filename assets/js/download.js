@@ -1,18 +1,23 @@
-// Fills the Download section from the newest published GitHub Release on
-// layer5io/blowhorn-site. The newest 100 releases are read first (not
-// /releases/latest) so that "no release yet" is an empty list rather than a 404
-// that the browser logs as an error. The newest non-draft, non-prerelease
-// release is what GitHub's "latest" resolves to, so the always-latest URL and
-// this card agree. Only when a full page of 100 holds no stable release (a
-// long prerelease train) is /releases/latest asked, where a 404 means none.
+// Fills the Download section from the newest desktop release on
+// layer5io/blowhorn-site. This repository also publishes blowhorn-axi
+// releases (tags axi-vX.Y.Z), and GitHub's "latest" release is whichever
+// stable release was created most recently, so /releases/latest points at
+// an axi release whenever one is newer, and its download URL 404s. The
+// desktop release is therefore picked by rule, the same rule the app's
+// update check uses: the newest non-draft, non-prerelease release whose
+// tag is exactly vX.Y.Z and which carries the fixed-name alias
+// (Blowhorn-mac.dmg). The newest 100 releases are read (not
+// /releases/latest), so "no desktop release yet" is an empty result rather
+// than a wrong one.
 //
 // States, in order of preference:
-//   1. A stable release carries the fixed-name alias (Blowhorn-mac.dmg): the
-//      page's button (to /download/thanks/) stays; version, size, date, release
-//      notes and checksums are filled in.
-//   2. No stable release with the alias yet: the static card stays.
-//   3. Any failure (rate limit, outage, offline): the static card stays, and
-//      its button still downloads the always-latest build.
+//   1. A desktop release carries the alias: the page's button (to
+//      /download/thanks/) stays; version, size, date, release notes and
+//      checksums are filled in.
+//   2. No desktop release yet: the static card stays.
+//   3. Any failure (rate limit, outage, offline): the static card stays,
+//      and its button still downloads the build pinned in
+//      data/download.json.
 (function () {
   "use strict";
 
@@ -94,18 +99,6 @@
   var api = "https://api.github.com/repos/" + repo + "/releases";
   var headers = { Accept: "application/vnd.github+json" };
 
-  function latestStable() {
-    return fetch(api + "/latest", { headers: headers }).then(function (res) {
-      if (res.status === 404) {
-        return null;
-      }
-      if (!res.ok) {
-        throw new Error("GitHub answered " + res.status);
-      }
-      return res.json();
-    });
-  }
-
   fetch(api + "?per_page=100", { headers: headers })
     .then(function (res) {
       if (!res.ok) {
@@ -117,13 +110,16 @@
       if (!Array.isArray(releases)) {
         throw new Error("GitHub answered with something other than a release list");
       }
-      var stable = releases.find(function (r) {
-        return r && !r.draft && !r.prerelease;
-      });
-      if (stable) {
-        return stable;
-      }
-      return releases.length === 100 ? latestStable() : null;
+      return releases.find(function (r) {
+        if (!r || r.draft || r.prerelease) {
+          return false;
+        }
+        if (!/^v\d+\.\d+\.\d+$/.test(r.tag_name || "")) {
+          return false;
+        }
+        var assets = Array.isArray(r.assets) ? r.assets : [];
+        return assets.some(function (a) { return a.name === alias; });
+      }) || null;
     })
     .then(function (stable) {
       if (stable) {
@@ -131,7 +127,7 @@
       }
     })
     .catch(function () {
-      // The static card already downloads the always-latest build, so a failed
+      // The static card already downloads the pinned build, so a failed
       // lookup only means no version details. Never claim "no build" on an error.
     });
 })();

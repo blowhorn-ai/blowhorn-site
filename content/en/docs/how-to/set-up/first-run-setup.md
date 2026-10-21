@@ -15,43 +15,84 @@ Blowhorn needs something your earlier setup did not do.
 - **Welcome:** Major Blowhorn reports for duty. Nothing is changed yet.
 - **Sign in:** sign in to your Blowhorn account, or choose **Create account**.
   Both open your browser and bring you back to the app. For now, Create
-  account opens the sign-in page; follow its **Sign up** link. See
-  [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/).
+  account opens the sign-in page; follow its **Sign up** link. If the
+  browser attempt fails, or you close it before finishing, **Cancel** on
+  the waiting screen stops the wait right away - you never have to wait
+  it out - and **Open it again** ends the old attempt and starts a fresh
+  one. See [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/).
+- **Confirm troops:** Blowhorn shows what it found in each Chrome
+  profile: the Google account, and the platform accounts signed in or
+  saved there. Check the Chrome profiles to set up and the accounts to
+  attach to each; for a profile that isn't in Blowhorn yet, confirm the
+  name it will be created under. The profiles you check are the ones in
+  use: the next step installs only into those, and a profile you leave
+  unchecked is left alone. On **Confirm**, Blowhorn creates the
+  profiles, saves the handles (and a GitHub token or Bluesky app password
+  you type on the row), and maps each Chrome profile. Nothing is created
+  until you confirm, and a row you leave unchecked is skipped. See
+  [Map Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/).
 - **Getting ready:** Blowhorn finds your Chrome profiles and adds its
-  extension to all of them quietly. Each profile gets a check, right on the
-  step. macOS may ask for your Mac's password once, so the extension can be
-  added for every profile. See
+  extension only to the ones you marked in use on Confirm troops. If that
+  is all of them, it uses Chrome's policy route: macOS asks for your
+  administrator password once, and Chrome turns the extension on in every
+  profile and shows it as **Managed by your organization**. If you left
+  some profiles out, there is no administrator prompt; each profile you
+  chose gets an **Enable in** button instead: one click there, then
+  **Enable now** (or **Add to Chrome**) in Chrome. Each step shows as it
+  runs, with the time left, and **Start again** appears if it takes
+  longer than usual. A computer that already has the extension from an
+  earlier setup keeps that setup's route; there, each profile you chose
+  gets an **Enable in** button the same way. One ready profile you chose
+  is enough to go on. See
   [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/).
-- **Assign your troops:** choose which Blowhorn profile posts from each Chrome
-  profile. See [Map Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/).
 - **First post:** write a post and pick where it goes. It lands in your queue
   as a draft, and nothing is posted until you approve it in Content. You can
   also skip this. See [Post content](/docs/how-to/publish/post-content/).
 - **Home:** you're done. Connect your platform accounts any time. See
   [Platform accounts](/docs/how-to/set-up/platform-accounts/).
 
+## Leaving a Chrome profile out
+
+A Chrome profile you leave unchecked on Confirm troops is not in use, and
+guided setup leaves it alone: it gets no extension from this setup, no
+Blowhorn profile and no mapping.
+
+If you run guided setup again and leave out a profile that an earlier
+setup already put the extension in, this setup cannot take the extension
+out of that one profile. Both routes Chrome gives Blowhorn for adding an
+extension - the policy file and the external-extensions file - are one
+file for the whole computer, never one per Chrome profile, so neither can
+be removed for a single profile. The extension stays in that profile
+until you remove it there yourself (in that profile, open
+`chrome://extensions` and remove Blowhorn). This setup never adds it
+again, never maps that profile, and its being ready there counts for
+nothing here.
+
 ## The rest of the app unlocks after Getting ready
 
-- **Locked until then:** the rail, platforms, the queue and Settings stay
-  locked until you're signed in and the extension is ready. The locked screen
-  says what's missing and has a **Back to setup** link.
+- **Locked until then:** the rail's places, New activity, platforms, the queue
+  and Settings stay locked until you're signed in and the extension is ready.
+  The locked screen says what's missing and has a **Back to setup** link. The
+  account button at the foot of the rail stays usable, so you can still sign
+  out or open the docs.
 - **It checks for real:** the lock reads your actual sign-in and extension
   state each time you come back to the window, so signing out later locks it
-  again until you sign back in. The extension counts as ready once it's set
-  up for every profile, added from the Chrome Web Store, or answering.
-  Getting ready uses the same check, so it never adds the extension again
-  where it's already in.
+  again until you sign back in. The extension counts as ready once it's
+  turned on in at least one Chrome profile, set to install by your
+  organization's policy, or answering. Getting ready never adds the
+  extension twice: once Chrome is set to add it, it writes nothing again.
 - **Open it again any time:** choose **guided setup** at the bottom of
   Settings.
 - **Missing tools come first:** if Blowhorn's own tools aren't set up on this
-  machine yet, the Setup screen shows first. See
+  computer yet, the Setup screen shows first. See
   [Install the app](/docs/how-to/set-up/install-the-app/).
 
 ## Going back and forward is safe
 
 - **Next checks first:** each step checks that its work is really done (you're
-  signed in, the extension is in every profile, your choices are saved) before
-  it lets you go on. If it isn't, the step says why, right under the button.
+  signed in, the extension is ready in at least one Chrome profile you marked
+  in use, your choices are saved) before it lets you go on. If it isn't, the
+  step says why, right under the button.
 - **Back never redoes harmful work:** going back and forward again skips what's
   already done. The extension is never added twice, sign-in is not repeated
   while you're signed in, and your first post is never added to the queue

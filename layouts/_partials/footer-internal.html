@@ -1,0 +1,12 @@
+{{- /* The internal build's footer (layouts/docs/baseof.html, internal
+  environment only): one bar. No newsletter form, no consent control and
+  no public link columns: none of those pages exist in this build. */ -}}
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom caption">
+      <span>&copy; 2026 {{ site.Params.copyright }}</span>
+      <span>Internal. Not for distribution.</span>
+      <span><a href="{{ "internal/strategy/" | relURL }}">Strategy</a> · <a href="{{ "internal/strategy/compare/" | relURL }}">Compare assistants</a> · <a href="{{ "internal/finance/" | relURL }}">Break-even</a> · <a href="https://blowhorn.ai/">Public site</a></span>
+    </div>
+  </div>
+</footer>

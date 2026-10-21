@@ -21,8 +21,18 @@ the profile's credential first. A named profile with no credential for
 anything in scope stops the run with the reason; `--profile all`
 skips such profiles quietly.
 
+One deliberate exception, and it is still a credential: on setup's
+confirm step a person can attest that the session in one of their
+Chrome profiles is theirs and signed in, for LinkedIn or Hacker News.
+Blowhorn stores that attestation as a credential naming the Chrome
+profile (`LI_CHROME_SESSION`, `HN_CHROME_SESSION`), and eligibility
+reads the credential exactly as it reads a password's existence. A
+signed-in browser nobody confirmed grants nothing, and a confirmed
+session that has since signed out stops that platform's run with the
+reason rather than posting.
+
 A Chrome mapping is identity, not permission. It says which real
-Chrome profile the run acts in on this machine, and its refusal checks
+Chrome profile the run acts in on this computer, and its refusal checks
 run before anything launches or attaches. It never grants, and no
 fallback to another profile or folder ever applies when it does not
 hold.

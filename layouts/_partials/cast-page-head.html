@@ -1,0 +1,12 @@
+{{- /* Open Graph and description fallback for a role or use-case page. */ -}}
+    {{- $item := .item -}}
+    {{- if not .page.Description }}
+    <meta name="description" content="{{ $item.description }}">
+    {{- end }}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Blowhorn">
+    <meta property="og:title" content="{{ .page.Title }}">
+    <meta property="og:description" content="{{ $item.description }}">
+    <meta property="og:url" content="{{ .page.Permalink }}">
+    <meta property="og:image" content="{{ $item.art.src | absURL }}">
+    <meta name="twitter:card" content="summary_large_image">

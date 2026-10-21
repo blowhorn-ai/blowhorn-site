@@ -2,7 +2,7 @@
   "title": "Blowhorn vs mokumokuren",
   "linkTitle": "mokumokuren",
   "seo_title": "Blowhorn vs mokumokuren: honest comparison",
-  "description": "mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your machine, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.",
+  "description": "mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your computer, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.",
   "layout": "versus",
   "weight": 40,
   "lastmod": "2026-10-13",
@@ -10,7 +10,7 @@
   "mark": "Mk",
   "site_url": "https://docs-mokumokuren.imakita3gyo.com/en/",
   "group": "Local multi-profile browsers",
-  "verdict": "mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your machine, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.",
+  "verdict": "mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your computer, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.",
   "them": [
     "You want a human to press send on every post",
     "Threads, mixi2 or Substack are among your channels",
@@ -19,7 +19,7 @@
   "us": [
     "LinkedIn, Reddit, Hacker News, GitHub and Slack matter to you",
     "You want scheduling and amplification from every profile in your account",
-    "You run more than one machine"
+    "You run more than one computer"
   ],
   "price_them": "Free; Pro $7 a month",
   "price_src": "https://docs-mokumokuren.imakita3gyo.com/en/",
@@ -27,7 +27,7 @@
     {
       "f": "Where it acts",
       "t": "Local browser sessions, you send",
-      "b": "Your machines, in your own signed-in Chrome or platform APIs"
+      "b": "Your computers, in your own signed-in Chrome or platform APIs"
     },
     {
       "f": "Networks",
@@ -37,12 +37,12 @@
     {
       "f": "Scheduling",
       "t": "No, you send",
-      "b": "As long as one of your machines is awake. Any machine set up for the profile keeps the schedule"
+      "b": "As long as one of your computers is awake. Any computer set up for the profile keeps the schedule"
     },
     {
-      "f": "Many machines on one queue",
+      "f": "Many computers on one queue",
       "t": "No",
-      "b": "Unlimited machines on one queue, coordinated so the same post isn't sent from two machines"
+      "b": "Unlimited computers on one queue, coordinated so the same post isn't sent from two computers"
     },
     {
       "f": "Amplify one post",
@@ -52,7 +52,7 @@
     {
       "f": "AI agents",
       "t": "Local MCP server",
-      "b": "Full CLI: --help with examples, --json, --dry-run on writes. Your agent drives, you hold pause"
+      "b": "MCP server, REST API, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause"
     },
     {
       "f": "Bought engagement",
@@ -74,7 +74,7 @@
   },
   "wins": [
     "LinkedIn, Reddit, Hacker News, GitHub and Slack",
-    "One shared queue across every machine you own",
+    "One shared queue across every computer you own",
     "Scheduled posting, not only pressing send yourself"
   ],
   "loses": [

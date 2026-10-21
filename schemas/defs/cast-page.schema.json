@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://blowhorn.ai/schemas/defs/cast-page.schema.json",
+  "title": "Shared cast-page types",
+  "description": "line, text and card used by data/roles.json and data/use_cases.json. Loaded by make check-schemas with ajv -r. Plain text, hyphens never em dashes.",
+  "definitions": {
+    "line": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "not": {
+        "pattern": "—"
+      }
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 320,
+      "not": {
+        "pattern": "—"
+      }
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "t",
+        "b"
+      ],
+      "properties": {
+        "t": {
+          "$ref": "#/definitions/line"
+        },
+        "b": {
+          "$ref": "#/definitions/text"
+        }
+      }
+    }
+  }
+}

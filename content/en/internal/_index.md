@@ -1,7 +1,8 @@
 ---
 title: Internal
 layout: internal
-description: Internal pages. Rendered only by `hugo --environment internal`.
+description: Blowhorn's internal strategy, research and finance, for named team members only.
+# Rendered only by `hugo --environment internal`.
 # Keep internal pages out of the site-wide lists (menus, the search index,
 # llms.txt, the sitemap and related-page lists), even in the internal build.
 # Pages still render (segments decide whether they render at all).
@@ -23,12 +24,14 @@ build:
   render: always
 sitemap:
   disable: true
+# Render the generated table of contents (layouts/_partials/internal-contents.html).
+contents: true
 ---
 
-The internal Blowhorn site. Nothing under this section is committed to this
-repository: `make site-internal` mounts it from a private clone as a Hugo
-module (see docs/deploy.md). The public build never renders it.
+Every internal page is listed below, grouped by section. The list is
+generated from the content tree on each build, so new pages appear here on
+the next deploy.
 
-- [GTM strategy](/internal/strategy/)
-- [Assistant comparison](/internal/strategy/compare/)
-- [Break-even analysis](/internal/finance/): report and downloadable XLSX model
+<!-- Source: nothing under this section is committed to this repository.
+`make site-internal` mounts it from a private clone as a Hugo module (see
+docs/deploy.md). The public build never renders it. -->

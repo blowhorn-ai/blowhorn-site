@@ -19,7 +19,7 @@
   "us": [
     "Launches, releases and posts that need your people behind them",
     "Hacker News, Reddit, GitHub and Slack in the same queue",
-    "An agent-friendly CLI and one queue across all your machines"
+    "An agent-friendly CLI and one queue across all your computers"
   ],
   "price_them": "Bootstrap $29, Accelerate $49, Pro $99 a month",
   "price_src": "https://socialbee.com/pricing/",
@@ -27,7 +27,7 @@
     {
       "f": "Where it acts",
       "t": "SocialBee's cloud",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Evergreen category queues",
@@ -47,7 +47,7 @@
     {
       "f": "AI agents",
       "t": "AI copilot",
-      "b": "Full CLI: --help with examples, --json, --dry-run on writes. Your agent drives, you hold pause"
+      "b": "MCP server, REST API, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause"
     },
     {
       "f": "Bought engagement",

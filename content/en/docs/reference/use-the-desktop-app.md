@@ -15,7 +15,14 @@ two boards. The running board shows the scheduler, what is due now, what
 is running, what needs you, and the content queue with a countdown to
 the next tick. The paused board shows PAUSED with each tick-level pause
 scope stated once, and the rows that would post now wait instead of
-posting. A store outage puts its line above the board.
+posting. A store outage puts its line above the board. The line is the
+last check's word, so while it shows, the app keeps checking the store in
+the background - soon after the line appears, then every two minutes -
+and again whenever you open the popover, bring the console forward, or
+wake the computer. When the store answers, the line clears on its own and
+the next check runs straight away; you never have to relaunch the app to
+clear it. **try again** on the line checks at once instead of waiting.
+The console shows the same line, with the same **try again**.
 
 The popover footer holds the pause controls and, when an update is
 ready, the update card. The update downloads the new version, checks it
@@ -29,32 +36,60 @@ what each does is under [Update](/docs/how-to/set-up/install-the-app/#update).
 
 ## The console
 
-The console is the full window, reached from the popover. Its rail, in
-order: "home", "posts", "activity", "profiles", "results", "this Mac",
-"settings". "posts" is one page with two views, switched at the top of the
-screen: "posts" (what you want to say) and "schedule" (when and where things
-go out). Each screen reads live state on open. Nothing here edits on
-a timer. Until you're signed in and the extension is ready, every rail item
-but "home" is locked; see
+The console is the full window, reached from the popover. At the top of its
+rail, **New activity** (⌘N) opens Activity with a new entry. Below it are four
+places: **Home**, **Activity**, **Profiles** and **Performance**. Activity is
+one place with three views, switched at the top of the screen: **Upcoming**
+(what you want to say), **Routines** (when and where things go out) and
+**History** (what Blowhorn did).
+
+At the bottom of the rail, the status line says whether this computer is on
+watch. It reads "Paused since" when the pause began (the time for a pause from
+today, the weekday and time within the past week, otherwise the date) with
+"Nothing goes out"; "This computer isn't on watch" with the reason when its
+service is stopped, not installed or turned off in System Settings; "Check
+overdue on this computer" when a check is late; and "This computer is on watch"
+only when none of those hold. Click it to open This computer. Beside it, **Pause** is one toggle: press it to pause, press it
+again to turn the pause off (⌘⇧P does the same). Under the status line, the
+account button (desktop v1.27.2) shows who is signed in: your Blowhorn profile photo, or
+your initials, your name, and your organization and plan (for example "Acme ·
+Free plan"). The organization is the one your Blowhorn session has
+selected, the same one [cloud.blowhorn.ai](https://cloud.blowhorn.ai) shows, unless
+`BLOWHORN_CLOUD_ORGANIZATION` names another; the plan is that organization's.
+Every organization is on the Free plan unless an active subscription names another. It opens the
+account menu: your name, email, organization and plan, then **Your account and
+plan** (your Blowhorn account page at cloud.blowhorn.ai, in your browser), **Team** (coming
+soon), **Switch organization** when you belong to more than one (it lists them
+with yours checked; picking one switches your account to it right here, the same
+switch cloud.blowhorn.ai makes, so your browser follows too; `blowhorn auth
+switch-organization` does it from Terminal), **Settings** (⌘,), **Help and docs**, and
+**Sign out**. Opening the menu refreshes your name, photo, organizations and
+plan from your Blowhorn account. Signed out, the button is **Sign in**. While
+Blowhorn checks your account it shows a spinner; when it can't reach
+Blowhorn it shows a warning dot, and its menu offers **Try again**.
+
+Each screen reads live state on open. Nothing here edits on a timer. Until
+you're signed in and the extension is ready, every place but Home, and New
+activity, is locked; the account button stays usable. See
 [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/).
 
 | Screen | Shows | Acts |
 |---|---|---|
-| home | Whether Blowhorn is working, what runs next, and whether it needs you; a pause names which pause holds - this Mac, all Macs, or both | Resume the pause it names (one button per pause while both hold); reconnect an account; finish setting up |
-| posts › posts | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones | Add or edit a post; clearing a clicked post's "Date Promoted" queues it again |
-| posts › schedule | The schedule as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the next check; a drawer for one item; a preview of a sample schedule | Add an item, from "schedule something" or by clicking a free time; move an item's next time by dragging it; edit, pause or resume one item; "do it now"; add the sample schedule |
-| activity | Everything Blowhorn did, newest first, with each one's detailed log under the log directory's `scheduler/` folder | "try again" on a failure |
-| profiles | Every profile, its Chrome mapping, its per-platform sessions | Add a profile; map or unmap its Chrome profile |
-| results | Followers, growth, and operations per profile; collection freshness in the header | Collect now; open the HTML report |
-| this Mac | Who registered the background service, whether it is on watch, the last check, the pause for all machines | "check now" (with "preview only" to see what would go out); pause or resume all machines; open System Settings when the service is turned off there |
-| settings | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, choose its mode, test your account connection |
+| Home | Whether Blowhorn is working, what runs next, and whether it needs you; a pause names which pause holds - this computer, all computers, or both | Turn off the pause it names (one button per pause while both hold); reconnect an account; finish setting up |
+| Activity › Upcoming | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones | Add or edit a post; clearing a clicked post's "Date Promoted" queues it again |
+| Activity › Routines | Your routines as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the next check; a drawer for one item; a preview of sample routines | Add an item, from "schedule something" or by clicking a free time; move an item's next time by dragging it; edit, pause or resume one item; "do it now"; add the sample routines |
+| Activity › History | Everything Blowhorn did, newest first, with each one's detailed log under the log directory's `scheduler/` folder | "try again" on a failure |
+| Profiles | Every profile, its Chrome mapping, its per-platform sessions | Add a profile; map or unmap its Chrome profile |
+| Performance | Followers, growth, and activity per profile; collection freshness in the header | Collect now; open the HTML report |
+| This computer (from the status line) | Who registered the background service, whether it is on watch, the last check, the pause for all computers | "check now" (with "preview only" to see what would go out); the "pause all computers" toggle; open System Settings when the service is turned off there |
+| Settings (from the account menu) | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, choose its mode, test your account connection |
 
-The schedule list layout keeps every value on one line. When the list is narrow -
+The routines list keeps every value on one line. When the list is narrow -
 the drawer is wide, or the window is small - the browser and recurrence
 columns leave first (the drawer still shows both) and a long profile list
 is shortened with an ellipsis; the status is never cut.
 
-The schedule view opens on the week calendar and remembers the layout you
+The Routines view opens on the week calendar and remembers the layout you
 pick; opening a day from the month makes the day view the remembered one.
 The tabs ("coming up", "due now", "going out", "failed", "all") and the
 filter box choose which items it shows, in every layout. An item's next time
@@ -66,17 +101,17 @@ changed that item since you loaded it. A finished item (it happened once, or
 gave up after its retries) shows its last time and no next one; giving it a
 new "when" in its editor schedules it again, with its full set of retries.
 
-The results screen states how fresh its numbers are in the header and
-has no refresh control of its own. Its operations heatmap has one row per
+The Performance screen states how fresh its numbers are in the header and
+has no refresh control of its own. Its activity heatmap has one row per
 profile; attempts recorded for several profiles at once (`all`, or a comma
 list) name no one profile, so they are counted beside it rather than shown
-as a row. The activity screen reaches each item's detailed log through the
+as a row. The History view reaches each item's detailed log through the
 log directory listing, which includes each capture file and its rollover.
-The this Mac screen is the visible face of `blowhorn service`: it reports the
+The this computer screen is the visible face of `blowhorn service`: it reports the
 service the app registered and never installs, updates or uninstalls one.
 
 Profiles made before profile names were lowercase keep their capitalised
-folder (`data/profiles/Lee`). The app lists them as they are spelled and
+folder (`data/profiles/Alex`). The app lists them as they are spelled and
 reads and saves them as the lowercase name every command resolves them to.
 
 ## Setup
@@ -86,13 +121,13 @@ ready (otherwise the first run is the guided setup; see
 [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/)),
 five rows read from this machine:
 "Blowhorn folder", "helper tools", "organization connection", "chrome profiles",
-and "this Mac on watch". The first two check the engine bundled in the
+and "this computer on watch". The first two check the engine bundled in the
 app, the only engine the installed app runs
 ([Install the app](/docs/how-to/set-up/install-the-app/#first-run)); it
 never needs a clone or an install, so those rows offer neither. An app run from its disk image says to move it to Applications
 instead. Each row reports ok, warn, or off with the
 one fix that clears it. The "map chrome profiles" panel and the
-"this Mac on watch" row act directly: mapping a profile and
+"this computer on watch" row act directly: mapping a profile and
 registering the service happen here, not in a terminal.
 
 ## Settings
@@ -104,7 +139,7 @@ so the app can never offer an option the engine does not know. The
 extension card reports whether the extension is installed, which
 version answers, and whether it says connected, and sets its
 [extension mode](/docs/reference/chrome/#extension-mode-classic-or-background), classic or
-background, on your Layer5 Cloud account. **guided setup** at the
+background, on your Blowhorn account. **guided setup** at the
 bottom reopens the first-run setup, and **run setup again** opens Setup.
 Quitting the app leaves
 posting to the background service and the keep-running setting; see

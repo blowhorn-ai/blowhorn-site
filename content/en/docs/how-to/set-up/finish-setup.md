@@ -43,12 +43,12 @@ It checks, in order:
    to Blowhorn. When it is missing or out of date, setup says which Chrome
    profiles it reaches - every Chrome profile you use on this computer, now
    and later, naming the ones it found today - and asks before writing it.
-4. `cloud-account` - whether you are signed in to Layer5 Cloud.
+4. `cloud-account` - whether you are signed in to Blowhorn.
 
 The run ends with `changed:` (what this run wrote, or that everything was
 already in place) and `Next:`, the steps only you can take:
 
-- sign in to Layer5 Cloud (or create an account there)
+- sign in to [Blowhorn](https://cloud.blowhorn.ai) (or create an account there)
 - install the Blowhorn extension from the Chrome Web Store
 - check the extension answers: `blowhorn chrome extension-status`
 - get the Blowhorn app for macOS from <https://blowhorn.ai/download>

@@ -1,0 +1,32 @@
+{{- /* Shared Open Graph, JSON-LD and hero-rotation head for the home page
+  and the Reveille preview. */ -}}
+    {{- $hero := partial "hero-variant.html" . }}
+    {{- $heroDesc := printf "%s %s" $hero.headline $hero.subhead }}
+    {{- partial "hero-rotation-head.html" . }}
+    {{- partial "machines-rotation-head.html" . }}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Blowhorn">
+    <meta property="og:title" content="Blowhorn: one message, many ears">
+    <meta property="og:description" content="{{ $heroDesc }}">
+    <meta property="og:url" content="{{ partial "canonical.html" . }}">
+    <meta property="og:image" content="{{ "assets/brand/marketing/blowhorn-social-banner-16x9.png" | absURL }}">
+    <meta property="og:image:width" content="1600">
+    <meta property="og:image:height" content="900">
+    <meta property="og:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline One message. Many ears.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blowhorn: one message, many ears">
+    <meta name="twitter:description" content="{{ $heroDesc }}">
+    <meta name="twitter:image" content="{{ "assets/brand/marketing/blowhorn-social-banner-16x9.png" | absURL }}">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Blowhorn",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "macOS 13 or newer",
+        "url": "https://blowhorn.ai/",
+        "description": {{ $heroDesc | jsonify | safeJS }},
+        "author": { "@type": "Organization", "name": "Blowhorn", "url": "https://blowhorn.ai/" },
+        "downloadUrl": {{ printf "https://github.com/layer5io/blowhorn-site/releases/download/v%s/Blowhorn-mac.dmg" site.Data.download.version | jsonify | safeJS }}
+      }
+    </script>

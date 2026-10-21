@@ -1,0 +1,795 @@
+{
+  "$schema": "../schemas/action_examples.schema.json",
+  "defaultSurface": "cli",
+  "surfaces": [
+    "app",
+    "cli",
+    "rest",
+    "mcp",
+    "skill"
+  ],
+  "examples": [
+    {
+      "platform": "linkedin",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform linkedin --profile alex",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Publish this announcement to my LinkedIn feed as me.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "comment",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/comment.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn comment --platform linkedin --target \"https://www.linkedin.com/feed/update/urn:li:activity:123/\" --message \"Great post!\"",
+          "cliRef": "/docs/reference/cli/comment/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Comment on this LinkedIn post as me: https://www.linkedin.com/feed/update/urn:li:activity:123/ with the message Great post!",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "amplify",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/amplify.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform linkedin --profile alex --amplify \"https://www.linkedin.com/feed/update/urn:li:activity:123/\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Repost this LinkedIn post from each of my profiles: https://www.linkedin.com/feed/update/urn:li:activity:123/",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "accept",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/accept.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn accept --profile marcus --limit 5",
+          "cliRef": "/docs/reference/cli/accept/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Accept pending LinkedIn invitations for my Marcus profile, at most five.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "withdraw",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/withdraw.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn withdraw --profile alex --apply",
+          "cliRef": "/docs/reference/cli/withdraw/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Withdraw LinkedIn invitations I sent that have waited long enough, for my Alex profile.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "linkedin",
+      "action": "analytics",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/linkedin/analytics.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn analytics history --platform linkedin --json --since 12m",
+          "cliRef": "/docs/reference/cli/analytics/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Show my LinkedIn follower history for the last 12 months.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform x --profile alex",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Publish this announcement on X as me.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "reply",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/reply.png"
+        },
+        "cli": {
+          "status": "placeholder",
+          "notes": "X replies are not a distinct blowhorn command yet. Queue the tweet URL in Comment on."
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Reply on X to https://x.com/user/status/123 as me with this message.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "amplify",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/amplify.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform x --amplify \"https://x.com/user/status/123\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Retweet or quote https://x.com/user/status/123 from each of my X profiles.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "follow",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/follow.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn follow --platform x --profile alex --target mesheryio --limit 0",
+          "cliRef": "/docs/reference/cli/follow/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Follow mesheryio on X from my Alex profile, target only.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "x",
+      "action": "analytics",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/x/analytics.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn analytics history --platform x --json --since 12m",
+          "cliRef": "/docs/reference/cli/analytics/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Show my X follower history for the last 12 months.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "reddit",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/reddit/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform reddit --profile alex",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Publish this post to the subreddit in the queue row as me.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "reddit",
+      "action": "comment",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/reddit/comment.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn comment --platform reddit --target \"https://www.reddit.com/r/k8s/comments/abc/post/\" --message \"Thanks for sharing.\"",
+          "cliRef": "/docs/reference/cli/comment/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Comment on this Reddit post as me: https://www.reddit.com/r/k8s/comments/abc/post/ with Thanks for sharing.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "reddit",
+      "action": "amplify",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/reddit/amplify.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform reddit --amplify \"https://www.reddit.com/r/k8s/comments/abc/post/\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Upvote this Reddit post from each of my profiles: https://www.reddit.com/r/k8s/comments/abc/post/",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "hacker-news",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/hacker-news/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform hn --profile alex --dry-run",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Preview a Hacker News submission for my Alex profile, then publish it.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "hacker-news",
+      "action": "comment",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/hacker-news/comment.png"
+        },
+        "cli": {
+          "status": "placeholder",
+          "notes": "Hacker News comments are not a distinct blowhorn command yet. Queue the item URL in Comment on."
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Comment on this Hacker News item as me, from the queue row.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "slack",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/slack/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform slack --profile alex --target \"#announcements\" --message \"Maintenance is complete\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Send Maintenance is complete to #announcements on Slack as me.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "slack",
+      "action": "reply",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/slack/reply.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform slack --target \"https://acme.slack.com/archives/C0123/p1776000000000100\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Reply in this Slack thread as me: https://acme.slack.com/archives/C0123/p1776000000000100",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "post",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/post.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform bluesky --profile alex",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Publish this announcement on Bluesky as me.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "reply",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/reply.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn comment --platform bluesky --target \"https://bsky.app/profile/alice.bsky.social/post/3kx...\" --message \"Nice thread.\"",
+          "cliRef": "/docs/reference/cli/comment/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Reply on Bluesky to https://bsky.app/profile/alice.bsky.social/post/3kx... as me with Nice thread.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "amplify",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/amplify.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform bluesky --profile alex --amplify \"https://bsky.app/profile/you/post/3kx...\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Repost this Bluesky post from each of my profiles: https://bsky.app/profile/you/post/3kx...",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "follow",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/follow.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn follow --platform bluesky --profile alex --target alice.bsky.social --limit 0",
+          "cliRef": "/docs/reference/cli/follow/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Follow alice.bsky.social on Bluesky from my Alex profile, target only.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "unfollow",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/unfollow.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn unfollow --platform bluesky --profile alex --target alice.bsky.social",
+          "cliRef": "/docs/reference/cli/unfollow/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Unfollow alice.bsky.social on Bluesky from my Alex profile.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "find",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/find.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn find --query \"service mesh\" --sort latest --limit 10 --platform bluesky",
+          "cliRef": "/docs/reference/cli/find/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Search Bluesky for recent posts about service mesh.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "bluesky",
+      "action": "analytics",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/bluesky/analytics.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn analytics history --platform bluesky --json --since 12m",
+          "cliRef": "/docs/reference/cli/analytics/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Show my Bluesky follower history for the last 12 months.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "github",
+      "action": "react",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/github/react.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn post --platform github --profile alex --amplify \"https://github.com/layer5io/meshery/issues/1234\"",
+          "cliRef": "/docs/reference/cli/post/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Add the five upbeat reactions to https://github.com/layer5io/meshery/issues/1234 from my Alex profile.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "github",
+      "action": "follow",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/github/follow.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn follow --platform github --profile alex --target layer5io --limit 0",
+          "cliRef": "/docs/reference/cli/follow/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "Follow layer5io on GitHub from my Alex profile, target only.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    },
+    {
+      "platform": "github",
+      "action": "find",
+      "surfaces": {
+        "app": {
+          "status": "placeholder",
+          "screenshot": "assets/docs/actions/github/find.png"
+        },
+        "cli": {
+          "status": "available",
+          "command": "blowhorn source --platform github --profile alex --repo layer5io/meshery --audience stargazers --dry-run",
+          "cliRef": "/docs/reference/cli/source/"
+        },
+        "rest": {
+          "status": "available",
+          "notes": "Every Blowhorn action is on the REST API, from the same schema as the CLI. Parameters match the CLI reference."
+        },
+        "mcp": {
+          "status": "available",
+          "prompt": "List stargazers of layer5io/meshery so I can choose whom to reach. Do not follow anyone.",
+          "notes": "The prompt to give an AI assistant connected to the Blowhorn MCP server."
+        },
+        "skill": {
+          "status": "available",
+          "notes": "The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires."
+        }
+      }
+    }
+  ]
+}

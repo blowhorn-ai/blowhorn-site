@@ -1,0 +1,163 @@
+name: Internal site
+
+# Builds the internal Blowhorn site (make site-internal-build, the /internal/
+# section mounted from the private leecalcote/blowhorn repository) and deploys
+# it to the blowhorn-internal Worker at internal.blowhorn.ai, behind a
+# Cloudflare Access application that admits only the named emails in
+# internal-worker/access.json. See docs/deploy.md, "Internal site hosting".
+#
+# Started by `make site-internal-deploy` (in this repository or in
+# leecalcote/blowhorn) through workflow_dispatch, or called from another
+# workflow in this repository (workflow_call, secrets: inherit).
+#
+# THIS REPOSITORY IS PUBLIC. Its logs and artifacts are world-readable, so:
+#   - no artifact is uploaded, and nothing from the private checkout is cached;
+#   - the build and wrangler output go to /dev/null or a filtered summary;
+#   - no step uses set -x, tree, ls or find on the build, or dumps errors;
+#   - Access is created and verified before the private checkout, and the
+#     deploy is verified from outside afterwards.
+#
+# Credentials:
+#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID  repository secrets.
+#   BLOWHORN_INTERNAL_READ_KEY  secret of the `internal-site` environment
+#     (deployments from master only): the private half of a read-only deploy
+#     key on leecalcote/blowhorn. It reads that one repository and nothing else.
+
+on:
+  workflow_dispatch:
+    inputs:
+      blowhorn_ref:
+        description: leecalcote/blowhorn ref to build (branch, tag or SHA)
+        required: false
+        default: master
+  workflow_call:
+    inputs:
+      blowhorn_ref:
+        description: leecalcote/blowhorn ref to build (branch, tag or SHA)
+        required: false
+        type: string
+        default: master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: internal-site
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    name: Build and deploy behind Cloudflare Access
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: internal-site
+      url: https://internal.blowhorn.ai/
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      HAS_READ_KEY: ${{ secrets.BLOWHORN_INTERNAL_READ_KEY != '' }}
+      BLOWHORN_REF: ${{ inputs.blowhorn_ref || 'master' }}
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - name: Check credentials are configured
+        run: |
+          missing=()
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || missing+=(CLOUDFLARE_API_TOKEN)
+          [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || missing+=(CLOUDFLARE_ACCOUNT_ID)
+          [ "$HAS_READ_KEY" = true ] || missing+=("BLOWHORN_INTERNAL_READ_KEY (internal-site environment)")
+          if [ "${#missing[@]}" -gt 0 ]; then
+            echo "::error::Not configured on layer5io/blowhorn-site: ${missing[*]}. Nothing was built or deployed."
+            exit 1
+          fi
+
+      # Full history so Hugo's git info dates the pages, as site.yml does.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Access first: if the token cannot manage Access, or the application is
+      # not default-deny with exactly the managed allow policy, stop here,
+      # before any private content reaches this runner.
+      - name: Check Cloudflare API token permissions
+        run: make site-internal-access-check
+
+      - name: Create or update the Cloudflare Access application
+        run: make site-internal-access
+
+      - name: Check out leecalcote/blowhorn (read-only deploy key)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: leecalcote/blowhorn
+          ref: ${{ env.BLOWHORN_REF }}
+          ssh-key: ${{ secrets.BLOWHORN_INTERNAL_READ_KEY }}
+          persist-credentials: false
+          path: .internal-src/blowhorn
+          sparse-checkout: |
+            marketing/strategy
+            marketing/capability-comparison
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: make setup-ci
+
+      # Hugo's output names pages and files, so none of it is printed.
+      - name: Build the internal site (output suppressed)
+        run: |
+          if ! make site-internal-build BLOWHORN_DIR=.internal-src/blowhorn BASE_URL=https://internal.blowhorn.ai/ >/dev/null 2>&1; then
+            echo "::error::The internal build failed. Its output is suppressed because this repository is public; reproduce it locally with make site-internal-build."
+            exit 1
+          fi
+          test -f public-internal/internal/index.html || { echo "::error::The internal build produced no /internal/ index."; exit 1; }
+          test -f public-internal/internal/finance/report/index.html || { echo "::error::The internal build produced no finance report."; exit 1; }
+          pages="$(find public-internal -name '*.html' | wc -l | tr -d ' ')"
+          echo "Built $pages HTML pages."
+          rm -rf .internal-src
+
+      - name: Deploy to the blowhorn-internal Worker
+        run: make site-internal-worker-deploy
+
+      # A first deploy creates the hostname's DNS record, so allow it a few
+      # minutes to resolve. Exit 2 means a page was served unauthenticated:
+      # take the Worker down at once.
+      - name: Verify unauthenticated requests get the Access login
+        run: |
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            set +e
+            make --no-print-directory site-internal-verify
+            rc=$?
+            set -e
+            [ "$rc" -eq 0 ] && break
+            if [ "$rc" -eq 2 ]; then
+              echo "::error::internal.blowhorn.ai served a page without Access; deleting the Worker."
+              (cd internal-worker && npx --yes wrangler@4.151.3 delete --force >/dev/null 2>&1) || true
+              exit 1
+            fi
+            [ "$attempt" -lt 10 ] || exit 1
+            sleep 30
+          done
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Internal site"
+            echo "- Host: https://internal.blowhorn.ai/ (Cloudflare Access, named emails only)"
+            echo "- blowhorn ref: \`$BLOWHORN_REF\`"
+            echo "- Result: ${{ job.status }}"
+          } >> "$GITHUB_STEP_SUMMARY"
+          rm -rf public-internal .internal-src

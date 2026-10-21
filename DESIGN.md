@@ -1,6 +1,6 @@
 # Blowhorn site design rules
 
-The full design language lives in [DESIGN.md in leecalcote/blowhorn](https://github.com/leecalcote/blowhorn/blob/master/DESIGN.md). This file holds the site's spacing and copy rules; keep the two in sync.
+The full design language lives in [DESIGN.md in the blowhorn repository](https://github.com/leecalcote/blowhorn/blob/master/DESIGN.md). This file holds the site's spacing and copy rules; keep the two in sync.
 
 ## Whitespace and rhythm
 
@@ -57,7 +57,7 @@ Anywhere the site shows a command a reader might run, it can be copied in one cl
 
 ## Mascot consistency
 
-Major Blowhorn must look the same in every scene. Image tools give no seed control, so consistency comes from references and a locked prompt, not luck. Full procedure and the prompt block: `marketing/brand/major-blowhorn/consistency.md` in leecalcote/blowhorn.
+Major Blowhorn must look the same in every scene. Image tools give no seed control, so consistency comes from references and a locked prompt, not luck. Full procedure and the prompt block: `marketing/brand/major-blowhorn/consistency.md` in the blowhorn repository.
 
 - Start every new scene from the official vector art in `static/assets/brand/mascot/` or the canonical reference sheet (`marketing/brand/major-blowhorn/reference/`).
 - Paste the locked character and style prompt block verbatim into every generation, and attach the reference sheet plus the official mascot image as reference images every time.

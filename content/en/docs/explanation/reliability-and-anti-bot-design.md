@@ -50,3 +50,4 @@ limiter.
 - [How Blowhorn avoids repeat posts](/docs/explanation/never-twice/) - one click per run.
 - [Change your defaults](/docs/how-to/settings/defaults/) - the pace default.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
+- [Blowhorn Tells](https://tells.blowhorn.ai/) - a free check of what sites can see about your browser.

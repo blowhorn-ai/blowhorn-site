@@ -9,7 +9,7 @@ weight: 109
 
 ## blowhorn follow
 
-Follow accounts on X, Bluesky, or GitHub. --limit 0 is target-only mode: the --target handle itself is followed and nothing else. With a positive --limit, --target is only the seed - the run follows up to --limit accounts drawn from that account's follower graph, and never follows the target. GitHub runs over the REST API with no browser, so its --dry-run performs the real follower walk and names exactly who would be followed.
+Follow accounts on X, Bluesky, or GitHub. `--limit` 0 is target-only mode: the `--target` handle itself is followed and nothing else. With a positive `--limit`, `--target` is only the seed - the run follows up to `--limit` accounts drawn from that account's follower graph, and never follows the target. GitHub runs over the REST API with no browser, so its `--dry-run` performs the real follower walk and names exactly who would be followed.
 
 ```text
 blowhorn follow [OPTIONS]
@@ -18,30 +18,30 @@ blowhorn follow [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--ignore-risk` | boolean | `false` | Run this once even if your Risk Profile would hold it (a daily cap, quiet hours, outreach turned off or a pause after a sign-in challenge). Only this run; your Risk Profile stays as it is |
-| `--target` | string |  | Target account handle (comma-delimited when --limit 0) |
+| `--target` | string |  | Target account handle (comma-delimited when `--limit` 0) |
 | `--limit` | integer | `20` | Max follows; 0 means target-only mode |
-| `--platform` | string |  | Platform scope for 'blowhorn follow'. One of: bluesky, github, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Pace of the random delays between 'blowhorn follow' actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Platform scope for `blowhorn follow`. One of: bluesky, github, x, all (`all` means every platform listed here) |
+| `--pace` | string |  | Pace of the random delays between `blowhorn follow` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
 Examples:
 
 ```bash
-blowhorn follow --profile lee --target mesheryio --dry-run -v
+blowhorn follow --profile alex --target mesheryio --dry-run -v
 blowhorn follow --profile all --target jijillery --limit 0
 blowhorn follow --profile all --target jijillery,mia --limit 0
-blowhorn follow --profile lee --target mesheryio --limit 25
+blowhorn follow --profile alex --target mesheryio --limit 25
 blowhorn follow --profile kate,rian --target mia --limit 0
-blowhorn follow --platform github --profile lee --target meshery --limit 5 --dry-run -v
-blowhorn follow --platform github --profile lee --target meshery --limit 25
-blowhorn follow --platform github --profile lee --target meshery --limit 25 --dry-run
-blowhorn follow --platform github --profile lee --target layer5io --limit 0
-blowhorn follow --platform github --profile lee --target layer5io,meshery,kanvas --limit 0
-blowhorn follow --platform github --profile lee --target layer5io,meshery --limit 0 --dry-run
+blowhorn follow --platform github --profile alex --target meshery --limit 5 --dry-run -v
+blowhorn follow --platform github --profile alex --target meshery --limit 25
+blowhorn follow --platform github --profile alex --target meshery --limit 25 --dry-run
+blowhorn follow --platform github --profile alex --target acme --limit 0
+blowhorn follow --platform github --profile alex --target acme,meshery,kanvas --limit 0
+blowhorn follow --platform github --profile alex --target acme,meshery --limit 0 --dry-run
 blowhorn follow --platform github --profile all --target meshery --limit 10
 blowhorn follow --platform github --profile kate,rian --target meshery --limit 10
-blowhorn follow --platform github --profile all --target meshery --limit 10 --exclude lee
+blowhorn follow --platform github --profile all --target meshery --limit 10 --exclude alex
 ```
 
 Output: text.

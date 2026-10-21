@@ -1,36 +1,60 @@
-{{- /* The assistant comparison table from leecalcote/blowhorn
+{{- /* The internal assistant comparison table from the blowhorn repository
   marketing/capability-comparison/compare-assistants.csv, mounted at
   assets/internal/compare-assistants.csv by config/internal/hugo.toml.
-  Status values render as icons, labelled with the status itself.
-
-  Columns are sized from the data, never from their names, because each
-  assistant that rates itself adds columns: a column whose cells are all
-  statuses (or blank) stays narrow; a text column gets room; a long-text
-  column (any cell over 100 characters, such as a notes column) gets a
-  reading width, so its prose wraps into lines instead of a one-word-wide
-  column that stretches every row. The table scrolls sideways inside its own
-  region, as the public compare tables do, and that region takes the page's
-  full width while the text around it keeps the reading measure. */ -}}
+  Maintained in the product repository and rendered here at build time.
+  The CSV is also the contribution surface for other AI models, so its
+  shape is stable: one status column and one "<name> notes" column per
+  provider. This renderer folds each notes column into its status cell:
+  the cell shows only the status symbol, and the note (plus any caveat
+  written after an em dash in the status cell itself) rides on the
+  symbol as a hover/focus tooltip via cmp-tools. The row-level "Notes"
+  and "Muse verdict" columns fold into the Feature cell the same way.
+  Column widths follow the data: status columns stay narrow, text
+  columns get room, and the table scrolls sideways inside its own
+  region at the page's full width. */ -}}
 {{- $csv := resources.Get "internal/compare-assistants.csv" -}}
 {{- if not $csv }}{{ errorf "internal-compare: assets/internal/compare-assistants.csv is not mounted (run make site-internal)" }}{{ end -}}
 {{- $rows := $csv | transform.Unmarshal -}}
-{{- $icons := dict "Highly efficient" (slice "hi" "✓") "Inefficient" (slice "in" "◐") "Cannot do" (slice "no" "✕") "Can't" (slice "no" "✕") "Not assessed" (slice "na" "–") -}}
 {{- $head := index $rows 0 -}}
 {{- $body := after 1 $rows -}}
-{{- $kinds := slice -}}
-{{- range $i, $_ := $head -}}
-  {{- $kind := "st" -}}
-  {{- range $body -}}
-    {{- $cell := index . $i -}}
-    {{- if and $cell (not (index $icons $cell)) -}}
-      {{- if gt (len $cell) 100 }}{{ $kind = "long" }}{{ else if ne $kind "long" }}{{ $kind = "text" }}{{ end -}}
+{{- $icons := dict "Highly efficient" (slice "hi" "✓") "Inefficient" (slice "in" "◐") "Can't" (slice "no" "✕") "Cannot do" (slice "no" "✕") "Not assessed" (slice "na" "–") "Yes" (slice "hi" "✓") "No" (slice "no" "✕") "Not offered" (slice "no" "✕") "Coming soon" (slice "cs" "◷") "Partly" (slice "in" "◐") "Limited" (slice "in" "◐") "None" (slice "na" "–") "Not verified in docs" (slice "na" "–") -}}
+{{- $featureIdx := 0 -}}
+{{- range $i, $name := $head }}{{ if eq $name "Feature" }}{{ $featureIdx = $i }}{{ end }}{{ end -}}
+{{- $notesFor := dict -}}
+{{- $rowFold := slice -}}
+{{- $hidden := dict -}}
+{{- range $i, $name := $head -}}
+  {{- $paired := false -}}
+  {{- range $j, $base := $head -}}
+    {{- if eq $name (printf "%s notes" $base) -}}
+      {{- $notesFor = merge $notesFor (dict (printf "%d" $j) $i) -}}
+      {{- $hidden = merge $hidden (dict (printf "%d" $i) true) -}}
+      {{- $paired = true -}}
     {{- end -}}
   {{- end -}}
-  {{- $kinds = $kinds | append $kind -}}
+  {{- if and (not $paired) (or (eq $name "Notes") (eq $name "Muse verdict")) -}}
+    {{- $rowFold = $rowFold | append $i -}}
+    {{- $hidden = merge $hidden (dict (printf "%d" $i) true) -}}
+  {{- end -}}
+{{- end -}}
+{{- $visible := slice -}}
+{{- range $i, $_ := $head }}{{ if not (index $hidden (printf "%d" $i)) }}{{ $visible = $visible | append $i }}{{ end }}{{ end -}}
+{{- $kinds := dict -}}
+{{- range $vi := $visible -}}
+  {{- $kind := "st" -}}
+  {{- range $body -}}
+    {{- $cell := index . $vi -}}
+    {{- if $cell -}}
+      {{- if not (index $icons (index (split $cell " — ") 0)) -}}
+        {{- if gt (len $cell) 100 }}{{ $kind = "long" }}{{ else if ne $kind "long" }}{{ $kind = "text" }}{{ end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $kinds = merge $kinds (dict (printf "%d" $vi) $kind) -}}
 {{- end -}}
 <style>
-.prose:has(> .cmp) { max-width: none; }
-.prose:has(> .cmp) > :not(.cmp) { max-width: var(--text-measure); }
+.prose:has(> [data-cmp-block]) { max-width: none; }
+.prose:has(> [data-cmp-block]) > :not([data-cmp-block]) { max-width: var(--text-measure); }
 .page .cmp { padding: 0; border-radius: 0; }
 .page .cmp table { max-width: none; }
 .cmp th { white-space: normal; vertical-align: bottom; }
@@ -43,12 +67,52 @@
 .cmp .in .ic { color: var(--near-black); background: var(--amber); }
 .cmp .no .ic { color: var(--white); background: var(--coral-shade); }
 .cmp .na .ic { color: var(--ink-muted); background: var(--surface-raised); }
+.cmp .cs .ic { color: var(--near-black); background: var(--amber); }
 </style>
-<p>{{ len $body }} rows. ✓ highly efficient · ◐ inefficient · ✕ cannot do · – not assessed.</p>
-<div class="compare-scroll cmp" role="region" aria-label="Assistant comparison" tabindex="0"><table>
-<thead><tr>{{ range $i, $name := $head }}<th scope="col" class="{{ index $kinds $i }}">{{ $name }}</th>{{ end }}</tr></thead>
+<div data-cmp-block>
+<p>{{ len $body }} capabilities. ✓ highly efficient · ◐ inefficient · ✕ can't · – not assessed. A symbol with a dot carries a note: hover or focus it to read the caveat.</p>
+<div class="cmp-bar"><button type="button" class="cmp-btn" data-cmp-maximize aria-label="Open the assistant comparison table in an expanded view">⛶ Maximize</button></div>
+<div class="compare-scroll cmp" data-cmp-region role="region" aria-label="Assistant comparison table" tabindex="0"><table>
+<thead><tr>{{ range $vi := $visible }}<th scope="col" class="{{ index $kinds (printf "%d" $vi) }}">{{ index $head $vi }}</th>{{ end }}</tr></thead>
 <tbody>
-{{- range $body }}
-<tr>{{ range . }}{{ $cell := . }}{{ with index $icons $cell }}<td class="st {{ index . 0 }}"><span class="ic" role="img" aria-label="{{ $cell }}">{{ index . 1 }}</span></td>{{ else }}<td>{{ $cell }}</td>{{ end }}{{ end }}</tr>
+{{- range $body -}}
+{{- $row := . -}}
+<tr>
+{{- range $vi := $visible -}}
+{{- $raw := strings.TrimSpace (index $row $vi) -}}
+{{- $parts := slice -}}
+{{- if eq $vi $featureIdx -}}
+  {{- range $src := $rowFold -}}
+    {{- $nv := strings.TrimSpace (index $row $src) -}}
+    {{- if $nv }}{{ $parts = $parts | append (printf "%s: %s" (index $head $src) $nv) }}{{ end -}}
+  {{- end -}}
+{{- else -}}
+  {{- with index $notesFor (printf "%d" $vi) -}}
+    {{- $nv := strings.TrimSpace (index $row .) -}}
+    {{- if $nv }}{{ $parts = $parts | append $nv }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- $segs := split $raw " — " -}}
+{{- $headPart := strings.TrimSpace (index $segs 0) -}}
+{{- $icon := index $icons $headPart -}}
+{{- if and $icon (gt (len $segs) 1) -}}
+  {{- $parts = (slice (delimit (after 1 $segs) " — ")) | append $parts -}}
+{{- end -}}
+{{- if and (not $icon) (eq $raw "") $parts -}}
+  {{- $headPart = "Not assessed" -}}
+  {{- $icon = index $icons "Not assessed" -}}
+{{- end -}}
+{{- $noteText := delimit $parts " — " -}}
+{{- if $icon -}}
+<td class="st {{ index $icon 0 }}"><span class="ic{{ if $noteText }} has-note{{ end }}" role="img" aria-label="{{ $headPart }}{{ with $noteText }}. {{ . }}{{ end }}"{{ with $noteText }} data-note="{{ . }}" tabindex="0"{{ end }}>{{ index $icon 1 }}</span></td>
+{{- else if $raw -}}
+<td>{{ if $noteText }}<span class="noted" data-note="{{ $noteText }}" tabindex="0">{{ $raw }}</span>{{ else }}{{ $raw }}{{ end }}</td>
+{{- else -}}
+<td></td>
+{{- end -}}
+{{- end -}}
+</tr>
 {{- end }}
 </tbody></table></div>
+</div>
+{{ partial "cmp-tools.html" .Page }}

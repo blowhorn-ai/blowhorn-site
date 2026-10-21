@@ -18,17 +18,17 @@ blowhorn service tick-now --follow
 
 `service status` names the owner, whether the service is running, the last
 pass and the pass in flight. `tick-now` asks the running service for a pass
-now and watches it. In the app, the "this Mac" screen shows the same state.
+now and watches it. In the app, the "this computer" screen shows the same state.
 
 The owner tells you who manages it: the desktop app registered it itself, or
 the command line installed it from a file. When the app owns it, the app's
-setting "keep this Mac on watch after quit" (on by default)
+setting "keep this computer on watch after quit" (on by default)
 decides whether quitting stops it. Quitting with a pass in flight asks what to
 do: finish, cancel at a safe point, or stay.
 
 ## Install it without the app
 
-On a machine without the desktop app:
+On a computer without the desktop app:
 
 ```bash
 blowhorn service install

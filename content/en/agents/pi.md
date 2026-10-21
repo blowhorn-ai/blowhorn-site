@@ -1,6 +1,7 @@
 {
   "tool": "Pi",
   "mark": "Pi",
+  "logo": "pi",
   "weight": 30,
   "description": "Use the Pi coding agent with Blowhorn: a minimal agent, a bash tool and an AGENTS.md block that turn it into your marketing operator.",
   "lead": "Pi keeps its toolbox small: read, write, edit and bash. Bash is all Blowhorn needs.",
@@ -16,7 +17,7 @@
   "prompts": [
     "What does the content queue owe each profile right now?",
     "Turn this README section into a Hacker News row with a title under the limit. Leave it unapproved.",
-    "Show me schedule status for every machine in one table."
+    "Show me schedule status for every computer in one table."
   ],
   "commands": "blowhorn content list --pending --json\nblowhorn content get 18 --json\nblowhorn schedule status --json\nblowhorn post --check-queue --profile all",
   "commands_lang": "bash",

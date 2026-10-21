@@ -26,13 +26,13 @@ blowhorn analytics activity [OPTIONS] row
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `row` | yes | Activity number, as 'content list' prints it |
+| `row` | yes | Activity number, as `content list` prints it |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for 'blowhorn analytics'. One of: bluesky, linkedin, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn analytics activity' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--pace` | string |  | Accepted by `blowhorn analytics activity` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -40,10 +40,10 @@ Examples:
 
 ```bash
 blowhorn analytics activity 164 --json
-blowhorn analytics activity 164 --profile lee
+blowhorn analytics activity 164 --profile alex
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn analytics history
 
@@ -55,11 +55,11 @@ blowhorn analytics history [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--since` | string |  | How far back to read: a number with d, w, m or y (30d, 12m, 1y), or 'all' (default: 12m) |
+| `--since` | string |  | How far back to read: a number with d, w, m or y (30d, 12m, 1y), or `all` (default: 12m) |
 | `--subject` | string |  | One page or profile name (all by default) |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for 'blowhorn analytics'. One of: bluesky, linkedin, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn analytics history' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--pace` | string |  | Accepted by `blowhorn analytics history` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -67,15 +67,15 @@ Examples:
 
 ```bash
 blowhorn analytics history --json --since 12m
-blowhorn analytics history --json --subject Layer5 --since all
-blowhorn analytics history --subject lee --since 90d
+blowhorn analytics history --json --subject Acme --since all
+blowhorn analytics history --subject alex --since 90d
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn analytics import-exports
 
-Read the LinkedIn page content exports already on disk and record each activity's reception figures in the store: impressions, views, clicks, click-through rate, likes, comments, reposts, follows and engagement rate from each export's All posts sheet, dated by the export. Each activity is matched to its content row by its link; activities made outside Blowhorn are kept and marked unmatched. Prints rows read, matched and stored per file. Safe to run again: a reading lands once per activity and export date. --dry-run reads and matches without writing.
+Read the LinkedIn page content exports already on disk and record each activity's reception figures in the store: impressions, views, clicks, click-through rate, likes, comments, reposts, follows and engagement rate from each export's All posts sheet, dated by the export. Each activity is matched to its content row by its link; activities made outside Blowhorn are kept and marked unmatched. Prints rows read, matched and stored per file. Safe to run again: a reading lands once per activity and export date. `--dry-run` reads and matches without writing.
 
 ```text
 blowhorn analytics import-exports [OPTIONS] [paths...]
@@ -88,8 +88,8 @@ blowhorn analytics import-exports [OPTIONS] [paths...]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for 'blowhorn analytics'. One of: bluesky, linkedin, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn analytics import-exports' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--pace` | string |  | Accepted by `blowhorn analytics import-exports` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -97,10 +97,10 @@ Examples:
 
 ```bash
 blowhorn analytics import-exports
-blowhorn analytics import-exports data/analytics/layer5_content_20260719_033126.xls --dry-run --json
+blowhorn analytics import-exports data/analytics/acme_content_20260719_033126.xls --dry-run --json
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.
 
 ## blowhorn analytics operations
 
@@ -112,12 +112,12 @@ blowhorn analytics operations [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--since` | string |  | How far back to read: a number with d, w, m or y (30d, 12m, 1y), or 'all' (default: 30d) |
+| `--since` | string |  | How far back to read: a number with d, w, m or y (30d, 12m, 1y), or `all` (default: 30d) |
 | `--group-by` | string |  | Aggregate per profile, platform, command, day or host -- host is the machine that ran it (default: profile) |
 | `--kind` | string |  | Which ledger records to aggregate: run (action runs, the default) or tick (scheduler passes) |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for 'blowhorn analytics'. One of: bluesky, linkedin, x, all ('all' means every platform listed here) |
-| `--pace` | string |  | Accepted by 'blowhorn analytics operations' because --pace is a global flag, but this command does no paced work -- it opens no browser and sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--pace` | string |  | Accepted by `blowhorn analytics operations` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -130,4 +130,4 @@ blowhorn analytics operations --kind tick --group-by day --since 14d
 blowhorn analytics operations --group-by host --since 30d
 ```
 
-Output: json with --json, text otherwise.
+Output: json with `--json`, text otherwise.

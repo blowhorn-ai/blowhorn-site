@@ -1,0 +1,87 @@
+{{- /* Integrations catalog at /integrations/, driven by data/integrations.json.
+  Supported name, logo and actions come from hugo.Data.platforms plus
+  data/actions.json. By-action filter chips are vocabulary ids the yaml
+  lists, never a hand-written list. */ -}}
+{{ define "main" }}
+    {{- $counts := partial "platform-counts.html" . -}}
+    {{- $rows := slice -}}
+    {{- range site.Data.integrations.platforms }}{{ $rows = $rows | append (partial "integration-row.html" .) }}{{ end -}}
+    {{- $byId := dict -}}
+    {{- range $rows }}{{ $byId = merge $byId (dict .id .) }}{{ end -}}
+    {{- $cats := site.Data.integrations.categories -}}
+    {{- $actions := partial "action-index.html" $rows -}}
+    <main id="main" class="page integrations-page" data-action-filter>
+      <div class="wrap">
+        <header class="page-head">
+          <p class="label">Integrations</p>
+          <h1 id="integrations-title" class="display">Every network on the map</h1>
+          <p class="body-lg muted"><span data-count-platforms>{{ $counts.platforms }}</span> supported now, <span data-count-soon>{{ $counts.comingSoon }}</span> coming soon, <span data-count-activities>{{ $counts.activities }}</span> actions in the queue. Blowhorn posts as you through your own Chrome or a platform API. It does not post to GitHub: it rallies reactions on the issue.</p>
+          {{- with site.Data.integrations.matrix }}
+          <p class="integrations-matrix-link"><a class="button button-secondary" href="{{ (strings.TrimPrefix "/" .path) | relURL }}" data-matrix-link>{{ .cta }}</a></p>
+          {{- end }}
+        </header>
+        <nav id="action-filter" class="action-filter" aria-label="Filter by action">
+          <p class="label">By action</p>
+          <div class="action-filter-picks">
+            <a class="plat-action is-on" href="#integrations-title" data-action-chip="">All</a>
+            {{- range $actions }}
+            <a class="plat-action" href="#{{ .slug }}" data-action-chip="{{ .id }}">{{ .name }}</a>
+            {{- end }}
+          </div>
+        </nav>
+        {{- range $cats }}
+        <section class="section" aria-labelledby="cat-{{ .id }}" data-action-catalog>
+          <div class="section-head">
+            <h2 id="cat-{{ .id }}" class="h2">{{ .name }}</h2>
+            <p class="muted">{{ .summary }}</p>
+          </div>
+          <ul class="grid grid-3 section-body">
+            {{- range .platforms }}
+            {{- $p := index $byId . }}
+            <li class="card integration-card" data-action-card data-actions="{{ delimit $p.actionIds " " }}" data-plat-id="{{ $p.id }}">
+              <a class="integration-card-main" href="{{ $p.docs | relURL }}">
+                <span class="logo-tile"><img src="{{ $p.logo | relURL }}" alt="" width="28" height="28"></span>
+                <h3 class="h3">{{ $p.name }}</h3>
+                <p>{{ $p.viaLabel }}</p>
+              </a>
+              {{- if $p.actionLinks }}
+              <ul class="integration-actions">
+                {{- range $p.actionLinks }}
+                <li><a href="{{ $p.docs | relURL }}#{{ .slug }}">{{ .name }}</a></li>
+                {{- end }}
+              </ul>
+              {{- end }}
+            </li>
+            {{- end }}
+          </ul>
+        </section>
+        {{- end }}
+        {{- range $actions }}
+        {{- $act := . }}
+        <section class="section action-group" id="{{ $act.slug }}" data-action-group="{{ $act.id }}" aria-labelledby="{{ $act.slug }}-title">
+          <div class="section-head">
+            <h2 id="{{ $act.slug }}-title" class="h2">{{ $act.name }}</h2>
+            <p class="muted">{{ $act.description }}</p>
+          </div>
+          <ul class="grid grid-3 section-body">
+            {{- range $act.platforms }}
+            <li>
+              <a class="card card-link" href="{{ .docs | relURL }}#{{ $act.slug }}">
+                <span class="logo-tile"><img src="{{ .logo | relURL }}" alt="" width="28" height="28"></span>
+                <h3 class="h3">{{ .name }}</h3>
+                <p>{{ .viaLabel }}</p>
+                <p class="caption muted">{{ $act.name }}</p>
+              </a>
+            </li>
+            {{- end }}
+          </ul>
+        </section>
+        {{- end }}
+      </div>
+    </main>
+{{ end }}
+
+{{ define "scripts" }}
+    {{- $js := resources.Get "js/action-filter.js" | minify | fingerprint }}
+    <script src="{{ $js.RelPermalink }}" defer></script>
+{{ end }}

@@ -1,0 +1,16 @@
+{{- /* Counts derived from data/integrations.json status plus
+  hugo.Data.platforms actions. Never hardcode these in copy. */ -}}
+{{- $platforms := 0 -}}
+{{- $activities := 0 -}}
+{{- $soon := 0 -}}
+{{- range site.Data.integrations.platforms -}}
+  {{- if eq .status "supported" -}}
+    {{- $platforms = add $platforms 1 -}}
+    {{- $yaml := index hugo.Data.platforms .id -}}
+    {{- if not $yaml }}{{ errorf "platform-counts: no data/platforms/%s.yaml" .id }}{{ end -}}
+    {{- $activities = add $activities (len $yaml.actions) -}}
+  {{- else if eq .status "coming-soon" -}}
+    {{- $soon = add $soon 1 -}}
+  {{- end -}}
+{{- end -}}
+{{- return dict "platforms" $platforms "activities" $activities "comingSoon" $soon -}}

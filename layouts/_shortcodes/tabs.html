@@ -1,0 +1,12 @@
+{{- /* {{< tabs id="demo" group="surface" label="Examples" >}}
+     {{< tab id="cli" name="CLI" >}}...{{< /tab >}}
+     {{< /tabs >}}
+   Nested tab shortcodes register on this Scratch; the tabs partial renders. */ -}}
+{{- $id := .Get "id" | default (printf "tabs-%d" .Ordinal) -}}
+{{- $group := .Get "group" | default "" -}}
+{{- $label := .Get "label" | default "Examples" -}}
+{{- .Scratch.Set "tab-panes" slice -}}
+{{- $inner := .Inner -}}
+{{- $panes := .Scratch.Get "tab-panes" -}}
+{{- if not $panes }}{{ errorf "tabs %q: add at least one tab shortcode inside" $id }}{{ end -}}
+{{ partial "tabs.html" (dict "id" $id "group" $group "label" $label "panes" $panes) }}

@@ -1,0 +1,256 @@
+/* Action matrix (/integrations/actions/, layouts/action-matrix.html) and the
+   docs all-actions table (layouts/_partials/action-table.html). Both render
+   from layouts/_partials/action-matrix.html. Theme tokens only, so Reveille
+   (light, dark follows the OS) and Signal both apply with no extra rules. */
+
+/* ---------- Marks (status by exception) ----------
+   Supported is a plain neutral dot, never a check or a word. Coming soon is
+   a clock on the platform logo. A platform without the action is empty. */
+.mx-mark { flex: none; display: block; }
+.mx-dot { width: 12px; height: 12px; }
+.mx-dot circle { fill: var(--ink-wordmark); }
+.mx-soon { width: 16px; height: 16px; }
+.mx-soon circle { fill: var(--surface); stroke: var(--ink-muted); stroke-width: 1.8; }
+.mx-soon path { fill: none; stroke: var(--ink-muted); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Site matrix ---------- */
+.matrix-page .page-head { max-width: 44rem; }
+.matrix-tally { color: var(--ink); }
+
+.matrix-frame {
+  position: relative;
+  border-radius: var(--radius-xl);
+  background: var(--glass-fill-strong);
+  box-shadow: 0 0 0 var(--stroke-hairline) var(--glass-rim), var(--glass-shadow);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+}
+.matrix-scroll {
+  position: relative; /* contains the visually hidden labels, so they scroll too */
+  overflow-x: auto;
+  border-radius: var(--radius-xl);
+  overscroll-behavior-x: contain;
+}
+.matrix-scroll:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+.matrix,
+.page table.matrix {
+  max-width: none;
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+.matrix-col-action { width: 10rem; }
+.matrix th, .matrix td { padding: 0; border-bottom: 0; font-weight: inherit; text-align: center; vertical-align: middle; }
+
+/* Sticky action column: cells carry an opaque fill so columns slide under it. */
+.matrix .matrix-corner,
+.matrix .matrix-action,
+.matrix .matrix-group-row th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--glass-fill-solid);
+}
+.matrix .matrix-group-row th { position: static; }
+.matrix .matrix-corner { padding: 0; }
+
+.matrix-plat { padding: var(--space-3) var(--space-1) var(--space-4); vertical-align: bottom; }
+.matrix-plat a {
+  position: relative;
+  display: inline-flex;
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+  color: var(--ink);
+  text-decoration: none;
+}
+.matrix-plat a:hover .logo-tile { box-shadow: 0 0 0 2px var(--link), var(--shadow-soft); }
+.matrix-plat a:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.matrix-plat .logo-tile { width: 44px; height: 44px; }
+.matrix-plat.is-soon .logo-tile { opacity: 0.55; }
+.matrix-plat-flag { position: absolute; right: -2px; bottom: -2px; }
+.matrix-plat.is-hot .logo-tile { box-shadow: 0 0 0 2px var(--link), var(--shadow-soft); }
+
+.matrix-group-row th {
+  padding: var(--space-6) var(--space-6) var(--space-2);
+  text-align: left;
+  border-top: var(--stroke-hairline) solid var(--line);
+}
+.matrix-group-name {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--link);
+}
+.matrix-group-summary { font-size: 13px; line-height: 18px; color: var(--ink-muted); margin-left: var(--space-2); }
+
+.matrix-row > * { border-top: var(--stroke-hairline) solid var(--line); }
+.matrix-group-row + .matrix-row > * { border-top-color: transparent; }
+.matrix .matrix-action {
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-6);
+  text-align: left;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.matrix-cell { height: 44px; }
+.matrix-cell a {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+}
+.matrix-cell a { transition: background-color 120ms ease, transform 120ms ease; }
+.matrix-cell a:hover { background: var(--surface-tint); transform: scale(1.08); }
+.matrix-cell a:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; background: var(--surface-tint); }
+.matrix-row.is-hot > *,
+.matrix-row > .is-hot-col { background-color: var(--surface-raised); }
+.matrix-row.is-hot > .matrix-action { background-color: var(--surface-raised); }
+.matrix-row:last-child > * { padding-bottom: var(--space-2); }
+.matrix-group:last-of-type .matrix-row:last-child > * { padding-bottom: var(--space-4); }
+
+.matrix-tip {
+  position: fixed;
+  z-index: 50;
+  max-width: 18rem;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--glass-fill-solid);
+  color: var(--ink);
+  box-shadow: 0 0 0 var(--stroke-hairline) var(--line), var(--shadow-soft);
+  pointer-events: none;
+  text-align: left;
+}
+.matrix-tip[hidden] { display: none; }
+.matrix-tip-title { margin: 0; font-size: 13px; line-height: 18px; font-weight: 600; }
+.matrix-tip-body { margin: var(--space-1) 0 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+
+.matrix-more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .matrix-cell a { transition: none; }
+  .matrix-cell a:hover { transform: none; }
+}
+
+@media (max-width: 719px) {
+  .matrix, .page table.matrix { min-width: 0; width: max-content; }
+  .matrix-col-action { width: 7rem; }
+  .matrix-col { width: 3rem; }
+  .matrix .matrix-action { padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4); font-size: 14px; }
+  .matrix-group-row th { padding: var(--space-4) var(--space-4) var(--space-1); }
+  .matrix-group-summary { display: block; margin: 2px 0 0; }
+  .matrix-group-row th > span { position: sticky; left: var(--space-4); }
+  .matrix-plat { padding: var(--space-2) 0 var(--space-3); }
+  .matrix-plat .logo-tile { width: 36px; height: 36px; }
+  .matrix-plat .logo-tile img { width: 20px; height: 20px; }
+  .matrix-cell { height: 40px; }
+  .matrix-cell a { width: 32px; height: 32px; }
+}
+
+/* ---------- Docs all-actions table ----------
+   Container queries, not viewport ones: the docs column is narrow beside the
+   sidebar, so the table turns into cards when its own box is narrow. */
+.action-table-wrap { container-type: inline-size; margin: var(--space-6) 0 var(--space-8); }
+.action-table-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-3) var(--space-4);
+  align-items: end;
+  margin: 0 0 var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+.action-table-filters[hidden] { display: none; }
+.action-table-field { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.action-table-field label { font-size: 13px; line-height: 18px; font-weight: 600; color: var(--ink-wordmark); }
+.action-table-field input,
+.action-table-field select {
+  width: 100%;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  border: var(--stroke-hairline) solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+}
+.action-table-field input:focus-visible,
+.action-table-field select:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
+.action-table-count { grid-column: 1 / -1; margin: 0; color: var(--ink-muted); }
+@container (max-width: 30rem) {
+  .action-table-filters { grid-template-columns: minmax(0, 1fr); }
+}
+
+.action-table-scroll { overflow-x: auto; max-width: 100%; }
+.action-table-scroll:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.action-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink);
+  background: transparent;
+}
+.action-table th, .action-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--space-3) var(--space-3) var(--space-3) 0;
+  border-bottom: var(--stroke-hairline) solid var(--line);
+  background: transparent;
+}
+.action-table thead th { font-weight: 600; color: var(--ink-wordmark); white-space: nowrap; }
+.action-table tbody th { font-weight: 600; white-space: nowrap; }
+.action-table tbody td:nth-child(2) { white-space: nowrap; }
+.action-table-plat { display: inline-flex; border-radius: var(--radius-sm); }
+.action-table-plat:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.action-table-plat .logo-tile { width: 32px; height: 32px; border-radius: var(--radius-sm); }
+.action-table-plat .logo-tile img { width: 18px; height: 18px; transform: none; }
+.action-table td:last-child { padding-right: 0; }
+.action-table-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.action-table-sort::after { content: "\2195"; color: var(--line-strong); font-weight: 400; }
+th[aria-sort="ascending"] .action-table-sort::after { content: "\2191"; color: var(--link); }
+th[aria-sort="descending"] .action-table-sort::after { content: "\2193"; color: var(--link); }
+.action-table-sort:hover { color: var(--link); }
+.action-table-sort:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-sm); }
+.action-table-empty { margin: var(--space-4) 0 0; color: var(--ink-muted); }
+.action-table-empty[hidden] { display: none; }
+
+@container (max-width: 30rem) {
+  .action-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .action-table tbody tr { display: block; padding: var(--space-3) 0; border-bottom: var(--stroke-hairline) solid var(--line); }
+  .action-table tbody tr[hidden] { display: none; }
+  .action-table tbody th,
+  .action-table tbody td { display: block; width: 100%; padding: var(--space-1) 0; border: 0; white-space: normal; }
+  .action-table tbody td:nth-child(2) { white-space: normal; }
+  .action-table tbody th { font-size: 16px; padding-bottom: var(--space-2); }
+  .action-table tbody td { display: grid; grid-template-columns: minmax(6.5rem, 32%) minmax(0, 1fr); column-gap: var(--space-3); }
+  .action-table tbody td::before { content: attr(data-label); font-weight: 600; color: var(--ink-wordmark); }
+}
+
+/* Links into the matrix from /integrations/ and the home platforms section. */
+.plat-catalog { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); }
+.integrations-matrix-link { margin-top: var(--space-4); }

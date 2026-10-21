@@ -18,17 +18,17 @@ blowhorn comment [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--ignore-risk` | boolean | `false` | Run this once even if your Risk Profile would hold it (a daily cap, quiet hours, outreach turned off or a pause after a sign-in challenge). Only this run; your Risk Profile stays as it is |
-| `--target` | string |  | LinkedIn, Reddit, or Bluesky post URL for ad-hoc mode (for Slack thread replies, use 'blowhorn post --target ...' instead) |
+| `--target` | string |  | LinkedIn, Reddit, or Bluesky post URL for ad-hoc mode (for Slack thread replies, use `blowhorn post --target ...` instead) |
 | `--message` | string |  | Comment text for ad-hoc mode |
-| `--platform` | string |  | Platform scope for 'blowhorn comment'. One of: bluesky, linkedin, reddit, all ('all' means every platform listed here) |
-| `--pace` | string |  | Pace of the random delays between 'blowhorn comment' actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then BLOWHORN_PACE, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--platform` | string |  | Platform scope for `blowhorn comment`. One of: bluesky, linkedin, reddit, all (`all` means every platform listed here) |
+| `--pace` | string |  | Pace of the random delays between `blowhorn comment` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
 Examples:
 
 ```bash
-blowhorn comment --profile all --exclude lee
+blowhorn comment --profile all --exclude alex
 blowhorn comment --platform linkedin --target "https://www.linkedin.com/feed/update/urn:li:activity:123/" --message "Great post!"
 blowhorn comment --platform reddit --target "https://www.reddit.com/r/k8s/comments/abc/post/" --message "Thanks for sharing."
 blowhorn comment --platform bluesky --target "https://bsky.app/profile/alice.bsky.social/post/3kx..." --message "Nice thread."

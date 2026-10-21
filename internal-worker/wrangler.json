@@ -1,0 +1,22 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "blowhorn-internal",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-05-12",
+  "routes": [
+    {
+      "pattern": "internal.blowhorn.ai",
+      "custom_domain": true
+    }
+  ],
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "../public-internal",
+    "run_worker_first": true
+  },
+  "observability": {
+    "enabled": false
+  }
+}

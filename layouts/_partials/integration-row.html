@@ -1,0 +1,26 @@
+{{- /* Resolve one integrations.json platform row. Supported name, logo and
+  actions come from hugo.Data.platforms (data/platforms/<id>.yaml) plus
+  data/actions.json for display names. Coming-soon rows keep their own
+  name and logo. resolved is each action-resolve.html map (platform
+  behavior and limits), for the action matrix. */ -}}
+{{- $row := . -}}
+{{- $yaml := index hugo.Data.platforms $row.id -}}
+{{- $name := $row.name -}}
+{{- $logo := $row.logo -}}
+{{- $actions := slice -}}
+{{- $actionIds := slice -}}
+{{- $actionLinks := slice -}}
+{{- $resolved := slice -}}
+{{- if eq $row.status "supported" -}}
+  {{- if not $yaml }}{{ errorf "integration-row: no data/platforms/%s.yaml for supported platform" $row.id }}{{ end -}}
+  {{- $name = $yaml.name -}}
+  {{- $logo = $yaml.logo -}}
+  {{- range $yaml.actions }}
+    {{- $a := partial "action-resolve.html" . -}}
+    {{- $actionIds = $actionIds | append $a.id -}}
+    {{- $actions = $actions | append $a.name -}}
+    {{- $actionLinks = $actionLinks | append (dict "id" $a.id "name" $a.name "slug" $a.slug) -}}
+    {{- $resolved = $resolved | append $a -}}
+  {{- end -}}
+{{- end -}}
+{{- return dict "id" $row.id "status" $row.status "posts" $row.posts "docs" $row.docs "viaLabel" $row.viaLabel "exampleLink" $row.exampleLink "demoMeta" $row.demoMeta "name" $name "logo" $logo "actions" $actions "actionIds" $actionIds "actionLinks" $actionLinks "resolved" $resolved -}}

@@ -40,14 +40,14 @@
       "b": "Built in, on every network"
     },
     {
-      "f": "Many machines on one queue",
+      "f": "Many computers on one queue",
       "t": "Profile sync",
-      "b": "Unlimited machines on one queue, coordinated so the same post isn't sent from two machines"
+      "b": "Unlimited computers on one queue, coordinated so the same post isn't sent from two computers"
     },
     {
       "f": "AI agents",
       "t": "API",
-      "b": "Full CLI: --help with examples, --json, --dry-run on writes. Your agent drives, you hold pause"
+      "b": "MCP server, REST API, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause"
     },
     {
       "f": "Bought engagement",
@@ -63,7 +63,11 @@
     },
     {
       "q": "Is Blowhorn an antidetect browser?",
-      "a": "No. Blowhorn uses your real Chrome, signed in as you, and hands CAPTCHAs and 2FA back to you."
+      "a": "No. Blowhorn uses your real Chrome, signed in as you, and hands CAPTCHAs and 2FA back to you. Curious what sites can see about your browser?",
+      "link": {
+        "href": "https://tells.blowhorn.ai/",
+        "label": "Run the free check at Blowhorn Tells"
+      }
     }
   ],
   "major": "Many browsers, many faces. I prefer one face, many friends.",

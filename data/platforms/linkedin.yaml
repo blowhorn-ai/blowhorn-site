@@ -1,8 +1,10 @@
 # Supported actions on LinkedIn. One source for the docs page
-# (/docs/reference/platforms/linkedin/) and the agent pages. Keep the action
-# order of every platform file: Post, Comment or reply, Amplify, React,
-# Follow, Unfollow, Accept, Withdraw, Find, Analytics. Checked against
-# leecalcote/blowhorn blowhorn/cli.py SUPPORTED_PLATFORMS_BY_COMMAND.
+# (/docs/reference/platforms/linkedin/) and the agent pages. Action ids
+# come from data/actions.json; name and default description live there.
+# behavior here overrides the default where LinkedIn differs. Keep the
+# action order of every platform file: post, comment, reply, amplify,
+# react, follow, unfollow, accept, withdraw, find, analytics. Checked
+# against the blowhorn repository's blowhorn/cli.py SUPPORTED_PLATFORMS_BY_COMMAND.
 key: linkedin
 name: LinkedIn
 weight: 1
@@ -10,18 +12,18 @@ logo: assets/platforms/linkedin-in-bug.png
 docs: /docs/reference/platforms/linkedin/
 reach: Your own signed-in Chrome, through the Blowhorn extension
 actions:
-  - name: Post
+  - id: post
     behavior: Publishes your message to your LinkedIn feed, to a group, or to a Page you manage, with an image or link preview when you add one.
-  - name: Comment
+  - id: comment
     behavior: Comments on the LinkedIn post you point it at. Anything that isn't a LinkedIn post address stays a normal post.
-  - name: Amplify
+  - id: amplify
     behavior: Reposts a post from each of your profiles. A post you already reposted is never reposted twice.
-  - name: Accept
+  - id: accept
     behavior: Accepts the invitations people sent you, one at a time. An invitation LinkedIn flags with its "Take care when connecting" warning is skipped, never accepted.
     limits: At most 20 confirmed acceptances a run, unless you set --limit.
-  - name: Withdraw
+  - id: withdraw
     behavior: Withdraws invitations you sent that have waited 21 days or more, to free room for new ones. Shows a preview until you add --apply.
     limits: At most 20 confirmed withdrawals a run, unless you set --limit. LinkedIn blocks re-inviting a withdrawn person for up to three weeks.
-  - name: Analytics
+  - id: analytics
     behavior: Reads your Page's analytics for a date range and saves them, so you can watch the trend.
     limits: Read-only.

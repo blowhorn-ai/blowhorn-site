@@ -63,8 +63,9 @@ jobs:
         run: make test-scripts
 
       # Every step below is a make target; `make ci` runs the same sequence locally.
-      # site-check: one production build into public/, then validate-html,
-      # check-links, check-third-party and check-urls.
+      # site-check: check-schemas, then one production build into public/, then
+      # validate-html, check-links, check-third-party, check-urls, check-no-internal,
+      # check-theme, check-platform-docs and check-action-matrix.
       - name: Build and check site
         run: make site-check
 
