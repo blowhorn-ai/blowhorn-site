@@ -32,8 +32,10 @@ Pages hosts only the marketing site and small static files.
   https://github.com/layer5io/blowhorn-site/releases/download/v<version>/Blowhorn-mac.dmg
   ```
 
-  The version is pinned in `data/download.json`; bump it in the same pass
-  that publishes a desktop release. Never build a download link on
+  The version is pinned in `data/download.json`. `publish-dmg.yml` bumps it
+  on master and redeploys the site after every public release (its `pin`
+  job, `make dmg-pin-download`); a draft published by hand later needs the
+  same `make dmg-pin-download` run, or a one-line PR. Never build a download link on
   `/releases/latest`: this repository also publishes blowhorn-axi releases
   (`axi-vX.Y.Z`), GitHub resolves `latest` to whichever stable release was
   created most recently, and the always-latest URL 404s whenever an axi

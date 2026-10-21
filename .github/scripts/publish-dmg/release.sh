@@ -32,6 +32,6 @@ gh release create "$VERSION" "${flags[@]}" dist/*.dmg dist/SHA256SUMS.txt
 if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then
   echo "### Release ${VERSION} created (draft=${DRAFT}, prerelease=${PRERELEASE})" >>"$GITHUB_STEP_SUMMARY"
   if [[ "$DRAFT" != "true" && "$PRERELEASE" != "true" ]]; then
-    echo "Bump data/download.json to ${VERSION#v} so blowhorn.ai/download serves this release." >>"$GITHUB_STEP_SUMMARY"
+    echo "The pin job sets data/download.json to ${VERSION#v} and redeploys blowhorn.ai." >>"$GITHUB_STEP_SUMMARY"
   fi
 fi

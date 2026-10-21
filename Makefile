@@ -62,7 +62,8 @@ include .github/build/Makefile.show-help.mk
 #   check              site-check, test-scripts and workflow-check.
 #   ci                 setup-ci, then everything site.yml's check job runs.
 #   dmg-check          Sanity-check a disk image: make dmg-check DMG=path/to/file.dmg
-#   dmg-resolve, dmg-download, dmg-package, dmg-verify, dmg-release
+#   dmg-resolve, dmg-download, dmg-package, dmg-verify, dmg-release,
+#   dmg-pin-download, dmg-sync-docs
 #                      The steps of publish-dmg.yml (see docs/distribution.md).
 #   docs-sync          Sync the user docs from a leecalcote/blowhorn checkout
 #                      into content/en/docs/: make docs-sync REF=<tag|branch|sha>
@@ -342,7 +343,11 @@ dmg-verify:
 dmg-release:
 	.github/scripts/publish-dmg/release.sh
 
-## publish-dmg step 6: after a public release, start sync-docs.yml at the product tag desktop-$(VERSION) (a draft starts nothing).
+## publish-dmg step 6: after a public release, pin data/download.json on master to VERSION and start site.yml (a draft, prerelease or older version changes nothing).
+dmg-pin-download:
+	.github/scripts/publish-dmg/pin-download.sh
+
+## publish-dmg step 7: after a public release, start sync-docs.yml at the product tag desktop-$(VERSION) (a draft starts nothing).
 dmg-sync-docs:
 	.github/scripts/publish-dmg/sync-docs.sh
 
@@ -392,6 +397,7 @@ clean:
 	dmg-package \
 	dmg-verify \
 	dmg-release \
+	dmg-pin-download \
 	dmg-sync-docs \
 	docs-cli-reference \
 	docs-sync \
