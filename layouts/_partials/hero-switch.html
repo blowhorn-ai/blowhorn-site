@@ -1,0 +1,21 @@
+{{- /* Hero switcher, development builds only: the three layouts that
+  render a hero page (layouts/home.html, layouts/home-reveille.html,
+  layouts/home-oil.html) include this partial only when the Hugo
+  environment is a development one, so it never ships in production or
+  internal builds. Its styles ride along via hero-switch-css.html in the
+  same layouts' head blocks. A <details> menu, no JavaScript. Signal is the live
+  homepage; Reveille and Oil are standalone preview pages, and the
+  switcher navigates between the three real pages (the ?theme= preview
+  param swaps only the token layer, not the hero). The current entry is
+  marked with aria-current: the preview pages compare by RelPermalink,
+  the home page by .IsHome (its RelPermalink is /index.html under
+  uglyURLs; canonical.html gives it the site root publicly). */ -}}
+<details class="hero-switch">
+  <summary class="hero-switch-summary">Hero</summary>
+  <nav class="hero-switch-menu" aria-label="Homepage hero variants">
+    {{- $here := .RelPermalink }}
+    <a href="{{ "/" | relURL }}"{{ if .IsHome }} class="is-current" aria-current="true"{{ end }}>Signal</a>
+    <a href="{{ "home-reveille/" | relURL }}"{{ if eq $here "/home-reveille/" }} class="is-current" aria-current="true"{{ end }}>Reveille</a>
+    <a href="{{ "home-oil/" | relURL }}"{{ if eq $here "/home-oil/" }} class="is-current" aria-current="true"{{ end }}>Oil</a>
+  </nav>
+</details>

@@ -7,6 +7,9 @@
 {{ define "head" }}
     {{- $css := resources.Get "css/home-oil.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+    {{- if or (eq hugo.Environment "development") (eq hugo.Environment "dev") }}
+    {{- partial "hero-switch-css.html" . }}
+    {{- end }}
     <link rel="preload" href="{{ "assets/alt-style/Fraunces-Variable.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" as="image" type="image/webp" href="{{ "assets/oil-style/hero-1280.webp" | relURL }}" imagesrcset="{{ "assets/oil-style/hero-640.webp" | relURL }} 640w, {{ "assets/oil-style/hero-960.webp" | relURL }} 960w, {{ "assets/oil-style/hero-1280.webp" | relURL }} 1280w" imagesizes="100vw">
     <meta property="og:type" content="website">
@@ -206,4 +209,7 @@
         </div>
       </section>
     </main>
+    {{- if or (eq hugo.Environment "development") (eq hugo.Environment "dev") }}
+    {{- partial "hero-switch.html" . }}
+    {{- end }}
 {{- end }}

@@ -4,6 +4,9 @@
   dedicated layout stays. */ -}}
 {{ define "head" }}
     {{- partial "home-head.html" . }}
+    {{- if or (eq hugo.Environment "development") (eq hugo.Environment "dev") }}
+    {{- partial "hero-switch-css.html" . }}
+    {{- end }}
 {{- end }}
 
 {{ define "sprite" }}
@@ -12,6 +15,9 @@
 
 {{ define "main" }}
 {{- partial "home/reveille.html" . -}}
+{{- if or (eq hugo.Environment "development") (eq hugo.Environment "dev") }}
+{{- partial "hero-switch.html" . }}
+{{- end }}
 {{- end }}
 
 {{ define "scripts" }}

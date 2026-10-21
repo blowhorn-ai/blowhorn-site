@@ -8,6 +8,9 @@
   home-reveille. ?theme= swaps tokens only, not this layout. */ -}}
 {{ define "head" }}
     {{- partial "home-head.html" . }}
+    {{- if or (eq hugo.Environment "development") (eq hugo.Environment "dev") }}
+    {{- partial "hero-switch-css.html" . }}
+    {{- end }}
 {{- end }}
 
 {{ define "sprite" }}
@@ -21,6 +24,9 @@
     {{- else -}}
       {{ partial "home/signal.html" . }}
     {{- end -}}
+    {{- if or (eq hugo.Environment "development") (eq hugo.Environment "dev") }}
+    {{- partial "hero-switch.html" . }}
+    {{- end }}
 {{- end }}
 
 {{ define "scripts" }}
