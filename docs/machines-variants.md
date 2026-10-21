@@ -18,11 +18,11 @@ Production rotates these four, one per hour:
 
 1. `muster`: "Every machine you own is a recruit." Roll call beside the
    formation. Default and fallback.
-2. `battalion-map`: "Your battalion, on one map." The fleet as units around
+2. `battalion-map`: "Your squad, on one map." The fleet as units around
    HQ, a teammate's machine included, with a reports feed.
 3. `one-thunder`: "Many voices. One thunder." Teammates and machines wired
    into the Major's single call out to every platform.
-4. `call-to-arms`: "From one recruit to a battalion." The four-beat
+4. `call-to-arms`: "From one recruit to a full squad." The four-beat
    storyboard (Enlist, Muster, Rally, Thunder); the beats play in
    sequence, with a Replay button.
 

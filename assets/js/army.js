@@ -16,6 +16,15 @@
   var note = root.querySelector('.army-fleet-note');
   var plats = root.querySelectorAll('.army-plats img');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Soldier art per slot, in the cast slot order (marketing/brand/cast/README.md).
+  var soldiers = (macs.getAttribute('data-soldiers') || '').split(' ').filter(Boolean);
+  // Unit sizes: one combined count of machines plus amplifying profiles.
+  function unit(n) {
+    return n <= 1 ? 'recruit' : n <= 4 ? 'fireteam' : n <= 12 ? 'squad' : n <= 40 ? 'platoon' : n <= 150 ? 'company' : n <= 1000 ? 'battalion' : 'brigade';
+  }
+  function strength(n) {
+    return n + (n === 1 ? ' machine enlisted, a lone recruit.' : ' machines enlisted, a ' + unit(n) + '.') + ' Each order goes to exactly one.';
+  }
   var halted = false;
   var count = 3, job = 0, cur = 0, timer = null, visible = false, touched = false, run = 0;
 
@@ -56,9 +65,10 @@
   }
   function drawMacs(claim, added) {
     if (halted) claim = -1;
-    var tpl = macs.querySelector('.army-mac .soldier').outerHTML, html = '';
+    var fallback = macs.querySelector('.army-mac .soldier'), html = '';
     for (var m = 0; m < count; m++) {
-      html += '<li class="army-mac' + (m === claim ? ' is-on' : '') + (added && m === count - 1 ? ' is-new' : '') + '">' + tpl +
+      var src = soldiers.length ? soldiers[m % soldiers.length] : fallback.getAttribute('src');
+      html += '<li class="army-mac' + (m === claim ? ' is-on' : '') + (added && m === count - 1 ? ' is-new' : '') + '"><img class="soldier" src="' + src + '" alt="" width="44" height="44">' +
         '<span class="army-mac-name">Machine ' + (m + 1) + '</span><span class="army-mac-tag">' + (halted ? 'halted' : m === claim ? 'on it' : 'standing by') + '</span></li>';
     }
     macs.innerHTML = html;
@@ -107,16 +117,19 @@
     });
   });
   root.querySelector('[data-army="enlist"]').addEventListener('click', function () {
-    if (count >= 8) { say("Eight machines. That's a battalion, not a hobby. Carry on."); return; }
+    if (count >= 8) { say("Eight machines. That's a squad, not a hobby. Carry on."); return; }
+    var was = unit(count);
     count++; drawMacs(-1, true);
-    say('Machine ' + count + ', welcome to the reserves. One order, one machine per job. Coordinated so the same post isn\'t sent from two machines.');
-    note.textContent = count + ' machines enlisted. Each order goes to exactly one.';
+    say(unit(count) !== was
+      ? 'Machine ' + count + ', fall in. ' + count + ' machines make a ' + unit(count) + ' now. One order, one machine per job.'
+      : 'Machine ' + count + ', welcome to the reserves. One order, one machine per job. Coordinated so the same post isn\'t sent from two machines.');
+    note.textContent = strength(count);
   });
   root.querySelector('[data-army="discharge"]').addEventListener('click', function () {
     if (count <= 1) { say('One machine is the minimum. I need someone to yell at.'); return; }
     count--; drawMacs(-1);
     say('Machine ' + (count + 1) + ', honorably discharged. The queue carries on without you.');
-    note.textContent = count + (count === 1 ? ' machine' : ' machines') + ' enlisted. Each order goes to exactly one.';
+    note.textContent = strength(count);
   });
   // Commander in Chief: halt freezes the whole army (schedule pause --all).
   var haltBtn = root.querySelector('[data-army="halt"]');

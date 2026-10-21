@@ -160,7 +160,7 @@ troops:
     id: 'platoon-private'
     img: 'assets/brand/cast/platoon-private-base.webp'
     alt: 'Platoon Private, an orange chicken in a charcoal cap with a coral rank stripe, holding one bayonet rifle'
-    v: 'Backpack full of queued posts, bayonet fixed, never late for formation. He keeps one shared queue across your whole battalion of machines, and whichever one is awake picks up the next job. When your post goes out, your teammates'' profiles show up to cheer, with no "hey, can everyone like this?" begging in Slack.'
+    v: 'Backpack full of queued posts, bayonet fixed, never late for formation. He keeps one shared queue across every machine you own, and whichever one is awake picks up the next job. When your post goes out, your teammates'' profiles show up to cheer, with no "hey, can everyone like this?" begging in Slack.'
     links:
       - t: "How your machines share one queue"
         u: '/docs/explanation/scheduling/'

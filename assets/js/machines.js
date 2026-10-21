@@ -29,6 +29,8 @@
     var roll = panel.querySelector('.machines-roll');
     var next = roll.querySelector('.is-next');
     var counts = panel.querySelectorAll('[data-muster="count"]');
+    var unitEls = panel.querySelectorAll('[data-muster="unit"]');
+    var troops = (grid.getAttribute('data-troops') || '').split(' ').filter(Boolean);
     var say = panel.querySelector('.machines-say');
     var sayText = say && (say.querySelector('.bubble-text') || say);
     var tpl = grid.querySelector('img');
@@ -39,7 +41,7 @@
       'Recruit, fall in. One order, one machine per job.',
       'Another one? Good. Coordinated so the same post isn\'t sent from two machines.',
       'Fall in at the back. Your first order comes from the queue.',
-      'Welcome to the battalion. You answer to the queue, and the queue answers to the Commander.'
+      'Welcome to the unit. You answer to the queue, and the queue answers to the Commander.'
     ];
     panel.querySelectorAll('[data-machines-static]').forEach(function (el) { el.hidden = true; });
     panel.querySelectorAll('[data-muster="enlist"]').forEach(function (b) {
@@ -48,7 +50,14 @@
     });
     stagger(grid.querySelectorAll('img'), 0, 70);
     stagger(roll.querySelectorAll('li'), 150, 140);
-    function setCount(v) { counts.forEach(function (c) { c.textContent = v; }); }
+    // Unit sizes: one combined count of machines plus amplifying profiles.
+    function unit(v) {
+      return v <= 1 ? 'Recruit' : v <= 4 ? 'Fireteam' : v <= 12 ? 'Squad' : v <= 40 ? 'Platoon' : v <= 150 ? 'Company' : v <= 1000 ? 'Battalion' : 'Brigade';
+    }
+    function setCount(v) {
+      counts.forEach(function (c) { c.textContent = v; });
+      unitEls.forEach(function (u) { u.textContent = unit(v); });
+    }
     onFirst.push(function () {
       var target = n, t0 = performance.now(), dur = 70 * target;
       (function step(t) {
@@ -59,11 +68,13 @@
     });
     function enlist() {
       if (n >= max) {
-        shout('Twenty-three machines. That\'s a battalion, not a hobby. Carry on.');
+        shout('Twenty-three machines. That\'s a platoon, not a hobby. Carry on.');
         return;
       }
+      var was = unit(n);
       n++;
       var img = tpl.cloneNode(true);
+      if (troops.length) img.src = troops[(n - 1) % troops.length];
       img.style.removeProperty('--d');
       img.classList.add('is-new');
       grid.insertBefore(img, grid.querySelector('.machines-add:not([hidden])') || null);
@@ -77,7 +88,7 @@
       if (rows.length >= 4) roll.removeChild(rows[0]);
       next.querySelector('.machines-roll-n').textContent = (n + 1 < 10 ? '0' : '') + (n + 1);
       setCount(n);
-      shout(quips[made % quips.length]);
+      shout(unit(n) !== was ? n + ' machines. That\'s a ' + unit(n).toLowerCase() + ' now. Fall in.' : quips[made % quips.length]);
       made++;
     }
     function shout(line) {
