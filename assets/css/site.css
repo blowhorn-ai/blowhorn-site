@@ -390,7 +390,8 @@ pre code { background: none; padding: 0; }
    One bar: lockup, primary nav, Download. Five nav groups open a panel that
    spans the bar's width (a mega menu); Pricing and Docs are plain links. Below
    1080px a Menu button opens the nav as a sheet under the bar, with each group
-   expanding in place. Behaviour in assets/js/nav.js; without it (no
+   expanding in place, and Download leaves the bar to close the sheet as its
+   last item. Behaviour in assets/js/nav.js; without it (no
    .is-enhanced), hover and focus open the panels and small screens list the
    groups open. */
 .site-header {
@@ -443,6 +444,8 @@ pre code { background: none; padding: 0; }
 }
 .mm-item.is-open > .mm-trigger .mm-chev { margin-top: 3px; transform: rotate(-135deg); }
 .site-cta { padding-block: var(--space-2); min-height: 40px; flex: none; }
+/* The sheet's closing Download item exists only below 1080px. */
+.mm-item-download { display: none; }
 
 /* Panels */
 .mm-panel {
@@ -541,7 +544,7 @@ pre code { background: none; padding: 0; }
 @media (max-width: 1079px) {
   .site-header .wrap { flex-wrap: wrap; }
   .mm-toggle { display: inline-flex; margin-left: auto; order: 2; }
-  .site-cta { order: 3; }
+  .site-cta { display: none; }
   .site-nav { order: 4; flex-basis: 100%; margin-left: 0; }
   .site-header.is-enhanced .site-nav {
     display: none;
@@ -560,6 +563,8 @@ pre code { background: none; padding: 0; }
   .mm-list { flex-direction: column; align-items: stretch; gap: 0; }
   .mm-item { border-bottom: var(--stroke-hairline) solid var(--line); }
   .mm-item:last-child { border-bottom: 0; }
+  .mm-item-download { display: block; margin-top: var(--space-4); }
+  .mm-download { display: flex; width: 100%; min-height: 48px; font-size: 16px; }
   .mm-trigger,
   .mm-top { width: 100%; justify-content: space-between; min-height: 48px; padding-inline: 0; border-radius: 0; font-size: 16px; font-weight: 600; }
   .mm-trigger:hover,
@@ -596,7 +601,6 @@ pre code { background: none; padding: 0; }
   .brand img { width: 140px; }
   .mm-toggle-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .mm-toggle { padding-inline: var(--space-3); }
-  .site-cta { padding-inline: var(--space-3); font-size: 13px; min-height: 36px; }
 }
 @media (min-width: 1080px) and (max-width: 1199px) {
   .brand img { width: 150px; }

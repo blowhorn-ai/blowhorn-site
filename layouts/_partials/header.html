@@ -1,7 +1,8 @@
 {{- /* The site header: lockup, primary navigation and the Download button.
   Five groups open a panel under the bar (Product, Solutions, Compare, Resources,
   Trust); Pricing and Docs are plain links. Below 1080px a Menu button opens the
-  same groups as a sheet. Behaviour in assets/js/nav.js: click, Enter or Space
+  same groups as a sheet, and Download leaves the bar to close the sheet as its
+  last item. Behaviour in assets/js/nav.js: click, Enter or Space
   opens a group, Escape closes it, a mouse can also hover. Without the script,
   hover and keyboard focus still open each panel, and on small screens the
   groups are listed open. Off the home page the section links lead back to the
@@ -131,6 +132,7 @@
             </li>
             <li class="mm-item"><a class="mm-top" href="{{ "pricing/" | relURL }}">Pricing</a></li>
             <li class="mm-item"><a class="mm-top" href="{{ "docs/" | relURL }}">Docs</a></li>
+            <li class="mm-item mm-item-download"><a class="button button-primary mm-download" href="{{ "download/" | relURL }}">Download</a></li>
           </ul>
         </nav>
         <a class="button button-primary site-cta" href="{{ "download/" | relURL }}">Download</a>
