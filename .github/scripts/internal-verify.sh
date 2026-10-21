@@ -26,6 +26,9 @@ for p in "${paths[@]}"; do
   case "$code" in
     301|302|303|307|308)
       if [[ "$loc_host" == *.cloudflareaccess.com ]] && { [ -z "${TEAM_DOMAIN:-}" ] || [ "$loc_host" = "$TEAM_DOMAIN" ]; }; then verdict=ok; fi ;;
+    # Cloudflare's edge rejects the path-traversal spelling as a bad request
+    # before Access or the Worker sees it: no content, so that is a pass.
+    400) [ "$p" = "/%2e%2e/internal/" ] && verdict=ok ;;
   esac
   printf '%-5s %s %s -> %s\n' "$verdict" "$code" "$p" "${loc_host:-no redirect}"
   [ "$verdict" = ok ] || fail=1
