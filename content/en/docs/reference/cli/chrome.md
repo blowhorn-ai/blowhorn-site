@@ -18,11 +18,11 @@ The `blowhorn chrome` commands. Each one's `--help` prints the same text.
 | [`chrome extension-install`](#blowhorn-chrome-extension-install) | Write the native-messaging host manifest Chrome launches for the Blowhorn Chrome extension, and print where the unpacked extension lives so you can load it. |
 | [`chrome extension-mode`](#blowhorn-chrome-extension-mode) | Show or set how runs drive the Blowhorn Chrome extension. |
 | [`chrome extension-status`](#blowhorn-chrome-extension-status) | Report whether the Blowhorn Chrome extension is installed and connected. |
-| [`chrome map`](#blowhorn-chrome-map) | Map one Blowhorn profile to one Chrome profile on this machine, by the Chrome profile's directory name as `blowhorn chrome profiles` prints it (`Default`, `Profile 12`). |
+| [`chrome map`](#blowhorn-chrome-map) | Map a Blowhorn profile to one of this machine's Chrome profiles, by the Chrome profile's directory name as `blowhorn chrome profiles` prints it (`Default`, `Profile 12`). |
 | [`chrome profiles`](#blowhorn-chrome-profiles) | List every profile Chrome knows. |
 | [`chrome status`](#blowhorn-chrome-status) | Report whether Google Chrome is installed, whether it is running, whether its remote-debugging switch is on (chrome://inspect/#remote-debugging), the debugging port it recorded, how many profiles i... |
 | [`chrome suggest`](#blowhorn-chrome-suggest) | Print a proposed mapping from every Blowhorn profile in the store to a Chrome profile on this machine, matched by display name (a Chrome profile named `Kate` proposes for the Blowhorn profile kate)... |
-| [`chrome unmap`](#blowhorn-chrome-unmap) | Remove one Blowhorn profile's Chrome profile mapping on this machine. |
+| [`chrome unmap`](#blowhorn-chrome-unmap) | Remove one of a Blowhorn profile's Chrome profile mappings on this machine. |
 
 ## blowhorn chrome attach-chrome
 
@@ -245,7 +245,9 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn chrome map
 
-Map one Blowhorn profile to one Chrome profile on this machine, by the Chrome profile's directory name as `blowhorn chrome profiles` prints it (`Default`, `Profile 12`). The command checks that the Blowhorn profile is in the store, that Chrome has that directory (Chrome silently creates a new, empty profile for a directory it does not know, so a typo is refused rather than recorded), and that the directory is not already mapped to another Blowhorn profile on this machine; then it records the display name and signed-in account Chrome shows for the directory and prints what it recorded. Mapping a profile that is already mapped replaces its mapping, which is also how a drifted name or account is confirmed. One Blowhorn profile per Chrome profile, one Chrome profile per Blowhorn profile, per machine.
+Map a Blowhorn profile to one of this machine's Chrome profiles, by the Chrome profile's directory name as `blowhorn chrome profiles` prints it (`Default`, `Profile 12`). The command checks that the Blowhorn profile is in the store, that Chrome has that directory (Chrome silently creates a new, empty profile for a directory it does not know, so a typo is refused rather than recorded), and that the directory is not already mapped to another Blowhorn profile on this machine; then it records the display name and signed-in account Chrome shows for the directory and prints what it recorded. A Blowhorn profile may have several Chrome profiles mapped on one machine (Work and Personal, say), so mapping another directory adds it; mapping a directory the profile already has refreshes the recorded identity, which is how a drifted name or account is confirmed. A Chrome profile belongs to one Blowhorn profile per machine. `--replace` removes the profile's other mappings on this machine in the same write.
+
+Which Chrome profile a run uses, per platform: the one mapped `--for` that platform; else the profile's only mapping; else its one mapping with no `--for` (its default, which serves every platform no other mapping names). With several mappings and none of those, the run refuses by name. `--for` linkedin,x chooses this Chrome profile for those platforms and takes them off the profile's other mappings here; `--default` clears this mapping's platforms; neither keeps what the mapping had.
 
 A mapping is identity, never permission: it does not make a profile eligible for anything; every browser run reads it to find the profile's Chrome and refuses a profile without one.
 
@@ -262,6 +264,9 @@ blowhorn chrome map [OPTIONS] name directory
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
+| `--for` | string, repeatable |  | The platforms this Chrome profile is the one for (comma-separated or repeated: linkedin,x); they move off the profile's other mappings on this machine |
+| `--default` | boolean | `false` | Name no platform for this mapping: it serves every platform no other mapping of the profile names |
+| `--replace` | boolean | `false` | Remove the profile's other Chrome profile mappings on this machine in the same write |
 | `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
 | `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn chrome map` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -272,6 +277,8 @@ Examples:
 
 ```bash
 blowhorn chrome map kate 'Profile 12'
+blowhorn chrome map kate 'Profile 3' --for linkedin,slack
+blowhorn chrome map kate 'Profile 12' --replace
 blowhorn chrome map kate 'Profile 12' --dry-run
 blowhorn chrome map alex Default --json
 ```
@@ -362,15 +369,16 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn chrome unmap
 
-Remove one Blowhorn profile's Chrome profile mapping on this machine. Chrome is not read and nothing under its directory is touched: only the store's row goes, so a mapping can be removed when `Local State` is missing or unreadable. A profile with no mapping on this machine is a one-sentence refusal and exit 1; with `--dry-run` the command says what would be removed and removes nothing.
+Remove one of a Blowhorn profile's Chrome profile mappings on this machine. Name the Chrome profile directory when the profile has more than one mapped here; with one, it may be left out. Chrome is not read and nothing under its directory is touched: only the store's row goes, so a mapping can be removed when `Local State` is missing or unreadable. A profile with no mapping on this machine, or several and no directory named, is a one-sentence refusal and exit 1; with `--dry-run` the command says what would be removed and removes nothing.
 
 ```text
-blowhorn chrome unmap [OPTIONS] name
+blowhorn chrome unmap [OPTIONS] name [directory]
 ```
 
 | Argument | Required | Description |
 | --- | --- | --- |
 | `name` | yes | The Blowhorn profile, as the store's profiles name it (kate) |
+| `directory` | no | The Chrome profile directory to unmap, as `blowhorn chrome profiles` prints it; needed only when the profile has more than one mapped on this machine |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -384,6 +392,7 @@ Examples:
 
 ```bash
 blowhorn chrome unmap kate
+blowhorn chrome unmap kate 'Profile 3'
 blowhorn chrome unmap kate --dry-run --json
 ```
 

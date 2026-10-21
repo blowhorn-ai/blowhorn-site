@@ -148,9 +148,23 @@ Quote a directory name that contains a space. Add `--dry-run` to run the
 checks and record nothing (and open no pairing page); add `--json` for the
 recorded row and the pairing result as JSON.
 
-Mapping a profile that already has a mapping replaces it. Mapping it to the
-directory it already has refreshes the recorded name and account, which is
-how you confirm a profile after Chrome's name or account changed. A
+A profile can have more than one Chrome profile on a computer, for example
+Work and Personal signed in to different accounts. Mapping another directory
+adds it; `--replace` makes the new one the profile's only mapping. Mapping a
+directory the profile already has refreshes the recorded name and account,
+which is how you confirm a profile after Chrome's name or account changed.
+
+With more than one, say which Chrome profile each platform uses:
+
+```bash
+blowhorn chrome map ada 'Profile 2'                       # Personal: every platform not named elsewhere
+blowhorn chrome map ada 'Profile 7' --for linkedin,slack  # Work: LinkedIn and Slack
+```
+
+A run uses the Chrome profile mapped `--for` its platform; else the only one;
+else the one mapped with no `--for` (or `--default`). Otherwise it stops and
+names the command that chooses one. Naming a platform with `--for` moves it
+off the profile's other mappings on that computer. A
 directory still held by a profile you have since deleted is released the
 moment you map another profile to it; the command says so.
 
@@ -188,6 +202,7 @@ Nothing falls back to another profile or to a Blowhorn-owned folder.
 
 ```bash
 blowhorn chrome unmap ada
+blowhorn chrome unmap ada 'Profile 7'   # when ada has more than one
 ```
 
 Only your account's row goes. Nothing under Chrome's directory is touched, and

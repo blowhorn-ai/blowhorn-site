@@ -111,7 +111,7 @@ the recorded port is listened on by the Chrome holding the tree (its
 One step can still bring Chrome forward for a moment: when a `cdp` run proves
 which profile it is in, it hands Chrome a `--new-window` command line so the
 right profile opens the proof tab. That handoff is kept because the profile
-proof depends on it; replacing it is tracked in #680.
+proof depends on it.
 
 ### 3. Keep it up for scheduled jobs {#section-3-keep-it-up-for-scheduled-jobs}
 

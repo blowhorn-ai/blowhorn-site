@@ -47,7 +47,9 @@ blowhorn slack send --profile rian,alex --target "https://acme.slack.com/archive
 ```
 
 Each profile gets its own idempotency key, ledger entry and result, and a
-refusal for one never stops the others. A confirmed send waits a random
+refusal for one never stops the others. On the cloud store backend a
+confirmed send is refused before anything is posted: Blowhorn cannot yet
+record a sent Slack message on that backend. A confirmed send waits a random
 interval (scaled by `--pace`) after the one before it. If the store becomes
 unavailable partway through, the command stops there, still reports what was
 already sent, and lists the remaining profiles as `store_unavailable`. The

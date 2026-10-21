@@ -38,9 +38,9 @@ so up front). The page then asks you to allow the app; choose
    using the Blowhorn beta. There is no form to fill in.
 
 If no answer comes back within five minutes, the command stops; run it
-again. If your browser shows a Blowhorn error page instead of coming
-back, Blowhorn refused the sign-in; if it happens again, send us the
-page's message. `blowhorn auth login --dry-run` prints where it would sign you in and
+again. If your browser shows an update page, update Blowhorn. If it shows
+a Blowhorn error page instead of coming back, Blowhorn refused the
+sign-in; if it happens again, send us the page's message. `blowhorn auth login --dry-run` prints where it would sign you in and
 opens, waits for and saves nothing.
 
 Then check what the plan says:
@@ -70,7 +70,7 @@ an account, then choose **Allow**. `blowhorn://signup` starts the same sign-in f
 answer to the command line on this computer (`127.0.0.1`), and the browser
 tab says Blowhorn received it: close the tab and return to the app, which has
 finished the sign-in. The token is kept by Blowhorn's command line, never by
-the app. If the browser stays on a Blowhorn error page instead, the sign-in was refused: no answer comes back. In guided setup, **Cancel** on the
+the app. If the browser stays on an update page, update Blowhorn. If it stays on a Blowhorn error page instead, the sign-in was refused: no answer comes back. In guided setup, **Cancel** on the
 waiting screen stops the wait at once; left alone, the app tells you
 you're not signed in once the wait runs out. Try again, and if that page
 comes back, send us its message.
@@ -84,10 +84,11 @@ so you can start the beta there.
 blowhorn auth logout
 ```
 
-Signing out revokes the saved Blowhorn API token on Blowhorn, then
-removes it, the organization and name in `cloud.yaml`, and the cached plan
-check on this computer. If Blowhorn cannot be reached to revoke it, the
-command says so; revoke it in Blowhorn's token list. If you exported
+Signing out removes this computer from Blowhorn first. That revokes the
+saved Blowhorn API token. Blowhorn then removes the token, the organization
+and name in `cloud.yaml`, and the cached plan check on this machine. If the
+token is already gone, sign-out still finishes. If Blowhorn cannot be reached
+to revoke it, the command says so; revoke it in Blowhorn's token list. If you exported
 `BLOWHORN_CLOUD_TOKEN`, unset it in the shell too. Queued posts and profiles
 stay where they are. `blowhorn auth logout --dry-run` lists what it would
 remove and removes nothing.

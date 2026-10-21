@@ -9,7 +9,7 @@ weight: 116
 
 ## blowhorn setup
 
-Set up Blowhorn on this computer, safely and repeatably. Each step checks first and changes only what is missing or stale, so running it again is safe; every line says ok (already in place), changed (written by this run), planned, declined, todo (needs you) or failed. It checks that blowhorn is on PATH, lists your Chrome profiles from Chrome's Local State file, writes the Chrome extension's native-messaging host when it is missing or stale, and checks your Blowhorn sign-in. Before it writes the native host it says, in plain language, which Chrome profiles the file reaches and asks; `--yes` answers yes for a script, and `--dry-run` writes nothing. With `--json`, or with no terminal to ask in, nobody is asked: it writes nothing and reports planned. It never starts, opens or attaches to Chrome and installs no extension. It ends with what is left for you: sign in, install the extension from the Chrome Web Store, check it answers, and get the app from blowhorn.ai/download. `--json` prints the same as one object.
+Set up Blowhorn on this computer, safely and repeatably. Each step checks first and changes only what is missing or stale, so running it again is safe; every line says ok (already in place), changed (written by this run), planned, declined, todo (needs you) or failed. It checks that blowhorn is on PATH, lists your Chrome profiles from Chrome's Local State file, writes the Chrome extension's native-messaging host when it is missing or stale, adds the marked PATH block to your shell startup files (~/.zshrc, ~/.bashrc, ~/.config/fish/config.fish) when it is missing, so new terminals find blowhorn in ~/.local/bin, and checks your Blowhorn sign-in. Before it writes the native host it says, in plain language, which Chrome profiles the file reaches and asks; the PATH block is asked about the same way; `--yes` answers yes for a script, and `--dry-run` writes nothing. With `--json`, or with no terminal to ask in, nobody is asked: it writes nothing and reports planned. It never starts, opens or attaches to Chrome and installs no extension. It ends with what is left for you: sign in, install the extension from the Chrome Web Store, check it answers, and get the app from blowhorn.ai/download. `--json` prints the same as one object.
 
 ```text
 blowhorn setup [OPTIONS]
@@ -17,7 +17,7 @@ blowhorn setup [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--yes` | boolean | `false` | Agree to write the Chrome native host without being asked, for a script or the desktop app. |
+| `--yes` | boolean | `false` | Agree to the writes setup asks about (the Chrome native host, the PATH block) without being asked, for a script or the desktop app. |
 | `--json` | boolean | `false` | Print the result as one JSON object: steps, profiles, changed, already_ok and next_steps. |
 | `--platform` | string |  | Accepted and ignored by `blowhorn setup`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn setup` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |

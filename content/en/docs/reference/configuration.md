@@ -41,7 +41,7 @@ environment variables.
 | `defaults.chrome.data_dir` | `BLOWHORN_CHROME_DATA_DIR` | Your real Chrome directory | Where the installed Chrome is read from |
 | `defaults.slack.auth_mode` | `BLOWHORN_SLACK_AUTH` | your captured session first | Which Slack credential may send: session, user-token, bot-token, or a list tried in order |
 | (flag only) | `BLOWHORN_TEE_STDOUT` | off | Flush the stdout copy per write for a supervising wrapper |
-| `defaults.store.backend` | `BLOWHORN_STORE_BACKEND` | `postgres` | The one store backend; anything else is refused by name |
+| `defaults.store.backend` | `BLOWHORN_STORE_BACKEND` | `postgres` | `postgres` or `cloud`. Cloud reads profiles, content and destinations, records and lists runs, analytics and activity, and reads and lists ledger entries. Changing a stored ledger value is not available yet. A changed analytics or activity reading is refused. Run, analytics and activity lists are the signed-in user's events. Anything else is refused by name |
 | `defaults.store.organization` | `BLOWHORN_STORE_ORGANIZATION` | none; while unset, nothing runs | The organization every row is scoped to |
 | `defaults.store.config` | `BLOWHORN_STORE_CONFIG` | a private file outside the checkout | The private document holding the connection |
 

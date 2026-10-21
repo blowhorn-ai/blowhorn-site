@@ -58,7 +58,10 @@ present`, `not unregistered` or `failed`:
 4. **The launchers.** `~/.local/bin/blowhorn` and `~/.local/bin/blowhorn-axi`,
    when they carry the installer's marker. A file there that `tools/install.sh` did
    not write is kept and says so.
-   Pass `--bin-dir` if you installed elsewhere.
+   Pass `--bin-dir` if you installed elsewhere. The marked block the
+   installer or the app added to your shell startup file (`.zshrc`,
+   `.bashrc`, or the fish config) is removed with them, exactly the marked
+   lines and nothing else in the file.
 5. **The desktop app.** `Blowhorn.app` first unregisters its own Login Items
    entries, then is removed. A bundle too old to unregister itself is reported
    `not unregistered`, naming the step left to you under System Settings >
@@ -103,11 +106,36 @@ Your account, the content queue, the schedule, the profiles and the
 ledgers on it, is not local data and is never touched, under any flag. Other
 computers keep using it.
 
+## Dragging the app to the Trash
+
+Dragging `Blowhorn.app` to the Trash starts the removal; running the
+command once more finishes it:
+
+1. Drag the app to the Trash, as you would any Mac app.
+2. In a terminal, run `blowhorn` once (any arguments, or none).
+
+The launcher finds the app in the Trash and runs the full removal from the
+engine the app carries: everything `blowhorn uninstall --purge` removes,
+including your local data and the sign-in on this computer. That is the
+difference from running `blowhorn uninstall` yourself with the app still
+installed, which keeps your data: only use the Trash when you mean to
+remove everything. Opening the trashed app instead offers the same finish.
+
+If you empty the Trash before running the command, the engine is gone with
+the app. The launcher then removes the files it can still reach (itself,
+the shell startup block, the background service and attach-Chrome agent
+files, the Chrome native host entry) and names what it could not: the
+sign-in in your Keychain and the account token's revocation, which only
+the full command can do.
+
 ## Without a checkout
 
-An install from the DMG alone puts no `blowhorn` command on your `PATH`. Run
-the same command through the engine the app carries, with its own interpreter,
-and the same flags:
+An install from the DMG puts the `blowhorn` command on your `PATH` (see
+[The `blowhorn` command](/docs/how-to/set-up/install-the-app/#the-blowhorn-command)),
+so the commands above work as written. With an app installed before the
+command was added, or if the app has not opened since, run the same command
+through the engine the app carries, with its own interpreter, and the same
+flags:
 
 ```bash
 BLOWHORN="$HOME/Library/Application Support/Blowhorn/home"
