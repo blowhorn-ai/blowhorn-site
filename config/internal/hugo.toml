@@ -23,6 +23,16 @@ renderSegments = ["internal"]
   [[module.mounts]]
     source = "static-internal"
     target = "static"
+  # Repeated from hugo.toml: with a second mount on the same target, the
+  # base static/ mount was dropped from this build, and with it the brand
+  # logo and favicons the internal header loads (/assets/brand/logo/,
+  # /favicon.ico). CNAME and the legal pages stay out.
+  [[module.mounts]]
+    source = "static/assets"
+    target = "static/assets"
+  [[module.mounts]]
+    source = "static/favicon.ico"
+    target = "static/favicon.ico"
   # The private blowhorn clone. make site-internal sets
   # HUGO_MODULE_REPLACEMENTS to BLOWHORN_DIR (default ../blowhorn); with no
   # replacement Hugo would try to download the private repository and fail.

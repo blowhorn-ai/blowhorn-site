@@ -1,0 +1,25 @@
+{{- /* The internal site's table of contents: every section and page under
+  /internal/, walked from the content tree at build time, so a page added to
+  the mounted sources appears here on the next build with no edit. Rendered
+  by layouts/docs/internal.html on a page whose front matter sets
+  `contents: true` (content/en/internal/_index.md). Sections nest; each
+  entry shows its description when it has one. The Worker serves this page
+  at / as well (internal-worker/src/worker.js). */ -}}
+{{- define "_partials/internal-contents-list.html" -}}
+{{- $pages := .ByWeight -}}
+{{- with $pages }}
+<ul class="internal-contents">
+  {{- range . }}
+  <li>
+    <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{- with .Description }}<span class="internal-contents-desc"> {{ . | markdownify | plainify | truncate 180 }}</span>{{ end }}
+    {{- if .IsSection }}{{ partial "internal-contents-list.html" .Pages }}{{ end }}
+  </li>
+  {{- end }}
+</ul>
+{{- end }}
+{{- end -}}
+<nav class="internal-contents-nav" aria-label="Internal contents">
+  <h2 class="h2" id="contents">Contents</h2>
+  {{ partial "internal-contents-list.html" .Pages }}
+</nav>

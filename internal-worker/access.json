@@ -1,0 +1,9 @@
+{
+  "hostname": "internal.blowhorn.ai",
+  "app_name": "Blowhorn internal site",
+  "policy_name": "Blowhorn internal site: named team members",
+  "session_duration": "24h",
+  "allowed_emails": [
+    "lee.calcote@layer5.io"
+  ]
+}

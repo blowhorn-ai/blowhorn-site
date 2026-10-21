@@ -404,3 +404,80 @@ artifacts and logs are public.
   Hugo 0.158: the `public` segment's excludes win. Use `all`.
 - `hugo config` with no `-e` reports a different environment's mounts than
   `hugo` builds with; pass `-e production` or `-e internal` when checking.
+
+## Internal site hosting (internal.blowhorn.ai, Cloudflare Access)
+
+The internal build is served by the `blowhorn-internal` Cloudflare Worker
+(`internal-worker/`) at https://internal.blowhorn.ai/, behind a Cloudflare
+Access application. Nobody reaches a page, asset or file there without
+signing in to Access as one of the named emails in
+`internal-worker/access.json`.
+
+| Layer | What it enforces |
+| --- | --- |
+| Access application (self-hosted, the whole hostname) | Login required; one reusable `allow` policy whose only rules are the named emails in `access.json`. Anything not allowed is denied. |
+| Worker (`internal-worker/src/worker.js`, `run_worker_first`) | Every request, assets included, must carry an Access token signed by the team's keys, for this application's audience, unexpired, for an email on the same list. Otherwise 403. A missing or misconfigured Access application fails closed. |
+| `wrangler.json` | Custom domain only: `workers_dev` and `preview_urls` are off, so no other hostname serves the Worker. `verify-worker` confirms it after each deploy. |
+
+The root (`/`) serves the `/internal/` page, whose table of contents
+(`layouts/_partials/internal-contents.html`) is generated from the content
+tree on every build. Locally, `make site-internal` still redirects `/` to
+`/internal/`.
+
+### Shipping an update
+
+From a leecalcote/blowhorn clone (or here): `make site-internal-deploy`
+(`REF=<branch|tag|sha>` to build something other than master, `WATCH=0` to
+not wait). It runs `.github/workflows/internal-site.yml` by
+`workflow_dispatch`; other workflows in this repository can call the same file
+with `workflow_call` and `secrets: inherit`. Ship after a change to the
+internal documents (`marketing/strategy/**`, the comparison CSVs) merges.
+
+The workflow, in order (each step is a make target):
+
+1. Fails unless `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` and the
+   `BLOWHORN_INTERNAL_READ_KEY` environment secret are set.
+2. `site-internal-access-check`: read-only probe of the token's permissions.
+3. `site-internal-access`: creates or updates the Access policy and
+   application, reads them back, and fails unless they are exactly the
+   managed default-deny pair. This runs before any private content reaches
+   the runner.
+4. Checks out leecalcote/blowhorn (sparse: `marketing/strategy`,
+   `marketing/capability-comparison`) with the read-only deploy key.
+5. `site-internal-build` with `BASE_URL=https://internal.blowhorn.ai/`, output
+   suppressed.
+6. `site-internal-worker-deploy`: `wrangler deploy` with a filtered summary,
+   then `verify-worker` (workers.dev and previews off).
+7. `site-internal-verify`: unauthenticated probes of `/`, a deep link, an
+   asset and a guessed URL must all redirect to the Access login. A 2xx
+   deletes the Worker and fails the run.
+
+### This repository is public
+
+Its Actions logs are world-readable. The workflow uploads no artifact,
+prints no build or wrangler output beyond an allow-listed summary, never uses
+`set -x`, `tree`, `ls` or `find` on the build, and removes the private
+checkout after building. Keep it that way in any change to the workflow or
+`.github/scripts/internal-*`. Debug a failed build locally with
+`make site-internal-build`, never by adding output to the workflow.
+
+### Credentials
+
+- `CLOUDFLARE_API_TOKEN` (repository secret) needs: Account > Workers
+  Scripts > Edit; Account > Account Settings > Read; Zone (blowhorn.ai) >
+  Workers Routes > Edit; Account > Access: Apps and Policies > Edit;
+  Account > Access: Organizations, Identity Providers, and Groups > Read.
+- `CLOUDFLARE_ACCOUNT_ID` (repository secret).
+- `BLOWHORN_INTERNAL_READ_KEY` (secret of the `internal-site` environment,
+  which deploys from master only): the private half of an SSH deploy key
+  added read-only to leecalcote/blowhorn. It can read that one repository and
+  cannot write to it or reach any other. Rotate it by adding a new deploy key
+  and replacing the secret; revoke it by deleting the deploy key.
+
+### Changing who can read it
+
+Edit `allowed_emails` in `internal-worker/access.json` in a pull request (so
+the change is reviewed), merge, and run `make site-internal-deploy`. The
+workflow updates the Access policy and the Worker's list together. Do not edit
+the policy in the Cloudflare dashboard: the next deploy resets it, and a
+mismatch fails verification.

@@ -55,8 +55,19 @@ include .github/build/Makefile.show-help.mk
 #   site-internal-build
 #                      Internal build (hugo --environment internal, mounting
 #                      BLOWHORN_DIR, default ../blowhorn) into public-internal/.
+#                      BASE_URL=... sets the base URL (the deploy passes
+#                      https://internal.blowhorn.ai/).
 #   site, site-internal
 #                      Live-reload servers for the two builds.
+#   site-internal-deploy
+#                      Run internal-site.yml (build, Cloudflare Access, Worker
+#                      deploy at internal.blowhorn.ai, verify) and watch it:
+#                      make site-internal-deploy [REF=<blowhorn ref>] [WATCH=0].
+#   site-internal-access, site-internal-access-check, site-internal-worker-deploy,
+#   site-internal-verify
+#                      The steps of internal-site.yml (see docs/deploy.md).
+#   test-internal-worker
+#                      Unit tests for the internal Worker's Access token check.
 #   test-scripts       Unit tests for the check scripts in .github/scripts/.
 #   workflow-check     actionlint on this repository's workflows.
 #   check              site-check, test-scripts and workflow-check.
@@ -85,7 +96,7 @@ BIN_DIR ?= .bin
 # actionlint from PATH when installed; otherwise a pinned copy is downloaded into $(BIN_DIR).
 ACTIONLINT ?= $(shell command -v actionlint 2>/dev/null)
 # Workflows owned by this repo. Template workflows (labeler and friends) are left as-is.
-WORKFLOWS ?= .github/workflows/site.yml .github/workflows/publish-dmg.yml .github/workflows/sync-docs.yml .github/workflows/cloud-auth-smoke.yml .github/workflows/product-ci.yml
+WORKFLOWS ?= .github/workflows/site.yml .github/workflows/publish-dmg.yml .github/workflows/sync-docs.yml .github/workflows/cloud-auth-smoke.yml .github/workflows/product-ci.yml .github/workflows/internal-site.yml
 # A blowhorn checkout for `make docs-sync` (the sync-docs.yml
 # workflow checks the product repo out at this path).
 SOURCE_DIR ?= product
@@ -97,6 +108,10 @@ BLOWHORN_MODULE := github.com/leecalcote/blowhorn
 DOCS_DIR ?= content/en/docs
 # Branch the sync-docs.yml workflow pushes and opens its pull request from.
 SYNC_BRANCH ?= docs-sync
+# The internal site's hosting workflow (site-internal-deploy) and its blowhorn ref.
+INTERNAL_SITE_REPO ?= layer5io/blowhorn-site
+INTERNAL_WORKFLOW ?= internal-site.yml
+REF ?= master
 
 # ---------------------------------------------------------------------------
 # MAINTENANCE
@@ -156,9 +171,16 @@ site-build: check-go check-deps
 		npm run build:production; \
 	fi
 
-## Build the internal site (only /internal/, mounted from the blowhorn clone at BLOWHORN_DIR, default ../blowhorn) into public-internal/.
+## Build the internal site (only /internal/, mounted from the blowhorn clone at BLOWHORN_DIR, default ../blowhorn) into public-internal/. Pass BASE_URL=... to set the base URL.
 site-internal-build: check-go check-deps check-blowhorn
-	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run build:internal
+	set -e; \
+	if [ -n "$(BASE_URL)" ]; then \
+		base_url="$(BASE_URL)"; \
+		base_url="$${base_url%/}/"; \
+		HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run build:internal -- --baseURL "$$base_url"; \
+	else \
+		HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run build:internal; \
+	fi
 
 ## Build and run the site locally with live reload (draft and future content enabled).
 site: check-go check-deps
@@ -168,6 +190,42 @@ site: check-go check-deps
 site-internal: check-go check-deps check-blowhorn
 	@echo "Internal site: http://localhost:1313/internal/ (the root redirects there)"
 	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run _hugo -- server --cleanDestinationDir --environment internal --renderToMemory
+
+# ---------------------------------------------------------------------------
+# INTERNAL SITE HOSTING (internal-worker/, .github/workflows/internal-site.yml)
+# ---------------------------------------------------------------------------
+
+## Run internal-site.yml, which builds the internal site and deploys it to the blowhorn-internal Worker behind Cloudflare Access, then watch it: make site-internal-deploy [REF=<blowhorn ref>] [WATCH=0].
+site-internal-deploy:
+	@command -v gh > /dev/null || { echo "Error: gh not found (https://cli.github.com)."; exit 1; }
+	gh workflow run $(INTERNAL_WORKFLOW) -R $(INTERNAL_SITE_REPO) -f blowhorn_ref="$(REF)"
+	@if [ "$(WATCH)" != "0" ]; then \
+		sleep 5; \
+		run_id="$$(gh run list -R $(INTERNAL_SITE_REPO) --workflow $(INTERNAL_WORKFLOW) --event workflow_dispatch -L 1 --json databaseId --jq '.[0].databaseId')"; \
+		echo "Watching run $$run_id"; \
+		gh run watch "$$run_id" -R $(INTERNAL_SITE_REPO) --exit-status; \
+	fi
+
+## Read-only: confirm CLOUDFLARE_API_TOKEN can read Zero Trust, Access applications and policies, and Workers.
+site-internal-access-check:
+	python3 .github/scripts/internal_access.py check
+
+## Create or update the Cloudflare Access application and allow policy (internal-worker/access.json), then verify they are default-deny.
+site-internal-access:
+	python3 .github/scripts/internal_access.py ensure
+
+## Deploy public-internal/ to the blowhorn-internal Worker (needs TEAM_DOMAIN and POLICY_AUD from site-internal-access), then confirm workers.dev is off.
+site-internal-worker-deploy:
+	.github/scripts/internal-deploy.sh
+	python3 .github/scripts/internal_access.py verify-worker
+
+## Fail unless unauthenticated requests to the internal hostname get the Cloudflare Access login, never a page.
+site-internal-verify:
+	.github/scripts/internal-verify.sh
+
+## Unit tests for the internal Worker's Access token check.
+test-internal-worker:
+	node --test internal-worker/
 
 ## Fail unless BLOWHORN_DIR is a blowhorn clone with the internal sources.
 check-blowhorn:
@@ -249,7 +307,7 @@ check-no-internal: site-build
 	.github/scripts/check-no-internal.sh $(BUILD_DIR)
 
 ## Run the unit tests for the check scripts in .github/scripts/.
-test-scripts:
+test-scripts: test-internal-worker
 	python3 -m unittest discover -s .github/scripts -p 'test_*.py'
 
 ## Lint this repo's GitHub Actions workflows with actionlint.
@@ -387,6 +445,12 @@ clean:
 	build-internal \
 	site-internal \
 	site-internal-build \
+	site-internal-deploy \
+	site-internal-access \
+	site-internal-access-check \
+	site-internal-worker-deploy \
+	site-internal-verify \
+	test-internal-worker \
 	preview-internal \
 	check-blowhorn \
 	test-scripts \
