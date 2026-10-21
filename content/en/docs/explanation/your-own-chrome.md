@@ -37,6 +37,11 @@ between them. That honesty is also the limit: a CAPTCHA or a
 second-factor challenge hands back to you, always, because passing it
 for you would stop being you.
 
+Curious what sites can see about your browser? Run the free check at
+[Blowhorn Tells](https://tells.blowhorn.ai/) in the Chrome profile you
+post from. It lists the bot-detection and fingerprint signals a page can
+read, in plain words.
+
 ## Related
 
 - [Chrome reference](/docs/reference/chrome/) - launch modes and the extension default.
@@ -46,3 +51,4 @@ for you would stop being you.
 - [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/) - the Chrome half of setup.
 - [You're in control](/docs/explanation/youre-in-control/) - one automation per profile and platform.
 - [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/) - put the extension in your Chrome.
+- [Blowhorn Tells](https://tells.blowhorn.ai/) - a free check of what sites can see about your browser.

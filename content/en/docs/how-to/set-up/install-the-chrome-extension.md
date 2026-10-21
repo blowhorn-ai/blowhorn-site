@@ -22,7 +22,7 @@ and Chrome then installs the extension, turned on, in every profile.
 Chrome shows **Managed by your organization**; that is the install
 working, not a problem. There is nothing to click in each profile.
 
-If you left a profile out, no machine-wide file is written for the
+If you left a profile out, no computer-wide file is written for the
 others: both files above reach every profile, so either would put the
 extension in the profile you left out. Each profile you chose instead
 gets it one at a time, with the **Enable in** steps below - Chrome opens
@@ -126,12 +126,12 @@ See the files first, and write nothing:
 blowhorn chrome extension-install --profile kate --dry-run
 ```
 
-## Every Chrome profile on this machine
+## Every Chrome profile on this computer
 
 **Every profile** (the default) writes Chrome's
 `ExtensionInstallForcelist`. Chrome installs the extension the next time
 each profile starts, with no click in that profile. That is every Chrome
-profile on this machine, including ones no Blowhorn profile uses. Chrome
+profile on this computer, including ones no Blowhorn profile uses. Chrome
 shows **Managed by your organization**. macOS asks for an administrator
 password once. Cancelling that dialog writes nothing.
 
@@ -196,4 +196,4 @@ and do not change.
   Chrome profile each Blowhorn profile belongs to.
 - [Chrome reference](/docs/reference/chrome/) - the flags, the files, and
   the JSON shapes.
-- [Requirements](/docs/reference/requirements/) - what each machine needs
+- [Requirements](/docs/reference/requirements/) - what each computer needs

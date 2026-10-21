@@ -119,7 +119,7 @@ reads and saves them as the lowercase name every command resolves them to.
 Setup is the engine checklist the app opens on while its engine is not
 ready (otherwise the first run is the guided setup; see
 [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/)),
-five rows read from this machine:
+five rows read from this computer:
 "Blowhorn folder", "helper tools", "organization connection", "chrome profiles",
 and "this computer on watch". The first two check the engine bundled in the
 app, the only engine the installed app runs

@@ -30,7 +30,7 @@ Updates reach a closed app through the same service. The update card
 in the popover installs the new build and relaunches; when the app is
 closed, the next open shows the card instead. A release is one
 universal DMG per desktop tag, downloaded from the release page; the
-app installs it into Applications and relaunches when this machine
+app installs it into Applications and relaunches when this computer
 can, and otherwise opens the release page for you.
 
 ## Related

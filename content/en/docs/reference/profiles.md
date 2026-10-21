@@ -65,7 +65,7 @@ quietly.
 ## The Chrome column
 
 Your account row beside each profile carries the Chrome column: which real
-Chrome profile this Blowhorn profile acts in on this machine, keyed by
+Chrome profile this Blowhorn profile acts in on this computer, keyed by
 hostname. `blowhorn chrome map` writes it; `blowhorn chrome unmap`
 clears it. A browser run with no mapping for its profile refuses
 before anything opens, and never falls back to another profile. The

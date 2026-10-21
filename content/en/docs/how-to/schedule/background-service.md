@@ -28,7 +28,7 @@ do: finish, cancel at a safe point, or stay.
 
 ## Install it without the app
 
-On a machine without the desktop app:
+On a computer without the desktop app:
 
 ```bash
 blowhorn service install

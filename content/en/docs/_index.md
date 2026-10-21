@@ -22,7 +22,7 @@ cascade:
 <div class="grid grid-3 docs-start">
   <a class="card docs-card" href="how-to/set-up/">
     <span class="h3">Install Blowhorn</span>
-    <span>Get the app running on your Mac.</span>
+    <span>Get the app running on your computer.</span>
   </a>
   <a class="card docs-card" href="how-to/publish/post-content/">
     <span class="h3">Your first post</span>

@@ -1,6 +1,6 @@
 ---
 title: "Pause and resume posting"
-description: "Stop every scheduled claim on one machine, every machine, or one row, then resume."
+description: "Stop every scheduled claim on one computer, every computer, or one row, then resume."
 weight: 151
 ---
 
@@ -11,7 +11,7 @@ any day you want nothing to go out.
 
 {{< major >}}Whole unit standing down. Your call. Unpause when you're ready.{{< /major >}}
 
-## Pause this machine
+## Pause this computer
 
 ```bash
 blowhorn schedule pause --reason "LinkedIn challenge on kate"
@@ -35,7 +35,7 @@ toggle: choose it again to turn the pause off. While
 paused, the app also skips its session probe, so a paused Blowhorn opens no
 browser at all.
 
-## Pause every machine, or one row
+## Pause every computer, or one row
 
 ```bash
 blowhorn schedule pause --all --reason "X is rate limiting us"
@@ -44,9 +44,9 @@ blowhorn schedule resume --all
 blowhorn schedule resume --row 7
 ```
 
-A row is claimed only when none of the three scopes says paused: this machine,
-all machines, or that row. `--all` and `--row` live in your account, so every
-machine sharing it honours them on its next claim; the flagless pause never
+A row is claimed only when none of the three scopes says paused: this computer,
+all computers, or that row. `--all` and `--row` live in your account, so every
+computer sharing it honours them on its next claim; the flagless pause never
 touches your account. In the app the same three scopes are "pause this
 computer", "pause all computers" and "pause this one" (in an item's drawer),
 each with a reason; the first two are toggles you press again to turn the

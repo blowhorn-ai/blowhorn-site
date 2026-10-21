@@ -32,7 +32,7 @@ session that has since signed out stops that platform's run with the
 reason rather than posting.
 
 A Chrome mapping is identity, not permission. It says which real
-Chrome profile the run acts in on this machine, and its refusal checks
+Chrome profile the run acts in on this computer, and its refusal checks
 run before anything launches or attaches. It never grants, and no
 fallback to another profile or folder ever applies when it does not
 hold.

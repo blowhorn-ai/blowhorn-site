@@ -10,6 +10,9 @@ Start with the self-serve pages: the
 something broken, and [Messages and exit codes](/docs/reference/messages/) for a
 sentence a run printed. Most failures are a drifted mapping, an
 expired session, or an unreachable store, and each page names its fix.
+If a platform keeps challenging you, the free check at
+[Blowhorn Tells](https://tells.blowhorn.ai/) shows what sites can see about
+your browser.
 
 To report a problem, file an issue on the public site repository,
 `layer5io/blowhorn-site`, with what you ran, what it printed, and what

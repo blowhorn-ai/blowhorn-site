@@ -68,8 +68,8 @@ switch on the default data directory, which is why this is a separate Chrome
 and not your daily one. Mac only.
 
 **What you are trading.** That Chrome's debugging port has no password and
-asks for no Allow. It is bound to `127.0.0.1`, so nothing off this Mac can
-reach it, but any program running as you on this Mac can drive that Chrome
+asks for no Allow. It is bound to `127.0.0.1`, so nothing off this computer can
+reach it, but any program running as you on this computer can drive that Chrome
 and read its cookies, for every account signed in there. Sign it in only to
 the accounts Blowhorn posts from, never your personal email or bank.
 

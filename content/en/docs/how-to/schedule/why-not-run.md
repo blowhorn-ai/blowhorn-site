@@ -5,7 +5,7 @@ weight: 152
 ---
 
 
-One command names the reason a row has or has not run on this machine, in the
+One command names the reason a row has or has not run on this computer, in the
 order the scheduler itself decides it, and ends in one plain sentence:
 
 ```bash
@@ -27,20 +27,20 @@ studio did not run row 7 because laptop:9912 claimed it at 2026-08-31 06:02:10 a
 ```
 
 Read it top to bottom: enabled, valid, paused (naming the scope and how to lift
-it), due, claimed, this machine, last run. The closing sentence is the answer;
-quote it in a bug report with `--json` for the same answer machines can read.
+it), due, claimed, this computer, last run. The closing sentence is the answer;
+quote it in a bug report with `--json` for the same answer scripts can read.
 
 ## What the common answers mean
 
-- **Paused.** The scope is named: the row, this machine, or all machines. Lift
+- **Paused.** The scope is named: the row, this computer, or all computers. Lift
   it with `blowhorn schedule resume`, with `--all` or `--row 7` to match.
-- **Claimed by another machine.** A claim is a lease, not a lock: the holder
-  renews it every ten minutes while the job runs, and a dead machine stops
+- **Claimed by another computer.** A claim is a lease, not a lock: the holder
+  renews it every ten minutes while the job runs, and a dead computer stops
   renewing, so its rows return to the pool when the lease lapses. `schedule
   list` names every holder in its Locked By column; your own claims read
   `(this machine)`.
 - **Not due.** `Next Run At` has not passed yet. `schedule status` shows an
-  estimated next tick for this machine.
+  estimated next tick for this computer.
 - **Invalid.** `blowhorn schedule validate` names what the row breaks.
 
 The command is read-only: it claims nothing, runs nothing and changes nothing,

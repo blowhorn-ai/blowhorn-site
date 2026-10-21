@@ -1,11 +1,11 @@
 ---
 title: "System requirements"
-description: "What your Mac needs to run Blowhorn: macOS version, Chrome, and a Blowhorn account."
+description: "What your computer needs to run Blowhorn: macOS version, Chrome, and a Blowhorn account."
 weight: 210
 ---
 
 
-What your Mac needs before you install Blowhorn.
+What your computer needs before you install Blowhorn.
 
 | Need | Requirement | Checked by |
 |---|---|---|
@@ -27,7 +27,7 @@ Chrome the normal way and sign in before you map anything. The extension
 needs Chrome profiles to attach to; without Chrome every browser run
 refuses before it acts.
 
-The app carries its engine and Python, so your Mac needs no git and no
+The app carries its engine and Python, so your computer needs no git and no
 Python. A contributor running the engine from a checkout instead needs
 Python 3.14, the floor `tools/install.sh` enforces and the only supported
 version. Either way the Setup screen checks the engine, so a broken engine

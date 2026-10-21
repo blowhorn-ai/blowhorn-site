@@ -20,7 +20,7 @@ bookmarklet. `blowhorn post` publishes from these rows and nothing else.
 | `Message Text` | The post itself |
 | `Title` | Hacker News and Reddit titles |
 | `Approved?` | `yes` to let a run pick the row up |
-| `Promote On` | `YYYY-MM-DD HH:MM:SS` in this machine's own zone; blank means now |
+| `Promote On` | `YYYY-MM-DD HH:MM:SS` in this computer's own zone; blank means now |
 | `Image URL`, `GDrive Link`, `Video URL` | One attachment for the post |
 | `Amplify` | URL of existing content to amplify instead of publishing ([Amplify an existing post](/docs/how-to/publish/amplify-a-post/)) |
 | `Comment on` | URL to reply to, with the reply in `Message Text` ([Reply to a post](/docs/how-to/publish/reply-to-a-post/)) |

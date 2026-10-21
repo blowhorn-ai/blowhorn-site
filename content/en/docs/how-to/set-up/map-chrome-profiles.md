@@ -1,13 +1,13 @@
 ---
 title: "Map Blowhorn profiles to Chrome profiles"
-description: "Say which real Chrome profile each Blowhorn profile belongs to on this machine."
+description: "Say which real Chrome profile each Blowhorn profile belongs to on this computer."
 weight: 50
 aliases: [/docs/how-to/map-chrome-profiles/]
 ---
 
 
 Tell Blowhorn which of your real Google Chrome profiles each Blowhorn
-profile belongs to on this machine. Every run that drives a browser reads
+profile belongs to on this computer. Every run that drives a browser reads
 the mapping first and refuses a profile without one, so mapping is the
 one-time setup every browser run depends on.
 
@@ -62,10 +62,10 @@ treated as permission to post.
 
 ## Before you start
 
-- Your account is reachable from this machine: `blowhorn store` says so. The
-  mapping lives there, keyed by this machine's hostname, so it is the same
-  on every terminal and in the desktop app on this machine, and does not
-  follow you to another machine.
+- Your account is reachable from this computer: `blowhorn store` says so. The
+  mapping lives there, keyed by this computer's hostname, so it is the same
+  on every terminal and in the desktop app on this computer, and does not
+  follow you to another computer.
 - The Blowhorn profile is in your account's profiles. `blowhorn chrome
   suggest` lists every profile your account knows; a name missing there cannot
   be mapped.
@@ -129,7 +129,7 @@ The command checks three things and refuses with one sentence and exit 1
 when any fails: the Blowhorn profile is in your account's profiles (`all` is
 every profile, not one, so map each profile by name), Chrome has that
 directory, and the directory is not already mapped to another Blowhorn
-profile on this machine. Then it records the display name and signed-in
+profile on this computer. Then it records the display name and signed-in
 account Chrome shows for the directory and prints what it recorded.
 
 Mapping also pairs the profile. The command opens the Blowhorn extension's
@@ -176,7 +176,7 @@ identity no longer holds, why:
 | `Profile 5 (drift)` | Chrome now shows a different display name or signed-in account for that directory | check the profile in Chrome, then `blowhorn chrome map grace 'Profile 5'` to confirm the new identity |
 | `Profile 5 (missing)` | Chrome no longer has that directory | `blowhorn chrome profiles`, then map the profile again |
 | `Profile 5 (unknown)` | Chrome's profile list could not be read, so the identity cannot be checked | `blowhorn chrome status`, then fix what it names |
-| `-` | no mapping on this machine | `blowhorn chrome map <profile> <directory>` |
+| `-` | no mapping on this computer | `blowhorn chrome map <profile> <directory>` |
 
 `blowhorn chrome profiles` shows the same thing from Chrome's side, in its
 `mapped to` column. A profile whose mapping does not hold is refused by

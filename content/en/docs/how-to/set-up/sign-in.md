@@ -86,7 +86,7 @@ blowhorn auth logout
 
 Signing out revokes the saved Blowhorn API token on Blowhorn, then
 removes it, the organization and name in `cloud.yaml`, and the cached plan
-check on this machine. If Blowhorn cannot be reached to revoke it, the
+check on this computer. If Blowhorn cannot be reached to revoke it, the
 command says so; revoke it in Blowhorn's token list. If you exported
 `BLOWHORN_CLOUD_TOKEN`, unset it in the shell too. Queued posts and profiles
 stay where they are. `blowhorn auth logout --dry-run` lists what it would

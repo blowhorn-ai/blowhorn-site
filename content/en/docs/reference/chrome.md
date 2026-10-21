@@ -26,7 +26,7 @@ nothing outside that list, and never a saved password or a cookie's
 value beyond the one named there.
 `blowhorn chrome map` also asks Chrome to open a window on the
 extension's pairing page in the mapped Chrome profile, and creates this
-machine's pairing key outside Chrome's directory (see [Pairing](#pairing)).
+computer's pairing key outside Chrome's directory (see [Pairing](#pairing)).
 `blowhorn chrome extension-enable` asks Chrome to open a window on the
 extension's Chrome Web Store page in each Chrome profile you name (see
 [its section](#blowhorn-chrome-extension-enable)). When no Chrome is
@@ -45,9 +45,9 @@ writes nothing there.
 
 ## The mapping
 
-Each Blowhorn profile maps to one real Chrome profile on this machine,
+Each Blowhorn profile maps to one real Chrome profile on this computer,
 kept in your account and keyed by hostname. The mapping does not follow
-you to another machine.
+you to another computer.
 
 `blowhorn chrome profiles` lists every profile Chrome knows, with the
 directory name and the display identity. Chrome does not have to be
@@ -64,9 +64,9 @@ is never a fallback to another profile.
 The Chrome extension drives whichever Chrome profile it is installed in, so a
 mapping alone cannot stop a run from acting in the wrong one. `blowhorn chrome
 map` therefore also pairs the profile: it opens the extension's pairing page in
-the mapped Chrome profile, and the page keeps a token tied to this machine, the
+the mapped Chrome profile, and the page keeps a token tied to this computer, the
 Blowhorn profile and the Chrome directory. The token is derived from a random
-key Blowhorn keeps on this machine (`chrome_pairing.key`, readable only by you);
+key Blowhorn keeps on this computer (`chrome_pairing.key`, readable only by you);
 it carries no account data. The extension keeps it in its own storage (the
 `storage` permission, which shows no install warning) and reports it when a run
 connects.
@@ -74,7 +74,7 @@ connects.
 Before any action, a run checks the token. It refuses with one sentence when
 the Chrome profile is not paired, is paired to another Blowhorn profile (the
 sentence names both and the Chrome directory to switch to), or is paired to a
-mapping this machine no longer has. To pair, or to pair again after the
+mapping this computer no longer has. To pair, or to pair again after the
 extension was reinstalled, map the profile to the directory it already has:
 
 ```bash
@@ -148,7 +148,7 @@ Chrome 136 and later ignore the debugging switch on the default data
 directory, which is why this is never your daily Chrome.
 
 The port is bound to `127.0.0.1` and has no password: any program
-running as you on this Mac can drive that Chrome and read its
+running as you on this computer can drive that Chrome and read its
 cookies. Sign it in only to the accounts Blowhorn posts from.
 
 A debugging port, and Playwright's `--remote-debugging-pipe`, each make
@@ -201,6 +201,11 @@ your own permission state. A viewport override, a GPU switch or a blanket permis
 each gave a reading no real Chrome gives, so the launch passes none of them (measured
 2026-10-15).
 
+To see it from the site's side, open the free check at
+[Blowhorn Tells](https://tells.blowhorn.ai/) in the Chrome profile a run
+uses. It lists the user agent, the automation flags and the other signals
+a page can read.
+
 ## Extension mode: classic or background
 
 With the extension driver, a run uses one of two behaviors:
@@ -218,14 +223,14 @@ With the extension driver, a run uses one of two behaviors:
 background is the default. classic keeps the input and debugger behavior of
 the Chrome Web Store build 1.12.10 (synthetic input, the debugger only while
 an action holds it) with the same tab placement as background, and
-`BLOWHORN_EXTENSION_ROLLBACK=classic` forces it on a machine.
+`BLOWHORN_EXTENSION_ROLLBACK=classic` forces it on a computer.
 Where the mode comes from, top wins:
 
 | layer | spelling |
 | --- | --- |
-| this machine | `BLOWHORN_EXTENSION_ROLLBACK=classic` forces classic |
+| this computer | `BLOWHORN_EXTENSION_ROLLBACK=classic` forces classic |
 | one scheduled job | its `Driver Mode`: `extension-classic` or `extension-background` |
-| your account | the extension mode on Settings, Chrome extension (saved as `extensionMode` in your Blowhorn preferences, so it follows you to every machine) |
+| your account | the extension mode on Settings, Chrome extension (saved as `extensionMode` in your Blowhorn preferences, so it follows you to every computer) |
 | nothing set | background |
 
 How the Blowhorn tab group sits beside your tabs between steps is one more
@@ -238,7 +243,7 @@ open` (`default` clears it). A run reads it once when it starts.
 Chrome as before; it says nothing about the mode. `0`, `false` and `off` read
 as unset; any other value is refused before the run starts. On Settings the
 selector is your account setting; the description under it is the mode this
-machine runs, and the card says when the variable overrides the account or
+computer runs, and the card says when the variable overrides the account or
 holds a refused value. The features a
 mode sets are `placement`, `first_page`, `lease_at_goto`, `quiet_screenshot`,
 `checkpoint_front` and `trusted_input`. `first_page` is background only: a new
@@ -402,7 +407,7 @@ pairing page is opened; pairing happens on the first run or through
 ## One run per profile and platform
 
 A profile's session on a browser platform (LinkedIn, X, Reddit, Hacker
-News) belongs to one Blowhorn process at a time on a machine. Before a run
+News) belongs to one Blowhorn process at a time on a computer. Before a run
 opens the session it takes a lock keyed by profile and platform, under
 every launch mode. A second run that wants the same profile on the same
 platform is refused with "profile `<name>` on `<platform>` is in use by

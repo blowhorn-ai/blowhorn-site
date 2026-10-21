@@ -10,7 +10,7 @@ Download the signed Blowhorn app for macOS, verify it, install it, and open
 it.
 
 The app carries its own engine and Python, so you need no copy of the
-Blowhorn repository, no git and no Python on your Mac.
+Blowhorn repository, no git and no Python on your computer.
 
 ## Download
 
@@ -63,7 +63,7 @@ app does not read them. If the engine in the app cannot start, Setup says so
 in one line; [Fix an engine that won't start](/docs/how-to/troubleshoot/engine-wont-start/)
 walks through it.
 
-Connecting the Blowhorn Chrome extension to this machine takes no pop-up:
+Connecting the Blowhorn Chrome extension to this computer takes no pop-up:
 
 - **Connect it today:** the guided setup's **Getting ready** step connects
   it. The extension can then reach the

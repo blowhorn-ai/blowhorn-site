@@ -84,7 +84,7 @@ nothing here.
 - **Open it again any time:** choose **guided setup** at the bottom of
   Settings.
 - **Missing tools come first:** if Blowhorn's own tools aren't set up on this
-  machine yet, the Setup screen shows first. See
+  computer yet, the Setup screen shows first. See
   [Install the app](/docs/how-to/set-up/install-the-app/).
 
 ## Going back and forward is safe

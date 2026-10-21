@@ -28,6 +28,10 @@ Start from what you saw. Each symptom names its fix page.
 - **X sign-in under the extension driver stops at once.** The extension's
   typing does not reach X's form either. Sign in by hand in the tab, or run
   with `--chrome-launch cdp`. See [Fix a sign-in that stopped working](/docs/how-to/troubleshoot/sign-in-problems/).
+- **Challenges keep coming back in one Chrome profile.** Curious what sites
+  can see about that browser? Open the free check at [Blowhorn
+  Tells](https://tells.blowhorn.ai/) in that profile. See [Fix a sign-in that
+  stopped working](/docs/how-to/troubleshoot/sign-in-problems/#captcha-and-second-factors).
 
 ## The app
 
@@ -54,7 +58,7 @@ Start from what you saw. Each symptom names its fix page.
 
 - **A job did not run.** Ask the row directly: `blowhorn schedule why
   <row>`. See [Find out why a job did not run](/docs/how-to/schedule/why-not-run/).
-- **Nothing is claimed on this machine.** You may be paused. See [Pause and
+- **Nothing is claimed on this computer.** You may be paused. See [Pause and
   resume posting](/docs/how-to/schedule/pause/).
 - **Every account-backed command exits 3 saying your account is unavailable.**
   Bring your connection back; nothing was claimed and nothing is lost. The

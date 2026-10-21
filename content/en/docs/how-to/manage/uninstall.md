@@ -6,7 +6,7 @@ aliases: [/docs/how-to/uninstall/]
 ---
 
 
-Remove Blowhorn from your machine: the background service, the Chrome native host,
+Remove Blowhorn from your computer: the background service, the Chrome native host,
 the launchers, the desktop app and the checkout's build products. Your data
 stays unless you ask for it to go, and your account is never touched.
 
@@ -16,7 +16,7 @@ removed.
 ## See what would be removed
 
 Always start with the dry run. It lists everything the installer, the app,
-the service and the extension install can leave on this machine, says whether
+the service and the extension install can leave on this computer, says whether
 each is present, and removes nothing:
 
 ```bash
@@ -86,7 +86,7 @@ yourself if you no longer need it. The engine's `home/` is not a checkout:
 The summary ends by saying the shared store was not touched. If your store
 connection shows `127.0.0.1` (for example `postgresql://127.0.0.1:9432`), that
 is the local tunnel Blowhorn opens to your account's database, not a database
-on this machine.
+on this computer.
 
 ## Remove the local data too
 
@@ -101,7 +101,7 @@ too, because the prompt would otherwise land in the JSON output.
 
 Your account, the content queue, the schedule, the profiles and the
 ledgers on it, is not local data and is never touched, under any flag. Other
-machines keep using it.
+computers keep using it.
 
 ## Without a checkout
 
@@ -140,11 +140,11 @@ blowhorn store --replay-spool --log-dir <log-dir>
 blowhorn uninstall
 ```
 
-When your account will never be reachable again from this machine, give the
+When your account will never be reachable again from this computer, give the
 records up instead with `blowhorn uninstall --discard-unsynced-runs`, which
 asks you to type `discard` (pass `--yes` from a script or with piped input).
 
-If this machine was never signed in to the store (no `~/.config/blowhorn/store.yaml`),
+If this computer was never signed in to the store (no `~/.config/blowhorn/store.yaml`),
 the records can never be sent from here, and `blowhorn store --replay-spool`
 fails with "no connection is configured". The refusal says so and points to
 `--discard-unsynced-runs`, or to `blowhorn store --import` first if you want

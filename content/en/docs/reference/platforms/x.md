@@ -13,7 +13,7 @@ by retweet or quote. Follows accounts with `blowhorn follow`. Analytics
 appends a follower and following trend row per run.
 
 Follows: at most 400 per profile a day and 15 in any 15 minutes,
-counted from that profile's follow log on this machine.
+counted from that profile's follow log on this computer.
 
 ## Supported actions
 
