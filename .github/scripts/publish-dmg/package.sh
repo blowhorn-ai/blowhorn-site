@@ -7,8 +7,8 @@ set -euo pipefail
 .github/scripts/check-dmg.sh dist/source.dmg
 versioned="Blowhorn-${VERSION#v}-mac-${ARCH}.dmg"
 mv dist/source.dmg "dist/$versioned"
-# Stable, version-less alias so /releases/latest/download/Blowhorn-mac.dmg
-# always points at the newest published release.
+# Stable, version-less alias: the same bytes under a fixed name inside every
+# release, so the download page names one file whatever the version.
 cp "dist/$versioned" dist/Blowhorn-mac.dmg
 (cd dist && sha256sum -- *.dmg >SHA256SUMS.txt && cat SHA256SUMS.txt)
 mv notes.md dist/notes.md

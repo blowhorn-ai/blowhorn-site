@@ -13,7 +13,7 @@ versioned=(dist/Blowhorn-*-mac-*.dmg)
   echo "## Download"
   echo
   echo "- macOS: \`$(basename "${versioned[0]}")\`"
-  echo "- Always-latest link: https://github.com/${GH_REPO}/releases/latest/download/Blowhorn-mac.dmg"
+  echo "- Download: https://github.com/${GH_REPO}/releases/download/${VERSION}/Blowhorn-mac.dmg"
   echo
   echo "## SHA-256"
   echo
@@ -31,4 +31,7 @@ fi
 gh release create "$VERSION" "${flags[@]}" dist/*.dmg dist/SHA256SUMS.txt
 if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then
   echo "### Release ${VERSION} created (draft=${DRAFT}, prerelease=${PRERELEASE})" >>"$GITHUB_STEP_SUMMARY"
+  if [[ "$DRAFT" != "true" && "$PRERELEASE" != "true" ]]; then
+    echo "Bump data/download.json to ${VERSION#v} so blowhorn.ai/download serves this release." >>"$GITHUB_STEP_SUMMARY"
+  fi
 fi
