@@ -16,10 +16,14 @@ how-to guides under Related.
 `Local State` and `DevToolsActivePort`, and nothing else: never
 cookies, saved passwords, storage, or the keychain. It writes nothing
 there and opens no browser, DevTools, or network connection. Whether
-Chrome is running is one bounded process lookup. There are three
+Chrome is running is one bounded process lookup. There are four
 exceptions. `blowhorn chrome extension-status` also reads each Chrome
 profile's `Secure Preferences` and `Preferences` for the extension's
 entry alone (see [its section](#blowhorn-chrome-extension-status)).
+`blowhorn chrome discover` reads an allowlisted set of identity fields
+for setup's confirm step (see [its section](#blowhorn-chrome-discover));
+nothing outside that list, and never a saved password or a cookie's
+value beyond the one named there.
 `blowhorn chrome map` also asks Chrome to open a window on the
 extension's pairing page in the mapped Chrome profile, and creates this
 machine's pairing key outside Chrome's directory (see [Pairing](#pairing)).
@@ -311,6 +315,78 @@ by this command. `--dry-run` opens nothing.
 one `{directory, display_name, opened, detail}` per profile, where
 `detail` says why the page did not open (`chrome could not open the Chrome Web Store page: <reason>`). When it opened in no
 profile, `ok` is `false` and the command exits 1.
+
+## `blowhorn chrome discover`
+
+```bash
+blowhorn chrome discover
+blowhorn chrome discover --json
+```
+
+The survey behind setup's Confirm troops step: for every Chrome profile,
+who it is and which platform accounts it holds, with nothing applied.
+It reads only this allowlist, and nothing else in Chrome's directory:
+
+- `Local State` and each profile's `Preferences`: the profile's
+  directory, display name and Google account identity fields (`name`,
+  `user_name`, `gaia_name`) - no other `account_info` field.
+- Each profile's `Login Data` (read-only): the saved-login **username**
+  for an allowlist of hosts only - LinkedIn, X, Reddit, Hacker News,
+  GitHub, Bluesky and Slack. Never the password column, never form data.
+- Each profile's `Cookies`: the **value** of GitHub's `dotcom_user`
+  cookie alone (the signed-in GitHub account), and for LinkedIn, X,
+  Hacker News and Slack only whether a session cookie is **present** -
+  never its value, and never the encrypted value of anything.
+
+No history, no LevelDB, no other profile file. A database Chrome has
+locked or that does not parse reads as "not found", never as an error.
+
+The text form prints one row per profile: its identity, its mapping, and
+one line per platform (`username`, `signed in`, or `-`). With `--json`
+each profile also carries `resolution` - how its Google email resolves
+against your account's users, under the same rule as profile creation:
+`one` (with the user, and their account's social links for display
+only), `several` (with the candidates), `none` (with the refusal's
+sentence) or `no-email` - plus `proposed_slug` and `slug_state` (`free`,
+`own`, `taken`, `invalid`) for the profile a confirm would create.
+Discovery writes nothing; the social links it shows are never treated
+as permission to post.
+
+## `blowhorn chrome confirm`
+
+```bash
+blowhorn chrome confirm --payload-stdin [--dry-run] --json < assignments.json
+```
+
+Applies a confirmed assignments document - what setup's Confirm troops
+step sends. The document is read from stdin (`--payload-stdin` is
+required), so a GitHub token or Bluesky app password inside it reaches
+neither the command line nor the log:
+
+```json
+{"assignments": [{"directory": "Profile 2", "profile": "ada", "create": true,
+  "platforms": {"linkedin": {"attach": true, "session": true},
+                "github": {"attach": true, "token": "..."}}}]}
+```
+
+Per assignment, in order: resolve the target profile (the directory's
+existing mapping, a named existing profile, or a create under the
+profile-creation rule - the Google email must resolve to one user,
+`email` in the document overrides it, `subject` settles the several
+case, and no person is ever invented); write the attached platforms'
+keys (usernames; `LI_CHROME_SESSION` / `HN_CHROME_SESSION` naming the
+directory when `session` is set; `GH_TOKEN`; `BLUESKY_HANDLE` with
+`BLUESKY_APP_PASSWORD`); then write the mapping with `chrome map`'s own
+checks. Slack writes no key - its note says to capture the session with
+`blowhorn profile auth --platform slack <profile>`. A username omitted
+from the document is re-read from discovery.
+
+Each assignment answers for itself in `results` (`written` names keys,
+never values), so a partial confirm is a successful confirm: the exit
+code is 0 when at least one assignment landed, 1 when none did, and 3
+on a store outage. `--dry-run` runs every check and writes nothing. No
+pairing page is opened; pairing happens on the first run or through
+`blowhorn chrome map`.
 
 ## One run per profile and platform
 

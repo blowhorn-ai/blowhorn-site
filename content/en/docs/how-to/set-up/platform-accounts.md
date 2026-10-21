@@ -7,7 +7,8 @@ weight: 65
 
 One section per platform. LinkedIn, X, and Reddit sign in by hand in your
 Chrome; Bluesky takes a handle and an app password; GitHub takes a token;
-Hacker News takes a username and password; Slack takes a captured session.
+Hacker News takes a username and password, or a confirmed Chrome session;
+Slack takes a captured session.
 
 Do the mapping first
 ([Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/)):
@@ -31,6 +32,14 @@ With `--headless` the browser still opens as a background window and only
 the automated login is attempted; the manual fallback is skipped. A
 CAPTCHA or second-factor challenge always hands back to you: unattended
 runs never wait for a person.
+
+LinkedIn can also work from a **confirmed Chrome session** instead of a
+stored password: when setup's Confirm troops step found you signed in to
+LinkedIn in a Chrome profile and you confirmed it, the profile holds
+`LI_CHROME_SESSION` naming that Chrome profile, and runs use the session
+in the mapped Chrome profile. If that session signs out, sign in again in
+Chrome; there is no password for Blowhorn to fall back to unless you store
+one too.
 
 ## Bluesky
 
@@ -75,6 +84,12 @@ read from your account and never from `config.yaml`:
 ```bash
 blowhorn profile set ada HN_USERNAME=<account> HN_PASSWORD=<password>
 ```
+
+Or work from a **confirmed Chrome session**: if setup's Confirm troops
+step found you signed in to Hacker News in a Chrome profile and you
+confirmed it, the profile holds `HN_CHROME_SESSION` naming that Chrome
+profile instead of a password, and runs use that session. If it signs
+out, sign back in in Chrome, or store a password as above.
 
 Check it landed, with the password shown only as set or not set:
 

@@ -81,7 +81,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn accept`](/docs/reference/cli/accept/) | Accept pending LinkedIn connection invitations other people have sent you, one at a time with a randomized pause between each. |
 | [`blowhorn analytics`](/docs/reference/cli/analytics/) | blowhorn analytics: activity, history, import-exports, operations. |
 | [`blowhorn auth`](/docs/reference/cli/auth/) | blowhorn auth: login, logout, status. |
-| [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, extension-enable, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap. |
+| [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, confirm, discover, extension-enable, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap. |
 | [`blowhorn comment`](/docs/reference/cli/comment/) | Post LinkedIn, Reddit, or Bluesky comments from scheduled rows or ad-hoc target/message flags. |
 | [`blowhorn config`](/docs/reference/cli/config/) | blowhorn config: get, path, set, show. |
 | [`blowhorn content`](/docs/reference/cli/content/) | blowhorn content: delete, get, list, upsert. |

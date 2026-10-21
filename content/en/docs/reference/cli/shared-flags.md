@@ -12,6 +12,7 @@ Taken before the command word (`blowhorn <flag> <command>`) and by every command
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--pace` | string |  | Pace of the random delays between actions, accepted by every blowhorn command and before the command word as well (`blowhorn --pace slow post ...`): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set). Commands that never sleep accept it and say so in their own `--help` |
+| `--version`, `-V` | boolean | `false` | Print the version and exit |
 
 Taken by most commands; a command's own page lists any it describes differently:
 

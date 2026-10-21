@@ -1,7 +1,7 @@
 ---
 title: "blowhorn chrome"
 linkTitle: "chrome"
-description: "blowhorn chrome: attach-chrome, extension-enable, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap."
+description: "blowhorn chrome: attach-chrome, confirm, discover, extension-enable, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap."
 weight: 103
 ---
 
@@ -12,6 +12,8 @@ The `blowhorn chrome` commands. Each one's `--help` prints the same text.
 | Command | What it does |
 | --- | --- |
 | [`chrome attach-chrome`](#blowhorn-chrome-attach-chrome) | Start or report a dedicated Chrome that is open to remote debugging with no Allow dialog, so `--chrome-launch cdp` can attach to a real Chrome unattended. |
+| [`chrome confirm`](#blowhorn-chrome-confirm) | Apply the confirm screen's confirmed choices. |
+| [`chrome discover`](#blowhorn-chrome-discover) | Report, for every Chrome profile, the platform accounts discovery can see there -- the read behind onboarding's confirm screen. |
 | [`chrome extension-enable`](#blowhorn-chrome-extension-enable) | Open the Blowhorn extension's Chrome Web Store page in each Chrome profile you name, so you can turn the extension on there with one click. |
 | [`chrome extension-install`](#blowhorn-chrome-extension-install) | Write the native-messaging host manifest Chrome launches for the Blowhorn Chrome extension, and print where the unpacked extension lives so you can load it. |
 | [`chrome extension-mode`](#blowhorn-chrome-extension-mode) | Show or set how runs drive the Blowhorn Chrome extension. |
@@ -54,6 +56,67 @@ blowhorn chrome attach-chrome start --dry-run
 blowhorn chrome attach-chrome stop
 blowhorn chrome attach-chrome install-agent
 blowhorn chrome attach-chrome --json
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn chrome confirm
+
+Apply the confirm screen's confirmed choices: turn Chrome profiles into Blowhorn profiles, attach the discovered platform accounts, and map each Chrome profile -- the one write onboarding makes, and the person's confirm is the consent it records. The choices arrive as one JSON document on stdin (`--payload-stdin`), so a GitHub token or a Bluesky app password in it reaches neither argv nor the daily log:
+
+\{"assignments": \[\{"directory": "Profile 3", "profile": "ada-example", "create": true, "email": "ada@example.com", "subject": "&lt;uuid, only when the email names several&gt;", "platforms": \{"linkedin": \{"attach": true, "session": true\}, "x": \{"attach": true\}, "github": \{"attach": true, "token": "..."\}, "bluesky": \{"attach": true, "app_password": "..."\}, "slack": \{"attach": true\}\}\}\]\}
+
+Per assignment, in order: the Blowhorn profile (an existing one the payload names, the one the directory is already mapped to, or a new one created under the usual create rule -- the email, the payload's or the Chrome profile's Google account, must resolve to exactly one Blowhorn user in the organization, or `subject` names the one; a slug the payload omits is proposed from the Google name); then the attached platforms' non-secret handles, written the way `profile set` writes them; then the mapping, exactly as `chrome map` records it (without opening a pairing page -- pairing happens on the profile's first run or with `chrome map`). A platform row the payload marks with "session": true (LinkedIn, Hacker News) stores a confirmed-session credential naming this Chrome profile directory instead of a password: it satisfies eligibility the way a session-capture platform's identity key does, because the run checks that Chrome session before it reaches for a password. GitHub stores `GH_USERNAME` and still waits for `GH_TOKEN`; Bluesky stores the handle and still waits for the app password; both may ride in the same payload. Slack stores nothing: its session is captured afterwards by 'profile auth `--platform` slack', and the result says so.
+
+Each assignment answers for itself in the result -- profile, whether it was created, the keys written per platform, the mapping, or the one-sentence refusal -- so a partial confirm is a successful confirm: what landed stays landed, and what refused says why, by name. The exit code is 0 when at least one assignment landed and 1 when none did; a store that cannot be reached is the named cause and exit 3. With `--dry-run` every check runs and nothing is written, created or mapped.
+
+```text
+blowhorn chrome confirm [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--payload-stdin` | boolean | `false` | Read the assignments document (JSON) from stdin, so a credential inside it reaches neither argv nor the daily log |
+| `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
+| `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn chrome confirm` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn chrome confirm --payload-stdin --json < assignments.json
+blowhorn chrome confirm --payload-stdin --dry-run --json < assignments.json
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn chrome discover
+
+Report, for every Chrome profile, the platform accounts discovery can see there -- the read behind onboarding's confirm screen. For each profile: its directory, display name and signed-in Google account (from `Local State`, as `chrome profiles` reads them), the Blowhorn profile it is mapped to, the platform rows discovery found, a proposed Blowhorn profile slug, whether that slug is free, and how the Google email resolves against the organization's Blowhorn users.
+
+A platform row is a saved-login username and whether a session is live. The usernames come from the profile's `Login Data` and `Login Data For Account`, for an allowlist of hosts only (linkedin.com, x.com and twitter.com, reddit.com, news.ycombinator.com, github.com, bsky.app and bsky.social, slack.com): only the realm and the username are ever selected -- the password column is a blob Chrome encrypts, and it is never selected, decrypted or copied. Whether a session is live comes from cookie names in `Cookies` or `Network/Cookies`: presence only, never a value, except GitHub's `dotcom_user`, whose value is the login name itself and so is the GitHub username when a session is live. Hacker News's `user` cookie is not read at all: its value bundles the username with a session secret. History and LevelDB are never opened -- a visit is not an identity. Nothing is written, no browser opens, and a file Chrome holds locked reads as 'not found', never as an error.
+
+The resolution answers the create rule without creating: `one` (the email names exactly one Blowhorn user in the organization; that user's Cloud social links ride along, shown on the confirm screen but never treated as permission to post), `several` (the member candidates, for a picker), `none` (no member holds the email), or `no-email` (nobody is signed in to that Chrome profile). `--json` emits the whole survey with a stable shape, for the desktop app. A store that cannot be reached is the named cause and exit 3; an unreadable profile list is one sentence and exit 1.
+
+```text
+blowhorn chrome discover [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
+| `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn chrome discover` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn chrome discover
+blowhorn chrome discover --json
 ```
 
 Output: json with `--json`, text otherwise.

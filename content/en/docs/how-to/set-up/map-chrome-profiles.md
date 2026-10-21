@@ -34,6 +34,32 @@ another.
 The Setup screen's **chrome profiles** row reports the same state for every
 profile at once.
 
+## Confirm troops in guided setup
+
+The first-run setup's **Confirm troops** step does the whole job from what
+Chrome already knows. For each Chrome profile it shows the Google account
+and the platform accounts discovery found there, proposes the Blowhorn
+profile each one becomes, and lets you check which Chrome profiles to set
+up and which accounts to attach. Confirming creates the profiles that
+don't exist yet (a Google email must resolve to exactly one person in your
+account, the same rule as adding a profile by hand; an email that
+names several asks you to pick, and one that names none asks for the right
+email rather than inventing a person), saves the non-secret handles,
+records a confirmed Chrome session for LinkedIn and Hacker News when
+you're signed in there, and writes the mapping with the same checks as
+`blowhorn chrome map`.
+
+The survey behind the step is `blowhorn chrome discover`, and the apply is
+`blowhorn chrome confirm`, which reads the confirmed assignments as JSON
+on stdin - so a GitHub token or Bluesky app password typed on the step
+reaches neither the command line nor the log. Discovery reads only the
+allowlisted identity fields named in the
+[Chrome reference](/docs/reference/chrome/#what-it-reads-and-what-it-never-reads):
+never a saved password, never a cookie's value except GitHub's
+`dotcom_user`, and never your history. The social links on a person's
+Blowhorn account may be shown on the step for recognition; they are never
+treated as permission to post.
+
 ## Before you start
 
 - Your account is reachable from this machine: `blowhorn store` says so. The
@@ -177,7 +203,8 @@ extension to land in.
 
 ## When your account cannot be reached
 
-`chrome profiles`, `chrome map`, `chrome unmap`, `chrome suggest` and
+`chrome profiles`, `chrome map`, `chrome unmap`, `chrome suggest`,
+`chrome discover`, `chrome confirm` and
 `profile status --chrome` each read your account, so each ends with your account's one named sentence and exit 3 when it is unreachable, even when
 Chrome's profile list cannot be read either, because your account is asked
 first. `chrome status` never opens your account.

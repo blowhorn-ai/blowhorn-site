@@ -13,10 +13,29 @@ from.
 
 ## In the Blowhorn app
 
-The guided setup does this for you in **Getting ready**. Blowhorn adds the
-extension to every Chrome profile on this computer, with no administrator
-password. Chrome downloads it from the Chrome Web Store and adds it
-turned off, so each profile needs one click:
+The guided setup does this for you. On **Confirm troops** you mark each
+Chrome profile in use or not in use, and **Getting ready**, the step
+after, adds the extension only to the ones you marked. If that is every
+Chrome profile on this computer, it uses Chrome's policy route: macOS
+asks for your administrator password once, for every profile at once,
+and Chrome then installs the extension, turned on, in every profile.
+Chrome shows **Managed by your organization**; that is the install
+working, not a problem. There is nothing to click in each profile.
+
+If you left a profile out, no machine-wide file is written for the
+others: both files above reach every profile, so either would put the
+extension in the profile you left out. Each profile you chose instead
+gets it one at a time, with the **Enable in** steps below - Chrome opens
+Blowhorn's store page in that one profile, and your click there installs
+it only there. A profile you leave out is never given the extension by
+guided setup; if an earlier setup already put it there, setup cannot
+remove it from that one profile - see
+[Leaving a Chrome profile out](/docs/how-to/set-up/first-run-setup/#leaving-a-chrome-profile-out).
+
+A computer that already has the extension from an earlier setup - put
+there by Chrome's external-extensions file - stays on that route
+instead. Chrome adds it turned off there, so each profile you marked in
+use needs one click:
 
 1. Next to a profile that says **Turned off** or **Not added yet**, press
    **Enable in** and the profile's name.
@@ -29,9 +48,10 @@ If Getting ready says **This is taking longer than usual**, press
 **Start again**: Blowhorn stops the attempt still running and begins a new
 one.
 
-One ready profile is enough to carry on. If a profile still says **Not on
-yet** after a minute and a half, press **Open** and the profile's name
-**again**. You can turn it on in more profiles any time later.
+One ready profile is enough to carry on. On the external route, if a
+profile still says **Not on yet** after a minute and a half, press
+**Open** and the profile's name **again**. You can turn it on in more
+profiles any time later.
 
 ## From the Chrome Web Store
 
