@@ -2447,6 +2447,7 @@ a.card.docs-card > * { margin-top: 0; }
 .major-story { max-width: var(--text-measure); }
 .major-story h2 { margin-bottom: var(--head-gap); }
 .major-story p + p { margin-top: var(--stack-gap); }
+.trust-tells { margin-top: var(--stack-gap); }
 .major-plate { margin: 0; }
 .major-plate img { display: block; width: 100%; height: auto; border-radius: 14px; box-shadow: 0 24px 48px -24px rgb(30 33 23 / 45%); }
 .major-plate figcaption { margin-top: var(--intro-gap); }

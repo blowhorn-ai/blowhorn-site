@@ -22,5 +22,5 @@
 {{ end }}
 ## Frequently Asked Questions
 {{ range $item.faq }}
-**{{ .q }}** {{ .a }}
+**{{ .q }}** {{ .a }}{{ with .link }} [{{ .label }}]({{ .href }}){{ end }}
 {{ end }}

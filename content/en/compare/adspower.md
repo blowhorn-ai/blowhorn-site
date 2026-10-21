@@ -63,7 +63,11 @@
     },
     {
       "q": "Is Blowhorn an antidetect browser?",
-      "a": "No. Blowhorn uses your real Chrome, signed in as you, and hands CAPTCHAs and 2FA back to you."
+      "a": "No. Blowhorn uses your real Chrome, signed in as you, and hands CAPTCHAs and 2FA back to you. Curious what sites can see about your browser?",
+      "link": {
+        "href": "https://tells.blowhorn.ai/",
+        "label": "Run the free check at Blowhorn Tells"
+      }
     }
   ],
   "major": "More profiles is not more people.",

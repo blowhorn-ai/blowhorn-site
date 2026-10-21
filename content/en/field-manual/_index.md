@@ -42,4 +42,6 @@ Blowhorn was built around these lessons. It types at human speed with random pau
 
 None of that makes a behavior allowed. The rules govern what an account does, not which software clicks. Running in your own Chrome keeps your passwords on your machine; it doesn't make a pod a good idea. The [action matrix](/field-manual/action-matrix/) shows which Blowhorn actions are safe, which need care and which are risky on each platform.
 
+Curious what sites can see about your browser? Run the free check at [Blowhorn Tells](https://tells.blowhorn.ai/). It shows what a page can read, not what a platform will decide.
+
 Blowhorn posts to LinkedIn, X, Reddit, Hacker News, Bluesky, Slack and GitHub, on macOS 13 or newer ([Platforms](/docs/reference/platforms/)). The pages on Facebook, YouTube, Instagram, TikTok, Threads and Mastodon are general education only: Blowhorn doesn't post to them.

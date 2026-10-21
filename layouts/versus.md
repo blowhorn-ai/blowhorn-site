@@ -30,6 +30,6 @@
 
 ## Frequently Asked Questions {#questions}
 {{ range .Params.faq }}
-**{{ .q }}** {{ .a }}
+**{{ .q }}** {{ .a }}{{ with .link }} [{{ .label }}]({{ .href }}){{ end }}
 {{ end }}
 [Download Blowhorn for Mac]({{ "download/" | absURL }})

@@ -49,7 +49,11 @@
       "faq": [
         {
           "q": "Will it make me look like a bot?",
-          "a": "Blowhorn types key by key at the pace you pick, caps itself (for example 2 Hacker News link submissions per profile per day) and always hands CAPTCHA and 2FA prompts to you. Nobody can promise a platform won't flag an account."
+          "a": "Blowhorn types key by key at the pace you pick, caps itself (for example 2 Hacker News link submissions per profile per day) and always hands CAPTCHA and 2FA prompts to you. Nobody can promise a platform won't flag an account. Curious what sites can see about your browser?",
+          "link": {
+            "href": "https://tells.blowhorn.ai/",
+            "label": "Run the free check at Blowhorn Tells"
+          }
         },
         {
           "q": "Does it vote on Hacker News?",
@@ -451,7 +455,11 @@
         },
         {
           "q": "Is this an antidetect browser?",
-          "a": "No. Blowhorn is real Chrome, signed in as each profile."
+          "a": "No. Blowhorn is real Chrome, signed in as each profile. Want to see what sites can read about your browser?",
+          "link": {
+            "href": "https://tells.blowhorn.ai/",
+            "label": "Run the free check at Blowhorn Tells"
+          }
         }
       ],
       "related": [

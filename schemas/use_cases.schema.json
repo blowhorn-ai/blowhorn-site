@@ -140,6 +140,24 @@
               },
               "a": {
                 "$ref": "#/definitions/text"
+              },
+              "link": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "href",
+                  "label"
+                ],
+                "description": "Optional link after the answer, for a page outside this site (a site page goes in related).",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "pattern": "^https://"
+                  },
+                  "label": {
+                    "$ref": "#/definitions/line"
+                  }
+                }
               }
             }
           }

@@ -62,7 +62,7 @@
           <div class="section-head"><h2 id="faq-title" class="h2">Frequently Asked Questions</h2></div>
           <div class="agent-faq">
             {{- range $item.faq }}
-            <details class="glass"><summary class="ui">{{ .q }}</summary><p>{{ .a }}</p></details>
+            <details class="glass"><summary class="ui">{{ .q }}</summary><p>{{ .a }}{{ with .link }} <a href="{{ .href }}">{{ .label }}</a>{{ end }}</p></details>
             {{- end }}
           </div>
         </section>

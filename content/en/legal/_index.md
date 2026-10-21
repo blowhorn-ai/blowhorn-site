@@ -55,6 +55,10 @@ policies:
     url: https://layer5.io/company/legal/
 ---
 
+## See what sites can see {#tells}
+
+Curious what websites can read about your browser? [Blowhorn Tells](https://tells.blowhorn.ai/) is our free "Am I a Bot?" check. It shows the bot-detection and fingerprint signals a site can see, in plain words. The site keeps no copy, and its own page says exactly which outside services see your IP address.
+
 ## Report a security issue
 
 If you think you have found a security vulnerability in Blowhorn, send the details privately to [security@blowhorn.ai](mailto:security@blowhorn.ai) rather than opening a public issue. We acknowledge and analyze each report within 10 working days and keep the reporter updated while it is addressed. The [security policy](https://github.com/layer5io/blowhorn-site/blob/master/SECURITY.md) explains what to report and how fixes are disclosed.
