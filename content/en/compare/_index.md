@@ -2,7 +2,7 @@
 title: How Blowhorn compares
 linkTitle: Compare
 description: Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
-lead: Plenty of tools will post for you. Blowhorn posts as you, from every machine you own, through one queue you control.
+lead: Plenty of tools will post for you. Blowhorn posts as you, from every computer you own, through one queue you control.
 layout: compare
 aliases:
   - /versus/
@@ -29,25 +29,25 @@ groups:
 # Cell values: yes, no, some, or a short phrase. `level` drives the mark:
 # yes, partial, no.
 rows:
-  - feature: Acts from your own machine, in your real browser, as you
+  - feature: Acts from your own computer, in your real browser, as you
     blowhorn: { level: yes, text: "Yes" }
     schedulers: { level: no, text: "Vendor servers, via API" }
     linkedin: { level: partial, text: "Mostly the vendor's cloud" }
     advocacy: { level: no, text: "The vendor's platform" }
     local: { level: yes, text: "Yes" }
-  - feature: As many machines as you like, one shared queue
+  - feature: As many computers as you like, one shared queue
     blowhorn: { level: yes, text: "Yes" }
     schedulers: { level: no, text: "One cloud account" }
     linkedin: { level: no, text: "One cloud seat per account" }
     advocacy: { level: no, text: "One cloud account" }
-    local: { level: no, text: "One machine at a time" }
-  - feature: Coordinated so two machines don't send the same post
+    local: { level: no, text: "One computer at a time" }
+  - feature: Coordinated so two computers don't send the same post
     blowhorn: { level: yes, text: "Yes" }
     schedulers: { level: no, text: "Not applicable" }
     linkedin: { level: no, text: "Not applicable" }
     advocacy: { level: no, text: "Not applicable" }
     local: { level: no, text: "Up to you" }
-  - feature: Pause one action, one machine or everything
+  - feature: Pause one action, one computer or everything
     blowhorn: { level: yes, text: "Yes" }
     schedulers: { level: partial, text: "Per post or queue" }
     linkedin: { level: partial, text: "Per campaign" }
@@ -84,7 +84,7 @@ rows:
     advocacy: { level: no, text: "Rare" }
     local: { level: partial, text: "Some, via API" }
   - feature: Posts with every laptop closed
-    blowhorn: { level: partial, text: "As long as one machine is awake" }
+    blowhorn: { level: partial, text: "As long as one computer is awake" }
     schedulers: { level: yes, text: "Yes" }
     linkedin: { level: yes, text: "Yes" }
     advocacy: { level: yes, text: "Yes" }
@@ -99,14 +99,14 @@ why:
   - title: It's you, not a bot
     body: Blowhorn drives the Chrome you already sign in to. No server logs in with your password, session cookie or 2FA secret.
     link: /docs/explanation/your-own-chrome/
-  - title: One queue, every machine
-    body: Add machines for coverage. Each action is claimed by one machine, and whichever machine is awake keeps the schedule.
+  - title: One queue, every computer
+    body: Add computers for coverage. Each action is claimed by one computer, and whichever computer is awake keeps the schedule.
     link: /docs/explanation/scheduling/
   - title: A fleet behind every post
     body: Amplify reposts and comments from every profile you run while the post is still fresh. Teammates joining your fleet is coming soon.
     link: /docs/explanation/distribution/
   - title: Your hand on the switch
-    body: Pause one action, one machine or every machine at once, with the reason recorded. Resume and due times carry forward.
+    body: Pause one action, one computer or every computer at once, with the reason recorded. Resume and due times carry forward.
     link: /docs/explanation/youre-in-control/
   - title: Careful by default
     body: Human-paced typing, built-in caps, one click per run, one automation per platform per profile at a time.

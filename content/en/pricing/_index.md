@@ -23,7 +23,7 @@ tiers:
       - 1 profile
       - LinkedIn and X
       - Posts from your own Chrome
-      - 1 machine
+      - 1 computer
   - name: Solo
     blurb: For one person running a company's voice.
     monthly: "19"
@@ -38,7 +38,7 @@ tiers:
       - Scheduler that runs while you're away
       - Amplify a post from every profile
       - Basic LinkedIn invite tidy-up
-      - Up to 2 machines
+      - Up to 2 computers
   - name: Pro
     featured: true
     badge: Most room for one person
@@ -55,7 +55,7 @@ tiers:
       - Scheduler that runs while you're away
       - Amplify a post from every profile
       - Full LinkedIn invite tidy-up (send, accept, withdraw)
-      - Up to 5 machines
+      - Up to 5 computers
   - name: Team
     blurb: For small teams sharing one queue.
     monthly: "35"
@@ -70,14 +70,14 @@ tiers:
       - Scheduler that runs while you're away
       - Amplify a post from every profile
       - Full LinkedIn invite tidy-up (send, accept, withdraw)
-      - Up to 3 machines per seat
+      - Up to 3 computers per seat
 included:
   - title: No passwords handed over
     body: Blowhorn posts from your own signed-in Chrome. We never ask for your password, cookies or two-factor codes.
   - title: No license keys
-    body: Your plan lives in your account. Sign in on a machine and it just knows what you have.
+    body: Your plan lives in your account. Sign in on a computer and it just knows what you have.
   - title: Keeps going offline
-    body: If your machine loses the internet, posting keeps working for up to 72 hours on your current plan.
+    body: If your computer loses the internet, posting keeps working for up to 72 hours on your current plan.
   - title: Never locked out
     body: If a plan ends, nothing is deleted. Your queue, history and stats stay, and you drop to the Free limits.
 faq:
@@ -93,6 +93,6 @@ faq:
     a: You can cancel anytime from Settings, which stops the next renewal. You keep everything you paid for until the end of your billing period, then your account moves to Free. Your posts and history stay.
   - q: Can I change plans later?
     a: Yes. Upgrades start right away and you only pay the difference for the rest of your term. A switch from yearly to monthly starts at your next renewal.
-  - q: Do I need a machine?
-    a: Yes. Blowhorn runs on your machine, Apple silicon or Intel, together with a small Chrome extension.
+  - q: Do I need a computer?
+    a: Yes. Blowhorn runs on your computer, Apple silicon or Intel, together with a small Chrome extension.
 ---

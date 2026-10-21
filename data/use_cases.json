@@ -38,19 +38,19 @@
         },
         {
           "t": "One pause, sent once",
-          "b": "Coordinated so the same post isn't sent from two machines. One command pauses the whole wave."
+          "b": "Coordinated so the same post isn't sent from two computers. One command pauses the whole wave."
         },
         {
           "t": "One complete picture",
-          "b": "Run history and analytics from every machine in one place. Analytics cover LinkedIn, X and Bluesky."
+          "b": "Run history and analytics from every computer in one place. Analytics cover LinkedIn, X and Bluesky."
         }
       ],
       "prompt": "Queue the launch post for Tuesday 9:00, have every profile amplify it, then --dry-run the whole wave.",
       "major": "Sound the horn at oh-nine-hundred. Every profile, one wave.",
       "faq": [
         {
-          "q": "Does a machine have to be awake?",
-          "a": "One set up for the profile does. Install Blowhorn on as many machines as you like; as long as one of them is awake, it covers the schedule. The queue lives in your Blowhorn account."
+          "q": "Does a computer have to be awake?",
+          "a": "One set up for the profile does. Install Blowhorn on as many computers as you like; as long as one of them is awake, it covers the schedule. The queue lives in your Blowhorn account."
         },
         {
           "q": "How does it post?",
@@ -58,7 +58,7 @@
         },
         {
           "q": "Will the same post go out twice?",
-          "a": "Your machines coordinate through one queue, so the same post isn't sent from two of them."
+          "a": "Your computers coordinate through one queue, so the same post isn't sent from two of them."
         }
       ],
       "related": [
@@ -137,7 +137,7 @@
         },
         {
           "q": "Does every maintainer need macOS?",
-          "a": "Each machine that acts needs macOS 13 or newer today. Windows and Linux: not today. The queue lives in your Blowhorn account."
+          "a": "Each computer that acts needs macOS 13 or newer today. Windows and Linux: not today. The queue lives in your Blowhorn account."
         }
       ],
       "related": [
@@ -165,8 +165,8 @@
       "title": "Blowhorn for conferences",
       "weight": 30,
       "headline": "Queue the week. Walk the floor.",
-      "lead": "Queue the pre-event, day-of and follow-up posts once. As long as one of your machines set up for that profile is awake, it covers the schedule while you're at the booth.",
-      "description": "Promote a talk, booth or meetup before, during and after the event, from one queue, while any awake machine covers the schedule.",
+      "lead": "Queue the pre-event, day-of and follow-up posts once. As long as one of your computers set up for that profile is awake, it covers the schedule while you're at the booth.",
+      "description": "Promote a talk, booth or meetup before, during and after the event, from one queue, while any awake computer covers the schedule.",
       "art": {
         "src": "assets/brand/cast/sleeper-cell-base.webp",
         "alt": "Sleeper Cell, a black-faced sheep in a watch cap, teal monocle and coral scarf, crouched behind a padlock shield with a radar cloaker"
@@ -188,7 +188,7 @@
       "gets": [
         {
           "t": "Queue the week once",
-          "b": "Pre-event, day-of and follow-up posts in one queue, on any awake machine set up for the profile."
+          "b": "Pre-event, day-of and follow-up posts in one queue, on any awake computer set up for the profile."
         },
         {
           "t": "Your profiles join the wave",
@@ -208,11 +208,11 @@
       "faq": [
         {
           "q": "What if my laptop is closed?",
-          "a": "As long as one of your machines is awake and set up for that profile, it covers the schedule. The queue lives in your Blowhorn account; your account never posts."
+          "a": "As long as one of your computers is awake and set up for that profile, it covers the schedule. The queue lives in your Blowhorn account; your account never posts."
         },
         {
           "q": "Can speakers join from their own laptops?",
-          "a": "You can install Blowhorn on as many of your own machines as you like. Speakers and teammates joining your account with their own profiles is coming soon."
+          "a": "You can install Blowhorn on as many of your own computers as you like. Speakers and teammates joining your account with their own profiles is coming soon."
         },
         {
           "q": "Windows or Linux at the booth?",

@@ -60,8 +60,8 @@
           "a": "Never. It submits stories and comments, nothing else."
         },
         {
-          "q": "Does a machine have to be awake?",
-          "a": "One set up for the profile does. Install Blowhorn on as many machines as you like; any awake one keeps the schedule."
+          "q": "Does a computer have to be awake?",
+          "a": "One set up for the profile does. Install Blowhorn on as many computers as you like; any awake one keeps the schedule."
         }
       ],
       "related": [
@@ -119,11 +119,11 @@
         },
         {
           "t": "One pause for the whole wave",
-          "b": "Coordinated so the same post isn't sent from two machines. One command pauses everything."
+          "b": "Coordinated so the same post isn't sent from two computers. One command pauses everything."
         },
         {
           "t": "One complete picture",
-          "b": "Run history and analytics from every machine in one place. Analytics cover LinkedIn, X and Bluesky."
+          "b": "Run history and analytics from every computer in one place. Analytics cover LinkedIn, X and Bluesky."
         }
       ],
       "prompt": "",
@@ -139,7 +139,7 @@
         },
         {
           "q": "What if a teammate's laptop is closed?",
-          "a": "Their action waits in the queue for a machine set up for their profile, rather than going out wrong."
+          "a": "Their action waits in the queue for a computer set up for their profile, rather than going out wrong."
         },
         {
           "q": "Are there approvals or leaderboards?",
@@ -170,8 +170,8 @@
       "name": "Founders",
       "weight": 30,
       "headline": "You're the company's voice. Keep its keys.",
-      "lead": "Every launch, across your personal, company and project profiles, from one queue on machines you own. Blowhorn does the typing and clicking in your own Chrome, so nobody else holds the sign-ins that are your company.",
-      "description": "Blowhorn for founders: every profile you speak for, from one queue on your own machines, posted as you from your own Chrome.",
+      "lead": "Every launch, across your personal, company and project profiles, from one queue on computers you own. Blowhorn does the typing and clicking in your own Chrome, so nobody else holds the sign-ins that are your company.",
+      "description": "Blowhorn for founders: every profile you speak for, from one queue on your own computers, posted as you from your own Chrome.",
       "art": {
         "src": "assets/brand/cast/major-6-hat-left-horn.webp",
         "alt": "Major Blowhorn, a teal rooster drill sergeant in a campaign hat, pointing and shouting through his gold bullhorn, Caribbean Green sound waves pouring out of it"
@@ -196,16 +196,16 @@
           "b": "Every brand, founder and project profile you speak for, from one menu bar app, each in its own Chrome profile."
         },
         {
-          "t": "Your machines act",
-          "b": "Every action runs on one of your machines. Your account keeps the queue in sync; it never posts."
+          "t": "Your computers act",
+          "b": "Every action runs on one of your computers. Your account keeps the queue in sync; it never posts."
         },
         {
-          "t": "Any awake machine covers it",
-          "b": "Close your laptop. Another machine set up for that profile picks the schedule up."
+          "t": "Any awake computer covers it",
+          "b": "Close your laptop. Another computer set up for that profile picks the schedule up."
         },
         {
           "t": "Pause anything",
-          "b": "One command stops one action, one machine or all of them. Another starts it again."
+          "b": "One command stops one action, one computer or all of them. Another starts it again."
         }
       ],
       "prompt": "",
@@ -213,11 +213,11 @@
       "faq": [
         {
           "q": "What lives in my account?",
-          "a": "Your queue, schedule, profiles, run history and analytics, so every machine stays in sync. Browser cookies stay in Chrome on each machine, and your account never posts."
+          "a": "Your queue, schedule, profiles, run history and analytics, so every computer stays in sync. Browser cookies stay in Chrome on each computer, and your account never posts."
         },
         {
           "q": "Will it post twice?",
-          "a": "Your machines coordinate through one queue, so the same post isn't sent from two of them."
+          "a": "Your computers coordinate through one queue, so the same post isn't sent from two of them."
         },
         {
           "q": "Windows or Linux?",
@@ -291,7 +291,7 @@
       "faq": [
         {
           "q": "Does every maintainer need macOS?",
-          "a": "Each machine that acts needs macOS 13 or newer today. Windows and Linux: not today."
+          "a": "Each computer that acts needs macOS 13 or newer today. Windows and Linux: not today."
         },
         {
           "q": "Will it upvote our launch?",
@@ -361,7 +361,7 @@
         },
         {
           "t": "Coordinated, with one pause",
-          "b": "Coordinated so the same post isn't sent from two machines. One command pauses everything."
+          "b": "Coordinated so the same post isn't sent from two computers. One command pauses everything."
         }
       ],
       "prompt": "",
@@ -404,8 +404,8 @@
       "name": "Agencies and consultants",
       "weight": 60,
       "headline": "Show the client the dry-run. Then send it once.",
-      "lead": "Run several clients' profiles from one desk, in real Chrome profiles on your own machine. Dry-run every action, pause one client instantly, and never hand a vendor a client's 2FA secret.",
-      "description": "Blowhorn for agencies and consultants: client profiles in real Chrome on your own machine, with dry-run and pause on every action.",
+      "lead": "Run several clients' profiles from one desk, in real Chrome profiles on your own computer. Dry-run every action, pause one client instantly, and never hand a vendor a client's 2FA secret.",
+      "description": "Blowhorn for agencies and consultants: client profiles in real Chrome on your own computer, with dry-run and pause on every action.",
       "art": {
         "src": "assets/brand/cast/mouse-marine-salute.webp",
         "alt": "Mouse Marine, a mallard in a green beret saluting from a gold trackball on a small tank, cursor spear in hand"
@@ -431,11 +431,11 @@
         },
         {
           "t": "Pause one action",
-          "b": "Pause one action while everything else keeps running, or pause every machine at once."
+          "b": "Pause one action while everything else keeps running, or pause every computer at once."
         },
         {
           "t": "Real Chrome profiles",
-          "b": "Each Blowhorn profile maps to its own Chrome profile on each machine. No fake fingerprints."
+          "b": "Each Blowhorn profile maps to its own Chrome profile on each computer. No fake fingerprints."
         },
         {
           "t": "One automation per profile",
@@ -451,7 +451,7 @@
         },
         {
           "q": "Where do client credentials live?",
-          "a": "Browser cookies stay in Chrome on each machine. GitHub, Hacker News and Slack credentials sync from your account."
+          "a": "Browser cookies stay in Chrome on each computer. GitHub, Hacker News and Slack credentials sync from your account."
         },
         {
           "q": "Is this an antidetect browser?",

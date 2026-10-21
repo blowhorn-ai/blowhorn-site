@@ -19,7 +19,7 @@
   "us": [
     "Your audience lives on Hacker News, Reddit, GitHub, Slack, LinkedIn and X",
     "One post should be amplified by your founders, your team and your supporters, not just published once",
-    "You want posting to happen from your own Chrome, as you, on your own machines"
+    "You want posting to happen from your own Chrome, as you, on your own computers"
   ],
   "price_them": "Free (10 posts a channel); Essentials $5 a channel, Team $10 a channel a month, billed annually",
   "price_src": "https://buffer.com/pricing",
@@ -27,7 +27,7 @@
     {
       "f": "Where it acts",
       "t": "Buffer's cloud, through each network's official app",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Networks",
@@ -47,7 +47,7 @@
     {
       "f": "Works with every laptop closed",
       "t": "Yes",
-      "b": "No. As long as one of your machines is awake. Any machine set up for the profile keeps the schedule"
+      "b": "No. As long as one of your computers is awake. Any computer set up for the profile keeps the schedule"
     },
     {
       "f": "AI agents",
@@ -87,7 +87,7 @@
     "Hacker News, Reddit, GitHub and Slack in the same queue, plus careful LinkedIn outreach"
   ],
   "loses": [
-    "Buffer posts with every laptop closed. Blowhorn needs at least one of your machines awake",
+    "Buffer posts with every laptop closed. Blowhorn needs at least one of your computers awake",
     "Buffer covers Instagram, TikTok and Pinterest today. Blowhorn does not yet",
     "Buffer's calendar and approval tools are more polished"
   ],

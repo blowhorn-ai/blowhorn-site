@@ -2,7 +2,7 @@
 title: Trust Center
 heading: Blowhorn Trust Center
 description: How Blowhorn handles your data, sessions and accounts, in plain language, and every policy that covers the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.
-lead: Many public voices, one coordinated queue, every action on your own machine. Every policy for the Blowhorn website, desktop app and Chrome extension, each with a plain-language summary. Where a summary differs from its policy, the policy decides.
+lead: Many public voices, one coordinated queue, every action on your own computer. Every policy for the Blowhorn website, desktop app and Chrome extension, each with a plain-language summary. Where a summary differs from its policy, the policy decides.
 layout: trust-center
 lastmod: 2026-10-18
 sitemap:
@@ -11,12 +11,12 @@ sitemap:
 # The plain-language summaries. Each one restates what the linked policy
 # already says; add a card only for a promise a policy or a public doc makes.
 glance:
-  - title: Every action happens on your own machine
-    text: Blowhorn never acts for you from a server. Every post, comment and reaction is made by the Blowhorn app on one of your machines; the Chrome extension acts only when that app asks.
+  - title: Every action happens on your own computer
+    text: Blowhorn never acts for you from a server. Every post, comment and reaction is made by the Blowhorn app on one of your computers; the Chrome extension acts only when that app asks.
     link: /legal/privacy/#on-your-machine
-    linkText: What stays on your machine
+    linkText: What stays on your computer
   - title: The extension reports to no server
-    text: The extension talks only to the Blowhorn app on your machine, over Chrome's native messaging. It acts only on supported sites, only in the Chrome profiles you install it in, and keeps nothing itself.
+    text: The extension talks only to the Blowhorn app on your computer, over Chrome's native messaging. It acts only on supported sites, only in the Chrome profiles you install it in, and keeps nothing itself.
     link: /legal/privacy/#in-chrome-through-the-blowhorn-extension
     linkText: What the extension reads
   - title: No analytics or crash reports in the app
@@ -24,7 +24,7 @@ glance:
     link: /legal/privacy/#this-website
     linkText: What this website does
   - title: One account for your queue, analytics and credentials
-    text: Your account keeps your queue, schedule, profiles, run history, analytics and platform credentials in sync, so any number of machines, yours or your teammates', run as one fleet. They share one queue, coordinated so the same post isn't sent from two of them. The account privacy policy governs that data.
+    text: Your account keeps your queue, schedule, profiles, run history, analytics and platform credentials in sync, so any number of computers, yours or your teammates', run as one fleet. They share one queue, coordinated so the same post isn't sent from two of them. The account privacy policy governs that data.
     link: /legal/privacy/#in-your-blowhorn-account
     linkText: What your account keeps
   - title: You approve what goes out
@@ -48,7 +48,7 @@ policies:
     summary: Each permission the Blowhorn extension asks for, the sites it runs on, and why.
     url: /docs/reference/extension-permissions/
   - title: Where your data lives
-    summary: What stays on your machine, what your account keeps in sync, and what the extension reads.
+    summary: What stays on your computer, what your account keeps in sync, and what the extension reads.
     url: /docs/explanation/your-data/
   - title: Account policies
     summary: The privacy policy, terms of service and other policies of Layer5, Inc. that cover your account.

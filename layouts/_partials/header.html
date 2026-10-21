@@ -30,12 +30,12 @@
               <div class="mm-panel" id="mm-product">
                 <div class="mm-intro">
                   <p class="mm-intro-title">Product</p>
-                  <p class="mm-intro-text">One queue that posts as you, from your own Chrome, on every machine you own.</p>
+                  <p class="mm-intro-text">One queue that posts as you, from your own Chrome, on every computer you own.</p>
                 </div>
                 <ul class="mm-links mm-cols-2">
                   {{- partial "mm-link.html" (dict "href" (printf "%s#platforms" $home) "title" "Platforms" "desc" "LinkedIn, X, Reddit, Hacker News and more") }}
                   {{- with site.Data.integrations.matrix }}{{ partial "mm-link.html" (dict "href" ((strings.TrimPrefix "/" .path) | relURL) "title" .label "desc" (strings.TrimSuffix "." .headline)) }}{{ end }}
-                  {{- partial "mm-link.html" (dict "href" (printf "%s#how" $home) "title" "How you run it" "desc" "You give the orders. Your machines carry them out") }}
+                  {{- partial "mm-link.html" (dict "href" (printf "%s#how" $home) "title" "How you run it" "desc" "You give the orders. Your computers carry them out") }}
                   {{- partial "mm-link.html" (dict "href" ("download/" | relURL) "title" "Download" "desc" "The desktop app and the Chrome extension") }}
                   {{- partial "mm-link.html" (dict "href" "https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf" "title" "Chrome extension" "desc" "Add Blowhorn to Chrome") }}
                   {{- partial "mm-link.html" (dict "href" (printf "%s/releases" site.Params.github_repo) "title" "Releases" "desc" "What changed in each version") }}
@@ -118,7 +118,7 @@
               <div class="mm-panel" id="mm-trust">
                 <div class="mm-intro">
                   <p class="mm-intro-title">Trust</p>
-                  <p class="mm-intro-text">Every action runs on your own machine. Here is how we handle the rest.</p>
+                  <p class="mm-intro-text">Every action runs on your own computer. Here is how we handle the rest.</p>
                 </div>
                 <ul class="mm-links mm-cols-2">
                   {{- partial "mm-link.html" (dict "href" (site.GetPage "/legal").RelPermalink "title" "Trust Center" "desc" "Your data, sessions and accounts") }}

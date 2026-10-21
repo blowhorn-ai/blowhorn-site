@@ -6,7 +6,7 @@
   "lead": "Everything the desktop app does, the CLI does too. That is why any agent can run Blowhorn.",
   "hook": "Every app feature, as a command",
   "wire_title": "Built to be driven",
-  "wire_body": "Reads take --json. Writes take --expected-fingerprint so an agent never stomps a newer edit. Anything that publishes takes --dry-run. One switch stops every machine at once, with a recorded reason.",
+  "wire_body": "Reads take --json. Writes take --expected-fingerprint so an agent never stomps a newer edit. Anything that publishes takes --dry-run. One switch stops every computer at once, with a recorded reason.",
   "wire_file": "terminal",
   "wire_lang": "bash",
   "wire_code": "blowhorn schedule status --json\nblowhorn schedule pause --all --reason \"launch moved to Thursday\"\nblowhorn schedule resume --all",
@@ -22,12 +22,12 @@
       "b": "Plain commands with exit codes, so a shell script can run a launch the same way an agent does."
     },
     {
-      "t": "A fleet of machines",
-      "b": "Every machine signed in to your account works the same schedule, coordinated so the same post isn't sent from two machines."
+      "t": "A fleet of computers",
+      "b": "Every computer signed in to your account works the same schedule, coordinated so the same post isn't sent from two computers."
     },
     {
       "t": "Pause control",
-      "b": "schedule pause --all stops every machine; --row N parks one job everywhere; resume picks up where you left off."
+      "b": "schedule pause --all stops every computer; --row N parks one job everywhere; resume picks up where you left off."
     }
   ],
   "faq": [

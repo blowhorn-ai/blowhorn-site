@@ -42,7 +42,7 @@
     },
     {
       "q": "Where does my data live?",
-      "a": "Your queue, schedule and results stay in sync in your account; the posting happens on your machines."
+      "a": "Your queue, schedule and results stay in sync in your account; the posting happens on your computers."
     },
     {
       "q": "Does my agent see my social passwords?",

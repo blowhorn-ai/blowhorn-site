@@ -1,4 +1,4 @@
-// Home #how, the machines designs (data/machines.json). Animates whichever
+// Home #how, the computers designs (data/machines.json). Animates whichever
 // design the rotation in machines-rotation-head.html picked, in the spirit
 // of the Reveille army board (assets/js/army.js): recruits fall in with the
 // army-enlist pop, packets travel wires to the Major, rings use wave-pulse.
@@ -38,8 +38,8 @@
     var max = 23, n = grid.querySelectorAll('img').length, made = 0;
     var names = ['Spare laptop', 'Office tower', 'Lab box', 'Kitchen nook', 'Backup rig', 'Travel laptop', 'Garage server', 'Living room box'];
     var quips = [
-      'Recruit, fall in. One order, one machine per job.',
-      'Another one? Good. Coordinated so the same post isn\'t sent from two machines.',
+      'Recruit, fall in. One order, one computer per job.',
+      'Another one? Good. Coordinated so the same post isn\'t sent from two computers.',
       'Fall in at the back. Your first order comes from the queue.',
       'Welcome to the unit. You answer to the queue, and the queue answers to the Commander.'
     ];
@@ -50,7 +50,7 @@
     });
     stagger(grid.querySelectorAll('img'), 0, 70);
     stagger(roll.querySelectorAll('li'), 150, 140);
-    // Unit sizes: one combined count of machines plus amplifying profiles.
+    // Unit sizes: one combined count of computers plus amplifying profiles.
     function unit(v) {
       return v <= 1 ? 'Recruit' : v <= 4 ? 'Fireteam' : v <= 12 ? 'Squad' : v <= 40 ? 'Platoon' : v <= 150 ? 'Company' : v <= 1000 ? 'Battalion' : 'Brigade';
     }
@@ -68,7 +68,7 @@
     });
     function enlist() {
       if (n >= max) {
-        shout('Twenty-three machines. That\'s a platoon, not a hobby. Carry on.');
+        shout('Twenty-three computers. That\'s a platoon, not a hobby. Carry on.');
         return;
       }
       var was = unit(n);
@@ -88,7 +88,7 @@
       if (rows.length >= 4) roll.removeChild(rows[0]);
       next.querySelector('.machines-roll-n').textContent = (n + 1 < 10 ? '0' : '') + (n + 1);
       setCount(n);
-      shout(unit(n) !== was ? n + ' machines. That\'s a ' + unit(n).toLowerCase() + ' now. Fall in.' : quips[made % quips.length]);
+      shout(unit(n) !== was ? n + ' computers. That\'s a ' + unit(n).toLowerCase() + ' now. Fall in.' : quips[made % quips.length]);
       made++;
     }
     function shout(line) {
@@ -130,7 +130,7 @@
     onPause.push(function () { clearInterval(timer); timer = null; });
   }
 
-  // One Thunder: curved voice lines from every teammate and machine into the
+  // One Thunder: curved voice lines from every teammate and computer into the
   // Major (drawn from the layout, like army.js wire()), packets flowing along
   // them, rings out of the bullhorn, and each platform tile lighting in turn.
   function thunder() {

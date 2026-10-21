@@ -40,9 +40,9 @@
       "b": "Built in, on every network"
     },
     {
-      "f": "Many machines on one queue",
+      "f": "Many computers on one queue",
       "t": "Profile sync",
-      "b": "Unlimited machines on one queue, coordinated so the same post isn't sent from two machines"
+      "b": "Unlimited computers on one queue, coordinated so the same post isn't sent from two computers"
     },
     {
       "f": "AI agents",

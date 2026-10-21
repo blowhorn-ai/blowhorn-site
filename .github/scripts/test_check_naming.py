@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Users see Blowhorn: never Layer5 Cloud or Blowhorn Cloud, and Layer5 only
-in the footer and on the legal pages. Marketing copy says machines, never
-Macs or your Mac.
+in the footer and on the legal pages. Every page says computers, never
+machines; marketing copy never says Macs or your Mac.
 
 Run with `make test-scripts` (CI runs it too).
 """
@@ -97,13 +97,13 @@ class TheServiceIsBlowhorn(unittest.TestCase):
             "compare/x/index.html": page('<img src="a.png" alt="Two MACS">'),
         })
         self.assertEqual(len(failures), 5)
-        self.assertTrue(all("say machines" in f for f in failures))
+        self.assertTrue(all("say computers" in f for f in failures))
 
-    def test_machines_macos_and_the_download_button_pass(self):
+    def test_computers_macos_and_the_download_button_pass(self):
         failures = self.build({"index.html": page(
-            "<h2>You give the orders. Your machines carry them out.</h2>"
+            "<h2>You give the orders. Your computers carry them out.</h2>"
             "<p>One macOS disk image for Apple silicon and Intel.</p>"
-            '<a href="/download/">Download for Mac</a><p>Blowhorn-mac.dmg, Machine 1, machinery</p>')})
+            '<a href="/download/">Download for Mac</a><p>Blowhorn-mac.dmg, Computer 1, machinery</p>')})
         self.assertEqual(failures, [])
 
     def test_macs_in_docs_home_reveille_and_code_pass(self):
@@ -117,6 +117,29 @@ class TheServiceIsBlowhorn(unittest.TestCase):
     def test_macs_in_prose_beside_code_still_fails(self):
         failures = self.build({"index.html": page("<p>Run <code>blowhorn</code> on all your Macs.</p>")})
         self.assertEqual(len(failures), 1)
+
+    def test_machines_fail_everywhere_docs_included(self):
+        failures = self.build({
+            "index.html": page("<h2>Your machines carry them out.</h2>"),
+            "docs/reference/x/index.html": page("<p>Install it on each machine.</p>"),
+            "legal/index.html": page(footer="<p>One Machine at a time.</p>"),
+            "compare/x/index.html": page('<img src="a.png" alt="Two MACHINES">'),
+        })
+        self.assertEqual(len(failures), 4)
+        self.assertTrue(all("say computer" in f for f in failures))
+
+    def test_machine_idioms_code_and_identifiers_pass(self):
+        failures = self.build({"docs/index.html": page(
+            "<p>Bluesky feeds can use machine learning. The output is machine-readable."
+            " A state machine. Expandi is a serious outbound machine.</p>"
+            '<p class="machines-pill" data-machines="1"><a href="/x/#on-your-machine">On your computer</a></p>'
+            "<pre><code>blowhorn store machines</code></pre><p>Run <code>--machine a</code>.</p>")})
+        self.assertEqual(failures, [])
+
+    def test_the_generated_cli_reference_passes(self):
+        failures = self.build({"docs/reference/cli/store/index.html": page(
+            "<p>Report whether this machine can reach the Blowhorn database.</p>")})
+        self.assertEqual(failures, [])
 
     def test_main_fails_on_macs(self):
         with tempfile.TemporaryDirectory() as tmp:

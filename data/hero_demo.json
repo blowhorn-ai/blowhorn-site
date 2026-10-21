@@ -7,7 +7,7 @@
   "sendLabel": "Send",
   "title": "v2.0 ships today",
   "message": "v2.0 is out. Faster queue, team waves, and a new Hacker News flow. Written by us, posted by us.",
-  "meta": "Tue Oct 20, 9:02 AM CDT as you, ran on Machine 2",
+  "meta": "Tue Oct 20, 9:02 AM CDT as you, ran on Computer 2",
   "statusSteps": ["Queued", "Posting as you", "Went out"],
   "activityRows": [
     {

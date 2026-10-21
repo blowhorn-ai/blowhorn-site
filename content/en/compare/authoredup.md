@@ -2,7 +2,7 @@
   "title": "Blowhorn vs AuthoredUp",
   "linkTitle": "AuthoredUp",
   "seo_title": "Blowhorn vs AuthoredUp: honest comparison",
-  "description": "AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that 'your own browser' belief and adds more networks, a fleet of machines and real-person amplification.",
+  "description": "AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that 'your own browser' belief and adds more networks, a fleet of computers and real-person amplification.",
   "layout": "versus",
   "weight": 25,
   "lastmod": "2026-10-12",
@@ -10,7 +10,7 @@
   "mark": "AU",
   "site_url": "https://authoredup.com/",
   "group": "LinkedIn growth tools",
-  "verdict": "AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that 'your own browser' belief and adds more networks, a fleet of machines and real-person amplification.",
+  "verdict": "AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that 'your own browser' belief and adds more networks, a fleet of computers and real-person amplification.",
   "them": [
     "You want the best LinkedIn editor, previews and post analytics",
     "LinkedIn is your one channel",
@@ -19,7 +19,7 @@
   "us": [
     "You also speak on X, Reddit, Hacker News, GitHub, Bluesky and Slack",
     "Your team and supporters should amplify your posts",
-    "You want scheduling across many profiles and machines from one queue"
+    "You want scheduling across many profiles and computers from one queue"
   ],
   "price_them": "Individual $19.95 per month ($16.63 billed annually); Business from $14.95 per profile per month, 3+ profiles",
   "price_src": "https://authoredup.com/pricing",
@@ -32,7 +32,7 @@
     {
       "f": "Where it acts",
       "t": "Your browser, overlaying LinkedIn's editor",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Networks",

@@ -41,10 +41,10 @@ The footer has the site's one form, a signup for the Layer5 newsletter. It is th
 
 ## The Blowhorn app
 
-### On your machine
+### On your computer {#on-your-machine}
 
-- Every action Blowhorn takes is executed on one of your machines. On LinkedIn, X, Reddit and Hacker News, it acts through your Chrome profile. On Bluesky, GitHub, Slack and X, it calls the platform's API from your machine.
-- Your Blowhorn account keeps the queue and results in sync across your machines and coordinates them. It does not sign in, post or act for you from a server.
+- Every action Blowhorn takes is executed on one of your computers. On LinkedIn, X, Reddit and Hacker News, it acts through your Chrome profile. On Bluesky, GitHub, Slack and X, it calls the platform's API from your computer.
+- Your Blowhorn account keeps the queue and results in sync across your computers and coordinates them. It does not sign in, post or act for you from a server.
 - Configuration lives in `.blowhorn.yaml` inside the installation. The store connection, including its password, lives in `~/.config/blowhorn/store.yaml`, readable only by your user account.
 - For LinkedIn, X, Reddit and Bluesky, the password a run signs in with is read from `profiles/<name>/config.yaml` inside the installation, and `blowhorn profile set` writes it there.
 - The app keeps its cached copy of your organization's plan features in your macOS Keychain.
@@ -52,7 +52,7 @@ The footer has the site's one form, a signup for the Layer5 newsletter. It is th
 
 ### In Chrome, through the Blowhorn extension
 
-The extension works only for the Blowhorn app on your machine, over Chrome's native messaging. It acts only on the sites Blowhorn supports, only in the Chrome profiles you install it in, and only when the app asks. Everything it reads goes to that app and nowhere else: it reports to no server of its own, and it keeps nothing itself.
+The extension works only for the Blowhorn app on your computer, over Chrome's native messaging. It acts only on the sites Blowhorn supports, only in the Chrome profiles you install it in, and only when the app asks. Everything it reads goes to that app and nowhere else: it reports to no server of its own, and it keeps nothing itself.
 
 - Sign-in information: a session cookie or token on a supported site, read when the app needs to reuse a sign-in you already have. Today that is your Slack workspace session, which the app keeps in your account (below).
 - Your communications: the posts, comments and messages the app asks it to enter and send as you.
@@ -62,17 +62,17 @@ The extension works only for the Blowhorn app on your machine, over Chrome's nat
 
 ### In your Blowhorn account {#in-your-blowhorn-account}
 
-Keeping this in your account is what lets you install Blowhorn on any number of machines, your own or your teammates', and run them as one. Every machine works from the same queue, and the machines coordinate through it, so the same post isn't sent from two of them. Your analytics cover every machine. Your content still goes out as long as one of those machines is awake. Your account holds:
+Keeping this in your account is what lets you install Blowhorn on any number of computers, your own or your teammates', and run them as one. Every computer works from the same queue, and the computers coordinate through it, so the same post isn't sent from two of them. Your analytics cover every computer. Your content still goes out as long as one of those computers is awake. Your account holds:
 
 - The content queue, schedule, profiles, run history and analytics. Every row is scoped to your organization's id.
 - Platform credentials, in your organization's credentials table: GitHub tokens, Hacker News passwords, and Slack tokens and workspace sessions. For profiles set up before October 2026, it also holds the LinkedIn, X, Reddit and Bluesky passwords copied in when those profiles moved to your account. Blowhorn reads these credentials when it checks which profile may act on which platform. GitHub, Hacker News and Slack runs sign in with the stored value; for Slack that is the workspace session captured from your Chrome, or a Slack app token you enter. LinkedIn, X, Reddit and Bluesky runs sign in with the copy in the local `config.yaml` above.
-- Which Chrome profile each Blowhorn profile uses on each machine: the machine's name, the Chrome profile's folder and display name, and the Google account signed in to that Chrome profile.
+- Which Chrome profile each Blowhorn profile uses on each computer: the computer's name, the Chrome profile's folder and display name, and the Google account signed in to that Chrome profile.
 - The handling of that data is governed by the [account privacy policy](https://layer5.io/company/legal/privacy/).
 
 ### What the app sends
 
 - Posts, comments, reactions and invitations to the platforms a profile is configured for, when an approved row is due or when you run a command. Nothing is published from a dry run.
-- A version check that lists the releases on the Blowhorn release channel, hosted on GitHub. The check needs GitHub credentials: when a GitHub token is already on your machine (`GH_TOKEN`, `GITHUB_TOKEN` or `gh auth token`), the app sends it with that request, and updating downloads the disk image published with the newest release, installs the Blowhorn app from it into `/Applications` and relaunches. Without a token, the update button opens that release page in your browser and the app downloads nothing itself.
+- A version check that lists the releases on the Blowhorn release channel, hosted on GitHub. The check needs GitHub credentials: when a GitHub token is already on your computer (`GH_TOKEN`, `GITHUB_TOKEN` or `gh auth token`), the app sends it with that request, and updating downloads the disk image published with the newest release, installs the Blowhorn app from it into `/Applications` and relaunches. Without a token, the update button opens that release page in your browser and the app downloads nothing itself.
 - A request to your account for your organization's plan features, sent with your account token and your organization's id. The app caches the answer in your Keychain.
 - No usage analytics and no crash reports. The app carries no analytics or crash-reporting library.
 

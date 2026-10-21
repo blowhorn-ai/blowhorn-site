@@ -32,7 +32,7 @@
     {
       "f": "Where it acts",
       "t": "Hootsuite's cloud, through official apps",
-      "b": "Your machines: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+      "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
     },
     {
       "f": "Inbox, listening, approvals",
@@ -73,7 +73,7 @@
     },
     {
       "q": "Does Blowhorn have a social inbox or listening?",
-      "a": "No. It publishes, replies, amplifies and does careful LinkedIn outreach from your own machines."
+      "a": "No. It publishes, replies, amplifies and does careful LinkedIn outreach from your own computers."
     }
   ],
   "major": "Big suites are fine for big armies. A squad with a launch needs a horn, not a headquarters.",

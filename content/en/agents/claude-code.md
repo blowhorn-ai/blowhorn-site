@@ -3,7 +3,7 @@
   "mark": "CC",
   "logo": "claude",
   "weight": 10,
-  "description": "Use Claude Code to run your marketing with Blowhorn: a project skill, an allowlist for the blowhorn CLI, and prompts that schedule, queue and amplify across every machine.",
+  "description": "Use Claude Code to run your marketing with Blowhorn: a project skill, an allowlist for the blowhorn CLI, and prompts that schedule, queue and amplify across every computer.",
   "lead": "Claude Code already lives in your terminal. Give it the Blowhorn CLI and a skill, and it runs your launch while you review the diff.",
   "hook": "Skills, CLAUDE.md and a Bash allowlist",
   "wire_title": "Teach it once with a skill",
@@ -17,7 +17,7 @@
   "prompts": [
     "Read my pending content queue and tell me which rows are owed to which profiles before Tuesday.",
     "Add a LinkedIn row for profile alex: announce the v2.4 release, approved, promote on 2026-11-10 09:00:00. Show me the payload first.",
-    "Our post just went live at this URL. Dry-run an amplify from every profile on this machine, then wait for my go.",
+    "Our post just went live at this URL. Dry-run an amplify from every profile on this computer, then wait for my go.",
     "Something is off with LinkedIn. Pause the whole fleet and tell me the reason you recorded."
   ],
   "commands": "blowhorn content list --pending --json\nblowhorn content upsert --payload '{\"Platform\":\"linkedin\",\"Profile\":\"alex\",\"Message Text\":\"v2.4 is out\",\"Approved?\":\"yes\",\"Promote On\":\"2026-11-10 09:00:00\"}' --json\nblowhorn post --platform linkedin --profile all --amplify \"<post-url>\" --dry-run\nblowhorn schedule pause --all --reason \"LinkedIn challenge\"",

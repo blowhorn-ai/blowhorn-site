@@ -2,7 +2,7 @@
   "title": "Blowhorn vs Perplexity Comet",
   "linkTitle": "Perplexity Comet",
   "seo_title": "Blowhorn vs Perplexity Comet: honest comparison",
-  "description": "Comet is an AI browser with an assistant that can act on pages for you. Blowhorn is a dedicated social tool, scripted and scheduled, that works from your Chrome across many profiles and machines.",
+  "description": "Comet is an AI browser with an assistant that can act on pages for you. Blowhorn is a dedicated social tool, scripted and scheduled, that works from your Chrome across many profiles and computers.",
   "layout": "versus",
   "weight": 52,
   "lastmod": "2026-10-12",
@@ -10,14 +10,14 @@
   "mark": "Co",
   "site_url": "https://www.perplexity.ai/comet",
   "group": "AI-native agent tools",
-  "verdict": "Comet is an AI browser with an assistant that can act on pages for you. Blowhorn is a dedicated social tool, scripted and scheduled, that works from your Chrome across many profiles and machines.",
+  "verdict": "Comet is an AI browser with an assistant that can act on pages for you. Blowhorn is a dedicated social tool, scripted and scheduled, that works from your Chrome across many profiles and computers.",
   "them": [
     "You want an AI-first browser for research and everyday tasks",
     "Occasional posting is enough",
     "You'd like to switch browsers"
   ],
   "us": [
-    "You want queue, schedule, many profiles and a fleet of machines",
+    "You want queue, schedule, many profiles and a fleet of computers",
     "Actions should be scripted and rehearsable, not decided click by click",
     "Your team and supporters should amplify your posts"
   ],
@@ -35,9 +35,9 @@
       "b": "Yes"
     },
     {
-      "f": "Many machines on one queue",
+      "f": "Many computers on one queue",
       "t": "No",
-      "b": "Unlimited machines on one queue, coordinated so the same post isn't sent from two machines"
+      "b": "Unlimited computers on one queue, coordinated so the same post isn't sent from two computers"
     },
     {
       "f": "Amplify one post",

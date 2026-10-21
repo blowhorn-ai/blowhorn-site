@@ -49,9 +49,9 @@
       "b": "Your profiles repost and comment while the post is fresh"
     },
     {
-      "f": "Needs a machine awake",
+      "f": "Needs a computer awake",
       "t": "No",
-      "b": "Yes, at least one of your machines (macOS 13 or newer)"
+      "b": "Yes, at least one of your computers (macOS 13 or newer)"
     },
     {
       "f": "Price",
