@@ -6,7 +6,7 @@
   so nothing reaches Google without consent. Hugo's embedded
   google_analytics.html template loads gtag.js on every page unconditionally,
   so it can't be used here. Production builds only (`hugo` with no -e flag, as
-  `make build-production` and the deploy run it): the dev build, the live
+  `make site-build` and the deploy run it): the dev build, the live
   servers and deploy previews (HUGO_PREVIEW=true) render nothing. head.html and
   docs-head.html both call this partial; Docsy's own head is not used. */ -}}
 {{- if partial "analytics-enabled.html" . }}

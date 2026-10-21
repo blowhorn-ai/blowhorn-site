@@ -44,15 +44,15 @@ The Chrome extension ships through the Chrome Web Store, not from this repositor
 
 ## Working on the site
 
-You need Go (Hugo modules), Node.js and npm (the pinned Hugo extended and postcss come from `package.json`), Python 3 and `make`. The build targets follow the shared contract of [layer5io/docs](https://github.com/layer5io/docs/blob/master/Makefile). `make help` lists every target.
+You need Go (Hugo modules), Node.js and npm (the pinned Hugo extended and postcss come from `package.json`), Python 3 and `make`. The build targets mirror leecalcote/blowhorn's website targets; the [layer5io/docs](https://github.com/layer5io/docs/blob/master/Makefile) names (`build-production`, `build-internal`, `preview-internal`) are kept as aliases. `make help` lists every target.
 
 ```bash
 make setup             # npm install: the pinned Hugo extended and postcss
 make site              # serve at http://localhost:1313 with live reload
 make serve             # serve once, without live reload
 make build             # local build with draft, future and expired content
-make build-production  # public production build into public/, what CI deploys
-make site-internal     # internal build into public-internal/ (needs ../blowhorn)
+make site-build        # public production build into public/, what CI deploys
+make site-internal-build # internal build into public-internal/ (needs ../blowhorn)
 make check             # every check, against a fresh production build
 make ci                # exactly what site.yml's check job runs, starting with npm ci
 ```

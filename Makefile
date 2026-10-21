@@ -19,13 +19,14 @@ include .github/build/Makefile.show-help.mk
 # layer5io/docs. You need Go (Hugo modules), Node.js and npm (the pinned
 # hugo-extended and postcss come from package.json), Python 3 (checks) and make.
 #
-# MAIN TARGETS (the shared target contract of layer5io/docs: same names,
-# prerequisites and npm scripts; see https://github.com/layer5io/docs/blob/master/Makefile)
+# MAIN TARGETS (the website targets of leecalcote/blowhorn, mirrored so the
+# two repositories share one vocabulary; the layer5io/docs names
+# build-production, build-internal and preview-internal are kept as aliases)
 #
 #   setup              Install site dependencies (npm install).
 #   build              Build locally with draft, future, and expired content.
 #   build-preview      Build for a deploy preview (uses BASE_URL or DEPLOY_PRIME_URL).
-#   build-production   Build for production. Pass BASE_URL=... to set the base URL.
+#   site-build         Build for production. Pass BASE_URL=... to set the base URL.
 #   site               Serve locally with live reload.
 #   serve              Serve locally once, file watcher off (no live reload).
 #   check-links        Check every local link, image and font in the built site.
@@ -51,9 +52,10 @@ include .github/build/Makefile.show-help.mk
 #                      (/integrations/actions/) or the docs all-actions table
 #                      drifts from data/actions.json plus data/platforms/, or
 #                      links to a dead page or anchor.
-#   site-internal      Internal build (hugo --environment internal, mounting
+#   site-internal-build
+#                      Internal build (hugo --environment internal, mounting
 #                      BLOWHORN_DIR, default ../blowhorn) into public-internal/.
-#   preview, preview-internal
+#   site, site-internal
 #                      Live-reload servers for the two builds.
 #   test-scripts       Unit tests for the check scripts in .github/scripts/.
 #   workflow-check     actionlint on this repository's workflows.
@@ -116,7 +118,7 @@ check-go:
 	@echo "Go is installed."
 
 ## Check every local link, image, font and srcset reference in a production build.
-check-links: build-production
+check-links: site-build
 	npm run check:links
 
 ## List every target with its description.
@@ -143,7 +145,7 @@ build-preview: check-go check-deps
 	npm run build:preview
 
 ## Build blowhorn.ai for production with optional base URL (what CI deploys).
-build-production: check-go check-deps
+site-build: check-go check-deps
 	set -e; \
 	if [ -n "$(BASE_URL)" ]; then \
 		base_url="$(BASE_URL)"; \
@@ -153,8 +155,8 @@ build-production: check-go check-deps
 		npm run build:production; \
 	fi
 
-## Build the internal site (public pages plus /internal/ from the leecalcote/blowhorn clone at BLOWHORN_DIR, default ../blowhorn) into public-internal/.
-site-internal: check-go check-deps check-blowhorn
+## Build the internal site (only /internal/, mounted from the leecalcote/blowhorn clone at BLOWHORN_DIR, default ../blowhorn) into public-internal/.
+site-internal-build: check-go check-deps check-blowhorn
 	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run build:internal
 
 ## Build and run the site locally with live reload (draft and future content enabled).
@@ -162,7 +164,7 @@ site: check-go check-deps
 	npm run site
 
 ## Serve the internal site at http://localhost:1313 with live reload, rendered in memory so public/ is never touched.
-preview-internal: check-go check-deps check-blowhorn
+site-internal: check-go check-deps check-blowhorn
 	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run _hugo -- server --cleanDestinationDir --environment internal --renderToMemory
 
 ## Fail unless BLOWHORN_DIR is a leecalcote/blowhorn clone with the internal sources.
@@ -174,20 +176,29 @@ check-blowhorn:
 serve: check-go check-deps
 	npm run serve
 
+## Alias of site-build (the layer5io/docs name, kept working).
+build-production: site-build
+
+## Alias of site-internal-build (the layer5io/docs name, kept working).
+build-internal: site-internal-build
+
+## Alias of site-internal (the former name of the internal server).
+preview-internal: site-internal
+
 # ---------------------------------------------------------------------------
 # CHECKS
 # ---------------------------------------------------------------------------
 
 ## Build for production, then run html-validate on every page.
-validate-html: build-production
+validate-html: site-build
 	npx --yes html-validate@$(HTML_VALIDATE_VERSION) "$(BUILD_DIR)/**/*.html"
 
 ## Build for production, then fail if a page, or a stylesheet or script it loads, requests another host.
-check-third-party: build-production
+check-third-party: site-build
 	python3 .github/scripts/check-third-party.py $(BUILD_DIR)
 
 ## Build for production, then fail if a published URL or anchor is gone.
-check-urls: build-production
+check-urls: site-build
 	python3 .github/scripts/check-site-contract.py $(BUILD_DIR)
 
 ## Validate every data file that has a JSON Schema in schemas/ (data/hero.json, data/machines.json, data/home_ai.json, data/roles.json, data/use_cases.json, data/themes.json, data/integrations.json, data/hero_demo.json, data/actions.json, data/action_examples.json).
@@ -209,30 +220,27 @@ check-schemas:
 	python3 .github/scripts/check_action_matrix.py --source
 
 ## Production build, then fail if / is not the home-page theme (themes.json default plus _index.md front matter), the Reveille preview lost today's look, or a theme-specific content file appeared outside content/en/home-reveille.md.
-check-theme: build-production
+check-theme: site-build
 	python3 .github/scripts/check_theme.py $(BUILD_DIR)
 
 ## Production build, then fail if a supported platform has no docs page, a platform docs page skips the shared actions table, or a docs page carries a hand-written action list.
-check-platform-docs: build-production
+check-platform-docs: site-build
 	python3 .github/scripts/check_platform_docs.py $(BUILD_DIR)
 
 ## Production build, then fail if the action matrix page or the docs all-actions table drifts from data/actions.json and data/platforms/, links to a dead page or anchor, or loses its links from / and /integrations/.
-check-action-matrix: build-production
+check-action-matrix: site-build
 	python3 .github/scripts/check_action_matrix.py $(BUILD_DIR)
 
 ## Build for production once, then validate-html, check-links, check-third-party and check-urls, plus check-schemas (what site.yml runs).
 site-check: check-schemas validate-html check-links check-third-party check-urls check-no-internal check-theme check-platform-docs check-naming check-action-matrix
 
 ## Production build, then fail if a page says Layer5 Cloud or Blowhorn Cloud, or names Layer5 outside the footer and the legal pages (users see Blowhorn).
-check-naming: build-production
+check-naming: site-build
 	python3 .github/scripts/check_naming.py $(BUILD_DIR)
 
 ## Build for production, then fail if the /internal/ section leaked into it.
-check-no-internal: build-production
+check-no-internal: site-build
 	.github/scripts/check-no-internal.sh $(BUILD_DIR)
-
-## Alias of site-internal.
-build-internal: site-internal
 
 ## Run the unit tests for the check scripts in .github/scripts/.
 test-scripts:
@@ -353,6 +361,7 @@ clean:
 	build \
 	build-preview \
 	build-production \
+	site-build \
 	site \
 	serve \
 	check-links \
@@ -367,6 +376,7 @@ clean:
 	check-no-internal \
 	build-internal \
 	site-internal \
+	site-internal-build \
 	preview-internal \
 	check-blowhorn \
 	test-scripts \

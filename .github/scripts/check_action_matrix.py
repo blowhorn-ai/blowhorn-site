@@ -471,7 +471,7 @@ def main(argv: list[str] | None = None) -> int:
             problems = run(ROOT, build_dir)
         else:
             problems = check_source(ROOT) + [
-                f"build dir {build_dir} is missing; run make build-production first"
+                f"build dir {build_dir} is missing; run make site-build first"
             ]
         what = "action matrix and docs table"
     for item in problems:

@@ -9,7 +9,7 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 blowhorn.ai is Hugo with Docsy as a Hugo module, built like layer5io/docs. Run
 `make setup` once (npm install) for the pinned toolchain (the dependency check
 also accepts system `hugo` and `postcss`), then `make site`
-(live reload, http://localhost:1313) or `make build-production` (writes `public/`).
+(live reload, http://localhost:1313) or `make site-build` (writes `public/`).
 `make check` is exactly what CI runs. Go must be on PATH: Hugo fetches Docsy through it.
 
 The marketing and legal pages do not use Docsy's templates: they render through

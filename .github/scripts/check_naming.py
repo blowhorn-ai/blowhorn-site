@@ -147,7 +147,7 @@ def check(build: Path) -> list[str]:
 def main(argv: list[str]) -> int:
     build = Path(argv[1] if len(argv) > 1 else "public")
     if not build.is_dir():
-        print(f"check_naming: no build at {build}; run make build-production first", file=sys.stderr)
+        print(f"check_naming: no build at {build}; run make site-build first", file=sys.stderr)
         return 2
     failures = check(build)
     for line in failures:

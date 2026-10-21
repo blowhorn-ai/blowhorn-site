@@ -347,7 +347,7 @@ def main(argv: list[str] | None = None) -> int:
     problems = run(ROOT, build_dir if build_dir.is_dir() else None)
     if not build_dir.is_dir():
         problems.append(
-            f"build dir {build_dir} is missing; run make build-production first"
+            f"build dir {build_dir} is missing; run make site-build first"
         )
     for item in problems:
         print(f"platform-docs: {item}", file=sys.stderr)

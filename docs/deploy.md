@@ -158,7 +158,7 @@ Every page and asset reference is root-relative (`/css/site.<hash>.css`,
 `/assets/brand/...`), built from `baseURL` in [`hugo.toml`](../hugo.toml)
 (`https://blowhorn.ai/`). That is what lets `404.html` work for any missing
 path, nested ones included. A build with a different base URL
-(`make build-production BASE_URL=...` or `make build-preview`) prefixes every
+(`make site-build BASE_URL=...` or `make build-preview`) prefixes every
 reference with that URL's path. The project URL
 `layer5io.github.io/blowhorn-site/` redirects to blowhorn.ai, so nothing is
 served under that path in production.
@@ -279,7 +279,7 @@ confirm there is no horizontal scroll from 320 to 1440 px. With
 chrome-devtools-axi:
 
 ```bash
-make build-production && python3 -m http.server 8080 --directory public
+make site-build && python3 -m http.server 8080 --directory public
 chrome-devtools-axi open http://localhost:8080/
 chrome-devtools-axi resize 390 844
 chrome-devtools-axi emulate --color-scheme dark
@@ -297,15 +297,15 @@ repository, and only the internal environment mounts it.
 
 | Target | What it does | Output |
 | --- | --- | --- |
-| `make build-production` | Public build (`hugo`, production environment, `renderSegments = ["public"]`), what CI deploys | `public/`, no `/internal/` |
-| `make site-internal` | Internal build (`hugo --environment internal`, `renderSegments = ["internal"]`) with the leecalcote/blowhorn clone mounted; renders only `/internal/`, with its own header, footer and navigation, and no search index | `public-internal/`, only `/internal/` |
-| `make site` / `make preview-internal` | Live-reload servers for the two builds (the internal one renders in memory) | http://localhost:1313 |
+| `make site-build` | Public build (`hugo`, production environment, `renderSegments = ["public"]`), what CI deploys | `public/`, no `/internal/` |
+| `make site-internal-build` | Internal build (`hugo --environment internal`, `renderSegments = ["internal"]`) with the leecalcote/blowhorn clone mounted; renders only `/internal/`, with its own header, footer and navigation, and no search index | `public-internal/`, only `/internal/` |
+| `make site` / `make site-internal` | Live-reload servers for the two builds (the internal one renders in memory) | http://localhost:1313 |
 
 The internal targets need a leecalcote/blowhorn clone at `BLOWHORN_DIR`
 (default `../blowhorn`, beside this clone) and fail with a clear error when it
-is missing. leecalcote/blowhorn's Makefile has the same `site`,
-`site-internal` and `preview-internal` targets, which run these with
-`BLOWHORN_SITE_DIR` (default `../blowhorn-site`).
+is missing. leecalcote/blowhorn's Makefile has the same four targets
+(`site`, `site-internal`, `site-build`, `site-internal-build`), which run
+these with `BLOWHORN_SITE_DIR` (default `../blowhorn-site`).
 
 ### Mounts
 
@@ -340,7 +340,7 @@ adds a module import, `github.com/leecalcote/blowhorn`, with its own mounts:
     target = "assets/internal/compare-personas.csv"
 ```
 
-`make site-internal` points the import at the clone with
+`make site-internal-build` points the import at the clone with
 `HUGO_MODULE_REPLACEMENTS="github.com/leecalcote/blowhorn -> <abs BLOWHORN_DIR>"`,
 so nothing is downloaded, copied or vendored. Because the import lives
 only in the internal environment, the public build never reads the private
@@ -386,7 +386,7 @@ is each page's `weight`. The public build never renders any of it.
 ### Where the internal build runs
 
 leecalcote/blowhorn's `.github/workflows/internal-site.yml` checks out both
-repositories side by side, runs `make site-internal` from the blowhorn
+repositories side by side, runs `make site-internal-build` from the blowhorn
 clone and uploads `public-internal/` as a private workflow artifact. There
 is no private host. It never runs in this repository's Actions, whose
 artifacts and logs are public.
@@ -398,7 +398,7 @@ artifacts and logs are public.
 - `hugo server` honours `renderSegments`, but without `--renderToMemory` it
   also writes to `public/` and serves stale files from there; an internal
   server run that way leaves `/internal/` pages in `public/`. Use
-  `make preview-internal`.
+  `make site-internal`.
 - A segment name that is not defined renders nothing, with no error.
 - `renderSegments = ["public", "internal"]` does not render `/internal/` in
   Hugo 0.158: the `public` segment's excludes win. Use `all`.
