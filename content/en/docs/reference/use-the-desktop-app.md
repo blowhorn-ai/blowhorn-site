@@ -15,7 +15,14 @@ two boards. The running board shows the scheduler, what is due now, what
 is running, what needs you, and the content queue with a countdown to
 the next tick. The paused board shows PAUSED with each tick-level pause
 scope stated once, and the rows that would post now wait instead of
-posting. A store outage puts its line above the board.
+posting. A store outage puts its line above the board. The line is the
+last check's word, so while it shows, the app keeps checking the store in
+the background - soon after the line appears, then every two minutes -
+and again whenever you open the popover, bring the console forward, or
+wake the computer. When the store answers, the line clears on its own and
+the next check runs straight away; you never have to relaunch the app to
+clear it. **try again** on the line checks at once instead of waiting.
+The console shows the same line, with the same **try again**.
 
 The popover footer holds the pause controls and, when an update is
 ready, the update card. The update downloads the new version, checks it
@@ -68,14 +75,14 @@ activity, is locked; the account button stays usable. See
 |---|---|---|
 | Home | Whether Blowhorn is working, what runs next, and whether it needs you; a pause names which pause holds - this computer, all computers, or both | Turn off the pause it names (one button per pause while both hold); reconnect an account; finish setting up |
 | Activity › Upcoming | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones | Add or edit a post; clearing a clicked post's "Date Promoted" queues it again |
-| Activity › Routines | The schedule as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the next check; a drawer for one item; a preview of a sample schedule | Add an item, from "schedule something" or by clicking a free time; move an item's next time by dragging it; edit, pause or resume one item; "do it now"; add the sample schedule |
+| Activity › Routines | Your routines as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the next check; a drawer for one item; a preview of sample routines | Add an item, from "schedule something" or by clicking a free time; move an item's next time by dragging it; edit, pause or resume one item; "do it now"; add the sample routines |
 | Activity › History | Everything Blowhorn did, newest first, with each one's detailed log under the log directory's `scheduler/` folder | "try again" on a failure |
 | Profiles | Every profile, its Chrome mapping, its per-platform sessions | Add a profile; map or unmap its Chrome profile |
 | Performance | Followers, growth, and activity per profile; collection freshness in the header | Collect now; open the HTML report |
 | This computer (from the status line) | Who registered the background service, whether it is on watch, the last check, the pause for all computers | "check now" (with "preview only" to see what would go out); the "pause all computers" toggle; open System Settings when the service is turned off there |
 | Settings (from the account menu) | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, choose its mode, test your account connection |
 
-The schedule list layout keeps every value on one line. When the list is narrow -
+The routines list keeps every value on one line. When the list is narrow -
 the drawer is wide, or the window is small - the browser and recurrence
 columns leave first (the drawer still shows both) and a long profile list
 is shortened with an ellipsis; the status is never cut.

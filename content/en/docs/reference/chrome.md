@@ -151,16 +151,17 @@ The port is bound to `127.0.0.1` and has no password: any program
 running as you on this Mac can drive that Chrome and read its
 cookies. Sign it in only to the accounts Blowhorn posts from.
 
-A debugging port alone makes Chrome report `navigator.webdriver` as
-`true` to every page, so `start` also passes
-`--disable-blink-features=AutomationControlled`, which keeps it
-`false`, as launch mode does by dropping `--enable-automation`.
+A debugging port, and Playwright's `--remote-debugging-pipe`, each make
+Chrome report `navigator.webdriver` as `true`. `start` and launch mode
+both pass `--disable-blink-features=AutomationControlled` and
+`--test-type`, which keeps the flag `false` and leaves the
+unsupported-flag infobar off.
 
 | action | what it does |
 | --- | --- |
 | `status` (default) | reads the tree's `Local State`, `DevToolsActivePort` and `SingletonLock`; opens nothing |
 | `signin` | opens the tree with no debugging switch, for the one-time sign-in; quit it after |
-| `start` | launches Chrome detached with `--remote-debugging-port=0 --remote-debugging-address=127.0.0.1 --disable-blink-features=AutomationControlled`, then prints the setup steps |
+| `start` | launches Chrome detached with `--remote-debugging-port=0 --remote-debugging-address=127.0.0.1 --disable-blink-features=AutomationControlled --test-type`, then prints the setup steps |
 | `stop` | DevTools `Browser.close`, waits, then `SIGTERM`; signals only the tree's own Chrome, never `SIGKILL` |
 | `install-agent` | writes and loads `~/Library/LaunchAgents/ai.blowhorn.attach-chrome.plist`, which runs `start` at each login and logs to `data/logs/attach-chrome-agent.*.log` (or `--log-dir`) |
 | `uninstall-agent` | unloads and removes that LaunchAgent; Chrome keeps running |
@@ -206,12 +207,12 @@ With the extension driver, a run uses one of two behaviors:
 
 | | classic | background |
 | --- | --- | --- |
-| Blowhorn's tab | opens inactive at the end of the window | opens inactive, grouped beside the tab you are on |
+| Blowhorn's tab | opens inactive beside the tab you are on, in a Blowhorn group that is collapsed by default | opens inactive beside the tab you are on, in a Blowhorn group that is collapsed by default |
 | focus emulation | from the first action that takes the debugger | from the first page load |
 | Chrome's debugging bar | while an action holds the debugger, gone after a short idle period | for the whole run, from before the site loads |
-| visible screenshot | switches to Blowhorn's tab for the capture | captured through the debugger, no tab switch |
+| visible screenshot | captured through the debugger, without selecting the tab | captured through the debugger, without selecting the tab |
 | input | synthetic unless `BLOWHORN_EXTENSION_INPUT=trusted` | trusted unless `BLOWHORN_EXTENSION_INPUT=synthetic` |
-| bringing the tab forward | before an automated login, and for a screenshot | only when you are needed (a code, a challenge, a sign-in you finish yourself) |
+| bringing the tab forward | never. When Blowhorn needs you it posts a notification and waits | never. When Blowhorn needs you it posts a notification and waits |
 
 background is the default. classic is what the Chrome Web Store build 1.12.10
 has always done, and `BLOWHORN_EXTENSION_ROLLBACK=classic` forces it on a

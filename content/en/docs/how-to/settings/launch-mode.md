@@ -96,9 +96,10 @@ blowhorn post --profile ada --chrome-launch cdp
 ```
 
 `start` launches Chrome with `--remote-debugging-port=0
---remote-debugging-address=127.0.0.1` (plus
-`--disable-blink-features=AutomationControlled`, so pages do not see
-`navigator.webdriver` turned on by the port) and steps back: Blowhorn never drives
+--remote-debugging-address=127.0.0.1`,
+`--disable-blink-features=AutomationControlled` and `--test-type` (the
+same pair launch mode passes, which keeps `navigator.webdriver` false
+and the unsupported-flag infobar off) and steps back: Blowhorn never drives
 that process directly, only tabs in it. Chrome picks the port and records it
 in `DevToolsActivePort`. Before every `cdp` run attaches, Blowhorn checks that
 the recorded port is listened on by the Chrome holding the tree (its

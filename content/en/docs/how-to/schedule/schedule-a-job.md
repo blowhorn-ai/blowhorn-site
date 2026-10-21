@@ -30,9 +30,9 @@ next time. To run it again, open it, choose "edit" and give it a new "when":
 it is scheduled again on the same row, with its full set of retries, and its
 last run stays in its history.
 
-If the schedule is empty, the screen offers "add a sample schedule…" instead: it
+If you have no routines yet, the screen offers "add sample routines…" instead: it
 previews a starter set of rows first, and writes them only when you apply the
-preview. It never edits a schedule that already holds rows.
+preview. It never edits routines you already set up.
 
 Open a job (click it, or focus it and press Enter) to change it, or choose "do it now"
 to run it without waiting for its time. With "preview only" on, it previews the pass and claims nothing.
