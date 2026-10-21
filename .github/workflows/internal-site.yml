@@ -133,12 +133,13 @@ jobs:
 
       # A first deploy creates the hostname's DNS record, so allow it a few
       # minutes to resolve. Exit 2 means a page was served unauthenticated:
-      # take the Worker down at once.
+      # take the Worker down at once. The script runs directly, not through
+      # make, because make turns every failure into exit 2.
       - name: Verify unauthenticated requests get the Access login
         run: |
           for attempt in 1 2 3 4 5 6 7 8 9 10; do
             set +e
-            make --no-print-directory site-internal-verify
+            .github/scripts/internal-verify.sh
             rc=$?
             set -e
             [ "$rc" -eq 0 ] && break

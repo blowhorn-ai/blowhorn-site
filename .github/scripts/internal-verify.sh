@@ -16,7 +16,9 @@ paths=(/ /index.html /internal/ /internal/finance/report/ /favicon.ico /internal
 fail=0
 served=0
 for p in "${paths[@]}"; do
-  out="$(curl -sS --path-as-is -o /dev/null --max-time 20 -w '%{http_code} %{redirect_url}' "https://$host$p" 2>/dev/null || echo "000 ")"
+  # curl still prints the -w line when it fails (000), so never append to it.
+  out="$(curl -sS --path-as-is -o /dev/null --max-time 20 -w '%{http_code} %{redirect_url}' "https://$host$p" 2>/dev/null)" || true
+  [ -n "$out" ] || out="000 "
   code="${out%% *}"
   loc="${out#* }"
   loc_host="$(printf '%s' "$loc" | sed -E 's#^https?://([^/]+).*#\1#')"
