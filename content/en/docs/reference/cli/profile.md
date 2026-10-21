@@ -1,7 +1,7 @@
 ---
 title: "blowhorn profile"
 linkTitle: "profile"
-description: "blowhorn profile: auth, current, delete, get, list, set, status, switch."
+description: "blowhorn profile: accounts, auth, current, delete, get, list, set, status, switch."
 weight: 111
 ---
 
@@ -11,6 +11,7 @@ The `blowhorn profile` commands. Each one's `--help` prints the same text.
 
 | Command | What it does |
 | --- | --- |
+| [`profile accounts`](#blowhorn-profile-accounts) | List, map or unmap a profile's social accounts. |
 | [`profile auth`](#blowhorn-profile-auth) | Refresh authentication/session state for one or more platforms. |
 | [`profile current`](#blowhorn-profile-current) | Show the active profile after resolving CLI, env, and config defaults. |
 | [`profile delete`](#blowhorn-profile-delete) | Retire a profile by moving data/profiles/&lt;name&gt; -- config.yaml, data/ and every saved |
@@ -19,6 +20,38 @@ The `blowhorn profile` commands. Each one's `--help` prints the same text.
 | [`profile set`](#blowhorn-profile-set) | Write KEY=VALUE pairs safely. |
 | [`profile status`](#blowhorn-profile-status) | Report what each local profile is set up for: the platforms it holds an account |
 | [`profile switch`](#blowhorn-profile-switch) | Set a profile as the default profile in global config. |
+
+## blowhorn profile accounts
+
+List, map or unmap a profile's social accounts. An account is a Blowhorn Cloud connection on one platform; a profile acts through the accounts mapped to it, one per platform, whoever owns them, so a person may keep several profiles and a brand profile reaches the accounts mapped to it. `--map` replaces the profile's account on that platform; `--unmap` leaves the connection itself intact. Needs store.backend=cloud.
+
+```text
+blowhorn profile accounts [OPTIONS] name
+```
+
+| Argument | Required | Description |
+| --- | --- | --- |
+| `name` | yes | Profile name |
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--map` | string |  | Map this connection id to the profile, replacing its account on that platform |
+| `--unmap` | string |  | Unmap this connection id from the profile; the connection is left intact |
+| `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--pace` | string |  | Pace of the random delays between `blowhorn profile accounts` browser steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn profile accounts kate --json
+blowhorn profile accounts kate --map 3f9c2a1e-0000-4000-8000-000000000001
+blowhorn profile accounts layer5 --unmap 3f9c2a1e-0000-4000-8000-000000000001
+```
+
+Output: json with `--json`, text otherwise.
 
 ## blowhorn profile auth
 
@@ -233,7 +266,7 @@ blowhorn profile status [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--check-sessions` | boolean | `false` | Probe each configured platform's saved session read-only (in a background browser window unless `--headed`) and record the result in data/profiles/&lt;name&gt;/data/session_status.json; never logs in, and reports `busy` instead of waiting for a session another blowhorn process is using |
-| `--check-platform` | string |  | Run the `--check-sessions` probe for this one platform only (implies `--check-sessions`) and leave the other platforms' recorded results as they are. One of: linkedin, x, reddit, slack, bluesky, github; github, bluesky and slack are API calls and open no browser. Unlike `--platform` it is never read from `BLOWHORN_PLATFORM` or defaults.platform, so a default cannot narrow a check nobody asked to narrow |
+| `--check-platform` | string |  | Run the `--check-sessions` probe for this one platform only (implies `--check-sessions`) and leave the other platforms' recorded results as they are. One of: linkedin, x, reddit, hn, slack, bluesky, github; github, bluesky and slack are API calls and open no browser. Unlike `--platform` it is never read from `BLOWHORN_PLATFORM` or defaults.platform, so a default cannot narrow a check nobody asked to narrow |
 | `--roster` | boolean | `false` | Also read the profiles roster from the store and report which platforms each profile has a handle for. Needs the store: a store that cannot be reached is the named cause and exit 3; a roster that reads empty or cannot be read is reported on a Roster: line, not fatal |
 | `--chrome` | boolean | `false` | Read this machine's Chrome profile mappings from the store and Chrome's profile list, and add a Chrome column: the mapped directory and whether its recorded name and account still match. Opens no browser; a store that cannot be reached is the named cause and exit 3 |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
