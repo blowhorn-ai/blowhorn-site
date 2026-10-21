@@ -1,6 +1,7 @@
 {
   "tool": "Pi",
   "mark": "Pi",
+  "logo": "pi",
   "weight": 30,
   "description": "Use the Pi coding agent with Blowhorn: a minimal agent, a bash tool and an AGENTS.md block that turn it into your marketing operator.",
   "lead": "Pi keeps its toolbox small: read, write, edit and bash. Bash is all Blowhorn needs.",

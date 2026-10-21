@@ -2039,6 +2039,13 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   border: 1px solid var(--glass-rim); box-shadow: var(--glass-shadow);
 }
 .agent-mark-xl { width: 96px; height: 96px; border-radius: 24px; font-size: 1.9rem; }
+.agent-mark-logo svg { display: block; width: 62%; height: 62%; fill: currentColor; }
+.agent-mark-claude { color: #D97757; }
+.agent-mark-deepseek { color: #4D6BFE; }
+.agent-mark-openai, .agent-mark-grok, .agent-mark-opencode { color: #111111; }
+@media (prefers-color-scheme: dark) {
+  .agent-mark-openai, .agent-mark-grok, .agent-mark-opencode { color: #FFFFFF; }
+}
 .agent-steps { list-style: none; padding: 0; }
 .agent-step-n {
   display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;

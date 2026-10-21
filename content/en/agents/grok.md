@@ -1,6 +1,7 @@
 {
   "tool": "Grok",
   "mark": "Gk",
+  "logo": "grok",
   "weight": 50,
   "description": "Use Grok as your marketing agent with Blowhorn: plain-language prompts turned into blowhorn commands for scheduling, queueing and team amplification.",
   "lead": "Grok in your terminal can run commands. Hand it the Blowhorn CLI and it turns a sentence into a launch plan you approve.",

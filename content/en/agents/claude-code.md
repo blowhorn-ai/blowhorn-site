@@ -1,6 +1,7 @@
 {
   "tool": "Claude Code",
   "mark": "CC",
+  "logo": "claude",
   "weight": 10,
   "description": "Use Claude Code to run your marketing with Blowhorn: a project skill, an allowlist for the blowhorn CLI, and prompts that schedule, queue and amplify across every machine.",
   "lead": "Claude Code already lives in your terminal. Give it the Blowhorn CLI and a skill, and it runs your launch while you review the diff.",

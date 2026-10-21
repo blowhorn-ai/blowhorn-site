@@ -1,6 +1,7 @@
 {
   "tool": "OpenCode",
   "mark": "OC",
+  "logo": "opencode",
   "weight": 20,
   "description": "Use OpenCode with Blowhorn: AGENTS.md instructions, per-command bash permissions and opencode run for marketing jobs across every machine.",
   "lead": "OpenCode reads AGENTS.md and lets you set bash permissions per command. That is exactly the leash a marketing agent needs.",

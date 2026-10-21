@@ -1,6 +1,7 @@
 {
   "tool": "Codex",
   "mark": "Cx",
+  "logo": "openai",
   "weight": 40,
   "description": "Use Codex with Blowhorn: AGENTS.md rules, codex exec for unattended checks, and approval settings that keep publishing in your hands.",
   "lead": "Codex follows AGENTS.md and asks before it acts outside its lane. Point it at Blowhorn and keep your finger on approve.",
