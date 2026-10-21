@@ -1,17 +1,28 @@
-# The internal build: `hugo --environment internal` (make site-internal).
+# The internal build: `hugo --environment internal` (make site-internal-build).
 # Merged over hugo.toml; renders ONLY the /internal/ section. The public
 # content is not duplicated here: it goes stale in step with this build's
 # cadence, and the internal pages never linked to it. The shared codebase,
 # shell components and build pipeline are the economy; the content is not.
-# The entry point is /internal/. Never deploy this output to blowhorn.ai.
+# The entry point is /internal/; the root redirects there (below). Never
+# deploy this output to blowhorn.ai.
 
 # The "internal" segment (hugo.toml) includes only /internal/**. Not
 # ["public", "internal"]: public's excludes would drop /internal/.
 renderSegments = ["internal"]
 
+# Only this environment mounts static-internal/ (see [module] below): its
+# index.html is the root redirect to /internal/, so the build's root is
+# not a dead end.
+
 # Hugo replaces module.imports per environment instead of merging, so the
 # base imports are repeated here (keep in step with hugo.toml).
 [module]
+  # The root redirect: static-internal/index.html lands at the output's
+  # root only in this environment (the base mounts in hugo.toml are kept;
+  # mounts merge across the environment config, imports do not).
+  [[module.mounts]]
+    source = "static-internal"
+    target = "static"
   # The private leecalcote/blowhorn clone. make site-internal sets
   # HUGO_MODULE_REPLACEMENTS to BLOWHORN_DIR (default ../blowhorn); with no
   # replacement Hugo would try to download the private repository and fail.

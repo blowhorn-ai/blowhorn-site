@@ -298,7 +298,7 @@ repository, and only the internal environment mounts it.
 | Target | What it does | Output |
 | --- | --- | --- |
 | `make site-build` | Public build (`hugo`, production environment, `renderSegments = ["public"]`), what CI deploys | `public/`, no `/internal/` |
-| `make site-internal-build` | Internal build (`hugo --environment internal`, `renderSegments = ["internal"]`) with the leecalcote/blowhorn clone mounted; renders only `/internal/`, with its own header, footer and navigation, and no search index | `public-internal/`, only `/internal/` |
+| `make site-internal-build` | Internal build (`hugo --environment internal`, `renderSegments = ["internal"]`) with the leecalcote/blowhorn clone mounted; renders only `/internal/`, with its own header, footer and navigation, and no search index; the output's root page redirects to `/internal/` | `public-internal/`, only `/internal/` |
 | `make site` / `make site-internal` | Live-reload servers for the two builds (the internal one renders in memory) | http://localhost:1313 |
 
 The internal targets need a leecalcote/blowhorn clone at `BLOWHORN_DIR`
