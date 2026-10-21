@@ -212,11 +212,13 @@ With the extension driver, a run uses one of two behaviors:
 | Chrome's debugging bar | while an action holds the debugger, gone after a short idle period | for the whole run, from before the site loads |
 | visible screenshot | captured through the debugger, without selecting the tab | captured through the debugger, without selecting the tab |
 | input | synthetic unless `BLOWHORN_EXTENSION_INPUT=trusted` | trusted unless `BLOWHORN_EXTENSION_INPUT=synthetic` |
-| bringing the tab forward | never. When Blowhorn needs you it posts a notification and waits | never. When Blowhorn needs you it posts a notification and waits |
+| bringing the tab forward | never. When Blowhorn needs you it turns the Blowhorn group red and opens it, posts a notification when "notify when something needs you" is on in Settings, and waits for you to click the tab | the same |
+| no Chrome window open | that profile stops and you are asked to open a Chrome window. Opening one itself would bring Chrome in front of what you are doing. A post moves on to the next profile; other commands end there, and nothing that did not happen is recorded | the same |
 
-background is the default. classic is what the Chrome Web Store build 1.12.10
-has always done, and `BLOWHORN_EXTENSION_ROLLBACK=classic` forces it on a
-machine.
+background is the default. classic keeps the input and debugger behavior of
+the Chrome Web Store build 1.12.10 (synthetic input, the debugger only while
+an action holds it) with the same tab placement as background, and
+`BLOWHORN_EXTENSION_ROLLBACK=classic` forces it on a machine.
 Where the mode comes from, top wins:
 
 | layer | spelling |
@@ -225,6 +227,12 @@ Where the mode comes from, top wins:
 | one scheduled job | its `Driver Mode`: `extension-classic` or `extension-background` |
 | your account | the extension mode on Settings, Chrome extension (saved as `extensionMode` in your Blowhorn preferences, so it follows you to every machine) |
 | nothing set | background |
+
+How the Blowhorn tab group sits beside your tabs between steps is one more
+account setting: collapsed (the default) or open, saved as `chromeGroup` in
+the same Blowhorn preferences, so it follows you to every computer. Set it on
+Settings, Chrome extension, or with `blowhorn chrome extension-mode --group
+open` (`default` clears it). A run reads it once when it starts.
 
 `BLOWHORN_EXTENSION_ROLLBACK=1` still swaps the driver for Blowhorn's own
 Chrome as before; it says nothing about the mode. `0`, `false` and `off` read
@@ -262,7 +270,9 @@ blowhorn chrome extension-mode default      # clear it, so runs use background
 With no mode it reads your account setting from Blowhorn and writes
 nothing; when it cannot be read it says why (`account_error`) and shows
 the cached setting a run would fall back to. With one it saves `extensionMode` to Blowhorn; sign in
-first with `blowhorn auth login`. `--json` prints one object: `mode`,
+first with `blowhorn auth login`. `--dry-run`, with a mode or `--group`, reads that stored account,
+reports it with the change on top, and writes nothing; when the account cannot be read it says why
+and changes nothing. `--json` prints one object: `mode`,
 `source` (`rollback`, `account` or `default`), `account`, `account_error`,
 `rollback`, `rollback_error`, `features` and `written`.
 

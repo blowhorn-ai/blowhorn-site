@@ -188,7 +188,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn chrome extension-mode
 
-Show or set how runs drive the Blowhorn Chrome extension. background is the default. Both modes open Blowhorn's tab inactive beside the tab you are on, in a Blowhorn group that is collapsed by default, and take a screenshot through the debugger without selecting the tab. Nothing brings the tab forward. classic keeps focus emulation on only while an action holds the debugger and sends input through the page. background turns focus emulation on from the first page and sends trusted input. With no MODE it reports the mode a run started now would use and where it comes from: the `BLOWHORN_EXTENSION_ROLLBACK` override, your Blowhorn account setting, or the background default. A job whose driver mode is extension-classic or extension-background outranks the account setting for that job. Setting MODE writes extensionMode to your account's Blowhorn preferences in your Blowhorn account (sign in first with `blowhorn auth login`); default clears it. `--json` emits the report as one object, for a script or the desktop app.
+Show or set how runs drive the Blowhorn Chrome extension. background is the default. Both modes open Blowhorn's tab inactive beside the tab you are on, in a Blowhorn group that is collapsed by default, and take a screenshot through the debugger without selecting the tab. Nothing brings the tab forward. classic keeps focus emulation on only while an action holds the debugger and sends input through the page. background turns focus emulation on from the first page and sends trusted input. With no MODE it reports the mode a run started now would use and where it comes from: the `BLOWHORN_EXTENSION_ROLLBACK` override, your Blowhorn account setting, or the background default. A job whose driver mode is extension-classic or extension-background outranks the account setting for that job. Setting MODE writes extensionMode to your account's Blowhorn preferences in your Blowhorn account (sign in first with `blowhorn auth login`); default clears it. `--group` collapsed or open writes chromeGroup the same way: how the Blowhorn tab group sits beside your tabs between steps. Collapsed is the default. `--json` emits the report as one object, for a script or the desktop app.
 
 ```text
 blowhorn chrome extension-mode [OPTIONS] [MODE]
@@ -200,6 +200,7 @@ blowhorn chrome extension-mode [OPTIONS] [MODE]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
+| `--group` | string |  | collapsed or open: how the Blowhorn tab group sits beside your tabs between steps. default clears the account setting (collapsed) |
 | `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
 | `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn chrome extension-mode` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -212,6 +213,7 @@ Examples:
 blowhorn chrome extension-mode
 blowhorn chrome extension-mode classic
 blowhorn chrome extension-mode default --json
+blowhorn chrome extension-mode --group open
 ```
 
 Output: json with `--json`, text otherwise.
