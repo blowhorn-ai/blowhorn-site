@@ -100,6 +100,8 @@ A platform row is a saved-login username and whether a session is live. The user
 
 The resolution answers the create rule without creating: `one` (the email names exactly one Blowhorn user in the organization; that user's Cloud social links ride along, shown on the confirm screen but never treated as permission to post), `several` (the member candidates, for a picker), `none` (no member holds the email), or `no-email` (nobody is signed in to that Chrome profile). `--json` emits the whole survey with a stable shape, for the desktop app. A store that cannot be reached is the named cause and exit 3; an unreadable profile list is one sentence and exit 1.
 
+`--local` reads Chrome's files only and never opens the store, so it works before sign-in: every row's mapping is null, its resolution is `unresolved` (or `no-email`) and its slug state `unchecked`. The desktop app runs it when it first opens, then merges the full survey once you are signed in. Chrome's Guest and System profiles are never listed.
+
 ```text
 blowhorn chrome discover [OPTIONS]
 ```
@@ -107,6 +109,7 @@ blowhorn chrome discover [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
+| `--local` | boolean | `false` | Read Chrome's files only, without the store: works before sign-in, resolves nobody |
 | `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn chrome discover` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
@@ -117,6 +120,7 @@ Examples:
 ```bash
 blowhorn chrome discover
 blowhorn chrome discover --json
+blowhorn chrome discover --local --json
 ```
 
 Output: json with `--json`, text otherwise.

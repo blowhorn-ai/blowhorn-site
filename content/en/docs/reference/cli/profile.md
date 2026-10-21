@@ -23,7 +23,7 @@ The `blowhorn profile` commands. Each one's `--help` prints the same text.
 
 ## blowhorn profile accounts
 
-List, map or unmap a profile's social accounts. An account is a Blowhorn Cloud connection on one platform; a profile acts through the accounts mapped to it, one per platform, whoever owns them, so a person may keep several profiles and a brand profile reaches the accounts mapped to it. `--map` replaces the profile's account on that platform; `--unmap` leaves the connection itself intact. Needs store.backend=cloud.
+List, map or unmap a profile's social accounts. An account is a cloud connection on one platform; a profile acts through the accounts mapped to it, one per platform, whoever owns them, so a person may keep several profiles and a brand profile reaches the accounts mapped to it. `--map` replaces the profile's account on that platform; `--unmap` leaves the connection itself intact. Needs store.backend=cloud.
 
 ```text
 blowhorn profile accounts [OPTIONS] name
