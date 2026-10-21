@@ -17,8 +17,9 @@ copied unchanged; the `.webp` beside it is
 a lossy re-encode of that file for the home page hero, with no other change.
 
 The cast art (`cast/*.webp`) is 960x540 re-encodes of the cast Lee locked on 18 Oct 2026
-(`marketing/brand/cast/` in the product repository), unchanged otherwise. The
-`cast/icons/*.webp` files are square crops of the same art. `cast/major-6-hat-left-horn.webp` is the locked
+(`marketing/brand/cast/` in the product repository), unchanged otherwise, plus the four
+machine Recruit Chicks (`cast/recruit-chick-macbook`, `-imac`, `-laptop-lap` and `-mac-studio`) added on
+20 Oct 2026. The `cast/icons/*.webp` files are square crops of the same art with the black ground keyed out. `cast/major-6-hat-left-horn.webp` is the locked
 `major-6-hat-left` art with three Caribbean Green (#00D3A9) sound arcs added at the
 bullhorn; Major himself is not redrawn.
 

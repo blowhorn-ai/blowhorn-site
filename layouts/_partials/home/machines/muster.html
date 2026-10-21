@@ -4,8 +4,8 @@
   assets/js/machines.js: recruits fall in, the roll call fills, and the
   two Enlist buttons (shown only with JavaScript) add a recruit on the
   page. The "Enlist a machine" link still goes to the download. */ -}}
-{{- /* Mixed roster in the cast slot order (marketing/brand/cast/README.md, Unit sizes). */ -}}
-{{- $troops := slice "recruit-chick-salute" "platoon-private-base" "trench-trooper-base" "mouse-marine-salute" "keyboard-warrior-base" "robo-recruit-base" "sleeper-cell-base" "drill-instructor-base" "gi-donkey-base" -}}
+{{- /* Mixed roster in the machine pattern: the four machine chicks take every third slot (marketing/brand/cast/README.md, Unit sizes). */ -}}
+{{- $troops := slice "recruit-chick-macbook" "platoon-private-base" "trench-trooper-base" "recruit-chick-imac" "mouse-marine-salute" "keyboard-warrior-base" "recruit-chick-laptop-lap" "robo-recruit-base" "sleeper-cell-base" "recruit-chick-mac-studio" "drill-instructor-base" "gi-donkey-base" -}}
 {{- $urls := slice -}}
 {{- range $troops }}{{ $urls = $urls | append (printf "assets/brand/cast/%s.webp" . | relURL) }}{{ end -}}
 <div class="machines-panel" data-machines-only="muster">
@@ -32,8 +32,8 @@
         <button type="button" class="machines-add" data-muster="enlist" aria-label="Enlist another machine" hidden>+</button>
       </div>
       <div class="machines-formation-front">
-        <span class="machines-front-unit"><img src="{{ "assets/brand/cast/recruit-chick-salute.webp" | relURL }}" alt="" width="480" height="270" loading="lazy"><span class="machines-unit-label">Desk rig</span></span>
-        <span class="machines-front-unit"><img src="{{ index $urls 1 }}" alt="" width="480" height="270" loading="lazy"><span class="machines-unit-label">Laptop</span></span>
+        <span class="machines-front-unit"><img src="{{ "assets/brand/cast/recruit-chick-imac.webp" | relURL }}" alt="" width="480" height="270" loading="lazy"><span class="machines-unit-label">Desk rig</span></span>
+        <span class="machines-front-unit"><img src="{{ "assets/brand/cast/recruit-chick-laptop-lap.webp" | relURL }}" alt="" width="480" height="270" loading="lazy"><span class="machines-unit-label">Laptop</span></span>
         {{ partial "bubble.html" (dict "text" "Fall in, recruits." "class" "machines-say" "variant" "command" "tail" "right" "id" "machines-muster-say" "live" "polite") }}
         <img class="machines-major" src="{{ "assets/brand/cast/major-6-hat-left-horn.webp" | relURL }}" alt="Major Blowhorn calling the roll through his bullhorn" width="480" height="270" loading="lazy">
       </div>
