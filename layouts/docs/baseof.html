@@ -13,7 +13,11 @@
   <body class="docs">
     <a class="skip-link ui" href="#main">Skip to content</a>
     {{- partial "sprite.html" . }}
+    {{- if eq hugo.Environment "internal" }}
+    {{- partial "header-internal.html" . }}
+    {{- else }}
     {{- partial "header.html" . }}
+    {{- end }}
     <div class="wrap docs-wrap">
       <aside class="docs-sidebar" aria-label="Docs sections">
         {{- partial "sidebar.html" . }}
@@ -28,7 +32,11 @@
         {{- partial "toc.html" . }}
       </aside>
     </div>
+    {{- if eq hugo.Environment "internal" }}
+    {{- partial "footer-internal.html" . }}
+    {{- else }}
     {{- partial "footer.html" . }}
+    {{- end }}
     {{- partial "docs-scripts.html" . }}
   </body>
 </html>

@@ -297,7 +297,7 @@ repository, and only the internal environment mounts it.
 | Target | What it does | Output |
 | --- | --- | --- |
 | `make build-production` | Public build (`hugo`, production environment, `renderSegments = ["public"]`), what CI deploys | `public/`, no `/internal/` |
-| `make site-internal` | Internal build (`hugo --environment internal`, `renderSegments = ["all"]`) with the leecalcote/blowhorn clone mounted | `public-internal/` |
+| `make site-internal` | Internal build (`hugo --environment internal`, `renderSegments = ["internal"]`) with the leecalcote/blowhorn clone mounted; renders only `/internal/`, with its own header, footer and navigation, and no search index | `public-internal/`, only `/internal/` |
 | `make site` / `make preview-internal` | Live-reload servers for the two builds (the internal one renders in memory) | http://localhost:1313 |
 
 The internal targets need a leecalcote/blowhorn clone at `BLOWHORN_DIR`
@@ -335,6 +335,8 @@ adds a module import, `github.com/leecalcote/blowhorn`, with its own mounts:
   [[module.imports.mounts]]
     source = "marketing/capability-comparison/compare-assistants.csv"
     target = "assets/internal/compare-assistants.csv"
+    source = "marketing/capability-comparison/compare-personas.csv"
+    target = "assets/internal/compare-personas.csv"
 ```
 
 `make site-internal` points the import at the clone with

@@ -1,9 +1,13 @@
 # The internal build: `hugo --environment internal` (make site-internal).
-# Merged over hugo.toml; renders the full public site plus /internal/.
-# Never deploy this output to blowhorn.ai.
+# Merged over hugo.toml; renders ONLY the /internal/ section. The public
+# content is not duplicated here: it goes stale in step with this build's
+# cadence, and the internal pages never linked to it. The shared codebase,
+# shell components and build pipeline are the economy; the content is not.
+# The entry point is /internal/. Never deploy this output to blowhorn.ai.
 
-# Not ["public", "internal"]: public's excludes would drop /internal/.
-renderSegments = ["all"]
+# The "internal" segment (hugo.toml) includes only /internal/**. Not
+# ["public", "internal"]: public's excludes would drop /internal/.
+renderSegments = ["internal"]
 
 # Hugo replaces module.imports per environment instead of merging, so the
 # base imports are repeated here (keep in step with hugo.toml).
