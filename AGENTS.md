@@ -63,6 +63,11 @@ Do not duplicate those.
   it on a public page.
 - **The product repository is private.** Never link its files, issues or pull requests
   from a page; every reader would get a 404.
+- **Every Hugo run cleans its destination.** Each `hugo` invocation in `package.json`
+  and the `Makefile` passes `--cleanDestinationDir`, builds and servers alike, so a
+  stale file from an earlier build can never linger in `public/` or `public-internal/`
+  and pass for current output. Hugo has no config-level default for this; the flag
+  rides on the command line, so keep it on any new invocation.
 
 ## CI runs through make
 

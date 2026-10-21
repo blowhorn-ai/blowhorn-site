@@ -163,7 +163,7 @@ site: check-go check-deps
 
 ## Serve the internal site at http://localhost:1313 with live reload, rendered in memory so public/ is never touched.
 preview-internal: check-go check-deps check-blowhorn
-	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run _hugo -- server --environment internal --renderToMemory
+	HUGO_MODULE_REPLACEMENTS="$(BLOWHORN_MODULE) -> $(BLOWHORN_ABS)" npm run _hugo -- server --cleanDestinationDir --environment internal --renderToMemory
 
 ## Fail unless BLOWHORN_DIR is a leecalcote/blowhorn clone with the internal sources.
 check-blowhorn:

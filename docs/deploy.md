@@ -19,7 +19,8 @@ every push to `master`:
    Every step is a make target (`make setup-ci` installs the dependencies);
    `make ci` runs the whole job locally in the same order.
 3. `make site-check` builds for production into `public/` once
-   (`hugo --minify --gc`, which minifies CSS and JavaScript and leaves HTML
+   (`hugo --cleanDestinationDir --minify --gc`, which cleans stale files out
+   of the destination, minifies CSS and JavaScript and leaves HTML
    readable), then checks that output:
    - `make validate-html`: html-validate on every page;
    - `make check-links`: every local link, image, font and `srcset` reference
