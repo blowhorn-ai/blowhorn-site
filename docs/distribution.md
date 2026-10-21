@@ -106,8 +106,9 @@ are identical for both paths.
 
 The product pipeline can also run `gh release create` against this repo with
 the same token. It must follow the asset naming above (including the
-`Blowhorn-mac.dmg` alias and `SHA256SUMS.txt`) so the always-latest URL keeps
-working. Prefer Option B so the naming rules live in one place.
+`Blowhorn-mac.dmg` alias and `SHA256SUMS.txt`) so the pinned download URLs keep
+working, pass `--latest`, and bump `data/download.json` in the same pass.
+Prefer Option B so the naming rules live in one place.
 
 ## Chrome extension
 

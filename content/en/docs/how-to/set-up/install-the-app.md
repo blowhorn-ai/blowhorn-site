@@ -14,14 +14,13 @@ Blowhorn repository, no git and no Python on your Mac.
 
 ## Download
 
-Download the latest build from the
-[blowhorn-site releases](https://github.com/layer5io/blowhorn-site/releases),
-the same place the [blowhorn.ai/download](https://blowhorn.ai/download/) button links:
+Download the latest build from
+[blowhorn.ai/download](https://blowhorn.ai/download/): it hands you the
+current release's files from the
+[blowhorn-site releases](https://github.com/layer5io/blowhorn-site/releases).
 
-- [Blowhorn-mac.dmg](https://github.com/layer5io/blowhorn-site/releases/latest/download/Blowhorn-mac.dmg) -
-  always the latest build, for Apple silicon and Intel Macs.
-- [SHA256SUMS.txt](https://github.com/layer5io/blowhorn-site/releases/latest/download/SHA256SUMS.txt) -
-  the checksums for that release.
+- `Blowhorn-mac.dmg` - the latest build, for Apple silicon and Intel Macs.
+- `SHA256SUMS.txt` - the checksums for that release.
 
 Verify the download before you open it. With both files in the same folder:
 
