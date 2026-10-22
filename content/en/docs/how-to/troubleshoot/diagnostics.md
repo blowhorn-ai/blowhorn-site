@@ -60,7 +60,7 @@ run failed.
 ## The audit trail
 
 Each run, sweep and opening of the diagnostics area is recorded to
-Blowhorn Cloud as an event (category `blowhorn`, actions
+Blowhorn as an event (category `blowhorn`, actions
 `diagnostics_run` and `diagnostics_open`) when you are signed in, so who
 ran what, when, is on record. Posting is best-effort: signed out or
 offline never fails a run.
@@ -70,4 +70,4 @@ blowhorn diagnostics opened --json
 ```
 
 The desktop app runs this when the Diagnostics area opens; it answers
-`{"ok": true, "posted": true}` when the event reached Blowhorn Cloud.
+`{"ok": true, "posted": true}` when the event reached Blowhorn.

@@ -77,7 +77,7 @@ A failed item does not stop the run: everything else is still removed, and
 the command exits 1. A real run that cannot read the sign-in in the Keychain
 exits 1 as well, and leaves that item in place.
 
-The sign-in on this machine is removed on every run, with or without `--purge`:
+The sign-in on this computer is removed on every run, with or without `--purge`:
 the Keychain item, `cloud.yaml`, and the `cloud-token` file beside it.
 
 Kept at the end, and named: the store connection file
