@@ -77,7 +77,7 @@ Output: json with `--json`, text otherwise.
 
 Show whether Blowhorn credentials and an entitlement attestation are present.
 
-Reports token configured (never the token value), organization id, api_base, enforcement mode (`BLOWHORN_ENTITLEMENT`), and a summary of the last Feature read. Live, it first re-reads the signed-in account from Blowhorn (name, photo, organizations, plan) into cloud.yaml and follows the organization your Blowhorn session in the browser has selected; `BLOWHORN_CLOUD_ORGANIZATION` still wins when set, and the plan read and shown is that organization's. `--offline` answers from presence checks only: it reads no saved secret, so macOS shows no Keychain prompt, and it makes no network request (the desktop app runs it at launch).
+Reports token configured (never the token value), organization id, api_base, enforcement mode (`BLOWHORN_ENTITLEMENT`), and a summary of the last Feature read. Live, it first re-reads the signed-in account from Blowhorn (name, photo, organizations, plan) into cloud.yaml and follows the organization your Blowhorn session in the browser has selected; `BLOWHORN_CLOUD_ORGANIZATION` still wins when set, and the plan read and shown is that organization's. `--offline` answers from presence checks only: it reads no saved secret, so macOS shows no Keychain prompt, and it makes no network request (the desktop app runs it at launch). Exits 3 when this computer is not signed in: no token, a token Blowhorn refused, or Blowhorn could not be reached. `--offline` exits 3 only when no token is configured.
 
 ```text
 blowhorn auth status [OPTIONS]

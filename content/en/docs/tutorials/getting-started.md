@@ -39,17 +39,16 @@ blowhorn --help
 You will see the command list. That list is the whole tool - every capability
 is one of those subcommands.
 
-Blowhorn keeps its queue, schedule and profiles in your account, so before it can read anything it needs the connection. On a machine that is already set up that is two commands; either way, `blowhorn store` then
-opens the tunnel and reports rung by rung:
+Blowhorn keeps its queue, schedule and profiles in your Blowhorn account, so
+before it can read anything you sign in. `blowhorn store` then reports whether
+the store is usable:
 
 ```bash
-blowhorn store --import
+blowhorn auth login
 blowhorn store
 ```
 
-Connect to your account covers a machine
-without that checkout. Nothing below works until `blowhorn store` ends in
-`store usable`.
+Nothing below works until `blowhorn store` ends in `store usable`.
 
 ## 2. See who Blowhorn can act as {#section-2-see-who-blowhorn-can-act-as}
 
