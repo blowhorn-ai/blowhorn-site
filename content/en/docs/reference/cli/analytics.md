@@ -21,12 +21,12 @@ The `blowhorn analytics` commands. Each one's `--help` prints the same text.
 Print one activity's result, read from the store: for each profile and platform it is addressed to, whether it went out (when, the live link, which computer and browser profile ran it, and on a failure the error and the fix), how it was received where reception is collected (LinkedIn page activities, from the page content exports, with the date the figures were read and a comparison with the page's typical activity), and the follower change around it, labelled derived. Anything not collected says so, with a reason, never as a zero. A computer with no store prints a short explanation and exits 3.
 
 ```text
-blowhorn analytics activity [OPTIONS] row
+blowhorn analytics activity [OPTIONS] activity
 ```
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `row` | yes | Activity number, as `content list` prints it |
+| `activity` | yes | Activity number, as `content list` prints it |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -75,7 +75,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn analytics import-exports
 
-Read the LinkedIn page content exports already on disk and record each activity's reception figures in the store: impressions, views, clicks, click-through rate, likes, comments, reposts, follows and engagement rate from each export's All posts sheet, dated by the export. Each activity is matched to its content row by its link; activities made outside Blowhorn are kept and marked unmatched. Prints rows read, matched and stored per file. Safe to run again: a reading lands once per activity and export date. `--dry-run` reads and matches without writing.
+Read the LinkedIn page content exports already on disk and record each activity's reception figures in the store: impressions, views, clicks, click-through rate, likes, comments, reposts, follows and engagement rate from each export's All posts sheet, dated by the export. Each activity is matched to its activity by its link; activities made outside Blowhorn are kept and marked unmatched. Prints activities read, matched and stored per file. Safe to run again: a reading lands once per activity and export date. `--dry-run` reads and matches without writing.
 
 ```text
 blowhorn analytics import-exports [OPTIONS] [paths...]

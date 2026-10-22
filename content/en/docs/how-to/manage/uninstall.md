@@ -78,10 +78,13 @@ the command exits 1. A real run that cannot read the sign-in in the Keychain
 exits 1 as well, and leaves that item in place.
 
 The sign-in on this computer is removed on every run, with or without `--purge`:
-the Keychain item, `cloud.yaml`, and the `cloud-token` file beside it.
+the Keychain item, `cloud.yaml`, the `cloud-token` file beside it, and the
+guided setup progress (`onboarding-progress.json`). The next time you open
+Blowhorn it starts as a first run. A signed-in session that actually survived
+is the only case that can pick up a setup you left partway.
 
 Kept at the end, and named: the store connection file
-(`~/.config/blowhorn/store.yaml`), the app's state
+(`~/.config/blowhorn/store.yaml`), the rest of the app's state
 under `~/Library/Application Support/Blowhorn` (its preferences, its engine
 record and, for the engine the app carries, that engine's folder `home/` with
 your profiles' settings), Blowhorn's own Chrome trees, the per-user

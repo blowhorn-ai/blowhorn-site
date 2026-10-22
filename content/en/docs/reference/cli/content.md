@@ -11,29 +11,29 @@ The `blowhorn content` commands. Each one's `--help` prints the same text.
 
 | Command | What it does |
 | --- | --- |
-| [`content delete`](#blowhorn-content-delete) | Delete one post by number. |
+| [`content delete`](#blowhorn-content-delete) | Delete one activity by number. |
 | [`content get`](#blowhorn-content-get) | Print one post by number. |
-| [`content list`](#blowhorn-content-list) | List the content queue's rows with their state and, for each, the profiles a post run would select it for right now ('Pending for' -- the same selection `blowhorn post --check-queue` prints, read f... |
+| [`content list`](#blowhorn-content-list) | List the content queue's activities with their state and, for each, the profiles a post run would select it for right now ('Pending for' -- the same selection `blowhorn post --check-queue` prints,... |
 | [`content upsert`](#blowhorn-content-upsert) | Create a post, or update one in place, from a JSON object of column: value pairs in the queue's own column names. |
 
 ## blowhorn content delete
 
-Delete one post by number. Requires `--yes`; `--dry-run` reports the row and touches nothing; `--expected-fingerprint` refuses the delete if the row changed since it was read. The row is removed from the store and every other row keeps its number.
+Delete one activity by number. Requires `--yes`; `--dry-run` reports the activity and touches nothing; `--expected-fingerprint` refuses the delete if the activity changed since it was read. The activity is removed from the store and every other activity keeps its number.
 
 ```text
-blowhorn content delete [OPTIONS] row
+blowhorn content delete [OPTIONS] activity
 ```
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `row` | yes | Post number, as `content list` prints it (stable for the life of the post) |
+| `activity` | yes | Activity number, as `content list` prints it (stable for the life of the activity) |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--yes` | boolean | `false` | Confirm the delete; without it the command refuses and exits 1 (use `--dry-run` to preview) |
 | `--expected-fingerprint` | string |  | Refuse the write if the post's fingerprint (from `content get` or `content list`) no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the Content rows whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every row is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -50,20 +50,20 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn content get
 
-Print one post by number: every column, its state, its validation problems, and the fingerprint that `content upsert` and `content delete` take as `--expected-fingerprint` so a later write can refuse a row edited in the store meanwhile.
+Print one post by number: every column, its state, its validation problems, and the fingerprint that `content upsert` and `content delete` take as `--expected-fingerprint` so a later write can refuse an activity edited in the store meanwhile.
 
 ```text
-blowhorn content get [OPTIONS] row
+blowhorn content get [OPTIONS] activity
 ```
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `row` | yes | Post number, as `content list` prints it (stable for the life of the post) |
+| `activity` | yes | Activity number, as `content list` prints it (stable for the life of the activity) |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the Content rows whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every row is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content get` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -79,9 +79,9 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn content list
 
-List the content queue's rows with their state and, for each, the profiles a post run would select it for right now ('Pending for' -- the same selection `blowhorn post --check-queue` prints, read from the profiles roster). One read of the store; nothing is written and no browser opens.
+List the content queue's activities with their state and, for each, the profiles a post run would select it for right now ('Pending for' -- the same selection `blowhorn post --check-queue` prints, read from the profiles roster). One read of the store; nothing is written and no browser opens.
 
-`--profile` keeps rows addressed to those profiles or to `all`; `--platform` keeps one platform; `--pending` keeps only rows some profile would pick up now. `--json` is the shape the desktop app's Content screen reads, fingerprints included.
+`--profile` keeps activities addressed to those profiles or to `all`; `--platform` keeps one platform; `--pending` keeps only activities some profile would pick up now. `--json` is the shape the desktop app's Content screen reads, fingerprints included.
 
 ```text
 blowhorn content list [OPTIONS]
@@ -91,7 +91,7 @@ blowhorn content list [OPTIONS]
 | --- | --- | --- | --- |
 | `--pending` | boolean | `false` | Only posts some profile would pick up right now: the posts `blowhorn post --check-queue` lists |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the Content rows whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every row is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content list` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -108,9 +108,9 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn content upsert
 
-Create a post, or update one in place, from a JSON object of column: value pairs in the queue's own column names. Without `--row` a new row is created and given the next row number; with `--row` the payload is merged over that row, and every column it does not name is left as it was.
+Create a post, or update one in place, from a JSON object of column: value pairs in the queue's own column names. Without `--activity` a new activity is created and given the next activity number; with `--activity` the payload is merged over that activity, and every column it does not name is left as it was.
 
-Platform must be one `blowhorn post` publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the row changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
+Platform must be one `blowhorn post` publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the activity changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
 
 ```text
 blowhorn content upsert [OPTIONS]
@@ -119,10 +119,10 @@ blowhorn content upsert [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--payload` | string |  | JSON object of Content column: value pairs in the queue's own column names, for example `{"Platform":"x","Profile":"kate","Message Text":"hello","Approved?":"yes"}` |
-| `--row` | integer |  | Post number to update in place; omit to create a new post |
+| `--activity` | integer |  | Activity number to update in place; omit to create a new activity |
 | `--expected-fingerprint` | string |  | Refuse the write if the post's fingerprint (from `content get` or `content list`) no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the Content rows whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every row is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content upsert` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -132,7 +132,7 @@ Examples:
 ```bash
 blowhorn content upsert --payload '{"Platform":"linkedin","Profile":"kate","Message Text":"Meshery v0.9 is out","Approved?":"yes","Promote On":"2026-09-01 09:00:00"}' --json
 blowhorn content upsert --payload '{"Platform":"github","Profile":"all","Amplify":"https://github.com/acme/widgets/issues/1234","Approved?":"yes"}' --json
-blowhorn content upsert --row 12 --payload '{"Approved?":"yes"}' --expected-fingerprint 3f2a1c --json
+blowhorn content upsert --activity 12 --payload '{"Approved?":"yes"}' --expected-fingerprint 3f2a1c --json
 blowhorn content upsert --payload '{"Platform":"x","Profile":"kate","Message Text":"hello"}' --dry-run
 ```
 

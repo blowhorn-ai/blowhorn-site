@@ -85,11 +85,11 @@ outside the app, so replacing or updating the app keeps them.
 
 ## The `blowhorn` command
 
-The app also puts the command line on this computer. The first time it
+The app also puts the command line on this computer. Each time it
 opens, it writes two small launcher files, `blowhorn` and `blowhorn-axi`,
-into `~/.local/bin`, and asks once to add a marked block to your shell
-startup file (`.zshrc`, `.bashrc`, or the fish config) so that folder is on
-your `PATH`. Open a new terminal afterwards and `blowhorn --help` runs the
+into `~/.local/bin`. It does not ask to edit your shell startup files.
+If a PATH block was added before, the app keeps that block up to date.
+Open a new terminal afterwards and `blowhorn --help` runs the
 engine the app carries: the same engine, the same profiles and settings as
 the app, with nothing else to install.
 
@@ -98,9 +98,8 @@ the app, with nothing else to install.
   is not a way to remove the command: the app writes it again the next time
   it opens. To remove everything, see
   [Uninstall Blowhorn](/docs/how-to/manage/uninstall/).
-- If you decline the startup-file change, the launchers are still written;
-  the command then works by its full path, `~/.local/bin/blowhorn`, until
-  `~/.local/bin` is on your `PATH`.
+- Until `~/.local/bin` is on your `PATH`, the command works by its full
+  path, `~/.local/bin/blowhorn`. The app does not add that folder for you.
 - A file named `blowhorn` in `~/.local/bin` that Blowhorn did not write is
   never overwritten; the app says so and leaves it alone.
 

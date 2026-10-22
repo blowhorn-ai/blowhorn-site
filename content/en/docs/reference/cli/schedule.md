@@ -15,14 +15,14 @@ The `blowhorn schedule` commands. Each one's `--help` prints the same text.
 | [`schedule delete`](#blowhorn-schedule-delete) | Delete a scheduled action by number. |
 | [`schedule get`](#blowhorn-schedule-get) | Return a single scheduled action with all fields. |
 | [`schedule list`](#blowhorn-schedule-list) | List scheduled actions and whether they are currently due. |
-| [`schedule pause`](#blowhorn-schedule-pause) | Pause all scheduled processing: every tick keeps running but claims no rows until `blowhorn schedule resume`, and due times carry forward. |
-| [`schedule resume`](#blowhorn-schedule-resume) | Resume scheduled processing after `blowhorn schedule pause`; rows that fell due meanwhile run once, on the next tick. |
+| [`schedule pause`](#blowhorn-schedule-pause) | Pause all scheduled processing: every tick keeps running but claims no activities until `blowhorn schedule resume`, and due times carry forward. |
+| [`schedule resume`](#blowhorn-schedule-resume) | Resume scheduled processing after `blowhorn schedule pause`; activities that fell due meanwhile run once, on the next tick. |
 | [`schedule status`](#blowhorn-schedule-status) | Show whether processing is paused, the last tick's heartbeat, the estimated next tick, today's tick counts from the run ledger, and the scheduler LaunchAgent state. |
 | [`schedule tick`](#blowhorn-schedule-tick) | Run one scheduler polling pass against due scheduled actions, executing each through the same command routing the CLI uses and writing a per-job log under &lt;log-dir&gt;/scheduler/. |
 | [`schedule trigger-now`](#blowhorn-schedule-trigger-now) | Force a specific scheduled action to run immediately. |
 | [`schedule upsert`](#blowhorn-schedule-upsert) | Create or update a scheduled action from a JSON payload. |
 | [`schedule validate`](#blowhorn-schedule-validate) | Validate the schedule's actions against the supported schema. |
-| [`schedule why`](#blowhorn-schedule-why) | Explain why a scheduled row has or has not run on this machine, in the order the scheduler decides it. |
+| [`schedule why`](#blowhorn-schedule-why) | Explain why a scheduled activity has or has not run on this machine, in the order the scheduler decides it. |
 
 ## blowhorn schedule bootstrap
 
@@ -36,7 +36,7 @@ blowhorn schedule bootstrap [OPTIONS]
 | --- | --- | --- | --- |
 | `--replace` | boolean | `false` | Replace the current scheduled actions before writing sample ones |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule bootstrap` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -56,18 +56,18 @@ Output: json with `--json`, text otherwise.
 Delete a scheduled action by number.
 
 ```text
-blowhorn schedule delete [OPTIONS] row
+blowhorn schedule delete [OPTIONS] activity
 ```
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `row` | yes | Row number to delete |
+| `activity` | yes | Activity number to delete |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--expected-fingerprint` | string |  | Reject the delete if the current row fingerprint no longer matches |
+| `--expected-fingerprint` | string |  | Reject the delete if the current activity fingerprint no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -86,17 +86,17 @@ Output: json with `--json`, text otherwise.
 Return a single scheduled action with all fields.
 
 ```text
-blowhorn schedule get [OPTIONS] row
+blowhorn schedule get [OPTIONS] activity
 ```
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `row` | yes | Row number to inspect |
+| `activity` | yes | Activity number to inspect |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule get` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -120,9 +120,9 @@ blowhorn schedule list [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--due-only` | boolean | `false` | Show only rows that are currently due |
+| `--due-only` | boolean | `false` | Show only activities that are currently due |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule list` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -139,7 +139,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn schedule pause
 
-Pause all scheduled processing: every tick keeps running but claims no rows until `blowhorn schedule resume`, and due times carry forward. A job already running finishes first. Pausing has three scopes and a row is claimed only when none of them says paused: without a flag it is this machine only (a local file, never the store), `--all` is every machine sharing the store, and `--row` N is one scheduled row on every machine.
+Pause all scheduled processing: every tick keeps running but claims no activities until `blowhorn schedule resume`, and due times carry forward. A job already running finishes first. Pausing has three scopes and an activity is claimed only when none of them says paused: without a flag it is this machine only (a local file, never the store), `--all` is every machine sharing the store, and `--activity` N is one scheduled activity on every machine.
 
 ```text
 blowhorn schedule pause [OPTIONS]
@@ -148,10 +148,10 @@ blowhorn schedule pause [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--reason` | string |  | Short note stored with the pause and shown by `blowhorn schedule status` |
-| `--all` | boolean | `false` | Pause every machine sharing this store, not just this one: no machine claims a row until `blowhorn schedule resume --all`. Recorded in the store with who paused it and why, so every machine reports the same reason. Without this flag the pause is this machine only |
-| `--row` | integer |  | Pause one scheduled row instead of a whole machine: that job is claimed by nobody until `blowhorn schedule resume --row N`, and every other row keeps running everywhere. Distinct from setting the row's Enabled to no, which is an editorial state with no reason and no intent to resume |
+| `--all` | boolean | `false` | Pause every machine sharing this store, not just this one: no machine claims an activity until `blowhorn schedule resume --all`. Recorded in the store with who paused it and why, so every machine reports the same reason. Without this flag the pause is this machine only |
+| `--activity` | integer |  | Pause one scheduled activity instead of a whole machine: that job is claimed by nobody until `blowhorn schedule resume --activity N`, and every other activity keeps running everywhere. Distinct from setting the activity's Enabled to no, which is an editorial state with no reason and no intent to resume |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule pause` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -161,7 +161,7 @@ Examples:
 ```bash
 blowhorn schedule pause
 blowhorn schedule pause --all --reason "LinkedIn challenge on kate"
-blowhorn schedule pause --row 7
+blowhorn schedule pause --activity 7
 blowhorn schedule pause --reason "LinkedIn challenge on kate" --json
 ```
 
@@ -169,7 +169,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn schedule resume
 
-Resume scheduled processing after `blowhorn schedule pause`; rows that fell due meanwhile run once, on the next tick. The same three scopes: without a flag this machine's own pause is lifted, `--all` lifts the pause every machine sharing the store honours, and `--row` N lifts one paused action. Lifting one scope leaves the other two as they were.
+Resume scheduled processing after `blowhorn schedule pause`; activities that fell due meanwhile run once, on the next tick. The same three scopes: without a flag this machine's own pause is lifted, `--all` lifts the pause every machine sharing the store honours, and `--activity` N lifts one paused action. Lifting one scope leaves the other two as they were.
 
 ```text
 blowhorn schedule resume [OPTIONS]
@@ -178,9 +178,9 @@ blowhorn schedule resume [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--all` | boolean | `false` | Lift the pause every machine sharing this store honours, the one `blowhorn schedule pause --all` set. This machine's own pause and any paused action stay as they are |
-| `--row` | integer |  | Let one held scheduled row be claimed again, on every machine, the one `blowhorn schedule pause --row N` held. Every other scope stays as it is |
+| `--activity` | integer |  | Let one held scheduled activity be claimed again, on every machine, the one `blowhorn schedule pause --activity N` held. Every other scope stays as it is |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule resume` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -190,7 +190,7 @@ Examples:
 ```bash
 blowhorn schedule resume
 blowhorn schedule resume --all
-blowhorn schedule resume --row 7
+blowhorn schedule resume --activity 7
 blowhorn schedule resume --json
 ```
 
@@ -207,7 +207,7 @@ blowhorn schedule status [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule status` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -231,10 +231,10 @@ blowhorn schedule tick [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--limit` | integer | `0` | Maximum number of due rows to process; 0 means no limit |
+| `--limit` | integer | `0` | Maximum number of due activities to process; 0 means no limit |
 | `--ignore-pause` | boolean | `false` | Run even while `blowhorn schedule pause` is in effect; without it a paused scheduler claims nothing |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Pace handed to every action `blowhorn schedule tick` runs in-process this pass -- the random delays between that action's browser or API steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -252,21 +252,21 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn schedule trigger-now
 
-Force a specific scheduled action to run immediately. While `blowhorn schedule pause` is in effect the row is not run and the command exits 1, unless `--ignore-pause` is passed. Browser visibility comes from the job: its own headless=/headed= params, then the environment, then Settings.
+Force a specific scheduled action to run immediately. While `blowhorn schedule pause` is in effect the activity is not run and the command exits 1, unless `--ignore-pause` is passed. Browser visibility comes from the job: its own headless=/headed= params, then the environment, then Settings.
 
 ```text
-blowhorn schedule trigger-now [OPTIONS] row
+blowhorn schedule trigger-now [OPTIONS] activity
 ```
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `row` | yes | Row number to execute |
+| `activity` | yes | Activity number to execute |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--ignore-pause` | boolean | `false` | Run even while `blowhorn schedule pause` is in effect; without it a paused scheduler claims nothing |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Pace handed to every action `blowhorn schedule trigger-now` runs in-process this pass -- the random delays between that action's browser or API steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -283,7 +283,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn schedule upsert
 
-Create or update a scheduled action from a JSON payload. Giving a completed or failed row a new Next Run At, or a Run At that changes, schedules it again in place with a fresh retry budget (Status scheduled, Retry Count 0; its last run and last error are kept); raising Max Retries alone does not.
+Create or update a scheduled action from a JSON payload. Giving a completed or failed activity a new Next Run At, or a Run At that changes, schedules it again in place with a fresh retry budget (Status scheduled, Retry Count 0; its last run and last error are kept); raising Max Retries alone does not.
 
 ```text
 blowhorn schedule upsert [OPTIONS]
@@ -292,10 +292,10 @@ blowhorn schedule upsert [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--payload` | string |  | JSON object representing scheduled action fields |
-| `--row` | integer |  | Row number to update; omit to create a new row |
-| `--expected-fingerprint` | string |  | Reject the write if the current row fingerprint no longer matches |
+| `--activity` | integer |  | Activity number to update; omit to create a new activity |
+| `--expected-fingerprint` | string |  | Reject the write if the current activity fingerprint no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule upsert` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -304,9 +304,9 @@ Examples:
 
 ```bash
 blowhorn schedule upsert --payload '{"Command":"report","Profile":"all","Run At":"2026-03-12 08:00:00"}' --json
-blowhorn schedule upsert --row 7 --payload '{"Run At":"2026-03-13 08:00:00"}' --json
-blowhorn schedule upsert --row 4 --payload '{"Next Run At":"2026-10-20 09:00:00"}' --json
-blowhorn schedule upsert --row 7 --payload '{"Enabled":"FALSE"}' --expected-fingerprint 3f2a1c --json
+blowhorn schedule upsert --activity 7 --payload '{"Run At":"2026-03-13 08:00:00"}' --json
+blowhorn schedule upsert --activity 4 --payload '{"Next Run At":"2026-10-20 09:00:00"}' --json
+blowhorn schedule upsert --activity 7 --payload '{"Enabled":"FALSE"}' --expected-fingerprint 3f2a1c --json
 ```
 
 Output: json with `--json`, text otherwise.
@@ -322,7 +322,7 @@ blowhorn schedule validate [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule validate` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
@@ -338,20 +338,20 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn schedule why
 
-Explain why a scheduled row has or has not run on this machine, in the order the scheduler decides it: whether the row is enabled and valid, whether anything is pausing it (the row itself, this machine, or every machine), whether it is due, whether another machine holds the claim and when that lease expires, whether this machine can reach the store and when it last ticked, and what the run history says happened the last time it ran. Reads only -- it claims nothing, runs nothing and changes nothing, so it is safe against a row that is mid-flight.
+Explain why a scheduled activity has or has not run on this machine, in the order the scheduler decides it: whether the activity is enabled and valid, whether anything is pausing it (the activity itself, this machine, or every machine), whether it is due, whether another machine holds the claim and when that lease expires, whether this machine can reach the store and when it last ticked, and what the run history says happened the last time it ran. Reads only -- it claims nothing, runs nothing and changes nothing, so it is safe against an activity that is mid-flight.
 
 ```text
-blowhorn schedule why [OPTIONS] row
+blowhorn schedule why [OPTIONS] activity
 ```
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `row` | yes | The scheduled action's number to explain (the same number `blowhorn schedule list` prints) |
+| `activity` | yes | The scheduled action's number to explain (the same number `blowhorn schedule list` prints) |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled rows this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled row is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule why` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.

@@ -6,11 +6,13 @@ weight: 33
 
 
 The guided setup opens by itself the first time you open Blowhorn, and every
-time after that until you finish it. If you quit partway, it picks up at the
-step you left. If you set Blowhorn up before this setup existed, it doesn't
-open by itself; the lock below still applies. Updating alone never opens it
-again; it reopens by itself, from the first step, only when a new version of
-Blowhorn needs something your earlier setup did not do.
+time after that until you finish it. If you quit partway and you are still
+signed in, it picks up at the step you left. If you are not signed in, it
+starts at Welcome. Uninstalling removes that progress with the sign-in, so
+the next open is a first run. If you set Blowhorn up before this setup
+existed and you are still signed in, it doesn't open by itself. Updating
+alone never opens it again; it reopens by itself, from the first step, only
+when a new version of Blowhorn needs something your earlier setup did not do.
 
 - **Welcome:** Major Blowhorn reports for duty. Nothing is changed yet.
 - **Sign in:** sign in to your Blowhorn account, or choose **Create account**.
@@ -74,13 +76,15 @@ until you remove it there yourself (in that profile, open
 again, never maps that profile, and its being ready there counts for
 nothing here.
 
-## The rest of the app unlocks after Getting ready
+## The rest of the app stays limited until Getting ready
 
-- **Locked until then:** the rail's places, New activity, platforms, the queue
-  and Settings stay locked until you're signed in and the extension is ready.
-  The locked screen says what's missing and has a **Back to setup** link. The
-  account button at the foot of the rail stays usable, so you can still sign
-  out or open the docs.
+- **Limited until then:** the rail's places other than Home, and New activity,
+  stay locked until you're signed in and the extension is ready. Home, and
+  any place you already opened, stay on screen. There is no separate training
+  page. While the guided setup is open, sign in from the sign-in step. After
+  setup, if you are signed out, **Sign in** at the foot of the rail opens the
+  guided setup. When you are signed in, the account button stays usable, so
+  you can still sign out or open the docs.
 - **It checks for real:** the lock reads your actual sign-in and extension
   state each time you come back to the window, so signing out later locks it
   again until you sign back in. The extension counts as ready once it's

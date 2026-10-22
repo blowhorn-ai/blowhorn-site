@@ -12,7 +12,7 @@ The `blowhorn service` commands. Each one's `--help` prints the same text.
 | Command | What it does |
 | --- | --- |
 | [`service adopt`](#blowhorn-service-adopt) | Retire what stands in one owner's way so one owner holds the label: with `--by` app, the file-installed service. |
-| [`service cancel`](#blowhorn-service-cancel) | Ask the running background service to stop its pass at the next safe point; the row in progress returns to the queue. |
+| [`service cancel`](#blowhorn-service-cancel) | Ask the running background service to stop its pass at the next safe point; the activity in progress returns to the queue. |
 | [`service install`](#blowhorn-service-install) | Install the background service as a per-user LaunchAgent on a machine without the desktop app. |
 | [`service restart`](#blowhorn-service-restart) | Restart the background service between passes, so it picks up a changed checkout. |
 | [`service run`](#blowhorn-service-run) | Run the background service in this terminal: a pass every ten minutes until stopped. |
@@ -52,7 +52,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn service cancel
 
-Ask the running background service to stop its pass at the next safe point; the row in progress returns to the queue.
+Ask the running background service to stop its pass at the next safe point; the activity in progress returns to the queue.
 
 ```text
 blowhorn service cancel [OPTIONS]

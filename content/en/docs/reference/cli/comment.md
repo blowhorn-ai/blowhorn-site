@@ -1,7 +1,7 @@
 ---
 title: "blowhorn comment"
 linkTitle: "comment"
-description: "Post LinkedIn, Reddit, or Bluesky comments from scheduled rows or ad-hoc target/message flags."
+description: "Post LinkedIn, Reddit, or Bluesky comments from scheduled activities or ad-hoc target/message flags."
 weight: 104
 ---
 
@@ -9,7 +9,7 @@ weight: 104
 
 ## blowhorn comment
 
-Post LinkedIn, Reddit, or Bluesky comments from scheduled rows or ad-hoc target/message flags.
+Post LinkedIn, Reddit, or Bluesky comments from scheduled activities or ad-hoc target/message flags.
 
 ```text
 blowhorn comment [OPTIONS]
