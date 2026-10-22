@@ -28,7 +28,7 @@ Blowhorn needs something your earlier setup did not do.
   the next step installs into, and a profile you mark not in use is left
   alone. On **Confirm**, Blowhorn creates the profiles you marked in use,
   saves the handles (and a GitHub token or Bluesky app password you type
-  on the row), and maps each of those Chrome profiles. A profile you mark
+  on the activity), and maps each of those Chrome profiles. A profile you mark
   not in use is recorded that way: its mapping on this computer is
   removed, and a run of every profile skips it. A profile you had already
   excluded stays excluded. Marking it in use again removes that skip only

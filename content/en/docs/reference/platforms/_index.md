@@ -104,7 +104,7 @@ them, and each page will list its actions once it ships.
 
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
 - [Post to Hacker News](/docs/how-to/publish/post-to-hacker-news/) - the strictest platform, worked.
-- [Content queue columns and row states](/docs/reference/content-queue/) - every column each platform reads.
+- [Content queue columns and activity states](/docs/reference/content-queue/) - every column each platform reads.
 - [Messages and exit codes](/docs/reference/messages/) - what a refusal means.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.

@@ -13,7 +13,7 @@ Start from what you saw. Each symptom names its fix page.
   not reach X's editor, so the run stops before anything is typed and tells
   you to rerun with `--chrome-launch persistent`. See [Post to X when it will
   not confirm](/docs/how-to/troubleshoot/x-posting/).
-- **The run clicked Post but read nothing after it.** The row says `clicked,
+- **The run clicked Post but read nothing after it.** The activity says `clicked,
   outcome not read`: check the platform, then clear the date or leave it. See
   [Settle something Blowhorn could not confirm](/docs/how-to/troubleshoot/clicked-not-confirmed/).
 
@@ -48,7 +48,7 @@ Start from what you saw. Each symptom names its fix page.
   `blowhorn chrome extension-status`. See [Fix the Chrome extension
   connection](/docs/how-to/troubleshoot/extension-connection/).
 - **Another run holds the bridge or the profile.** Wait for it, or stop it;
-  your rows stay queued. See [Fix the Chrome extension
+  your activities stay queued. See [Fix the Chrome extension
   connection](/docs/how-to/troubleshoot/extension-connection/).
 - **A run refuses an unmapped profile, or asks for an allow dialog you cannot
   see.** Check the mapping, or switch mode for that run. See [Choose how
@@ -56,8 +56,8 @@ Start from what you saw. Each symptom names its fix page.
 
 ## Schedule and store
 
-- **A job did not run.** Ask the row directly: `blowhorn schedule why
-  <row>`. See [Find out why a job did not run](/docs/how-to/schedule/why-not-run/).
+- **A job did not run.** Ask the activity directly: `blowhorn schedule why
+  <activity>`. See [Find out why a job did not run](/docs/how-to/schedule/why-not-run/).
 - **Nothing is claimed on this computer.** You may be paused. See [Pause and
   resume posting](/docs/how-to/schedule/pause/).
 - **Every account-backed command exits 3 saying your account is unavailable.**
@@ -69,6 +69,6 @@ Start from what you saw. Each symptom names its fix page.
 
 ## Related
 
-- [Find out why a job did not run](/docs/how-to/schedule/why-not-run/) - one row's state in one command
-- [Settle something Blowhorn could not confirm](/docs/how-to/troubleshoot/clicked-not-confirmed/) - the held-row procedure
+- [Find out why a job did not run](/docs/how-to/schedule/why-not-run/) - one activity's state in one command
+- [Settle something Blowhorn could not confirm](/docs/how-to/troubleshoot/clicked-not-confirmed/) - the held-activity procedure
 - [Change your defaults](/docs/how-to/settings/defaults/) - pace, excluded profiles, logs

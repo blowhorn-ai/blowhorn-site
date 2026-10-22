@@ -56,7 +56,7 @@ in `.blowhorn.chrome-not-in-use.json` beside your config, and a run on this
 computer skips that account. Marking that account in use later clears the
 skip for the Blowhorn profile, including a refusal recorded on another
 Chrome profile. The credential stays.
-The next time you open Confirm troops, those rows start unchecked.
+The next time you open Confirm troops, those activities start unchecked.
 
 The survey behind the step is `blowhorn chrome discover`, and the apply is
 `blowhorn chrome confirm`, which reads the confirmed assignments as JSON
@@ -113,12 +113,12 @@ chrome mapping proposal for studio (3 profiles); nothing is applied
   ada      Profile 2  Ada    ada@example.com     name match
   grace    Profile 5  Grace  grace@example.com   name match
   marcus       -          -      -                   none
-to apply a row you agree with:
+to apply an activity you agree with:
   blowhorn chrome map ada 'Profile 2'
   blowhorn chrome map grace 'Profile 5'
 ```
 
-A row is proposed when exactly one Chrome profile's display name matches
+An activity is proposed when exactly one Chrome profile's display name matches
 the Blowhorn profile's name (case and punctuation ignored). Two matches are
 named as ambiguous and nothing is proposed; no match is `none`; a profile
 that already has a mapping keeps it and says so. The command applies
@@ -155,7 +155,7 @@ on that profile. See [Pairing](/docs/reference/chrome/#pairing).
 
 Quote a directory name that contains a space. Add `--dry-run` to run the
 checks and record nothing (and open no pairing page); add `--json` for the
-recorded row and the pairing result as JSON.
+recorded activity and the pairing result as JSON.
 
 A profile can have more than one Chrome profile on a computer, for example
 Work and Personal signed in to different accounts. Mapping another directory

@@ -5,7 +5,7 @@ weight: 105
 ---
 
 
-Queue posts for Reddit and Bluesky from content rows, then publish them
+Queue posts for Reddit and Bluesky from content activities, then publish them
 with `blowhorn post`.
 
 ## Reddit: post to a subreddit
@@ -19,12 +19,12 @@ blowhorn post --platform reddit --profile kate --dry-run
 blowhorn post --platform reddit --profile kate
 ```
 
-A title longer than 300 characters is cut short with a warning. A row
+A title longer than 300 characters is cut short with a warning. An activity
 with no subreddit in `Destination` or `Amplify` is skipped with an error
-naming the row.
+naming the activity.
 
-A comment on a thread is a `Comment on` row, and an upvote is an
-`Amplify` row; both are on their own pages.
+A comment on a thread is a `Comment on` activity, and an upvote is an
+`Amplify` activity; both are on their own pages.
 
 ## Bluesky: post and thread
 
@@ -39,10 +39,10 @@ blowhorn post --platform bluesky --profile kate
 
 A thread that stops part-way is recorded with what landed and never
 retried: re-running it would post the landed part twice. Read the run's
-`!!!` line before you touch that row again.
+`!!!` line before you touch that activity again.
 
-A row with `Image URL` attaches that file. A comment on a post is a
-`Comment on` row, on its own page.
+An activity with `Image URL` attaches that file. A comment on a post is a
+`Comment on` activity, on its own page.
 
 ## Bluesky: repost
 
@@ -53,7 +53,7 @@ blowhorn content upsert --payload '{"Platform":"bluesky","Profile":"kate","Ampli
 ```
 
 Unlike LinkedIn reposts, a Bluesky repost is not guarded against a second
-run: once the row is done, leave `Date Promoted` alone.
+run: once the activity is done, leave `Date Promoted` alone.
 
 ## Related
 

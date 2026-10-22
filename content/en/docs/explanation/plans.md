@@ -34,7 +34,7 @@ while your account is unreachable; past that, publishing refuses until the
 connection returns. Nothing else changes
 offline: reading the queue, dry runs, and reports never needed the
 plan and never ask for it. A lapse therefore reads as "not entitled,
-reconnect", never as lost work: the rows wait, the ledger waits, and
+reconnect", never as lost work: the activities wait, the ledger waits, and
 the next connected run carries on where the last one stopped.
 
 ## Related

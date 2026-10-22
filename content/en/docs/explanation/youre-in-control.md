@@ -32,7 +32,7 @@ Here is how that is enforced today:
   lock on that profile and platform on this computer. A second run that wants
   the same profile on the same platform is refused with "profile ... is
   in use by another blowhorn process; wait for it to finish or stop it",
-  and its rows stay in the queue for the next pass. The lock is the same
+  and its activities stay in the queue for the next pass. The lock is the same
   whichever way Blowhorn reaches Chrome.
 - **Scheduled work runs one job at a time.** The background service runs
   one pass at a time, and a pass works through its jobs one after
@@ -78,10 +78,10 @@ not what a platform will decide.
 
 ## Will it post something I didn't mean to?
 
-- **Nothing goes out unapproved.** A content row is published only when
+- **Nothing goes out unapproved.** A content activity is published only when
   its `Approved?` column reads `yes` or `true`. Anything else is a draft.
-- **A row never widens.** A blank or unknown `Profile` is refused, never
-  read as "everybody". A row with `Comment on` set can only ever be a
+- **An activity never widens.** A blank or unknown `Profile` is refused, never
+  read as "everybody". An activity with `Comment on` set can only ever be a
   comment.
 - **Rehearse first.** `--check-queue` lists what a run would do, and
   `--dry-run` walks it end to end without publishing, following or
@@ -95,13 +95,13 @@ not what a platform will decide.
 
 - **One click per run.** The send control is clicked a single time.
 - **"Clicked, outcome not read" is not a retry.** When Blowhorn clicked
-  but could not read a confirmation, the row is recorded as clicked and
+  but could not read a confirmation, the activity is recorded as clicked and
   held for you. It is neither sent again nor marked done.
 - **One computer per job.** Every computer sharing your organization's queue claims
   a scheduled job before it runs it, under a lease, so two computers can't
   run the same job at once.
 - **Done is recorded per profile.** `Date Promoted` records when each
-  profile published a row, so the next run skips it.
+  profile published an activity, so the next run skips it.
 
 Read more in [How Blowhorn avoids repeat posts](/docs/explanation/never-twice/).
 
@@ -111,7 +111,7 @@ Read more in [How Blowhorn avoids repeat posts](/docs/explanation/never-twice/).
   Blowhorn read it back. It never records the page it started on as the
   new post.
 - **Hacker News is held to its own rules.** Titles over 80 characters
-  fail the row rather than being cut, Blowhorn never votes there, and a
+  fail the activity rather than being cut, Blowhorn never votes there, and a
   rate-limited run waits rather than retrying.
 - **Your words, unchanged.** Blowhorn's actions on these platforms are
   scripted, not written by AI. It types the text in your queue.
@@ -127,7 +127,7 @@ keep `Approved?` as your gate, and pause any scope the moment something
 looks off. Lifting a pause takes `blowhorn schedule resume`, or an
 explicit `--ignore-pause` on a single run.
 
-<!-- Video placeholder: "Handing approval to an AI agent". An agent queues rows, dry-runs them, and a pause stops the next claim. -->
+<!-- Video placeholder: "Handing approval to an AI agent". An agent queues activities, dry-runs them, and a pause stops the next claim. -->
 
 ## Every control, and where it lives
 
@@ -135,9 +135,9 @@ explicit `--ignore-pause` on a single run.
 |---|---|---|---|
 | Dry run | Walks a run without publishing, following or writing | `--dry-run` on every action command; `defaults.dry_run`; Settings in the app | [Configuration](/docs/reference/configuration/), [`blowhorn post`](/docs/reference/post/) |
 | Check the queue | Lists what a run would do, opening nothing | `blowhorn post --check-queue` | [`blowhorn post`](/docs/reference/post/) |
-| Approval gate | Only approved rows are published | The `Approved?` column of each content row | [Content queue](/docs/reference/content-queue/) |
-| Pause | Stops new claims on this computer, every computer, or one scheduled job | `blowhorn schedule pause`, with `--all` or `--row`; the pause controls in the app's popover and console | [Pause and resume posting](/docs/how-to/schedule/pause/) |
-| Stop the current pass | Ends the background service's pass at its next safe point; the row in progress returns to the queue | `blowhorn service cancel` | [CLI reference](/docs/reference/cli/) |
+| Approval gate | Only approved activities are published | The `Approved?` column of each content activity | [Content queue](/docs/reference/content-queue/) |
+| Pause | Stops new claims on this computer, every computer, or one scheduled job | `blowhorn schedule pause`, with `--all` or `--activity`; the pause controls in the app's popover and console | [Pause and resume posting](/docs/how-to/schedule/pause/) |
+| Stop the current pass | Ends the background service's pass at its next safe point; the activity in progress returns to the queue | `blowhorn service cancel` | [CLI reference](/docs/reference/cli/) |
 | Pace | How fast Blowhorn types and how long it pauses between actions | `--pace fast`, `normal`, `slow` or a number; `defaults.pace`; Settings in the app | [Change your defaults](/docs/how-to/settings/defaults/) |
 | Pointer movement | Turns the pointer movement before clicks on or off | `defaults.no_mouse_move`; Settings in the app | [Configuration](/docs/reference/configuration/) |
 | Run size | Caps how many people a follow or accept run takes on, and how many jobs a pass runs | `--limit` on `follow`, `accept` and `schedule tick` | [CLI reference](/docs/reference/cli/) |

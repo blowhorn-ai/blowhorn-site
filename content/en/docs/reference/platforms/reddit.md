@@ -7,8 +7,8 @@ weight: 227
 
 Blowhorn works on Reddit in your own signed-in Chrome, through the Blowhorn extension. Sign in to Reddit there once, by hand. The credential Blowhorn checks is `RDDT_USERNAME`.
 
-Posts to the subreddit the row's "Destination" names as `r/<name>`; with
-no subreddit the row is skipped, never guessed. Comments when "Comment
+Posts to the subreddit the activity's "Destination" names as `r/<name>`; with
+no subreddit the activity is skipped, never guessed. Comments when "Comment
 on" holds a Reddit post or comment address. Amplifies with an upvote.
 
 ## Supported actions
@@ -19,14 +19,14 @@ on" holds a Reddit post or comment address. Amplifies with an upvote.
 
 Posting needs the subreddit in "Destination" or, for an upvote, in
 "Amplify". Commenting needs a Reddit address in "Comment on" plus a
-"Message Text". Both `post` and `comment` act on comment rows; a row
+"Message Text". Both `post` and `comment` act on comment activities; an activity
 already marked done is never acted on twice.
 
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
-- [Content queue columns and row states](/docs/reference/content-queue/) - every column each platform reads.
+- [Content queue columns and activity states](/docs/reference/content-queue/) - every column each platform reads.
 - [Messages and exit codes](/docs/reference/messages/) - what a refusal means.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.

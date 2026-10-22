@@ -6,7 +6,7 @@ aliases: [/docs/how-to/post-content/]
 ---
 
 
-Publish the rows waiting in the content queue.
+Publish the activities waiting in the content queue.
 
 ## Check what a run would pick up
 
@@ -22,7 +22,7 @@ blowhorn post --check-queue --profile marcus --platform linkedin
 ## Publish the queue
 
 ```bash
-blowhorn post --profile marcus                       # every platform with pending rows
+blowhorn post --profile marcus                       # every platform with pending activities
 blowhorn post --platform linkedin --profile marcus --headless   # unattended: a background window, never headless
 blowhorn post --profile all --exclude marcus,kanvas  # fan out, holding profiles back
 ```
@@ -33,7 +33,7 @@ profiles: …` when it does. To post as one of them, name it:
 `--profile marcus`.
 
 Rehearse first whenever the result matters. A dry run goes end to end
-without publishing and without marking the row done:
+without publishing and without marking the activity done:
 
 ```bash
 blowhorn post --profile marcus --dry-run
@@ -46,11 +46,11 @@ the submit.
 ## Amplify or reply from the command line
 
 On X and Reddit, `--amplify` with the post URL amplifies it for this run
-(retweet, quote, or upvote), overriding the row's `Amplify` column.
-Replies ride on the row's `Comment on` column with `Message Text`. The full
+(retweet, quote, or upvote), overriding the activity's `Amplify` column.
+Replies ride on the activity's `Comment on` column with `Message Text`. The full
 forms are [Amplify an existing post](/docs/how-to/publish/amplify-a-post/) and
 [Reply to a post](/docs/how-to/publish/reply-to-a-post/). GitHub amplify and the one-off
-Slack message need no row at all; each has its own page.
+Slack message need no activity at all; each has its own page.
 
 ## Slow a long unattended run down
 
@@ -63,27 +63,27 @@ blowhorn post --profile all --pace slow
 
 ## Attaching an image to a LinkedIn post
 
-A row that fills `Image URL`, `GDrive Link`, or `Video URL` attaches that
+An activity that fills `Image URL`, `GDrive Link`, or `Video URL` attaches that
 file to the post. Two things are worth knowing when such a post fails:
 
-- A row whose text holds a URL and an image keeps the image: Blowhorn
+- An activity whose text holds a URL and an image keeps the image: Blowhorn
   removes the link preview LinkedIn generates first, because the preview
-  takes the slot the image needs. A row with a URL and no image keeps its
+  takes the slot the image needs. An activity with a URL and no image keeps its
   preview.
 - A post never goes out without the image it asked for. If the file cannot
-  be attached, the row fails and stays pending for a later run. Re-run once
+  be attached, the activity fails and stays pending for a later run. Re-run once
   the cause is understood rather than filling in `Date Promoted` to silence
   it.
 
 ## Related
 
 - [Manage the content queue](/docs/how-to/publish/manage-the-content-worksheet/) - adding and
-  editing the rows a run reads.
+  editing the activities a run reads.
 - [Amplify an existing post](/docs/how-to/publish/amplify-a-post/) - reposts, retweets,
   upvotes, GitHub reactions.
 - [Reply to a post](/docs/how-to/publish/reply-to-a-post/) - comments and replies.
 - [Send a Slack message](/docs/how-to/publish/send-a-slack-message/) - the one-off message
-  that needs no row.
+  that needs no activity.
 - [`blowhorn post` reference](/docs/reference/post/) - what
   "pending" means, and what a run writes back.
 - [You're in control](/docs/explanation/youre-in-control/) - what stops a run going wrong

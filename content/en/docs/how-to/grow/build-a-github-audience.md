@@ -7,7 +7,7 @@ weight: 126
 
 List the people around one or more repositories into your account with
 `blowhorn source --platform github`: stargazers unless you name another
-audience, one stored row per login. It does not follow, connect, or send
+audience, one stored activity per login. It does not follow, connect, or send
 mail. The run lists with the profile's stored `GH_TOKEN`.
 
 ```bash

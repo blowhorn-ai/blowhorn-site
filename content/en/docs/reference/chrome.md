@@ -375,7 +375,7 @@ It reads only this allowlist, and nothing else in Chrome's directory:
 No history, no LevelDB, no other profile file. A database Chrome has
 locked or that does not parse reads as "not found", never as an error.
 
-The text form prints one row per profile: its identity, its mapping, and
+The text form prints one activity per profile: its identity, its mapping, and
 one line per platform (`username`, `signed in`, or `-`). With `--json`
 each profile also carries `resolution` - how its Google email resolves
 against your account's users, under the same rule as profile creation:
@@ -422,7 +422,7 @@ credentials are kept. `attach: false` on a platform records that account
 not in use in `.blowhorn.chrome-not-in-use.json` beside the config file.
 The credential is kept, and a later run on this computer skips that
 account. Marking the profile in use again removes the name from
-`defaults.exclude`. Omitting `in_use` applies only the attached rows, as
+`defaults.exclude`. Omitting `in_use` applies only the attached activities, as
 an older document does. `chrome discover` reports `in_use` on the profile
 and on each platform, so the next confirm screen can start a recorded
 choice unchecked.
@@ -442,7 +442,7 @@ opens the session it takes a lock keyed by profile and platform, under
 every launch mode. A second run that wants the same profile on the same
 platform is refused with "profile `<name>` on `<platform>` is in use by
 another blowhorn process; wait for it to finish or stop it": that profile
-is skipped, its rows stay queued, and a scheduled job leaves it for the
+is skipped, its activities stay queued, and a scheduled job leaves it for the
 next pass. Different profiles, or different platforms of one profile,
 can run side by side. See [You're in control](/docs/explanation/youre-in-control/).
 

@@ -9,7 +9,7 @@ Blowhorn works on Slack through Slack's API, never the browser, and sends as you
 
 Sends a message as you to a channel, a person, or a thread. One
 profile sends. `blowhorn post --platform slack --message` sends one
-ad-hoc message with no queue row.
+ad-hoc message with no queue activity.
 
 ## Supported actions
 
@@ -17,9 +17,9 @@ ad-hoc message with no queue row.
 
 ## Slack messages
 
-Send from a queue row or ad hoc. A row sends to its own target; `--message`
-with `--target` sends one message you type, with no row read or marked
-done, and `--target` redirects the run's queued Slack rows. The target
+Send from a queue activity or ad hoc. An activity sends to its own target; `--message`
+with `--target` sends one message you type, with no activity read or marked
+done, and `--target` redirects the run's queued Slack activities. The target
 is a `#channel`, `@user`, channel id, channel link, or message link for
 a thread reply; anything else is refused, never sent somewhere else.
 One profile sends a `post` run, named with `--profile`; the profile from
@@ -40,7 +40,7 @@ Slack reads.
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
 - [Send a Slack message](/docs/how-to/publish/send-a-slack-message/) - Slack, worked.
-- [Content queue columns and row states](/docs/reference/content-queue/) - every column each platform reads.
+- [Content queue columns and activity states](/docs/reference/content-queue/) - every column each platform reads.
 - [Messages and exit codes](/docs/reference/messages/) - what a refusal means.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.

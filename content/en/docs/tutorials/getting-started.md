@@ -69,7 +69,7 @@ blowhorn profile status
 This opens no browser and calls no platform; its one read beyond your
 checkout is your account's credentials. What it reports rests on one rule worth knowing
 now: a profile may act on a platform when a **credential** for that platform
-exists in your account, and never because a handle appears in its roster row.
+exists in your account, and never because a handle appears in its roster activity.
 That is deliberate - [Eligibility](/docs/explanation/eligibility/) explains why.
 
 ## 3. Look at the queue without touching it {#section-3-look-at-the-queue-without-touching-it}
@@ -82,7 +82,7 @@ blowhorn post --check-queue
 ```
 
 Nothing is published and nothing is written back - this command only reads,
-opens no browser and contacts no platform. You will see the pending rows for
+opens no browser and contacts no platform. You will see the pending activities for
 each profile in scope.
 
 Narrow it to one profile and one platform:
@@ -99,16 +99,16 @@ Now run the posting command itself, in rehearsal mode:
 blowhorn post --profile alex --dry-run
 ```
 
-Watch what it prints. It resolves the profile, selects rows, opens the flow
+Watch what it prints. It resolves the profile, selects activities, opens the flow
 for each one, and reports what it *would* have published - then stops. The
-rows are not marked done, so the same rows are still pending afterwards.
+activities are not marked done, so the same activities are still pending afterwards.
 Confirm that:
 
 ```bash
 blowhorn post --check-queue --profile alex
 ```
 
-The same rows are still there. Nothing you have done so far has changed
+The same activities are still there. Nothing you have done so far has changed
 anything outside your terminal.
 
 ## 5. Slow it down {#section-5-slow-it-down}
@@ -134,5 +134,5 @@ reads, and `--dry-run` stops before it publishes.
 - [Post content](/docs/how-to/publish/post-content/) - when you are ready to publish for
   real.
 - [Manage the content queue](/docs/how-to/publish/manage-the-content-worksheet/) -
-  putting rows in the queue.
+  putting activities in the queue.
 - [CLI reference](/docs/reference/cli/) - every command and flag.

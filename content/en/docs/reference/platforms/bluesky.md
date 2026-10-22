@@ -8,9 +8,9 @@ weight: 230
 Blowhorn works on Bluesky through Bluesky's API, never the browser. It uses `BLUESKY_HANDLE` with `BLUESKY_APP_PASSWORD`: an app password, not your main password.
 
 Posts up to 300 characters per post; longer messages split into
-threads. Reposts for amplify rows. Follows with `blowhorn follow`,
+threads. Reposts for amplify activities. Follows with `blowhorn follow`,
 unfollows one account with `blowhorn unfollow`, searches posts with
-`blowhorn find`. Analytics appends a follower and following trend row
+`blowhorn find`. Analytics appends a follower and following trend activity
 per run.
 
 ## Supported actions
@@ -21,7 +21,7 @@ per run.
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
-- [Content queue columns and row states](/docs/reference/content-queue/) - every column each platform reads.
+- [Content queue columns and activity states](/docs/reference/content-queue/) - every column each platform reads.
 - [Messages and exit codes](/docs/reference/messages/) - what a refusal means.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.

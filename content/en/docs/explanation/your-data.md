@@ -24,7 +24,7 @@ log directory. The account connection file lives outside the engine's folder at
 mode 0600. A plan attestation, once fetched, is kept in your keychain
 for the offline grace.
 
-In your account: the content rows, the schedule, the
+In your account: the content activities, the schedule, the
 profiles, the ledgers, the run history, and the analytics. Keeping them
 in one account is what lets you install Blowhorn on any number of computers,
 your own or your teammates', and run them as one: every computer works from

@@ -25,16 +25,16 @@ Chrome profile you already use, on the sites Blowhorn acts on. It makes
 no requests of its own.
 
 The background service is what runs the schedule while the app is
-closed: one pass every ten minutes claiming the rows that are due.
+closed: one pass every ten minutes claiming the activities that are due.
 Quitting the app never pauses it; pausing is explicit, per computer,
-per organization, or per row.
+per organization, or per activity.
 
-Your account is what the parts share: the content rows, the schedule, the profiles and their credentials, the ledgers, and the run history, kept in sync for every computer you sign in on. Your computer holds the app, the engine, and your Chrome sessions; your account keeps everything the computers share.
+Your account is what the parts share: the content activities, the schedule, the profiles and their credentials, the ledgers, and the run history, kept in sync for every computer you sign in on. Your computer holds the app, the engine, and your Chrome sessions; your account keeps everything the computers share.
 
-A post travels this path: a row in the queue, approved and due; a run
-acting as the row's profile; the platform reached through your Chrome
-or its API; the outcome written back to the row and the ledger. Any
-step the run cannot confirm stops the run instead of guessing: the row
+A post travels this path: an activity in the queue, approved and due; a run
+acting as the activity's profile; the platform reached through your Chrome
+or its API; the outcome written back to the activity and the ledger. Any
+step the run cannot confirm stops the run instead of guessing: the activity
 reads clicked, outcome not read, and waits for you.
 
 ## Related

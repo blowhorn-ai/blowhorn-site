@@ -13,7 +13,7 @@ LinkedIn tiles count the page: total followers, new followers over 30
 days, impressions, and reactions, each read from the page's own
 analytics export during collection. LinkedIn collects for one profile
 at a time; a run asked for all profiles says so and collects none for
-LinkedIn. X and Bluesky append one follower and following trend row
+LinkedIn. X and Bluesky append one follower and following trend activity
 each per run instead of tiles: two counts and a timestamp, growing the
 CSV history the report reads.
 
@@ -28,14 +28,14 @@ reason: a count without a date is decoration.
 
 A dry run prints the tile shapes with no values, proving the shape of
 the read without touching a platform. Bluesky page-style tiles do not
-exist: Bluesky gives the trend row, and asking the tiles for more
+exist: Bluesky gives the trend activity, and asking the tiles for more
 would be inventing numbers the platform never showed.
 
 An activity's result keeps the same line. Its delivery is measured: the
 recorded promotion stamp and link, and the run that ended just after the
 stamp, which names the computer and Chrome profile. Its reception is
 measured too, read from the "All posts" sheet of the page's content export
-and dated by that export. A post the export lists but no content row links
+and dated by that export. A post the export lists but no content activity links
 to is kept and marked unmatched rather than dropped. The comparison to the
 page median and the follower change around the activity are derived, and
 labelled so: the follower change is the readings before and a week after,

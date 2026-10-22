@@ -6,9 +6,9 @@ aliases: [/docs/how-to/manage-the-content-worksheet/]
 ---
 
 
-Everything you publish waits in the content queue first. Add rows in the
+Everything you publish waits in the content queue first. Add activities in the
 desktop app under Activity › Upcoming, from the command line, or with the capture
-bookmarklet. `blowhorn post` publishes from these rows and nothing else.
+bookmarklet. `blowhorn post` publishes from these activities and nothing else.
 
 ## The columns a run reads
 
@@ -19,28 +19,28 @@ bookmarklet. `blowhorn post` publishes from these rows and nothing else.
 | `Destination` | Where it goes: `r/<sub>` on Reddit, a link URL on Hacker News, the workspace on Slack (the channel goes in `Amplify`) |
 | `Message Text` | The post itself |
 | `Title` | Hacker News and Reddit titles |
-| `Approved?` | `yes` to let a run pick the row up |
+| `Approved?` | `yes` to let a run pick the activity up |
 | `Promote On` | `YYYY-MM-DD HH:MM:SS` in this computer's own zone; blank means now |
 | `Image URL`, `GDrive Link`, `Video URL` | One attachment for the post |
 | `Amplify` | URL of existing content to amplify instead of publishing ([Amplify an existing post](/docs/how-to/publish/amplify-a-post/)) |
 | `Comment on` | URL to reply to, with the reply in `Message Text` ([Reply to a post](/docs/how-to/publish/reply-to-a-post/)) |
-| `Date Promoted`, `Promotion Link` | What the run writes back. Clear `Date Promoted` to queue the row again |
+| `Date Promoted`, `Promotion Link` | What the run writes back. Clear `Date Promoted` to queue the activity again |
 
-Row numbers are the queue's own, stable for the life of a row: deleting a
-row never renumbers the rest, so a row number is safe to keep and script
+Activity numbers are the queue's own, stable for the life of an activity: deleting a
+activity never renumbers the rest, so an activity number is safe to keep and script
 against.
 
-## Row states
+## Activity states
 
-`blowhorn content list` reports each row's state, decided by the same
-rules that make a row pending for a post run:
+`blowhorn content list` reports each activity's state, decided by the same
+rules that make an activity pending for a post run:
 
 - `pending`: a run will pick it up.
 - `scheduled`: `Promote On` is in the future.
 - `draft`: `Approved?` is not `yes`.
 - `done`: `Date Promoted` is set.
 - `unread`: the submit was clicked and nothing afterwards confirmed it
-  (`Date Promoted` says `clicked, outcome not read`). The row is not
+  (`Date Promoted` says `clicked, outcome not read`). The activity is not
   pending and not done, and no run posts it again. Check the platform,
   then clear `Date Promoted` to try it again.
 - `invalid`: a `Promote On` that will not parse. A post run skips it with
@@ -50,25 +50,25 @@ rules that make a row pending for a post run:
 ## From the command line
 
 ```bash
-# Every row with its state.
+# Every activity with its state.
 blowhorn content list
 
 # Only what a run would pick up now, as JSON.
 blowhorn content list --pending --json
 
-# One profile's rows; only X rows.
+# One profile's activities; only X activities.
 blowhorn content list --profile kate
 blowhorn content list --platform x
 
-# One row, every column, its state and its problems.
+# One activity, every column, its state and its problems.
 blowhorn content get 12 --json
 
-# Create a row: it takes the next row number, which is never reused.
+# Create an activity: it takes the next activity number, which is never reused.
 blowhorn content upsert --payload '{"Platform":"linkedin","Profile":"kate","Message Text":"Our v2.0 release is out","Approved?":"yes"}'
 
-# Update in place: the payload is merged over the row; columns it does not
+# Update in place: the payload is merged over the activity; columns it does not
 # name are left as they were.
-blowhorn content upsert --row 12 --payload '{"Approved?":"yes"}'
+blowhorn content upsert --activity 12 --payload '{"Approved?":"yes"}'
 
 # Delete (requires --yes; --dry-run previews first).
 blowhorn content delete 12 --yes
@@ -102,7 +102,7 @@ the entry. Nothing reaches the queue until you add it.
 
 ## Related
 
-- [Post content](/docs/how-to/publish/post-content/) - publish the rows.
+- [Post content](/docs/how-to/publish/post-content/) - publish the activities.
 - [Amplify an existing post](/docs/how-to/publish/amplify-a-post/) - the `Amplify` column.
 - [Reply to a post](/docs/how-to/publish/reply-to-a-post/) - the `Comment on` column.
 - [`blowhorn post` reference](/docs/reference/post/) - what "pending"

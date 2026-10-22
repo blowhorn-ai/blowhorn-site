@@ -7,10 +7,10 @@ weight: 226
 
 Blowhorn works on X in your own signed-in Chrome, through the Blowhorn extension. Sign in to X there once, by hand. The credential Blowhorn checks is `X_USERNAME`.
 
-Posts from a row; a message past 274 characters goes out as a thread.
-Replies go through a post row that targets the conversation. Amplifies
+Posts from an activity; a message past 274 characters goes out as a thread.
+Replies go through a post activity that targets the conversation. Amplifies
 by retweet or quote. Follows accounts with `blowhorn follow`. Analytics
-appends a follower and following trend row per run.
+appends a follower and following trend activity per run.
 
 Follows: at most 400 per profile a day and 15 in any 15 minutes,
 counted from that profile's follow log on this computer.
@@ -21,14 +21,14 @@ counted from that profile's follow log on this computer.
 
 ## X (Twitter) replies
 
-Replying is a post row addressed at the conversation, not a separate
+Replying is a post activity addressed at the conversation, not a separate
 command. There is no comment flow for X under `blowhorn comment`.
 
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
-- [Content queue columns and row states](/docs/reference/content-queue/) - every column each platform reads.
+- [Content queue columns and activity states](/docs/reference/content-queue/) - every column each platform reads.
 - [Messages and exit codes](/docs/reference/messages/) - what a refusal means.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.

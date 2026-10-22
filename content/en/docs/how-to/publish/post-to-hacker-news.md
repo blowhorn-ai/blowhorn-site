@@ -7,13 +7,13 @@ aliases: [/docs/how-to/post-to-hacker-news/]
 
 
 Submit a link or a text post to Hacker News, or comment on an item, from a
-content row.
+content activity.
 
 {{< major >}}Hacker News votes? Absolutely not. I have standards. Dry-run it first: a submission is forever.{{< /major >}}
 
-Hacker News submissions **cannot be deleted**. Preview every new row with
-`--dry-run` before the first real run. A row that fails costs you one run;
-a row that posts the wrong thing is permanent.
+Hacker News submissions **cannot be deleted**. Preview every new activity with
+`--dry-run` before the first real run. An activity that fails costs you one run;
+an activity that posts the wrong thing is permanent.
 
 Blowhorn never votes on Hacker News. There is nothing to configure for
 that and no way to turn it on.
@@ -49,7 +49,7 @@ Set `Title` and put the URL in `Destination`. Leave `Comment on` blank.
 blowhorn content upsert --payload '{"Platform":"HN","Profile":"your-profile","Title":"Example v1.0 is out","Destination":"https://example.com/news/v1-0","Approved?":"yes"}'
 ```
 
-Keep the title to **80 characters or fewer**. A longer one fails the row
+Keep the title to **80 characters or fewer**. A longer one fails the activity
 rather than being cut short, because a Hacker News title cannot be edited
 afterwards.
 
@@ -62,7 +62,7 @@ Set `Title` and put the body in `Message Text`. Leave `Destination` and
 blowhorn content upsert --payload '{"Platform":"HN","Profile":"your-profile","Title":"Ask HN: How do you visualize your clusters?","Message Text":"We have been trying a few approaches...","Approved?":"yes"}'
 ```
 
-A row with both a `Destination` URL and body text submits the link and
+An activity with both a `Destination` URL and body text submits the link and
 tells you how much of the body it dropped. Pick one.
 
 ## Comment or reply
@@ -76,12 +76,12 @@ blowhorn content upsert --payload '{"Platform":"HN","Profile":"your-profile","Co
 ```
 
 Replies on a comment permalink have not been proven the way story comments
-have: if Hacker News shows no comment box there, the row fails with "No
-comment form" and nothing is posted. Try a reply on one row before queueing
+have: if Hacker News shows no comment box there, the activity fails with "No
+comment form" and nothing is posted. Try a reply on one activity before queueing
 many.
 
-Once `Comment on` holds anything, the row is a comment and nothing else. If
-the URL is mistyped or the body is blank, the row fails. It is never
+Once `Comment on` holds anything, the activity is a comment and nothing else. If
+the URL is mistyped or the body is blank, the activity fails. It is never
 submitted as a story instead, even when it also carries a `Title` and
 `Destination`.
 
@@ -99,33 +99,33 @@ A dry run is not offline. It opens the browser and **signs in to Hacker
 News** exactly as a real run does, then stops short of the submit. It is a
 real visit by a real account, so Hacker News can rate-limit it like one.
 
-## If a row is held or fails
+## If an activity is held or fails
 
 - **Held (daily cap).** A profile may make 2 link submissions per UTC day.
-  The row is left pending and the run exits 0; run again tomorrow. Text
+  The activity is left pending and the run exits 0; run again tomorrow. Text
   posts are not counted.
 - **"already submitted to HN by profile …".** Another profile submitted
-  that URL first. Change or remove the row: submitting one URL from
+  that URL first. Change or remove the activity: submitting one URL from
   several accounts is what gets domains banned.
 - **"HN did not create a story … already submitted by …".** Somebody
   outside Blowhorn posted that URL and Hacker News redirected to their
   story. The URL is recorded as already on Hacker News and not ours: from
   now on every profile is refused it before the browser opens, and it
-  counts toward nobody's daily cap. The row keeps failing until you change
+  counts toward nobody's daily cap. The activity keeps failing until you change
   or remove it. Comment on the existing story instead, using the link the
   message prints.
 - **"… is already on Hacker News: submitted by …".** That same URL, on a
   later run or for another profile. Nothing was opened in the browser. To
-  submit it after all, have an operator remove the URL's row from your account's `hn:submissions` ledger, then run again; there is no command for
+  submit it after all, have an operator remove the URL's activity from your account's `hn:submissions` ledger, then run again; there is no command for
   that yet.
 - **"the new comment could not be found on the page HN landed on".** The
-  row is marked done with the thread's link rather than the comment's own.
-  The comment may well be there, on a later page of a long thread; the row
+  activity is marked done with the thread's link rather than the comment's own.
+  The comment may well be there, on a later page of a long thread; the activity
   is never failed for this alone, because re-running it would post the
   comment twice. Check the thread and set the Promotion Link by hand if you
   need the comment's own link.
-- **Rate limited.** The row fails and the rest of that profile's Hacker
-  News rows are skipped for this run. Wait before running again; do not
+- **Rate limited.** The activity fails and the rest of that profile's Hacker
+  News activities are skipped for this run. Wait before running again; do not
   retry immediately.
 - **"could not be confirmed".** The click went through but neither the page
   nor Hacker News's public checks showed the submission as yours. Check the

@@ -36,27 +36,27 @@ first: finish it ([Set up Blowhorn the first time](/docs/how-to/set-up/first-run
 then choose **run setup again** at the bottom of Settings. Setup shows four
 checks, each either `ok` or offering the action that fixes it.
 
-Work down the rows:
+Work down the activities:
 
 1. **Blowhorn folder** - `bundled in the app`. If it asks you to move
    Blowhorn to Applications, do that and open it again; see
    [Fix Blowhorn when its engine won't start](/docs/how-to/troubleshoot/engine-wont-start/).
-2. **helper tools** - its Python ships in the app, so this row has
+2. **helper tools** - its Python ships in the app, so this activity has
    nothing to install.
 3. **organization connection** - the connection to your account. If it is not configured yet, click
    its **import** action and follow
    Connect to your account.
-4. **this computer on watch** - nothing to do here: once the rows above are ok
-   the app registers the service itself, and this row only reports it. You do
+4. **this computer on watch** - nothing to do here: once the activities above are ok
+   the app registers the service itself, and this activity only reports it. You do
    not need it to finish this tutorial.
 
 Each probe is bounded by a 20-second timeout (60 s for your account's full **test
-connection**), so a row that cannot answer will tell you rather than hang.
+connection**), so an activity that cannot answer will tell you rather than hang.
 
 ## 3. Turn on dry-run before anything else {#section-3-turn-on-dry-run-before-anything-else}
 
 Still on the Setup screen, find the **preview only by default** switch below the
-four rows and turn it **on**.
+four activities and turn it **on**.
 
 This is the important step of this tutorial. With it on, runs you start from
 the app rehearse instead of publishing. Turn it off later, deliberately, when
@@ -67,7 +67,7 @@ Now click **open console**.
 ## 4. Look at the queue {#section-4-look-at-the-queue}
 
 The console's "posts" screen reads the same content queue the CLI does - it
-runs `blowhorn content list --json` once and its "ready" tab shows the rows that
+runs `blowhorn content list --json` once and its "ready" tab shows the activities that
 are due, each with who would post it (the same selection
 `blowhorn post --check-queue` prints).
 
@@ -78,7 +78,7 @@ what it read when it read it.
 
 Close the console window. The app is still running: its icon sits in the menu
 bar, and clicking it opens the popover with the service state, the next
-scheduled tick, and the content about to post: **ready to post** lists the rows
+scheduled tick, and the content about to post: **ready to post** lists the activities
 some profile would post on its next run - its count is the `pending` beside
 content in the console's rail - and **scheduled to post** lists what waits for
 a later `Promote On`.

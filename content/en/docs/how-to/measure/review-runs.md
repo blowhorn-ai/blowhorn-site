@@ -30,5 +30,5 @@ it in the app under Activity › History; a dry run first shows what the retry w
 ## Related
 
 - [Collect and read your analytics](/docs/how-to/measure/analytics/) - follower numbers, not operations
-- [Find out why a job did not run](/docs/how-to/schedule/why-not-run/) - one row's state in one command
-- [Schedule a job](/docs/how-to/schedule/schedule-a-job/) - trigger a row now
+- [Find out why a job did not run](/docs/how-to/schedule/why-not-run/) - one activity's state in one command
+- [Schedule a job](/docs/how-to/schedule/schedule-a-job/) - trigger an activity now

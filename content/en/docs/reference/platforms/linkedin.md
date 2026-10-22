@@ -7,7 +7,7 @@ weight: 225
 
 Blowhorn works on LinkedIn in your own signed-in Chrome, through the Blowhorn extension, in the Chrome profile you mapped. Sign in to LinkedIn there once, by hand. The credential Blowhorn checks is `LI_USERNAME` with `LI_PASSWORD`.
 
-Posts to the feed from a row; comments on a post when the row's "Comment on"
+Posts to the feed from an activity; comments on a post when the activity's "Comment on"
 holds its address; amplifies by reposting.
 
 ## Supported actions
@@ -16,16 +16,16 @@ holds its address; amplifies by reposting.
 
 ## LinkedIn comments
 
-A row with "Comment on" set to a `linkedin.com` post address and a
+An activity with "Comment on" set to a `linkedin.com` post address and a
 "Message Text" becomes a comment on that post instead of a new post.
-The same row is also picked up by `blowhorn comment`. A row whose
+The same activity is also picked up by `blowhorn comment`. An activity whose
 "Comment on" names anything else stays a normal post.
 
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
-- [Content queue columns and row states](/docs/reference/content-queue/) - every column each platform reads.
+- [Content queue columns and activity states](/docs/reference/content-queue/) - every column each platform reads.
 - [Messages and exit codes](/docs/reference/messages/) - what a refusal means.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.

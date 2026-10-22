@@ -35,7 +35,7 @@ blowhorn profile status --profile marcus --check-platform github
 ## React from the command line
 
 ```bash
-# Every eligible profile reacts to one issue. No content row needed.
+# Every eligible profile reacts to one issue. No content activity needed.
 blowhorn post --platform github --profile all --amplify "https://github.com/layer5io/layer5/issues/1234"
 
 # A pull request is an issue to GitHub's API, so a PR URL routes the same way.
@@ -53,15 +53,15 @@ blowhorn post --platform github --profile all --amplify "https://github.com/laye
 
 ## React from the queue
 
-Set `Platform` to GitHub and `Amplify` to the issue or PR URL on a row,
+Set `Platform` to GitHub and `Amplify` to the issue or PR URL on an activity,
 then run with no `--amplify` at all:
 
 ```bash
 blowhorn post --platform github --profile marcus
 ```
 
-With the flag, the flag wins over the row. A row whose `Amplify` value is
-empty or is not an issue or PR URL is skipped with a per-row error, and
+With the flag, the flag wins over the activity. An activity whose `Amplify` value is
+empty or is not an issue or PR URL is skipped with a per-activity error, and
 the run continues.
 
 ## Who runs

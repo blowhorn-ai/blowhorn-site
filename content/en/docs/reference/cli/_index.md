@@ -50,7 +50,7 @@ Global flags (available on all commands):
 `all` is a reserved alias, not a real profile name. When you use `--profile all`, Blowhorn expands to all configured profiles and then removes any names passed via `--exclude` / `--e`.
 Use `--exclude none` when you want to clear configured default exclusions for a single run.
 When you pass explicit profile names with `--profile your-profile,second-profile`, those named profiles are processed even if they appear in the configured exclusion list.
-Chrome is never run headless. With `--headless`, Chrome puts `HeadlessChrome/<version>` in the `User-Agent` header of every request while its client hints still say Google Chrome, which tells every site the run is automated. So `--headless` now means *unattended*: the browser opens as a background window (minimized, kept out of the foreground, the same window a flagless run opens), and no one is waited for at a sign-in or challenge. Use `--headed` when you want the window visible and in front so you can finish a sign-in yourself. `blowhorn schedule tick` runs its jobs unattended but never forces visibility onto them - each job resolves its own from its params, then the environment, then Settings - so scheduled jobs never wait for someone who is not there whatever the window does. `trigger-now` runs its one row attended, so it may wait for you.
+Chrome is never run headless. With `--headless`, Chrome puts `HeadlessChrome/<version>` in the `User-Agent` header of every request while its client hints still say Google Chrome, which tells every site the run is automated. So `--headless` now means *unattended*: the browser opens as a background window (minimized, kept out of the foreground, the same window a flagless run opens), and no one is waited for at a sign-in or challenge. Use `--headed` when you want the window visible and in front so you can finish a sign-in yourself. `blowhorn schedule tick` runs its jobs unattended but never forces visibility onto them - each job resolves its own from its params, then the environment, then Settings - so scheduled jobs never wait for someone who is not there whatever the window does. `trigger-now` runs its one activity attended, so it may wait for you.
 
 `--headed` and `--headless` are one choice with two spellings, so exactly one of them survives resolution. `--headed` wins a tie, but only from an equal or higher-precedence layer: `defaults.headed: true` in `.blowhorn.yaml` does **not** cancel a `--headless` typed on the command line or set through `BLOWHORN_HEADLESS`. A run that passes `--headless` opens the background window whatever the file says.
 
@@ -64,7 +64,7 @@ Blowhorn drives only the installed Google Chrome: `/Applications/Google Chrome.a
 
 For commands that support multi-profile execution (`post`, `accept`, `follow`, `unfollow`, `comment`, `analytics`, `report`), you can pass `--profile all` or a comma-delimited subset such as `--profile profile-a,profile-b` to run only that set of profiles.
 
-All commands accept `--dry-run`, but they do not all preview the same amount. `post`, `report`, `find`, `withdraw`, and `accept` run their real pipeline with every write suppressed, so they print what *would* happen. (`withdraw` goes further: preview is its default and it acts only when you pass `--apply` - for it `--dry-run` simply forces the preview it would have produced anyway. `accept` does the same on the received-invitations page: it opens the page, resolves the same Accept controls a real run would click, names everyone it found, and clicks nobody - see [Accepting incoming invitations](/docs/how-to/grow/accept-invitations/).) The remaining action commands - `follow`, `unfollow`, `comment`, and `analytics` - stop immediately and report `dry-run: no changes made` without doing any work. (`source --platform github` lists the audience and, on `--dry-run`, writes nothing; a real run stores one row per login and prints no email address.) (`follow --platform github` is the one exception inside that list: it has no browser to stop before, so its preview performs the real follower walk and names exactly who would be followed - see [Previewing a GitHub follow run](/docs/how-to/grow/follow-on-github/#previewing-a-github-follow-run).) (`unfollow` runs on Bluesky only, with `--platform bluesky --target <handle>`, and its `--limit` is accepted and not read. On X, or with no platform, the platform is refused by name before a browser opens and the run exits 1, dry run included: X unfollow does not run until a follow-back badge and a confirmed landing are both read. `unfollow` cannot be scheduled.) `schedule`, `desktop`, `service`, `store`, `auth`, `uninstall` and `setup` are not covered by that sentence: they implement their own dry-run output (for example `schedule tick --dry-run` reports the rows it would run, `service start --dry-run` prints the command it would run, `store --import --dry-run` prints the import report without writing the connection file, `auth login --dry-run` names where it would sign you in and opens, waits for and saves nothing, `auth logout --dry-run` lists what it would remove, and `uninstall --dry-run` lists every item it would remove or keep, and `setup --dry-run` reports each step it would write as `planned`). Either way nothing is published.
+All commands accept `--dry-run`, but they do not all preview the same amount. `post`, `report`, `find`, `withdraw`, and `accept` run their real pipeline with every write suppressed, so they print what *would* happen. (`withdraw` goes further: preview is its default and it acts only when you pass `--apply` - for it `--dry-run` simply forces the preview it would have produced anyway. `accept` does the same on the received-invitations page: it opens the page, resolves the same Accept controls a real run would click, names everyone it found, and clicks nobody - see [Accepting incoming invitations](/docs/how-to/grow/accept-invitations/).) The remaining action commands - `follow`, `unfollow`, `comment`, and `analytics` - stop immediately and report `dry-run: no changes made` without doing any work. (`source --platform github` lists the audience and, on `--dry-run`, writes nothing; a real run stores one row per login and prints no email address.) (`follow --platform github` is the one exception inside that list: it has no browser to stop before, so its preview performs the real follower walk and names exactly who would be followed - see [Previewing a GitHub follow run](/docs/how-to/grow/follow-on-github/#previewing-a-github-follow-run).) (`unfollow` runs on Bluesky only, with `--platform bluesky --target <handle>`, and its `--limit` is accepted and not read. On X, or with no platform, the platform is refused by name before a browser opens and the run exits 1, dry run included: X unfollow does not run until a follow-back badge and a confirmed landing are both read. `unfollow` cannot be scheduled.) `schedule`, `desktop`, `service`, `store`, `auth`, `uninstall` and `setup` are not covered by that sentence: they implement their own dry-run output (for example `schedule tick --dry-run` reports the activities it would run, `service start --dry-run` prints the command it would run, `store --import --dry-run` prints the import report without writing the connection file, `auth login --dry-run` names where it would sign you in and opens, waits for and saves nothing, `auth logout --dry-run` lists what it would remove, and `uninstall --dry-run` lists every item it would remove or keep, and `setup --dry-run` reports each step it would write as `planned`). Either way nothing is published.
 
 Because the `COMMAND SUMMARY` footer is shown only when `-v` / `--verbose` is used, a dry run of one of the stop-early commands prints nothing at all without `-v` - except `source --platform github`, which lists the audience it would store. That silence is expected, not a failure.
 
@@ -359,9 +359,9 @@ Command → supported platforms (central mapping):
 | `uninstall` | `all` (accepted and ignored: the command reads no platform) |
 | `slack` | `all` (accepted and ignored: the command is Slack's own) |
 
-Every action command rejects a platform outside its own row, naming the
+Every action command rejects a platform outside its own activity, naming the
 platform and listing what it does support. Each command's `--help` states its
-own accepted values - its row of this table, or that the option is ignored
+own accepted values - its activity of this table, or that the option is ignored
 there - so `--platform` never sends you looking elsewhere for them.
 
 **An unsupported platform is rejected where it is used, and is inert
@@ -377,21 +377,21 @@ The commands that never look at `--platform` do not reject anything:
 - `config path/show/get/set`, `desktop`, `service`, `store`, `chrome` and `slack` ignore the option entirely -
   their `--help` says so. A bad platform default can never lock you out of
   `blowhorn config show`, the very command you would run to find it.
-- `schedule` reads it as a filter over scheduled rows, and accepts every
-  platform a row may carry.
+- `schedule` reads it as a filter over scheduled activities, and accepts every
+  platform an activity may carry.
 - `profile current/list/switch` never read it.
 - `profile auth --all` refreshes a fixed list and ignores `--platform`
   entirely, so an unsupported platform is inert there too.
 
-`schedule` is the one row that is not "what this command acts on". It dispatches
-whatever a schedule row names, and its `--platform` filters those rows, so every
-platform a row may carry is accepted here. A row is still validated against its
-own command's row of the table, so a `github` schedule row is a `follow` or a
+`schedule` is the one activity that is not "what this command acts on". It dispatches
+whatever a schedule activity names, and its `--platform` filters those activities, so every
+platform an activity may carry is accepted here. An activity is still validated against its
+own command's activity of the table, so a `github` schedule activity is a `follow` or a
 `post` (amplify).
 
 `--profile all` is supported for `post`, `accept`, `follow`, `unfollow`, `comment`, `analytics`, `report`, and `find`, and is always treated as an alias expansion (never a concrete profile).
 
-`blowhorn source` collects people into your account. `--platform github` requires at least one repeatable `--repo` (`owner/name`) and takes `--audience` (default `stargazers`: `owner`, `contributors`, `forks`, `stargazers`, `watchers`, `subscribers`, `issues`, or `all` only when you type it), and `--platform all` is rejected. `--limit` caps how many people a run examines; omitted, there is no cap. Once that many have been examined the run stops without pulling another login. A `--repo` that is blank, or that is not a single `owner/name` (a URL included), is rejected by name. A GitHub run lists that audience with the profile's stored `GH_TOKEN` and upserts one `github_contacts` row per login. `--dry-run` lists the audience, fetches no commit patches, and writes nothing. Email addresses are not printed. `source` is not a scheduled command, and it does not accept `--profile all`.
+`blowhorn source` collects people into your account. `--platform github` requires at least one repeatable `--repo` (`owner/name`) and takes `--audience` (default `stargazers`: `owner`, `contributors`, `forks`, `stargazers`, `watchers`, `subscribers`, `issues`, or `all` only when you type it), and `--platform all` is rejected. `--limit` caps how many people a run examines; omitted, there is no cap. Once that many have been examined the run stops without pulling another login. A `--repo` that is blank, or that is not a single `owner/name` (a URL included), is rejected by name. A GitHub run lists that audience with the profile's stored `GH_TOKEN` and upserts one `github_contacts` activity per login. `--dry-run` lists the audience, fetches no commit patches, and writes nothing. Email addresses are not printed. `source` is not a scheduled command, and it does not accept `--profile all`.
 
 Examples:
 
@@ -428,8 +428,8 @@ blowhorn schedule trigger-now 7
 blowhorn schedule bootstrap --dry-run
 blowhorn schedule list --json
 blowhorn schedule pause --all --reason "LinkedIn challenge on your-profile"
-blowhorn schedule pause --row 7
-blowhorn schedule resume --row 7
+blowhorn schedule pause --activity 7
+blowhorn schedule resume --activity 7
 blowhorn schedule why 7 --json
 blowhorn schedule get 7 --json
 blowhorn schedule upsert --payload '{"Command":"report","Profile":"all","Run At":"2026-03-12 08:00:00"}' --json
@@ -481,7 +481,7 @@ blowhorn profile status --chrome              # adds the chrome profile each one
 blowhorn profile get your-profile                     # settings with secrets masked (GH_* from the store)
 blowhorn profile set your-profile EMAIL=you@example.com
 blowhorn profile set your-profile GH_TOKEN=ghp_yourtoken  # stored in the store, never in config.yaml
-blowhorn profile set new-profile --create EMAIL=new@example.com   # its row in your account's profiles (bound to the account holding the email), then the directory from the template
+blowhorn profile set new-profile --create EMAIL=new@example.com   # its activity in your account's profiles (bound to the account holding the email), then the directory from the template
 blowhorn profile set new-profile --create EMAIL=new@example.com --subject <uuid>  # name the account when the email alone cannot
 blowhorn profile set new-profile --register           # add a profile that exists only under data/profiles/ to the store's profiles
 blowhorn profile delete new-profile --yes      # retires the store row, then moves data/profiles/new-profile to data/profiles/.trash/

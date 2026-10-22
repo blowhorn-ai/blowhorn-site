@@ -20,14 +20,14 @@ failure never earns a retry click.
 
 Public actions are never repeated on a guess. The sending control is
 clicked once per run; "no confirmation, the dialog still reads open"
-reports the row not sent, never sends it again, and never reports it
+reports the activity not sent, never sends it again, and never reports it
 sent either. What the platform showed after the click is a reading, not
-a fact, so the row reads clicked, outcome not read, and waits for you.
+a fact, so the activity reads clicked, outcome not read, and waits for you.
 See [How Blowhorn avoids repeat posts](/docs/explanation/never-twice/).
 
-A typing failure fails only its own row. The dispatcher has no
-per-row rescue around the loop, so a lost typing target would abandon
-every remaining queued row for that profile; every call site therefore
+A typing failure fails only its own activity. The dispatcher has no
+per-activity rescue around the loop, so a lost typing target would abandon
+every remaining queued activity for that profile; every call site therefore
 contains the failure to its own unit of work instead.
 
 Within a run, Blowhorn doesn't retry a failed post; it moves on to the next item. If a post goes out but Blowhorn can't record it, it stops that profile's queue rather than risk posting twice. Scheduled jobs only re-run a failure if you turn on retries, and they're off by default.
@@ -37,9 +37,9 @@ Within a run, Blowhorn doesn't retry a failed post; it moves on to the next item
 A Hacker News submission cannot be deleted, and coordinated-looking
 promotion gets the whole domain banned. Blowhorn treats it
 accordingly: at most 2 link submissions per profile per UTC day, titles
-held to 80 characters with the row failing rather than truncating, no
-voting ever, and a comment row that can only ever be a comment. A
-rate-limited run fails the row and waits; it never retries to beat the
+held to 80 characters with the activity failing rather than truncating, no
+voting ever, and a comment activity that can only ever be a comment. A
+rate-limited run fails the activity and waits; it never retries to beat the
 limiter.
 
 ## Related

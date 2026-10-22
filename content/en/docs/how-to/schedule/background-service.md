@@ -54,15 +54,15 @@ shape the app reads.
 blowhorn service cancel
 ```
 
-Cancelling stops at the next safe point, never mid-post: the row the pass was
+Cancelling stops at the next safe point, never mid-post: the activity the pass was
 on returns to the queue exactly as claimed, with no retry counted, and the
 next pass takes it up again. The run ledger records the pass as cancelled,
 never failed.
 
 ## Related
 
-- [Schedule a job](/docs/how-to/schedule/schedule-a-job/) - create the rows the passes run
+- [Schedule a job](/docs/how-to/schedule/schedule-a-job/) - create the activities the passes run
 - [Pause and resume posting](/docs/how-to/schedule/pause/) - hold claims without stopping the service
-- [Find out why a job did not run](/docs/how-to/schedule/why-not-run/) - read one row's state
+- [Find out why a job did not run](/docs/how-to/schedule/why-not-run/) - read one activity's state
 - [Uninstall Blowhorn](/docs/how-to/manage/uninstall/) - remove the service for good
 - [You're in control](/docs/explanation/youre-in-control/) - what an unattended run will and won't do

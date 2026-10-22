@@ -26,7 +26,7 @@ blowhorn schedule status
 If the tunnel or network dropped, bring it back the way your administrator set
 it up, then run `blowhorn store` again until it answers. Ticks resume claiming
 on their next pass; due times carried forward while your account was gone, so a
-recurring row runs once, not once per missed interval.
+recurring activity runs once, not once per missed interval.
 
 ## What the run did while your account was gone
 
@@ -39,5 +39,5 @@ Commands that never need your account kept running throughout.
 ## Related
 
 - [Schedule a job](/docs/how-to/schedule/schedule-a-job/) - what a tick does when your account answers
-- [Find out why a job did not run](/docs/how-to/schedule/why-not-run/) - read one row after the outage
+- [Find out why a job did not run](/docs/how-to/schedule/why-not-run/) - read one activity after the outage
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - start from a symptom instead

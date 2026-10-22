@@ -53,8 +53,8 @@ blowhorn analytics activity 42
 blowhorn analytics activity 42 --profile ada --json
 ```
 
-`activity` takes a content row number and answers, for each profile and
-platform the row is addressed to:
+`activity` takes a content activity number and answers, for each profile and
+platform the activity is addressed to:
 
 - **Delivery** (measured): whether it went out and when, the link to the live
   item, the computer and Chrome profile that ran it, and for a failed attempt
@@ -79,9 +79,9 @@ blowhorn analytics import-exports data/analytics/layer5_content_20260719_033126.
 Each LinkedIn collection saves a page content export and imports its "All
 posts" sheet into the store by itself. `import-exports` does the same for
 exports already on disk: every `*_content_*.xls` under `data/analytics/` when
-you name no paths. Each post is matched to the content row whose promotion link
-names it; a post with no matching row is kept and marked unmatched. The output
-verifies every file: rows read, matched, unmatched, skipped with the reason,
+you name no paths. Each post is matched to the content activity whose promotion link
+names it; a post with no matching activity is kept and marked unmatched. The output
+verifies every file: activities read, matched, unmatched, skipped with the reason,
 and stored. Importing the same export twice stores it once; `--dry-run` reads
 and matches without storing.
 

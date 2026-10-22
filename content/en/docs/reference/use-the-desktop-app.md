@@ -14,7 +14,7 @@ Blowhorn lives in the menu bar. Opening it shows the popover, which has
 two boards. The running board shows the scheduler, what is due now, what
 is running, what needs you, and the content queue with a countdown to
 the next tick. The paused board shows PAUSED with each tick-level pause
-scope stated once, and the rows that would post now wait instead of
+scope stated once, and the activities that would post now wait instead of
 posting. A store outage puts its line above the board. The line is the
 last check's word, so while it shows, the app keeps checking the store in
 the background - soon after the line appears, then every two minutes -

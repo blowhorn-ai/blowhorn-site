@@ -41,14 +41,14 @@ another blowhorn run holds the Chrome extension bridge
 ```
 
 One mapped profile runs in one process at a time. Another run is acting as
-that profile: wait for it, or stop it. Your rows stay queued, and a scheduled
+that profile: wait for it, or stop it. Your activities stay queued, and a scheduled
 job tries again next tick.
 
 ## Profile in use
 
 When a run says the profile is in use by another Blowhorn process, the same
 rule holds under any driver: wait for that run, or stop it. The profile is
-skipped and its rows stay queued.
+skipped and its activities stay queued.
 
 ## Related
 

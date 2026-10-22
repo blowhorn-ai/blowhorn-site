@@ -52,8 +52,8 @@ guided setup takes over (see below). Setup checks, in order, the engine
 (bundled in the app), its helper tools, the connection to your organization's
 data, your Chrome profile mappings
 ([Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/)), and
-the background service. Each row says what it found, or what to do next.
-Every row is described under Setup in
+the background service. Each activity says what it found, or what to do next.
+Every activity is described under Setup in
 [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/#setup).
 
 **The installed app runs only the engine it carries.** It does not look for

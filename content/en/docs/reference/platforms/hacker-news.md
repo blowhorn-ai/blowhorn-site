@@ -7,8 +7,8 @@ weight: 228
 
 Blowhorn works on Hacker News in your own Chrome, through the Blowhorn extension, signed in with the username and password in your account (`HN_USERNAME` with `HN_PASSWORD`).
 
-Submits link and text posts and comments from rows. Titles hold 80
-characters; a longer title fails the row rather than truncating,
+Submits link and text posts and comments from activities. Titles hold 80
+characters; a longer title fails the activity rather than truncating,
 because a submission cannot be edited after it lands. At most 2 link
 submissions per profile per UTC day count; only link submissions are
 recorded, so only they count toward the cap. Blowhorn never votes:
@@ -20,18 +20,18 @@ there is nothing to configure and no way to turn it on.
 
 ## Hacker News submissions and comments
 
-A link row needs the URL; a text post needs the title and text. A row
+A link activity needs the URL; a text post needs the title and text. An activity
 with "Comment on" set becomes a comment on that item. Every submission
 is permanent and every comment lands under your name, so preview each
-new row with `--dry-run` first. Submissions HN rate-limits fail the
-row; see [Messages and exit codes](/docs/reference/messages/).
+new activity with `--dry-run` first. Submissions HN rate-limits fail the
+activity; see [Messages and exit codes](/docs/reference/messages/).
 
 ## Related
 
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
 - [Post to Hacker News](/docs/how-to/publish/post-to-hacker-news/) - the strictest platform, worked.
-- [Content queue columns and row states](/docs/reference/content-queue/) - every column each platform reads.
+- [Content queue columns and activity states](/docs/reference/content-queue/) - every column each platform reads.
 - [Messages and exit codes](/docs/reference/messages/) - what a refusal means.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
 - [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - browser versus API.

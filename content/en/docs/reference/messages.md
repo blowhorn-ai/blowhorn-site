@@ -63,24 +63,24 @@ unattended run never waits. For X, see
 ## The queue and the schedule
 
 `title is ... characters; Hacker News allows 80 ...`: shorten the
-title to 80 characters; the row failed rather than truncating because a
+title to 80 characters; the activity failed rather than truncating because a
 submission cannot be edited after it lands. `Rate limited: HN said
-...`: Hacker News throttled the run; the row failed, wait before
+...`: Hacker News throttled the run; the activity failed, wait before
 retrying, and never retry to beat the limiter.
 
 `Unsupported Recurrence '...'` and `Invalid recurrence interval
-'...'`: the schedule row's word is not one Blowhorn knows; use `once`,
+'...'`: the schedule activity's word is not one Blowhorn knows; use `once`,
 `hourly`, `daily`, `weekly`, `monthly`, or `every:N`. See
 [Job options and schedules](/docs/reference/jobs/).
 
-A row `clicked, outcome not read` is not an error: the sending control
+An activity `clicked, outcome not read` is not an error: the sending control
 was clicked and no confirmation was read back. Check the platform,
 then clear "Date Promoted" to try again or leave it. See
-[Content queue columns and row states](/docs/reference/content-queue/).
+[Content queue columns and activity states](/docs/reference/content-queue/).
 
 ## Related
 
-- [Content queue columns and row states](/docs/reference/content-queue/) - row states including unread.
+- [Content queue columns and activity states](/docs/reference/content-queue/) - activity states including unread.
 - [Job options and schedules](/docs/reference/jobs/) - recurrence words.
 - [Plans and limits](/docs/reference/plans/) - plan refusals.
 - [Fix a sign-in that stopped working](/docs/how-to/troubleshoot/sign-in-problems/) - expired sessions.
