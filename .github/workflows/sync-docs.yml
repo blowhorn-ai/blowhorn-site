@@ -6,8 +6,8 @@ name: Sync product docs
 # site.yml on that branch itself: pushes and pull requests made with
 # github.token never start pull_request or push workflows, so site.yml would
 # otherwise stay silent on the sync PR, while a workflow_dispatch run started
-# with that same token is allowed and attaches to the branch head. Merging the
-# PR once those checks pass deploys. See docs/deploy.md.
+# with that same token is allowed and attaches to the branch head. The PR is then merged
+# automatically with administrator rights once those checks pass, which deploys. See docs/deploy.md.
 #
 # Triggers:
 #   - Manual: Actions > Sync product docs > Run workflow (input: ref).
@@ -135,7 +135,7 @@ jobs:
             echo "- The product's reference/cli.md becomes the reference/cli/ section index, and the per-command"
             echo "  pages in reference/cli/, regenerated from the product's CLI schema at that ref, land beside it."
             echo "- Gated pages (draft: true) stay unpublished until the product ungates them."
-            echo "- Merging this PR deploys; the sync starts the normal site checks on it itself, which must pass first."
+            echo "- Merging this PR deploys; the sync starts the normal site checks on it itself and merges it as an administrator once they pass."
             echo
             echo "Converter warnings (fix the converter, not the product docs):"
             echo
@@ -164,3 +164,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: make docs-sync-start-checks SYNC_BRANCH="$SYNC_BRANCH"
+
+      # Waits for those checks and, only if they pass, merges the PR with
+      # --admin. github.token cannot bypass branch protection, so this uses
+      # the SYNC_MERGE_TOKEN secret (an admin's token; falls back to
+      # github.token, which merges only if protection allows).
+      - name: Merge the sync pull request once the checks pass
+        if: steps.pr.outputs.changed != 'false'
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_MERGE_TOKEN || github.token }}
+        run: make docs-sync-merge SYNC_BRANCH="$SYNC_BRANCH"

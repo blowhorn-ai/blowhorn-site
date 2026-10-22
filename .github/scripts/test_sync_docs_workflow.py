@@ -61,7 +61,7 @@ class SyncDocsWorkflowTest(unittest.TestCase):
     def test_no_new_secret_or_app(self):
         text = WORKFLOW.read_text(encoding="utf-8")
         secrets = set(re.findall(r"secrets\.([A-Za-z0-9_]+)", text))
-        self.assertEqual(secrets, {"DMG_SOURCE_TOKEN"})
+        self.assertEqual(secrets, {"DMG_SOURCE_TOKEN", "SYNC_MERGE_TOKEN"})
         lowered = text.lower()
         self.assertNotIn("personal access token", lowered)
         self.assertNotIn("github app", lowered)

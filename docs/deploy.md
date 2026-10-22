@@ -248,7 +248,7 @@ here, on the public site repository.
    `pull_request` or `push` workflows, so `site.yml` would otherwise stay
    silent on the sync PR, while a `workflow_dispatch` run started with that
    same token is allowed and attaches to the branch head, showing as the
-   PR's check. Merging the PR once those checks pass deploys. The workflow
+   PR's check. Once those checks pass, `make docs-sync-merge` merges the PR with `--admin` (using the `SYNC_MERGE_TOKEN` secret, an admin token; branch protection blocks `github.token`), which deploys. The workflow
    never pushes to `master`.
 
 A public release starts the sync by itself: `publish-dmg.yml`'s last job
