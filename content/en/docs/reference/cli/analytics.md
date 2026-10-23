@@ -1,7 +1,7 @@
 ---
 title: "blowhorn analytics"
 linkTitle: "analytics"
-description: "blowhorn analytics: activity, history, import-exports, operations."
+description: "blowhorn analytics: activity, history, import-exports, operations, pages."
 weight: 101
 ---
 
@@ -15,6 +15,7 @@ The `blowhorn analytics` commands. Each one's `--help` prints the same text.
 | [`analytics history`](#blowhorn-analytics-history) | Print the follower history the collectors have already recorded, as one dated series read from the store: every LinkedIn page and every profile's X trend, whichever machine collected them. |
 | [`analytics import-exports`](#blowhorn-analytics-import-exports) | Read the LinkedIn page content exports already on disk and record each activity's reception figures in the store. |
 | [`analytics operations`](#blowhorn-analytics-operations) | Aggregate the run ledger, read from the store, into operations per profile, per platform, per command, per day or per host. |
+| [`analytics pages`](#blowhorn-analytics-pages) | List, add, remove or seed the LinkedIn pages analytics collects from for the signed-in organization, read from and written to the store. |
 
 ## blowhorn analytics activity
 
@@ -128,6 +129,43 @@ blowhorn analytics operations --json --since 30d --group-by profile
 blowhorn analytics operations --json --since 7d --group-by platform
 blowhorn analytics operations --kind tick --group-by day --since 14d
 blowhorn analytics operations --group-by host --since 30d
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn analytics pages
+
+List, add, remove or seed the LinkedIn pages analytics collects from for the signed-in organization, read from and written to the store: each page's name, its kind (company or showcase) and its numeric page id, from which the followers and content analytics URLs are derived. Collection walks the enabled pages; an organization with none configured collects the pages in use before per-organization configuration, and `seed` writes those pages into the store once so the organization can edit its own list from there. `--dry-run` shows an add, remove or seed without writing. A store that cannot be reached exits 3.
+
+```text
+blowhorn analytics pages [OPTIONS] [pages_action] [pages_name] [pages_kind] [pages_id]
+```
+
+| Argument | Required | Description |
+| --- | --- | --- |
+| `pages_action` | no | What to do: list (the default), add, remove or seed |
+| `pages_name` | no | The page's display name, as analytics history names it (add and remove) |
+| `pages_kind` | no | The page's LinkedIn kind: company or showcase (add; read from the URL when the page value is one) |
+| `pages_id` | no | The page's numeric LinkedIn id, or its LinkedIn page URL (add) |
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--disabled` | boolean | `false` | Add the page disabled: listed, but collection skips it until it is added again without this flag |
+| `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--pace` | string |  | Accepted by `blowhorn analytics pages` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn analytics pages
+blowhorn analytics pages list --json
+blowhorn analytics pages add Acme company 12345678
+blowhorn analytics pages add AcmeBlog showcase https://www.linkedin.com/showcase/87654321/
+blowhorn analytics pages remove AcmeBlog
+blowhorn analytics pages seed
 ```
 
 Output: json with `--json`, text otherwise.

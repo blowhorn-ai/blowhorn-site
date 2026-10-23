@@ -24,5 +24,10 @@ app never sees your password.
 - **Google and GitHub work too:** they always run in your browser.
 - **Nothing to copy or paste:** when sign-up finishes and you choose **Allow**,
   It hands you back to the app and the step ticks off.
+- **Signing up with an email address adds a step:** Blowhorn sends you a
+  verification email, and you choose **Allow** after you follow its link.
+  The wait for a sign-up is ten minutes, twice the sign-in wait. If the
+  wait runs out anyway, your account is kept: verify your email, then
+  sign in. You do not need to create the account again.
 
 From the command line, `blowhorn auth login --sign-up` does the same thing.

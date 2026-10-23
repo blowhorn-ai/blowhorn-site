@@ -25,6 +25,32 @@ row per profile. Each run prints a receipt of the rows it collected. In the
 app, the "results" screen collects on demand with "collect now" and draws
 the same series.
 
+## Choose the LinkedIn pages
+
+The LinkedIn pages a collection walks belong to your organization, not to a
+fixed list. Manage them from the command line:
+
+```bash
+blowhorn analytics pages
+blowhorn analytics pages add Acme company 12345678
+blowhorn analytics pages add AcmeBlog showcase https://www.linkedin.com/showcase/87654321/
+blowhorn analytics pages remove AcmeBlog
+```
+
+Each page is a name, a kind (`company` or `showcase`) and the page's numeric
+LinkedIn id; an add also accepts the page's LinkedIn URL and reads the kind
+and id from it. Add `--disabled` to list a page without collecting from it,
+and add it again without the flag to collect from it again. Collection walks
+the enabled pages and only those, so two organizations sharing one install
+each collect their own pages.
+
+An organization that has not configured any pages yet keeps collecting the
+pages it collected before per-organization configuration. Run
+`blowhorn analytics pages seed` once to write those pages into your
+organization's list, then edit the list from there; seeding never overwrites
+a list you have already made your own. With pages configured and every one
+disabled, a collection says so in one line and collects nothing.
+
 ## Read the history
 
 ```bash
