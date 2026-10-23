@@ -33,9 +33,11 @@ read as off. Dry runs are never refused: they publish nothing. See
 
 ## Chrome and the extension
 
-`another blowhorn run holds the Chrome extension bridge`: two runs want
-the extension at once. Wait for the other run or stop it; this run did
-nothing.
+`another blowhorn run holds the Chrome extension bridge (pid ...)`: two runs want
+the extension at once, and the message names the holding run's pid.
+Wait for the other run or stop it; this run did nothing. A holding run
+that stops sending its heartbeat is released automatically after
+30 seconds.
 
 `chrome refused the connection (Allow was declined ...)`: the attach
 handshake did not complete. Keep a Chrome window open, approve the

@@ -112,7 +112,8 @@ anything outside your terminal.
 
 ## 5. Slow it down {#section-5-slow-it-down}
 
-Blowhorn paces itself to look human. You can make it slower:
+Blowhorn paces itself, with delays between keystrokes and pauses
+between actions. You can make it slower:
 
 ```bash
 blowhorn post --profile alex --pace slow --dry-run

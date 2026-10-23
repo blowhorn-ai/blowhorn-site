@@ -166,7 +166,7 @@ lists what each preset sets.
 
 ## Related
 
-- [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/) - human pacing and the no-retry rule.
+- [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/) - measured pacing and the no-retry rule.
 - [How Blowhorn avoids repeat posts](/docs/explanation/never-twice/) - one click per run.
 - [Why flagged invitations are skipped](/docs/explanation/invitation-safety/) - walking away from warnings.
 - [Pause and resume posting](/docs/how-to/schedule/pause/) - the three pause scopes.

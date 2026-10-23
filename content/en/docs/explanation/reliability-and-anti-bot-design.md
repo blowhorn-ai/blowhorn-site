@@ -1,22 +1,39 @@
 ---
 title: "How Blowhorn paces itself"
-description: "Human typing and pauses, per-run pace, and why a failed post is not retried."
+description: "Measured typing and pauses, per-run pace, and why a failed post is not retried."
 weight: 284
 ---
 
 
-Blowhorn acts at human speed, and stops at the first thing it cannot
-confirm. Both are deliberate: speed and retries are what get an
+Blowhorn works at a measured pace, and stops at the first thing it
+cannot confirm. Both are deliberate: speed and retries are what get an
 account flagged.
 
 {{< major >}}Nobody can promise you won't get flagged. I can promise I won't rush, won't repeat myself and won't touch your CAPTCHA.{{< /major >}}
 
-Typing arrives keystroke by keystroke with a computed delay between
-keys, and actions are separated by random pauses of a few seconds,
-scaled by the run's pace. `--pace` sets it: `fast`, `normal`, `slow`,
+Typing arrives keystroke by keystroke, and how the gaps between keys
+are shaped depends on the path. Where Blowhorn types through the
+page's own keyboard, each entry follows a plan: a computed delay
+between keys, short hesitations, a longer pause every so often, and
+an occasional typo typed and corrected. Through the Chrome
+extension, the default driver, typing is one character per message
+with a shaped delay between characters: each gap is drawn from a
+right-skewed distribution around the computed delay and stretches
+after a word or a sentence ends. The extension path does not insert
+the plan's extra pauses and does not type-and-correct typos. Actions
+are separated by random pauses of a few seconds, scaled by the run's
+pace. `--pace` sets it: `fast`, `normal`, `slow`,
 or a numeric multiplier, resolved from the flag, then the environment,
 then the defaults file. A long unattended run earns the slow pace; a
 failure never earns a retry click.
+
+Clicks and scrolls are plainer than the typing, and this page will
+not dress them up: a click moves the pointer straight to a point
+that varies inside the target, presses, holds briefly and releases,
+with no curved path across the screen, and a scroll is a single
+wheel movement of the full amount asked for, never a series of
+smaller ticks. The pacing here is about timing, not about imitating
+the path a hand takes.
 
 Public actions are never repeated on a guess. The sending control is
 clicked once per run; "no confirmation, the dialog still reads open"

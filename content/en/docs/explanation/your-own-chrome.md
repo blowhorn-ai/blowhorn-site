@@ -32,8 +32,8 @@ it touches. An unattended run takes the minimized background window
 instead: invisible, but honest about what it is.
 
 What a site sees is therefore your own user agent, your own session,
-and input delivered as real keystrokes and clicks with human pauses
-between them. That honesty is also the limit: a CAPTCHA or a
+and input delivered as keystrokes and clicks in your own browser,
+paced rather than fired off all at once. That honesty is also the limit: a CAPTCHA or a
 second-factor challenge hands back to you, always, because passing it
 for you would stop being you.
 
@@ -47,7 +47,7 @@ read, in plain words.
 - [Chrome reference](/docs/reference/chrome/) - launch modes and the extension default.
 - [Chrome extension permissions](/docs/reference/extension-permissions/) - what the extension may do.
 - [Platforms](/docs/reference/platforms/) - which platforms drive Chrome and which use APIs.
-- [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/) - human pauses between actions.
+- [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/) - the pauses between actions.
 - [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/) - the Chrome half of setup.
 - [You're in control](/docs/explanation/youre-in-control/) - one automation per profile and platform.
 - [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/) - put the extension in your Chrome.

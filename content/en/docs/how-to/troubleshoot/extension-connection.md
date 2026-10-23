@@ -37,12 +37,14 @@ A Blowhorn upgrade does not reinstall the extension. After an update, take the
 ## Bridge busy
 
 ```text
-another blowhorn run holds the Chrome extension bridge
+another blowhorn run holds the Chrome extension bridge (pid 1234)
 ```
 
 One mapped profile runs in one process at a time. Another run is acting as
-that profile: wait for it, or stop it. Your activities stay queued, and a scheduled
-job tries again next tick.
+that profile: wait for it, or stop it -- the message names its pid. Your activities stay queued, and a scheduled
+job tries again next tick. A run that has hung stops sending its
+heartbeat, and after 30 seconds without one the bridge is released on
+its own, so a wedged run cannot hold the bridge indefinitely.
 
 ## Profile in use
 
