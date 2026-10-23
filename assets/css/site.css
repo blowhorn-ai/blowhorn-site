@@ -3171,8 +3171,20 @@ a.docs-card.platform-card[href$="/facebook/"]::before { background-image: url("/
 
 /* Signal home: AI sections (layouts/_partials/home/ai-agents.html, ai-content.html). */
 .ai-agent-cards, .ai-content-offers { list-style: none; padding: 0; }
-.ai-agents-major { max-width: 40rem; }
-.ai-agents-major > * + * { margin-top: var(--space-3); }
+/* The Major's quote: his portrait beside his bubble, the same round
+   head-and-shoulders crop of the cast art as .major-hero-quote on
+   /major/ (keep the two in sync). */
+.ai-agents-major { display: flex; align-items: center; gap: var(--space-4); max-width: 40rem; }
+.ai-agents-major-art {
+  flex: none; position: relative; overflow: hidden;
+  width: 72px; height: 72px;
+  border-radius: var(--radius-pill);
+  background: var(--cream);
+}
+.ai-agents-major-art img { position: absolute; top: 2%; left: -150%; width: 400%; max-width: none; height: auto; }
+.ai-agents-major-copy { min-width: 0; }
+.ai-agents-major .bubble { margin: 0; }
+.ai-agents-major .label { margin: var(--space-2) 0 0; color: var(--ink-muted); }
 .ai-agents-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 .ai-content-price { color: var(--ink); }
 .ai-agent-cards .cli-flag { white-space: nowrap; }
