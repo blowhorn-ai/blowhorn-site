@@ -422,7 +422,12 @@ credentials are kept. `attach: false` on a platform records that account
 not in use in `.blowhorn.chrome-not-in-use.json` beside the config file.
 The credential is kept, and a later run on this computer skips that
 account. Marking the profile in use again removes the name from
-`defaults.exclude`. Omitting `in_use` applies only the attached activities, as
+`defaults.exclude`. Deleting the Blowhorn profile removes its recorded
+per-platform choices with it, so an account it had marked not in use is
+not skipped for a different profile later mapped to the same Chrome
+profile; a Chrome profile recorded not in use as a whole stays recorded
+that way, because that mark is about the Chrome profile itself.
+Omitting `in_use` applies only the attached activities, as
 an older document does. `chrome discover` reports `in_use` on the profile
 and on each platform, so the next confirm screen can start a recorded
 choice unchecked.
