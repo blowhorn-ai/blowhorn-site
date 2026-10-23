@@ -120,8 +120,14 @@ To re-encode after a new render:
 ```sh
 ffmpeg -i film.mp4 -c:v libx264 -profile:v high -crf 25 -tune animation -preset slow -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 64k -ac 1 static/assets/video/battalion-thunder.mp4
 ffmpeg -i film.mp4 -c:v libvpx-vp9 -crf 38 -b:v 0 -row-mt 1 -c:a libopus -b:a 48k -ac 1 static/assets/video/battalion-thunder.webm
-ffmpeg -ss 12.2 -i film.mp4 -frames:v 1 -q:v 3 static/assets/video/battalion-thunder-poster.jpg
 ```
+
+The poster is a still, not a frame of the film:
+`static/assets/video/battalion-thunder-poster-megaphone.webp`, 1920 x 1080,
+in the Locked-6 cartoon style. Major Blowhorn sounds off from a rock while the
+General, Recruit Chicks on a MacBook and an iMac, and the Sleeper Cell fall in.
+The chicks' screens carry the Blowhorn icon. Keep the middle of any poster
+clear, since the Play the film button sits there.
 
 ## Adding a hero
 
