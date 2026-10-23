@@ -7,7 +7,7 @@ weight: 36
 
 `make onboarding-e2e` walks the desktop app's first-run wizard from Create
 account through a dry run of the first post. It uses the app you just built
-(`desktop/out`), a local stand-in for Blowhorn Cloud, and a throwaway Chrome
+(`desktop/out`), a local stand-in for the Blowhorn service, and a throwaway Chrome
 profile. It does not sign in to a social platform, and it does not open your
 own Chrome profile.
 
