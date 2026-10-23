@@ -72,6 +72,11 @@ renderSegments = ["internal"]
     [[module.imports.mounts]]
       source = "marketing/capability-comparison/compare-personas.csv"
       target = "assets/internal/compare-personas.csv"
+    # Data for /internal/strategy/segment-matrix/ (same pattern as the
+    # persona matrix above).
+    [[module.imports.mounts]]
+      source = "marketing/capability-comparison/compare-segments.csv"
+      target = "assets/internal/compare-segments.csv"
     # Engineering research pages (Hugo markdown and page bundles).
     [[module.imports.mounts]]
       source = "internal/engineering/hugo/engineering"

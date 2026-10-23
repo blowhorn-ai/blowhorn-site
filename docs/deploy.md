@@ -338,6 +338,8 @@ adds a module import, `github.com/leecalcote/blowhorn`, with its own mounts:
     target = "assets/internal/compare-assistants.csv"
     source = "marketing/capability-comparison/compare-personas.csv"
     target = "assets/internal/compare-personas.csv"
+    source = "marketing/capability-comparison/compare-segments.csv"
+    target = "assets/internal/compare-segments.csv"
   [[module.imports.mounts]]
     source = "internal/engineering/hugo/engineering"
     target = "content/internal/engineering"
