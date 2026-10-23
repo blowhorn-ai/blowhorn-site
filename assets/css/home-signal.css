@@ -1021,8 +1021,14 @@ html[data-theme="signal"] #platforms .logo-tile img[src*="github-invertocat-blac
 .wave-more em { font: 500 10px var(--font-mono); font-style: normal; letter-spacing: .1em; text-transform: uppercase; }
 
 .signal-roles .role-art {
+  display: block;
   margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-4);
 }
+/* The role card is a whole-card link (a.card-link in site.css carries
+   the pointer, the arrow cue chip and the hover lift). Its first child
+   is the full-bleed art, so the cue chip overlays the art's corner
+   instead of the generic first-child padding making room beside it. */
+.signal-roles a.card-link > .role-art { padding-right: 0; }
 .usecases { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: var(--space-8); }
 .usecases .label { margin: 0 var(--space-2) 0 0; }
 .usecases a {

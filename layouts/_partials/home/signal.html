@@ -101,13 +101,17 @@
             {{- $role := false -}}
             {{- range site.Data.roles.roles }}{{ if eq .slug $slug }}{{ $role = . }}{{ end }}{{ end }}
             {{- if not $role }}{{ errorf "integrations roles id %q is not a slug in data/roles.json" $slug }}{{ end }}
-            <li class="role-card card">
-              <div class="role-art">
-                <img src="{{ $role.art.src | relURL }}" alt="{{ $role.art.alt }}" width="320" height="240" loading="lazy">
-              </div>
-              <h3 class="h3">{{ $role.name }}</h3>
-              <p>{{ $role.headline }}</p>
-              <p><a href="{{ printf "for/%s/" $role.slug | relURL }}">Blowhorn for {{ $role.name }}</a></p>
+            {{- /* The whole card is the link (a.card-link: pointer, arrow
+              cue chip, hover lift). No separate "Blowhorn for X" link: it
+              only repeated the card's own title. */}}
+            <li>
+              <a class="role-card card card-link" href="{{ printf "for/%s/" $role.slug | relURL }}">
+                <span class="role-art">
+                  <img src="{{ $role.art.src | relURL }}" alt="{{ $role.art.alt }}" width="320" height="240" loading="lazy">
+                </span>
+                <h3 class="h3">{{ $role.name }}</h3>
+                <p>{{ $role.headline }}</p>
+              </a>
             </li>
             {{- end }}
           </ul>
