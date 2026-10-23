@@ -292,6 +292,18 @@ store build 1.12.10 keeps working in background mode. A run whose mode is not
 the default names it once on stderr: `extension mode: classic, from the
 account setting`.
 
+Typing follows the input row. In background mode each character is sent
+through Chrome's debugger as a real key event, one character at a time on the
+same shaped cadence as classic typing, and the field is read back after the
+last character; a character with no key on a US keyboard (an emoji, an
+accented letter) is inserted as text instead, which the page still reads as
+real input. That is what lets X posting, threads, replies and X credential
+sign-in run under the extension in background mode: X's editor and sign-in
+form read their own input handling, which a written field value never
+reaches. In classic mode typing writes the field's value or text with no
+input event, and those X flows refuse by name there. Clearing a field
+before typing stays a page-side clear in both modes.
+
 In background mode Chrome's "started debugging this browser" bar stays up for
 the whole run, and it goes away when the run ends. Closing it, opening
 developer tools on Blowhorn's tab, or closing that tab takes the debugger away:

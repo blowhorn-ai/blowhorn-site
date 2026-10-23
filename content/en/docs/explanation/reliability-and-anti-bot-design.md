@@ -20,7 +20,13 @@ extension, the default driver, typing is one character per message
 with a shaped delay between characters: each gap is drawn from a
 right-skewed distribution around the computed delay and stretches
 after a word or a sentence ends. The extension path does not insert
-the plan's extra pauses and does not type-and-correct typos. Actions
+the plan's extra pauses and does not type-and-correct typos. In
+background mode those same per-character messages are sent as real
+key events through Chrome's debugger, on that same cadence, and the
+field is read back afterwards; in classic mode the extension writes
+each character into the field directly, which is why the flows that
+read a page's own input handling (X posting and sign-in among them)
+only run in background mode. Actions
 are separated by random pauses of a few seconds, scaled by the run's
 pace. `--pace` sets it: `fast`, `normal`, `slow`,
 or a numeric multiplier, resolved from the flag, then the environment,
