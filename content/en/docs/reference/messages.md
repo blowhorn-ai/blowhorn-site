@@ -80,6 +80,25 @@ was clicked and no confirmation was read back. Check the platform,
 then clear "Date Promoted" to try again or leave it. See
 [Content queue columns and activity states](/docs/reference/content-queue/).
 
+## Failures inside Blowhorn
+
+A failure Blowhorn has no specific sentence for still prints one sentence
+and a `Details:` line, then exits 1. The `Details:` line names the error log,
+`~/Library/Application Support/Blowhorn/logs/blowhorn-errors.log`. The log
+holds the full error with anything that looks like a password, token or
+cookie removed. Share that log when you report a problem. Add `--debug`, or
+set `BLOWHORN_DEBUG=1`, to see the full error on the terminal as well.
+
+`Blowhorn's browser engine didn't start, so nothing was done.`: the browser
+engine bundled with Blowhorn exited before the run could use it. Nothing was
+opened, sent or recorded. Update or reinstall Blowhorn and run again. See
+[Fix Blowhorn when its engine won't start](/docs/how-to/troubleshoot/engine-wont-start/).
+What the browser engine printed is in the error log, not on your terminal.
+
+`Something went wrong inside Blowhorn.`: nothing more specific is known yet.
+Run it again. If the same thing happens, share the log the `Details:` line
+names.
+
 ## Related
 
 - [Content queue columns and activity states](/docs/reference/content-queue/) - activity states including unread.
