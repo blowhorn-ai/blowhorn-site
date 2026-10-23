@@ -17,9 +17,10 @@ when a new version of Blowhorn needs something your earlier setup did not do.
 - **Sign in:** one screen does the welcoming and the signing in: Major
   Blowhorn says hello and asks for your papers. Sign in to your Blowhorn
   account, or choose **Create account**.
-  Both open your browser and bring you back to the app. For now, Create
-  account opens the sign-in page; follow its **Sign up** link. If the
-  browser attempt fails, or you close it before finishing, **Cancel** on
+  Both open your browser and bring you straight back to the app. Create
+  account uses the same sign-in page, and there is no extra page asking
+  you to allow it. If the browser attempt fails, or you close it before
+  finishing, **Cancel** on
   the waiting screen stops the wait right away - you never have to wait
   it out - and **Open it again** ends the old attempt and starts a fresh
   one. See [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/).

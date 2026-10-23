@@ -100,6 +100,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn store`](/docs/reference/cli/store/) | Report whether this computer can reach the Blowhorn database, and say why not when it cannot. |
 | [`blowhorn unfollow`](/docs/reference/cli/unfollow/) | Unfollow one Bluesky account (`--platform` bluesky `--target` &lt;handle&gt;) through the Bluesky API. |
 | [`blowhorn uninstall`](/docs/reference/cli/uninstall/) | Remove Blowhorn from this machine. |
+| [`blowhorn upgrade`](/docs/reference/cli/upgrade/) | Carry this Mac's local data from an earlier home into this one. |
 | [`blowhorn withdraw`](/docs/reference/cli/withdraw/) | Withdraw LinkedIn invitations that have been pending longer than `--older-than` days, freeing headroom under LinkedIn's cap on unaccepted invitations. |
 | [Shared flags and exit codes](/docs/reference/cli/shared-flags/) | The flags most blowhorn commands take, and its exit codes. |
 | [`blowhorn-axi`](/docs/reference/cli/blowhorn-axi/) | Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs `--confirm`. |
