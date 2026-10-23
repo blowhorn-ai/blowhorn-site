@@ -58,11 +58,16 @@ platform the activity is addressed to:
 
 - **Delivery** (measured): whether it went out and when, the link to the live
   item, the computer and Chrome profile that ran it, and for a failed attempt
-  the error and the fix to try next.
+  the error and the fix to try next. An activity that is due but has not run
+  yet reads as pending. One whose sending click was made but never read back
+  reads as unconfirmed, with no link: check the platform before assuming it
+  landed or that it did not.
 - **Reception** (measured): the activity's own impressions, clicks, likes,
   comments, reposts and rates with the date they were read, compared with the
   median of the page's other activities. LinkedIn page activities only today;
-  anywhere else it says reception isn't collected, never zero.
+  anywhere else it says reception isn't collected, never zero. A delivered
+  LinkedIn activity that no export reading matches yet says the same, with
+  the reason that no figures match it.
 - **Follower change** (derived): followers at the reading before the activity
   and the first reading a week after it. It is a correlation, not a cause.
 

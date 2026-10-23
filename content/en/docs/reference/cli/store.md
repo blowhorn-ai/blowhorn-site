@@ -1,7 +1,7 @@
 ---
 title: "blowhorn store"
 linkTitle: "store"
-description: "Report whether this machine can reach the Blowhorn database, and say why not when it cannot."
+description: "Report whether this computer can reach the Blowhorn database, and say why not when it cannot."
 weight: 119
 ---
 
@@ -9,7 +9,7 @@ weight: 119
 
 ## blowhorn store
 
-Report whether this machine can reach the Blowhorn database, and say why not when it cannot. With the default store (Blowhorn Cloud) that is the signed-in Cloud check. The Postgres store and its bastion tunnel are a maintainer tool (`BLOWHORN_MAINTAINER`=1). One bounded probe: the bastion tunnel is up (and is opened if it is not), the server answers, the schema matches the migrations this checkout ships, the configured organization resolves, and the local write-back spool is empty.
+Report whether this computer can reach the Blowhorn database, and say why not when it cannot. With the default store (Blowhorn) that is the signed-in check. The Postgres store and its bastion tunnel are a maintainer tool (`BLOWHORN_MAINTAINER`=1). One bounded probe: the bastion tunnel is up (and is opened if it is not), the server answers, the schema matches the migrations this checkout ships, the configured organization resolves, and the local write-back spool is empty.
 
 The connection is Blowhorn's own configuration -- host, port, database, user, password and the tunnel, under `store.` in ~/.config/blowhorn/store.yaml (mode 0600), settable with `blowhorn config set` and in the desktop app. `--replay-spool` drains results already waiting in the spool. Apart from it and `--import`, nothing here writes anything.
 

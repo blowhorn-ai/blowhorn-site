@@ -97,7 +97,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn setup`](/docs/reference/cli/setup/) | Set up Blowhorn on this computer, safely and repeatably. |
 | [`blowhorn slack`](/docs/reference/cli/slack/) | blowhorn slack: delete, edit, profiles, react, send, whoami. |
 | [`blowhorn source`](/docs/reference/cli/source/) | GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login. |
-| [`blowhorn store`](/docs/reference/cli/store/) | Report whether this machine can reach the Blowhorn database, and say why not when it cannot. |
+| [`blowhorn store`](/docs/reference/cli/store/) | Report whether this computer can reach the Blowhorn database, and say why not when it cannot. |
 | [`blowhorn unfollow`](/docs/reference/cli/unfollow/) | Unfollow one Bluesky account (`--platform` bluesky `--target` &lt;handle&gt;) through the Bluesky API. |
 | [`blowhorn uninstall`](/docs/reference/cli/uninstall/) | Remove Blowhorn from this machine. |
 | [`blowhorn withdraw`](/docs/reference/cli/withdraw/) | Withdraw LinkedIn invitations that have been pending longer than `--older-than` days, freeing headroom under LinkedIn's cap on unaccepted invitations. |
