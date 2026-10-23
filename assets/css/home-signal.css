@@ -1,7 +1,7 @@
 /* Signal homepage: app mock, compose demo, platforms treatments, pricing.
    Components read semantic tokens from site.css and themes.css. */
 
-.home-signal .hero-copy .display-xl { max-width: 18ch; }
+.home-signal .hero-copy .display-xl { max-width: 18ch; margin-top: 0; }
 .home-signal .hero-grid {
   grid-template-columns: 1fr;
   justify-items: center;
@@ -13,18 +13,10 @@
 .home-signal .hero-sub { margin-inline: auto; max-width: 58ch; }
 .home-signal .hero-copy .body-lg { max-width: 58ch; }
 
-.hero-signal { position: relative; padding-top: var(--space-16); overflow: hidden; isolation: isolate; }
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(60% 50% at 50% 0%, rgba(0, 211, 169, 0.22), transparent 70%),
-    radial-gradient(40% 40% at 85% 60%, rgba(0, 179, 159, 0.10), transparent 70%),
-    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 56px 56px,
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 56px 56px;
-  mask-image: linear-gradient(#000 55%, transparent);
-}
+/* No hero backdrop of its own: no grid, no teal wash. The hero sits on
+   the same ambient field (body::before in site.css) as every other
+   page. */
+.hero-signal { position: relative; padding-top: var(--space-16); }
 .home-signal .accent {
   background: linear-gradient(90deg, var(--teal-bright), var(--teal) 60%, #6AE3B6);
   -webkit-background-clip: text;
@@ -576,19 +568,30 @@ button.machines-add:focus-visible, button.machines-pill:focus-visible { outline:
 .machines-panel.is-live .machines-beat.is-final img { animation: stage-bark 0.7s ease-in-out 3.6s 3; transform-origin: 50% 100%; }
 
 /* The hero film (hero-video.html, data/hero.json media.video, placement
-   inline-expand): small beside the copy (below it on phones) on its poster,
-   growing into a modal dialog on Play (hero-video.js), above the cookie
-   banner (1040). Toggles sit at the
+   inline-expand): beside the copy at the copy's full height (below it on
+   phones) on its poster, growing into a modal dialog on Play
+   (hero-video.js), above the cookie banner (1040). Toggles sit at the
    top so they never cover the burned-in captions at the bottom. */
 @media (min-width: 900px) {
+  /* Two equal columns with one gap token, stretched to one row height:
+     the film fills its column top to bottom, so both columns carry the
+     same padding (the hero's own padding-block) and the film's height
+     matches the copy beside it. */
   .home-signal .hero-grid.has-film {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 6fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-12);
     justify-items: stretch;
+    align-items: stretch;
     text-align: left;
   }
   .home-signal .hero-grid.has-film .hero-copy { align-items: flex-start; }
   .home-signal .hero-grid.has-film .hero-actions { justify-content: flex-start; }
   .home-signal .hero-grid.has-film .hero-sub { margin-inline: 0; }
+  .home-signal .hero-film-cell { display: flex; }
+  .home-signal .hero-film { flex: 1; aspect-ratio: auto; }
+  /* The frame stretches to the copy's height; the film itself stays
+     contained (its base rule), letterboxed on the frame's black ground,
+     so the poster and the burned-in captions are never cropped. */
 }
 .hero-film-cell { width: 100%; }
 .hero-film { margin: 0; position: relative; width: 100%; aspect-ratio: 16 / 9; }

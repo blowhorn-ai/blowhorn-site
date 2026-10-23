@@ -6,7 +6,6 @@
     {{- $int := site.Data.integrations -}}
     <main id="main" class="home-signal">
       <section class="hero hero-signal" aria-labelledby="hero-title">
-        <div class="hero-bg" aria-hidden="true"></div>
         {{- $film := in $rot.medias "video" }}
         <div class="wrap hero-grid{{ if $film }} has-film{{ end }}">
           <div class="hero-copy">

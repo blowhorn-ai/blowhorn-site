@@ -1,9 +1,10 @@
 /* Theme token layers. Both themes follow the visitor's system setting:
    light tokens by default, dark tokens under prefers-color-scheme: dark,
    no JavaScript and no manual toggle. Reveille (the site default) is
-   defined in site.css; Signal (the homepage theme) is defined here, a
-   light palette below with its dark palette in the media query. Brand
-   primitives in site.css are unchanged. */
+   defined in site.css; Signal (the homepage theme) is defined here and
+   carries the same surface and ambient colouring as Reveille, so the
+   home page matches the rest of the site. Brand primitives in site.css
+   are unchanged. */
 
 /* Logo swap: both themes follow the OS. */
 .logo-on-dark { display: none; }
@@ -13,39 +14,41 @@
   .logo-on-dark { display: block; }
 }
 
-/* Signal, light. The Signal identity, deep green-black ink and the bright
-   teal glow, on light surfaces. The --app-* tokens dress the homepage's
-   app-window sections. */
+/* Signal, light. The homepage carries the same surface and ambient
+   colouring as the rest of the site (the Reveille tokens in site.css), so
+   the home page reads as one theme with the other pages; only the layout
+   and the --app-* tokens (the homepage's app-window sections) are its
+   own. */
 html[data-theme="signal"] {
   color-scheme: light dark;
-  --surface: #F5F9F7;
-  --surface-raised: #FFFFFF;
-  --surface-tint: #D9EFE8;
-  --ink: #0C1512;
-  --ink-muted: #4E5D58;
-  --ink-wordmark: #12211C;
+  --surface: #FFFFFF;
+  --surface-raised: #F4F7F6;
+  --surface-tint: #DDF4F1;
+  --ink: #1E2117;
+  --ink-muted: #5B6A70;
+  --ink-wordmark: #3C494F;
   --link: var(--teal-deep);
   --link-hover: var(--near-black);
-  --line: #C9D8D2;
+  --line: #D5DEDD;
   --focus-ring: var(--teal-deep);
-  --shadow-pop: 4px 4px 0 0 #0C1512;
-  --shadow-soft: 0 8px 24px rgba(7, 11, 10, 0.12);
+  --shadow-pop: 4px 4px 0 0 #1E2117;
+  --shadow-soft: 0 8px 24px rgba(30, 33, 23, 0.12);
 
   --glass-fill: rgba(255, 255, 255, 0.58);
   --glass-fill-strong: rgba(255, 255, 255, 0.72);
-  --glass-fill-solid: #FDFEFE;
+  --glass-fill-solid: #FBFDFC;
   --glass-field: rgba(255, 255, 255, 0.78);
   --glass-sheen: rgba(255, 255, 255, 0.55);
   --glass-specular: rgba(255, 255, 255, 0.95);
   --glass-rim: rgba(255, 255, 255, 0.65);
-  --glass-edge: rgba(12, 21, 18, 0.08);
-  --glass-shadow: 0 1px 2px rgba(12, 21, 18, 0.05), 0 12px 32px -12px rgba(12, 21, 18, 0.18);
-  --glass-shadow-lift: 0 2px 4px rgba(12, 21, 18, 0.06), 0 20px 44px -14px rgba(0, 117, 106, 0.28);
-  --ambient-base: linear-gradient(180deg, #EFF7F3 0%, #F5F9F7 45%, #EDF4F0 100%);
+  --glass-edge: rgba(30, 33, 23, 0.08);
+  --glass-shadow: 0 1px 2px rgba(30, 33, 23, 0.05), 0 12px 32px -12px rgba(30, 33, 23, 0.18);
+  --glass-shadow-lift: 0 2px 4px rgba(30, 33, 23, 0.06), 0 20px 44px -14px rgba(0, 117, 106, 0.28);
+  --ambient-base: linear-gradient(180deg, #F6FBFA 0%, #FFFFFF 38%, #F3F8F7 100%);
   --ambient-1: rgba(0, 211, 169, 0.20);
-  --ambient-2: rgba(0, 179, 159, 0.12);
-  --ambient-3: rgba(106, 227, 182, 0.10);
-  --ambient-4: rgba(0, 117, 106, 0.14);
+  --ambient-2: rgba(166, 235, 223, 0.50);
+  --ambient-3: rgba(235, 192, 23, 0.14);
+  --ambient-4: rgba(0, 179, 159, 0.12);
 
   --app-canvas: #EDF3F0;
   --app-rail: #E1EBE5;
@@ -63,32 +66,14 @@ html[data-theme="signal"] {
   --card-cue-edge: color-mix(in srgb, var(--teal) 35%, transparent);
 }
 
-/* Signal chrome, light: the footer sits one step deeper than the surface,
-   the header is the surface at glass opacity. */
-html[data-theme="signal"] .site-footer {
-  background: #E9F0EC;
-  color: var(--ink-muted);
-}
-html[data-theme="signal"] .site-header {
-  background: rgba(245, 249, 247, 0.8);
-}
-
-/* The ambient field reads from --ambient-base, so this one rule serves
-   both colour schemes. */
-html[data-theme="signal"] body::before {
-  background:
-    radial-gradient(60% 50% at 50% 0%, rgba(0, 211, 169, 0.18), transparent 70%),
-    radial-gradient(40% 40% at 85% 60%, rgba(0, 179, 159, 0.10), transparent 70%),
-    var(--ambient-base);
-}
+/* No Signal chrome or ambient overrides: the header, footer and the
+   body::before ambient field in site.css apply as on every other page. */
 
 html[data-theme="signal"] .stage .stage-ground { stroke: var(--line); stroke-width: var(--stroke-hairline); }
 
-/* Signal, dark. The two token layers and the component copies that used to
-   apply at all times, now under the OS dark setting: the olive layer first
-   (copies of site.css's dark rules, so Signal's components keep their dark
-   treatment), then the near-black Signal palette, which wins where the two
-   overlap. */
+/* Signal, dark. The token layer is the site's dark (Reveille) palette in
+   site.css, copied here so Signal's components keep their dark treatment;
+   the --app-* tokens for the homepage's app-window sections follow. */
 @media (prefers-color-scheme: dark) {
   html[data-theme="signal"] {
     --surface: #1E2117;
@@ -179,34 +164,9 @@ html[data-theme="signal"] .stage .stage-ground { stroke: var(--line); stroke-wid
   html[data-theme="signal"] a.docs-card.platform-card:hover::after,
   html[data-theme="signal"] a.docs-card.platform-card:focus-visible::after { --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2300D3A9' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 
+  /* The app-window tokens stay near-black in dark mode: the panels are
+     black app windows on every page that shows them. */
   html[data-theme="signal"] {
-    --surface: #070B0A;
-    --surface-raised: #0F1513;
-    --surface-tint: #173A34;
-    --ink: #E9EFED;
-    --ink-muted: #9AA8A4;
-    --ink-wordmark: #FFFFFF;
-    --link: var(--teal-bright);
-    --link-hover: var(--mint);
-    --line: #26302D;
-    --focus-ring: var(--teal-bright);
-    --shadow-pop: 4px 4px 0 0 var(--teal-bright);
-    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.45);
-    --glass-fill: rgba(15, 21, 19, 0.72);
-    --glass-fill-strong: rgba(7, 11, 10, 0.78);
-    --glass-fill-solid: #0F1513;
-    --glass-field: rgba(14, 19, 18, 0.72);
-    --glass-sheen: rgba(255, 255, 255, 0.06);
-    --glass-specular: rgba(255, 255, 255, 0.12);
-    --glass-rim: rgba(0, 211, 169, 0.14);
-    --glass-edge: #26302D;
-    --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.30), 0 16px 40px -14px rgba(0, 0, 0, 0.60);
-    --glass-shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.30), 0 22px 48px -14px rgba(0, 211, 169, 0.22);
-    --ambient-base: #070B0A;
-    --ambient-1: rgba(0, 211, 169, 0.22);
-    --ambient-2: rgba(0, 179, 159, 0.12);
-    --ambient-3: rgba(106, 227, 182, 0.08);
-    --ambient-4: rgba(0, 117, 106, 0.18);
     --app-canvas: #0E1312;
     --app-rail: #141B19;
     --app-line: #26302D;
@@ -219,15 +179,6 @@ html[data-theme="signal"] .stage .stage-ground { stroke: var(--line); stroke-wid
     --app-live: #6AE3B6;
     --app-pending: #E8B04A;
     --app-tint: rgba(106, 227, 182, 0.10);
-  }
-
-  /* Signal footer: same shape and glass gradient, recoloured with Signal tokens. */
-  html[data-theme="signal"] .site-footer {
-    background: #050807;
-    color: var(--ink-muted);
-  }
-  html[data-theme="signal"] .site-header {
-    background: rgba(7, 11, 10, 0.72);
   }
 
   html[data-theme="signal"] .button-pop:hover {

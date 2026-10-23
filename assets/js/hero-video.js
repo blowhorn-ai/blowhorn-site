@@ -73,8 +73,10 @@
     frame.style.height = r.height + 'px';
   }
   // Transform that draws the frame (laid out at rect to) over rect from.
+  // Per-axis scale: the inline frame is taller than 16:9 (it stretches to
+  // the hero copy's height), the expanded frame is 16:9.
   function invert(from, to) {
-    return 'translate(' + (from.left - to.left) + 'px,' + (from.top - to.top) + 'px) scale(' + (from.width / to.width) + ')';
+    return 'translate(' + (from.left - to.left) + 'px,' + (from.top - to.top) + 'px) scale(' + (from.width / to.width) + ',' + (from.height / to.height) + ')';
   }
   function animate(fromT, toT, done) {
     if (reduced()) { frame.style.transform = toT; done(); return; }
