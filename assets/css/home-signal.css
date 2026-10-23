@@ -587,8 +587,10 @@ button.machines-add:focus-visible, button.machines-pill:focus-visible { outline:
   .home-signal .hero-grid.has-film .hero-copy { align-items: flex-start; }
   .home-signal .hero-grid.has-film .hero-actions { justify-content: flex-start; }
   .home-signal .hero-grid.has-film .hero-sub { margin-inline: 0; }
-  .home-signal .hero-film-cell { display: flex; }
-  .home-signal .hero-film { flex: 1; aspect-ratio: auto; }
+  /* The cell stays display:block: the hero rotation's head CSS shows it
+     with display:revert, which discards any author display on it. The
+     figure fills the stretched cell by height instead. */
+  .home-signal .hero-film { height: 100%; aspect-ratio: auto; }
   /* The frame stretches to the copy's height; the film itself stays
      contained (its base rule), letterboxed on the frame's black ground,
      so the poster and the burned-in captions are never cropped. */
