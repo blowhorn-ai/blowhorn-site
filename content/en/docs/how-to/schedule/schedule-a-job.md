@@ -30,6 +30,14 @@ next time. To run it again, open it, choose "edit" and give it a new "when":
 it is scheduled again on the same activity, with its full set of retries, and its
 last run stays in its history.
 
+For a repeating job, giving up stops the whole series: when a run uses its
+last retry, the job is marked failed and the later runs in the series do not
+happen - it does not try again tomorrow. That is deliberate. Repeated failures
+usually mean a broken sign-in or a platform checkpoint, and trying again every
+day risks the account. `blowhorn schedule why <activity>` says when a series
+has stopped; give the job a new time, as above, to restart the series with a
+fresh set of retries.
+
 If you have no routines yet, the screen offers "add sample routines…" instead: it
 previews a starter set of activities first, and writes them only when you apply the
 preview. It never edits routines you already set up.

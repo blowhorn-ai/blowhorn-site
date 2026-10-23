@@ -41,6 +41,12 @@ quote it in a bug report with `--json` for the same answer scripts can read.
   `(this machine)`.
 - **Not due.** `Next Run At` has not passed yet. `schedule status` shows an
   estimated next tick for this computer.
+- **Gave up.** The last run used the activity's final retry, so it is `failed`
+  with no next time. For a repeating activity the whole series has stopped -
+  deliberately: repeated failures usually mean a broken sign-in or a platform
+  checkpoint, and retrying on the recurrence risks the account. Give the
+  activity a new time to restart it (the series, if it repeats) with a fresh
+  set of retries.
 - **Invalid.** `blowhorn schedule validate` names what the activity breaks.
 
 The command is read-only: it claims nothing, runs nothing and changes nothing,

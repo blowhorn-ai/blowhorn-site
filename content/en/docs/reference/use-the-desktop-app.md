@@ -15,8 +15,13 @@ two boards. The running board shows the scheduler, what is due now, what
 is running, what needs you, and the content queue with a countdown to
 the next tick. The paused board shows PAUSED with each tick-level pause
 scope stated once, and the activities that would post now wait instead of
-posting. A store outage puts its line above the board. The line is the
-last check's word, so while it shows, the app keeps checking the store in
+posting. Until you are signed in, those boards stay hidden, and so does any
+can't-reach or unknown line. The popover then shows the mark, the wordmark
+and Quit, the recruit, Welcome to Blowhorn, the line "Open Blowhorn to sign
+in and get set up. It takes about five minutes.", and one Open Blowhorn
+button, which opens the console. It shows no pause, counts, countdown,
+update card or error. A store outage puts its line above the board once
+you are signed in. The line is the last check's word, so while it shows, the app keeps checking the store in
 the background - soon after the line appears, then every two minutes -
 and again whenever you open the popover, bring the console forward, or
 wake the computer. When the store answers, the line clears on its own and
@@ -43,8 +48,8 @@ one place with three views, switched at the top of the screen: **Upcoming**
 (what you want to say), **Routines** (when and where things go out) and
 **History** (what Blowhorn did).
 
-At the bottom of the rail, the status line says whether this computer is on
-watch. It reads "Paused since" when the pause began (the time for a pause from
+At the bottom of the rail, once you are signed in, the status line says whether
+this computer is on watch. It reads "Paused since" when the pause began (the time for a pause from
 today, the weekday and time within the past week, otherwise the date) with
 "Nothing goes out"; "This computer isn't on watch" with the reason when its
 service is stopped, not installed or turned off in System Settings; "Check
@@ -64,13 +69,15 @@ with yours checked; picking one switches your account to it right here, the same
 switch cloud.blowhorn.ai makes, so your browser follows too; `blowhorn auth
 switch-organization` does it from Terminal), **Settings** (⌘,), **Help and docs**, and
 **Sign out**. Opening the menu refreshes your name, photo, organizations and
-plan from your Blowhorn account. Signed out, the button is **Sign in**. While
+plan from your Blowhorn account. Signed out, the rail shows no sign-in button
+and no account placeholder: the guided setup's own sign-in buttons are the way
+in, and this computer's status line stays hidden. While
 Blowhorn checks your account it shows a spinner; when it can't reach
 Blowhorn it shows a warning dot, and its menu offers **Try again**.
 
 Each screen reads live state on open. Nothing here edits on a timer. Until
 you're signed in and the extension is ready, every place but Home, and New
-activity, is locked; the account button stays usable. See
+activity, is locked. Once you are signed in, the account button stays usable. See
 [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/).
 
 | Screen | Shows | Acts |
