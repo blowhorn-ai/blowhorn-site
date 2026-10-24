@@ -21,6 +21,7 @@ columns beside them are preserved on write.
 | Title | The title where the platform needs one: Hacker News submissions | Hacker News |
 | Encoded Post | The pre-encoded form, when the activity carries one | The post path |
 | Approved? | `yes` or `true` selects the activity; anything else leaves it out | `get_posts_to_process` |
+| Approved by | Who approved the activity and when, as `<who> at <when>`; empty until then. Written by `blowhorn content approve` alone - a payload naming it is refused | The approval record |
 | Promote On | When the activity becomes due; unparseable is refused, never guessed | The due check |
 | Date Promoted | When each profile published it; clear it to try the activity again | The done bookkeeping |
 | Promotion Link | Where the published post landed, when a read-back showed it | Reporting |
@@ -33,6 +34,25 @@ columns beside them are preserved on write.
 An activity with "Comment on" set can only ever be a comment. An activity with an
 "Amplify" GitHub target can only ever be reactions. Timestamps in
 content values read `%Y-%m-%d %H:%M:%S`.
+
+## Approval
+
+`Approved?` is the gate, and `draft` is what an unapproved activity reads
+as. Who may set it is a policy - approval mode, `defaults.approval.mode`
+(see [Configuration](/docs/reference/configuration/)). With `agent` or `all` in force, a
+held caller's activity is stored with `Approved?` unset whatever its
+payload asked, and waits like any other draft. A run never picks it up:
+`get_posts_to_process` reads `yes` and `true` as approved and everything
+else - `no`, blank, anything - as not approved.
+
+`blowhorn content approve <activity>` is the person's door: it sets
+`Approved?` and writes the `Approved by` record - the approver's signed-in
+identity from the cloud session cache when there is one, else the local
+user name, with the time. The record is a record, not a claim: no payload
+can set it, editing an approved activity keeps it, un-approving an
+activity clears it, and approving an already-approved or missing activity
+is refused. An agent-signalled caller is refused by the command itself,
+in every mode: approval is a person's act.
 
 ## Activity states
 

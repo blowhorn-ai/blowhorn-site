@@ -244,8 +244,8 @@ Examples:
 
 ```bash
 blowhorn profile set kate EMAIL=kate@example.com X_USERNAME=katesuttons
-blowhorn profile set sam --create PROFILE=sam EMAIL=sam@example.com
-blowhorn profile set sam --create EMAIL=sam@example.com --subject 3f2b1c4d-8a9e-4c6b-9d1e-2a3b4c5d6e7f
+blowhorn profile set sam PROFILE=sam EMAIL=sam@example.com --create
+blowhorn profile set sam EMAIL=sam@example.com --create --subject 3f2b1c4d-8a9e-4c6b-9d1e-2a3b4c5d6e7f
 blowhorn profile set sam --register
 blowhorn profile set kate GH_TOKEN=ghp_yourtoken --json
 blowhorn profile set alex slack_workspaces=mesheryio.slack.com,acme.slack.com

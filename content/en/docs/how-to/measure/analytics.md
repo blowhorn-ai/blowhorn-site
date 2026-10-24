@@ -116,6 +116,13 @@ verifies every file: activities read, matched, unmatched, skipped with the reaso
 and stored. Importing the same export twice stores it once; `--dry-run` reads
 and matches without storing.
 
+A collection also stores the exports' daily series: the followers exports'
+daily new followers and their location, job function, seniority, industry
+and company-size breakdowns, and the content exports' daily impressions,
+clicks, reactions, comments, reposts and engagement rate. The backfill for
+exports already on disk is an operator step (`make store-ingest-linkedin-exports`);
+it reads the same files and is safe to re-run.
+
 ## Read the HTML report
 
 ```bash

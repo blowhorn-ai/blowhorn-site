@@ -44,13 +44,15 @@ Both halves of a LinkedIn amplify are guarded before anything is clicked:
 a post that already carries the reaction is left alone, and a post the
 profile already reposted is recorded as done with the amplify URL as its
 link. Re-running an activity that already went out is safe. A Bluesky repost
-carries no such guard: once the activity is done, leave it done.
+is guarded the same way: the thread read shows whether this profile already
+reposted it, and a re-run records it done with the amplify URL as its link
+instead of reposting a second time.
 
 ## When your account cannot be updated
 
 The `Date Promoted` write happens after the amplify went out, so losing
 it does not undo anything: it hides it. The activity stays pending and the
-next run acts again, which the LinkedIn guards above make a no-op rather
+next run acts again, which the guards above make a no-op rather
 than a duplicate. The write is retried on transient failures; when it
 still fails, one loud `!!!` line names the activity, the profile, and exactly
 what went out publicly, the activity counts as failed, and the rest of that

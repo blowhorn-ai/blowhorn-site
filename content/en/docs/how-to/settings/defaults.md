@@ -29,6 +29,34 @@ A flag beats an environment variable, which beats `.blowhorn.yaml` in the
 directory you run from, which beats the built-in. Every option and its
 environment variable is listed in the configuration reference.
 
+## Slow one platform down
+
+Pace is per platform when you want it to be: X and LinkedIn can run slow
+while Slack and GitHub run at the normal pace.
+
+```bash
+blowhorn config set defaults.pace_by_platform.x slow
+blowhorn config set defaults.pace_by_platform.linkedin slow
+blowhorn config set defaults.pace normal
+```
+
+or, in `.blowhorn.yaml`:
+
+```yaml
+defaults:
+  pace: normal
+  pace_by_platform:
+    x: slow
+    linkedin: slow
+    hn: 1.5
+```
+
+A platform with no entry runs at `defaults.pace`. A `--pace` flag (or
+`BLOWHORN_PACE`) covers every platform for that run, so a one-off run can
+override the standing per-platform paces. `blowhorn config show --json`
+reports the effective pace for every platform and which setting supplied
+it.
+
 To read one option and learn which document holds it:
 
 ```bash

@@ -99,6 +99,17 @@ YouTube, Instagram, TikTok, and Facebook are coming soon. None of them
 is generally available yet, `blowhorn post --platform` does not list
 them, and each page will list its actions once it ships.
 
+## Limits
+
+Every platform and action has a built-in daily ceiling, enforced per
+profile from the run ledger in your account, so a cap holds on every
+computer that shares the account; each platform's page carries its
+numbers. A Risk Profile preset may take only a share of a ceiling, and
+you can set a lower daily cap of your own per platform and action --
+`defaults.caps` for every profile, or one profile's `Daily Caps`
+attribute -- but never a higher one. See
+[Daily caps](/docs/reference/configuration/#daily-caps).
+
 ## Related
 
 

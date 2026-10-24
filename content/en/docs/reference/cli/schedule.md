@@ -233,6 +233,7 @@ blowhorn schedule tick [OPTIONS]
 | --- | --- | --- | --- |
 | `--limit` | integer | `0` | Maximum number of due activities to process; 0 means no limit |
 | `--ignore-pause` | boolean | `false` | Run even while `blowhorn schedule pause` is in effect; without it a paused scheduler claims nothing |
+| `--ignore-quiet-hours` | boolean | `false` | Run even inside the quiet hours (defaults.quiet_hours, or a profile's own Quiet Hours setting); without it a due activity inside the window is held until it ends |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Pace handed to every action `blowhorn schedule tick` runs in-process this pass -- the random delays between that action's browser or API steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -265,6 +266,7 @@ blowhorn schedule trigger-now [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--ignore-pause` | boolean | `false` | Run even while `blowhorn schedule pause` is in effect; without it a paused scheduler claims nothing |
+| `--ignore-quiet-hours` | boolean | `false` | Run even inside the quiet hours (defaults.quiet_hours, or a profile's own Quiet Hours setting); without it a due activity inside the window is held until it ends |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Pace handed to every action `blowhorn schedule trigger-now` runs in-process this pass -- the random delays between that action's browser or API steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |

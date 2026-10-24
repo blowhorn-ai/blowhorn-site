@@ -18,8 +18,10 @@ anyway. In the app, Activity shows the draft and Routines runs a preview-only
 check. A `blowhorn post --dry-run` then reports the fixture row without
 publishing it.
 
-Build the app first, from `desktop/`, with the electron-vite build. Then, from
-the checkout:
+Build the app first, from `desktop/`, with the electron-vite build, and build
+it again after a pull, a rebase or any edit under `desktop/src`. The check
+launches whatever is in `desktop/out` and refuses to start when that build is
+older than its source, naming the newer file. Then, from the checkout:
 
 ```bash
 make onboarding-e2e

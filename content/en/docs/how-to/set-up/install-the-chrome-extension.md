@@ -77,8 +77,9 @@ If it says the extension is too old for this Blowhorn, update it: open
 ## Check it from the toolbar
 
 On first install the extension opens the Blowhorn welcome page. Its
-toolbar button shows a red **!** until this Chrome profile is ready.
-Click it to see what is missing, then follow its one button:
+toolbar button shows the Blowhorn paw in grey until this Chrome profile
+is ready, then in colour; hovering it names what is missing. Click it to
+see what is missing, then follow its one button:
 
 - **Download the Blowhorn app** - the app is not installed.
 - **Update the Blowhorn app** - the app is too old for this extension.
