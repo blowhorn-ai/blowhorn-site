@@ -50,6 +50,19 @@ it updates and uses those timings next time. Until it has its own, it uses
 timings measured on an Intel iMac: about 24 seconds to verify, 20 seconds to
 copy the app and a few seconds to finish setup.
 
+## Your data moves with the update
+
+A new version may keep your data in a new place. When it does, the first
+time the new version opens, it carries your profiles, settings, run history
+and pause over before the background service starts. You need no Terminal,
+and there is nothing for you to do. The old place is left exactly as it was.
+
+If a scheduled pass is running when the new version opens, the carry waits
+until the pass ends, and the service stays as it was until then. If the
+carry cannot finish, the service is put back as it was and the next launch
+tries again. A notification says what was carried, and the Setup screen's
+**this computer on watch** row and the Service screen carry the same line.
+
 ## If an update stalls
 
 If the download stops moving for 30 seconds, or a step runs for well over

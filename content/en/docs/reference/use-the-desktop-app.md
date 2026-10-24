@@ -83,7 +83,7 @@ activity, is locked. Once you are signed in, the account button stays usable. Se
 | Screen | Shows | Acts |
 |---|---|---|
 | Home | Whether Blowhorn is working, what runs next, and whether it needs you; a pause names which pause holds - this computer, all computers, or both | Turn off the pause it names (one button per pause while both hold); reconnect an account; finish setting up |
-| Activity › Upcoming | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones | Add or edit a post; clearing a clicked post's "Date Promoted" queues it again |
+| Activity › Upcoming | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones; an opened post's editor shows its result: delivery per profile and platform, reception where it was collected, and the follower change since | Add or edit a post; clearing a clicked post's "Date Promoted" queues it again |
 | Activity › Routines | Your routines as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the next check; a drawer for one item; a preview of sample routines | Add an item, from "schedule something" or by clicking a free time; move an item's next time by dragging it; edit, pause or resume one item; "do it now"; add the sample routines |
 | Activity › History | Everything Blowhorn did, newest first, with each one's detailed log under the log directory's `scheduler/` folder | "try again" on a failure |
 | Profiles | Every profile, its Chrome mapping, its per-platform sessions | Add a profile; map or unmap its Chrome profile |

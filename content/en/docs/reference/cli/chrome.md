@@ -1,7 +1,7 @@
 ---
 title: "blowhorn chrome"
 linkTitle: "chrome"
-description: "blowhorn chrome: attach-chrome, confirm, discover, extension-enable, extension-install, extension-mode, extension-status, map, profiles, status, suggest, unmap."
+description: "blowhorn chrome: attach-chrome, confirm, discover, extension-enable, extension-install, extension-mode, extension-status, map, open-profile, profiles, status, suggest, unmap."
 weight: 103
 ---
 
@@ -19,6 +19,7 @@ The `blowhorn chrome` commands. Each one's `--help` prints the same text.
 | [`chrome extension-mode`](#blowhorn-chrome-extension-mode) | Show or set how runs drive the Blowhorn Chrome extension. |
 | [`chrome extension-status`](#blowhorn-chrome-extension-status) | Report whether the Blowhorn Chrome extension is installed and connected. |
 | [`chrome map`](#blowhorn-chrome-map) | Map a Blowhorn profile to one of this machine's Chrome profiles, by the Chrome profile's directory name as `blowhorn chrome profiles` prints it (`Default`, `Profile 12`). |
+| [`chrome open-profile`](#blowhorn-chrome-open-profile) | Open a window in the Chrome profile a Blowhorn profile is mapped to on this machine, so you can look at it or sign in to a platform there yourself. |
 | [`chrome profiles`](#blowhorn-chrome-profiles) | List every profile Chrome knows. |
 | [`chrome status`](#blowhorn-chrome-status) | Report whether Google Chrome is installed, whether it is running, whether its remote-debugging switch is on (chrome://inspect/#remote-debugging), the debugging port it recorded, how many profiles i... |
 | [`chrome suggest`](#blowhorn-chrome-suggest) | Print a proposed mapping from every Blowhorn profile in the store to a Chrome profile on this machine, matched by display name (a Chrome profile named `Kate` proposes for the Blowhorn profile kate)... |
@@ -290,6 +291,38 @@ blowhorn chrome map alex Default --json
 ```
 
 Output: json with `--json`, text otherwise.
+
+## blowhorn chrome open-profile
+
+Open a window in the Chrome profile a Blowhorn profile is mapped to on this machine, so you can look at it or sign in to a platform there yourself. The mapping decides which Chrome profile opens, by the same rule a run uses: with `--sign-in`, the mapping chosen for that platform; without it, the profile's only mapping or its default one. A profile with no mapping here, a mapping Chrome no longer has, or a name or account that drifted since the mapping was made is refused by name and nothing opens -- a mapping is identity, never a guess at another profile. With `--sign-in` &lt;platform&gt; the window opens on that platform's sign-in page; without it, on a new tab. Blowhorn asks Chrome to open the window and steps back: it drives nothing in it, attaches nothing to it, and never restarts or closes Chrome -- a Chrome already running just gains the window. If no Chrome is running, Chrome starts to open the window and is left running. Writes nothing.
+
+```text
+blowhorn chrome open-profile [OPTIONS] name
+```
+
+| Argument | Required | Description |
+| --- | --- | --- |
+| `name` | yes | The Blowhorn profile, as the store's profiles name it (kate) |
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--sign-in` | string |  | Open on this platform's sign-in page instead of a new tab, and choose the mapping by that platform, as a run would. One of linkedin, x, reddit, hn, slack, bluesky, github |
+| `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
+| `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn chrome open-profile` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn chrome open-profile kate
+blowhorn chrome open-profile kate --sign-in linkedin
+blowhorn chrome open-profile kate --sign-in linkedin --json
+```
+
+Output: json with `--json`, text otherwise.
+
 
 ## blowhorn chrome profiles
 

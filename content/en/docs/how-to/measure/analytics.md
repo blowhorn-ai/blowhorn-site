@@ -28,7 +28,9 @@ the same series.
 ## Choose the LinkedIn pages
 
 The LinkedIn pages a collection walks belong to your organization, not to a
-fixed list. Manage them from the command line:
+fixed list. Manage them in the app from the Performance view's "linkedin
+pages" card - add a page, switch one off, or remove it - or from the command
+line:
 
 ```bash
 blowhorn analytics pages
@@ -42,7 +44,9 @@ LinkedIn id; an add also accepts the page's LinkedIn URL and reads the kind
 and id from it. Add `--disabled` to list a page without collecting from it,
 and add it again without the flag to collect from it again. Collection walks
 the enabled pages and only those, so two organizations sharing one install
-each collect their own pages.
+each collect their own pages. When your organization has no pages yet, the
+card in the app says "connect a LinkedIn page" and the add form is right
+there.
 
 An organization that has not configured any pages yet keeps collecting the
 pages it collected before per-organization configuration. Run
@@ -96,6 +100,12 @@ platform the activity is addressed to:
   the reason that no figures match it.
 - **Follower change** (derived): followers at the reading before the activity
   and the first reading a week after it. It is a correlation, not a cause.
+
+In the app, the same result is on the activity itself: open it under
+**Activity › Upcoming** and its editor shows a **result** section - delivery
+per profile and platform, reception labelled measured, and the follower
+change labelled derived - read when you open the activity, and again when
+you press its refresh.
 
 A computer that is not connected to a store yet says so in one sentence and
 exits 3.

@@ -34,6 +34,26 @@ another.
 The Setup screen's **chrome profiles** row reports the same state for every
 profile at once.
 
+## Open the mapped profile
+
+Choose **open in chrome** on a profile's **chrome** heading on **Profiles**
+to open a window in exactly that Chrome profile -- Chrome shows the
+profile's own name and picture in the window, so it cannot be mistaken for
+another one. Sign in to a platform there yourself, then come back. The
+platform **Set up** steps in **Chrome profiles** offer the same button, and
+theirs opens that platform's sign-in page in the profile its mapping
+chooses for that platform. From a terminal:
+
+```bash
+blowhorn chrome open-profile ada
+blowhorn chrome open-profile ada --sign-in linkedin
+```
+
+Blowhorn asks Chrome to open the window and steps back: it drives nothing
+in it and never restarts or closes Chrome. A mapping that does not hold --
+no mapping, a drifted name or account, a directory Chrome no longer has --
+is refused by name and nothing opens.
+
 ## Confirm troops in guided setup
 
 The first-run setup's **Confirm troops** step does the whole job from what
@@ -228,7 +248,7 @@ extension to land in.
 ## When your account cannot be reached
 
 `chrome profiles`, `chrome map`, `chrome unmap`, `chrome suggest`,
-`chrome discover`, `chrome confirm` and
+`chrome discover`, `chrome confirm`, `chrome open-profile` and
 `profile status --chrome` each read your account, so each ends with your account's one named sentence and exit 3 when it is unreachable, even when
 Chrome's profile list cannot be read either, because your account is asked
 first. `chrome status` never opens your account.

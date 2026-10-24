@@ -29,9 +29,12 @@ extension's pairing page in the mapped Chrome profile, and creates this
 computer's pairing key outside Chrome's directory (see [Pairing](#pairing)).
 `blowhorn chrome extension-enable` asks Chrome to open a window on the
 extension's Chrome Web Store page in each Chrome profile you name (see
-[its section](#blowhorn-chrome-extension-enable)). When no Chrome is
-running, either one starts Chrome to open that window and leaves it
-running; neither drives anything in it.
+[its section](#blowhorn-chrome-extension-enable)).
+`blowhorn chrome open-profile` asks Chrome to open a window in the
+Chrome profile a Blowhorn profile is mapped to (see
+[its section](#blowhorn-chrome-open-profile)). When no Chrome is
+running, any of them starts Chrome to open that window and leaves it
+running; none drives anything in it.
 
 ## What it never opens, and when it never starts Chrome
 
@@ -378,6 +381,40 @@ by this command. `--dry-run` opens nothing.
 one `{directory, display_name, opened, detail}` per profile, where
 `detail` says why the page did not open (`chrome could not open the Chrome Web Store page: <reason>`). When it opened in no
 profile, `ok` is `false` and the command exits 1.
+
+## `blowhorn chrome open-profile`
+
+```bash
+blowhorn chrome open-profile kate
+blowhorn chrome open-profile kate --sign-in linkedin
+```
+
+Opens a window in the Chrome profile the named Blowhorn profile is
+mapped to on this computer, so you can look at it or sign in to a
+platform there yourself. The mapping chooses the Chrome profile by the
+same rule a run uses: with `--sign-in <platform>`, the mapping chosen
+for that platform; without it, the profile's only mapping or its
+default one. The window opens on that platform's sign-in page, or on a
+new tab when no platform is named. Chrome shows the profile's own name
+and picture in the window, so it cannot be mistaken for another Chrome
+profile.
+
+A profile with no mapping here, several mappings with none chosen, a
+mapped directory Chrome no longer has, or a name or account that
+drifted since the mapping was made is refused by name and nothing
+opens: a mapping is identity, never a guess at another profile, and no
+other Chrome profile is opened, read, or changed. Blowhorn asks Chrome
+to open the window and steps back -- it drives nothing in it, attaches
+nothing to it, and never restarts or closes Chrome, so a Chrome already
+running just gains the window. It writes nothing. `--dry-run` opens
+nothing.
+
+`--json` prints `ok`, `dry_run`, `profile`, `platform` (the `--sign-in`
+platform, or null), `url`, `directory`, `display_name`, `account`,
+`opened`, and `detail`, which says why the window did not open
+(`chrome could not open that chrome profile: <reason>`). When Chrome
+could not be asked, `ok` is `false` and the command exits 1.
+
 
 ## `blowhorn chrome discover`
 
