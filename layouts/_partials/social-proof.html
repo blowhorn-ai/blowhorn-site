@@ -51,10 +51,11 @@
     </span>
     <span class="proof-spot-teaser"><q>{{ $t.quote | truncate 96 }}</q> <span class="caption muted">{{ $t.name }}, {{ $t.company }}</span>{{ if $t.placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</span>
     <span class="proof-spot-toggle" aria-hidden="true">Read the rest</span>
+    <span class="proof-spot-collapse" aria-hidden="true">Show less</span>
   </summary>
   <div class="proof-spot-full">
     <blockquote>{{ $t.quote }}</blockquote>
-    <p class="caption muted">{{ $t.name }} · {{ $t.role }}, {{ $t.company }} · <a href="#users">More from Blowhorn users</a></p>
+    <p class="caption muted">{{ $t.name }} · {{ $t.role }}, {{ $t.company }} · <a href="#users">More from Blowhorn users</a>{{ if $t.placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</p>
   </div>
 </details>
 {{- else if eq $slot "interlude" -}}

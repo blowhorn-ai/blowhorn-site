@@ -2813,17 +2813,26 @@ a.card.docs-card > * { margin-top: 0; }
 /* The hero carries exactly one proof spot, paired to the day's hero
    banner. The teaser truncates the quote, so the summary is a real
    disclosure control: one click (or Enter) opens the full quote in
-   place, with a link on to the full grid in context. */
+   place, with a link on to the full grid in context. Open, the teaser
+   hides, so the full quote is the only copy — never the teaser plus
+   the full quote. */
 .proof-spot { margin: var(--space-6) 0 0; max-width: 34rem; border-radius: 1.25rem; background: var(--glass-fill); border: 1px solid var(--glass-rim); box-shadow: var(--glass-shadow); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); }
 .proof-spot-summary { display: flex; gap: var(--space-3); align-items: center; padding: var(--space-3) var(--space-4); cursor: pointer; list-style: none; border-radius: 1.25rem; }
 .proof-spot-summary::-webkit-details-marker { display: none; }
-.proof-spot-summary:hover .proof-spot-toggle { color: var(--link); }
+.proof-spot-summary:hover .proof-spot-toggle, .proof-spot-summary:hover .proof-spot-collapse { color: var(--link); }
 .proof-spot-summary:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
 .proof-spot-teaser { flex: 1; min-width: 0; }
-.proof-spot-toggle { flex: none; font-size: 0.8rem; font-weight: 700; color: var(--teal-deep); white-space: nowrap; }
+.proof-spot-toggle, .proof-spot-collapse { flex: none; font-size: 0.8rem; font-weight: 700; color: var(--teal-deep); white-space: nowrap; }
 .proof-spot-toggle::after { content: " +"; }
-.proof-spot[open ] .proof-spot-toggle::after { content: " –"; }
-@media (prefers-color-scheme: dark) { .proof-spot-toggle { color: var(--teal-bright); } }
+.proof-spot-collapse { display: none; }
+.proof-spot-collapse::after { content: " –"; }
+/* Open: the teaser hides, so the full quote below is the only copy on
+   the page — never the teaser plus the full quote — and the toggle
+   swaps to a collapse label. */
+.proof-spot[open] .proof-spot-teaser { display: none; }
+.proof-spot[open] .proof-spot-toggle { display: none; }
+.proof-spot[open] .proof-spot-collapse { display: inline; }
+@media (prefers-color-scheme: dark) { .proof-spot-toggle, .proof-spot-collapse { color: var(--teal-bright); } }
 .proof-spot-full { padding: 0 var(--space-4) var(--space-4); }
 .proof-spot-full blockquote { margin: 0 0 var(--space-2); font-size: 1.05rem; line-height: 1.5; }
 .proof-spot-full p { margin: 0; }
@@ -2843,11 +2852,13 @@ a.card.docs-card > * { margin-top: 0; }
 .proof-ticker-item { display: flex; align-items: center; padding-right: var(--space-4); white-space: nowrap; }
 /* Each organisation's own horizontal logo, on a plate that stays the
    same in both colour schemes (the logos are the owners' files,
-   unmodified; two are white lockups and ride the dark plate instead). */
+   unmodified; two are white lockups and ride the dark plate instead).
+   The files stay in full colour; the ticker renders them all in one
+   treatment — same height, greyscale — so the strip reads as one set
+   instead of a hodgepodge of brand colours. */
 .proof-logo-plate { display: inline-flex; align-items: center; justify-content: center; height: 3rem; padding: 0 var(--space-4); border-radius: var(--radius-md); background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--line), 0 1px 2px rgba(30, 33, 23, 0.08); }
 .proof-logo-plate.is-dark { background: var(--near-black); box-shadow: inset 0 0 0 1px var(--line), 0 1px 2px rgba(30, 33, 23, 0.08); }
-.proof-ticker-logo { display: block; height: 1.65rem; width: auto; max-width: 11rem; object-fit: contain; }
-.proof-logo-plate.is-dark .proof-ticker-logo { height: 1.5rem; }
+.proof-ticker-logo { display: block; height: 1.65rem; width: auto; max-width: 11rem; object-fit: contain; filter: grayscale(1); }
 .proof-wordmark { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; line-height: 1; color: var(--ink-muted); }
 @keyframes proof-ticker-slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
