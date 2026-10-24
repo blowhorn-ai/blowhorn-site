@@ -18,14 +18,16 @@ step has ticked off. The app never sees your password.
 
 ## How Create account works today
 
-- **Your browser opens Blowhorn's sign-in page.** Create account and Sign
-  in both use that page, and it sends you back to the app when it finishes.
+- **Your browser opens Blowhorn's sign-up page.** Sign in opens the
+  sign-in page instead. Either one sends you back to the app when it
+  finishes.
 - **Google and GitHub work too:** they always run in your browser.
 - **Nothing to copy or paste:** when sign-up finishes, the page hands you
   back to the app and the step ticks off.
 - **Signing up with an email address adds a step:** Blowhorn sends you a
-  verification email. After you follow its link, the page sends you back
-  to the app.
+  verification email. After you follow its link, the browser goes straight
+  back to the app and the step ticks off by itself. You do not need to
+  switch back to the app or press anything there.
   The wait for a sign-up is ten minutes, twice the sign-in wait. If the
   wait runs out anyway, your account is kept: verify your email, then
   sign in. You do not need to create the account again.

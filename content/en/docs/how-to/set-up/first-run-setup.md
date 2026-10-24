@@ -18,8 +18,8 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   Blowhorn says hello and asks for your papers. Sign in to your Blowhorn
   account, or choose **Create account**.
   Both open your browser and bring you straight back to the app. Create
-  account uses the same sign-in page, and there is no extra page asking
-  you to allow it. If the browser attempt fails, or you close it before
+  account opens the sign-up page, and once you confirm your email the
+  app moves on by itself. There is no extra page asking you to allow it. If the browser attempt fails, or you close it before
   finishing, **Cancel** on
   the waiting screen stops the wait right away - you never have to wait
   it out - and **Open it again** ends the old attempt and starts a fresh
@@ -82,13 +82,17 @@ nothing here.
 
 - **Limited until then:** the rail's places other than Home, and New activity,
   stay locked until you're signed in and the extension is ready. Home, and
-  any place you already opened, stay on screen. There is no separate training
-  page. While the guided setup is open, sign in from the sign-in step. The
+  any place you already opened, stay on screen, and anything that would
+  take you somewhere else - a rail item, the menu bar's buttons, a capture
+  link - brings you back to Home instead. There is no separate training
+  page. While the guided setup is open it fills the window, with no rail
+  beside it; sign in from the sign-in step. The
   rail does not add another Sign in, and it hides this computer's status
   until you are signed in. After setup, if you are signed out, Home's
   **Finish setting up** opens the guided setup again. The menu bar shows
   **Welcome to Blowhorn** and one **Open Blowhorn** button, which opens the
-  console, instead of a pause or an error. When you are
+  console, instead of a pause or an error; signed in with the extension not
+  ready yet, it shows **Finish setting up** and the same one button. When you are
   signed in, the account button stays usable, so you can still sign out or
   open the docs.
 - **It checks for real:** the lock reads your actual sign-in and extension

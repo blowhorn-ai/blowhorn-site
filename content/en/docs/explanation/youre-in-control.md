@@ -54,7 +54,9 @@ profile it belongs to. A run refused by that rule is told which profile
 is holding the platform, and anything it was carrying for that platform
 stays queued for a later run; its other platforms are not affected. The
 rule covers the API platforms (Slack, Bluesky, GitHub) as well as the
-browser ones. If you would rather let different profiles act on the same
+browser ones. A queued Slack post whose session has expired is refreshed
+before the run takes the platform's lock, so the refresh -- which opens
+that same session -- is never refused by the run's own lock. If you would rather let different profiles act on the same
 platform at once, set the option to `profile` in Settings or in
 `.blowhorn.yaml`, and the one-profile-one-platform rule above still holds
 either way. Adjusting behaviour like this is meant to live in your Risk

@@ -15,13 +15,16 @@ two boards. The running board shows the scheduler, what is due now, what
 is running, what needs you, and the content queue with a countdown to
 the next tick. The paused board shows PAUSED with each tick-level pause
 scope stated once, and the activities that would post now wait instead of
-posting. Until you are signed in, those boards stay hidden, and so does any
-can't-reach or unknown line. The popover then shows the mark, the wordmark
+posting. Until you are signed in and the extension is ready, those boards
+stay hidden, and so does any can't-reach or unknown line. Signed out, the
+popover then shows the mark, the wordmark
 and Quit, the recruit, Welcome to Blowhorn, the line "Open Blowhorn to sign
 in and get set up. It takes about five minutes.", and one Open Blowhorn
-button, which opens the console. It shows no pause, counts, countdown,
+button, which opens the console. Signed in but the extension not ready
+yet, it shows Finish setting up and the same one Open Blowhorn button
+instead. It shows no pause, counts, countdown,
 update card or error. A store outage puts its line above the board once
-you are signed in. The line is the last check's word, so while it shows, the app keeps checking the store in
+the boards show. The line is the last check's word, so while it shows, the app keeps checking the store in
 the background - soon after the line appears, then every two minutes -
 and again whenever you open the popover, bring the console forward, or
 wake the computer. When the store answers, the line clears on its own and
@@ -30,9 +33,7 @@ clear it. **try again** on the line checks at once instead of waiting.
 The console shows the same line, with the same **try again**.
 
 The popover footer holds the pause controls and, when an update is
-ready, the update card. The update downloads the new version, checks it
-against the release's checksums, confirms it is signed by the same Apple
-Developer ID team as the running app and accepted by Gatekeeper, installs it
+ready, the update card. The update downloads the new version, installs it
 and relaunches the app; when it cannot, it opens the release page in your
 browser. An installed Blowhorn that finds such a release when it opens also
 asks in the console window, before the download, with **Download**, **Later**
@@ -42,7 +43,10 @@ what each does is under [Update](/docs/how-to/set-up/install-the-app/#update).
 ## The console
 
 The console is the full window, reached from the popover. At the top of its
-rail, **New activity** (⌘N) opens Activity with a new entry. Below it are four
+rail, **New activity** (⌘N) opens Activity with a new entry. Its list of what
+an activity can do offers a blog (the Layer5 or Meshery blog) only when a
+profile in your organization is opted in to it (`blowhorn schedule
+destinations`); an activity already saved for one still shows and runs. Below it are four
 places: **Home**, **Activity**, **Profiles** and **Performance**. Activity is
 one place with three views, switched at the top of the screen: **Upcoming**
 (what you want to say), **Routines** (when and where things go out) and
@@ -82,11 +86,11 @@ activity, is locked. Once you are signed in, the account button stays usable. Se
 
 | Screen | Shows | Acts |
 |---|---|---|
-| Home | Whether Blowhorn is working, what runs next, and whether it needs you; a pause names which pause holds - this computer, all computers, or both | Turn off the pause it names (one button per pause while both hold); reconnect an account; finish setting up |
-| Activity › Upcoming | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones | Add or edit a post; clearing a clicked post's "Date Promoted" queues it again |
+| Home | Whether Blowhorn is working, what runs next ("Next: Accept LinkedIn invitations, tomorrow at 9:00 AM", from your enabled routines, and nothing while a pause holds), and whether it needs you; a pause names which pause holds - this computer, all computers, or both; "Your draft was saved" once after setup, until you dismiss it or leave Home | Turn off the pause it names (one button per pause while both hold); reconnect an account; **Connect an account** opens a step for your own profile: each platform, how to sign in to it in your Chrome profile, and **Check again**, with connected ones ticked; finish setting up |
+| Activity › Upcoming | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones; an opened post's editor shows its result: delivery per profile and platform, reception where it was collected, and the follower change since | Add or edit a post; clearing a clicked post's "Date Promoted" queues it again |
 | Activity › Routines | Your routines as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the next check; a drawer for one item; a preview of sample routines | Add an item, from "schedule something" or by clicking a free time; move an item's next time by dragging it; edit, pause or resume one item; "do it now"; add the sample routines |
-| Activity › History | Everything Blowhorn did, newest first, with each one's detailed log under the log directory's `scheduler/` folder | "try again" on a failure |
-| Profiles | Every profile, its Chrome mapping, its per-platform sessions | Add a profile; map or unmap its Chrome profile |
+| Activity › History | Everything Blowhorn did, newest first, with each one's detailed log under the log directory's `scheduler/` folder; a picked run's detail shows its activity's result above the log: delivery per profile and platform, reception where it was collected, and the follower change since | "try again" on a failure |
+| Profiles | Every profile, its Chrome mapping, its per-platform sessions; for LinkedIn, X and Reddit, which Chrome profile to sign in to - never a password field | Add a profile; map or unmap its Chrome profile; open a platform's sign-in page in that Chrome profile and **Check again**; enter a token or app password for the platforms that take one |
 | Performance | Followers, growth, and activity per profile; collection freshness in the header | Collect now; open the HTML report |
 | This computer (from the status line) | Who registered the background service, whether it is on watch, the last check, the pause for all computers | "check now" (with "preview only" to see what would go out); the "pause all computers" toggle; open System Settings when the service is turned off there |
 | Settings (from the account menu) | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, choose its mode, test your account connection |

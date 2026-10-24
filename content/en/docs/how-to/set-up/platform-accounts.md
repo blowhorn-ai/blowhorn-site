@@ -16,6 +16,27 @@ every browser sign-in below opens in the profile's mapped Chrome.
 
 ## LinkedIn, X, Reddit
 
+Blowhorn never asks for these passwords. The account is your own sign-in,
+in the Chrome profile your Blowhorn profile is mapped to.
+
+In the desktop app, open **Profiles**, pick the profile, and find the
+platform's card. It says which Chrome profile to use ("Sign in to LinkedIn
+in the Chrome profile Work"). Choose **Open LinkedIn sign-in** to open that
+Chrome profile on LinkedIn's sign-in page, sign in there, then choose
+**Check again**. Once Blowhorn sees the sign-in, it records it as the
+profile's account in your Blowhorn account, and the card says
+**Connected**. Home's **Connect an account** button opens the same steps
+for your own profile. The card's **advanced** fields, collapsed by
+default, are only for an account Blowhorn should sign in to for you with a
+stored username and password (below).
+
+From Terminal, the same two steps:
+
+```bash
+blowhorn chrome open-profile ada --sign-in linkedin   # sign in in the Chrome window that opens
+blowhorn chrome discover                              # records the sign-in as ada's account
+```
+
 Each keeps a persistent browser session. Refresh it with `profile auth`.
 With the username and password in the profile's `config.yaml`
 (`LI_USERNAME` and `LI_PASSWORD`, `X_USERNAME` and `X_PASSWORD`,

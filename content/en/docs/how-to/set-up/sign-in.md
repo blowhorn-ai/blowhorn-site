@@ -20,9 +20,10 @@ blowhorn auth login
 ```
 
 The command opens [Blowhorn](https://cloud.blowhorn.ai) in your browser. Sign in there, or create an
-account with the page's Sign up link (`blowhorn auth login --sign-up` says
-so up front). The page then asks you to allow the app; choose
-**Allow**. The browser comes back to Blowhorn and the command:
+account with the page's Sign up link (`blowhorn auth login --sign-up` opens
+the sign-up page directly). There is no page asking you to allow the app:
+once you sign in, or confirm your email after signing up, the browser comes
+back to Blowhorn and the command:
 
 1. keeps a Blowhorn API token: Blowhorn issues it for this sign-in, and
    it is separate from your browser session. It is listed, named Blowhorn,
@@ -78,8 +79,10 @@ waiting screen stops the wait at once; left alone, the app tells you
 you're not signed in once the wait runs out. Try again, and if that page
 comes back, send us its message.
 
-If your account has no Blowhorn plan yet, the app opens [Blowhorn](https://cloud.blowhorn.ai)
-so you can start the beta there.
+The sign-in opens one browser tab, the sign-in page, and nothing after it: the app
+does not open a second tab once the sign-in answer arrives. If your account has no
+Blowhorn plan yet, open [Blowhorn](https://cloud.blowhorn.ai) yourself, or choose
+**Your account and plan** in the app's account menu, to start the beta there.
 
 ## Sign out
 

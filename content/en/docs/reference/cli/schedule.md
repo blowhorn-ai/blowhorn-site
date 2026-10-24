@@ -1,7 +1,7 @@
 ---
 title: "blowhorn schedule"
 linkTitle: "schedule"
-description: "blowhorn schedule: bootstrap, delete, get, list, pause, resume, status, tick, trigger-now, upsert, validate, why."
+description: "blowhorn schedule: bootstrap, delete, destinations, get, list, pause, resume, status, tick, trigger-now, upsert, validate, why."
 weight: 114
 ---
 
@@ -13,6 +13,7 @@ The `blowhorn schedule` commands. Each one's `--help` prints the same text.
 | --- | --- |
 | [`schedule bootstrap`](#blowhorn-schedule-bootstrap) | Preview or write a validated schedule starter set. |
 | [`schedule delete`](#blowhorn-schedule-delete) | Delete a scheduled action by number. |
+| [`schedule destinations`](#blowhorn-schedule-destinations) | List the post destinations that belong to an organization rather than to a person -- the Layer5 and Meshery blogs today -- and whether this organization has each one. |
 | [`schedule get`](#blowhorn-schedule-get) | Return a single scheduled action with all fields. |
 | [`schedule list`](#blowhorn-schedule-list) | List scheduled actions and whether they are currently due. |
 | [`schedule pause`](#blowhorn-schedule-pause) | Pause all scheduled processing: every tick keeps running but claims no activities until `blowhorn schedule resume`, and due times carry forward. |
@@ -77,6 +78,31 @@ Examples:
 ```bash
 blowhorn schedule delete 7 --json
 blowhorn schedule delete 7 --expected-fingerprint 3f2a1c
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn schedule destinations
+
+List the post destinations that belong to an organization rather than to a person -- the Layer5 and Meshery blogs today -- and whether this organization has each one: a destination is set up when at least one of its profiles is opted in to it (a platform opt-in in the store, the same fact `blowhorn post` reads to decide who may publish there). A destination no profile is opted in to can never be posted to, so the desktop app offers no new activity for it; activities already saved for it still show and run. Reads the store once; writes nothing.
+
+```text
+blowhorn schedule destinations [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--pace` | string |  | Accepted by `blowhorn schedule destinations` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn schedule destinations
+blowhorn schedule destinations --json
 ```
 
 Output: json with `--json`, text otherwise.

@@ -37,9 +37,9 @@ pause stays: a stop never lifts a pause it did not raise. While a stop
 stands, `blowhorn schedule list` shows it live and `blowhorn schedule
 status` shows it as of the last pass: who stopped everything, when, and why.
 
-On Blowhorn Cloud the stop record rides the same preferences as the
+In Blowhorn the stop record rides the same preferences as the
 pause, so `stop --all` works the same way there. On an older Blowhorn
-Cloud that does not carry the stop yet, `stop --all` still raises the
+that does not carry the stop yet, `stop --all` still raises the
 all-computers pause, so nothing new is claimed anywhere, but a pass
 already running on another computer finishes the activity it is on
 instead of stopping mid-pass. The command says so when it happens.

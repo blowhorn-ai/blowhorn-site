@@ -24,13 +24,9 @@ The card names each step as it happens:
 1. **downloading**, with a progress bar, the percent done, how many MB of the
    total have arrived, and about how long is left. The time left comes from
    how fast the download has been going over the last few seconds.
-2. **verifying checksum and signature**. The download is compared with the
-   release's `SHA256SUMS.txt` to catch a corrupted file, then the new app must
-   be signed with the same Apple Developer ID team as the app you are running,
-   and macOS Gatekeeper must accept it.
-3. **installing**. The new app is copied into Applications and swapped in.
+2. **installing**. The new app is copied into Applications and swapped in.
    If anything fails, your current version is put back.
-4. **finishing setup**. Blowhorn runs `blowhorn setup --yes` to refresh its
+3. **finishing setup**. Blowhorn runs `blowhorn setup --yes` to refresh its
    Chrome connection for the new version: the native host file
    (`com.blowhorn.chrome_extension.json`) and the small launcher it names,
    rewritten only if they are out of date. Nothing else changes: Chrome is not
@@ -38,17 +34,30 @@ The card names each step as it happens:
    settings are left alone. If you installed `blowhorn-axi` globally, it is
    updated too. This usually takes a few seconds. If it fails, your current
    version is put back.
-5. **relaunching**. Blowhorn closes and the new version opens. If Blowhorn
+4. **relaunching**. Blowhorn closes and the new version opens. If Blowhorn
    asks what to do about work in progress before it closes and you choose
    **stay open**, the new version stays installed and opens the next time you
    start Blowhorn, or when you press **update** again.
 
-Verifying, installing and finishing setup have no bytes to count, so the bar
+Installing and finishing setup have no bytes to count, so the bar
 sweeps and the card says how long the step usually takes, for example
-"usually about 25 seconds". Blowhorn times these steps on your computer each time
+"usually about 20 seconds". Blowhorn times these steps on your computer each time
 it updates and uses those timings next time. Until it has its own, it uses
-timings measured on an Intel iMac: about 24 seconds to verify, 20 seconds to
+timings measured on an Intel iMac: about 20 seconds to
 copy the app and a few seconds to finish setup.
+
+## Your data moves with the update
+
+A new version may keep your data in a new place. When it does, the first
+time the new version opens, it carries your profiles, settings, run history
+and pause over before the background service starts. You need no Terminal,
+and there is nothing for you to do. The old place is left exactly as it was.
+
+If a scheduled pass is running when the new version opens, the carry waits
+until the pass ends, and the service stays as it was until then. If the
+carry cannot finish, the service is put back as it was and the next launch
+tries again. A notification says what was carried, and the Setup screen's
+**this computer on watch** row and the Service screen carry the same line.
 
 ## If an update stalls
 
@@ -56,7 +65,7 @@ If the download stops moving for 30 seconds, or a step runs for well over
 its usual time, the card says so and offers two buttons:
 
 - **retry** stops the update and starts it again. Your current version stays
-  installed until the new one has been verified. Once the new version is in
+  installed until the new one takes its place. Once the new version is in
   Applications, retry cannot stop the update: if finishing setup ends well,
   Blowhorn reopens on the new version, and if it fails, your current version
   is put back. Nothing is downloaded again.
@@ -72,7 +81,7 @@ again to start the new version.
 
 On the release page, download `Blowhorn-<version>-mac-universal.dmg`, open
 it, and drag Blowhorn to Applications, replacing the old copy. The update
-in the app does exactly this for you, after checking the download. See
+in the app does this for you. See
 [Install the app](/docs/how-to/set-up/install-the-app/) for how to check a download
 yourself.
 
