@@ -58,7 +58,11 @@ today, the weekday and time within the past week, otherwise the date) with
 "Nothing goes out"; "This computer isn't on watch" with the reason when its
 service is stopped, not installed or turned off in System Settings; "Check
 overdue on this computer" when a check is late; and "This computer is on watch"
-only when none of those hold. Click it to open This computer. Beside it, **Pause** is one toggle: press it to pause, press it
+only when none of those hold. On watch, the line under it names the next scheduled
+run of an activity that is on and not paused, worded as Home words it (for example
+"Next: Post on X, tomorrow at 9:00 AM"; hover for the whole line when the rail cuts it
+short), or "Nothing scheduled" when no activity is due again. The countdown to the
+next check is on This computer. Click the status line to open This computer. Beside it, **Pause** is one toggle: press it to pause, press it
 again to turn the pause off (⌘⇧P does the same). Under the status line, the
 account button (desktop v1.27.2) shows who is signed in: your Blowhorn profile photo, or
 your initials, your name, and your organization and plan (for example "Acme ·

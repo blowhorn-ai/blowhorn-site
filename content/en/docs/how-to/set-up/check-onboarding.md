@@ -39,7 +39,8 @@ After setup, both walks also check the console a new person sees:
 - **Profile detail:** the mapped profile's LinkedIn card shows that same
   guidance (or, with the planted cookie, that LinkedIn is connected) and a
   **Check again** button. It shows no setting name like `LI_PASSWORD` and no
-  password field, and its **advanced** fields start collapsed.
+  password field, and its **advanced** fields start collapsed; opened, they
+  hold no password field either.
   `blowhorn chrome open-profile <profile> --sign-in linkedin --dry-run` must pick the
   Chrome profile confirm mapped.
 - **New activity:** `blowhorn schedule destinations` reports no blog set up
@@ -47,7 +48,9 @@ After setup, both walks also check the console a new person sees:
   blog action. The unit tests cover an organization that has one.
 - **Next run:** saving a daily Accept LinkedIn invitations from that picker
   stores one enabled routine in the local Cloud, and Home then shows
-  "Next: Accept LinkedIn invitations".
+  "Next: Accept LinkedIn invitations". The rail's status line never shows a
+  "next check" countdown: on watch it names that same next run, and
+  otherwise it keeps its own reason and promises no next run.
 
 `empty-profile` covers
 a new organization with no planted logins. `sign-up` presses Create account,
