@@ -42,7 +42,10 @@ profile's own name and picture in the window, so it cannot be mistaken for
 another one. Sign in to a platform there yourself, then come back. The
 platform **Set up** steps in **Chrome profiles** offer the same button, and
 theirs opens that platform's sign-in page in the profile its mapping
-chooses for that platform. From a terminal:
+chooses for that platform. So do the **Set up** steps on guided setup's
+**Assign troops** screen, for a Chrome profile that is already mapped; a
+choice you have not confirmed there has no mapping yet, so the button
+answers with that refusal until you confirm. From a terminal:
 
 ```bash
 blowhorn chrome open-profile ada

@@ -286,6 +286,41 @@ the same Blowhorn preferences, so it follows you to every computer. Set it on
 Settings, Chrome extension, or with `blowhorn chrome extension-mode --group
 open` (`default` clears it). A run reads it once when it starts.
 
+## Blowhorn's desktop (Spaces)
+
+If Blowhorn's Chrome work lives on its own macOS desktop instead of beside
+your tabs, setup finds or makes that desktop for you, so you never have to
+open Mission Control and create one yourself. Setup runs only when you
+start it, never during a run, and it works in this order:
+
+1. **Reuse.** If a second desktop or display already exists, setup
+   offers it. This is a read-only check and asks nothing of you.
+2. **One-click create.** With Accessibility granted at that click, the
+   helper opens Mission Control, presses its "+" button for the display
+   you chose, closes Mission Control, and confirms exactly one new
+   desktop. Mission Control is on screen for a moment, and the desktop
+   you were on and the app in front stay unchanged. It refuses when
+   Mission Control is busy or the display already has 16 desktops.
+3. **Guided click.** If Accessibility is declined or the press fails,
+   Blowhorn opens Mission Control and points at "+". You click once,
+   and Blowhorn detects the new desktop. It gives up quietly after
+   60 seconds with no click.
+4. **Beside.** Otherwise, the background tab next to your tabs, as
+   always.
+
+You can also set setup to guided-only (never touch Accessibility) or to
+never (never create, never open Mission Control). If the desktop is
+later deleted, runs never recreate it: they fall back to beside and
+post one notification whose button re-runs setup. Where setup's choice
+lives is per computer, not per account: a desktop belongs to the
+computer it was made on, so it is recorded there and never synced.
+
+Automatic creation needs one Accessibility grant. Without it, the floor
+is one click by you in a Mission Control Blowhorn opens for you. A
+window on a desktop you are not looking at still reads as hidden to
+the page, so a desktop is a place to keep the work, not a way to hide
+it from detection.
+
 `BLOWHORN_EXTENSION_ROLLBACK=1` still swaps the driver for Blowhorn's own
 Chrome as before; it says nothing about the mode. `0`, `false` and `off` read
 as unset; any other value is refused before the run starts. On Settings the
