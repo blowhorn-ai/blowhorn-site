@@ -62,6 +62,42 @@ credentials, session files, the private connection file, and anything
 from your Chrome profile directories. A refusal sentence and an exit
 code are enough to diagnose with.
 
+## Failure reports
+
+When the app or the engine hits a failure you can see - a tray
+warning, a popover or console outage line, a setup connection check
+that fails - it queues a failure report on your computer, once per
+failure cause per day. Nothing leaves your computer until Blowhorn
+Cloud offers a place to send it to; until then the queue is local
+only, and `blowhorn diagnostics show` prints exactly what would be
+sent. A sent report is anonymous: it carries no account name, no
+email, and no post text.
+
+A report carries exactly these fields: a report id, when the failure
+happened and when it was first seen that day, how many times it
+happened that day, the app (its kind, version, build and channel),
+your operating system (name, version and architecture), the failure
+(its surface, its cause name, its code, a redacted one-sentence
+message, and how many scheduler ticks it skipped), the schema
+contract versions this build speaks, and - only while you are signed
+in - the installation id for your account. It never carries a config
+file, a log, Chrome data, a platform account name, a profile name, a
+path, a token, or an email. Host names in the message are reduced to
+"cloud" or "custom" before anything is queued.
+
+Cloud keeps a sent report for 90 days, then deletes it. A report you
+queue is cleared from your computer once Cloud accepts it; one Cloud
+refuses stays queued and is retried with a growing delay, at most a
+day apart.
+
+You can turn reports off: Settings has a "Send failure reports" row,
+and `blowhorn config set defaults.diagnostics.enabled false` does the
+same from the command line. Off means nothing is queued or sent.
+The contact support dialog, at a failure line, sends a separate
+message only when you submit it: a category, your message, and your
+email only if you typed one in, plus the report id only if you left
+"include the failure report" checked.
+
 ## Related
 
 - [Get help](/docs/reference/support/) - report a problem without secrets.

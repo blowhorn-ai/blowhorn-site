@@ -35,6 +35,7 @@ blowhorn content approve [OPTIONS] activity
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
 | `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content approve` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn content approve` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -67,6 +68,7 @@ blowhorn content delete [OPTIONS] activity
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
 | `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn content delete` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -97,6 +99,7 @@ blowhorn content get [OPTIONS] activity
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
 | `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content get` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn content get` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -125,6 +128,7 @@ blowhorn content list [OPTIONS]
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
 | `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content list` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn content list` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -154,6 +158,7 @@ blowhorn content posts [OPTIONS]
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
 | `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content posts` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn content posts` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -185,6 +190,7 @@ blowhorn content upsert [OPTIONS]
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
 | `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content upsert` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn content upsert` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 

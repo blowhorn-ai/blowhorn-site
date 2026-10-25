@@ -124,6 +124,9 @@ heartbeat so `blowhorn schedule status` can report it, and appends one line per
 pass to the run ledger. When the pass cannot reach your account it claims nothing,
 exits 3, and says so in one line.
 
+One activity can run under its own Risk Profile while the rest run under the
+profile's choice: see [One activity on its own preset](/docs/how-to/settings/choose-your-risk-profile/#one-activity-on-its-own-preset).
+
 ## Related
 
 - [Pause and resume posting](/docs/how-to/schedule/pause/) - stop every claim without stopping the service

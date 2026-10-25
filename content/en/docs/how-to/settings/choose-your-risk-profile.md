@@ -24,7 +24,19 @@ profile, `--platform` for one platform). `blowhorn risk show` says
 which preset is in effect and where it came from. Any single dial you set yourself wins over the
 preset for that dial, and the rest of the preset still applies around
 it; a profile with a dial set outside the preset is a custom profile,
-not a fourth preset you can pick. The full values are in the
+not a fourth preset you can pick.
+
+To adjust the dials yourself, open Customise dials in Settings: start
+from the preset, then change the per-platform pace, your daily caps per
+platform and action, and the typing and pointer timing. The header
+reads "Custom, based on Standard, 3 dials changed" once dials move,
+and Reset to preset puts every dial back. No dial may exceed a
+built-in ceiling: your own cap can only lower a ceiling, never raise
+it. Two dials carry a driver note on the card: pauses and mistakes
+run on the Playwright driver only. The extension driver sends one key
+per message and runs no pause plan, so on that driver it types with
+the shaped delay from the delay band and no pauses or corrections.
+The full values are in the
 [configuration reference](/docs/reference/configuration/#risk-profile-presets),
 with a stable anchor per dial in
 [Risk Profile dials](/docs/reference/configuration/#risk-profile-dials).
@@ -113,6 +125,21 @@ chosen preset's caps, quiet hours and outreach.
 - One account needs to be slower than the rest: set that profile or
   platform cautious, and leave the rest alone — the choice is per
   profile and per platform, not only computer-wide.
+
+## One activity on its own preset
+
+One recurring activity can run cautious while everything else on the
+same profile and platform runs standard: open the activity, set
+**Risk profile** (blank means inherit, exactly as before), and save.
+From the terminal the same value is `risk_profile=cautious` in the
+activity's params. The activity's detail then shows the preset and
+where it came from (`Cautious · this activity`, or `Cautious ·
+inherits: LinkedIn × work profile`), and while the profile is warming
+it also says what the tick enforces (`warming: runs Cautious for
+now`). An activity without one profile and one platform names no
+single preset; its targets resolve their own. For a single run you
+start by hand, `blowhorn --risk-profile cautious post ...` overrides
+everything for that run only.
 
 ## Related
 

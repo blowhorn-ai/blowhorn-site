@@ -36,6 +36,7 @@ blowhorn slack delete [OPTIONS]
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
 | `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Pace of the one random wait `blowhorn slack delete` takes: before each confirmed delete after the first when `--profile` names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -67,6 +68,7 @@ blowhorn slack edit [OPTIONS]
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
 | `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Pace of the one random wait `blowhorn slack edit` takes: before each confirmed edit after the first when `--profile` names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -93,6 +95,7 @@ blowhorn slack profiles [OPTIONS]
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
 | `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn slack profiles` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn slack profiles` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -125,6 +128,7 @@ blowhorn slack react [OPTIONS]
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
 | `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Pace of the one random wait `blowhorn slack react` takes: before each confirmed reaction after the first when `--profile` names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -157,6 +161,7 @@ blowhorn slack send [OPTIONS]
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
 | `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Pace of the one random wait `blowhorn slack send` takes: before each confirmed send after the first when `--profile` names several profiles (a single profile, or a dry run, never waits): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
@@ -187,6 +192,7 @@ blowhorn slack whoami [OPTIONS]
 | `--json` | boolean | `false` | Print the result as JSON (no secrets) |
 | `--platform` | string |  | Accepted and ignored by `blowhorn slack`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn slack whoami` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn slack whoami` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
