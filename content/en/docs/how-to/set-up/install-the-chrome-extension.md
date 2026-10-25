@@ -38,15 +38,21 @@ remove it from that one profile - see
 
 A computer that already has the extension from an earlier setup - put
 there by Chrome's external-extensions file - stays on that route
-instead. Chrome adds it turned off there, so each profile you marked in
-use needs one click:
+when you marked only some profiles in use. Chrome adds it turned off
+there, so each profile you marked in use needs one click:
 
 1. Next to a profile that says **Turned off** or **Not added yet**, press
    **Enable in** and the profile's name.
 2. Chrome opens Blowhorn's store page in that profile. Click
    **Enable now** (or **Add to Chrome** if Chrome was already open).
-3. Chrome opens the Blowhorn welcome page, and the profile reads
-   **Ready** in the app within a few seconds.
+3. The profile reads **Ready** in the app within a few seconds. A
+   manual install during guided setup lands back in the app instead
+   of opening the Blowhorn welcome page; outside guided setup, the
+   welcome page is what opens.
+
+When every profile is marked in use, guided setup writes the policy
+file instead of staying on the external route, so Chrome turns the
+extension on everywhere with nothing to click in each profile.
 
 If Getting ready says **This is taking longer than usual**, press
 **Start again**: Blowhorn stops the attempt still running and begins a new

@@ -72,8 +72,8 @@ offers. The app opens [Blowhorn](https://cloud.blowhorn.ai) in your browser; sig
 an account, then choose **Allow**. `blowhorn://signup` starts the same sign-in for a new account
 (see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)). The sign-in sends its
 answer to the command line on this computer (`127.0.0.1`), and the browser
-tab says Blowhorn received it: close the tab and return to the app, which has
-finished the sign-in. The token is kept by Blowhorn's command line, never by
+tab closes on its own while the app comes forward with the sign-in
+finished. If the tab stays open, close it and return to the app. The token is kept by Blowhorn's command line, never by
 the app. If the browser stays on an update page, update Blowhorn. If it stays on a Blowhorn error page instead, the sign-in was refused: no answer comes back. If Blowhorn cannot be reached at all, the app says it could not reach cloud.blowhorn.ai: check your connection, then try again. In guided setup, **Cancel** on the
 waiting screen stops the wait at once; left alone, the app tells you
 you're not signed in once the wait runs out. Try again, and if that page

@@ -4,12 +4,13 @@ description: "Drive one profile to tells.blowhorn.ai under each operating mode, 
 weight: 197
 ---
 
-Diagnostics is internal tooling for the Blowhorn organization. The desktop
-app shows its Diagnostics area only when your session holds the Access
-Diagnostics permission key: `blowhorn auth status --json` lists the keys
-your session holds in the Blowhorn parent organization as
-`permission_keys`. When the key is not there, the area is not shown at
-all. The same runs are available from the command line.
+The desktop app's Debug area (the account menu's Debug item) is open to
+anyone who can reach the console: run tells checks, read saved packages,
+read this computer's logs, and see the doctor's checks. The same runs are
+available from the command line. `blowhorn auth status --json` still
+lists the permission keys your session holds in the Blowhorn parent
+organization as `permission_keys`, but they no longer decide who sees
+the area.
 
 ## Run one mode
 
@@ -57,9 +58,15 @@ versions, the mode and its driver, the profile and whether it was
 anonymous, and the report exactly as the page produced it -- or why the
 run failed.
 
+## Read the logs
+
+In the desktop app, the Debug area's logs section lists the run logs and
+the service logs on this computer, newest first. Pick one to read its
+tail, and refresh to re-read it. Nothing here is uploaded.
+
 ## The audit trail
 
-Each run, sweep and opening of the diagnostics area is recorded to
+Each run, sweep and opening of the Debug area is recorded to
 Blowhorn as an event (category `blowhorn`, actions
 `diagnostics_run` and `diagnostics_open`) when you are signed in, so who
 ran what, when, is on record. Posting is best-effort: signed out or
@@ -69,5 +76,5 @@ offline never fails a run.
 blowhorn diagnostics opened --json
 ```
 
-The desktop app runs this when the Diagnostics area opens; it answers
+The desktop app runs this when the Debug area opens; it answers
 `{"ok": true, "posted": true}` when the event reached Blowhorn.

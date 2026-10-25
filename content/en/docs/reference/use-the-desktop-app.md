@@ -81,7 +81,9 @@ plan from your Blowhorn account. Signed out, the rail shows no sign-in button
 and no account placeholder: the guided setup's own sign-in buttons are the way
 in, and this computer's status line stays hidden. While
 Blowhorn checks your account it shows a spinner; when it can't reach
-Blowhorn it shows a warning dot, and its menu offers **Try again**.
+Blowhorn it shows a warning dot, and its menu offers **Try again**. If
+Blowhorn refuses your sign-in, the error where it appears offers
+**sign in again**, which signs you back in from the app.
 
 Each screen reads live state on open. Nothing here edits on a timer. Until
 you're signed in and the extension is ready, every place but Home, and New

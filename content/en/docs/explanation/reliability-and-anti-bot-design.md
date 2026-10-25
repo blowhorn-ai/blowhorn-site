@@ -33,6 +33,16 @@ or a numeric multiplier, resolved from the flag, then the environment,
 then the defaults file. A long unattended run earns the slow pace; a
 failure never earns a retry click.
 
+That pace can also come from your Risk Profile: cautious, standard
+or brisk set pace, spacing, caps, quiet hours, outreach, the pause
+after a sign-in challenge and how much runs at once, together, so you
+do not have to set each dial by hand. Cautious is the slowest and
+most guarded, brisk the fastest and least guarded, standard the
+default in between. See [You're in control](/docs/explanation/youre-in-control/#your-risk-profile)
+for the profile among every safety control, and the
+[configuration reference](/docs/reference/configuration/#risk-profile-presets)
+for what each preset sets, dial by dial.
+
 Clicks and scrolls are plainer than the typing, and this page will
 not dress them up: a click moves the pointer straight to a point
 that varies inside the target, presses, holds briefly and releases,

@@ -37,13 +37,14 @@ Here is how that is enforced today:
 - **Scheduled work runs one job at a time.** The background service runs
   one pass at a time, and a pass works through its jobs one after
   another, never side by side.
-- **A cap on runs at once, if you set one.** The one-at-a-time rule
+- **A cap on runs at once.** The one-at-a-time rule
   above is per profile and platform, so a pass, a run you start by hand
   and a run an agent starts could still act side by side on different
   profiles. `defaults.concurrency.max_runs` caps the total: with it set
   to 1, only one automation runs on this computer at a time, however it
   was started, and a run over the limit is refused with its activities
-  left in the queue. Unset, there is no cap.
+  left in the queue. With no explicit value, your Risk Profile's value
+  applies: cautious caps runs at 1, standard and brisk set no limit.
 - **One send per action.** The send control is clicked once. There is
   no retry click.
 
@@ -59,9 +60,10 @@ before the run takes the platform's lock, so the refresh -- which opens
 that same session -- is never refused by the run's own lock. If you would rather let different profiles act on the same
 platform at once, set the option to `profile` in Settings or in
 `.blowhorn.yaml`, and the one-profile-one-platform rule above still holds
-either way. Adjusting behaviour like this is meant to live in your Risk
-Profile (see "Your Risk Profile" below); the presets do not set this
-one yet, so for now the option itself is the control.
+either way. This behaviour lives in your Risk Profile (see "Your Risk
+Profile" below): cautious and standard keep `platform`, brisk sets
+`profile`, and an explicit option you set yourself still beats the
+preset for that dial.
 
 <!-- Video placeholder: "Blowhorn limits itself to what a human could do". Two runs for the same profile and platform; the second waits. -->
 
@@ -192,8 +194,8 @@ single run.
 | Rate caps | Built-in daily caps per action on every platform (2 Hacker News link submissions, 50 X posts, 400 X follows per profile a day), counted from your account's run ledger so they hold across computers; you can set lower caps of your own per platform and action, and for one profile only. X follows also pause at 15 in 15 minutes on the computer that runs them | Built in; your own in `defaults.caps` and a profile's `Daily Caps` attribute | [Platforms](/docs/reference/platforms/), [Configuration](/docs/reference/configuration/#daily-caps) |
 | No blind retries | Within a run, Blowhorn doesn't retry a failed post; it moves on to the next item. If a post goes out but Blowhorn can't record it, it stops that profile's queue rather than risk posting twice. Scheduled jobs only re-run a failure if you turn on retries, and they're off by default. | Built in; scheduled-job retries are opt-in | [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/) |
 | One automation per platform per profile | A second run for the same profile and platform on this computer is refused | Built in | [Chrome reference](/docs/reference/chrome/) |
-| One automation per platform across profiles | Only one run at a time uses a platform on this computer, whichever profile it is for | Built in (the default; `defaults.concurrency.per_platform` set to `profile` loosens it); Settings in the app | [Configuration](/docs/reference/configuration/) |
-| Runs at once | Caps how many automations run at the same time on this computer, across the app, the command line, an agent and the background service; a run over the limit is refused and its activities stay queued | `defaults.concurrency.max_runs`; `BLOWHORN_CONCURRENCY_MAX_RUNS`; Settings in the app | [Configuration](/docs/reference/configuration/) |
+| One automation per platform across profiles | Only one run at a time uses a platform on this computer, whichever profile it is for | Built in (the default; your Risk Profile keeps it under cautious and standard, brisk loosens it, and `defaults.concurrency.per_platform` set to `profile` loosens it whatever the preset); Settings in the app | [Configuration](/docs/reference/configuration/) |
+| Runs at once | Caps how many automations run at the same time on this computer, across the app, the command line, an agent and the background service; a run over the limit is refused and its activities stay queued | Your Risk Profile (cautious: at most 1; standard and brisk: no limit), or `defaults.concurrency.max_runs` / `BLOWHORN_CONCURRENCY_MAX_RUNS` when you set one; Settings in the app | [Configuration](/docs/reference/configuration/) |
 | One send per action | The send control is clicked once; an unread outcome is held for you | Built in | [How Blowhorn avoids repeat posts](/docs/explanation/never-twice/) |
 | One computer per job | A scheduled job is claimed by one computer at a time | Built in, through your account | [How scheduling works](/docs/explanation/scheduling/) |
 | CAPTCHA and 2FA | Left for you; never solved | Built in | [Fix sign-in problems](/docs/how-to/troubleshoot/sign-in-problems/) |
@@ -207,7 +209,8 @@ movement, caps, spacing between actions, quiet hours, outreach, the
 pause after a sign-in challenge, and how much runs at once: cautious
 is meant to run one thing at a time, standard to keep one profile per platform at a
 time, and brisk to let different profiles share a platform (`blowhorn risk show`
-reports these values; only a limit you set yourself with `defaults.concurrency.max_runs` is enforced today). Pick
+reports these values, and the run gates enforce them when no explicit
+concurrency value sets them). Pick
 cautious for a new account or an unattended run, and brisk for an
 established one you are watching. A new profile or a new computer runs
 cautious until it has some history, whatever you chose.
@@ -220,7 +223,8 @@ dials you set outside the profile.
 
 Choose it in the app under Settings; for one profile or one platform,
 use `blowhorn risk set`. The [configuration reference](/docs/reference/configuration/#risk-profile-presets)
-lists what each preset sets.
+lists what each preset sets, and [Choose your Risk Profile](/docs/how-to/settings/choose-your-risk-profile/)
+says what each preset changes in your day.
 
 The cautious preset's quiet hours are its own. `defaults.quiet_hours`
 is a window you name yourself, in your time zone or a profile's, and it

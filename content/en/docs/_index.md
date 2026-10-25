@@ -19,7 +19,7 @@ cascade:
 
 ## Start here {#start}
 
-<div class="grid grid-3 docs-start">
+<div class="docs-start-list">
   <a class="card docs-card" href="how-to/set-up/">
     <span class="h3">Install Blowhorn</span>
     <span>Get the app running on your computer.</span>
@@ -38,7 +38,7 @@ cascade:
 
 ## Find your kind of page {#quadrants}
 
-<div class="grid grid-2 docs-quadrants">
+<div class="docs-quadrants">
   <a class="card docs-card" href="tutorials/">
     <span class="label">Tutorials</span>
     <span class="h3">Learn by doing</span>
