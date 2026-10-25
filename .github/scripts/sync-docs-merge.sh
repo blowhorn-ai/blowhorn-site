@@ -6,10 +6,10 @@
 # auto-merge has no required checks to wait for and would merge at once —
 # before the site run the sync started on the branch has even registered.
 # That dispatched run is the only gate, so the merge waits for it here:
-# watch the pull request's checks, and merge (squash) only when every one
-# of them has passed. A failed check merges nothing: the check watch
-# exits non-zero, this script stops, and the pull request stays open for
-# a human.
+# gate on the dispatched site.yml run itself (see below), and merge
+# (squash) only when that run succeeds on the pull request's current
+# head. A failed run merges nothing: this script stops, and the pull
+# request stays open for a human.
 #
 # Why the second dispatch: the merge is made with github.token, and a
 # push to master made by that token never starts push workflows, so
@@ -27,34 +27,62 @@
 set -euo pipefail
 branch="${1:-docs-sync}"
 
-read -r pr state <<< "$(gh pr view "$branch" --json number,state --jq '"\(.number) \(.state)"')"
+read -r pr state head <<< "$(gh pr view "$branch" --json number,state,headRefOid --jq '"\(.number) \(.state) \(.headRefOid)"')"
 if [ "$state" != "OPEN" ]; then
   echo "Sync pull request #$pr is $state, not OPEN; nothing to merge."
   exit 0
 fi
 
-# Wait for the dispatched site run to show up as a check on the pull
-# request before watching anything. Waiting for just any check is not
-# enough: the DCO check registers the instant the pull request opens and
-# passes in about a second, and a check watch started then sees a
-# complete, green list — the site check not yet on it — and merges past
-# the very gate this script exists to enforce (seen live, 2026-10-23).
-# The site check is site.yml's check job, named in that workflow.
-site_check="Lint, build and check"
-found=""
-for _ in $(seq 1 30); do
-  if gh pr checks "$pr" --json name --jq '.[].name' 2>/dev/null | grep -qx "$site_check"; then
-    found=1
-    break
-  fi
-  sleep 10
+# Gate on the dispatched site run itself, not on the pull request's
+# checks. A workflow_dispatch run attaches to the branch head but does
+# NOT appear as a pull request check, so the old wait — watch for the
+# site check "Lint, build and check" to show up on the pull request —
+# always timed out after 30x10s even on a green branch run (seen live
+# three times, 2026-10-23 and 2026-10-25), while a plain check watch
+# started too early sees only the instantly-passing DCO check and
+# merges past the very gate this script exists to enforce (seen live,
+# 2026-10-23). The run is matched to the pull request's current head,
+# so a stale green run from an earlier head cannot merge untested docs.
+# latest_run prints "<databaseId> <status> <conclusion>" for the newest
+# workflow_dispatch site.yml run on this branch at the given head, or
+# nothing when no such run has registered yet.
+latest_run() {
+  # gh's --jq takes a jq expression, not jq's --arg, so the head SHA
+  # (hex, straight from gh pr view) is interpolated into the expression.
+  gh run list --workflow site.yml --branch "$branch" --event workflow_dispatch \
+    --limit 20 --json databaseId,headSha,status,conclusion,createdAt \
+    --jq "[.[] | select(.headSha == \"$head\")] | sort_by(.createdAt) | last
+     | select(.) | \"\(.databaseId) \(.status) \(.conclusion)\"" 2>/dev/null
+}
+run_id=""
+for _ in $(seq 1 20); do
+  run_id=$(latest_run | awk '{print $1}')
+  [ -n "$run_id" ] && break
+  sleep 30
 done
-if [ -z "$found" ]; then
-  echo "The site check '$site_check' never appeared on pull request #$pr; not merging."
+if [ -z "$run_id" ]; then
+  echo "No workflow_dispatch site run for pull request #$pr head $head appeared; not merging."
+  exit 1
+fi
+echo "Dispatched site run $run_id for pull request #$pr head $head."
+for _ in $(seq 1 60); do
+  read -r _ status conclusion <<< "$(latest_run)"
+  [ "$status" = "completed" ] && break
+  sleep 30
+done
+if [ "$status" != "completed" ]; then
+  echo "Dispatched site run $run_id did not complete; not merging."
+  exit 1
+fi
+if [ "$conclusion" != "success" ]; then
+  echo "Dispatched site run $run_id concluded $conclusion; not merging."
   exit 1
 fi
 
 # Exits non-zero unless every check on the pull request passes.
+# This is a second gate, not the site gate: the site run above already
+# passed, so a watch started now cannot merge past it the way an early
+# watch could. It covers the checks that do attach, such as DCO.
 gh pr checks "$pr" --watch --interval 10
 
 gh pr merge "$pr" --squash
