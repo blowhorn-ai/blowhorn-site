@@ -109,7 +109,7 @@ Updates come from the same releases page, and you need no GitHub account
 for them. The app checks for a newer release every four hours (or when you
 press **check now**), and once more each time you open it. When an installed
 Blowhorn opens and that check finds a newer release it can install, a
-prompt in the console window asks before anything is downloaded. **Download** downloads, verifies,
+prompt in the console window asks before anything is downloaded. **Download** downloads,
 installs and reopens the app; if the install fails, a dialog says so and
 your current version is put back. **Later** installs nothing and skips that
 version, so the next release asks again; **Update** in the app still offers
@@ -117,17 +117,11 @@ it meanwhile. The **?** icon next to the title explains how the update
 installs.
 
 **Update** in the app and **Download** on that dialog take the same path.
-They download the newer `.dmg` and check it twice before touching your
-installed app. The release's `SHA256SUMS.txt`
-catches a corrupted download, and a download that does not match is
-discarded. That file comes from the same release as the `.dmg`, so it cannot
-tell you who built it. What proves that is the code signature: the new app
-must be signed with the same Apple Developer ID team as the app you are
-running, macOS Gatekeeper must accept it, and the app must be the version
-the release names and newer than yours. Only then does Blowhorn install
-it and relaunch. A copy of Blowhorn that is not signed with a Developer ID
-cannot make that comparison, so it installs nothing and opens the release
-page instead. When the app cannot install the update itself, it opens the
+They download the newer `.dmg` and check the app inside it before touching
+your installed app: it must be Blowhorn (its bundle id and name), it must
+be the version the release names, and it must be newer than yours. Only
+then does Blowhorn install it and relaunch. When the app cannot install
+the update itself, it opens the
 release page and you download the newer `.dmg`,
 verify it as in [Download](#download), and drag the app over the old copy.
 The background service and your settings are kept. The engine is part of

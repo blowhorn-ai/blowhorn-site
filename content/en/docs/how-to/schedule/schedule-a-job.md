@@ -15,11 +15,16 @@ Open **Activity** in the rail and switch to its **Routines** view. It opens on a
 day in the month opens that day, and the day view becomes the one it
 remembers.
 
-To add a job, choose "schedule something", or click a free time in the day or week
-calendar to start one at that time. Pick the command, the profiles and
-platforms it runs for, and how often it repeats. The "browser driver" control
-pins which Chrome route that job uses; leave it at the default unless one job
-needs its own route.
+To add one, choose "schedule something", or click a free time in the day or week
+calendar to start one at that time. Pick what it should do (for example, accept
+LinkedIn invitations, or post on X), who it is for, and how often: every day at
+a time, weekdays, or every few hours. Advanced opens the full editor, with the
+command, the browser route, and the exact call, for a case those choices do not
+cover. A command that only runs in one place, such as accept on LinkedIn, can
+only be saved for that place. One you saved on "all" before keeps running there.
+When you edit it, the editor picks that place for you and says so, and saving
+stores it. `blowhorn schedule upsert` does the same when your change names no
+platform, and prints one line saying it did.
 
 To move a job, drag its next time to another time. Only the next one moves, and
 only to a time still ahead; the dashed times after it follow on their own. From
@@ -43,7 +48,7 @@ previews a starter set of activities first, and writes them only when you apply 
 preview. It never edits routines you already set up.
 
 Open a job (click it, or focus it and press Enter) to change it, or choose "do it now"
-to run it without waiting for its time. With "preview only" on, it previews the pass and claims nothing.
+to run it without waiting for its time. With "preview only" on, check now previews the pass and claims nothing. When the account is not connected, the preview says the activity is blocked and why, in the same words a real run would meet.
 
 ## From the command line
 

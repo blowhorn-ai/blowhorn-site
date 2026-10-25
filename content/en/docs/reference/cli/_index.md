@@ -84,7 +84,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: attach-chrome, confirm, discover, extension-enable, extension-install, extension-mode, extension-status, map, open-profile, profiles, status, suggest, unmap. |
 | [`blowhorn comment`](/docs/reference/cli/comment/) | Post LinkedIn, Reddit, or Bluesky comments from scheduled activities or ad-hoc target/message flags. |
 | [`blowhorn config`](/docs/reference/cli/config/) | blowhorn config: get, path, set, show. |
-| [`blowhorn content`](/docs/reference/cli/content/) | blowhorn content: delete, get, list, upsert. |
+| [`blowhorn content`](/docs/reference/cli/content/) | blowhorn content: approve, delete, get, list, posts, upsert. |
 | [`blowhorn desktop`](/docs/reference/cli/desktop/) | blowhorn desktop: build, install, start, status. |
 | [`blowhorn find`](/docs/reference/cli/find/) | Search Bluesky for posts matching a query with optional date, author, and relevancy filters. |
 | [`blowhorn follow`](/docs/reference/cli/follow/) | Follow accounts on X, Bluesky, or GitHub. |
@@ -92,11 +92,12 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn profile`](/docs/reference/cli/profile/) | blowhorn profile: accounts, auth, current, delete, get, list, set, status, switch. |
 | [`blowhorn report`](/docs/reference/cli/report/) | Generate a consolidated report summary from the exports already sitting in the repository-root data/analytics/ directory. |
 | [`blowhorn risk`](/docs/reference/cli/risk/) | blowhorn risk: set, show. |
-| [`blowhorn schedule`](/docs/reference/cli/schedule/) | blowhorn schedule: bootstrap, delete, get, list, pause, resume, status, tick, trigger-now, upsert, validate, why. |
+| [`blowhorn schedule`](/docs/reference/cli/schedule/) | blowhorn schedule: bootstrap, delete, destinations, get, list, pause, resume, status, tick, trigger-now, upsert, validate, why. |
 | [`blowhorn service`](/docs/reference/cli/service/) | blowhorn service: adopt, cancel, install, restart, run, start, status, stop, test, tick-now, uninstall, update. |
 | [`blowhorn setup`](/docs/reference/cli/setup/) | Set up Blowhorn on this computer, safely and repeatably. |
 | [`blowhorn slack`](/docs/reference/cli/slack/) | blowhorn slack: delete, edit, profiles, react, send, whoami. |
 | [`blowhorn source`](/docs/reference/cli/source/) | GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login. |
+| [`blowhorn stop`](/docs/reference/cli/stop/) | Stop everything, right now: on this machine, or on every machine sharing the store with `--all`. |
 | [`blowhorn store`](/docs/reference/cli/store/) | Report whether this computer can reach the Blowhorn database, and say why not when it cannot. |
 | [`blowhorn unfollow`](/docs/reference/cli/unfollow/) | Unfollow one Bluesky account (`--platform` bluesky `--target` &lt;handle&gt;) through the Bluesky API. |
 | [`blowhorn uninstall`](/docs/reference/cli/uninstall/) | Remove Blowhorn from this machine. |
@@ -111,9 +112,9 @@ and checked against it, so a page says what `--help` says.
 enforcement mode, a summary of the last entitlement attestation, and why the
 last read of the plan failed when it did;
 `auth login` signs you in to [Blowhorn](https://cloud.blowhorn.ai) in your browser (Blowhorn's
-native client sign-in: you allow the app on the consent page and Blowhorn
-answers on 127.0.0.1 with a one-time code redeemed with a PKCE verifier; create an account there if you are
-new, or pass `--sign-up` to start there - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps a `purpose=blowhorn` Blowhorn API token in the macOS Keychain (revoking the one the previous sign-in kept) and reads your plan once, sending
+native client sign-in: Blowhorn sends the browser straight back to 127.0.0.1 with a one-time code
+redeemed with a PKCE verifier, with no consent page; pass `--sign-up` to open the sign-up page instead if you are
+new - see [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/)), keeps a `purpose=blowhorn` Blowhorn API token in the macOS Keychain (revoking the one the previous sign-in kept) and reads your plan once, sending
 an account without Blowhorn straight to Blowhorn to start the beta (`--no-browser` prints the
 address instead of opening it, and `--json` opens nothing either, its first line naming the address,
 which is how the desktop app runs it; `BLOWHORN_CLOUD_TOKEN` still wins when set);

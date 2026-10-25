@@ -32,6 +32,23 @@ and said "engine unavailable" when it found none. Current versions never
 look for one. If you still see that message, update Blowhorn. See
 [Update Blowhorn](/docs/how-to/manage/update-blowhorn/).
 
+## "Blowhorn's browser engine didn't start"
+
+A command that opens a browser stopped before it opened one, and nothing was
+sent. Blowhorn carries its own browser engine, and on this Mac it exited
+before the run could use it.
+
+1. Update Blowhorn. See [Update Blowhorn](/docs/how-to/manage/update-blowhorn/).
+2. If it still happens, download Blowhorn again from the
+   [releases page](https://github.com/layer5io/blowhorn-site/releases) and
+   drag it to Applications, replacing the old copy.
+3. If it still happens after that, share the log the `Details:` line names.
+
+On Intel Macs, Blowhorn 1.23.1 through 1.31.2 shipped a browser engine that
+could not start, so every command that opens a browser stopped. Those versions
+showed a long block of internal text instead of this sentence. The next
+release fixes both.
+
 ## "Blowhorn's engine isn't responding"
 
 The engine started but did not answer. Press the refresh button at the top of

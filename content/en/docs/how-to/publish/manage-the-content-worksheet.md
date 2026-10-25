@@ -53,6 +53,11 @@ rules that make an activity pending for a post run:
 # Every activity with its state.
 blowhorn content list
 
+# The posts as one list: each post with its own Promote On inline, then the
+# schedule's jobs as rows of their own. A job names no post - a post job
+# drains this queue at run time - so the jobs are shown unlinked.
+blowhorn content posts
+
 # Only what a run would pick up now, as JSON.
 blowhorn content list --pending --json
 
@@ -69,6 +74,11 @@ blowhorn content upsert --payload '{"Platform":"linkedin","Profile":"kate","Mess
 # Update in place: the payload is merged over the activity; columns it does not
 # name are left as they were.
 blowhorn content upsert --activity 12 --payload '{"Approved?":"yes"}'
+
+# Approve an activity, recording who approved it and when in `Approved by`.
+# Under approval mode (defaults.approval.mode) this is the door activities
+# an agent queued are waiting at; an agent caller is refused by it.
+blowhorn content approve 12
 
 # Delete (requires --yes; --dry-run previews first).
 blowhorn content delete 12 --yes

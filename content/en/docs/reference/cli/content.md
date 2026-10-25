@@ -1,7 +1,7 @@
 ---
 title: "blowhorn content"
 linkTitle: "content"
-description: "blowhorn content: delete, get, list, upsert."
+description: "blowhorn content: approve, delete, get, list, posts, upsert."
 weight: 106
 ---
 
@@ -11,10 +11,42 @@ The `blowhorn content` commands. Each one's `--help` prints the same text.
 
 | Command | What it does |
 | --- | --- |
+| [`content approve`](#blowhorn-content-approve) | Approve one activity by number, so a post run may publish it, and record who approved it and when in the activity's `Approved by` column. |
 | [`content delete`](#blowhorn-content-delete) | Delete one activity by number. |
 | [`content get`](#blowhorn-content-get) | Print one post by number. |
 | [`content list`](#blowhorn-content-list) | List the content queue's activities with their state and, for each, the profiles a post run would select it for right now ('Pending for' -- the same selection `blowhorn post --check-queue` prints,... |
+| [`content posts`](#blowhorn-content-posts) | List the posts as one list: every post in the content queue with its own schedule inline (its `Promote On`, or not scheduled), then the schedule's jobs as rows of their own, labelled by their command. |
 | [`content upsert`](#blowhorn-content-upsert) | Create a post, or update one in place, from a JSON object of column: value pairs in the queue's own column names. |
+
+## blowhorn content approve
+
+Approve one activity by number, so a post run may publish it, and record who approved it and when in the activity's `Approved by` column. This is the person's door under approval mode (defaults.approval.mode): activities an agent queued wait here. Approving is a person's act, so a caller marked as an agent (`BLOWHORN_ACTOR`=agent) or without a terminal is refused in every mode. An activity that is already approved is refused. `--dry-run` reports the activity and approves nothing.
+
+```text
+blowhorn content approve [OPTIONS] activity
+```
+
+| Argument | Required | Description |
+| --- | --- | --- |
+| `activity` | yes | Activity number, as `content list` prints it (stable for the life of the activity) |
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--pace` | string |  | Accepted by `blowhorn content approve` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn content approve 12
+blowhorn content approve 12 --json
+blowhorn content approve 12 --dry-run
+```
+
+Output: json with `--json`, text otherwise.
 
 ## blowhorn content delete
 
@@ -102,6 +134,35 @@ Examples:
 blowhorn content list
 blowhorn content list --profile kate
 blowhorn content list --platform x --pending --json
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn content posts
+
+List the posts as one list: every post in the content queue with its own schedule inline (its `Promote On`, or not scheduled), then the schedule's jobs as rows of their own, labelled by their command. A job does not point at a post: a `post` job drains the queue at run time, selecting by profile, platform, approval and `Promote On`, so the jobs are shown unlinked rather than joined to posts they do not name.
+
+`--profile` and `--platform` filter both halves; `--pending` keeps only the posts some profile would pick up now (the jobs are not filtered by it). `--json` is the shape the desktop app's posts list reads, each post carrying its schedule and the jobs unlinked. One read of each half of the store; nothing is written and no browser opens.
+
+```text
+blowhorn content posts [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--pending` | boolean | `false` | Only posts some profile would pick up right now: the posts `blowhorn post --check-queue` lists |
+| `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--pace` | string |  | Accepted by `blowhorn content posts` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn content posts
+blowhorn content posts --profile kate --json
+blowhorn content posts --platform x --pending --json
 ```
 
 Output: json with `--json`, text otherwise.

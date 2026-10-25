@@ -105,7 +105,9 @@ In the app, the same result is on the activity itself: open it under
 **Activity › Upcoming** and its editor shows a **result** section - delivery
 per profile and platform, reception labelled measured, and the follower
 change labelled derived - read when you open the activity, and again when
-you press its refresh.
+you press its refresh. Under **Activity › History**, picking one of the
+activity's runs shows the same result in place above its log, read when
+you pick it.
 
 A computer that is not connected to a store yet says so in one sentence and
 exits 3.
@@ -125,6 +127,13 @@ names it; a post with no matching activity is kept and marked unmatched. The out
 verifies every file: activities read, matched, unmatched, skipped with the reason,
 and stored. Importing the same export twice stores it once; `--dry-run` reads
 and matches without storing.
+
+A collection also stores the exports' daily series: the followers exports'
+daily new followers and their location, job function, seniority, industry
+and company-size breakdowns, and the content exports' daily impressions,
+clicks, reactions, comments, reposts and engagement rate. The backfill for
+exports already on disk is an operator step (`make store-ingest-linkedin-exports`);
+it reads the same files and is safe to re-run.
 
 ## Read the HTML report
 

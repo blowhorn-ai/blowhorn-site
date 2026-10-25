@@ -11,6 +11,39 @@ any day you want nothing to go out.
 
 {{< major >}}Whole unit standing down. Your call. Unpause when you're ready.{{< /major >}}
 
+## Stop everything
+
+```bash
+blowhorn stop --all --reason "a post is going out wrong"
+blowhorn stop --resume --all
+```
+
+Reach for `stop` when something is going wrong right now. A pause stops new
+claims; a stop also ends the work already running. `blowhorn stop --all`
+raises the all-computers pause below and records the stop in your account,
+with who stopped it, when, and the reason you gave. Every acting process (a
+scheduled pass, the queue working through posts, a run you started by hand)
+checks that record at the same safe points a cancel is honoured at and ends
+there, never mid-post. The activity in progress returns to the queue, and
+its run record reads cancelled with the stop's reason.
+
+Without `--all`, `blowhorn stop` stops this computer only: it sets this
+computer's pause and asks the pass running here to stop, the two things you
+would otherwise combine by hand. Nothing on any other computer changes.
+
+`blowhorn stop --resume` lifts the stop, and only what the stop set. If
+this computer, or every computer, was already paused before the stop, that
+pause stays: a stop never lifts a pause it did not raise. While a stop
+stands, `blowhorn schedule list` shows it live and `blowhorn schedule
+status` shows it as of the last pass: who stopped everything, when, and why.
+
+In Blowhorn the stop record rides the same preferences as the
+pause, so `stop --all` works the same way there. On an older Blowhorn
+that does not carry the stop yet, `stop --all` still raises the
+all-computers pause, so nothing new is claimed anywhere, but a pass
+already running on another computer finishes the activity it is on
+instead of stopping mid-pass. The command says so when it happens.
+
 ## Pause this computer
 
 ```bash
@@ -61,6 +94,34 @@ editorial, with no reason and no intent to resume.
 `trigger-now` on a held activity exits 1 and names the scope. `--ignore-pause` on
 `tick` or `trigger-now` overrides every scope, and a dry run previews through
 the pause: held activities read `held` rather than `would-run`.
+
+## Quiet hours: the pause that keeps your hours
+
+A pause is a decision you make in the moment. Quiet hours are the standing
+version: name the hours when nothing should go out, and due activities wait
+them out on their own.
+
+```bash
+blowhorn config set defaults.quiet_hours 22:00-07:00
+blowhorn config set defaults.quiet_hours_tz America/New_York
+```
+
+The window may wrap midnight, as `22:00-07:00` does, and is read in
+`defaults.quiet_hours_tz` - unset, this computer's own zone. An activity due
+inside the window is not claimed and not failed: it stays due and runs on the
+first pass after the window ends, the way a paused activity carries forward.
+`blowhorn schedule list` marks it `held (quiet hours)` with the window and
+the hour it lifts, and `blowhorn schedule why N` names quiet hours as the
+reason. Nothing is stored; the hold is computed from the clock on every pass.
+
+A profile whose audience keeps different hours carries its own: set its
+**Quiet Hours** and **Quiet Hours Time Zone** settings and they win over the
+defaults for that profile's activities, each key on its own.
+
+`--ignore-quiet-hours` on `tick` or `trigger-now` runs through the window
+once, the way `--ignore-pause` runs through a pause; `trigger-now` inside
+the window otherwise exits 1 and says so. Quiet hours hold scheduled work
+only - a command you run by hand is yours, exactly as a pause never stops one.
 
 ## Related
 

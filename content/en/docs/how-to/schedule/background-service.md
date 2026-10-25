@@ -29,7 +29,36 @@ The owner tells you who manages it: the desktop app registered it itself, or
 the command line installed it from a file. When the app owns it, the app's
 setting "keep this computer on watch after quit" (on by default)
 decides whether quitting stops it. Quitting with a pass in flight asks what to
-do: finish, cancel at a safe point, or stay.
+do, in a small prompt in the Blowhorn window that lists what is running:
+
+- **finish, then stop** lets the service end the pass, then stops it.
+- **cancel and stop** ends the pass after the step in progress - the post being
+  published, or a run that can't be interrupted safely - and the rest goes back
+  to the queue. It resumes the next time Blowhorn or the service starts, and
+  nothing is marked failed.
+- **stay open** (or closing the prompt) changes nothing.
+
+However the app is quit - the menu, Cmd-Q, the menu-bar icon's Quit, a quit
+from another app, or a `SIGTERM`, `SIGINT` or `SIGHUP` - it stops the commands
+it started, removes its menu-bar icon and exits within a few seconds. A quit by
+signal (logging out, for example) has nobody to answer the prompt, so with the
+setting off and a pass in flight it takes **finish, then stop**. With the
+setting on, no quit of any kind touches the service.
+
+## A separate data folder
+
+A run that sets `BLOWHORN_USER_DATA_DIR` (a test, a packaged check, or a second
+copy of the app's data) does not register, re-register, or remove the shared
+background service. Scheduling on this computer runs from the normal install.
+That run also leaves `~/.zshrc`, `~/.local/bin`, the app's open-at-login item,
+the `blowhorn://` link handler and the installed app in `/Applications` alone.
+It still reads the service's state, so Setup shows it, and when it quits it
+stops any Chrome it started on a throwaway folder under the system temp
+directory.
+
+The normal install registers the service only after it has written `engine.json`.
+Until that file exists, it waits and tries again quietly, so the service does
+not start, fail, and start again.
 
 ## Install it without the app
 

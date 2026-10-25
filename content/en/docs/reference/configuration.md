@@ -30,10 +30,17 @@ environment variables.
 | `defaults.headed` | `BLOWHORN_HEADED` | off | Visible window in front |
 | `defaults.dry_run` | `BLOWHORN_DRY_RUN` | off | Simulate every run |
 | `defaults.pace` | `BLOWHORN_PACE` | `normal` | `fast`, `normal`, `slow`, or a number; commands that never pause accept and ignore it |
+| `defaults.pace_by_platform` | `BLOWHORN_PACE_BY_PLATFORM` | none | A pace per platform, in `defaults.pace`'s values: `x: slow, linkedin: 1.5`. A platform with no entry runs at `defaults.pace`; a `--pace` flag or `BLOWHORN_PACE` covers every platform. `config show --json` reports each platform's effective pace and which setting supplied it |
 | `defaults.no_mouse_move` | `BLOWHORN_NO_MOUSE_MOVE` | off | Skip the pointer simulation before clicks |
-| `defaults.risk_profile` | `BLOWHORN_RISK_PROFILE` | `standard` | `cautious`, `standard` or `brisk`: caps, spacing, quiet hours, outreach and pace in one choice (see below) |
+| `defaults.concurrency.per_platform` | `BLOWHORN_CONCURRENCY_PER_PLATFORM` | `platform` | `platform`: one automation per platform at a time across all profiles on this computer. `profile`: one automation per profile and platform at a time. When unset, your Risk Profile's value applies (cautious and standard: `platform`; brisk: `profile`) |
+| `defaults.concurrency.max_runs` | `BLOWHORN_CONCURRENCY_MAX_RUNS` | none | At most this many automations running at once on this computer, however they were started; a run over the limit is refused and its activities stay queued. When unset, your Risk Profile's value applies (cautious: at most 1; standard and brisk: no limit) |
+| `defaults.risk_profile` | `BLOWHORN_RISK_PROFILE` | `standard` | `cautious`, `standard` or `brisk`: pace, pointer movement, caps, spacing, quiet hours, outreach and how much runs at once in one choice (see below) |
 | `defaults.risk_profile_by_platform` | none | none | A preset per platform, for example `x: cautious` |
 | `defaults.risk_profiles` | none | none | A preset per profile: a name, or a map with `default` and platform keys |
+| `defaults.approval.mode` | `BLOWHORN_APPROVAL_MODE` | `off` | `off`, `agent` or `all`: who must approve before work publishes (see below) |
+| `defaults.caps` | none | none | Your own daily caps per platform and action, under the built-in ceilings (see below) |
+| `defaults.quiet_hours` | `BLOWHORN_QUIET_HOURS` | none | Hours when the scheduler claims nothing, written `HH:MM-HH:MM` like `22:00-07:00` (the window may wrap midnight). A due activity inside it is held, not failed, and runs when the window ends. A profile's own Quiet Hours setting wins for its activities |
+| `defaults.quiet_hours_tz` | `BLOWHORN_QUIET_HOURS_TZ` | this computer's zone | The IANA time zone `defaults.quiet_hours` is read in, like `America/New_York`. A profile's own Quiet Hours Time Zone setting wins for its activities |
 | `defaults.logs.directory` | `BLOWHORN_LOG_DIR` | `data/logs/` in the checkout | Where daily logs go |
 | `defaults.logs.retention_days` | `BLOWHORN_LOG_RETENTION_DAYS` | 30 | Days of daily logs kept; 0 keeps all |
 | `defaults.chrome.launch_mode` | `BLOWHORN_CHROME_LAUNCH` | `extension` | How a run reaches Chrome |
@@ -41,7 +48,7 @@ environment variables.
 | `defaults.chrome.data_dir` | `BLOWHORN_CHROME_DATA_DIR` | Your real Chrome directory | Where the installed Chrome is read from |
 | `defaults.slack.auth_mode` | `BLOWHORN_SLACK_AUTH` | your captured session first | Which Slack credential may send: session, user-token, bot-token, or a list tried in order |
 | (flag only) | `BLOWHORN_TEE_STDOUT` | off | Flush the stdout copy per write for a supervising wrapper |
-| `defaults.store.backend` | `BLOWHORN_STORE_BACKEND` | `cloud` | `cloud` or `postgres` (the store database through the bastion tunnel, for maintainers). A `postgres` value in the file or in `BLOWHORN_STORE_BACKEND` opens Cloud unless `BLOWHORN_MAINTAINER=1`. Cloud uses the organization you signed in to. It reads and writes profiles, their social accounts and content, reads destinations, records and lists runs, and reads and writes analytics, activity, ledger entries and LinkedIn analytics pages. A changed ledger value is written. A later analytics or activity reading replaces the stored one. Run lists are the signed-in user's events. Analytics and activity lists are the organization's. Anything else is refused by name |
+| `defaults.store.backend` | `BLOWHORN_STORE_BACKEND` | `cloud` | `cloud` or `postgres` (the store database through the bastion tunnel, for maintainers). A `postgres` value in the file or in `BLOWHORN_STORE_BACKEND` opens Cloud unless `BLOWHORN_MAINTAINER=1`. Cloud uses the organization you signed in to. It reads and writes profiles, their social accounts and content, reads destinations, records and lists runs, and reads and writes analytics, activity, ledger entries and LinkedIn analytics pages. A changed ledger value is written. A later analytics or activity reading replaces the stored one. Run lists are the organization's for an organization admin and your own otherwise. Destinations are the ones you own, plus the ones assigned to the environment `BLOWHORN_CLOUD_ENVIRONMENT` (or `environment_id` in `cloud.yaml`) names, and only a destination's owner can change it. Analytics and activity lists are the organization's. Anything else is refused by name |
 | `defaults.store.organization` | `BLOWHORN_STORE_ORGANIZATION` | none; the cloud store uses the organization you signed in to, and the Postgres store runs nothing while it is unset | The organization every activity is scoped to |
 | `defaults.store.config` | `BLOWHORN_STORE_CONFIG` | a private file outside the checkout | The private document holding the connection |
 
@@ -61,15 +68,162 @@ stay out of `config show`.
 | Dial | cautious | standard | brisk |
 |---|---|---|---|
 | Pace (when `defaults.pace` is unset) | slow | normal | fast |
+| Pointer movement (when `defaults.no_mouse_move` is unset) | on | on | on |
 | Caps (share of each built-in ceiling) | 25% | 100% | 100% |
 | Spacing between public actions | 15 min plus up to 15 min | none | none |
 | Quiet hours (local) | 22:00 to 07:00 | none | none |
-| Outreach (connect, invite, follow) | off | on | on |
+| Outreach (connect, invite, follow) | off | established platforms only | on |
 | Pause after a CAPTCHA or checkpoint | 72 h | 24 h | 12 h |
 | Retries of a failed scheduled job | 0 | 0 | 1 |
-| Warmup | 14 days | 7 days | 3 days |
+| Warmup (the value `risk show` reports for the preset; see [Warmup](#warmup)) | 14 days | 7 days | 3 days |
+| Runs sharing a platform (when `defaults.concurrency.per_platform` is unset) | one profile at a time | one profile at a time | different profiles may share |
+| Runs at once overall (enforced; see [Concurrency](#concurrency)) | at most 1 | no limit | no limit |
 
-Scheduled jobs on a new profile or a new computer run cautious until the warmup is done, whatever you chose. A run you start yourself is not held by the warmup, only noted; it still follows the caps, quiet hours and outreach setting of the preset you chose. When a run covers several profiles or platforms, a held one is skipped by name and the rest run. To run once anyway, add `--ignore-risk`, or choose **Do it anyway** next to a held item under Activity › History. Logins are never retried under any preset. Choose a preset in the app under Settings, or with `blowhorn risk set cautious` (add `--profile` to store it on one profile, `--platform` for one platform); `blowhorn risk show` says which preset is in effect and where it comes from.
+No preset can raise a built-in ceiling: the caps are a share of one, never more, and the concurrency values only ever hold runs back at or below the shipped posture (one profile per platform, which `standard` keeps).
+
+Any dial you set yourself beats the preset for that dial: your own `defaults.pace`, `defaults.no_mouse_move` or `defaults.concurrency` value is the one that applies, and the rest of the preset still applies around it. A profile with a dial set outside the preset is a **custom** profile. `custom` is a description, not a fourth preset you can pick: `blowhorn risk show` names the dials set outside the profile, and `blowhorn config show` names the preset as a dial's source when the preset is the layer that supplied it.
+
+The concurrency rows are the values the presets carry, and they are enforced, not just reported: `blowhorn risk show` reports them, each with the layer that supplied it, and the run gates fall back to the chosen preset when no explicit value sets a key. An explicit environment or file value still beats the preset per key, and a refusal under a preset cap names the preset (for example, "your Cautious profile"). `blowhorn config show` names `risk_profile` as the source when the preset is the layer that supplied a key.
+
+Scheduled jobs on a new profile or a new computer run cautious until the warmup is done, whatever you chose -- the cautious concurrency values included. A run you start yourself is not held by the warmup, only noted; it still follows the caps, quiet hours and outreach setting of the preset you chose. When a run covers several profiles or platforms, a held one is skipped by name and the rest run. To run once anyway, add `--ignore-risk`, or choose **Do it anyway** next to a held item under Activity › History. Logins are never retried under any preset. Choose a preset in the app under Settings, or with `blowhorn risk set cautious` (add `--profile` to store it on one profile, `--platform` for one platform); `blowhorn risk show` says which preset is in effect and where it comes from. For choosing between the presets in lived terms, see [Choose your Risk Profile](/docs/how-to/settings/choose-your-risk-profile/).
+
+### Risk Profile dials
+
+Each dial below is one row of the presets table, with a stable anchor the desktop info buttons deep-link to. The desktop link map in `desktop/src/shared/docs-links.ts` (`RISK_PROFILE_DIAL_DOCS`) mirrors this table, so the slider and these docs agree on targets.
+
+| Dial | Anchor |
+|---|---|
+| Pace | [#pace](#pace) |
+| Pointer movement | [#pointer-movement](#pointer-movement) |
+| Caps | [#caps](#caps) |
+| Spacing between public actions | [#spacing-between-public-actions](#spacing-between-public-actions) |
+| Quiet hours | [#quiet-hours](#quiet-hours) |
+| Outreach | [#outreach](#outreach) |
+| Pause after a challenge | [#pause-after-a-challenge](#pause-after-a-challenge) |
+| Retries of a failed scheduled job | [#retries-of-a-failed-scheduled-job](#retries-of-a-failed-scheduled-job) |
+| Warmup | [#warmup](#warmup) |
+| Concurrency | [#concurrency](#concurrency) |
+
+### Pace
+
+The speed label a run uses when `defaults.pace` is unset: cautious `slow`, standard `normal`, brisk `fast`. Pace shapes typing cadence and the random pauses between actions (see [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-bot-design/)); it does not by itself set the minimum spacing between public actions, which is the [Spacing](#spacing-between-public-actions) dial. A `--pace` flag, `BLOWHORN_PACE`, or `defaults.pace` beats the preset for this dial.
+
+### Pointer movement
+
+Whether Blowhorn simulates pointer movement before clicks, when `defaults.no_mouse_move` is unset. All three presets leave it on (`no_mouse_move` off); setting `defaults.no_mouse_move` (or `BLOWHORN_NO_MOUSE_MOVE`) turns it off whatever the preset says. The preset never turns pointer movement off by itself.
+
+### Caps
+
+The share of each platform's built-in ceiling the preset allows per day (and per hour, scaled the same way): cautious 25%, standard 100%, brisk 100%. No preset can raise a ceiling. A profile's own daily cap (`defaults.caps`, or its `Daily Caps` store attribute) can only lower the effective cap further, per action. For example, on LinkedIn the built-in ceiling is 10 posts a day, so cautious allows 2 and standard or brisk allow 10, before any user cap or warmup ramp. A cap that cannot be read holds every action for that platform or profile until it is fixed.
+
+### Spacing between public actions
+
+The least time between two public actions on one platform for one profile, plus a random wait up to the jitter: cautious 15 minutes plus up to 15 minutes, standard and brisk none. The ready time is seeded by profile, platform and the last action's time, so every computer and a dry run agree on it. This dial is enforced by the gate: an action inside the spacing is held with its ready time.
+
+### Quiet hours
+
+Local hours with no public actions: cautious 22:00 to 07:00, standard and brisk none. This is the preset's quiet hours, separate from `defaults.quiet_hours`, which is a window you name yourself for scheduled claims. A due scheduled activity inside quiet hours is held, not failed, and runs when the window ends.
+
+### Outreach
+
+Whether connect, invite and follow actions may run: cautious off, standard on established platforms only (off on platforms still being built: Facebook, Instagram, TikTok, YouTube), brisk on everywhere, including those platforms. When outreach is off, the gate refuses the action with the preset named, rather than queuing it silently.
+
+### Pause after a challenge
+
+How long a profile on a platform is held after a CAPTCHA, checkpoint or restriction page: cautious 72 hours, standard 24 hours, brisk 12 hours, counted from the last such record in the ledger. The hold names the reason and the time it can run again. Blowhorn never solves a CAPTCHA or 2FA prompt; a challenge is left for you.
+
+### Retries of a failed scheduled job
+
+How many times a failed scheduled job may be tried again: cautious 0, standard 0, brisk 1. A login is never retried under any preset, and a retry is never granted for an unknown outcome (a post may have gone out), a warming profile, or a trigger-now run. This dial is about scheduled jobs; within a run, a failed post is not retried, it moves on.
+
+### Warmup
+
+A new profile or a new Mac runs cautious for scheduled jobs until it has history, whatever preset was chosen, and its caps ramp over that period: from about a quarter of cautious's caps on day one to cautious's full caps by day 14. The per-preset figures in the table (14, 7, 3 days) are the values `risk show` reports for each preset; the gate that holds scheduled jobs uses cautious's 14-day window for every choice, so a brisk choice does not shorten a new profile's cautious period. A run you start yourself is not held by the warmup, only warned about, and it follows the chosen preset's caps, quiet hours and outreach. A profile idle longer than the 15-day ledger window warms up again.
+
+### Concurrency
+
+How much may run at once, in two parts. Runs sharing a platform: cautious and standard `platform` (one profile at a time on a platform), brisk `profile` (different profiles may share a platform; one profile is still held to one run on it). Runs at once overall: cautious at most 1, standard and brisk no limit. Both parts are enforced at the run gates since #1007, with the layering environment, explicit file value, preset, built-in, per key; a refusal under a preset cap names the preset. The session lock and the scheduler pass slot follow the same values, so `risk show` and observed enforcement agree with no explicit concurrency value set.
+
+## Approval mode
+
+`defaults.approval.mode` decides whose writing is enough to publish.
+`off` - the built-in - is the behaviour Blowhorn has always had: whoever
+writes a content activity sets its `Approved?`, and actions that publish
+without an activity (`post --amplify`, `post --message`, `follow`, an
+ad-hoc `comment`, a confirmed `slack send`) publish as run. `agent` keeps
+that for a person, but holds an agent's work: a caller marked with
+`BLOWHORN_ACTOR=agent`, a scheduler run, or any run with no terminal
+attached has its activities stored unapproved whatever the payload asked,
+and its ad-hoc actions are refused with a sentence pointing at the queue.
+`all` holds every activity and every ad-hoc action, whoever wrote it.
+You at a terminal, or in the app, count as a person for writing activities (approving is `blowhorn content approve` at a terminal); under `all` the
+app's own writes wait too, and the CLI is the door.
+
+A schedule job that would publish on its own - `follow`, `comment`
+with a target and a message, `post` with `amplify` - is a standing
+instruction to publish unapproved, so creating one, or changing what
+an existing one would publish, is refused for the same callers: an
+agent under `agent`, anyone under `all`. A job that works the queue
+is never refused, and a job already scheduled is not re-judged when
+the mode changes: it runs as its creator's standing instruction.
+
+The door is `blowhorn content approve <activity>`: it sets `Approved?`
+and records who approved and when in the activity's `Approved by` column
+(see [Content queue](/docs/reference/content-queue/)). Approving is a person's act, so
+an agent-signalled caller is refused by `content approve` itself, in
+every mode - an agent cannot approve its own work. An unknown mode is
+refused by name before anything runs.
+
+## Daily caps
+
+Every platform and action already has a built-in daily ceiling, and a
+Risk Profile preset may take only a share of it. `defaults.caps` lets you
+set a lower daily cap of your own, per platform and per action:
+
+```yaml
+defaults:
+  caps:
+    x:
+      post_per_day: 3
+      follow_per_day: 20
+```
+
+The key is the action in your words; it bounds the action Blowhorn counts:
+
+| You write | It bounds |
+|---|---|
+| `post_per_day` | posts |
+| `comment_per_day` | comments |
+| `follow_per_day`, `connect_per_day`, `invite_per_day` | outreach: follows, connects and invites together |
+| `repost_per_day` | shares (reposts) |
+| `amplify_per_day`, `react_per_day` | reactions |
+| `accept_per_day` | accepts, on the platforms that have them |
+
+The gate's own names (`outreach_per_day`, `share_per_day`,
+`reaction_per_day`) work too. A platform with no such action refuses the
+key by name, as do a zero, a negative or a fractional count.
+
+A user cap can only lower: a value above the built-in ceiling is accepted
+and simply never binds, and a preset's share or a warmup can still take
+the effective cap lower. The count is the run ledger in your account,
+over the trailing 24 hours, so the cap holds on every computer sharing
+the account; a row it holds stays queued, reads `held` with the reason
+`daily cap (N <action> a day, your cap)`, and runs when the oldest counted
+action ages past a day. Caps are per day only; the built-in hourly
+ceilings are unchanged.
+
+Set one with `blowhorn config set defaults.caps.x.post_per_day 3` (an
+empty value clears it), or write the map in the file. For one profile
+only, the profile's `Daily Caps` store attribute takes the same caps in
+one line -- `x.post:3, x.follow:20` -- and beats the file per action.
+`blowhorn config show` reports every platform and action with its
+built-in ceiling, your value when set, and the effective (lower) number.
+
+A cap that cannot be read (a zero, a negative or fractional count, an unknown
+platform or action) never uncaps the account: scheduled jobs and hand runs
+for that platform, or for that profile when it is the `Daily Caps` attribute,
+are held with the entry named until it is fixed, and `config show` lists the
+caps as `invalid` with the reason.
 
 ## Output logging
 

@@ -17,10 +17,14 @@ The guided setup does this for you. On **Confirm troops** you mark each
 Chrome profile in use or not in use, and **Getting ready**, the step
 after, adds the extension only to the ones you marked. If that is every
 Chrome profile on this computer, it uses Chrome's policy route: macOS
-asks for your administrator password once, for every profile at once,
-and Chrome then installs the extension, turned on, in every profile.
-Chrome shows **Managed by your organization**; that is the install
-working, not a problem. There is nothing to click in each profile.
+asks for your administrator password once. When more than one profile is
+chosen, that one prompt covers every profile you chose. With one profile,
+it is one prompt for that profile. The password request is named
+**Blowhorn**: it is this install, and it writes Chrome's policy file once
+so Chrome installs the extension, turned on, in every profile you chose.
+Cancelling it writes nothing, and setup stops there and says why. Chrome
+shows **Managed by your organization**; that is the install working, not
+a problem. There is nothing to click in each profile.
 
 If you left a profile out, no computer-wide file is written for the
 others: both files above reach every profile, so either would put the
@@ -34,15 +38,21 @@ remove it from that one profile - see
 
 A computer that already has the extension from an earlier setup - put
 there by Chrome's external-extensions file - stays on that route
-instead. Chrome adds it turned off there, so each profile you marked in
-use needs one click:
+when you marked only some profiles in use. Chrome adds it turned off
+there, so each profile you marked in use needs one click:
 
 1. Next to a profile that says **Turned off** or **Not added yet**, press
    **Enable in** and the profile's name.
 2. Chrome opens Blowhorn's store page in that profile. Click
    **Enable now** (or **Add to Chrome** if Chrome was already open).
-3. Chrome opens the Blowhorn welcome page, and the profile reads
-   **Ready** in the app within a few seconds.
+3. The profile reads **Ready** in the app within a few seconds. A
+   manual install during guided setup lands back in the app instead
+   of opening the Blowhorn welcome page; outside guided setup, the
+   welcome page is what opens.
+
+When every profile is marked in use, guided setup writes the policy
+file instead of staying on the external route, so Chrome turns the
+extension on everywhere with nothing to click in each profile.
 
 If Getting ready says **This is taking longer than usual**, press
 **Start again**: Blowhorn stops the attempt still running and begins a new
@@ -77,8 +87,9 @@ If it says the extension is too old for this Blowhorn, update it: open
 ## Check it from the toolbar
 
 On first install the extension opens the Blowhorn welcome page. Its
-toolbar button shows a red **!** until this Chrome profile is ready.
-Click it to see what is missing, then follow its one button:
+toolbar button shows the Blowhorn paw in grey until this Chrome profile
+is ready, then in colour; hovering it names what is missing. Click it to
+see what is missing, then follow its one button:
 
 - **Download the Blowhorn app** - the app is not installed.
 - **Update the Blowhorn app** - the app is too old for this extension.
@@ -134,6 +145,13 @@ each profile starts, with no click in that profile. That is every Chrome
 profile on this computer, including ones no Blowhorn profile uses. Chrome
 shows **Managed by your organization**. macOS asks for an administrator
 password once. Cancelling that dialog writes nothing.
+
+macOS names the process that asks, so the name on that dialog depends on
+how Blowhorn was started. In the Blowhorn app, the app's bundled
+installer asks, and the dialog names **Blowhorn**. From a terminal, the
+engine asks through the Mac's own script runner, and the dialog names
+**osascript** instead. Both are this install asking - the one write of
+Chrome's policy file - and cancelling either writes nothing.
 
 ```bash
 blowhorn chrome extension-install --all-profiles

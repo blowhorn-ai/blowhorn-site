@@ -54,6 +54,15 @@ session refuses and says why; run it from a terminal on this computer
 instead. Asking a Chrome that is already running to open a tab starts
 nothing and is not refused.
 
+A test or check run that points Blowhorn's Chrome folders at a throwaway
+folder under the system temp directory (`BLOWHORN_USER_DATA_DIR`,
+`BLOWHORN_CHROME_DATA_DIR`, `BLOWHORN_CHROME_AUTOMATION_DATA_DIR` or
+`BLOWHORN_ATTACH_CHROME_DATA_DIR`) starts Chrome on that folder with
+`--use-mock-keychain` and `--password-store=basic`, so macOS never asks
+for a keychain. Your own Chrome, and any folder outside the temp
+directory, never gets those switches: its cookies were encrypted with
+your keychain's key.
+
 The extension's native host reads one more thing, only to answer the
 toolbar popup: it looks for the extension's own random identifier in
 the extension's own IndexedDB files,
@@ -414,7 +423,16 @@ platform, or null), `url`, `directory`, `display_name`, `account`,
 `opened`, and `detail`, which says why the window did not open
 (`chrome could not open that chrome profile: <reason>`). When Chrome
 could not be asked, `ok` is `false` and the command exits 1.
+The Chrome that opens is the same handoff as `extension-enable`'s, so
+on a throwaway Chrome folder under the system temp directory it carries
+`--use-mock-keychain` and `--password-store=basic`, and on your own
+Chrome it never does.
 
+LinkedIn, X and Reddit work through your own Chrome, so `--sign-in`
+with one of them is how you connect it: Blowhorn never asks for the
+password. After you sign in, `blowhorn chrome discover` (the desktop's
+**Check again**) sees the sign-in and records it as the profile's
+account in your Blowhorn account.
 
 ## `blowhorn chrome discover`
 
@@ -435,8 +453,9 @@ It reads only this allowlist, and nothing else in Chrome's directory:
   GitHub, Bluesky and Slack. Never the password column, never form data.
 - Each profile's `Cookies`: the **value** of GitHub's `dotcom_user`
   cookie alone (the signed-in GitHub account), and for LinkedIn, X,
-  Hacker News and Slack only whether a session cookie is **present** -
-  never its value, and never the encrypted value of anything.
+  Reddit and Slack only whether a session cookie is **present** -
+  never its value, and never the encrypted value of anything. Hacker
+  News's session cookie is not read at all.
 
 No history, no LevelDB, no other profile file. A database Chrome has
 locked or that does not parse reads as "not found", never as an error.
@@ -449,8 +468,30 @@ against your account's users, under the same rule as profile creation:
 only), `several` (with the candidates), `none` (with the refusal's
 sentence) or `no-email` - plus `proposed_slug` and `slug_state` (`free`,
 `own`, `taken`, `invalid`) for the profile a confirm would create.
-Discovery writes nothing; the social links it shows are never treated
-as permission to post.
+Discovery writes nothing to Chrome, and the social links it shows are
+never treated as permission to post.
+
+For LinkedIn, X and Reddit the account is the browser sign-in, so
+discovery records it in your Blowhorn account. For each Chrome profile
+mapped on this computer, in use, whose identity still reads `ok`, and
+for each of those platforms that is in use there and that the mapping
+picks this Chrome profile for:
+
+- a sign-in registers the profile's account for that platform (a
+  connection of that kind, `connected`, with no credential) and maps it
+  to the profile, or reuses the one it already maps;
+- a sign-in that ended marks that account `disconnected`. Nothing is
+  deleted or unmapped;
+- an account the profile turned off (`ignored`) is left as it is.
+
+`--json` lists what was recorded in `accounts` (`profile`, `platform`,
+`outcome` - `created`, `reconnected`, `disconnected`, `unchanged` or
+`none` - and the `account`), and names each refusal in `account_errors`.
+`--local` and `--dry-run` record nothing. The desktop app's Check again
+runs this survey, which is how Home's Connect an account step and every
+other computer learn the account is connected. `blowhorn profile status
+--check-sessions` records its LinkedIn, X and Reddit verdicts the same
+way.
 
 ## `blowhorn chrome confirm`
 
@@ -477,7 +518,9 @@ case, and no person is ever invented); write the attached platforms'
 keys (usernames; `LI_CHROME_SESSION` / `HN_CHROME_SESSION` naming the
 directory when `session` is set; `GH_TOKEN`; `BLUESKY_HANDLE` with
 `BLUESKY_APP_PASSWORD`); then write the mapping with `chrome map`'s own
-checks. Slack writes no key - its note says to capture the session with
+checks; then record the attached LinkedIn, X and Reddit sign-ins as the
+profile's accounts, as `chrome discover` does (each result's `accounts`).
+A LinkedIn sign-in with no saved username still becomes the account. Slack writes no key - its note says to capture the session with
 `blowhorn profile auth --platform slack <profile>`. A username omitted
 from the document is re-read from discovery.
 

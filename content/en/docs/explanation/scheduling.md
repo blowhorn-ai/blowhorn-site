@@ -25,6 +25,19 @@ next pass reclaims it. That is why an activity's Status never reads as a
 lock, and why two computers never work the same activity: the claim statement
 reads the lease alone, atomically, and only one claimant wins it.
 
+Reclaiming is not re-running. An activity a claim finds still saying running
+was started by the run that died, and that run may already have acted before
+its computer went away. Nothing records how far it got. So the reclaiming
+pass does not run it: it moves the activity's next run on, writes the reason
+into its Last Error, and leaves the action to a person. Check whether the
+action went out; if it did not, `blowhorn schedule trigger-now` runs the
+activity anyway. It warns only while the activity still says running; once a
+pass has skipped it, the reason is in Last Error instead. A once-only activity that is
+skipped this way is marked completed, with the reason in Last Error, rather
+than left armed to be skipped on every pass. A claim that was taken
+but never started never got the word running written on it, and that activity
+runs as normal.
+
 Three pause scopes cover the three reasons to stop. This computer's
 file stops this computer and nothing else, for maintenance on one computer.
 The organization-wide pause stops every computer sharing your account, with a
