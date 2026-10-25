@@ -21,6 +21,7 @@ blowhorn unfollow [OPTIONS]
 | `--limit` | integer | `20` | Accepted and not read: a run unfollows the one `--target` from each profile |
 | `--platform` | string |  | Platform scope for `blowhorn unfollow`. One of: bluesky (any other platform, including `all`, is rejected) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn unfollow` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 

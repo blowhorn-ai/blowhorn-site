@@ -41,8 +41,13 @@ environment variables.
 | `defaults.caps` | none | none | Your own daily caps per platform and action, under the built-in ceilings (see below) |
 | `defaults.quiet_hours` | `BLOWHORN_QUIET_HOURS` | none | Hours when the scheduler claims nothing, written `HH:MM-HH:MM` like `22:00-07:00` (the window may wrap midnight). A due activity inside it is held, not failed, and runs when the window ends. A profile's own Quiet Hours setting wins for its activities |
 | `defaults.quiet_hours_tz` | `BLOWHORN_QUIET_HOURS_TZ` | this computer's zone | The IANA time zone `defaults.quiet_hours` is read in, like `America/New_York`. A profile's own Quiet Hours Time Zone setting wins for its activities |
+| `defaults.typing_delay_min_ms`, `defaults.typing_delay_max_ms`, `defaults.typing_jitter_ms`, `defaults.typing_target_duration_s` | `BLOWHORN_TYPING_DELAY_MIN_MS`, `BLOWHORN_TYPING_DELAY_MAX_MS`, `BLOWHORN_TYPING_JITTER_MS`, `BLOWHORN_TYPING_TARGET_DURATION_S` | 35, 165, 9, 20 | How fast keys are typed: the pause band between keys in milliseconds, the random wobble on each pause, and how long a whole entry aims to take in seconds. Shapes both drivers (see below) |
+| `defaults.typing_micro_pause_chance_pct`, `defaults.typing_micro_pause_min_ms`, `defaults.typing_micro_pause_max_ms`, `defaults.typing_long_pause_min_chars`, `defaults.typing_long_pause_max_chars`, `defaults.typing_long_pause_min_ms`, `defaults.typing_long_pause_max_ms` | `BLOWHORN_TYPING_MICRO_PAUSE_CHANCE_PCT`, `BLOWHORN_TYPING_MICRO_PAUSE_MIN_MS`, `BLOWHORN_TYPING_MICRO_PAUSE_MAX_MS`, `BLOWHORN_TYPING_LONG_PAUSE_MIN_CHARS`, `BLOWHORN_TYPING_LONG_PAUSE_MAX_CHARS`, `BLOWHORN_TYPING_LONG_PAUSE_MIN_MS`, `BLOWHORN_TYPING_LONG_PAUSE_MAX_MS` | 7, 50, 220, 45, 85, 350, 1250 | Short hesitations between keys and longer pauses every so many keys. Playwright only: the extension driver sends one key per message and runs no pause plan (see below) |
+| `defaults.typing_allow_mistakes`, `defaults.typing_mistake_rate_pct`, `defaults.typing_max_mistakes_per_entry`, `defaults.typing_mistake_min_text_length`, `defaults.typing_mistake_delay_min_ms`, `defaults.typing_mistake_delay_max_ms`, `defaults.typing_mistake_pause_min_ms`, `defaults.typing_mistake_pause_max_ms` | `BLOWHORN_TYPING_ALLOW_MISTAKES`, `BLOWHORN_TYPING_MISTAKE_RATE_PCT`, `BLOWHORN_TYPING_MAX_MISTAKES_PER_ENTRY`, `BLOWHORN_TYPING_MISTAKE_MIN_TEXT_LENGTH`, `BLOWHORN_TYPING_MISTAKE_DELAY_MIN_MS`, `BLOWHORN_TYPING_MISTAKE_DELAY_MAX_MS`, `BLOWHORN_TYPING_MISTAKE_PAUSE_MIN_MS`, `BLOWHORN_TYPING_MISTAKE_PAUSE_MAX_MS` | on, 3, 4, 20, 55, 170, 80, 350 | Whether a typed entry may include a wrong key that is then corrected, how often, and the pauses around the correction. Playwright only, never on sign-in (see below) |
+| `defaults.pointer_click_hold_min_ms`, `defaults.pointer_click_hold_max_ms`, `defaults.pointer_key_dwell_min_ms`, `defaults.pointer_key_dwell_max_ms`, `defaults.pointer_hover_pause_min_ms`, `defaults.pointer_hover_pause_max_ms` | `BLOWHORN_POINTER_CLICK_HOLD_MIN_MS`, `BLOWHORN_POINTER_CLICK_HOLD_MAX_MS`, `BLOWHORN_POINTER_KEY_DWELL_MIN_MS`, `BLOWHORN_POINTER_KEY_DWELL_MAX_MS`, `BLOWHORN_POINTER_HOVER_PAUSE_MIN_MS`, `BLOWHORN_POINTER_HOVER_PAUSE_MAX_MS` | 40, 140, 25, 90, 50, 250 | How long a click stays held, how long a key stays pressed, and the pause after the pointer arrives before a click, all in milliseconds (see below) |
 | `defaults.logs.directory` | `BLOWHORN_LOG_DIR` | `data/logs/` in the checkout | Where daily logs go |
 | `defaults.logs.retention_days` | `BLOWHORN_LOG_RETENTION_DAYS` | 30 | Days of daily logs kept; 0 keeps all |
+| `defaults.diagnostics.enabled` | `BLOWHORN_DIAGNOSTICS_ENABLED` | on | Queue and send anonymous failure reports (see [Failure reports](/docs/explanation/your-data/#failure-reports)); off means nothing is queued or sent, and the desktop Settings row is the same choice |
 | `defaults.chrome.launch_mode` | `BLOWHORN_CHROME_LAUNCH` | `extension` | How a run reaches Chrome |
 | `defaults.chrome.automation_data_dir` | `BLOWHORN_CHROME_AUTOMATION_DATA_DIR` | Blowhorn's own directory | Where a launched Chrome keeps its session |
 | `defaults.chrome.data_dir` | `BLOWHORN_CHROME_DATA_DIR` | Your real Chrome directory | Where the installed Chrome is read from |
@@ -86,6 +91,8 @@ Any dial you set yourself beats the preset for that dial: your own `defaults.pac
 The concurrency rows are the values the presets carry, and they are enforced, not just reported: `blowhorn risk show` reports them, each with the layer that supplied it, and the run gates fall back to the chosen preset when no explicit value sets a key. An explicit environment or file value still beats the preset per key, and a refusal under a preset cap names the preset (for example, "your Cautious profile"). `blowhorn config show` names `risk_profile` as the source when the preset is the layer that supplied a key.
 
 Scheduled jobs on a new profile or a new computer run cautious until the warmup is done, whatever you chose -- the cautious concurrency values included. A run you start yourself is not held by the warmup, only noted; it still follows the caps, quiet hours and outreach setting of the preset you chose. When a run covers several profiles or platforms, a held one is skipped by name and the rest run. To run once anyway, add `--ignore-risk`, or choose **Do it anyway** next to a held item under Activity › History. Logins are never retried under any preset. Choose a preset in the app with the slider at the top of Settings (the same mode also shows on Home as a pill and as a mini-slider in the menu-bar popover), or with `blowhorn risk set cautious` (add `--profile` to store it on one profile, `--platform` for one platform); `blowhorn risk show` says which preset is in effect and where it comes from. For choosing between the presets in lived terms, see [Choose your Risk Profile](/docs/how-to/settings/choose-your-risk-profile/).
+
+One activity can run under its own preset: set **Risk profile** in the activity editor, or `risk_profile=cautious` in the activity's params, and that activity runs cautious (pace, caps share, quiet hours, challenge pause) while the same profile × platform runs standard elsewhere. The activity's detail shows the preset and where it came from (`this activity`, or `inherits: LinkedIn × work profile, Cautious`); a run report names `schedule` as the source when the activity's own value held it. A run you start by hand can override everything for that one run with `--risk-profile cautious` (before the command word, between a group word and its subcommand, or after it); an unknown value is refused before anything runs. Activities without the field behave exactly as before, and the field is refused on commands the gate does not act on (analytics, report, withdraw, reconcile) rather than accepted and ignored. The upstream Schedule construct gains a top-level `riskProfile` field in a proposed meshery/schemas change (open, not yet released); until a release carries it, the value travels in the activity's params.
 
 ### Risk Profile dials
 
@@ -143,6 +150,33 @@ A new profile or a new Mac runs cautious for scheduled jobs until it has history
 ### Concurrency
 
 How much may run at once, in two parts. Runs sharing a platform: cautious and standard `platform` (one profile at a time on a platform), brisk `profile` (different profiles may share a platform; one profile is still held to one run on it). Runs at once overall: cautious at most 1, standard and brisk no limit. Both parts are enforced at the run gates since #1007, with the layering environment, explicit file value, preset, built-in, per key; a refusal under a preset cap names the preset. The session lock and the scheduler pass slot follow the same values, so `risk show` and observed enforcement agree with no explicit concurrency value set.
+
+## Typing and pointer timing
+
+These dials are not preset values: no preset sets a typing delay or a click hold. They are the shipped behaviour a run types and clicks with, and setting one away from its built-in is a dial set outside the preset, so `risk show` counts it toward "Custom, based on" just like a pace or concurrency dial. The desktop editor's info buttons link here, one anchor per group.
+
+| Dial | Anchor |
+|---|---|
+| Typing delay | [#typing-delay](#typing-delay) |
+| Typing pauses | [#typing-pauses](#typing-pauses) |
+| Typing mistakes | [#typing-mistakes](#typing-mistakes) |
+| Pointer timing | [#pointer-timing](#pointer-timing) |
+
+### Typing delay
+
+The pause band between two keys (`defaults.typing_delay_min_ms` to `defaults.typing_delay_max_ms`, built-ins 35 to 165 milliseconds), the random wobble on each pause (`defaults.typing_jitter_ms`, 9 milliseconds), and how long a whole entry aims to take (`defaults.typing_target_duration_s`, 20 seconds) before pauses are added. This dial shapes both drivers: the Playwright plan draws its inter-key delay from the band, and the extension session draws its shaped delay from the same band, floored at the band's minimum. A minimum above its maximum is refused at run start, naming the key.
+
+### Typing pauses
+
+Short hesitations between keys (`defaults.typing_micro_pause_chance_pct`, 7 percent, for `defaults.typing_micro_pause_min_ms` to `defaults.typing_micro_pause_max_ms`, 50 to 220 milliseconds) and longer pauses every so many keys (`defaults.typing_long_pause_min_chars` to `defaults.typing_long_pause_max_chars`, 45 to 85 keys, for `defaults.typing_long_pause_min_ms` to `defaults.typing_long_pause_max_ms`, 350 to 1250 milliseconds). Playwright only: the extension driver sends one key per message and runs no pause plan, so on that driver these dials change nothing, and the editor says so rather than letting them look live.
+
+### Typing mistakes
+
+Whether a typed entry may include a wrong key that is then corrected (`defaults.typing_allow_mistakes`, on), how often (`defaults.typing_mistake_rate_pct`, 3 percent), at most how many per entry (`defaults.typing_max_mistakes_per_entry`, 4), only in entries at least this long (`defaults.typing_mistake_min_text_length`, 20 keys), and the pauses around the correction (`defaults.typing_mistake_pause_min_ms` to `defaults.typing_mistake_pause_max_ms`, 80 to 350 milliseconds after the wrong key, then `defaults.typing_mistake_delay_min_ms` to `defaults.typing_mistake_delay_max_ms`, 55 to 170 milliseconds after the correction). Playwright only, for the same reason as pauses, and never on sign-in: a credential entry is typed exactly, whatever these dials say. Set the rate to 0, or mistakes off, to type with no corrections at all.
+
+### Pointer timing
+
+How long a click stays held (`defaults.pointer_click_hold_min_ms` to `defaults.pointer_click_hold_max_ms`, 40 to 140 milliseconds), how long a key stays pressed when a driver sends press and release as two events (`defaults.pointer_key_dwell_min_ms` to `defaults.pointer_key_dwell_max_ms`, 25 to 90 milliseconds), and the pause after the pointer arrives before a click (`defaults.pointer_hover_pause_min_ms` to `defaults.pointer_hover_pause_max_ms`, 50 to 250 milliseconds). The hover pause is shared by both drivers; the hold and dwell apply where a driver sends the two events, and Playwright's own click and keyboard type keep their own gaps.
 
 ## Approval mode
 

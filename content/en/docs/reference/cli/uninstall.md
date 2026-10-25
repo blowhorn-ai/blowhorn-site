@@ -26,6 +26,7 @@ blowhorn uninstall [OPTIONS]
 | `--venv-dir` | string |  | The virtualenv tools/install.sh created (its `--venv-dir`; default `BLOWHORN_VENV_DIR`, else &lt;checkout&gt;/venv). Removed only when it holds pyvenv.cfg; the filesystem root, your home directory, the checkout and a directory holding either are refused |
 | `--platform` | string |  | Accepted and ignored by `blowhorn uninstall`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn uninstall` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn uninstall` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
 Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
 
