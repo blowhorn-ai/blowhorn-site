@@ -133,9 +133,66 @@
   max-width: 62ch;
 }
 
-.docs-start,
-.docs-quadrants {
+// Start here is a single-column list, not a three-column grid: inside
+// the docs column (sidebar plus table of contents) three columns land
+// around 200px wide, tall and skinny. Each Start item is a
+// full-width row — title left, description right — stacking on narrow
+// viewports. The old .docs-start class keeps working until the product
+// sync brings the new .docs-start-list markup, and vice versa.
+// NOTE: site.css (loaded after this skin) defines .grid/.grid-3, so a
+// bare .docs-start loses on equal specificity and later load order.
+// The div-qualified selectors below win over .grid/.grid-3 regardless
+// of order, which is what makes the site PR alone fix the live page.
+div.docs-start,
+div.docs-start-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
   margin-top: var(--space-6);
+}
+
+.docs-start .docs-card,
+.docs-start-list .docs-card {
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+@media (min-width: 640px) {
+  .docs-start .docs-card,
+  .docs-start-list .docs-card {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-6);
+  }
+
+  .docs-start .docs-card > span.h3,
+  .docs-start-list .docs-card > span.h3 {
+    flex: 0 0 15rem;
+  }
+
+  .docs-start .docs-card > span:last-child,
+  .docs-start-list .docs-card > span:last-child {
+    flex: 1 1 auto;
+  }
+}
+
+// Quadrants: auto-fit with a 280px floor collapses to one column
+// instead of going skinny. Div-qualified for the same reason as above:
+// site.css's .grid-2 would otherwise win on load order.
+div.docs-quadrants {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.docs-quadrants .docs-card {
+  padding: var(--space-4) var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
 }
 
 .docs-card {
