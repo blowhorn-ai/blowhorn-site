@@ -2,12 +2,12 @@
 title: Privacy
 heading: What Blowhorn stores, and where
 description: What the Blowhorn website and the Blowhorn app store, where they store it, and what the app sends.
-lead: Last updated 19 October 2026. This page covers this website, the Blowhorn app and its Chrome extension. Your account is covered by the [account privacy policy](https://layer5.io/company/legal/privacy/) of Layer5, Inc., which makes Blowhorn.
+lead: Last updated 25 October 2026. This page covers this website, the Blowhorn app and its Chrome extension. Your account is covered by the [account privacy policy](https://layer5.io/company/legal/privacy/) of Layer5, Inc., which makes Blowhorn.
 layout: legal
 weight: 10
 aliases:
   - /privacy.html
-lastmod: 2026-10-19
+lastmod: 2026-10-25
 sitemap:
   changefreq: yearly
   priority: 0.3
@@ -72,7 +72,27 @@ Keeping this in your account is what lets you install Blowhorn on any number of 
 - Posts, comments, reactions and invitations to the platforms a profile is configured for, when an approved row is due or when you run a command. Nothing is published from a dry run.
 - A version check that lists the releases on the Blowhorn release channel, hosted on GitHub. The check needs GitHub credentials: when a GitHub token is already on your computer (`GH_TOKEN`, `GITHUB_TOKEN` or `gh auth token`), the app sends it with that request, and updating downloads the disk image published with the newest release, installs the Blowhorn app from it into `/Applications` and relaunches. Without a token, the update button opens that release page in your browser and the app downloads nothing itself.
 - A request to your account for your organization's plan features, sent with your account token and your organization's id. The app caches the answer in your Keychain.
-- No usage analytics and no crash reports. The app carries no analytics or crash-reporting library.
+- No usage analytics. The app carries no analytics or crash-reporting library. The failure reports below are sent by the app itself.
+
+### Failure reports {#failure-reports}
+
+When the app shows a failure, such as a store it cannot reach, it sends a small failure report to Blowhorn. The report helps fix the problem. It is anonymous: it works while signed out, and it carries no account information. A report is sent when a failure is first shown, at most once per cause per day.
+
+- What is sent, field by field:
+  - `diagnosticId`: an id generated for this one report.
+  - `occurredAt`: when the failure happened.
+  - `firstSeenAt`: when the failure was first seen.
+  - `count`: how many times the same failure occurred, with repeats on one computer counted together per day.
+  - `client`: the app itself: kind `blowhorn-desktop`, version, buildSha and channel.
+  - `os`: the operating system name, version and architecture.
+  - `failure`: where the failure was shown (`surface`: tray, popover, console or service), the cause, the code, the message, and how many ticks were skipped (`ticksSkipped`).
+  - `compat`: `requiresSchema` and `contractVersion`.
+  - `installId` (optional): a random id for this install, never a hardware id. It is left out when unavailable.
+- The failure message is redacted before sending, and is at most 500 characters. Paths, usernames, email addresses, profile names, post text and tokens are removed, and hosts are reduced to "cloud" or "custom".
+- What is never sent: your email address, posts, account names, content, config files, logs and Chrome data.
+- How long reports are kept: Blowhorn keeps failure reports for 90 days.
+- Support follow-up: if you contact support about a failure, you may type in an email address for a follow-up. That address is sent only when you type it in. The automatic report itself contains no email address.
+- Turning it off: failure reports are on by default. Turn them off in Settings under "Send failure reports". When off, no report is stored or sent.
 
 ## Frequently Asked Questions {#questions}
 
