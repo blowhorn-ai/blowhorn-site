@@ -44,6 +44,14 @@ all-computers pause, so nothing new is claimed anywhere, but a pass
 already running on another computer finishes the activity it is on
 instead of stopping mid-pass. The command says so when it happens.
 
+In the app, **stop everything** is in the popover footer, beside the
+pauses. It asks for a reason and a confirmation first - nothing stops on
+the first click. The paused board then shows a **stop** line with who
+stopped it, when and why, and that board's **stop everything** control
+is the way back: turning it off lifts the stop, and the pause it raised
+with it. A pause you set by hand is never the stop's to lift, and its
+own control stays beside the stop's.
+
 ## Pause this computer
 
 ```bash

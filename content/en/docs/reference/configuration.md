@@ -149,7 +149,7 @@ A new profile or a new Mac runs cautious for scheduled jobs until it has history
 
 ### Concurrency
 
-How much may run at once, in two parts. Runs sharing a platform: cautious and standard `platform` (one profile at a time on a platform), brisk `profile` (different profiles may share a platform; one profile is still held to one run on it). Runs at once overall: cautious at most 1, standard and brisk no limit. Both parts are enforced at the run gates since #1007, with the layering environment, explicit file value, preset, built-in, per key; a refusal under a preset cap names the preset. The session lock and the scheduler pass slot follow the same values, so `risk show` and observed enforcement agree with no explicit concurrency value set.
+How much may run at once, in two parts. Runs sharing a platform: cautious and standard `platform` (one profile at a time on a platform), brisk `profile` (different profiles may share a platform; one profile is still held to one run on it). Runs at once overall: cautious at most 1, standard and brisk no limit. Both parts are enforced at the run gates, with the layering environment, explicit file value, preset, built-in, per key; a refusal under a preset cap names the preset. The session lock and the scheduler pass slot follow the same values, so `risk show` and observed enforcement agree with no explicit concurrency value set.
 
 ## Typing and pointer timing
 
