@@ -137,7 +137,13 @@ How the run reaches Chrome once the mapping holds:
   happy path.
 - Attach (`cdp`): the run attaches to the Chrome you have open over the
   debugging protocol. Needs a window open and the Allow dialog
-  approved; a scheduled pass gets a short Allow window.
+  approved; a scheduled pass gets a short Allow window. Attach is never
+  the default (the extension driver is). It is also the one mode that
+  interrupts once per profile: opening Blowhorn's tab hands the running
+  Chrome a new window through `open -na`, which brings Chrome forward
+  once per profile, and the refocus afterwards is best effort, because
+  since macOS 14 activation is a request the system may refuse. A
+  scheduled `cdp` pass pays that interrupt once per profile too.
 - Launch (`persistent`): the run launches Blowhorn's own Chrome from
   the automation directory, minimized in the background.
 
