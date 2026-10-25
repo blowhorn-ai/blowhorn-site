@@ -13,10 +13,15 @@ the formal name stays Risk Profile: the tradeoff really is detection
 and ban risk against speed, and it is the same term the CLI, the config
 file and the reference use.
 
-Choose it in the app under Settings, or with `blowhorn risk set
-cautious` (add `--profile` to store it on one profile, `--platform`
-for one platform). `blowhorn risk show` says which preset is in effect
-and where it came from. Any single dial you set yourself wins over the
+Choose it in the app with the slider at the top of Settings — a
+colour-graded track from cautious (slow end) to brisk (fast end), with
+a consequence readout under it, one row per dial, each row's info
+button linking to that dial's anchor. The same mode shows on Home as
+a pill that opens Settings, and as a mini-slider in the menu-bar
+popover; changing it anywhere changes it everywhere. Or use
+`blowhorn risk set cautious` (add `--profile` to store it on one
+profile, `--platform` for one platform). `blowhorn risk show` says
+which preset is in effect and where it came from. Any single dial you set yourself wins over the
 preset for that dial, and the rest of the preset still applies around
 it; a profile with a dial set outside the preset is a custom profile,
 not a fourth preset you can pick. The full values are in the
