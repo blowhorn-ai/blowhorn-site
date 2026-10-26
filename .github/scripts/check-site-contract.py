@@ -115,6 +115,12 @@ PAGES = {
     "use-cases/conference/index.html": [
         "main", "use-case-title", "pains-title", "gets-title", "faq-title", "cta-title",
     ],
+    "solutions/index.html": [
+        "main", "solutions-title", "by-role-title", "by-use-case-title", "by-category-title",
+    ],
+    "solutions/developer-distribution/index.html": [
+        "main", "solution-title", "pains-title", "gets-title", "compare-title", "faq-title", "cta-title",
+    ],
     "compare/index.html": [
         "main", "matrix-title", "versus-title",
     ],

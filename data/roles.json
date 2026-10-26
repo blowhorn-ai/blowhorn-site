@@ -70,16 +70,16 @@
           "page": "/use-cases/launch-day"
         },
         {
+          "label": "Developer distribution",
+          "page": "/solutions/developer-distribution"
+        },
+        {
           "label": "Run Blowhorn from your coding agent",
           "page": "/agents"
         },
         {
           "label": "Why your own Chrome",
           "page": "/docs/explanation/your-own-chrome"
-        },
-        {
-          "label": "Post to Hacker News",
-          "page": "/docs/how-to/publish/post-to-hacker-news"
         }
       ]
     },
@@ -308,8 +308,8 @@
           "page": "/use-cases/open-source-release"
         },
         {
-          "label": "Every platform",
-          "page": "/docs/reference/platforms"
+          "label": "Developer distribution",
+          "page": "/solutions/developer-distribution"
         },
         {
           "label": "Post to Hacker News",

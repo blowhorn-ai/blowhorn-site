@@ -1,0 +1,94 @@
+{
+  "$schema": "../schemas/solutions.schema.json",
+  "solutions": [
+    {
+      "slug": "developer-distribution",
+      "name": "Developer distribution",
+      "title": "Blowhorn for developer distribution",
+      "weight": 10,
+      "headline": "Post where developers actually talk.",
+      "lead": "Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X and Bluesky, from one queue. Posted as you, at a human pace.",
+      "description": "One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X and Bluesky, posted as you from your own Chrome.",
+      "art": {
+        "src": "assets/brand/cast/major-6-hat-left-horn.webp",
+        "alt": "Major Blowhorn, a teal rooster drill sergeant in a campaign hat, pointing and shouting through his gold bullhorn, Caribbean Green sound waves pouring out of it"
+      },
+      "pains": [
+        {
+          "t": "Schedulers skip where developers talk",
+          "b": "None of the schedulers we checked support Hacker News. GitHub and Slack stay a pile of tabs."
+        },
+        {
+          "t": "Developers spot a bot",
+          "b": "Votes, blast posts and \"sent via\" badges cost the trust you came to earn."
+        },
+        {
+          "t": "A Slack app nobody can install",
+          "b": "Assistants that act as themselves need an app in the workspace. A free workspace at its app limit has no room."
+        }
+      ],
+      "gets": [
+        {
+          "t": "Every developer network, one queue",
+          "b": "Hacker News submit and comment, GitHub follow and react, Slack messages, plus LinkedIn, X, Reddit and Bluesky."
+        },
+        {
+          "t": "Never votes on Hacker News",
+          "b": "It submits stories and comments, nothing else, with at most 2 link submissions per profile per day."
+        },
+        {
+          "t": "No Blowhorn app in your Slack",
+          "b": "Blowhorn works through your own Slack sign-in and posts as you. No app to install, no bot user to invite."
+        },
+        {
+          "t": "Human-paced by design",
+          "b": "Types key by key in your own Chrome, caps itself, and hands every CAPTCHA and 2FA prompt to you."
+        }
+      ],
+      "prompt": "Submit the launch post to Hacker News, react on the GitHub release issue, tell #general in Slack, then --dry-run the rest.",
+      "major": "Front page or bust, soldier. Every channel, one voice: yours.",
+      "compare": [
+        "/compare/buffer",
+        "/compare/hootsuite",
+        "/compare/typefully",
+        "/compare/postiz"
+      ],
+      "faq": [
+        {
+          "q": "Does it vote on Hacker News?",
+          "a": "Never. It submits stories and comments, nothing else. Link submissions are capped at 2 per profile per day."
+        },
+        {
+          "q": "Does Blowhorn install a Slack app?",
+          "a": "No. Blowhorn works on Slack through Slack's API and sends as you, with your Slack session linked through the Blowhorn extension or a Slack token you add."
+        },
+        {
+          "q": "How does it post to each network?",
+          "a": "LinkedIn, X, Reddit and Hacker News: Blowhorn types in your own Chrome, signed in as you. Slack, Bluesky and GitHub go through their APIs."
+        },
+        {
+          "q": "What about Instagram, TikTok, Facebook and YouTube?",
+          "a": "Coming soon."
+        }
+      ],
+      "related": [
+        {
+          "label": "Blowhorn for DevRel",
+          "page": "/for/devrel"
+        },
+        {
+          "label": "Open source release",
+          "page": "/use-cases/open-source-release"
+        },
+        {
+          "label": "Post to Hacker News",
+          "page": "/docs/how-to/publish/post-to-hacker-news"
+        },
+        {
+          "label": "Every platform",
+          "page": "/docs/reference/platforms"
+        }
+      ]
+    }
+  ]
+}
