@@ -124,6 +124,9 @@ PAGES = {
     "solutions/multi-profile/index.html": [
         "main", "solution-title", "pains-title", "gets-title", "compare-title", "faq-title", "cta-title",
     ],
+    "solutions/linkedin-automation/index.html": [
+        "main", "solution-title", "pains-title", "gets-title", "compare-title", "faq-title", "cta-title",
+    ],
     "compare/index.html": [
         "main", "matrix-title", "versus-title",
     ],
