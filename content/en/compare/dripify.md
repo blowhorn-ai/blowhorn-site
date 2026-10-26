@@ -5,7 +5,7 @@
   "description": "Dripify is a capable LinkedIn and email drip campaign tool for sales teams. Blowhorn is for careful outreach and real-person amplification, from your own Chrome.",
   "layout": "versus",
   "weight": 24,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-26",
   "competitor": "Dripify",
   "mark": "Dr",
   "site_url": "https://dripify.io/",
@@ -33,6 +33,11 @@
       "f": "Where it acts",
       "t": "Dripify's cloud",
       "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+    },
+    {
+      "f": "IP address each post comes from",
+      "t": "A dedicated IP on Dripify's servers",
+      "b": "Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run"
     },
     {
       "f": "LinkedIn outreach",

@@ -5,7 +5,7 @@
   "description": "AdsPower is an antidetect browser with RPA tools for ad and e-commerce teams. Blowhorn is a social tool for real people speaking as themselves.",
   "layout": "versus",
   "weight": 44,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-26",
   "competitor": "AdsPower",
   "mark": "AP",
   "site_url": "https://www.adspower.com/",
@@ -33,6 +33,11 @@
       "f": "Browser fingerprints and proxies",
       "t": "Yes, that's the product",
       "b": "No. Real Chrome, real you"
+    },
+    {
+      "f": "IP address each post comes from",
+      "t": "A proxy for each profile",
+      "b": "Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run"
     },
     {
       "f": "Queue, schedule, amplify",

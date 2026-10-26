@@ -48,6 +48,12 @@ instead of repeating their tables. `/solutions/` is the hub for all three
 kinds (`solution-groups.html`, in the Solutions menu's order). Do not
 duplicate those.
 
+The `/compare/<slug>/` pages are edited here, in `content/en/compare/<slug>.md`
+(JSON front matter). The product repository's `marketing/compare/data.py` is only
+the seed they were first generated from; its generator is gone, so never
+regenerate them. Claims on every page come from the product repository's
+`marketing/brand/differentiators.md` in its wording rules.
+
 ## Rules the site holds
 
 - **No third parties beyond the disclosed ones.** The privacy page discloses exactly three:

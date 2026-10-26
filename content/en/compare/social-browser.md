@@ -5,7 +5,7 @@
   "description": "Social Browser is a multi-profile browser with an automation studio and MCP control. Blowhorn is a social tool: queue, schedule, amplify and outreach, in your real Chrome.",
   "layout": "versus",
   "weight": 41,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-26",
   "competitor": "Social Browser",
   "mark": "SBr",
   "site_url": "https://social-browser.com/",
@@ -33,6 +33,11 @@
       "f": "Browser fingerprints and proxies",
       "t": "Yes, that's the product",
       "b": "No. Real Chrome, real you"
+    },
+    {
+      "f": "IP address each post comes from",
+      "t": "A proxy for each profile",
+      "b": "Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run"
     },
     {
       "f": "Queue, schedule, amplify",

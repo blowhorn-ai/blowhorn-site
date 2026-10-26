@@ -5,7 +5,7 @@
   "description": "Expandi is a serious outbound machine: LinkedIn and email sequences, InMails and personalization at volume. Blowhorn is not a sequencer. It's for careful outreach and real-person amplification, from your own Chrome.",
   "layout": "versus",
   "weight": 21,
-  "lastmod": "2026-10-13",
+  "lastmod": "2026-10-26",
   "competitor": "Expandi",
   "mark": "Ex",
   "site_url": "https://expandi.io/",
@@ -33,6 +33,11 @@
       "f": "Where it acts",
       "t": "Expandi's cloud, from a dedicated IP",
       "b": "Your computers: your own signed-in Chrome for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack"
+    },
+    {
+      "f": "IP address each post comes from",
+      "t": "A dedicated country IP that Expandi assigns in its cloud",
+      "b": "Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run"
     },
     {
       "f": "Email steps",

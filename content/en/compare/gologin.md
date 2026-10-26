@@ -5,7 +5,7 @@
   "description": "GoLogin is a popular antidetect browser with an API and MCP. Blowhorn is a social tool that acts as you, in your real Chrome.",
   "layout": "versus",
   "weight": 43,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-26",
   "competitor": "GoLogin",
   "mark": "GL",
   "site_url": "https://gologin.com/",
@@ -33,6 +33,11 @@
       "f": "Browser fingerprints and proxies",
       "t": "Yes, that's the product",
       "b": "No. Real Chrome, real you"
+    },
+    {
+      "f": "IP address each post comes from",
+      "t": "A proxy for each profile",
+      "b": "Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run"
     },
     {
       "f": "Queue, schedule, amplify",

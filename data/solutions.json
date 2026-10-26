@@ -154,6 +154,10 @@
         {
           "q": "Will the same post go out twice?",
           "a": "Your computers coordinate through one queue, so the same post isn't sent from two of them."
+        },
+        {
+          "q": "Do teammates need a proxy?",
+          "a": "No. Each teammate posts from their own computer's internet connection, with their own IP address. There is no proxy to buy or set up."
         }
       ],
       "related": [
@@ -168,6 +172,109 @@
         {
           "label": "How amplification works",
           "page": "/docs/how-to/publish/amplify-a-post"
+        },
+        {
+          "label": "Pricing",
+          "page": "/pricing"
+        }
+      ]
+    },
+    {
+      "slug": "distributed-teams",
+      "name": "Distributed teams",
+      "title": "Blowhorn for distributed teams",
+      "weight": 25,
+      "headline": "One queue for your whole team. No proxies.",
+      "lead": "Teammates anywhere run Blowhorn on their own computers and work from one shared queue. Every post goes out over the poster's own internet connection, so there is no proxy to buy, run or explain.",
+      "description": "Blowhorn for distributed teams: one shared queue across your teammates' computers, each posting from its own internet connection and IP address. No proxy to buy or run.",
+      "art": {
+        "src": "assets/brand/cast/recruit-chick-laptop-lap.webp",
+        "alt": "A recruit chick in a teal helmet and field pack, sitting cross-legged and typing on a laptop with a Major Blowhorn sticker"
+      },
+      "pains": [
+        {
+          "t": "A proxy for every account",
+          "b": "Tools that post from their own servers, or juggle many profiles in one browser, need an IP address for each account. You pay for every one."
+        },
+        {
+          "t": "One more system to babysit",
+          "b": "Proxies expire, slow down and get blocked. Someone has to rent them, assign them and notice when one breaks."
+        },
+        {
+          "t": "Addresses that look wrong",
+          "b": "Sites can spot a proxy or data center address, and a shared one can carry a stranger's history into your account."
+        }
+      ],
+      "gets": [
+        {
+          "t": "Their own IP address",
+          "b": "Each post leaves from the computer that runs it, over that teammate's own internet connection. Your account keeps the queue in sync and never posts."
+        },
+        {
+          "t": "No proxy bill",
+          "b": "No proxy or dedicated IP to buy for each account. The internet your team already has is the one Blowhorn uses."
+        },
+        {
+          "t": "Nothing extra to run",
+          "b": "No proxy pool to rent, assign, rotate or keep healthy, and no proxy setting to get wrong. Install, sign in, post."
+        },
+        {
+          "t": "Lower risk",
+          "b": "No proxy or data center address for a site to flag. A teammate's own connection is the one the platform already knows for them."
+        }
+      ],
+      "prompt": "Schedule the launch post for 9:00 Pacific, have every teammate's profile amplify it at 9:05, then --dry-run the rest.",
+      "major": "Every soldier fires from their own foxhole. No rented trenches.",
+      "compare": [
+        "/compare/expandi",
+        "/compare/dripify",
+        "/compare/multilogin",
+        "/compare/gologin",
+        "/compare/adspower",
+        "/compare/social-browser"
+      ],
+      "faq": [
+        {
+          "q": "Do I need a proxy?",
+          "a": "No. Blowhorn has no proxy setting. Each computer posts over its own internet connection, with its own IP address."
+        },
+        {
+          "q": "Does anything post from Blowhorn's servers?",
+          "a": "No. Your account keeps the queue, schedule and run history in sync. Every action runs on one of your computers."
+        },
+        {
+          "q": "Can teammates in different cities share one queue?",
+          "a": "Yes. Every computer signed in to your account works from the same queue, wherever it is, coordinated so the same post isn't sent from two computers."
+        },
+        {
+          "q": "Do profiles on one computer get separate addresses?",
+          "a": "No. Profiles on one computer share that computer's connection. Separate addresses come from separate people on their own computers."
+        },
+        {
+          "q": "Can I invite my team?",
+          "a": "Team invites are Coming soon. Today teammates install Blowhorn on their own computers, sign in to your account and add their own profiles."
+        },
+        {
+          "q": "What if a teammate uses a VPN?",
+          "a": "Sites can see a VPN as well as a proxy. Check what a site sees in that teammate's Chrome.",
+          "link": {
+            "href": "https://tells.blowhorn.ai/",
+            "label": "Run the free check at Blowhorn Tells"
+          }
+        }
+      ],
+      "related": [
+        {
+          "label": "Employee advocacy",
+          "page": "/solutions/employee-advocacy"
+        },
+        {
+          "label": "How Blowhorn works",
+          "page": "/docs/explanation/how-it-works"
+        },
+        {
+          "label": "Pause and resume",
+          "page": "/docs/how-to/schedule/pause"
         },
         {
           "label": "Pricing",

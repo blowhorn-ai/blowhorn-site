@@ -6,7 +6,7 @@ lead: Plenty of tools will post for you. Blowhorn posts as you, from every compu
 layout: compare
 aliases:
   - /versus/
-lastmod: 2026-10-12
+lastmod: 2026-10-26
 sitemap:
   changefreq: monthly
   priority: 0.5
@@ -41,6 +41,12 @@ rows:
     linkedin: { level: no, text: "One cloud seat per account" }
     advocacy: { level: no, text: "One cloud account" }
     local: { level: no, text: "One computer at a time" }
+  - feature: Each teammate posts from their own IP address, with no proxy to buy
+    blowhorn: { level: yes, text: "Yes" }
+    schedulers: { level: no, text: "Vendor servers" }
+    linkedin: { level: no, text: "Mostly an IP the vendor assigns" }
+    advocacy: { level: no, text: "The vendor's platform" }
+    local: { level: partial, text: "Usually a proxy per profile" }
   - feature: Coordinated so two computers don't send the same post
     blowhorn: { level: yes, text: "Yes" }
     schedulers: { level: no, text: "Not applicable" }

@@ -23,7 +23,7 @@ PAGES = {
         "glyph-menubar", "glyph-terminal", "glyph-clock", "glyph-extension",
         "glyph-download", "main", "hero-title", "hero-art-title", "platforms", "platforms-title",
         "plat-panel-category", "plat-panel-role", "plat-panel-constellation", "plat-panel-action", "how",
-        "how-title", "trust", "trust-title", "download", "download-title", "pricing", "pricing-title",
+        "how-title", "teams", "teams-title", "trust", "trust-title", "download", "download-title", "pricing", "pricing-title",
     ],
     "integrations/index.html": [
         "main", "integrations-title", "action-filter",
@@ -33,7 +33,7 @@ PAGES = {
     ],
     "home-reveille/index.html": [
         "main", "hero-title", "hero-art-title", "fan-title", "platforms", "platforms-title", "how",
-        "how-title", "trust", "trust-title", "download", "download-title",
+        "how-title", "teams", "teams-title", "trust", "trust-title", "download", "download-title",
     ],
     "download/index.html": [
         "main", "glyph-download", "download-title", "download-status",
@@ -131,6 +131,9 @@ PAGES = {
         "main", "solution-title", "pains-title", "gets-title", "compare-title", "faq-title", "cta-title",
     ],
     "solutions/employee-advocacy/index.html": [
+        "main", "solution-title", "pains-title", "gets-title", "compare-title", "faq-title", "cta-title",
+    ],
+    "solutions/distributed-teams/index.html": [
         "main", "solution-title", "pains-title", "gets-title", "compare-title", "faq-title", "cta-title",
     ],
     "compare/index.html": [

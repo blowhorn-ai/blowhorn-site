@@ -5,7 +5,7 @@
   "description": "Multilogin is a professional antidetect browser for multi-accounting, ad ops and automation. Blowhorn is a different thing: real people posting as themselves.",
   "layout": "versus",
   "weight": 42,
-  "lastmod": "2026-10-12",
+  "lastmod": "2026-10-26",
   "competitor": "Multilogin",
   "mark": "ML",
   "site_url": "https://multilogin.com/",
@@ -33,6 +33,11 @@
       "f": "Browser fingerprints and proxies",
       "t": "Yes, that's the product",
       "b": "No. Real Chrome, real you"
+    },
+    {
+      "f": "IP address each post comes from",
+      "t": "A proxy for each profile",
+      "b": "Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run"
     },
     {
       "f": "Queue, schedule, amplify",
