@@ -57,8 +57,8 @@ Nothing below works until `blowhorn store` ends in `store usable`.
 
 ## 2. See who Blowhorn can act as {#section-2-see-who-blowhorn-can-act-as}
 
-Blowhorn acts as a *profile*: a directory under `data/profiles/` holding one
-identity's credentials and browser session.
+Blowhorn acts as a *profile*: one identity your organization holds in your
+Blowhorn account. `profile list` reads them from there.
 
 ```bash
 blowhorn profile list

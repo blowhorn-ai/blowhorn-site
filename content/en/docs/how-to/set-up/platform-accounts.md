@@ -26,11 +26,10 @@ Chrome profile on LinkedIn's sign-in page, sign in there, then choose
 **Check again**. Once Blowhorn sees the sign-in, it records it as the
 profile's account in your Blowhorn account, and the card says
 **Connected**. Home's **Connect an account** button opens the same steps
-for your own profile. The card's **advanced** fields, collapsed by
-default, hold the rarely needed details such as the profile URL and the
-username. They never ask for a password. An account Blowhorn should sign in
-to for you with a stored username and password is set up from Terminal
-(below), and saving the card leaves a stored password as it is.
+for your own profile. The card holds only that guidance, **Open LinkedIn
+sign-in** and **Check again**: it has no fields to fill in and never asks
+for a password. An account Blowhorn should sign in to for you with a stored
+username and password is set up from Terminal only (below).
 
 From Terminal, the same two steps:
 

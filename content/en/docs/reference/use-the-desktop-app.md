@@ -46,11 +46,13 @@ The console is the full window, reached from the popover. At the top of its
 rail, **New activity** (⌘N) opens Activity with a new entry. Its list of what
 an activity can do offers a blog (an organization blog) only when a
 profile in your organization is opted in to it (`blowhorn schedule
-destinations`); an activity already saved for one still shows and runs. Below it are four
-places: **Home**, **Activity**, **Profiles** and **Performance**. Activity is
+destinations`); an activity already saved for one still shows and runs. Below it are five
+places: **Home**, **Activity**, **Profiles**, **Performance** and **Safety**. Activity is
 one place with three views, switched at the top of the screen: **Upcoming**
 (what you want to say), **Routines** (when and where things go out) and
-**History** (what Blowhorn did).
+**History** (what Blowhorn did). Safety holds every Risk Profile choice and every
+limit Blowhorn keeps; the Risk Profile pill on Home and the menu-bar popover's
+**safety ›** link open it.
 
 At the bottom of the rail, once you are signed in, the status line says whether
 this computer is on watch. It reads "Paused since" when the pause began (the time for a pause from
@@ -59,7 +61,7 @@ today, the weekday and time within the past week, otherwise the date) with
 service is stopped, not installed or turned off in System Settings; "Check
 overdue on this computer" when a check is late; and "This computer is on watch"
 only when none of those hold. On watch, the line under it names the next scheduled
-run of an activity that is on and not paused, worded as Home words it (for example
+run of an activity that is on and not paused (for example
 "Next: Post on X, tomorrow at 9:00 AM"; hover for the whole line when the rail cuts it
 short), or "Nothing scheduled" when no activity is due again. The countdown to the
 next check is on This computer. Click the status line to open This computer. Beside it, **Pause** is one toggle: press it to pause, press it
@@ -92,14 +94,15 @@ activity, is locked. Once you are signed in, the account button stays usable. Se
 
 | Screen | Shows | Acts |
 |---|---|---|
-| Home | Whether Blowhorn is working, what runs next ("Next: Accept LinkedIn invitations, tomorrow at 9:00 AM", from your enabled routines, and nothing while a pause holds), and whether it needs you; a pause names which pause holds - this computer, all computers, or both; "Your draft was saved" once after setup, until you dismiss it or leave Home | Turn off the pause it names (one button per pause while both hold); reconnect an account; **Connect an account** opens a step for your own profile: each platform, how to sign in to it in your Chrome profile, and **Check again**, with connected ones ticked; finish setting up |
+| Home | Whether Blowhorn is working and whether it needs you, but never what runs next: an activity's next run is on Activity › Routines, and the rail's status line names the next one while this computer is on watch; a pause names which pause holds - this computer, all computers, or both; "Your draft was saved" once after setup, until you dismiss it or leave Home | Turn off the pause it names (one button per pause while both hold); reconnect an account; **Connect an account** opens a step for your own profile: each platform, how to sign in to it in your Chrome profile, and **Check again**, with connected ones ticked; finish setting up |
 | Activity › Upcoming | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones; an opened post's editor shows its result: delivery per profile and platform, reception where it was collected, and the follower change since. On the all and scheduled filters, the schedule's routines follow below the posts, each labelled by what it does; a routine names no post, so selecting one opens it on Routines | Add or edit a post; clearing a clicked post's "Date Promoted" queues it again |
 | Activity › Routines | Your routines as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the next check; a drawer for one item; a preview of sample routines | Add an item, from "schedule something" or by clicking a free time; move an item's next time by dragging it; edit, pause or resume one item; "do it now"; add the sample routines |
 | Activity › History | Everything Blowhorn did, newest first, with each one's detailed log under the log directory's `scheduler/` folder; a picked run's detail shows its activity's result above the log: delivery per profile and platform, reception where it was collected, and the follower change since | "try again" on a failure |
 | Profiles | Every profile, its Chrome mapping, its per-platform sessions; for LinkedIn, X and Reddit, which Chrome profile to sign in to - never a password field | Add a profile; map or unmap its Chrome profile; open a platform's sign-in page in that Chrome profile and **Check again**; enter a token or app password for the platforms that take one |
 | Performance | Followers, growth, and activity per profile; collection freshness in the header | Collect now; open the HTML report |
+| Safety | The Risk Profile for everyone (the slider), which choice wins, one grid of every profile on every platform with where each cell's choice comes from, the limits by platform (pace and daily caps) and the rest (spacing, outreach, how much runs at once, quiet hours, approval, preview only, typing and pointer timing), what happens when a platform pushes back, what the last check held back, where your sign-ins live, and what Blowhorn will never do | Move the slider; choose a preset for one platform for every profile, one profile on every platform, or one cell, or reset any of them to inherit; save limits or reset them to the preset; pause or stop every computer; run a held activity once with **Do it anyway**; turn the sign-in check, the needs-you note, preview only by default and failure reports on or off |
 | This computer (from the status line) | Who registered the background service, whether it is on watch, the last check, the pause for all computers | "check now" (with "preview only" to see what would go out); the "pause all computers" toggle; open System Settings when the service is turned off there |
-| Settings (from the account menu) | Engine defaults rendered from the CLI's own option list, the extension card, your account card | Change defaults, check the extension, choose its mode, test your account connection |
+| Settings (from the account menu) | Startup, notifications, appearance and shortcuts; the engine defaults Safety does not hold, rendered from the CLI's own option list; the extension card; your account card | Change defaults, check the extension, choose its mode, test your account connection; **open Safety ›** for the Risk Profile and limits |
 
 The routines list keeps every value on one line. When the list is narrow -
 the drawer is wide, or the window is small - the browser and recurrence
@@ -152,9 +155,12 @@ registering the service happen here, not in a terminal.
 
 ## Settings
 
-Settings edits the same `.blowhorn.yaml` defaults the CLI reads: pace,
-excluded profiles, dry run, notifications, logs, and the Chrome launch
-mode. The engine-defaults card renders from `blowhorn config show`,
+Settings edits the same `.blowhorn.yaml` defaults the CLI reads:
+default profile and platform, excluded profiles, notifications, logs, and the
+Chrome launch mode. Pace, daily caps, quiet hours, how much runs at once,
+approval, preview only and the Risk Profile are on the [Safety](#safety)
+screen instead; each Settings card that used to hold one says so and links
+there. The engine-defaults card renders from `blowhorn config show`,
 so the app can never offer an option the engine does not know. The
 extension card reports whether the extension is installed, which
 version answers, and whether it says connected, and sets its
@@ -165,10 +171,44 @@ Quitting the app leaves
 posting to the background service and the keep-running setting; see
 [What runs when the app is closed](/docs/explanation/distribution/).
 
+## Safety
+
+Safety opens with "Your pace. Your risk. Your call." and **pause all computers**
+and **stop everything**, the same controls as the popover's footer.
+
+- **Who runs how carefully.** The slider sets the Risk Profile for everyone. Under
+  it, **which choice wins** numbers the levels from everyone to one activity, and
+  the grid has a row for each platform's choice for every profile (**Each
+  platform**), a column for each profile's choice on every platform (**Every
+  platform**), and a cell for one profile on one platform. A filled chip was chosen
+  at that spot; a dashed chip is inherited, and the line under it says from where
+  ("from LinkedIn", "from this profile", "from everyone"). A profile still warming
+  up shows **Warming** and the preset it returns to. Pick any chip to choose a
+  preset or **Inherit**; a cell chosen here shows a reset beside it when you point
+  at it or tab to it. A platform's choice is kept for every computer; when it could
+  only be saved on this computer, the row says "this computer only". The order is
+  in [Which choice wins](/docs/reference/configuration/#which-choice-wins).
+- **The limits Blowhorn keeps.** One table of the platforms a Risk Profile covers,
+  with each platform's pace (a word, or a number as a multiplier) and its daily
+  caps, each cap showing the built-in ceiling until you set a lower one. Below it,
+  the speed, how-much and when rows, the preset's own values where no option sets
+  them, and typing and pointer timing. **save limits** writes every change at
+  once; **reset to preset** puts the dials back.
+- **When a platform pushes back.** The pause after a challenge, any sign-in that
+  needs you (with **open Profiles ›**), how often sign-ins are checked, and the
+  needs-you note.
+- **Held back.** What the last check held, why, and when it can run, with **Do it
+  anyway** for a Risk Profile hold.
+- **Where your sign-ins live** and **Blowhorn will never** are the promises, with
+  the failure reports switch.
+
+Info buttons stay hidden until you point at their row or tab to them.
+
 ## Related
 
 - [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/) - the Setup panel behind the mapping.
-- [Change your defaults](/docs/how-to/settings/defaults/) - pace, exclusions, logs.
+- [Choose your Risk Profile](/docs/how-to/settings/choose-your-risk-profile/) - the Safety screen in practice.
+- [Change your defaults](/docs/how-to/settings/defaults/) - exclusions, logs.
 - [Settings and configuration](/docs/reference/configuration/) - every option the app edits.
 - [How Blowhorn works](/docs/explanation/how-it-works/) - app, engine, extension, and store.
 - [You're in control](/docs/explanation/youre-in-control/) - the controls behind pause and Settings.

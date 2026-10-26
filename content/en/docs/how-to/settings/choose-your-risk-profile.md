@@ -13,30 +13,78 @@ the formal name stays Risk Profile: the tradeoff really is detection
 and ban risk against speed, and it is the same term the CLI, the config
 file and the reference use.
 
-Choose it in the app with the slider at the top of Settings - a
-colour-graded track from cautious (slow end) to brisk (fast end), with
-a consequence readout under it, one row per dial, each row's info
-button linking to that dial's anchor. The same mode shows on Home as
-a pill that opens Settings, and as a mini-slider in the menu-bar
-popover; changing it anywhere changes it everywhere. Or use
-`blowhorn risk set cautious` (add `--profile` to store it on one
-profile, `--platform` for one platform). `blowhorn risk show` says
-which preset is in effect and where it came from. Any single dial you set yourself wins over the
-preset for that dial, and the rest of the preset still applies around
-it; a profile with a dial set outside the preset is a custom profile,
-not a fourth preset you can pick.
+Choose it in the app on the **Safety** screen: the slider at the top is
+the choice for everyone, a colour-graded track from cautious (slow end) to
+brisk (fast end). The same mode shows on Home as a pill and as a
+mini-slider in the menu-bar popover; both open Safety, and changing it
+anywhere changes it everywhere. Or use `blowhorn risk set cautious`.
+`blowhorn risk show` says which preset is in effect and where it came
+from, and `blowhorn risk grid` lists every profile on every platform. Any
+single dial you set yourself wins over the preset for that dial, and the
+rest of the preset still applies around it; a profile with a dial set
+outside the preset is a custom profile, not a fourth preset you can pick.
 
-To adjust the dials yourself, open Customise dials in Settings: start
-from the preset, then change the per-platform pace, your daily caps per
-platform and action, and the typing and pointer timing. The header
-reads "Custom, based on Standard, 3 dials changed" once dials move,
-and Reset to preset puts every dial back. No dial may exceed a
-built-in ceiling: your own cap can only lower a ceiling, never raise
-it. Two dials carry a driver note on the card: pauses and mistakes
-run on the Playwright driver only. The extension driver sends one key
-per message and runs no pause plan, so on that driver it types with
-the shaped delay from the delay band and no pauses or corrections.
-The full values are in the
+## Set one platform for everyone
+
+To run one platform more carefully for every profile, for example
+LinkedIn cautious while the rest stay standard:
+
+1. Open **Safety**.
+2. In the grid, pick the chip in the **Each platform** row under
+   **LinkedIn**, and choose **Cautious**.
+
+Or, from Terminal:
+
+```bash
+blowhorn risk set cautious --platform linkedin
+```
+
+The choice is kept with your organization, so every computer you run
+Blowhorn on uses it, and the row's caption says **every computer**. If your
+organization cannot keep it yet, it is saved on this computer only: the
+command says `scope: this_computer` with the reason, and the row says
+**this computer only**. Your organization's choice for that platform comes
+first, so when it already has one, the command says it still applies on
+every computer and this computer's choice has no effect until an
+organization admin clears it. Choose **Inherit** in the same chip, or run
+`blowhorn risk set default --platform linkedin`, to clear it.
+
+## Set one profile, or one profile on one platform
+
+- **One profile on every platform:** pick the chip in that profile's
+  **Every platform** column, or `blowhorn risk set cautious --profile kate`.
+- **One profile on one platform:** pick that profile's cell under the
+  platform, or `blowhorn risk set brisk --profile kate --platform x`.
+
+A chip you chose is filled; a dashed chip is inherited, and the line under
+it says where it comes from ("from LinkedIn", "from this profile", "from
+everyone"). To put a cell back, point at it and press its reset, or choose
+**Inherit** in its menu; the menu names what it would inherit first.
+
+## Which choice wins
+
+The more specific choice wins: one activity beats one profile on one
+platform, which beats a platform's or a profile's choice, which beats
+everyone's. **When a platform and a profile both have a choice, the more
+careful one wins**, so "LinkedIn cautious for everyone" also slows a profile
+set to brisk, and "X brisk for everyone" never speeds up a profile set to
+cautious. To let one profile go faster on one platform, choose its cell.
+A new profile or computer still runs cautious for its first 14 days. The
+full order is in
+[Which choice wins](/docs/reference/configuration/#which-choice-wins).
+
+## Adjust the limits yourself
+
+Under the grid, **The limits Blowhorn keeps** starts from the preset: change
+the pace and daily caps per platform in the **by platform** table, and the
+other limits below it, including typing and pointer timing, then **save
+limits**. The header reads "Custom, based on standard, 3 dials changed" once
+dials move, and **reset to preset** puts every dial back. No dial may exceed a
+built-in ceiling: your own cap can only lower a ceiling, never raise it.
+Two dials carry a driver note: pauses and mistakes run on the Playwright
+driver only. The extension driver sends one key per message and runs no
+pause plan, so on that driver it types with the shaped delay from the delay
+band and no pauses or corrections. The full values are in the
 [configuration reference](/docs/reference/configuration/#risk-profile-presets),
 with a stable anchor per dial in
 [Risk Profile dials](/docs/reference/configuration/#risk-profile-dials).
@@ -125,6 +173,8 @@ chosen preset's caps, quiet hours and outreach.
 - One account needs to be slower than the rest: set that profile or
   platform cautious, and leave the rest alone - the choice is per
   profile and per platform, not only computer-wide.
+- One platform feels risky for everyone: set that platform cautious in
+  the **Each platform** row.
 
 ## One activity on its own preset
 

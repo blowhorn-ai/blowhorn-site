@@ -42,18 +42,18 @@ After setup, both walks also check the console a new person sees:
   sign-in** and **Check again**, with no form field.
 - **Profile detail:** the mapped profile's LinkedIn card shows that same
   guidance (or, with the planted cookie, that LinkedIn is connected) and a
-  **Check again** button. It shows no setting name like `LI_PASSWORD` and no
-  password field, and its **advanced** fields start collapsed; opened, they
-  hold no password field either.
+  **Check again** button. It shows no setting name like `LI_PASSWORD`, no
+  password field, no **advanced** section (by its label or its slot) and no raw `LI_`, `X_` or `RDDT_`
+  field: LinkedIn's sign-in is the person's own Chrome session.
   `blowhorn chrome open-profile <profile> --sign-in linkedin --dry-run` must pick the
   Chrome profile confirm mapped.
 - **New activity:** `blowhorn schedule destinations` reports no blog set up
   for the local organization, and the picker offers no organization
   blog action. The unit tests cover an organization that has one.
 - **Next run:** saving a daily Accept LinkedIn invitations from that picker
-  stores one enabled routine in the local Cloud, and Home then shows
-  "Next: Accept LinkedIn invitations". The rail's status line never shows a
-  "next check" countdown: on watch it names that same next run, and
+  stores one enabled routine in the local Cloud, and **Activity > Routines**
+  lists it with its next run at the time the step typed. Home names no next run. The rail's status line
+  never shows a "next check" countdown: on watch it names that same next run, and
   otherwise it keeps its own reason and promises no next run.
 
 `empty-profile` covers

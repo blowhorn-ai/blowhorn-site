@@ -1,25 +1,71 @@
 ---
 title: "Profile reference"
-description: "What a profile is: its directory, its store row, its keys per platform, and the Chrome column."
+description: "What a profile is: a profile in your organization, the list every command reads, its keys per platform, and the Chrome column."
 weight: 217
 ---
 
 
-A profile is one identity Blowhorn posts as: a directory beside a
-store row. The directory holds `config.yaml` and `data/`. Your account
-row holds the organization, the credential keys that moved there, and
-the Chrome mapping. This page describes; the steps live in the how-to
-guides under Related.
+A profile is one identity Blowhorn posts as: a profile your organization
+holds in your Blowhorn account. Each one has an id, a name, an optional
+description, and, unless it is a brand, the member it represents. Some
+platforms still read keys from a `config.yaml` beside it while they move
+to your account. This page describes; the steps live in the how-to guides
+under Related.
+
+## Which profiles exist
+
+Your organization's profile list is the only answer. Every command reads it
+once per run and selects from it: `--profile all` is every profile on it
+minus the excluded list, and a name you type must match one profile on it,
+ignoring case. A name two profiles share is refused until one is renamed.
+A folder under `data/profiles/` neither adds a profile nor keeps a deleted
+one alive.
+
+`blowhorn profile list` prints the list. With `--json` each item carries
+the profile's `id`, `name`, `description`, `userId`, `owner`, and `person`:
+the represented member's name and email, or `null` for a brand.
+
+What a run learns about a profile on this computer, such as the last
+session check and the X follower history, is kept in
+`data/cache/profiles/<profile id>/`. That folder is safe to delete; the
+next check or collection writes it again.
 
 ## Creating a profile
 
-`blowhorn profile set <name> --create` (or `--register`) creates both
-halves, row first. It resolves the profile's email to one live Blowhorn account: no match or several matches refuses by name, and only
-`--subject <uuid>` gets past several. It refuses a silent rename and
-the two slug conflicts, writes the row, and only then scaffolds the
-directory. An account outage refuses before anything is written, the
-directory included. `blowhorn profile delete` retires the row first,
-then moves the directory.
+`blowhorn profile create --payload-stdin` creates a profile in your
+organization from a JSON document on stdin holding the fields a person
+sets:
+
+| Field | Required | What it is |
+|---|---|---|
+| `name` | yes | Lowercase letters, digits, `-` or `_`, at most 64 characters, never `all`, and not a name another profile uses |
+| `description` | no | What the profile is for, at most 1000 characters |
+| `userId` | no | The member the profile represents, as `blowhorn org members` lists them. Leave it out for a brand |
+
+Blowhorn adds your organization, and you own the profile. Any other key,
+such as an email, a handle or a credential, is refused, and every refusal
+comes before anything is sent. No folder is created and no email is
+looked up.
+
+`blowhorn profile update <name-or-id> --payload-stdin` takes the same
+document and replaces those three fields. The document is the whole of
+them: a description left out is cleared, and a `userId` left out makes
+the profile a brand. The profile's run settings (Risk Profile, caps and
+quiet hours) are read just before the write and kept as they are, and its
+owner does not change.
+
+Both take `--dry-run`, which makes the same checks and sends nothing.
+`blowhorn org members` lists the members a profile can represent, with
+each one's user id, name and email.
+
+The desktop app's Add profile form and profile detail use the commands
+above. The older `blowhorn profile set <name> --create` (or `--register`)
+is still in the CLI: it resolves the profile's email to one live Blowhorn
+account, writes the row, and then scaffolds a local directory.
+`blowhorn profile delete` retires the profile's row and moves its local
+directory aside when it has one; a profile with no directory on this
+computer, which is every profile created with `profile create`, is
+retired and nothing moves.
 
 `blowhorn profile get <name>` prints one profile. `blowhorn profile
 status` reports every profile with its sessions. `blowhorn profile set
@@ -77,4 +123,5 @@ what it may do.
 - [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/) - write the Chrome column.
 - [Platforms](/docs/reference/platforms/) - what each platform acts with.
 - [Chrome reference](/docs/reference/chrome/) - the mapping commands and their shapes.
+- [`blowhorn org`](/docs/reference/cli/org/) - the members a profile can represent.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
