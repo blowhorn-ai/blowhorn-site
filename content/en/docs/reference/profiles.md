@@ -17,8 +17,9 @@ Your organization's profile list is the only answer. Every command reads it
 once per run and selects from it: `--profile all` is every profile on it
 minus the excluded list, and a name you type must match one profile on it,
 ignoring case. A name two profiles share is refused until one is renamed.
-A folder under `data/profiles/` neither adds a profile nor keeps a deleted
-one alive.
+Nothing on your computer adds a profile or keeps a deleted one alive:
+Blowhorn keeps no profile folder, and leaves any `data/profiles/` folder an
+older version made where it is, unread.
 
 `blowhorn profile list` prints the list. With `--json` each item carries
 the profile's `id`, `name`, `description`, `userId`, `owner`, and `person`:
@@ -58,13 +59,18 @@ Both take `--dry-run`, which makes the same checks and sends nothing.
 each one's user id, name and email.
 
 The desktop app's Add profile form and profile detail use the commands
-above. The older `blowhorn profile set <name> --create` (or `--register`)
+above. The older `blowhorn profile set <name> EMAIL=<address> --create`
 is still in the CLI: it resolves the profile's email to one live Blowhorn
-account, writes the row, and then scaffolds a local directory.
-`blowhorn profile delete` retires the profile's row and moves its local
-directory aside when it has one; a profile with no directory on this
-computer, which is every profile created with `profile create`, is
-retired and nothing moves.
+account and writes the row, and writes nothing on your computer.
+`blowhorn profile set` otherwise stores platform credential keys and
+refuses any other key. `blowhorn profile delete` deletes the profile in your
+organization and unlinks its accounts; the accounts themselves are kept,
+and nothing on your computer is moved or removed.
+
+Each profile's runtime state on this computer (its session verdicts, the X
+follower history, the X follow log and an invite `Connections.csv` export)
+lives in `data/cache/profiles/<profile id>/`. That folder is disposable and
+never says a profile exists.
 
 `blowhorn profile get <name>` prints one profile: its id, description and
 the person it represents, the accounts mapped to it, and which fields each

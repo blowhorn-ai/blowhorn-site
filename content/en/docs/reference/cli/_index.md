@@ -486,7 +486,7 @@ echo '{"name": "new-profile", "userId": "<member id>"}' | blowhorn profile creat
 echo '{"name": "new-profile", "description": "what it posts"}' | blowhorn profile update new-profile --payload-stdin
 blowhorn profile set your-profile GH_TOKEN=ghp_yourtoken  # stored in your account, never in a file
 blowhorn profile get your-profile             # the profile, its accounts, and which credential fields are set
-blowhorn profile delete new-profile --yes      # deletes it in your organization; a local directory, if it has one, moves to data/profiles/.trash/
+blowhorn profile delete new-profile --yes      # deletes it in your organization and unlinks its accounts; nothing local moves
 blowhorn profile switch your-profile
 blowhorn profile auth --platform x            # a sign-in records the session as valid, checked now
 blowhorn profile auth --platform bluesky --profile your-profile  # prompts for handle + app password; saved only if Bluesky accepts the login

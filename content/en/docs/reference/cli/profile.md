@@ -15,10 +15,10 @@ The `blowhorn profile` commands. Each one's `--help` prints the same text.
 | [`profile auth`](#blowhorn-profile-auth) | Refresh authentication/session state for one or more platforms. |
 | [`profile create`](#blowhorn-profile-create) | Create a profile in your organization on Blowhorn. |
 | [`profile current`](#blowhorn-profile-current) | Show the active profile after resolving CLI, env, and config defaults. |
-| [`profile delete`](#blowhorn-profile-delete) | Retire a profile by moving data/profiles/&lt;name&gt; -- config.yaml, data/ and every saved |
+| [`profile delete`](#blowhorn-profile-delete) | Delete a profile in your organization: its row is soft-deleted and its accounts are |
 | [`profile get`](#blowhorn-profile-get) | Print one profile as your Blowhorn account holds it: its id, description and the |
 | [`profile list`](#blowhorn-profile-list) | List the profiles your organization holds in your Blowhorn account: each profile's name, description, and the person it represents (none for a brand). |
-| [`profile set`](#blowhorn-profile-set) | Write KEY=VALUE pairs safely. |
+| [`profile set`](#blowhorn-profile-set) | Store KEY=VALUE pairs in a profile's platform credentials. |
 | [`profile status`](#blowhorn-profile-status) | Report what each profile in your organization is set up for: the platforms it holds |
 | [`profile switch`](#blowhorn-profile-switch) | Set a profile as the default profile in global config. |
 | [`profile update`](#blowhorn-profile-update) | Replace the fields a person sets on one profile. |
@@ -165,7 +165,7 @@ Output: text.
 
 ## blowhorn profile delete
 
-Retire a profile by moving data/profiles/&lt;name&gt; -- config.yaml, data/ and every saved browser session -- to data/profiles/.trash/&lt;name&gt;-&lt;timestamp&gt;. Nothing is ever removed: the browser sessions are the expensive part of a profile and the move keeps them recoverable. The profile's row in the store's profiles is retired first (soft-deleted, so `--profile` all stops reaching it); a profile the store never listed just moves. Needs the store: unreachable is exit 3 and nothing moves. Requires `--yes`; `--dry-run` shows what would move and where.
+Delete a profile in your organization: its row is soft-deleted and its accounts are unlinked, and the accounts themselves are kept. Nothing on this computer is moved or removed. A name your organization does not list is refused. Needs the store: unreachable is exit 3 and nothing is deleted. Requires `--yes`; `--dry-run` asks nothing and deletes nothing.
 
 ```text
 blowhorn profile delete [OPTIONS] name
@@ -173,11 +173,11 @@ blowhorn profile delete [OPTIONS] name
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `name` | yes | Profile name (the directory under data/profiles/) |
+| `name` | yes | Profile name |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--yes` | boolean | `false` | Confirm the move to data/profiles/.trash/; without it the command refuses and exits 1 |
+| `--yes` | boolean | `false` | Confirm the delete; without it the command refuses and exits 1 |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -204,7 +204,7 @@ blowhorn profile get [OPTIONS] name
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `name` | yes | Profile name (the directory under data/profiles/) |
+| `name` | yes | Profile name |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -252,11 +252,9 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn profile set
 
-Write KEY=VALUE pairs safely. A platform key (LI_\*, X_\*, RDDT_\*, HN_\*, SLACK_\*, BLUESKY_\*, GH_\*, YT_\*, IG_\*, FB_\*, TIKTOK_\*, slack_workspaces and the &lt;WORKSPACE&gt;_SLACK_\* session keys) is stored in that platform's credential in the store, where runs read it, and never in a file; a blank value clears a key. PROFILE and EMAIL go into data/profiles/&lt;name&gt;/config.yaml, rewritten atomically under a file lock. Unknown keys are refused unless `--allow-unknown` is passed. Every refusal comes before anything is written. The output names the keys that changed and never echoes a value. Replacing a credential an API check judges (`GH_TOKEN`, the Bluesky handle or app password, a Slack token or captured session) sets that platform back to not checked in profile status until the next check, because each such check records which credential it judged. A browser platform's check is about its saved session and stays.
+Store KEY=VALUE pairs in a profile's platform credentials. A platform key (LI_\*, X_\*, RDDT_\*, HN_\*, SLACK_\*, BLUESKY_\*, GH_\*, YT_\*, IG_\*, FB_\*, TIKTOK_\*, slack_workspaces and the &lt;WORKSPACE&gt;_SLACK_\* session keys) is stored in that platform's credential in the store, where runs read it; a blank value clears a key. Any other key is refused, and every refusal comes before anything is written. Nothing is written to a file. The output names the keys that changed and never echoes a value. Replacing a credential an API check judges (`GH_TOKEN`, the Bluesky handle or app password, a Slack token or captured session) sets that platform back to not checked in profile status until the next check, because each such check records which credential it judged. A browser platform's check is about its saved session and stays.
 
-`--create` makes a new profile in both halves: it resolves EMAIL to the Blowhorn user the profile is bound to, writes the profile's row in the store's profiles, and only then scaffolds data/profiles/&lt;name&gt;/config.yaml from the template plus data/ and browser/. EMAIL is required. `--create` needs the store: when it cannot be reached the create is refused with exit 3, nothing is written on either side and no directory is scaffolded, because a profile with no row is one no job can select. An email no Blowhorn user holds, or one that several hold, is refused by name; `--subject` &lt;uuid&gt; names the user directly on those two branches, is refused when it names no live user, and is refused when EMAIL resolves to someone else. A profile is never created without a Blowhorn user: there is no `--force`. The same email already bound to another profile, or a name held by another user's profile, is refused rather than renamed.
-
-`--register` adds a profile that exists only under data/profiles/ to the store's profiles: the same resolution and refusals, no scaffold, EMAIL read from config.yaml when not given, and safe to run again.
+`--create` writes a new profile's row in the store's profiles, bound to the Blowhorn user EMAIL resolves to, before any credential is stored; EMAIL is required and is read only by `--create`. When the store cannot be reached the create is refused with exit 3 and nothing is written. An email no Blowhorn user holds, or one that several hold, is refused by name; `--subject` &lt;uuid&gt; names the user directly on those two branches, is refused when it names no live user, and is refused when EMAIL resolves to someone else. A profile is never created without a Blowhorn user: there is no `--force`. The same email already bound to another profile, or a name held by another user's profile, is refused rather than renamed. On your Blowhorn account, profile create is the way to create one.
 
 ```text
 blowhorn profile set [OPTIONS] name [assignments...]
@@ -264,15 +262,13 @@ blowhorn profile set [OPTIONS] name [assignments...]
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `name` | yes | Profile name (the directory under data/profiles/) |
+| `name` | yes | Profile name |
 | `assignments ...` | no | KEY=VALUE pairs to write (slack_workspaces takes a comma-delimited list) |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--create` | boolean | `false` | Create a new profile: resolve EMAIL to its Blowhorn user, write its row in the store's profiles, then scaffold data/profiles/&lt;name&gt;/\{config.yaml,data/,browser/\} from the README template; needs the store, and refuses to touch a profile that already exists |
-| `--register` | boolean | `false` | Add a profile that already exists under data/profiles/ to the store's profiles: the same resolution and refusals as `--create`, no scaffold, EMAIL read from config.yaml when not given, safe to run again |
+| `--create` | boolean | `false` | Create a new profile: resolve EMAIL to its Blowhorn user and write its row in the store's profiles before any credential is stored; needs the store |
 | `--subject` | string |  | The Blowhorn user id (a uuid) the profile is bound to, for an EMAIL no user holds or several hold; refused when it names no live user, or when EMAIL resolves to someone else |
-| `--allow-unknown` | boolean | `false` | Accept keys Blowhorn does not know (PROFILE, EMAIL, every platform credential key, slack_workspaces and &lt;WORKSPACE&gt;_SLACK_\* are always accepted) |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile set` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -283,13 +279,11 @@ Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `-
 Examples:
 
 ```bash
-blowhorn profile set kate EMAIL=kate@example.com X_USERNAME=katesuttons
-blowhorn profile set sam PROFILE=sam EMAIL=sam@example.com --create
+blowhorn profile set kate X_USERNAME=katesuttons X_PASSWORD=yourpassword
+blowhorn profile set sam EMAIL=sam@example.com --create
 blowhorn profile set sam EMAIL=sam@example.com --create --subject 3f2b1c4d-8a9e-4c6b-9d1e-2a3b4c5d6e7f
-blowhorn profile set sam --register
 blowhorn profile set kate GH_TOKEN=ghp_yourtoken --json
 blowhorn profile set alex slack_workspaces=mesheryio.slack.com,acme.slack.com
-blowhorn profile set kate CUSTOM_NOTE=migrated --allow-unknown
 ```
 
 Output: json with `--json`, text otherwise.

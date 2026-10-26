@@ -37,7 +37,7 @@ run before anything launches or attaches. It never grants, and no
 fallback to another profile or folder ever applies when it does not
 hold.
 
-One profile is one person's posting identity, created activity-first in your account and scaffolded beside it. Creating it resolves the person's email to one Blowhorn account and refuses none-or-several by name,
+One profile is one person's posting identity, created activity-first in your account and kept nowhere else. Creating it resolves the person's email to one Blowhorn account and refuses none-or-several by name,
 because two people sharing a posting identity could never be told
 apart in the ledger.
 

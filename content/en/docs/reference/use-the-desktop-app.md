@@ -130,9 +130,8 @@ log directory listing, which includes each capture file and its rollover.
 The this computer screen is the visible face of `blowhorn service`: it reports the
 service the app registered and never installs, updates or uninstalls one.
 
-Profiles made before profile names were lowercase keep their capitalised
-folder (`data/profiles/Alex`). The app lists them as they are spelled and
-reads and saves them as the lowercase name every command resolves them to.
+The app lists each profile by the name your account holds and reads and
+saves it as the lowercase name every command resolves it to.
 
 ## Setup
 

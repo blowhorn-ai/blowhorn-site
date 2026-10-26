@@ -86,9 +86,11 @@ is the only case that can pick up a setup you left partway.
 Kept at the end, and named: the store connection file
 (`~/.config/blowhorn/store.yaml`), the rest of the app's state
 under `~/Library/Application Support/Blowhorn` (its preferences, its engine
-record and, for the engine the app carries, that engine's folder `home/` with
-your profiles' settings), Blowhorn's own Chrome trees, the per-user
-Library state, the checkout's `data/cache/`, and the scheduler pause file.
+record and, for the engine the app carries, that engine's folder `home/`),
+Blowhorn's own Chrome trees, the per-user Library state, the checkout's
+`data/cache/` (which holds each profile's runtime state on this computer), and
+the scheduler pause file. A `data/profiles/` folder left by an older version is
+never named and never touched: your profiles live in your Blowhorn account.
 
 The checkout itself (for example `~/code/blowhorn`, with `tools/uninstall.sh` in it)
 is never removed, under any flag, and the summary names it. Delete that folder
