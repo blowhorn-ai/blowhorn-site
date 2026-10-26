@@ -474,6 +474,10 @@
         {
           "label": "Compare Blowhorn",
           "page": "/compare"
+        },
+        {
+          "label": "Multi-profile",
+          "page": "/solutions/multi-profile"
         }
       ]
     }

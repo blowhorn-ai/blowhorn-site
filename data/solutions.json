@@ -89,6 +89,96 @@
           "page": "/docs/reference/platforms"
         }
       ]
+    },
+    {
+      "slug": "multi-profile",
+      "name": "Multi-profile",
+      "title": "Blowhorn for many profiles",
+      "weight": 50,
+      "headline": "Many profiles. Real Chrome. No disguises.",
+      "lead": "Every brand, founder and project you speak for, from one menu bar. Each profile runs in its own real Chrome profile, signed in as itself.",
+      "description": "Run many brand, founder and project profiles from one desk: each in its own real Chrome profile, no fake fingerprints, from one coordinated queue.",
+      "art": {
+        "src": "assets/brand/cast/mouse-marine-base.webp",
+        "alt": "Mouse Marine, a mallard in a green beret riding a gold trackball on a small tank through teal water, cursor spear raised"
+      },
+      "pains": [
+        {
+          "t": "Fingerprint tricks",
+          "b": "Antidetect browsers fake a fingerprint per profile. That's a disguise, and a hard one to explain."
+        },
+        {
+          "t": "One computer, one copy",
+          "b": "Profiles live on one computer. Close it, or move to another, and the plan stays behind."
+        },
+        {
+          "t": "Juggling, not posting",
+          "b": "You still post by hand in every profile. There's no queue, no schedule and no amplify."
+        }
+      ],
+      "gets": [
+        {
+          "t": "Real Chrome, real you",
+          "b": "Each Blowhorn profile maps to its own Chrome profile on each computer. No fake fingerprints."
+        },
+        {
+          "t": "One automation at a time",
+          "b": "One profile, one automation per platform, at a time. A second run waits rather than fighting the first."
+        },
+        {
+          "t": "One queue across your computers",
+          "b": "Every computer you set up works from the same queue, coordinated so the same post isn't sent from two of them."
+        },
+        {
+          "t": "Schedule, amplify, pause",
+          "b": "Schedule posts, amplify from every profile and dry-run first. Pause one action, one computer or all of them."
+        }
+      ],
+      "prompt": "Queue this announcement for every brand profile on Thursday 10:00, have the founder profiles amplify it, then --dry-run.",
+      "major": "One soldier, many uniforms. Every one of them real.",
+      "compare": [
+        "/compare/multilogin",
+        "/compare/gologin",
+        "/compare/adspower",
+        "/compare/mokumokuren",
+        "/compare/social-browser"
+      ],
+      "faq": [
+        {
+          "q": "Is this an antidetect browser?",
+          "a": "No. Blowhorn is real Chrome, signed in as each profile. It does the typing and clicking.",
+          "link": {
+            "href": "https://tells.blowhorn.ai/",
+            "label": "See what sites can read about your browser"
+          }
+        },
+        {
+          "q": "Can two automations use one profile at once?",
+          "a": "Not on the same platform. While one run holds a profile's LinkedIn session, a second one waits. Different platforms can run side by side."
+        },
+        {
+          "q": "Windows or Linux?",
+          "a": "Not today. Blowhorn runs on macOS 13 or newer, as the desktop app or the Python CLI."
+        }
+      ],
+      "related": [
+        {
+          "label": "Blowhorn for agencies and consultants",
+          "page": "/for/agencies"
+        },
+        {
+          "label": "Profiles",
+          "page": "/docs/reference/profiles"
+        },
+        {
+          "label": "Map Chrome profiles",
+          "page": "/docs/how-to/set-up/map-chrome-profiles"
+        },
+        {
+          "label": "Pause and resume",
+          "page": "/docs/how-to/schedule/pause"
+        }
+      ]
     }
   ]
 }
