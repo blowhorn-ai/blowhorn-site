@@ -11,11 +11,11 @@ The `blowhorn org` commands. Each one's `--help` prints the same text.
 
 | Command | What it does |
 | --- | --- |
-| [`org members`](#blowhorn-org-members) | List the members of your organization on Blowhorn Cloud. |
+| [`org members`](#blowhorn-org-members) | List the members of your organization on Blowhorn. |
 
 ## blowhorn org members
 
-List the members of your organization on Blowhorn Cloud. Each one's user id, name and email, read once from the organization's member list. These are the people a profile can represent: the id is the userId `profile create` and `profile update` take. Needs store.backend=cloud.
+List the members of your organization on Blowhorn. Each one's user id, name and email, read once from the organization's member list. These are the people a profile can represent: the id is the userId `profile create` and `profile update` take. Needs store.backend=cloud.
 
 ```text
 blowhorn org members [OPTIONS]

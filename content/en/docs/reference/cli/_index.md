@@ -120,7 +120,8 @@ an account without Blowhorn straight to Blowhorn to start the beta (`--no-browse
 address instead of opening it, and `--json` opens nothing either, its first line naming the address,
 which is how the desktop app runs it; `BLOWHORN_CLOUD_TOKEN` still wins when set);
 `auth logout` revokes the saved API token on Blowhorn, then forgets it,
-the account in `cloud.yaml` and the local attestation cache;
+the account in `cloud.yaml` and the local attestation cache
+(a `cloud.yaml` written for another macOS user on this Mac is ignored, so you read as signed out until you sign in);
 `auth switch-organization` switches the signed-in account to another of its organizations in place
 ([auth switch-organization](/docs/reference/cli/auth/#blowhorn-auth-switch-organization)).
 
@@ -170,7 +171,7 @@ per-user Library state, the checkout's `data/cache/` and each profile's `browser
 sessions); `--purge` removes it after you type `purge` at the prompt, or with
 `--yes` when there is no terminal (`--json --purge` needs `--yes` outside a dry
 run, and `--yes` without `--purge` or `--discard-unsynced-runs` is refused). The shared store is never touched.
-Dragging the app to the Trash does not run this command. After this version has recorded the bundle once, the next launch of a different copy signs out. An in-app update keeps the sign-in. The first launch of this version keeps it.
+Dragging the app to the Trash does not run this command. After this version has recorded the bundle once, the next launch of a different copy signs out, unless that copy is a genuine Blowhorn signed by Blowhorn's own developer team (another macOS user on this Mac reinstalling Blowhorn does not sign you out). An in-app update keeps the sign-in. The first launch of this version keeps it.
 Nothing under a Chrome profile is read or written. It is refused by name, in a
 dry run too, while a scheduler tick, a service pass, an extension run,
 `Blowhorn.app`, a desktop app started from this checkout or, with `--purge`,

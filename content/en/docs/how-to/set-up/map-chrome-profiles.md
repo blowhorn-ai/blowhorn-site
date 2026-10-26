@@ -72,17 +72,19 @@ account in use or not in use. Confirming the ones in use creates the
 profiles that don't exist yet in your organization, each representing the
 member you pick under **Which person is this?**, or nobody for a brand.
 When the Chrome profile's Google email belongs to exactly one member, that
-member is picked for you; there is no email to type. If Blowhorn Cloud
+member is picked for you; there is no email to type. If Blowhorn
 can't list your organization's members, the card says so and offers only
 **Nobody, a brand** until you choose **Check again**; if it can't list your
 profiles, the step says so above the cards, so check again before you
 create one rather than make a second profile for the same person. An
 existing profile is named by its id. A `chrome confirm` document that still
 carries the old `email` or `subject` keys is refused by name: name the
-person with `userId`. Confirm then saves the non-secret handles,
-records a confirmed Chrome session for LinkedIn and Hacker News when you're
-signed in there, and writes the mapping with the same checks as
-`blowhorn chrome map`. A Chrome profile you mark not in use is recorded
+person with `userId`. Confirm then stores the credentials in your
+account, records a confirmed Chrome session for LinkedIn and Hacker News
+when you're signed in there, writes the mapping with the same checks as
+`blowhorn chrome map`, and links each account it found to the profile in
+your account, named for its username. The profile's handles come from
+those accounts. A Chrome profile you mark not in use is recorded
 that way and unmapped on this computer; the Blowhorn profile and its
 credentials stay, and a run of every profile skips it. A profile you had
 already excluded stays excluded. Marking it in use again removes that skip

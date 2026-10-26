@@ -563,18 +563,37 @@ neither the command line nor the log:
 ```
 
 Per assignment, in order: resolve the target profile (the directory's
-existing mapping, a named existing profile, or a create under the
-profile-creation rule - the Google email must resolve to one user,
-`email` in the document overrides it, `subject` settles the several
-case, and no person is ever invented); write the attached platforms'
-keys (usernames; `LI_CHROME_SESSION` / `HN_CHROME_SESSION` naming the
-directory when `session` is set; `GH_TOKEN`; `BLUESKY_HANDLE` with
-`BLUESKY_APP_PASSWORD`); then write the mapping with `chrome map`'s own
-checks; then record the attached LinkedIn, X and Reddit sign-ins as the
-profile's accounts, as `chrome discover` does (each result's `accounts`).
-A LinkedIn sign-in with no saved username still becomes the account. Slack writes no key - its note says to capture the session with
-`blowhorn profile auth --platform slack <profile>`. A username omitted
-from the document is re-read from discovery.
+existing mapping, an existing profile named by `profileId` or `profile`,
+or, with `"create": true`, a new profile in your Blowhorn account representing
+the member `userId` names, or nobody for a brand; `email` and `subject`
+are refused by name); store the attached platforms' credentials in
+your Blowhorn account (usernames; `LI_CHROME_SESSION` / `HN_CHROME_SESSION`
+naming the directory when `session` is set; `GH_TOKEN`; `BLUESKY_HANDLE`
+with `BLUESKY_APP_PASSWORD`), never in a file on this computer; then write
+the mapping with `chrome map`'s own checks; then record each attached
+platform's username as the profile's account there; then record the
+attached LinkedIn, X and Reddit sign-ins, as `chrome discover` does. Both
+land in each result's `accounts`. A LinkedIn sign-in with no saved
+username still becomes the account. Slack writes no key - its note says to
+capture the session with `blowhorn profile auth --platform slack <profile>`.
+A username omitted from the document is re-read from discovery.
+
+An account is a connection in your Blowhorn account linked to the profile with
+`addConnectionToProfile`, the only way an account becomes a profile's. Its
+name is the username, and its `metadata.url` is the account page
+(`https://x.com/<handle>`, `https://github.com/<handle>`,
+`https://www.reddit.com/user/<handle>`,
+`https://bsky.app/profile/<handle>`) when the username has that
+platform's handle shape, else the platform's home. The profile's handles
+(the ones a post is attributed to and a self-amplify check compares) are
+read from those pages and from nothing else: a sign-in email names no
+page, so it is never taken for a handle. LinkedIn's sign-in is always an
+email, so a LinkedIn account found here names no handle until you record
+its page with `blowhorn profile accounts <profile> --page
+https://www.linkedin.com/in/<name>`; until then an `Amplify` row on
+LinkedIn for that profile is skipped by name. The same command records an
+X page when the saved X login is an email. `blowhorn profile accounts
+<profile> --map <id>` links an account you already have.
 
 `in_use: false` on an assignment records that Chrome profile as not in
 use: this computer's mapping for the directory is removed, the Blowhorn

@@ -64,6 +64,21 @@ in the mapped Chrome profile. If that session signs out, sign in again in
 Chrome; there is no password for Blowhorn to fall back to unless you store
 one too.
 
+### Record your LinkedIn page
+
+Blowhorn finds your LinkedIn sign-in, which is an email, never your
+`/in/` name. Without that name it cannot tell your own posts from anyone
+else's, so it skips any `Amplify` row on LinkedIn for the profile and says
+why. Record the page once, on the LinkedIn account already mapped to the
+profile:
+
+```bash
+blowhorn profile accounts ada --page https://www.linkedin.com/in/ada-example
+```
+
+Do the same with your `https://x.com/<handle>` page when your saved X
+login is an email.
+
 ## Bluesky
 
 Log in with a handle and an app password. The pair is stored only when

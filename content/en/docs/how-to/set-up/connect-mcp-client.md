@@ -202,7 +202,9 @@ each profile's own credential, and re-running adds no reaction twice.
 The assistant reads the profile tools and reports each profile's
 state. Changing a profile, switching the current one, or setting a
 risk limit is a write: dry run first, confirm to act, same as every
-other write.
+other write. `profile status` and `chrome discover` count as writes
+too, because each records the sign-ins it reads as the profile's
+accounts in your Blowhorn account.
 
 ## Safety
 

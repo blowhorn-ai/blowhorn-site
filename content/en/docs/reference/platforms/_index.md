@@ -122,3 +122,4 @@ attribute -- but never a higher one. See
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
 - [Send a Slack message](/docs/how-to/publish/send-a-slack-message/) - Slack, worked.
 - [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/) - which actions are safe and which risk a penalty, per platform.
+- [Developer distribution](https://blowhorn.ai/solutions/developer-distribution/) - Hacker News, Reddit, GitHub, Slack, X and Bluesky from one queue, for a developer launch.

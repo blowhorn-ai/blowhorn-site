@@ -11,7 +11,7 @@ A profile is one voice you post as: a person in your organization, or a
 brand that represents nobody. Create one from the desktop app or from the
 command line.
 
-**Early access:** profiles live in your organization in Blowhorn Cloud, and customer onboarding for that account is not open yet.
+**Early access:** profiles live in your organization in your Blowhorn account, and customer onboarding for that account is not open yet.
 This page stays a draft until it is.
 
 A profile has three things you set: its **name**, what you type after
@@ -26,7 +26,7 @@ connects the rest. What a profile holds is in the
 - Sign in and choose your organization ([Sign in](/docs/how-to/set-up/sign-in/)). With your
   account unreachable the create is refused (exit 3) and nothing is written.
 - The person the profile represents must be a member of your organization.
-  Invite them in Blowhorn Cloud first, or create the profile as a brand.
+  Invite them to your organization in Blowhorn first, or create the profile as a brand.
 
 ## From the desktop app
 
@@ -42,10 +42,10 @@ Chrome profile it posts from and attach the accounts signed in there, and
 use a platform card for anything else, such as a GitHub token.
 
 A profile you create for someone else can be seen by you and your
-organization's admins until it is shared with them in Blowhorn Cloud. The
+organization's admins until it is shared with them in Blowhorn. The
 form says so when you pick another member.
 
-Your organization's profiles and members are read from Blowhorn Cloud. When
+Your organization's profiles and members are read from your Blowhorn account. When
 either read fails, the screen names the failure where it would have listed
 them, rather than show an empty list. The Add form's member picker says
 `can't read your organization's members`. Every other profile picker says
@@ -57,7 +57,7 @@ Settings, and Diagnostics.
 
 Select the profile on **Profiles**. Its name, description and **who is this
 profile?** are editable; the represented person's name and email are shown
-from their member record and are changed in Blowhorn Cloud, not here. Click
+from their member record and are changed in your Blowhorn account, not here. Click
 **save**. Renaming a profile changes what you type after `--profile`; jobs
 and mappings that name the old name need the new one.
 

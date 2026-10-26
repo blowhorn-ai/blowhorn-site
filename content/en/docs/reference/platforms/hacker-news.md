@@ -38,3 +38,4 @@ activity; see [Messages and exit codes](/docs/reference/messages/).
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
 - [Field Manual: Hacker News](https://blowhorn.ai/field-manual/hacker-news/) - what the Hacker News feed rewards and what it penalizes.
 - [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/) - safe versus risky actions, per platform.
+- [Developer distribution](https://blowhorn.ai/solutions/developer-distribution/) - Hacker News beside the other developer channels, for a launch.

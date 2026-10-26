@@ -13,7 +13,7 @@ The `blowhorn profile` commands. Each one's `--help` prints the same text.
 | --- | --- |
 | [`profile accounts`](#blowhorn-profile-accounts) | List, map or unmap a profile's social accounts. |
 | [`profile auth`](#blowhorn-profile-auth) | Refresh authentication/session state for one or more platforms. |
-| [`profile create`](#blowhorn-profile-create) | Create a profile in your organization on Blowhorn Cloud. |
+| [`profile create`](#blowhorn-profile-create) | Create a profile in your organization on Blowhorn. |
 | [`profile current`](#blowhorn-profile-current) | Show the active profile after resolving CLI, env, and config defaults. |
 | [`profile delete`](#blowhorn-profile-delete) | Retire a profile by moving data/profiles/&lt;name&gt; -- config.yaml, data/ and every saved |
 | [`profile get`](#blowhorn-profile-get) | Print one profile's settings with every secret masked: its config.yaml, with the |
@@ -25,7 +25,7 @@ The `blowhorn profile` commands. Each one's `--help` prints the same text.
 
 ## blowhorn profile accounts
 
-List, map or unmap a profile's social accounts. An account is a Blowhorn connection on one platform; a profile acts through the accounts mapped to it, one per platform, whoever owns them, so a person may keep several profiles and a brand profile reaches the accounts mapped to it. `--map` replaces the profile's account on that platform; `--unmap` leaves the connection itself intact. Needs store.backend=cloud.
+List, map or unmap a profile's social accounts. An account is a Blowhorn connection on one platform; a profile acts through the accounts mapped to it, one per platform, whoever owns them, so a person may keep several profiles and a brand profile reaches the accounts mapped to it. `--map` replaces the profile's account on that platform; `--unmap` leaves the connection itself intact. `--page` records the account's own page on the account already mapped for that platform, which is where the profile's handle is read from: Chrome profile discovery finds a sign-in, never a LinkedIn /in/ name. Needs store.backend=cloud.
 
 ```text
 blowhorn profile accounts [OPTIONS] name
@@ -39,6 +39,7 @@ blowhorn profile accounts [OPTIONS] name
 | --- | --- | --- | --- |
 | `--map` | string |  | Map this connection id to the profile, replacing its account on that platform |
 | `--unmap` | string |  | Unmap this connection id from the profile; the connection is left intact |
+| `--page` | string |  | Record this account page (x.com/&lt;handle&gt;, linkedin.com/in/&lt;name&gt;, github.com/&lt;login&gt;, reddit.com/user/&lt;name&gt; or bsky.app/profile/&lt;handle&gt;) on the account mapped for its platform |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
 | `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn profile accounts` browser steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -52,6 +53,7 @@ Examples:
 blowhorn profile accounts kate --json
 blowhorn profile accounts kate --map 3f9c2a1e-0000-4000-8000-000000000001
 blowhorn profile accounts layer5 --unmap 3f9c2a1e-0000-4000-8000-000000000001
+blowhorn profile accounts kate --page https://www.linkedin.com/in/kate-example
 ```
 
 Output: json with `--json`, text otherwise.
@@ -111,7 +113,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn profile create
 
-Create a profile in your organization on Blowhorn Cloud. It reads a JSON document on stdin (`--payload-stdin`) holding the fields a person sets: name (required), description and userId. userId is the organization member the profile represents, as `blowhorn org members` lists them; leave it out for a brand. Blowhorn adds the organization, and you own the profile. The name must be handle-shaped (lowercase letters, digits, `-` or `_`) and not one another profile uses. Any other key is refused, every refusal comes before anything is sent, and `--dry-run` makes the same checks and sends nothing. No folder is created and no email is looked up. Needs store.backend=cloud.
+Create a profile in your organization on Blowhorn. It reads a JSON document on stdin (`--payload-stdin`) holding the fields a person sets: name (required), description and userId. userId is the organization member the profile represents, as `blowhorn org members` lists them; leave it out for a brand. Blowhorn adds the organization, and you own the profile. The name must be handle-shaped (lowercase letters, digits, `-` or `_`) and not one another profile uses. Any other key is refused, every refusal comes before anything is sent, and `--dry-run` makes the same checks and sends nothing. No folder is created and no email is looked up. Needs store.backend=cloud.
 
 ```text
 blowhorn profile create [OPTIONS]

@@ -33,3 +33,4 @@ already marked done is never acted on twice.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
 - [Field Manual: Reddit](https://blowhorn.ai/field-manual/reddit/) - what the Reddit feed rewards and what it penalizes.
 - [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/) - safe versus risky actions, per platform.
+- [Developer distribution](https://blowhorn.ai/solutions/developer-distribution/) - Reddit beside the other developer channels, for a launch.
