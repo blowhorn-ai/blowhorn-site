@@ -229,6 +229,22 @@ class SyncDocsTest(unittest.TestCase):
         self.assertIn("## Kept {#custom}", body)
         self.assertIn("invalid id", result.stderr)
 
+    def test_cloud_name_is_said_as_blowhorn_outside_code(self):
+        result, site = self.assert_synced(product({
+            "reference/org.md": (
+                "---\ntitle: Blowhorn Cloud org\n---\n\n"
+                "# Blowhorn Cloud org\n\n"
+                "List the members on Blowhorn Cloud. Layer5 Cloud is retired.\n\n"
+                "```\nblowhorn org members  # Blowhorn Cloud\n```\n"),
+        }))
+        body = site["reference/org.md"]
+        self.assertIn('title: Blowhorn org', body)
+        self.assertIn("# Blowhorn org", body)
+        self.assertIn("List the members on Blowhorn. Blowhorn is retired.", body)
+        self.assertIn("# Blowhorn Cloud", body.split("```")[1])
+        self.assertNotIn("Blowhorn Cloud", body.split("```")[0])
+        self.assertIn("said \"Blowhorn Cloud\" or \"Layer5 Cloud\" 4 time(s)", result.stderr)
+
     def test_missing_title_is_derived_from_h1(self):
         result, site = self.assert_synced(product({
             "explanation/why.md": "# Why things work\n\nBody.\n",

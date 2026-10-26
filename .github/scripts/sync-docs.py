@@ -36,6 +36,10 @@ Per-page conversions (the product docs themselves are never edited):
   collide with a URL the synced tree itself publishes are dropped: a
   colliding alias would replace a section index with a redirect and
   break the site contract check.
+- "Blowhorn Cloud" and "Layer5 Cloud" in prose and front matter become
+  "Blowhorn", the one name the site says (check_naming.py fails the
+  build on either). Fenced code is left as the product writes it. Each
+  rename is reported, so the product copy gets fixed upstream too.
 - Headings whose auto id would not begin with a letter (which
   html-validate rejects) get an explicit {#anchor} pinning a valid one.
 - Pages carrying draft: true stay drafts, so Hugo leaves them
@@ -60,6 +64,10 @@ import posixpath
 import re
 import sys
 from pathlib import Path
+
+# The site's naming rule, shared with the build check (sibling script,
+# importable because this file's directory is on sys.path when run).
+from check_naming import CLOUD_RE
 
 SECTIONS = ("tutorials", "how-to", "reference", "explanation")
 # Product paths that are never published, relative to docs/ (the sync root).
@@ -353,6 +361,25 @@ def rewrite_links(body, src_dir, product_docs, excluded, published_urls, warning
     return AUTOLINK.sub(flag_autolink, body), assets
 
 
+def rename_cloud(text):
+    """Return text with "Blowhorn Cloud" and "Layer5 Cloud" said as "Blowhorn", and the count.
+
+    Fenced code is left alone: a command or printed line is quoted as the
+    software writes it, and check_naming.py exempts code too.
+    """
+    count = 0
+    lines = []
+    in_fence = False
+    for line in text.split("\n"):
+        if line.startswith("```"):
+            in_fence = not in_fence
+        if not in_fence:
+            line, n = CLOUD_RE.subn("Blowhorn", line)
+            count += n
+        lines.append(line)
+    return "\n".join(lines), count
+
+
 def convert_page(text, src_dir, product_docs, excluded, published_urls, warnings, src_label):
     front, body = split_front_matter(text)
     if front is None:
@@ -384,6 +411,11 @@ def convert_page(text, src_dir, product_docs, excluded, published_urls, warnings
                 front = "\n".join(lines)
     elif re.search(r"^aliases:", front, re.MULTILINE):
         warn(f"{src_label}: aliases not in flow or block form; kept unchecked", warnings)
+    front, front_renames = rename_cloud(front)
+    body, body_renames = rename_cloud(body)
+    if front_renames + body_renames:
+        warn(f"{src_label}: said \"Blowhorn Cloud\" or \"Layer5 Cloud\" {front_renames + body_renames} "
+             "time(s); said \"Blowhorn\" instead (fix the product copy)", warnings)
     body = fix_heading_ids(body, warnings, src_label)
     body, assets = rewrite_links(body, src_dir, product_docs, excluded,
                                  published_urls, warnings, src_label)

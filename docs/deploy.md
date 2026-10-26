@@ -226,7 +226,9 @@ here, on the public site repository.
    `reference/cli/` section index, a missing title is derived from the
    first H1, aliases colliding with a published URL are dropped, and
    headings whose auto id would not begin with a letter get an explicit
-   `{#anchor}`. `docs/internal/`, `docs/gtm/` and any path listed in the
+   `{#anchor}`. "Blowhorn Cloud" and "Layer5 Cloud" in prose become
+   "Blowhorn" (the naming rule `check_naming.py` enforces; fenced code is
+   left alone), and each rename is reported as a converter warning. `docs/internal/`, `docs/gtm/` and any path listed in the
    product's `internal-paths.txt` (when it exists: `release/internal-paths.txt` in the product's current layout, else `docs/` or the product root) are never copied.
 2. The product is the only source for `content/en/docs/`: the docs
    landing comes from the product's `docs/_index.md` and each section
