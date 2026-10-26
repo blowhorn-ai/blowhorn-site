@@ -145,7 +145,12 @@ How the run reaches Chrome once the mapping holds:
   since macOS 14 activation is a request the system may refuse. A
   scheduled `cdp` pass pays that interrupt once per profile too.
 - Launch (`persistent`): the run launches Blowhorn's own Chrome from
-  the automation directory, minimized in the background.
+  the automation directory, in a normal window placed off to the side
+  (2500,60), never minimized and never hidden, with the previous app
+  re-activated so it takes no focus. A minimized or app-hidden window
+  puts the page into `visibilityState: 'hidden'` with timers throttled to
+  about one second; the visible
+  posture is what keeps a flow's waits running at pace.
 
 Chrome is never launched headless and never replaced with bundled
 Chromium: a headless run would announce itself to every site.
@@ -244,10 +249,11 @@ Your own user agent, on every driver. The extension and attach drivers
 run inside your installed Chrome, so sites see the same agent string
 your ordinary browsing sends. The launch driver starts that same
 installed Chrome, never bundled Chromium, which would announce itself
-as HeadlessChrome. A `--headless` request becomes the minimized
+as HeadlessChrome. A `--headless` request becomes the visible
 background window for exactly this reason: headless Chrome sends
 `HeadlessChrome` in every request while its hints still claim Google
-Chrome.
+Chrome. Visible, not minimized: a minimized window puts the page into
+`visibilityState: 'hidden'` with timers throttled.
 
 The launched window emulates nothing: the page reads the real screen, the real GPU and
 your own permission state. A viewport override, a GPU switch or a blanket permission grant

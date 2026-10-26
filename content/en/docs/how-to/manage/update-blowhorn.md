@@ -17,6 +17,12 @@ the same update. Press **update** in any of them.
 The app also checks each time you open it. If that check finds a newer
 release, a prompt in the console window asks before anything is downloaded.
 
+Blowhorn may also tell you it is out of date itself: when the server's
+minimum app version is newer than the build you run, a scheduled pass
+claims nothing and `schedule status` names the cause `app_outdated`.
+That is the same update, reached from the other side -- press **update**
+here and the next pass claims again.
+
 ## What you see while it updates
 
 The card names each step as it happens:

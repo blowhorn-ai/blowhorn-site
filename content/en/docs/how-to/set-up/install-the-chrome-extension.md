@@ -22,7 +22,10 @@ chosen, that one prompt covers every profile you chose. With one profile,
 it is one prompt for that profile. The password request is named
 **Blowhorn**: it is this install, and it writes Chrome's policy file once
 so Chrome installs the extension, turned on, in every profile you chose.
-Cancelling it writes nothing, and setup stops there and says why. Chrome
+Cancelling it writes nothing, and setup stops there and says why.
+Before it asks, Getting ready tells you the request is coming and waits
+for your Continue, so the prompt never appears over a screen that has
+not warned you about it yet. Chrome
 shows **Managed by your organization**; that is the install working, not
 a problem. There is nothing to click in each profile.
 

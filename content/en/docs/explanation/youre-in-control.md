@@ -153,9 +153,10 @@ writes are stored unapproved whatever it asked for, and actions that
 publish without an activity - a one-off `follow`, an invitation, a
 connection request, an acceptance, a `post --message`, a confirmed
 Slack send - are refused with a sentence pointing at the queue. You approve from the
-queue with `blowhorn content approve <activity>`, which records your
-name and the time in the activity's `Approved by` column. An agent
-cannot approve its own work: `content approve` refuses an agent caller
+queue with `blowhorn content approve <activity>`, or with the approve
+control beside a waiting activity in the app, which runs the same verb;
+either way it records your name and the time in the activity's
+`Approved by` column. An agent cannot approve its own work: `content approve` refuses an agent caller
 outright, in every mode. Set the mode to `all` and the same holding
 applies to every writer, you included; leave it `off` and the queue
 works the way it always has, with `Approved?` as the writer's own word.
@@ -174,6 +175,13 @@ wait for your approval. Give the agent dry run first,
 and pause any scope the moment something looks off. Lifting a pause
 takes `blowhorn schedule resume`, or an explicit `--ignore-pause` on a
 single run.
+
+An agent that connects over MCP gets the same dry-run-first rule from
+the server itself: the [MCP server](/docs/reference/mcp-server/) runs
+every changing tool with `--dry-run` unless the call confirms it, and
+it marks its calls as agent calls, so the approval mode above applies
+to them. A confirmed MCP call is still an agent call, not a person's
+approval in the app: it cannot approve its own queued work.
 
 <!-- Video placeholder: "Handing approval to an AI agent". An agent queues activities, dry-runs them, and a pause stops the next claim. -->
 

@@ -149,6 +149,14 @@ runs the same coverage check on its own, both without serving. A tool
 call may run at most 600 seconds by default
 (`BLOWHORN_MCP_TIMEOUT`, or `--timeout`, changes that).
 
+## Catalog listings
+
+The server is not listed in the official MCP Registry or other catalogs
+yet. The listing input, `server.json` at the repository root, names the
+server for the registry and pins its version to the Blowhorn release;
+publication waits on the catalog description's approval and on the
+server being packaged for distribution.
+
 See also the [CLI reference](/docs/reference/cli/) for the commands themselves,
 [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/)
 for the client-by-client setup steps, and

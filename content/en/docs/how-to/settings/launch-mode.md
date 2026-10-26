@@ -44,6 +44,15 @@ and it runs beside your open daily Chrome without contending for its lock.
 Each automation profile starts empty, so sign it in once with `--headed`
 before a real run.
 
+The launched window is a normal window placed off to the side (2500,60),
+never minimized and never hidden, with the previous app re-activated so it
+takes no focus. A minimized or app-hidden window puts the page into
+`visibilityState: 'hidden'` with timers throttled to about one second, which
+is what a site's own scripts see while a flow waits for them;
+the visible posture is what keeps a flow's waits running at pace. A
+`--headless` request becomes this window, and the unattended argv does not
+change.
+
 ## Attach to the Chrome you have open
 
 ```bash

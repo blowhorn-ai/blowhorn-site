@@ -191,9 +191,8 @@ run, or any run with no terminal attached has its activities stored
 unapproved whatever the payload asked, and its ad-hoc actions are refused
 with a sentence pointing at the queue. `all` holds every activity and
 every ad-hoc action, whoever wrote it. You at a terminal, or in the app,
-count as a person for writing activities (approving is
-`blowhorn content approve` at a terminal); under `all` the app's own
-writes wait too, and the CLI is the door.
+count as a person for writing activities; under `all` the app's own
+writes wait too, and approval is the separate act either way.
 
 A schedule job that would publish on its own - a `follow`, an invitation,
 a connection request, an acceptance, a `comment` with a target and a
@@ -221,7 +220,10 @@ by its parent process - is future work, not this mode.
 
 The door is `blowhorn content approve <activity>`: it sets `Approved?`
 and records who approved and when in the activity's `Approved by` column
-(see [Content queue](/docs/reference/content-queue/)). Approving is a person's act, so
+(see [Content queue](/docs/reference/content-queue/)). The app's Content screen is the
+same door: a waiting activity carries an approve control, and the app's
+calls run as you, so the control runs this verb and the record is the
+same. Approving is a person's act, so
 an agent-signalled caller is refused by `content approve` itself, in
 every mode - an agent cannot approve its own work. An unknown mode is
 refused by name before anything runs.

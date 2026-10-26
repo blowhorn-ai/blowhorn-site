@@ -115,9 +115,13 @@ blowhorn config set defaults.quiet_hours_tz America/New_York
 ```
 
 The window may wrap midnight, as `22:00-07:00` does, and is read in
-`defaults.quiet_hours_tz` - unset, this computer's own zone. An activity due
-inside the window is not claimed and not failed: it stays due and runs on the
-first pass after the window ends, the way a paused activity carries forward.
+`defaults.quiet_hours_tz` - unset, this computer's own zone. In the app, the
+same two fields sit under Settings, in the defaults card's quiet hours
+group; clearing the window there turns quiet hours off. While a window is
+in force, the menu-bar popover says so - `quiet until 07:00`, the window's
+end. An activity due inside the window is not claimed and not failed: it
+stays due and runs on the first pass after the window ends, the way a
+paused activity carries forward.
 `blowhorn schedule list` marks it `held (quiet hours)` with the window and
 the hour it lifts, and `blowhorn schedule why N` names quiet hours as the
 reason. Nothing is stored; the hold is computed from the clock on every pass.
