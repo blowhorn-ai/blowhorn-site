@@ -3,7 +3,6 @@
   still come from data/hero.json. */ -}}
     {{- $rot := partial "hero-rotation.html" . -}}
     {{- $mrot := partial "machines-rotation.html" . -}}
-    {{- $int := site.Data.integrations -}}
     <main id="main" class="home-signal">
       <section class="hero hero-signal" aria-labelledby="hero-title">
         {{- $film := in $rot.medias "video" }}
@@ -103,12 +102,8 @@
             <p class="label">Who it's for</p>
             <h2 id="roles-title" class="display">Built for the people, and the agents, who carry the message.</h2>
           </div>
-          <ul class="grid grid-4 section-body signal-roles">
-            {{- range $int.roles }}
-            {{- $slug := .id -}}
-            {{- $role := false -}}
-            {{- range site.Data.roles.roles }}{{ if eq .slug $slug }}{{ $role = . }}{{ end }}{{ end }}
-            {{- if not $role }}{{ errorf "integrations roles id %q is not a slug in data/roles.json" $slug }}{{ end }}
+          <ul class="grid grid-3 section-body signal-roles">
+            {{- range $role := sort site.Data.roles.roles "weight" }}
             {{- /* The whole card is the link (a.card-link: pointer, arrow
               cue chip, hover lift). No separate "Blowhorn for X" link: it
               only repeated the card's own title. */}}

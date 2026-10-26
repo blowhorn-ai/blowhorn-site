@@ -7,6 +7,15 @@
       "weight": 10,
       "headline": "Ship the release. Announce it everywhere, as you.",
       "lead": "LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub and Slack in one queue, posted from your own Chrome, signed in as you. Your agent drafts and dry-runs; you hold the switch.",
+      "platforms": [
+        "linkedin",
+        "x",
+        "reddit",
+        "hacker-news",
+        "slack",
+        "bluesky",
+        "github"
+      ],
       "description": "Blowhorn for developer relations: one queue for the networks developers use, including Hacker News and GitHub, posted as you from your own Chrome.",
       "art": {
         "src": "assets/brand/cast/keyboard-warrior-base.webp",
@@ -89,6 +98,16 @@
       "weight": 20,
       "headline": "Your team is the amplifier.",
       "lead": "Schedule one message and have every profile you add amplify it at the moment you pick: real teammates and supporters, each posting as themselves, in the first hour. No 100-seat minimum.",
+      "platforms": [
+        "linkedin",
+        "x",
+        "slack",
+        "bluesky",
+        "youtube",
+        "instagram",
+        "tiktok",
+        "facebook"
+      ],
       "description": "Blowhorn for marketing managers: make a sound wave from your team's own profiles, each posting as themselves, coordinated from one queue.",
       "art": {
         "src": "assets/brand/cast/general-base.webp",
@@ -171,6 +190,15 @@
       "weight": 30,
       "headline": "You're the company's voice. Keep its keys.",
       "lead": "Every launch, across your personal, company and project profiles, from one queue on computers you own. Blowhorn does the typing and clicking in your own Chrome, so nobody else holds the sign-ins that are your company.",
+      "platforms": [
+        "linkedin",
+        "x",
+        "reddit",
+        "hacker-news",
+        "slack",
+        "bluesky",
+        "github"
+      ],
       "description": "Blowhorn for founders: every profile you speak for, from one queue on your own computers, posted as you from your own Chrome.",
       "art": {
         "src": "assets/brand/cast/major-6-hat-left-horn.webp",
@@ -249,6 +277,15 @@
       "weight": 40,
       "headline": "Your release deserves more than a post and a prayer.",
       "lead": "Publish and amplify project milestones across project and maintainer profiles on GitHub, Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, from one queue.",
+      "platforms": [
+        "linkedin",
+        "x",
+        "reddit",
+        "hacker-news",
+        "slack",
+        "bluesky",
+        "github"
+      ],
       "description": "Blowhorn for open source maintainers: announce releases and milestones on GitHub, Slack, Hacker News and every social network from one queue, as yourself.",
       "art": {
         "src": "assets/brand/cast/trench-trooper-periscope.webp",
@@ -327,6 +364,13 @@
       "weight": 50,
       "headline": "Rally the community. Everyone speaks for themselves.",
       "lead": "Announce to community Slack workspaces as yourself, then have maintainers and supporters amplify milestones from their own profiles in the first hour.",
+      "platforms": [
+        "linkedin",
+        "x",
+        "slack",
+        "bluesky",
+        "reddit"
+      ],
       "description": "Blowhorn for community managers: Slack announcements as yourself, and supporters amplifying from their own profiles.",
       "art": {
         "src": "assets/brand/cast/recruit-chick-salute.webp",
@@ -405,6 +449,15 @@
       "weight": 60,
       "headline": "Show the client the dry-run. Then send it once.",
       "lead": "Run several clients' profiles from one desk, in real Chrome profiles on your own computer. Dry-run every action, pause one client instantly, and never hand a vendor a client's 2FA secret.",
+      "platforms": [
+        "linkedin",
+        "x",
+        "reddit",
+        "hacker-news",
+        "slack",
+        "bluesky",
+        "github"
+      ],
       "description": "Blowhorn for agencies and consultants: client profiles in real Chrome on your own computer, with dry-run and pause on every action.",
       "art": {
         "src": "assets/brand/cast/mouse-marine-salute.webp",

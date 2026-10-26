@@ -39,6 +39,7 @@
         "weight",
         "headline",
         "lead",
+        "platforms",
         "description",
         "art",
         "pains",
@@ -67,6 +68,16 @@
         },
         "lead": {
           "$ref": "#/definitions/text"
+        },
+        "platforms": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Platforms that matter to this role, by id in data/integrations.json platforms. The home page's Platforms section highlights them under By role; the build fails on an id that is not a platform there.",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          }
         },
         "description": {
           "$ref": "#/definitions/text",

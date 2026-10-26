@@ -71,24 +71,6 @@
       "platforms": ["youtube", "instagram", "tiktok", "facebook"]
     }
   ],
-  "roles": [
-    {
-      "id": "devrel",
-      "platforms": ["linkedin", "x", "reddit", "hacker-news", "slack", "bluesky", "github"]
-    },
-    {
-      "id": "marketing",
-      "platforms": ["linkedin", "x", "slack", "bluesky", "youtube", "instagram", "tiktok", "facebook"]
-    },
-    {
-      "id": "founders",
-      "platforms": ["linkedin", "x", "reddit", "hacker-news", "slack", "bluesky", "github"]
-    },
-    {
-      "id": "community",
-      "platforms": ["linkedin", "x", "slack", "bluesky", "reddit"]
-    }
-  ],
   "platforms": [
     {
       "id": "linkedin",

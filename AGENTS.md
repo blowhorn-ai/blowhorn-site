@@ -25,7 +25,10 @@ fails those except `content/en/home-reveille.md`). Site default is Reveille
 matter `theme: signal`. Docs, legal, pricing and download stay Reveille.
 `?theme=` swaps the token layer only, not homepage layout. Homepage variants
 live in `layouts/_partials/home/`. Platform counts and the platforms section
-treatments come from `data/integrations.json` plus `data/platforms/*.yaml`.
+treatments come from `data/integrations.json` plus `data/platforms/*.yaml`;
+the By role treatment and the "Who it's for" cards list every role in
+`data/roles.json` by weight, and each role's `platforms` decides what it
+highlights, so a new role appears on the home page without another edit.
 The action vocabulary is `data/actions.json`; YAML rows use those ids.
 Examples live in `data/action_examples.json` ([docs/action-examples.md](docs/action-examples.md)).
 Platform docs pages render actions through `{{< supported-actions "id" >}}` (`layouts/_partials/supported-actions.html`); `make check-platform-docs` fails a missing page, a skipped table, or a hand-written action list.
