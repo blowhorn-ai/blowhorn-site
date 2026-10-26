@@ -147,7 +147,10 @@ blowhorn chrome extension-install --profile kate --dry-run
 each profile starts, with no click in that profile. That is every Chrome
 profile on this computer, including ones no Blowhorn profile uses. Chrome
 shows **Managed by your organization**. macOS asks for an administrator
-password once. Cancelling that dialog writes nothing.
+password once. Cancelling that dialog writes nothing. The policy is your
+own macOS user's (`/Library/Managed Preferences/<you>/com.google.Chrome.plist`),
+never the computer's, so the Chrome of another macOS user on this Mac is
+left alone.
 
 macOS names the process that asks, so the name on that dialog depends on
 how Blowhorn was started. In the Blowhorn app, the app's bundled

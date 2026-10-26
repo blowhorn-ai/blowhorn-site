@@ -189,8 +189,10 @@ and takes the same flags:
 
 The real run removes nothing while any of these is running, and names it (a
 dry run names them too, above its preview): a scheduler tick, a pass of the background service, a run
-holding the extension bridge, the desktop app, or run records still waiting
-in the local spool for your account. Send those records first:
+holding the extension bridge, the desktop app (yours, or another macOS
+user's on this Mac: `/Applications/Blowhorn.app` is one app for every user),
+another macOS user's background service (it runs from the same app),
+or run records still waiting in the local spool for your account. Send those records first:
 
 ```bash
 blowhorn store --replay-spool --log-dir <log-dir>

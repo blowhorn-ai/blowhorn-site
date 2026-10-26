@@ -205,9 +205,14 @@ its own (`~/.blowhorn/attach-chrome`), open to remote debugging, so
 Chrome 136 and later ignore the debugging switch on the default data
 directory, which is why this is never your daily Chrome.
 
-The port is bound to `127.0.0.1` and has no password: any program
-running as you on this computer can drive that Chrome and read its
-cookies. Sign it in only to the accounts Blowhorn posts from.
+The port is bound to `127.0.0.1` and has no password, and `127.0.0.1`
+is shared by every macOS user on this Mac: any program running as you,
+or as any other user signed in here, can drive that Chrome and read its
+cookies. So the route is off by default: `start` and `install-agent`
+refuse unless you pass `--allow-other-users`, and print that warning
+when they run. Sign it in only to the accounts Blowhorn posts from. The
+desktop app does not offer it. The tree and every folder Blowhorn
+creates under `~/.blowhorn` are owner-only (`0700`).
 
 A debugging port, and Playwright's `--remote-debugging-pipe`, each make
 Chrome report `navigator.webdriver` as `true`. `start` and launch mode
@@ -219,9 +224,9 @@ unsupported-flag infobar off.
 | --- | --- |
 | `status` (default) | reads the tree's `Local State`, `DevToolsActivePort` and `SingletonLock`; opens nothing |
 | `signin` | opens the tree with no debugging switch, for the one-time sign-in; quit it after |
-| `start` | launches Chrome detached with `--remote-debugging-port=0 --remote-debugging-address=127.0.0.1 --disable-blink-features=AutomationControlled --test-type`, then prints the setup steps |
+| `start --allow-other-users` | launches Chrome detached with `--remote-debugging-port=0 --remote-debugging-address=127.0.0.1 --disable-blink-features=AutomationControlled --test-type`, then prints the setup steps |
 | `stop` | DevTools `Browser.close`, waits, then `SIGTERM`; signals only the tree's own Chrome, never `SIGKILL` |
-| `install-agent` | writes and loads `~/Library/LaunchAgents/ai.blowhorn.attach-chrome.plist`, which runs `start` at each login and logs to `data/logs/attach-chrome-agent.*.log` (or `--log-dir`) |
+| `install-agent --allow-other-users` | writes and loads `~/Library/LaunchAgents/ai.blowhorn.attach-chrome.plist`, which runs `start` at each login and logs to `data/logs/attach-chrome-agent.*.log` (or `--log-dir`) |
 | `uninstall-agent` | unloads and removes that LaunchAgent; Chrome keeps running |
 
 Off macOS every action but `status` is refused by name, and nothing is

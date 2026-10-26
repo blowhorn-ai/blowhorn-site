@@ -38,7 +38,8 @@ quote it in a bug report with `--json` for the same answer scripts can read.
   renews it every ten minutes while the job runs, and a dead computer stops
   renewing, so its activities return to the pool when the lease lapses. `schedule
   list` names every holder in its Locked By column; your own claims read
-  `(this machine)`.
+  `(this machine)`. Another macOS user's claims on the same Mac do not: they
+  share the computer's name, not your install.
 - **Not due.** `Next Run At` has not passed yet. `schedule status` shows an
   estimated next tick for this computer.
 - **Gave up.** The last run used the activity's final retry, so it is `failed`

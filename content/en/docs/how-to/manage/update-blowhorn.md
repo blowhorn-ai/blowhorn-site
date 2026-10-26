@@ -23,6 +23,11 @@ claims nothing and `schedule status` names the cause `app_outdated`.
 That is the same update, reached from the other side -- press **update**
 here and the next pass claims again.
 
+`/Applications/Blowhorn.app` is one app for every macOS user on the Mac.
+While another user on this Mac has Blowhorn open, or has its background
+service running after quitting it, the update says so and waits: it installs
+once they quit it and their service stops.
+
 ## What you see while it updates
 
 The card names each step as it happens:
