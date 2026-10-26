@@ -91,6 +91,91 @@
       ]
     },
     {
+      "slug": "employee-advocacy",
+      "name": "Employee advocacy",
+      "title": "Blowhorn for employee advocacy",
+      "weight": 20,
+      "headline": "Advocacy for the rest of us.",
+      "lead": "Real teammates, posting as themselves, from one coordinated queue. No 100-seat minimum.",
+      "description": "Employee advocacy for small teams: real people amplifying one post as themselves, from one coordinated queue, without a 100-seat minimum.",
+      "art": {
+        "src": "assets/brand/cast/platoon-private-base.webp",
+        "alt": "Platoon Private, an orange chicken in a charcoal cap with a coral rank stripe, holding one bayonet rifle"
+      },
+      "pains": [
+        {
+          "t": "The hundred-seat fortress",
+          "b": "Advocacy suites sell to big companies: quote pricing and seat minimums, like Haiilo's 100 seats."
+        },
+        {
+          "t": "A library nobody opens",
+          "b": "Teammates get an email with a post to share. By the time they do, the first hour is gone."
+        },
+        {
+          "t": "Built around LinkedIn and X",
+          "b": "Suites center LinkedIn and X. Your audience is also on Hacker News, Reddit, GitHub and Slack."
+        }
+      ],
+      "gets": [
+        {
+          "t": "A sound wave from your team",
+          "b": "Schedule one post and every profile you add amplifies it at the moment you pick, each posting as itself."
+        },
+        {
+          "t": "Teammates bring their own profiles",
+          "b": "Teammates and supporters add their own profiles to your account today. Team invites: Coming soon."
+        },
+        {
+          "t": "Sent once, from one computer",
+          "b": "Coordinated so the same post isn't sent from two computers, however many your team runs."
+        },
+        {
+          "t": "One pause for the whole wave",
+          "b": "Pause one action, one computer or every computer at once. Resume, and due times carry forward."
+        }
+      ],
+      "prompt": "Schedule the announcement for 9:00, have every profile amplify it in the first hour, then --dry-run the wave.",
+      "major": "Fall in, platoon. One post, every voice, first hour.",
+      "compare": [
+        "/compare/everyonesocial",
+        "/compare/dsmn8",
+        "/compare/haiilo",
+        "/compare/sociabble"
+      ],
+      "faq": [
+        {
+          "q": "Does Blowhorn post for teammates without them?",
+          "a": "No. A teammate adds their own profile to your account, and Blowhorn posts as that person, never as a bot."
+        },
+        {
+          "q": "Can I invite my team?",
+          "a": "Team invites are Coming soon. Today teammates and supporters add their own profiles to your account."
+        },
+        {
+          "q": "Will the same post go out twice?",
+          "a": "Your computers coordinate through one queue, so the same post isn't sent from two of them."
+        }
+      ],
+      "related": [
+        {
+          "label": "Blowhorn for marketing managers",
+          "page": "/for/marketing"
+        },
+        {
+          "label": "Launch day",
+          "page": "/use-cases/launch-day"
+        },
+        {
+          "label": "How amplification works",
+          "page": "/docs/how-to/publish/amplify-a-post"
+        },
+        {
+          "label": "Pricing",
+          "page": "/pricing"
+        }
+      ]
+    },
+    {
       "slug": "social-scheduling",
       "name": "Social scheduling",
       "title": "Blowhorn for social scheduling",
