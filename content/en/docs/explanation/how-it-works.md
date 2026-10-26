@@ -31,6 +31,14 @@ per organization, or per activity.
 
 Your account is what the parts share: the content activities, the schedule, the profiles and their credentials, the ledgers, and the run history, kept in sync for every computer you sign in on. Your computer holds the app, the engine, and your Chrome sessions; your account keeps everything the computers share.
 
+Every action leaves from the computer that runs it, over that computer's
+own internet connection: a teammate's computer posts from their
+connection, and yours from yours. Blowhorn sends no platform traffic
+through a server or proxy of its own, so there is no proxy to buy or
+set up. Sites can see a VPN or proxy, and
+[Fix a sign-in that stopped working](/docs/how-to/troubleshoot/sign-in-problems/)
+shows how to check what they see.
+
 A post travels this path: an activity in the queue, approved and due; a run
 acting as the activity's profile; the platform reached through your Chrome
 or its API; the outcome written back to the activity and the ledger. Any

@@ -17,6 +17,11 @@ the same update. Press **update** in any of them.
 The app also checks each time you open it. If that check finds a newer
 release, a prompt in the console window asks before anything is downloaded.
 
+You can check on demand instead of waiting: in the menu bar, open the
+Blowhorn menu and choose **Check for Updates…**. If you are up to date it
+says so; if the check fails it says why; if a newer release is out, the
+console window asks before anything is downloaded, exactly as above.
+
 Blowhorn may also tell you it is out of date itself: when the server's
 minimum app version is newer than the build you run, a scheduled pass
 claims nothing and `schedule status` names the cause `app_outdated`.
