@@ -25,10 +25,19 @@ older version made where it is, unread.
 the profile's `id`, `name`, `description`, `userId`, `owner`, and `person`:
 the represented member's name and email, or `null` for a brand.
 
-What a run learns about a profile on this computer, such as the last
-session check and the X follower history, is kept in
-`data/cache/profiles/<profile id>/`. That folder is safe to delete; the
-next check or collection writes it again.
+What a run learns about a profile on this computer (its session verdicts,
+the X follower history, the X follow log and an invite `Connections.csv`
+export) is kept in `data/cache/profiles/<profile id>/`. That folder is safe
+to delete; the next check or collection writes it again, and it never says
+a profile exists.
+
+## Identity and name
+
+A profile's **id** is its identity, and its **name** is what you type.
+Renaming a profile keeps its id, so its Chrome mapping and its content
+items stay with it. What names a profile by its name changes with the
+rename: `--profile` on the command line, a routine's profile, and the
+excluded list (`--exclude`, `defaults.exclude`).
 
 ## Creating a profile
 
@@ -59,26 +68,26 @@ Both take `--dry-run`, which makes the same checks and sends nothing.
 each one's user id, name and email.
 
 The desktop app's Add profile form and profile detail use the commands
-above. The older `blowhorn profile set <name> EMAIL=<address> --create`
-is still in the CLI: it resolves the profile's email to one live Blowhorn
-account and writes the row, and writes nothing on your computer.
-`blowhorn profile set` otherwise stores platform credential keys and
-refuses any other key. `blowhorn profile delete` deletes the profile in your
-organization and unlinks its accounts; the accounts themselves are kept,
-and nothing on your computer is moved or removed.
+above. Use `profile create` to create a profile in your account:
+`blowhorn profile set <name> EMAIL=<address> --create` is still in the CLI
+for the maintainer database, and writes nothing on your computer either.
 
-Each profile's runtime state on this computer (its session verdicts, the X
-follower history, the X follow log and an invite `Connections.csv` export)
-lives in `data/cache/profiles/<profile id>/`. That folder is disposable and
-never says a profile exists.
+## Reading, credentials and deleting
 
 `blowhorn profile get <name>` prints one profile: its id, description and
 the person it represents, the accounts mapped to it, and which fields each
 platform's credential holds. A credential field is shown only as set,
 never with its value. `blowhorn profile status` reports every profile with
-its sessions. `blowhorn profile set <name> KEY=VALUE` writes a platform key
-to that platform's credential in your account; an unknown key is refused
-by name.
+its sessions.
+
+`blowhorn profile set <name> KEY=VALUE` writes a platform key to that
+platform's credential in your account. Any other key is refused by name
+before anything is written.
+
+`blowhorn profile delete <name>` deletes the profile in your organization
+and unlinks its accounts. The accounts themselves are kept, and nothing on
+your computer is moved or removed. A deleted profile cannot be brought
+back; create a new one.
 
 ## Credential Loading
 
@@ -122,9 +131,10 @@ quietly.
 
 ## The Chrome column
 
-Your account row beside each profile carries the Chrome column: which real
-Chrome profile this Blowhorn profile acts in on this computer, keyed by
-hostname. `blowhorn chrome map` writes it; `blowhorn chrome unmap`
+The Chrome column says which real Chrome profile a Blowhorn profile acts
+in on this computer. It is kept on this computer for your macOS user only,
+keyed by the profile's id, because a Chrome profile exists on one Mac and
+nowhere else. `blowhorn chrome map` writes it; `blowhorn chrome unmap`
 clears it. A browser run with no mapping for its profile refuses
 before anything opens, and never falls back to another profile. The
 mapping is identity, never permission: it says where the run acts, not

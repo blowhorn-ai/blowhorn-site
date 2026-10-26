@@ -30,7 +30,7 @@ downloads the Playwright Chromium runtime, and writes an `blowhorn` launcher to
 before writing the Chrome native host, and lists what is left for you; answer
 no for now if you only want this tutorial.
 
-A checkout's data (profiles, logs, the scheduler's state) lives in its own
+A checkout's data (logs, caches, the scheduler's state) lives in its own
 `data/` folder, which Blowhorn keeps readable by you alone. Each macOS user
 on a Mac needs a checkout of their own: Blowhorn refuses to run from a
 checkout another user owns.
@@ -73,7 +73,7 @@ blowhorn profile status
 This opens no browser and calls no platform; its one read beyond your
 checkout is your account's credentials. What it reports rests on one rule worth knowing
 now: a profile may act on a platform when a **credential** for that platform
-exists in your account, and never because a handle appears in its roster activity.
+exists in your account, and never because a handle appears on one of its accounts.
 That is deliberate - [Eligibility](/docs/explanation/eligibility/) explains why.
 
 ## 3. Look at the queue without touching it {#section-3-look-at-the-queue-without-touching-it}

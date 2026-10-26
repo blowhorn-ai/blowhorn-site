@@ -58,8 +58,10 @@ Settings, and Diagnostics.
 Select the profile on **Profiles**. Its name, description and **who is this
 profile?** are editable; the represented person's name and email are shown
 from their member record and are changed in your Blowhorn account, not here. Click
-**save**. Renaming a profile changes what you type after `--profile`; jobs
-and mappings that name the old name need the new one.
+**save**. Renaming a profile changes what you type after `--profile`, and
+any routine or excluded-profiles entry that names the old name needs the new
+one. Its Chrome mapping and its content items follow the profile, because
+they hold its id.
 
 ## From the command line
 

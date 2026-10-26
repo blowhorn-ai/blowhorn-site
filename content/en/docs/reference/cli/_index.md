@@ -460,6 +460,11 @@ For `follow --profile all`, if any `--target` handle matches one of your configu
 
 ### `--profile` and `--exclude` {#section-profile-and---exclude}
 
+A profile name resolves against your organization's profile list, read once
+per run: `--profile all` is every profile on it minus the excluded list, and
+a typed name must match exactly one profile, ignoring case. No folder on
+this computer adds a profile ([Profile reference](/docs/reference/profiles/#which-profiles-exist)).
+
 Naming profiles explicitly makes `--exclude` inert: `--profile your-profile` runs `your-profile` even when the
 config excludes it, and only `--profile all` defers to the exclusion list. Commands say which
 way it went - `Excluding profiles: …` when the list is applied, `Ignoring configured exclusions
@@ -480,7 +485,6 @@ blowhorn profile status                       # what each profile is set up for,
 blowhorn profile status --check-sessions      # read-only session probes, recorded per profile
 blowhorn profile status --profile your-profile --check-platform github  # one platform only: your-profile's GH_TOKEN in the store against GitHub, no browser
 blowhorn profile status --chrome              # adds the chrome profile each one is mapped to here
-blowhorn profile get your-profile                     # settings with secrets masked (GH_* from the store)
 blowhorn org members                          # the people a profile can represent
 echo '{"name": "new-profile", "userId": "<member id>"}' | blowhorn profile create --payload-stdin  # leave userId out for a brand
 echo '{"name": "new-profile", "description": "what it posts"}' | blowhorn profile update new-profile --payload-stdin
