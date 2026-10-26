@@ -256,9 +256,7 @@ person: `slack send` sends one message (a thread reply from a
 message link, using the link's `?thread_ts=` parent, or a top-level post from a
 channel link), `slack whoami` asks Slack's `auth.test` who that profile's
 credential is, and `slack profiles` lists every profile's captured workspaces
-from your account without calling Slack (a profile whose `config.yaml` still
-carries Slack keys while your account holds no session reads `refused`, as its
-send would be). `send` sends as one `--profile`, or as each of several
+from your account without calling Slack. `send` sends as one `--profile`, or as each of several
 (`--profile rian,alex`, or `--profile rian --profile alex`) one after another, waiting a random `--pace`-scaled
 interval before each confirmed send after the first. Each profile gets its own
 idempotency key, ledger entry and result, and one profile's failure never stops
@@ -486,7 +484,8 @@ blowhorn profile get your-profile                     # settings with secrets ma
 blowhorn org members                          # the people a profile can represent
 echo '{"name": "new-profile", "userId": "<member id>"}' | blowhorn profile create --payload-stdin  # leave userId out for a brand
 echo '{"name": "new-profile", "description": "what it posts"}' | blowhorn profile update new-profile --payload-stdin
-blowhorn profile set your-profile GH_TOKEN=ghp_yourtoken  # stored in the store, never in config.yaml
+blowhorn profile set your-profile GH_TOKEN=ghp_yourtoken  # stored in your account, never in a file
+blowhorn profile get your-profile             # the profile, its accounts, and which credential fields are set
 blowhorn profile delete new-profile --yes      # deletes it in your organization; a local directory, if it has one, moves to data/profiles/.trash/
 blowhorn profile switch your-profile
 blowhorn profile auth --platform x            # a sign-in records the session as valid, checked now

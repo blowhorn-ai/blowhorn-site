@@ -5,7 +5,7 @@ description: "What Blowhorn can do on X (Twitter), and how each action behaves t
 weight: 226
 ---
 
-Blowhorn works on X in your own signed-in Chrome, through the Blowhorn extension. Sign in to X there once, by hand. The credential Blowhorn checks is `X_USERNAME`.
+Blowhorn works on X in your own signed-in Chrome, through the Blowhorn extension. Sign in to X there once, by hand. The credential Blowhorn checks is `X_USERNAME`, kept in your account.
 
 Posts from an activity; a message past 274 characters goes out as a thread.
 Replies go through a post activity that targets the conversation. Amplifies

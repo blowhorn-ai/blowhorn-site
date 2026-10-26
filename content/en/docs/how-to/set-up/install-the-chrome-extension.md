@@ -105,7 +105,15 @@ see what is missing, then follow its one button:
   this Chrome profile.
 
 When everything is in place the popup names the linked Blowhorn
-profile and signed-in account, and offers **Change mapping**.
+profile and signed-in account, and offers **Change mapping**. The app
+tells the extension which profile by its id as well as its name, so a
+profile renamed in your Blowhorn account keeps its link.
+
+After an update from a version that named the profile only, the popup
+reads **Map this profile in Blowhorn** even for a Chrome profile that is
+mapped. Nothing is lost: the mapping itself is unchanged. The popup
+catches up the next time the app reads the mapping: after you sign in or
+change a mapping.
 
 ## Load it unpacked in one Chrome profile
 

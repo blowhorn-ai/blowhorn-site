@@ -51,7 +51,7 @@ make extension-assets-build   # rewrites every image in marketing/chrome-store-a
 rebuilds the desktop app, launches it against a showcase engine - a stand-in
 checkout that answers the console's reads from the desktop's own contract
 fixtures, so no account, profile, Chrome or real person is involved - and
-captures four console screens at the default 1440 x 900 window, scaled to
+captures four console screens at the default 1104 x 900 window, scaled to
 1280 x 800. It then draws the platform gallery, the promo tile and the marquee
 from `marketing/brand/` with Playwright's Chromium. The app window opens on your screen
 for about a minute while it captures; leave it alone until the command

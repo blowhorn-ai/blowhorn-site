@@ -39,11 +39,11 @@ blowhorn chrome discover                              # records the sign-in as a
 ```
 
 Each keeps a persistent browser session. Refresh it with `profile auth`.
-With the username and password in the profile's `config.yaml`
-(`LI_USERNAME` and `LI_PASSWORD`, `X_USERNAME` and `X_PASSWORD`,
-`RDDT_USERNAME` and `RDDT_PASSWORD`, written with `blowhorn profile set`
-or by editing the file; the app never asks for them), the login is
-attempted for you; otherwise the browser opens and you sign in by hand.
+With a username and password stored in the profile's credential in your
+account (`LI_USERNAME` and `LI_PASSWORD`, `X_USERNAME` and `X_PASSWORD`,
+`RDDT_USERNAME` and `RDDT_PASSWORD`, written with `blowhorn profile set`;
+the app never asks for them), the login is attempted for you; otherwise
+the browser opens and you sign in by hand.
 
 ```bash
 blowhorn profile auth --platform linkedin --profile ada
@@ -97,7 +97,7 @@ account settings; your main password never goes here.
 ## GitHub
 
 Store a personal access token as the profile's `GH_TOKEN`. It lands in the
-profile's GitHub credential in your account, never in `config.yaml`:
+profile's GitHub credential in your account:
 
 ```bash
 blowhorn profile set ada GH_TOKEN=<token>
@@ -117,7 +117,7 @@ Issues (and Pull requests for PR targets) to react.
 ## Hacker News
 
 Store the login with `profile set`. Both keys are needed; the password is
-read from your account and never from `config.yaml`:
+read from your account:
 
 ```bash
 blowhorn profile set ada HN_USERNAME=<account> HN_PASSWORD=<password>

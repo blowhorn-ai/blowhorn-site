@@ -15,8 +15,9 @@ and your Chrome sessions.
 Browser sessions, meaning the cookies Chrome keeps for LinkedIn, X,
 Reddit and Hacker News, live in your Chrome profiles, where you made
 them; Blowhorn reads them there and copies none of them elsewhere, with
-one exception: a Slack workspace session you capture is kept in your account, below. LinkedIn, X, Reddit and Bluesky runs sign
-in with the password in the profile's local `config.yaml`. Every action
+one exception: a Slack workspace session you capture is kept in your account, below. Every
+password, token and app password a run signs in with is a credential in
+your account, never a file on your computer. Every action
 Blowhorn takes runs on one of your computers; Blowhorn never signs in or
 acts for you from a server. The daily
 logs, the run ledger copy, and the scheduler heartbeat live under the

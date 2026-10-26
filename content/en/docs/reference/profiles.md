@@ -7,10 +7,9 @@ weight: 217
 
 A profile is one identity Blowhorn posts as: a profile your organization
 holds in your Blowhorn account. Each one has an id, a name, an optional
-description, and, unless it is a brand, the member it represents. Some
-platforms still read keys from a `config.yaml` beside it while they move
-to your account. This page describes; the steps live in the how-to guides
-under Related.
+description, and, unless it is a brand, the member it represents. Its
+platform accounts and their credentials are kept in your account too.
+This page describes; the steps live in the how-to guides under Related.
 
 ## Which profiles exist
 
@@ -67,10 +66,13 @@ directory aside when it has one; a profile with no directory on this
 computer, which is every profile created with `profile create`, is
 retired and nothing moves.
 
-`blowhorn profile get <name>` prints one profile. `blowhorn profile
-status` reports every profile with its sessions. `blowhorn profile set
-<name> KEY=VALUE` writes keys; unknown keys for `config.yaml` are
-refused by name.
+`blowhorn profile get <name>` prints one profile: its id, description and
+the person it represents, the accounts mapped to it, and which fields each
+platform's credential holds. A credential field is shown only as set,
+never with its value. `blowhorn profile status` reports every profile with
+its sessions. `blowhorn profile set <name> KEY=VALUE` writes a platform key
+to that platform's credential in your account; an unknown key is refused
+by name.
 
 ## Credential Loading
 
@@ -78,21 +80,25 @@ Eligibility is credential existence: a profile may post on a platform
 exactly when the secret for that platform exists. Handles, sessions in
 Chrome, and follower counts grant nothing.
 
-| Platform | Keys | Where the run reads them |
-|---|---|---|
-| LinkedIn | `LI_USERNAME`, and `LI_PASSWORD` or `LI_CHROME_SESSION` | `config.yaml` |
-| X | `X_USERNAME` (password beside it for automated sign-in) | `config.yaml` |
-| Reddit | `RDDT_USERNAME` (password beside it for automated sign-in) | `config.yaml` |
-| Hacker News | `HN_USERNAME`, and `HN_PASSWORD` or `HN_CHROME_SESSION` | Your account |
-| Slack | `SLACK_USER_TOKEN`, `SLACK_BOT_TOKEN`, or a captured workspace session | Your account, never `config.yaml` |
-| Bluesky | `BLUESKY_HANDLE`, `BLUESKY_APP_PASSWORD` | `config.yaml` |
-| GitHub | `GH_TOKEN` | Your account |
+| Platform | Keys |
+|---|---|
+| LinkedIn | `LI_USERNAME`, and `LI_PASSWORD` or `LI_CHROME_SESSION` |
+| X | `X_USERNAME` (password beside it for automated sign-in; `X_APP_KEY`, `X_APP_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET` for the API) |
+| Reddit | `RDDT_USERNAME` (password beside it for automated sign-in; `RDDT_CLIENT_ID` and the other `RDDT_*` keys for OAuth) |
+| Hacker News | `HN_USERNAME`, and `HN_PASSWORD` or `HN_CHROME_SESSION` |
+| Slack | `SLACK_USER_TOKEN`, `SLACK_BOT_TOKEN`, or a captured workspace session |
+| Bluesky | `BLUESKY_HANDLE`, `BLUESKY_APP_PASSWORD` |
+| GitHub | `GH_TOKEN` |
 
-GitHub, Hacker News, and Slack are your account-credential platforms: a
-run reads their secrets from your account, and `profile set` writes their
-keys there. Every other platform still reads `config.yaml` until its
-module moves. `blowhorn profile auth --platform slack` captures a
-workspace session through the run's browser driver and lands it in your account; no Slack app install is needed.
+Every platform reads its credential from your account, and only from
+there: a run takes the secret from the same read that decided the profile
+may post, and `profile set` writes the keys there. No file on this
+computer holds a credential, and a key left in a profile's old local
+file is never read. `blowhorn profile auth --platform slack` captures a
+workspace session through the run's browser driver and lands it in your
+account; no Slack app install is needed. `blowhorn profile auth --platform
+bluesky` logs in with a handle and app password and stores them only when
+Bluesky accepts them.
 
 LinkedIn and Hacker News also accept a **confirmed Chrome session**
 instead of a password: `LI_CHROME_SESSION` and `HN_CHROME_SESSION` name

@@ -83,7 +83,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn slack profiles
 
-List every profile's captured Slack workspaces (or only the `--profile` names given), the credentials each holds (session, user-token, bot-token) and which one `--slack-auth` would use. Reads the store and makes no Slack call. A profile whose config.yaml still carries Slack keys while the store holds no session reads `refused`, with the fix the send gives. No secret is printed.
+List every profile's captured Slack workspaces (or only the `--profile` names given), the credentials each holds (session, user-token, bot-token) and which one `--slack-auth` would use. Reads the store and makes no Slack call. No secret is printed.
 
 ```text
 blowhorn slack profiles [OPTIONS]
