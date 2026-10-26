@@ -91,6 +91,96 @@
       ]
     },
     {
+      "slug": "social-scheduling",
+      "name": "Social scheduling",
+      "title": "Blowhorn for social scheduling",
+      "weight": 30,
+      "headline": "A scheduler that posts as you.",
+      "lead": "Queue it once, like any scheduler. The difference is who presses Post: their servers, or your computers.",
+      "description": "Schedule posts like any cloud scheduler, but your own computers press Post, as you, and Hacker News, GitHub and Slack join the same queue.",
+      "art": {
+        "src": "assets/brand/cast/drill-instructor-base.webp",
+        "alt": "Drill Instructor, a stocky turkey in a campaign hat with a whistle, holding the weekly schedule on a clipboard"
+      },
+      "pains": [
+        {
+          "t": "Their app, your name",
+          "b": "Cloud schedulers post through the vendor's app. You hand over access and they press Post."
+        },
+        {
+          "t": "Half the channels by hand",
+          "b": "Hacker News, GitHub and Slack still happen in tabs, outside the calendar."
+        },
+        {
+          "t": "Posted once, then quiet",
+          "b": "Most schedulers publish one post. The profiles that would amplify it are left to remember."
+        }
+      ],
+      "gets": [
+        {
+          "t": "Your computers press Post",
+          "b": "Every action runs on one of your computers, in your Chrome or through the platform's API. Your account keeps them in sync and never posts."
+        },
+        {
+          "t": "Every developer channel, one queue",
+          "b": "Hacker News, GitHub and Slack join LinkedIn, X, Reddit and Bluesky in one queue."
+        },
+        {
+          "t": "Amplify from your profiles",
+          "b": "Schedule a post, then have every profile you run amplify it at the moment you pick."
+        },
+        {
+          "t": "Any awake computer covers it",
+          "b": "Close your laptop. Another computer set up for that profile picks it up, as long as one of them is awake."
+        }
+      ],
+      "prompt": "Move next week's posts into Blowhorn, add the Hacker News submission and the Slack note, then --dry-run.",
+      "major": "Oh-nine-hundred means oh-nine-hundred. Your computers, your post.",
+      "compare": [
+        "/compare/buffer",
+        "/compare/hootsuite",
+        "/compare/sprout-social",
+        "/compare/later",
+        "/compare/publer",
+        "/compare/socialbee",
+        "/compare/metricool",
+        "/compare/typefully",
+        "/compare/postiz"
+      ],
+      "faq": [
+        {
+          "q": "Does a computer have to be awake?",
+          "a": "One set up for the profile does. As long as one of your computers is awake, it covers the schedule. Each checks the queue about every 10 minutes."
+        },
+        {
+          "q": "Where does the schedule live?",
+          "a": "In your Blowhorn account, so every computer you sign in on works from the same queue. Your account coordinates; it never posts."
+        },
+        {
+          "q": "What about Instagram, TikTok, Facebook and YouTube?",
+          "a": "Coming soon."
+        }
+      ],
+      "related": [
+        {
+          "label": "How scheduling works",
+          "page": "/docs/explanation/scheduling"
+        },
+        {
+          "label": "How amplification works",
+          "page": "/docs/how-to/publish/amplify-a-post"
+        },
+        {
+          "label": "Launch day",
+          "page": "/use-cases/launch-day"
+        },
+        {
+          "label": "Pricing",
+          "page": "/pricing"
+        }
+      ]
+    },
+    {
       "slug": "linkedin-automation",
       "name": "LinkedIn automation",
       "title": "Blowhorn for LinkedIn automation",
@@ -135,7 +225,7 @@
         }
       ],
       "prompt": "Withdraw LinkedIn invitations older than a month, accept the safe ones, then --dry-run invite for our page.",
-      "major": "Hold the line, soldier. Nobody gets your password. Nobody.",
+      "major": "Hold the line, soldier. Your login stays in your Chrome.",
       "compare": [
         "/compare/expandi",
         "/compare/waalaxy",
