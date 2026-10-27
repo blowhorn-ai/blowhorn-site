@@ -19,7 +19,7 @@ Download the latest build from
 current release's files from the
 [blowhorn-site releases](https://github.com/blowhorn-ai/blowhorn-site/releases).
 
-- `Blowhorn-mac.dmg` - the latest build, for Apple silicon and Intel Macs.
+- `Blowhorn-<version>-mac-universal.dmg` - the latest build, for Apple silicon and Intel Macs.
 - `SHA256SUMS.txt` - the checksums for that release.
 
 Verify the download before you open it. With both files in the same folder:
@@ -28,7 +28,7 @@ Verify the download before you open it. With both files in the same folder:
 shasum -a 256 -c SHA256SUMS.txt --ignore-missing
 ```
 
-The line for `Blowhorn-mac.dmg` must read `OK`.
+The line for `Blowhorn-<version>-mac-universal.dmg` must read `OK`.
 
 ## Install
 
