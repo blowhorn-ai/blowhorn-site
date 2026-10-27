@@ -13,12 +13,13 @@
         <header class="section-head download-head">
           <p class="label">Download</p>
           <h1 id="download-title" class="display-xl">Blowhorn for Mac</h1>
-          <p class="body-lg muted">One macOS disk image for Apple silicon and Intel, plus a Chrome extension. Setup takes about a minute.</p>
+          <p class="body-lg muted">One macOS disk image for Apple silicon and Intel, plus a Chrome extension and the Blowhorn command. Setup takes about a minute.</p>
         </header>
         <div class="download-grid section-body">
           <div id="download-status" class="download-card" data-repo="blowhorn-ai/blowhorn-site" data-asset="Blowhorn-mac.dmg" aria-live="polite">
             <img class="download-icon" src="{{ "assets/brand/logo/blowhorn-app-icon.svg" | relURL }}" alt="" width="72" height="72">
-            <p class="h3">Blowhorn for Mac</p>
+            <h2 class="h3">Blowhorn for Mac</h2>
+            <p>The Mac app runs your activities and installs the Blowhorn command.</p>
             <p class="actions">
               <a class="button button-primary button-pop" href="{{ $thanks }}">
                 <svg aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#glyph-download"></use></svg>
@@ -34,6 +35,13 @@
             <p>Blowhorn posts from your own signed-in Chrome through its extension. Add it to each Chrome profile you post from.</p>
             <p class="actions"><a class="button button-primary" href="https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf">Add to Chrome</a></p>
             <p class="meta caption"><a href="{{ "docs/how-to/set-up/install-the-chrome-extension/" | relURL }}">Install guide</a></p>
+          </div>
+          <div class="download-card">
+            <svg class="download-icon" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" width="72" height="72"><path d="M5 7l5 5-5 5"></path><path d="M12 17h7"></path></svg>
+            <h2 class="h3">The Blowhorn command</h2>
+            <p>The Mac app installs the Blowhorn command, so there is nothing else to download. Set it up from the install guide.</p>
+            <p class="actions"><a class="button button-primary" href="{{ "docs/how-to/set-up/install-the-app/#the-blowhorn-command" | relURL }}">Install the CLI</a></p>
+            <p class="meta caption"><a href="{{ "docs/reference/cli/" | relURL }}">CLI reference</a></p>
           </div>
         </div>
         <aside class="download-requirements" aria-labelledby="requirements-title">

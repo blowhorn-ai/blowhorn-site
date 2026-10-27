@@ -1168,12 +1168,12 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   background: var(--surface-raised);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: var(--space-4);
-  align-content: start;
 }
 .download-card .h3 { margin: 0; }
-.download-card .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.download-card .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: auto; }
 .download-card .meta { color: var(--ink-muted); }
 .download-card .meta span + span::before { content: "\00b7"; margin-inline: var(--space-2); }
 .download-requirements {
@@ -1200,7 +1200,7 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
 .download-verify a { color: var(--ink-muted); }
 .download-verify a:hover { color: var(--link); }
 @media (min-width: 900px) {
-  .download-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); }
+  .download-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
   .download-requirements { grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 2fr); align-items: center; }
   .download-requirements-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
@@ -2057,7 +2057,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 
 /* ---------- Download page and the thanks page ---------- */
 .download-head { max-width: 44rem; }
-.download-icon { width: 72px; height: 72px; filter: drop-shadow(0 10px 18px rgba(30, 33, 23, 0.22)); }
+.download-icon { width: 72px; height: 72px; object-fit: contain; filter: drop-shadow(0 10px 18px rgba(30, 33, 23, 0.22)); }
 .download-cta {
   display: grid;
   gap: var(--space-6);

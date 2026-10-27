@@ -8,7 +8,7 @@ lead: "One table, every platform. What Blowhorn can do, and how each platform's 
 layout: field-manual
 weight: 1
 checked: 13 October 2026
-lastmod: 2026-10-13
+lastmod: 2026-10-26
 # Supported actions come from the product's capability list and the public
 # Platforms reference (/docs/reference/platforms/). Each risk grade cites the
 # platform's own rule in the page body; no platform publishes a safe number.
@@ -35,7 +35,7 @@ matrix:
     post: { risk: care, text: "Never the same text from two accounts [7]" }
     comment: { risk: safe, text: "Replies are what the ranking rewards most [8]" }
     amplify: { risk: risky, text: "Several owned accounts reposting one post is named in X's rules [9]" }
-    follow: { risk: care, text: "Capped at 400 a day, 15 per 15 minutes [10]" }
+    follow: { risk: care, text: "Name a target: with --limit 0, follow the target itself; with a positive limit, follow up to that many of the target's followers, never the target. Capped at 400 a day, 15 per 15 minutes [10]" }
   - platform: Reddit
     page: /field-manual/reddit
     via: Your Chrome, through the extension
@@ -54,11 +54,11 @@ matrix:
     post: { risk: safe, text: "Spam and repetition are the limits [14]" }
     comment: { risk: safe }
     amplify: { risk: care, text: "No manipulated social signals [14]" }
-    follow: { risk: care, text: "Same rule; keep it human-sized [14]" }
+    follow: { risk: care, text: "Name a target: with --limit 0, follow the target itself; with a positive limit, follow up to that many of the target's followers, never the target. Keep it human-sized [14]" }
   - platform: GitHub
     via: Official API, your token
     amplify: { risk: risky, text: "All five reactions from many profiles; GitHub bans inauthentic interactions [15]" }
-    follow: { risk: risky, text: "GitHub names automated following as rank abuse [15]" }
+    follow: { risk: risky, text: "Name a target: with --limit 0, follow the target, or several comma-separated; with a positive limit, follow up to that many of the target's followers, never the target itself. GitHub names automated following as rank abuse [15]" }
   - platform: Slack
     via: Official API, your token
     message: { risk: care, text: "Each workspace sets its own rules. Hypothesis: one message per channel" }
@@ -66,6 +66,10 @@ matrix:
     page: /field-manual/other-feeds
     via: Not supported by Blowhorn
 ---
+
+## Beyond the API
+
+Some of these actions have no official API at all. Hacker News has no write API: every submission and comment runs through your own signed-in browser. LinkedIn offers no self-serve API for invitations, accepts, or withdrawals: outreach there is browser-only too. Everywhere else, the difference is acting as you: your own session, your own accounts, no developer app and no brand-account abstraction between you and the platform.
 
 ## How to read the grades
 
