@@ -2193,7 +2193,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 @media (prefers-contrast: more) {
   .step-stage { background: var(--surface); box-shadow: 0 0 0 1px var(--line-strong); }
 }
-.download-page .download-grid { align-items: start; }
+.download-page .download-grid { align-items: stretch; }
 
 /* ---------- Agentic AI Marketing (/agents/) ---------- */
 .agent-page .agent-section { margin-top: var(--space-12); }

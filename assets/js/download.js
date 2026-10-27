@@ -76,8 +76,9 @@
     if (size) {
       size.textContent = aliasAsset.name + " · " + megabytes(aliasAsset.size);
     }
-    var title = el("p", "Blowhorn " + version + " for Mac", { class: "h3" });
-    var children = (icon ? [icon] : []).concat([title, actions]);
+    var title = el("h2", "Blowhorn " + version + " for Mac", { class: "h3" });
+    var body = el("p", "The Mac app runs your activities and installs the Blowhorn command.");
+    var children = (icon ? [icon] : []).concat([title, body, actions]);
 
     var meta = el("p", null, { class: "meta caption" });
     var date = release.published_at ? publishedOn(release.published_at) : null;
