@@ -20,6 +20,6 @@ Open Blowhorn and choose **Sign in**. Your browser opens [your account]({{< clou
 
 ## 3. Connect your Chrome profiles {#connect-chrome}
 
-On first run the app lists the Chrome profiles it found and asks before it connects any of them. It writes one small file Chrome reads for each profile you choose. It does not open Chrome or change your Chrome settings. You can run `blowhorn setup` at any time to check or repeat this step.
+On first muster the app lists the Chrome profiles it found and asks before it connects any of them. It writes one small file Chrome reads for each profile you choose. It does not open Chrome or change your Chrome settings. You can run `blowhorn setup` at any time to check or repeat this step.
 
 When the extension's icon shows connected, you are ready. If your account does not have Blowhorn yet, the app sends you straight to [your account]({{< cloud-url >}}) to start the beta.
