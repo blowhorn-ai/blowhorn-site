@@ -2896,6 +2896,14 @@ a.card.docs-card > * { margin-top: 0; }
 .proof-band figure { margin: 0; padding-left: var(--space-4); border-left: 3px solid var(--teal-deep); }
 .proof-band figure:nth-child(2) { border-left-color: var(--yellow-shade); }
 .proof-band figure:nth-child(3) { border-left-color: var(--charcoal); }
+/* Rotating proof (solutions pages): one quote at a time. The first quote
+   shows with no JavaScript; the nav only appears once
+   proof-rotation.js has made it work, so a dead button never ships. */
+.proof-rotate-item { display: none; margin: 0; padding: var(--card-pad, var(--space-6)); border-radius: 1.25rem; background: var(--glass-fill); border: 1px solid var(--glass-rim); box-shadow: var(--glass-shadow); }
+.proof-rotate-item.is-current { display: block; }
+.proof-rotate-item blockquote { margin: 0 0 var(--space-4); }
+.proof-rotate-nav { display: none; gap: var(--space-3); margin-top: var(--space-4); }
+.proof-rotate.is-rotating .proof-rotate-nav { display: flex; }
 @media (prefers-reduced-motion: reduce) {
   .proof-card { transition: none; }
   .proof-card:hover { transform: none; }

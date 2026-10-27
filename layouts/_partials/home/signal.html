@@ -25,10 +25,6 @@
               <span data-hero-only="{{ .id }}"><a class="button button-secondary" href="{{ $href }}">{{ .cta.label }}</a></span>
               {{- end }}
             </div>
-            <p class="hero-note caption muted">
-              <span>For macOS 13 or later.</span>
-              <span>As many social profiles as you want. About a minute to set up.</span>
-            </p>
             {{- /* One proof spot per hero banner, each paired with a different user (placements "hero-<id>" in data/testimonials.json). */}}
             {{- range $rot.heroes }}<div data-hero-only="{{ .id }}">{{ partial "social-proof.html" (dict "slot" "hero" "heroId" .id) }}</div>{{ end -}}
           </div>
