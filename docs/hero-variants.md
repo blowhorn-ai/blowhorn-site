@@ -144,4 +144,19 @@ clear, since the Play the film button sits there.
 `http://localhost:1313/?hero=real-you` on a local `make site`. Anything else is
 ignored and the time rule applies.
 
+## Cycling heroes by keyboard
+
+On the home page and on `/home-reveille/`, type the letters `cycle`, in
+order, to move to the next hero in place, without reloading. The order
+is the full hero list (rotating heroes first, then the rest), wrapping
+from the last hero back to the first. The URL is updated in place to
+`?hero=<id>`, so a reload or a shared link shows the same hero.
+
+The sequence ignores modifier keys and any typing inside a form field,
+a text box, or an editable area, and it resets if more than 2 seconds
+pass between letters. It is implemented in `assets/js/hero-cycle.js`,
+loaded by `layouts/home.html` and `layouts/home-reveille.html`, using
+the hero list the pre-paint picker exposes as `window.blowhornHeroes`
+in `layouts/_partials/hero-rotation-head.html`.
+
 No analytics or third-party script may be added to measure heroes (`check-third-party`).

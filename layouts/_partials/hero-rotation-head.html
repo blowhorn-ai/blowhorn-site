@@ -23,6 +23,10 @@
     <script>
       (function () {
         var heroes = {{ $picks | jsonify | safeJS }}, n = {{ $rot.rotating }}, mode = {{ $rot.mode | jsonify | safeJS }}, seconds = {{ $rot.intervalSeconds }}, i = -1, q = null, k;
+        /* Exposed for assets/js/hero-cycle.js, so typing "cycle" can move
+           to the next hero in place, with its art and media, instead of
+           duplicating this pick list. */ 
+        window.blowhornHeroes = heroes;
         try { q = new URLSearchParams(window.location.search).get('hero'); } catch (e) {}
         if (q && /^[0-9]+$/.test(q)) { i = parseInt(q, 10) - 1; if (i >= n) { i = -1; } }
         else if (q) { for (k = 0; k < heroes.length; k++) { if (heroes[k].id === q) { i = k; } } }
