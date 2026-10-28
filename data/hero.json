@@ -1,9 +1,16 @@
 {
   "$schema": "../schemas/hero.schema.json",
   "default": "scripted-ai-ready",
+  "tagline": "Social media management for you and your AI agents.",
   "rotation": {
     "mode": "utc-day",
-    "ids": ["plug-in-ai", "scripted-ai-ready", "same-rules", "ai-optional", "human-or-ai"]
+    "ids": [
+      "plug-in-ai", "scripted-ai-ready", "same-rules", "ai-optional", "human-or-ai",
+      "r2-sound-wave", "r2-advocacy", "r2-whisper", "r2-ovation", "r2-password",
+      "r2-scarecrows", "r2-manners", "r2-backup", "r2-every-mac", "r2-army-marches",
+      "r2-halt", "r2-juggling", "r2-agency-name", "r2-remote-team", "r2-no-meter",
+      "r2-per-breath", "r2-crickets", "r2-ai-orders"
+    ]
   },
   "media": {
     "default": "video",
@@ -191,6 +198,114 @@
       "identification": "If this is you: you are a 1 to 50 person technical company, and \"talk to sales\" is not a pricing plan.",
       "differentiators": [13],
       "note": "Issue #254, startup priced out. Not in the production rotation; reachable via ?hero=too-small-for-demo and the Easter egg hotkey."
+    },
+    {
+      "id": "r2-sound-wave",
+      "headline": "Make a sound wave, not a ripple.",
+      "differentiators": [2],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-advocacy",
+      "headline": "Employee advocacy, minus the enterprise invoice.",
+      "differentiators": [2],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-whisper",
+      "headline": "The algorithm can't hear a whisper.",
+      "differentiators": [2],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-ovation",
+      "headline": "Your launch deserves an ovation, not a pity like.",
+      "differentiators": [2],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-password",
+      "headline": "Your password called. It wants to stay home.",
+      "differentiators": [8, 9],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-scarecrows",
+      "headline": "Bought likes are scarecrows with thumbs up.",
+      "differentiators": [2, 8],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-manners",
+      "headline": "Automation with manners.",
+      "differentiators": [8],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-backup",
+      "headline": "Not a bot. Just you, with backup.",
+      "differentiators": [8],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-every-mac",
+      "headline": "Every Mac you own, reporting for duty.",
+      "differentiators": [1, 4],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-army-marches",
+      "headline": "Close your laptop. The army keeps marching.",
+      "differentiators": [1, 3],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-halt",
+      "headline": "Second thoughts? One button halts the whole army.",
+      "differentiators": [6],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-juggling",
+      "headline": "Juggling clients? Put the balls down.",
+      "differentiators": [13],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-agency-name",
+      "headline": "Your agency's name on it. Our army behind it.",
+      "differentiators": [13],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-remote-team",
+      "headline": "Remote team. One battle plan. Everyone keeps their own keys.",
+      "differentiators": [8, 13],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-no-meter",
+      "headline": "No meter. No credits. No rationing.",
+      "differentiators": [13],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-per-breath",
+      "headline": "Social tools charge per seat, per post, per breath.",
+      "differentiators": [13],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-crickets",
+      "headline": "Built by a tiny team that got tired of crickets.",
+      "differentiators": [13],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
+    },
+    {
+      "id": "r2-ai-orders",
+      "headline": "Let your AI give the orders. Blowhorn follows them.",
+      "differentiators": [10],
+      "note": "Round 2 hero line by Blowhorn Marketing (Oct 27 2026), approved by Lee for the homepage rotation."
     }
   ]
 }
