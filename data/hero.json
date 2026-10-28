@@ -123,7 +123,7 @@
     {
       "id": "password-cookie-2fa",
       "headline": "Other tools want your password. And your cookie. And your 2FA secret.",
-      "subhead": "Blowhorn is a Mac social media console that acts as you, in your own Chrome. Your LinkedIn, X, Reddit, and Hacker News sessions stay in Chrome on your Mac. Your account keeps the queue in sync. Your Macs do the posting.",
+      "subhead": "Blowhorn is a Mac social media console that acts as you, in your Chrome. Your LinkedIn, X, Reddit, and Hacker News sessions stay in Chrome on your computer. Your account syncs the queue. Your computers do the posting.",
       "identification": "If this is you: you have stared at a vendor login screen and thought, absolutely not, that account is the company.",
       "differentiators": [8, 9],
       "note": "Issue #254, custody. Not in the production rotation; reachable via ?hero=password-cookie-2fa and the Easter egg hotkey."
@@ -139,7 +139,7 @@
     {
       "id": "not-rental",
       "headline": "Your accounts are not a rental property.",
-      "subhead": "Blowhorn is a social media console for Mac. One queue, many profiles, and the sessions that matter stay on your machine, not on a vendor server.",
+      "subhead": "Blowhorn is a social media console for Mac. One queue, many profiles, and the sessions that matter stay on your computer, not on a vendor server.",
       "identification": "If this is you: you run client or company accounts and you have had to answer, \"where do my logins live?\"",
       "differentiators": [8, 9],
       "note": "Issue #254, custody. Not in the production rotation; reachable via ?hero=not-rental and the Easter egg hotkey."
@@ -171,7 +171,7 @@
     {
       "id": "hundred-seats",
       "headline": "Enterprise advocacy tools want 100 seats. You have four people and a launch.",
-      "subhead": "Blowhorn is a Mac social media console for small technical teams. One shared queue, as many Macs as you own, and amplification from every profile you run. Team onboarding is Coming soon.",
+      "subhead": "Blowhorn is a Mac social media console for small technical teams. One shared queue, as many computers as you own, and amplification from every profile you run. Team onboarding is Coming soon.",
       "identification": "If this is you: you got a quote with a seat minimum and laughed, then cried a little.",
       "differentiators": [2, 13],
       "note": "Issue #254, startup priced out. Not in the production rotation; reachable via ?hero=hundred-seats and the Easter egg hotkey."
