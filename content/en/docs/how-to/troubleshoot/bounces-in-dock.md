@@ -1,5 +1,6 @@
 ---
 title: "The Blowhorn desktop app bounces in my dock and won't start. Why?"
+seo_title: "Desktop app bounces in the dock and won't start"
 description: "What a bouncing dock icon means, and how to get the app open again without a terminal."
 weight: 198
 ---
