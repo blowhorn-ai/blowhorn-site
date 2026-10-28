@@ -129,7 +129,7 @@ jobs:
           rm -rf .internal-src
 
       - name: Point the internal worker at the signups database
-        run: .github/scripts/resolve-d1.sh internal-worker
+        run: bash .github/scripts/resolve-d1.sh internal-worker
 
       - name: Deploy to the blowhorn-internal Worker
         run: make site-internal-worker-deploy

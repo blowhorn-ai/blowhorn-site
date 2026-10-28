@@ -16,7 +16,7 @@ log="$(mktemp)"
 trap 'rm -f "$log"' EXIT
 export WRANGLER_SEND_METRICS=false CI=true
 (cd "$dir" && npx --yes "wrangler@$WRANGLER_VERSION" d1 list --json >"$log" 2>&1) ||
-  { echo "resolve-d1: d1 list failed" >&2; exit 1; }
+  { echo "resolve-d1: d1 list failed" >&2; grep -oE '\[code: [0-9]+\]|Authentication error|not authorized|permission' "$log" | sort -u >&2 || true; exit 1; }
 id="$(python3 - "$log" "$name" <<'PY'
 import json, sys
 data = json.load(open(sys.argv[1]))
@@ -30,7 +30,7 @@ PY
 )"
 if [ -z "$id" ]; then
   (cd "$dir" && npx --yes "wrangler@$WRANGLER_VERSION" d1 create "$name" --json >"$log" 2>&1) ||
-    { echo "resolve-d1: d1 create failed" >&2; exit 1; }
+    { echo "resolve-d1: d1 create failed" >&2; grep -oE '\[code: [0-9]+\]|Authentication error|not authorized|permission' "$log" | sort -u >&2 || true; exit 1; }
   id="$(python3 - "$log" "$name" <<'PY'
 import json, sys
 data = json.load(open(sys.argv[1]))

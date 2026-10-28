@@ -51,7 +51,7 @@ jobs:
         run: node --test signup-worker/worker.test.mjs
 
       - name: Point the worker at the signups database
-        run: .github/scripts/resolve-d1.sh signup-worker
+        run: bash .github/scripts/resolve-d1.sh signup-worker
 
       - name: Apply migrations
         run: |
