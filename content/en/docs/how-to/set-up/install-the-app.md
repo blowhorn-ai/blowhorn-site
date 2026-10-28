@@ -45,7 +45,7 @@ drives the Chrome profiles you already sign in to, through its Chrome
 extension, which you add to each Chrome profile you post from
 ([Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/)).
 
-## First run
+## First muster
 
 The app opens on its Setup screen until its engine is ready; after that the
 guided setup takes over (see below). Setup checks, in order, the engine
@@ -75,7 +75,7 @@ Connecting the Blowhorn Chrome extension to this computer takes no pop-up:
 - **Guided setup:** the first time you open the app, the guided setup walks
   you through signing in, Getting ready and the rest, one step at a time.
 
-See [Set up Blowhorn the first time](/docs/how-to/set-up/first-run-setup/).
+See [Set up Blowhorn at first muster](/docs/how-to/set-up/first-muster-setup/).
 
 Then check sessions and run a dry-run post. Nothing is published until you
 post without `--dry-run`.
