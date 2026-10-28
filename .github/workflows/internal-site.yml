@@ -124,6 +124,7 @@ jobs:
           fi
           test -f public-internal/internal/index.html || { echo "::error::The internal build produced no /internal/ index."; exit 1; }
           test -f public-internal/internal/finance/report/index.html || { echo "::error::The internal build produced no finance report."; exit 1; }
+          test -f public-internal/internal/engineering/index.html || { echo "::error::The internal build produced no engineering index."; exit 1; }
           pages="$(find public-internal -name '*.html' | wc -l | tr -d ' ')"
           echo "Built $pages HTML pages."
           rm -rf .internal-src

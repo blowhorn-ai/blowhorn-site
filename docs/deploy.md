@@ -498,7 +498,9 @@ The workflow, in order (each step is a make target):
    managed default-deny pair. This runs before any private content reaches
    the runner.
 4. Checks out blowhorn-ai/blowhorn (sparse: `marketing/strategy`,
-   `marketing/capability-comparison`) with the read-only deploy key.
+   `marketing/capability-comparison`, `internal/engineering`,
+   `internal/design`, `internal/specs`, `internal/plans`,
+   `internal/research`) with the read-only deploy key.
 5. `site-internal-build` with `BASE_URL=https://internal.blowhorn.ai/`, output
    suppressed.
 6. `site-internal-worker-deploy`: `wrangler deploy` with a filtered summary,
