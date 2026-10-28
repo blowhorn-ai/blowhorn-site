@@ -15,8 +15,13 @@ name="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["d1_data
 log="$(mktemp)"
 trap 'rm -f "$log"' EXIT
 export WRANGLER_SEND_METRICS=false CI=true
+fail_log() {
+  # Print wrangler's own error lines, with long identifiers redacted: the
+  # caller's repository logs are public.
+  grep -iE 'error|failed|unknown argument|invalid' "$log" | sed -E 's/[0-9a-f]{32}/<id>/g; s/[A-Za-z0-9_-]{40}/<token>/g' | head -10 >&2 || true
+}
 (cd "$dir" && npx --yes "wrangler@$WRANGLER_VERSION" d1 list --json >"$log" 2>&1) ||
-  { echo "resolve-d1: d1 list failed" >&2; grep -oE '\[code: [0-9]+\]|Authentication error|not authorized|permission' "$log" | sort -u >&2 || true; exit 1; }
+  { echo "resolve-d1: d1 list failed" >&2; fail_log; exit 1; }
 id="$(python3 - "$log" "$name" <<'PY'
 import json, sys
 data = json.load(open(sys.argv[1]))
@@ -30,7 +35,7 @@ PY
 )"
 if [ -z "$id" ]; then
   (cd "$dir" && npx --yes "wrangler@$WRANGLER_VERSION" d1 create "$name" --json >"$log" 2>&1) ||
-    { echo "resolve-d1: d1 create failed" >&2; grep -oE '\[code: [0-9]+\]|Authentication error|not authorized|permission' "$log" | sort -u >&2 || true; exit 1; }
+    { echo "resolve-d1: d1 create failed" >&2; fail_log; exit 1; }
   id="$(python3 - "$log" "$name" <<'PY'
 import json, sys
 data = json.load(open(sys.argv[1]))
