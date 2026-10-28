@@ -34,15 +34,19 @@ for db in dbs:
 PY
 )"
 if [ -z "$id" ]; then
-  (cd "$dir" && npx --yes "wrangler@$WRANGLER_VERSION" d1 create "$name" --json >"$log" 2>&1) ||
+  # d1 create takes no --json flag in this wrangler version, so the id is
+  # read back from a second list call instead of from create's output.
+  (cd "$dir" && npx --yes "wrangler@$WRANGLER_VERSION" d1 create "$name" >"$log" 2>&1) ||
     { echo "resolve-d1: d1 create failed" >&2; fail_log; exit 1; }
+  (cd "$dir" && npx --yes "wrangler@$WRANGLER_VERSION" d1 list --json >"$log" 2>&1) ||
+    { echo "resolve-d1: d1 list failed" >&2; fail_log; exit 1; }
   id="$(python3 - "$log" "$name" <<'PY'
 import json, sys
 data = json.load(open(sys.argv[1]))
 want = sys.argv[2]
 dbs = data if isinstance(data, list) else data.get("d1_databases", [data])
 for db in dbs:
-    if isinstance(db, dict) and db.get("uuid"):
+    if isinstance(db, dict) and db.get("name") == want and db.get("uuid"):
         print(db["uuid"])
         break
 PY
