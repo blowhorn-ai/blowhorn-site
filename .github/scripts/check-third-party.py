@@ -55,7 +55,9 @@ SCRIPT_HOSTS = {"api.github.com", "github.com"}
 # Hosts a <script src> may load Google Analytics 4 (gtag.js) from. Disclosed on the privacy page.
 ANALYTICS_SCRIPT_HOSTS = {"www.googletagmanager.com"}
 # Hosts a <form action> may post to. Each one must be disclosed on the privacy page.
-FORM_ACTION_HOSTS = {"calcotestudios.us15.list-manage.com"}
+# api.blowhorn.ai is Blowhorn's own signup service (a Cloudflare Worker), not
+# a third party: the coming-soon and newsletter forms post there.
+FORM_ACTION_HOSTS = {"calcotestudios.us15.list-manage.com", "api.blowhorn.ai"}
 
 def _cloud_host() -> str:
     """Host of params.cloud_url in hugo.toml, the one allowed refresh target."""
