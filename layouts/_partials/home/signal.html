@@ -25,8 +25,6 @@
               <span data-hero-only="{{ .id }}"><a class="button button-secondary" href="{{ $href }}">{{ .cta.label }}</a></span>
               {{- end }}
             </div>
-            {{- /* One proof spot per hero banner, each paired with a different user (placements "hero-<id>" in data/testimonials.json). */}}
-            {{- range $rot.heroes }}<div data-hero-only="{{ .id }}">{{ partial "social-proof.html" (dict "slot" "hero" "heroId" .id) }}</div>{{ end -}}
           </div>
           {{- /* data/hero.json media.video (placement inline-expand): the film
             sits small beside the copy (below it on phones) and expands into

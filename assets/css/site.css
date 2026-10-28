@@ -2922,39 +2922,13 @@ a.card.docs-card > * { margin-top: 0; }
 
 /* Social proof (layouts/_partials/social-proof.html). Glass surfaces, low density.
    The proof is spread down the page on purpose: a wordmark ticker directly
-   under the hero, quote chips inside the hero, one big pull-quote after the
+   under the hero, one big pull-quote after the
    platforms, the full grid ("Fewer tabs. More reach."), and a closing band
    beside the download call. One data file (data/testimonials.json) feeds all
    of it through placements, so a quote appears where its slot is called. */
 .proof-flag { display: inline-block; padding: 0.1em 0.55em; border-radius: 999px; background: #FFE08A; color: #3A2E00; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: middle; }
 .proof-avatar { display: inline-grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--glass-fill-strong); border: var(--stroke-hairline, 1px) solid var(--glass-edge); box-shadow: var(--glass-shadow); font-weight: 700; font-size: 0.8rem; }
 .proof-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
-/* The hero carries exactly one proof spot, paired to the day's hero
-   banner. The teaser truncates the quote, so the summary is a real
-   disclosure control: one click (or Enter) opens the full quote in
-   place, with a link on to the full grid in context. Open, the teaser
-   hides, so the full quote is the only copy — never the teaser plus
-   the full quote. */
-.proof-spot { margin: var(--space-6) 0 0; max-width: 34rem; border-radius: 1.25rem; background: var(--glass-fill); border: 1px solid var(--glass-rim); box-shadow: var(--glass-shadow); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); }
-.proof-spot-summary { display: flex; gap: var(--space-3); align-items: center; padding: var(--space-3) var(--space-4); cursor: pointer; list-style: none; border-radius: 1.25rem; }
-.proof-spot-summary::-webkit-details-marker { display: none; }
-.proof-spot-summary:hover .proof-spot-toggle, .proof-spot-summary:hover .proof-spot-collapse { color: var(--link); }
-.proof-spot-summary:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
-.proof-spot-teaser { flex: 1; min-width: 0; }
-.proof-spot-toggle, .proof-spot-collapse { flex: none; font-size: 0.8rem; font-weight: 700; color: var(--teal-deep); white-space: nowrap; }
-.proof-spot-toggle::after { content: " +"; }
-.proof-spot-collapse { display: none; }
-.proof-spot-collapse::after { content: " –"; }
-/* Open: the teaser hides, so the full quote below is the only copy on
-   the page — never the teaser plus the full quote — and the toggle
-   swaps to a collapse label. */
-.proof-spot[open] .proof-spot-teaser { display: none; }
-.proof-spot[open] .proof-spot-toggle { display: none; }
-.proof-spot[open] .proof-spot-collapse { display: inline; }
-@media (prefers-color-scheme: dark) { .proof-spot-toggle, .proof-spot-collapse { color: var(--teal-bright); } }
-.proof-spot-full { padding: 0 var(--space-4) var(--space-4); }
-.proof-spot-full blockquote { margin: 0 0 var(--space-2); font-size: 1.05rem; line-height: 1.5; }
-.proof-spot-full p { margin: 0; }
 .proof-big { max-width: 46rem; margin: 0 auto; text-align: center; }
 .proof-big blockquote { margin: 0 0 var(--space-4); }
 .proof-big blockquote::before { content: "\201C"; display: block; font-family: var(--font-display); font-size: 4rem; line-height: 0.6; color: var(--teal-deep); }
