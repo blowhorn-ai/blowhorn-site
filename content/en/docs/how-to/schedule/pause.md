@@ -75,9 +75,9 @@ In the app this pause is called **Stand down**, and lifting it is
 **Reenlist**. Use the duty toggle at the bottom of the console rail: it reads
 **On duty** with **Stand down** beside it, or **Standing down** with
 **Reenlist**, and the round thumb is teal or amber to match. ⌘⇧P does the same,
-and so does "stand down this machine" in the popover or the menu. It takes one
+and so does "stand down this computer" in the popover or the menu. It takes one
 click and no reason. Home's Fleet card offers the same toggle on this
-machine's row. While this machine is standing down, the app also skips its
+computer's row. While this computer is standing down, the app also skips its
 session probe, so it opens no browser at all.
 
 ## Pause every computer, or one activity
@@ -94,12 +94,12 @@ all computers, or that activity. `--all` and `--activity` live in your account, 
 computer sharing it honours them on its next claim; the flagless pause never
 touches your account. In the app every scope is a Stand down / Reenlist pair:
 
-- **This machine** - the rail's duty toggle, the flagless pause above.
-- **The fleet** (every machine sharing your schedule, `--all`) - the
+- **This computer** - the rail's duty toggle, the flagless pause above.
+- **The fleet** (every computer sharing your schedule, `--all`) - the
   **Entire fleet** row on Home's Fleet card, or "stand down the fleet" in the
   popover, This computer and Safety. A reason is optional; on Home you type
   it beside the toggle and it saves as you type. While the fleet stands down,
-  the card shows who stood it down, when and why, and this machine's row
+  the card shows who stood it down, when and why, and this computer's row
   waits for the fleet to reenlist.
 - **This order** (`--activity N`) - the duty switch inside an item's drawer:
   **Scheduled** with **Stand down**, or **Standing down** with **Reenlist**.
@@ -107,7 +107,7 @@ touches your account. In the app every scope is a Stand down / Reenlist pair:
   once saved, and goes out with the Stand down. The item's list row reads
   **standing down** while it is held.
 
-There is no Stand down for another machine: stand that machine down from
+There is no Stand down for another computer: stand that computer down from
 its own Blowhorn app, or stand down the whole fleet.
 
 Lifting one scope leaves the other two as they were. A held activity still reads
