@@ -7,10 +7,10 @@ No confirmation step: a signup is live as soon as it is stored.
 ## Hosting
 
 - Worker: `blowhorn-signups`, served at `https://api.blowhorn.ai`
-  (custom domain). The `blowhorn.ai/api/*` route in `wrangler.json`
-  is dormant: the apex is DNS-only, so Worker routes never intercept
-  traffic there. If the apex is ever proxied, that route starts
-  serving the same API with no code change.
+  (custom domain). A `blowhorn.ai/api/*` route was dropped: the apex is
+  DNS-only, so such a route can never serve traffic, and creating it
+  failed the deploy (the Cloudflare API refused the routes update).
+  If the apex is ever proxied, the route can be re-added then.
 - Store: Cloudflare D1 database `blowhorn-signups`, bound as
   `SIGNUPS_DB`. The same database is bound to the internal worker,
   which serves the Access-gated admin page and CSV export at
