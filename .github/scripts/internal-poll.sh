@@ -3,7 +3,7 @@
 # which blowhorn-ai/blowhorn ref.
 #   push, workflow_dispatch: always deploy, at BLOWHORN_REF (default master).
 #   schedule: deploy blowhorn master's current SHA when any path the internal
-#     build mounts has a commit on master in the last WINDOW_HOURS (default 2).
+#     build mounts has a commit on master in the last WINDOW_HOURS (default 0.5).
 #     Needs DMG_SOURCE_TOKEN (read access to blowhorn-ai/blowhorn).
 # Env: EVENT (github.event_name), BLOWHORN_REF, DMG_SOURCE_TOKEN, WINDOW_HOURS.
 # Writes should_deploy and blowhorn_ref to $GITHUB_OUTPUT (stdout when unset).
@@ -42,7 +42,7 @@ fi
 command -v gh > /dev/null || { echo "::error::gh not found."; exit 1; }
 export GH_TOKEN="$DMG_SOURCE_TOKEN"
 
-window="${WINDOW_HOURS:-2}"
+window="${WINDOW_HOURS:-0.5}"
 since="$(python3 -c 'import datetime,sys; print((datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=float(sys.argv[1]))).strftime("%Y-%m-%dT%H:%M:%SZ"))' "$window")"
 
 # Pin the SHA first, then ask about history up to it, so the ref deployed is

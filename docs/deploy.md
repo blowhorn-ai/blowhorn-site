@@ -450,11 +450,12 @@ is each page's `weight`. The public build never renders any of it.
 
 ### Where the internal build runs
 
-blowhorn's `.github/workflows/internal-site.yml` checks out both
-repositories side by side, runs `make site-internal-build` from the blowhorn
-clone and uploads `public-internal/` as a private workflow artifact. There
-is no private host. It never runs in this repository's Actions, whose
-artifacts and logs are public.
+The internal build and Worker deploy run in this repository's Actions
+(`.github/workflows/internal-site.yml`), started by hand, by
+`internal-site-auto.yml`, or by `repository_dispatch`. The private product
+checkout is sparse, never uploaded, and removed before the job ends; build
+and wrangler output stay suppressed because this repository is public. There
+is no private host and no artifact of `public-internal/`.
 
 ### Footguns
 
@@ -502,16 +503,16 @@ own after a change to anything the internal build is made from:
   `go.sum`, `hugo.toml`, `postcss.config.js`).
 - **Product side (blowhorn-ai/blowhorn), polled.** Every 15 minutes the same
   workflow runs `make site-internal-poll`, which asks the GitHub API, with
-  `DMG_SOURCE_TOKEN`, whether blowhorn `master` has a commit in the last two
-  hours under a mounted path (`marketing/strategy/**`,
+  `DMG_SOURCE_TOKEN`, whether blowhorn `master` has a commit in the last 30
+  minutes under a mounted path (`marketing/strategy/**`,
   `marketing/capability-comparison/**`, `marketing/brand/**` including the
   asset catalog, `marketing/assets.manifest.json`, or
   `internal/{engineering,design,specs,plans,research}/**`). If so it deploys
   that `master` SHA. The run fails, rather than skipping, when
   `DMG_SOURCE_TOKEN` is missing or cannot read the repository. Polling keeps
   the work on this public repository's free minutes; the private repository
-  spends none. A change is redeployed on each poll for two hours, which
-  rides out delayed or dropped scheduled runs.
+  spends none. A change is redeployed on each poll for about 30 minutes, which
+  rides out one delayed or dropped scheduled run without eight repeats.
 - **Product side, pushed.** A client with a token that can dispatch on this
   repository sends `repository_dispatch` with event type
   `deploy-internal-site` and optional
@@ -526,7 +527,7 @@ own after a change to anything the internal build is made from:
   merge under the mounted paths, with the repository secret
   `SITE_DISPATCH_TOKEN` (a token with Contents: write on
   blowhorn-ai/blowhorn-site, which `repository_dispatch` requires). Without
-  that hook, the poll still picks the change up within 15 minutes.
+  that hook, the poll still picks the change up within about 15-45 minutes.
 - **By hand.** From a blowhorn-ai/blowhorn clone (or here):
   `make site-internal-deploy` (`REF=<branch|tag|sha>` to build something other
   than master, `WATCH=0` to not wait) runs the workflow by
