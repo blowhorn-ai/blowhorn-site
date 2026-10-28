@@ -27,7 +27,7 @@
   <input type="hidden" name="topic" value="{{ $topic }}">
   {{- end }}
   <input type="hidden" name="source_page" value="{{ .Page.RelPermalink }}">
-  <p style="position: absolute; left: -9999px;" aria-hidden="true">
+  <p class="signup-honeypot" aria-hidden="true">
     <label for="signup-website">Website</label>
     <input id="signup-website" name="website" type="text" tabindex="-1" autocomplete="off">
   </p>
