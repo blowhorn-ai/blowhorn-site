@@ -13,7 +13,7 @@
 {{- $art := site.Data.tells.home -}}
         <section class="agent-section tells-callout glass" aria-labelledby="{{ $id }}">
           <figure class="tells-callout-art" aria-hidden="true">
-            <img src="{{ $art.art | relURL }}" alt="" width="960" height="540" loading="lazy">
+            <img src="{{ $art.art_640 | relURL }}" srcset="{{ $art.art_640 | relURL }} 640w, {{ $art.art | relURL }} 1280w" sizes="(min-width: 720px) 20rem, 90vw" alt="" width="1280" height="720" loading="lazy">
           </figure>
           <div class="tells-callout-copy">
             <h2 id="{{ $id }}" class="h2">{{ .heading }}</h2>

@@ -18,7 +18,7 @@
               <p class="tells-agents ui muted">{{ .agents_lead }} <a href="{{ partial "tells-link.html" (dict "placement" "home" "page" "agents") }}">{{ .agents_link }}</a></p>
             </div>
             <figure class="tells-art">
-              <img src="{{ .art | relURL }}" alt="{{ .art_alt }}" width="960" height="540" loading="lazy">
+              <img src="{{ .art | relURL }}" srcset="{{ .art_640 | relURL }} 640w, {{ .art | relURL }} 1280w" sizes="(min-width: 900px) 40vw, 90vw" alt="{{ .art_alt }}" width="1280" height="720" loading="lazy">
             </figure>
           </div>
         </div>

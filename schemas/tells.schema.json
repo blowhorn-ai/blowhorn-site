@@ -79,7 +79,7 @@
       "description": "The Signal home page band after Trust (layouts/_partials/home/tells.html).",
       "type": "object",
       "additionalProperties": false,
-      "required": ["eyebrow", "heading", "body", "cta", "secondary", "agents_lead", "agents_link", "art", "art_alt"],
+      "required": ["eyebrow", "heading", "body", "cta", "secondary", "agents_lead", "agents_link", "art", "art_640", "art_alt"],
       "properties": {
         "eyebrow": { "$ref": "#/definitions/text" },
         "heading": { "$ref": "#/definitions/text" },
@@ -88,7 +88,8 @@
         "secondary": { "$ref": "#/definitions/text" },
         "agents_lead": { "$ref": "#/definitions/text" },
         "agents_link": { "$ref": "#/definitions/text" },
-        "art": { "description": "Path under static/.", "type": "string", "pattern": "^assets/.+\\.webp$" },
+        "art": { "description": "Path under static/ to the 1280x720 art (the 1280w srcset candidate).", "type": "string", "pattern": "^assets/.+\\.webp$" },
+        "art_640": { "description": "Path under static/ to the 640x360 version of the same art (the 640w srcset candidate).", "type": "string", "pattern": "^assets/.+\\.webp$" },
         "art_alt": { "$ref": "#/definitions/text" }
       }
     },
