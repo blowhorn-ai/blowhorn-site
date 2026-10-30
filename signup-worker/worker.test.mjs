@@ -135,11 +135,22 @@ test('form posts redirect to the thanks page on success', async () => {
   assert.equal(res.headers.get('location'), THANKS_URL);
 });
 
-test('unsubscribe answers the same page for unknown tokens', async () => {
+test('unsubscribe without a token says the link is incomplete', async () => {
+  const db = fakeDb();
+  const res = await createHandler(db)(new Request('https://api.blowhorn.ai/api/unsubscribe'));
+  assert.equal(res.status, 400);
+  const text = await res.text();
+  assert.match(text, /incomplete/);
+  assert.doesNotMatch(text, /You are unsubscribed/);
+});
+
+test('unsubscribe with an unknown token says the link is not recognized', async () => {
   const db = fakeDb();
   const res = await createHandler(db)(new Request('https://api.blowhorn.ai/api/unsubscribe?token=nope'));
-  assert.equal(res.status, 200);
-  assert.match(await res.text(), /Unsubscribed/);
+  assert.equal(res.status, 404);
+  const text = await res.text();
+  assert.match(text, /not recognized/);
+  assert.doesNotMatch(text, /You are unsubscribed/);
 });
 
 test('31st request in a minute is rate limited', async () => {

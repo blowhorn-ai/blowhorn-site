@@ -6,6 +6,9 @@
 {{ define "main" }}
     {{- $videosSection := site.GetPage "/resources/videos" -}}
     {{- $videos := $videosSection.RegularPagesRecursive -}}
+    {{- $articlesSection := site.GetPage "/resources/articles" -}}
+    {{- $articles := $articlesSection.RegularPagesRecursive -}}
+    {{- $intel := where $articles "Params.tags" "intersect" (slice "in-product-intelligence") -}}
     <main id="main" class="page resources-page">
       <div class="wrap">
         <header>
@@ -24,12 +27,12 @@
             </a>
           </li>
           <li>
-            <div class="resource-type-card is-planned" aria-describedby="articles-note">
+            <a class="resource-type-card" href="{{ $articlesSection.RelPermalink }}">
               <p class="label rt-kind">Read</p>
-              <h2>Product intelligence</h2>
-              <p>Articles on reading your results, scheduling craft and the changes platforms make that affect your posts.</p>
-              <p class="rt-meta" id="articles-note">In the works - the first articles are being written.</p>
-            </div>
+              <h2>Articles</h2>
+              <p>Product intelligence and tips: reading your results, scheduling craft and the changes platforms make that affect your posts.</p>
+              <p class="rt-meta">{{ len $articles }} article{{ if ne (len $articles) 1 }}s{{ end }} and tips</p>
+            </a>
           </li>
           <li>
             <a class="resource-type-card" href="{{ (site.GetPage "/field-manual").RelPermalink }}">
@@ -51,10 +54,18 @@
 
         {{- with $videos }}
         <h2>Latest videos</h2>
-        <ul class="video-grid" data-video-grid>
+        <ul class="video-grid" data-collection-grid data-collection-noun="videos">
           {{- range first 3 (.ByDate.Reverse) }}{{ partial "video-card.html" . }}{{ end -}}
         </ul>
         <p><a href="{{ $videosSection.RelPermalink }}">All videos</a></p>
+        {{- end }}
+
+        {{- with $intel }}
+        <h2>Latest from Product intelligence</h2>
+        <div class="articles-list">
+          {{- range first 3 (.ByDate.Reverse) }}{{ partial "article-card.html" . }}{{ end -}}
+        </div>
+        <p><a href="{{ $articlesSection.RelPermalink }}">All articles</a></p>
         {{- end }}
       </div>
     </main>

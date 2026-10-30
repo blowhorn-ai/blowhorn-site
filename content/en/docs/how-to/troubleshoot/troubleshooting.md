@@ -20,7 +20,7 @@ Start from what you saw. Each symptom names its fix page.
 ## Sign-in problems
 
 - **LinkedIn, X or Reddit says the session expired.** Sign in again in your
-  mapped Chrome profile, or run `blowhorn profile auth` for that platform. See
+  mapped Google Chrome profile, or run `blowhorn profile auth` for that platform. See
   [Fix a sign-in that stopped working](/docs/how-to/troubleshoot/sign-in-problems/).
 - **A CAPTCHA or second factor appears mid-run.** The run stops and hands the
   browser back to you. Complete the challenge by hand, then run again. See

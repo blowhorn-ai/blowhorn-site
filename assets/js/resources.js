@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  var grid = document.querySelector("[data-video-grid]");
+  var grid = document.querySelector("[data-collection-grid]");
   var dialog = document.querySelector("[data-video-dialog]");
 
   // Player dialog: one shared <dialog> for every card on the page.
@@ -71,7 +71,7 @@
       if (visible) shown += 1;
     });
     if (status) {
-      status.textContent = shown === cards.length ? "" : shown + " of " + cards.length + " videos shown";
+      status.textContent = shown === cards.length ? "" : shown + " of " + cards.length + " " + (grid.getAttribute("data-collection-noun") || "items") + " shown";
     }
   };
 

@@ -6,7 +6,10 @@ aliases: [/docs/how-to/install-the-chrome-extension/]
 ---
 
 
-Blowhorn drives Chrome through its Chrome extension. Chrome keeps an
+Requires macOS 13 or newer and Google Chrome 142 or newer. See
+[System requirements](/docs/reference/requirements/).
+
+Blowhorn drives Google Chrome through its Chrome extension. Chrome keeps an
 extension inside each Chrome profile, and the extension drives only the
 profile it is installed in. Install it in every Chrome profile you post
 from.
@@ -121,7 +124,7 @@ When only one Chrome profile needs the extension, write the native host and
 follow the printed steps. Through the Blowhorn mapping:
 
 ```bash
-blowhorn chrome extension-install --profile kate
+blowhorn chrome extension-install --profile company
 ```
 
 By the Chrome profile directory, as `blowhorn chrome profiles` prints it:
@@ -145,7 +148,7 @@ with those clicks.
 See the files first, and write nothing:
 
 ```bash
-blowhorn chrome extension-install --profile kate --dry-run
+blowhorn chrome extension-install --profile company --dry-run
 ```
 
 ## Every Chrome profile on this computer
@@ -198,7 +201,7 @@ profile's copy was confirmed.
 
 ## From the desktop app
 
-Settings has one **chrome extension** card. The segmented control is the
+Settings has one **chrome extension** card, on its **Setup** page. The segmented control is the
 route: **every profile** or **ask in each profile**. The button stays
 **install chrome extension** either way. After the command, the card lists
 one row per Chrome profile with the same words the terminal prints.

@@ -69,7 +69,10 @@ the extension's own IndexedDB files,
 `<profile>/IndexedDB/chrome-extension_<extension id>_0.indexeddb.leveldb/`
 under the data directory of the Chrome that started it (its
 `--user-data-dir`, else Chrome's default), to learn which Chrome profile
-is asking. It
+is asking. When it finds that identifier in more than one profile (a
+copied profile carries the extension's files with it), it names none
+of them, and the popup asks you to map this profile in Blowhorn rather
+than show another profile's mapping. It
 reads no other extension's files and nothing else in the profile, and
 writes nothing there.
 
@@ -180,7 +183,8 @@ signing in, then confirms the session once.
 
 Whether Google Chrome is installed, whether it is running, and whether
 its debugging switch is on. On macOS the installed path is
-`/Applications/Google Chrome.app`; on Linux the `PATH` names and
+`/Applications/Google Chrome.app`, then `~/Applications/Google Chrome.app`
+(the first one there wins); on Linux the `PATH` names and
 `/opt/google/chrome/chrome`. A missing Chrome stops the run with
 `ChromeNotInstalled` before any driver starts.
 
@@ -339,7 +343,7 @@ With the extension driver, a run uses one of two behaviors:
 | Chrome's debugging bar | while an action holds the debugger, gone after a short idle period | for the whole run, from before the site loads |
 | visible screenshot | captured through the debugger, without selecting the tab | captured through the debugger, without selecting the tab |
 | input | synthetic unless `BLOWHORN_EXTENSION_INPUT=trusted` | trusted unless `BLOWHORN_EXTENSION_INPUT=synthetic` |
-| bringing the tab forward | never. When Blowhorn needs you it turns the Blowhorn group red and opens it, posts a notification when "Tell me when something needs me" is on in Safety, and waits for you to click the tab | the same |
+| bringing the tab forward | never. When Blowhorn needs you it turns the Blowhorn group red and opens it, posts a notification when "Tell me when something needs me" is on in Posture, and waits for you to click the tab | the same |
 | no Chrome window open | that profile stops and you are asked to open a Chrome window. Opening one itself would bring Chrome in front of what you are doing. A post moves on to the next profile; other commands end there, and nothing that did not happen is recorded | the same |
 
 background is the default. classic keeps the input and debugger behavior of
@@ -390,7 +394,9 @@ post one notification whose button re-runs setup. Where setup's choice
 lives is per computer, not per account: a desktop belongs to the
 computer it was made on, so it is recorded there and never synced.
 
-Automatic creation needs one Accessibility grant. Without it, the floor
+Automatic creation needs one Accessibility grant, which System Settings
+lists as Blowhorn (Privacy & Security, Accessibility). Blowhorn asks for
+it only when you start setup, never during a run. Without it, the floor
 is one click by you in a Mission Control Blowhorn opens for you. A
 window on a desktop you are not looking at still reads as hidden to
 the page, so a desktop is a place to keep the work, not a way to hide
@@ -506,8 +512,8 @@ profile, `ok` is `false` and the command exits 1.
 ## `blowhorn chrome open-profile`
 
 ```bash
-blowhorn chrome open-profile kate
-blowhorn chrome open-profile kate --sign-in linkedin
+blowhorn chrome open-profile company
+blowhorn chrome open-profile company --sign-in linkedin
 ```
 
 Opens a window in the Chrome profile the named Blowhorn profile is
@@ -545,6 +551,37 @@ with one of them is how you connect it: Blowhorn never asks for the
 password. After you sign in, `blowhorn chrome discover` (the desktop's
 **Check again**) sees the sign-in and records it as the profile's
 account in your Blowhorn account.
+
+## `blowhorn chrome create-profile`
+
+```bash
+blowhorn chrome create-profile
+blowhorn chrome create-profile --json
+```
+
+Gives Blowhorn a Google Chrome profile of its own, for a Chrome that has
+only its main profile. It asks Google Chrome to open a new window in the
+profile directory `Blowhorn`, with the same handoff as `open-profile`
+(`open -na "Google Chrome" --args --profile-directory=Blowhorn
+--new-window chrome://newtab/` on macOS). Chrome makes that profile the
+first time and opens the same one every time after, so running it again
+makes no second profile. That held in a live check on Google Chrome 156,
+both with Chrome already running and with Chrome quit. Chrome gives the
+new profile a default name, `Person 1` in that check (the number can
+differ on your computer), and the desktop shows the profile as
+**Blowhorn's profile**. It maps nothing, reads no store and drives
+nothing in the window: you sign in there to the sites Blowhorn should
+use, then `blowhorn chrome discover` (the desktop's **Check again**)
+finds the profile and its accounts. Setup's **Set up Blowhorn's
+profile** runs it.
+
+With `--json` it prints `ok`, `dry_run`, `directory` (`Blowhorn`),
+`already_listed` (whether `Local State` listed the directory before this
+run; `null` when that file could not be read), `url`, `opened`, and
+`detail`, which says why the window did not open. Nothing after the open
+is read back, so it never claims Chrome made the profile. No Google
+Chrome is refused before anything opens, and a window Chrome could not be
+asked to open exits 1.
 
 ## `blowhorn chrome discover`
 
@@ -700,4 +737,4 @@ can run side by side. See [You're in control](/docs/explanation/youre-in-control
 - [Choose how Blowhorn reaches Chrome](/docs/how-to/settings/launch-mode/) - when to leave the default.
 - [Chrome extension permissions](/docs/reference/extension-permissions/) - what the extension may do.
 - [Messages and exit codes](/docs/reference/messages/) - every refusal sentence.
-- [Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/) - why your Chrome and not a bundled one.
+- [Why Blowhorn uses your own browser](/docs/explanation/your-own-chrome/) - why your Chrome and not a bundled one.

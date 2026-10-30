@@ -17,7 +17,7 @@ blowhorn star [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--ignore-risk` | boolean | `false` | Run this once even if your Risk Profile would hold it (a daily cap, quiet hours, outreach turned off or a pause after a sign-in challenge). Only this run; your Risk Profile stays as it is |
+| `--ignore-risk` | boolean | `false` | Run this once even if your Risk Profile would hold it (a daily cap, quiet hours, outreach turned off or a pause after a sign-in challenge). Only this run; your Risk Profile stays as it is. A limit the platform itself publishes still applies |
 | `--repo` | string, repeatable |  | GitHub only, repeatable: a repository as owner/name, or a github.com URL for one. At least one is required |
 | `--platform` | string |  | Platform scope for `blowhorn star`. One of: github (any other platform, including `all`, is rejected) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn star` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -28,11 +28,11 @@ Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `-
 Examples:
 
 ```bash
-blowhorn star --platform github --profile alex --repo acme/widgets --dry-run
-blowhorn star --platform github --profile alex --repo acme/widgets
+blowhorn star --platform github --profile personal --repo acme/widgets --dry-run
+blowhorn star --platform github --profile personal --repo acme/widgets
 blowhorn star --platform github --profile all --repo acme/widgets --repo meshery/meshery
-blowhorn star --platform github --profile kate,rian --repo acme/widgets
-blowhorn star --platform github --profile all --repo acme/widgets --exclude alex
+blowhorn star --platform github --profile company,work --repo acme/widgets
+blowhorn star --platform github --profile all --repo acme/widgets --exclude personal
 ```
 
 Output: text.

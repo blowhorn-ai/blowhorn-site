@@ -1,7 +1,7 @@
 ---
 title: "blowhorn chrome"
 linkTitle: "chrome"
-description: "blowhorn chrome: attach-chrome, confirm, discover, extension-enable, extension-install, extension-mode, extension-status, map, open-profile, profiles, status, suggest, unmap."
+description: "blowhorn chrome: attach-chrome, confirm, create-profile, discover, extension-enable, extension-install, extension-mode, extension-status, map, open-profile, profiles, status, suggest, unmap."
 weight: 103
 ---
 
@@ -13,6 +13,7 @@ The `blowhorn chrome` commands. Each one's `--help` prints the same text.
 | --- | --- |
 | [`chrome attach-chrome`](#blowhorn-chrome-attach-chrome) | Start or report a dedicated Chrome that is open to remote debugging with no Allow dialog, so `--chrome-launch cdp` can attach to a real Chrome unattended. |
 | [`chrome confirm`](#blowhorn-chrome-confirm) | Apply the confirm screen's confirmed choices. |
+| [`chrome create-profile`](#blowhorn-chrome-create-profile) | Give Blowhorn a Google Chrome profile of its own, for a Chrome that has only its main profile. |
 | [`chrome discover`](#blowhorn-chrome-discover) | Report, for every Chrome profile, the platform accounts discovery can see there -- the read behind onboarding's confirm screen. |
 | [`chrome extension-enable`](#blowhorn-chrome-extension-enable) | Open the Blowhorn extension's Chrome Web Store page in each Chrome profile you name, so you can turn the extension on there with one click. |
 | [`chrome extension-install`](#blowhorn-chrome-extension-install) | Write the native-messaging host manifest Chrome launches for the Blowhorn Chrome extension, and print where the unpacked extension lives so you can load it. |
@@ -22,7 +23,7 @@ The `blowhorn chrome` commands. Each one's `--help` prints the same text.
 | [`chrome open-profile`](#blowhorn-chrome-open-profile) | Open a window in the Chrome profile a Blowhorn profile is mapped to on this machine, so you can look at it or sign in to a platform there yourself. |
 | [`chrome profiles`](#blowhorn-chrome-profiles) | List every profile Chrome knows. |
 | [`chrome status`](#blowhorn-chrome-status) | Report whether Google Chrome is installed, whether it is running, whether its remote-debugging switch is on (chrome://inspect/#remote-debugging), the debugging port it recorded, how many profiles i... |
-| [`chrome suggest`](#blowhorn-chrome-suggest) | Print a proposed mapping from every Blowhorn profile in the store to a Chrome profile on this machine, matched by display name (a Chrome profile named `Kate` proposes for the Blowhorn profile kate)... |
+| [`chrome suggest`](#blowhorn-chrome-suggest) | Print a proposed mapping from every Blowhorn profile in the store to a Chrome profile on this machine, matched by display name (a Chrome profile named `Company` proposes for the Blowhorn profile co... |
 | [`chrome unmap`](#blowhorn-chrome-unmap) | Remove one of a Blowhorn profile's Chrome profile mappings on this machine. |
 
 ## blowhorn chrome attach-chrome
@@ -94,6 +95,32 @@ Examples:
 ```bash
 cat assignments.json | blowhorn chrome confirm --payload-stdin --json
 cat assignments.json | blowhorn chrome confirm --payload-stdin --dry-run --json
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn chrome create-profile
+
+Give Blowhorn a Google Chrome profile of its own, for a Chrome that has only its main profile. Asks Chrome to open a new window in the profile directory `Blowhorn`. Chrome creates that profile the first time and opens it again every time after, so running this twice makes no second one. Chrome gives the new profile a default name such as `Person 1`, which Blowhorn shows as Blowhorn's profile. Sign in there to LinkedIn, X and the other sites Blowhorn should use, then `blowhorn chrome discover` finds the profile and its accounts. Reads Local State only to say whether the profile was already listed; writes nothing, maps nothing, and drives nothing in the window. If no Chrome is running, Chrome starts to open the window and is left running. Your own profiles, windows and tabs are left as they are.
+
+```text
+blowhorn chrome create-profile [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
+| `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn chrome create-profile` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn chrome create-profile` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn chrome create-profile
+blowhorn chrome create-profile --json
 ```
 
 Output: json with `--json`, text otherwise.
@@ -194,10 +221,10 @@ blowhorn chrome extension-install --all-profiles
 blowhorn chrome extension-install --all-profiles --dry-run
 blowhorn chrome extension-install --all-profiles --external
 blowhorn chrome extension-install --all-profiles --json
-blowhorn chrome extension-install --profile kate
+blowhorn chrome extension-install --profile company
 blowhorn chrome extension-install --chrome-profile 'Profile 12'
-blowhorn chrome extension-install --profile kate --ensure
-blowhorn chrome extension-install --profile kate --ensure --dry-run
+blowhorn chrome extension-install --profile company --ensure
+blowhorn chrome extension-install --profile company --ensure --dry-run
 ```
 
 Output: json with `--json`, text otherwise.
@@ -277,7 +304,7 @@ blowhorn chrome map [OPTIONS] name directory
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `name` | yes | The Blowhorn profile, as the store's profiles name it (kate) |
+| `name` | yes | The Blowhorn profile, as the store's profiles name it (company) |
 | `directory` | yes | The Chrome profile directory, exactly as `blowhorn chrome profiles` prints it (`Default`, `Profile 12`) |
 
 | Flag | Type | Default | Description |
@@ -295,11 +322,11 @@ Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `-
 Examples:
 
 ```bash
-blowhorn chrome map kate 'Profile 12'
-blowhorn chrome map kate 'Profile 3' --for linkedin,slack
-blowhorn chrome map kate 'Profile 12' --replace
-blowhorn chrome map kate 'Profile 12' --dry-run
-blowhorn chrome map alex Default --json
+blowhorn chrome map company 'Profile 12'
+blowhorn chrome map company 'Profile 3' --for linkedin,slack
+blowhorn chrome map company 'Profile 12' --replace
+blowhorn chrome map company 'Profile 12' --dry-run
+blowhorn chrome map personal Default --json
 ```
 
 Output: json with `--json`, text otherwise.
@@ -314,7 +341,7 @@ blowhorn chrome open-profile [OPTIONS] name
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `name` | yes | The Blowhorn profile, as the store's profiles name it (kate) |
+| `name` | yes | The Blowhorn profile, as the store's profiles name it (company) |
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -329,9 +356,9 @@ Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `-
 Examples:
 
 ```bash
-blowhorn chrome open-profile kate
-blowhorn chrome open-profile kate --sign-in linkedin
-blowhorn chrome open-profile kate --sign-in linkedin --json
+blowhorn chrome open-profile company
+blowhorn chrome open-profile company --sign-in linkedin
+blowhorn chrome open-profile company --sign-in linkedin --json
 ```
 
 Output: json with `--json`, text otherwise.
@@ -395,7 +422,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn chrome suggest
 
-Print a proposed mapping from every Blowhorn profile in the store to a Chrome profile on this machine, matched by display name (a Chrome profile named `Kate` proposes for the Blowhorn profile kate), and apply nothing. Each row says why: 'name match', `none` when no Chrome profile matches, `ambiguous` when two match, 'already mapped' for a profile that has a mapping, and the holder's name when the matching directory is mapped to someone else. Apply a row you agree with by running the `blowhorn chrome map` line it prints.
+Print a proposed mapping from every Blowhorn profile in the store to a Chrome profile on this machine, matched by display name (a Chrome profile named `Company` proposes for the Blowhorn profile company), and apply nothing. Each row says why: 'name match', `none` when no Chrome profile matches, `ambiguous` when two match, 'already mapped' for a profile that has a mapping, and the holder's name when the matching directory is mapped to someone else. Apply a row you agree with by running the `blowhorn chrome map` line it prints.
 
 `--json` emits the same rows as JSON. A store that cannot be reached is the named cause and exit 3.
 
@@ -431,7 +458,7 @@ blowhorn chrome unmap [OPTIONS] name [directory]
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| `name` | yes | The Blowhorn profile, as the store's profiles name it (kate) |
+| `name` | yes | The Blowhorn profile, as the store's profiles name it (company) |
 | `directory` | no | The Chrome profile directory to unmap, as `blowhorn chrome profiles` prints it; needed only when the profile has more than one mapped on this machine |
 
 | Flag | Type | Default | Description |
@@ -446,9 +473,9 @@ Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `-
 Examples:
 
 ```bash
-blowhorn chrome unmap kate
-blowhorn chrome unmap kate 'Profile 3'
-blowhorn chrome unmap kate --dry-run --json
+blowhorn chrome unmap company
+blowhorn chrome unmap company 'Profile 3'
+blowhorn chrome unmap company --dry-run --json
 ```
 
 Output: json with `--json`, text otherwise.

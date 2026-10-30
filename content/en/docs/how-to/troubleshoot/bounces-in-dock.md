@@ -20,7 +20,7 @@ You do not need a terminal for any step below.
 ## If Blowhorn was already on this Mac
 
 This covers a re-install, an upgrade over an older version, and an
-install into a different user account on a machine where Blowhorn was
+install into a different user account on a computer where Blowhorn was
 already installed. The usual cause is a stale copy getting in the way of
 the new one.
 

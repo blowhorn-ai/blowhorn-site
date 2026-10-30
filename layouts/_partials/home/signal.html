@@ -11,9 +11,8 @@
             <h1 id="hero-title" class="display-xl">
               {{- range $rot.heroes }}<span data-hero-only="{{ .id }}">{{ partial "hero-headline.html" .headline }}</span>{{ end -}}
             </h1>
-            <p class="body-lg hero-sub">
-              {{- range $rot.heroes }}<span data-hero-only="{{ .id }}">{{ .subhead }}</span>{{ end -}}
-            </p>
+            {{- /* data/hero.json tagline: one plain line under every headline. */}}
+            <p class="body-lg hero-sub hero-tagline">{{ $rot.tagline }}</p>
             <div class="hero-actions">
               <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">
                 <svg aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#glyph-download"></use></svg>
@@ -25,8 +24,6 @@
               <span data-hero-only="{{ .id }}"><a class="button button-secondary" href="{{ $href }}">{{ .cta.label }}</a></span>
               {{- end }}
             </div>
-            {{- /* One proof spot per hero banner, each paired with a different user (placements "hero-<id>" in data/testimonials.json). */}}
-            {{- range $rot.heroes }}<div data-hero-only="{{ .id }}">{{ partial "social-proof.html" (dict "slot" "hero" "heroId" .id) }}</div>{{ end -}}
           </div>
           {{- /* data/hero.json media.video (placement inline-expand): the film
             sits small beside the copy (below it on phones) and expands into
@@ -83,11 +80,11 @@
           <figure class="wave-example">
             <figcaption class="visually-hidden">Example repost wave. Example data.</figcaption>
             <ol class="wave-list">
-              <li><span class="avatar" aria-hidden="true">AR</span><b>Ana R.</b><span>LinkedIn repost</span><time datetime="09:30">9:30</time></li>
-              <li><span class="avatar" aria-hidden="true">RC</span><b>Ravi C.</b><span>X quote</span><time datetime="09:31">9:31</time></li>
-              <li><span class="avatar" aria-hidden="true">MD</span><b>Mia D.</b><span>Bluesky repost</span><time datetime="09:33">9:33</time></li>
-              <li><span class="avatar" aria-hidden="true">JO</span><b>Jon O.</b><span>GitHub reactions</span><time datetime="09:34">9:34</time></li>
-              <li><span class="avatar" aria-hidden="true">KS</span><b>Kai S.</b><span>Reddit comment</span><time datetime="09:41">9:41</time></li>
+              <li><span class="avatar" aria-hidden="true">DE</span><b>Designer</b><span>LinkedIn repost</span><time datetime="09:30">9:30</time></li>
+              <li><span class="avatar" aria-hidden="true">EN</span><b>Engineer</b><span>X quote</span><time datetime="09:31">9:31</time></li>
+              <li><span class="avatar" aria-hidden="true">MK</span><b>Marketer</b><span>Bluesky repost</span><time datetime="09:33">9:33</time></li>
+              <li><span class="avatar" aria-hidden="true">MA</span><b>Maintainer</b><span>GitHub reactions</span><time datetime="09:34">9:34</time></li>
+              <li><span class="avatar" aria-hidden="true">AD</span><b>Advocate</b><span>Reddit comment</span><time datetime="09:41">9:41</time></li>
               <li class="wave-more">+ 7 more teammates <em>Example data</em></li>
             </ol>
           </figure>
@@ -185,9 +182,10 @@
             </li>
           </ul>
           <p class="section-body"><a class="button button-secondary" href="{{ (site.GetPage "/legal").RelPermalink }}">Visit the Trust Center</a></p>
-          <p class="muted trust-tells">Curious what sites can see about your browser? <a href="https://tells.blowhorn.ai/">Run the free check at Blowhorn Tells</a>.</p>
         </div>
       </section>
+
+      {{- partial "home/tells.html" . }}
 
       {{ partial "home/ai-content.html" . }}
       <section id="pricing" class="section" aria-labelledby="pricing-title">
@@ -204,7 +202,7 @@
               <li><b>No AI tax</b><span>Actions are scripted, so no model bill hides in your plan. Bring your own model at no extra charge.</span></li>
               <li><b>You say when</b><span>Like a server grating cheese onto your plate until you tap the table. You are in control.</span></li>
             </ul>
-            <p><a class="button button-secondary" href="{{ "pricing/" | relURL }}">See plans and prices</a></p>
+            <p><a class="button button-secondary" href="{{ "pricing/" | relURL }}">See the plans</a></p>
           </div>
         </div>
       </section>
@@ -216,7 +214,7 @@
           <div class="section-head section-head-center">
             <p class="label">Download</p>
             <h2 id="download-title" class="display">Own your voice. Command your agents.</h2>
-            <p class="body-lg muted">One disk image for Apple silicon and Intel, plus a Chrome extension. About a minute to set up.</p>
+            <p class="body-lg muted">One disk image for Apple silicon and Intel, plus a browser extension. About a minute to set up.</p>
           </div>
           <p class="hero-actions hero-actions-center">
             <a class="button button-primary button-pop" href="{{ "download/" | relURL }}">

@@ -23,23 +23,29 @@ Pages hosts only the marketing site and small static files.
   (`v1.1.0-beta.1`) makes it a GitHub prerelease, which is never marked "latest".
 - **Assets per release:**
   - `Blowhorn-<version>-mac-<arch>.dmg`, where `<arch>` is `universal`, `arm64`, or `x64`
-  - `Blowhorn-mac.dmg`, a copy of the same file under a fixed name
+  - `Blowhorn-mac.dmg`, a copy of the same file under a fixed name (not linked from the site)
   - `SHA256SUMS.txt`
-- **Download URL** (used by the site): the versioned alias URL of the current
+- **Download URL** (used by the site): the versioned disk image of the current
   desktop release,
 
   ```
-  https://github.com/blowhorn-ai/blowhorn-site/releases/download/v<version>/Blowhorn-mac.dmg
+  https://github.com/blowhorn-ai/blowhorn-site/releases/download/v<version>/Blowhorn-<version>-mac-universal.dmg
   ```
+
+  A browser saves the file under the last segment of the URL, so linking the
+  versioned asset puts the version in the name of the file a visitor downloads
+  from blowhorn.ai. The site never links `Blowhorn-mac.dmg`
+  (`check_download_links.py` fails the build if it does); the alias stays on
+  every release for the app's update check and for scripts that want a fixed name.
 
   The version is pinned in `data/download.json`. `publish-dmg.yml` bumps it
   on master and redeploys the site after every public release (its `pin`
   job, `make dmg-pin-download`); a draft published by hand later needs the
   same `make dmg-pin-download` run, or a one-line PR. Never build a download link on
   `/releases/latest`: this repository also publishes blowhorn-axi releases
-  (`axi-vX.Y.Z`), GitHub resolves `latest` to whichever stable release was
-  created most recently, and the always-latest URL 404s whenever an axi
-  release is the newest. The site's Download section
+  (`axi-vX.Y.Z`), GitHub resolves `latest`
+  to whichever stable release was created most recently, and the always-latest
+  URL 404s whenever one of those is the newest. The site's Download section
   (`assets/js/download.js`) reads the release list from GitHub's API in the
   visitor's browser and fills in the newest desktop release by the same rule
   the app's update check uses (the newest non-draft, non-prerelease release
@@ -147,3 +153,9 @@ GITHUB_OUTPUT=/tmp/out IN_VERSION=v1.2.3 IN_URL=https://example.com/Blowhorn.dmg
 ```
 
 `dmg-resolve` needs bash 4 or newer (macOS ships 3.2; `brew install bash`).
+
+`publish-blowhorn-axi.yml`, which publishes blowhorn-axi to npm, works the same
+way (blowhorn-mcp publishes from its own repository,
+https://github.com/blowhorn-ai/blowhorn-mcp, with that repository's
+`publish.yml`): its steps are `npm-fetch`, `npm-verify`,
+`npm-publish` and `npm-confirm`, backed by `.github/scripts/publish-npm/`.

@@ -17,9 +17,9 @@ scripts from third parties other than the ones it discloses: Google Analytics
   <meta content>, except the url= of <meta http-equiv="refresh">.
   One reviewed exception: <form action> may name a host in FORM_ACTION_HOSTS.
   A form loads nothing; it sends only what the reader types, and only when
-  they submit it. The footer's newsletter signup posts to Layer5's Mailchimp
-  list, the same endpoint as the layer5.io footer, and the privacy page
-  discloses it. Every other form host fails.
+  they submit it. The footer's newsletter signup posts to Blowhorn's own
+  signup service at api.blowhorn.ai, and the privacy page discloses it.
+  Every other form host fails.
   A second: <meta http-equiv="refresh"> may navigate to the Blowhorn host
   named by params.cloud_url in hugo.toml (the /signup, /login and /early-access
   redirects).

@@ -34,7 +34,7 @@ a profile exists.
 ## Identity and name
 
 A profile's **id** is its identity, and its **name** is what you type.
-Renaming a profile keeps its id, so its Chrome mapping and its content
+Renaming a profile keeps its id, so its Google Chrome mapping and its content
 items stay with it. What names a profile by its name changes with the
 rename: `--profile` on the command line, a routine's profile, and the
 excluded list (`--exclude`, `defaults.exclude`).
@@ -90,7 +90,7 @@ more, so their change is kept; if it changes a second time, nothing is written
 and the command says so - run it again.
 
 ```bash
-blowhorn profile set kate "Risk Profile=cautious" "Quiet Hours=22:00-07:00"
+blowhorn profile set company "Risk Profile=cautious" "Quiet Hours=22:00-07:00"
 ```
 
 `blowhorn profile delete <name-or-id>` deletes the profile in your

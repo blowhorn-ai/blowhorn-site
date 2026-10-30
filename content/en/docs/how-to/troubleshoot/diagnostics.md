@@ -15,12 +15,12 @@ the area.
 ## Run one mode
 
 ```bash
-blowhorn diagnostics tells-run --profile alex --json
+blowhorn diagnostics tells-run --profile personal --json
 ```
 
 This drives the profile to the live [tells.blowhorn.ai](https://tells.blowhorn.ai/),
 waits for its inspection to finish, and saves the report it renders as one
-package on this computer. `--mode` chooses how Blowhorn reaches Chrome:
+package on this computer. `--mode` chooses how Blowhorn reaches Google Chrome:
 
 - `extension-background` -- the default: the extension driver in
   background mode, the way Blowhorn normally runs.
@@ -36,7 +36,7 @@ pretended otherwise would measure nothing. `cdp` and `persistent` run.
 ## Run every mode
 
 ```bash
-blowhorn diagnostics tells-sweep --profile alex --json
+blowhorn diagnostics tells-sweep --profile personal --json
 ```
 
 A sweep runs each mode in order and saves one package per mode plus a

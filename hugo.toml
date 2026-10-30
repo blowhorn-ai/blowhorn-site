@@ -130,6 +130,16 @@ renderSegments = ["public"]
   isPlainText = false
   notAlternative = true
 
+# Resources feeds, same shape as dispatches: /resources/feed.xml for the
+# whole center and /resources/tags/<tag>/feed.xml per tag (the tag feeds
+# are feed-only pages of type tagfeed). The in-product-intelligence tag
+# feed is a published contract: the desktop homepage reads it.
+[outputFormats.resourcesfeed]
+  baseName = "feed"
+  mediaType = "application/rss+xml"
+  isPlainText = false
+  notAlternative = true
+
 [outputs]
   home = ["HTML", "llms", "llmsfull", "md"]
   page = ["HTML", "md"]

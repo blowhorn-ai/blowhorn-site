@@ -1,7 +1,5 @@
-{{- /* Social proof. Call with (dict "slot" "ticker|hero|interlude|grid|closing|rotating").
-   For "hero", also pass "heroId": the entry whose placements name
-   "hero-<heroId>" is the one quote paired with that hero banner, and only
-   that one renders. "rotating" ignores placements and renders every
+{{- /* Social proof. Call with (dict "slot" "ticker|interlude|grid|closing|rotating").
+   "rotating" ignores placements and renders every
    testimonial as one-at-a-time carousel: the first quote shows with no
    JavaScript, and assets/js/proof-rotation.js (loaded by
    layouts/solution.html) cycles it, with Previous/Next buttons.
@@ -18,7 +16,6 @@
    Sources and treatment: static/assets/brand/LICENSES.md. */ -}}
 {{- $slot := .slot -}}
 {{- $want := $slot -}}
-{{- if eq $slot "hero" }}{{ $want = printf "hero-%s" .heroId }}{{ end -}}
 {{- $items := slice -}}
 {{- range (index site.Data "testimonials").items -}}
   {{- if and (in .placements $want) (or (not .placeholder) (not hugo.IsProduction)) -}}
@@ -53,25 +50,7 @@
 {{- end }}
 {{- else -}}
 {{- with $items -}}
-{{- if eq $slot "hero" -}}
-{{- $t := index . 0 -}}
-<details class="proof-spot">
-  <summary class="proof-spot-summary">
-    <span class="proof-avatar" aria-hidden="true">
-      {{- with $t.picture }}
-      <img src="{{ . | relURL }}" alt="">
-      {{- end }}
-    </span>
-    <span class="proof-spot-teaser"><q>{{ $t.quote | truncate 96 }}</q> <span class="caption muted">{{ $t.name }}, {{ $t.company }}</span>{{ if $t.placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</span>
-    <span class="proof-spot-toggle" aria-hidden="true">Read the rest</span>
-    <span class="proof-spot-collapse" aria-hidden="true">Show less</span>
-  </summary>
-  <div class="proof-spot-full">
-    <blockquote>{{ $t.quote }}</blockquote>
-    <p class="caption muted">{{ $t.name }} · {{ $t.role }}, {{ $t.company }} · <a href="#users">More from Blowhorn users</a>{{ if $t.placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</p>
-  </div>
-</details>
-{{- else if eq $slot "interlude" -}}
+{{- if eq $slot "interlude" -}}
 {{- $t := index . 0 -}}
 <section class="section proof-interlude" aria-label="A Blowhorn user, in their own words">
   <div class="wrap">

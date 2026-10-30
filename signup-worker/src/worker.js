@@ -1,8 +1,8 @@
 // Blowhorn signup service: coming-soon waitlists and the Blowhorn newsletter.
 //
-// Served at https://api.blowhorn.ai (custom domain) with a dormant route at
-// blowhorn.ai/api/* (that route only takes effect if the apex is ever
-// proxied; today the apex is DNS-only, so the subdomain is the live one).
+// Served at https://api.blowhorn.ai (custom domain). A blowhorn.ai/api/*
+// route was dropped: the apex is DNS-only, so such a route can never
+// serve traffic.
 // No confirmation step: a signup is live as soon as it is stored. Every
 // ship email and newsletter email carries an unsubscribe link built from
 // the row token.
@@ -206,10 +206,24 @@ export function createHandler(db) {
     if (isUnsubscribe) {
       try {
         const token = url.searchParams.get('token') || '';
-        if (token) {
-          const row = await db.getByToken(token);
-          if (row && !row.unsubscribed_at) await db.markUnsubscribed(token);
+        if (!token) {
+          return pageResponse(
+            request,
+            400,
+            'Unsubscribe link incomplete',
+            'This unsubscribe link is missing its key. Use the link from the email you got.',
+          );
         }
+        const row = await db.getByToken(token);
+        if (!row) {
+          return pageResponse(
+            request,
+            404,
+            'Unsubscribe link not recognized',
+            'No subscription matches this link. It may be from an older email, or the link may be incomplete.',
+          );
+        }
+        if (!row.unsubscribed_at) await db.markUnsubscribed(token);
       } catch {
         return pageResponse(request, 500, 'Something went wrong', 'Something went wrong. Try again shortly.');
       }
@@ -217,7 +231,7 @@ export function createHandler(db) {
         request,
         200,
         'Unsubscribed',
-        'You are unsubscribed. If that subscription existed, it will get no more emails.',
+        'You are unsubscribed. You will get no more emails from this subscription.',
       );
     }
 

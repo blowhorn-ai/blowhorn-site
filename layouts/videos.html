@@ -55,7 +55,7 @@
         </ul>
         <p class="collection-status" data-collection-status aria-live="polite"></p>
 
-        <ul class="video-grid" data-video-grid>
+        <ul class="video-grid" data-collection-grid data-collection-noun="videos">
           {{- range .Sections.ByWeight }}
             {{- range .RegularPages.ByDate.Reverse }}
           {{ partial "video-card.html" . }}

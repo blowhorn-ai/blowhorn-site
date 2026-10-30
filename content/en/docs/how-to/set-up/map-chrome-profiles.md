@@ -14,7 +14,7 @@ one-time setup every browser run depends on.
 Map a Chrome profile set aside for Blowhorn, not the one you browse in.
 The desktop app does not offer Chrome's main profile (`Default`) for a new
 mapping; a mapping an earlier setup made to it keeps working. Why is in
-[Why Blowhorn uses your own Chrome](/docs/explanation/your-own-chrome/#a-chrome-profile-of-its-own).
+[Why Blowhorn uses your own browser](/docs/explanation/your-own-chrome/#a-chrome-profile-of-its-own).
 
 A mapping is identity, never permission: it does not make a profile
 eligible for any platform. Eligibility is credential existence, decided in
@@ -149,7 +149,7 @@ chrome mapping proposal for studio (3 profiles); nothing is applied
   profile  directory  name   account             note
   ada      Profile 2  Ada    ada@example.com     name match
   grace    Profile 5  Grace  grace@example.com   name match
-  marcus       -          -      -                   none
+  personal   -          -      -                   none
 to apply an activity you agree with:
   blowhorn chrome map ada 'Profile 2'
   blowhorn chrome map grace 'Profile 5'
@@ -224,7 +224,7 @@ blowhorn profile status --chrome
 | Profile | Linkedin | X | ... | Chrome              | Notes |
 | ada     | valid    | - | ... | Profile 2           |       |
 | grace   | -        | - | ... | Profile 5 (drift)   |       |
-| marcus      | -        | - | ... | -                   |       |
+| personal    | -        | - | ... | -                   |       |
 ```
 
 The Chrome column shows the mapped directory and, when its recorded

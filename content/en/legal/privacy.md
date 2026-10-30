@@ -27,21 +27,23 @@ Google Analytics 4 runs only if you choose Accept in the cookie notice.
 - Before you choose: the site tells Google's tag that every kind of storage is denied (Google Consent Mode), and it doesn't load the tag at all. Nothing goes to Google and no cookie is set. Decline or the close button keeps it that way.
 - If you accept: your browser loads Google's tag (gtag.js) from `www.googletagmanager.com` on each page. It sends Google which pages you view, how you arrived, and roughly where you are and what device and browser you use, along with your IP address and the usual request headers. It sets first-party cookies named `_ga` and `_ga_<id>` on blowhorn.ai so that repeat visits can be counted. Advertising storage stays denied.
 - How it's used: Layer5 uses the reports only to improve this site, and doesn't combine them with your Blowhorn account. Google's handling is covered by the [Google privacy policy](https://policies.google.com/privacy) and [how Google uses information from sites that use its services](https://policies.google.com/technologies/partner-sites).
+- If you accept, the site also keeps how you arrived (the campaign tags on the first page's address and the referring site's host, never the full address) in your browser's session storage (`blowhorn-docs-attribution`) and sends it with a few events on the MCP guides: a guide view, a code snippet copy and a click on an install or download link. Closing the tab or withdrawing consent removes it.
 - Your choice is kept in your browser's local storage (`blowhorn-consent`), so the notice doesn't come back. To change it, use **Cookie preferences** at the bottom of any page. If you withdraw consent, the page reloads without the tag. You can also delete the `_ga` cookies in your browser settings.
 
 ### Newsletter signup
 
-The footer has the site's one form, a signup for the Layer5 newsletter. It is the same list as the signup on layer5.io. It is a plain HTML form with no script, and nothing leaves your browser until you press Subscribe.
+The footer form signs you up for the Blowhorn newsletter. It is a plain HTML form with no script, and nothing leaves your browser until you press Subscribe.
 
-- What is sent: the email address you type. The form has no other fields, visible or hidden. Like any site your browser contacts, Mailchimp also receives your IP address and the usual request headers.
-- Who receives it: Layer5, which keeps the list on Mailchimp, an Intuit company, as its email provider. [Layer5's privacy policy](https://layer5.io/company/legal/privacy/) covers the list and names Mailchimp among its email providers. Mailchimp's own handling is covered by the [Intuit privacy statement](https://www.intuit.com/privacy/statement/).
-- What it is for: the Layer5 newsletter. Signing up does not create a Blowhorn account and adds nothing to your account.
-- Where you go: submitting takes you from blowhorn.ai to a Mailchimp page on list-manage.com. That page is Mailchimp's, not this site's, and Mailchimp sets its own cookies there, including for bot protection. blowhorn.ai sets none.
-- Leaving the list: every newsletter email has an unsubscribe link.
+- What is sent: the email address you type, the page you signed up from, and an empty bot-trap field. Like any site your browser contacts, the service also receives your IP address and the usual request headers.
+- Who receives it: Layer5, which runs the signup service at `api.blowhorn.ai` (a Cloudflare Worker, not a third-party form service), which stores the signup in a Cloudflare D1 database. No other company receives the signup.
+- What it is for: the Blowhorn newsletter. Signing up does not create a Blowhorn account and adds nothing to your account.
+- Where you go: submitting takes you to the thanks page on blowhorn.ai.
+- How long it is kept: until you unsubscribe. Unsubscribed rows are deleted after 90 days.
+- Leaving the list: every newsletter email has an unsubscribe link. To ask for deletion sooner, write to security@blowhorn.ai.
 
 ### Coming-soon lists and the Blowhorn newsletter
 
-The coming-soon pages and the newsletter page have their own signup forms, separate from the footer form above. They post to Blowhorn's own signup service at `api.blowhorn.ai` (a Cloudflare Worker, not a third-party form service), which stores the signup in a Cloudflare D1 database.
+The coming-soon pages and the newsletter page use the same signup service as the footer form above. The only difference is what they ask for.
 
 - What is sent: the email address you type, and, on a coming-soon page, the optional remark about what you want from the feature. The forms also send the page you signed up from, so a ship email can name the feature.
 - Who receives it: Layer5, which runs the signup service. No other company receives the signup.

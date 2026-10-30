@@ -39,7 +39,7 @@ usually does not mean the release is bad. It usually means one of these:
 
    Then open Blowhorn from Applications again. This clears only the
    quarantine attribute on this Mac. The app stays signed and notarized.
-4. If it still fails on this Mac, and on other machines that used the same
+4. If it still fails on this Mac, and on other computers that used the same
    download, contact support (see [Get help](/docs/reference/support/))
    and say which version you downloaded. Support may ask you to compare
    the file's hash with the published one. Don't rebuild or repackage the

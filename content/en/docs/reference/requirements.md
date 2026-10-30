@@ -1,16 +1,17 @@
 ---
 title: "System requirements"
-description: "What your computer needs to run Blowhorn: macOS version, Chrome, and a Blowhorn account."
+description: "What your computer needs to run Blowhorn: macOS version, Google Chrome, and a Blowhorn account."
 weight: 210
 ---
 
 
-What your computer needs before you install Blowhorn.
+What your computer needs before you install Blowhorn. Requires macOS 13
+or newer and Google Chrome 142 or newer.
 
 | Need | Requirement | Checked by |
 |---|---|---|
 | macOS | 13 or newer, Apple silicon or Intel (one universal build) | The build declares the floor; Setup checks the rest |
-| Browser | Google Chrome, installed and signed in | Setup, "chrome profiles" row; `blowhorn chrome status` |
+| Google Chrome | 142 or newer, the real Google Chrome (not Chromium), installed and signed in | Setup, "chrome profiles" row; `blowhorn chrome status` |
 | Engine | Bundled in the app, with its own Python; nothing to install | Setup, "Blowhorn folder" and "helper tools" rows |
 | Account | A Blowhorn account your profile belongs to | Setup, "organization connection" row; `blowhorn store` |
 | Background runs | The background service, registered from the app | Setup, "this computer on watch" row |
@@ -21,9 +22,9 @@ macOS 13 is the floor the desktop build declares
 The engine underneath also runs on Linux; the desktop app needs a Mac.
 Windows is not supported.
 
-Chrome must be the real Google Chrome, not Chromium and not a headless
+Use the real Google Chrome, not Chromium and not a headless
 build. Blowhorn drives the Chrome profiles you already use, so install
-Chrome the normal way and sign in before you map anything. The extension
+Google Chrome the normal way and sign in before you map anything. The extension
 needs Chrome profiles to attach to; without Chrome every browser run
 refuses before it acts.
 
