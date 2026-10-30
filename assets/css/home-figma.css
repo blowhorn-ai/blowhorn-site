@@ -68,6 +68,7 @@
 }
 .fig .fig-btn-black { background: #111; color: #fff; }
 .fig .fig-btn-teal { background: var(--fig-teal); color: #1e2117; }
+.fig .fig-mx-auto { margin-inline: auto; }
 /* Button text is fixed, never the theme ink: otherwise a teal button in a
    dark section, or in dark mode, gets light text on teal (2.6:1). The
    nav-link and dark-section link colours would otherwise win by

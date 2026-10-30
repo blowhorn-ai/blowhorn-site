@@ -74,7 +74,7 @@
             {{- if eq $variant "v3" }}
             <p class="fig-lead">Every post, reply and amplify runs exactly as written, from your own browser. When you want an AI agent at the controls, plug one in.</p>
             {{- else }}
-            <p class="fig-lead">Every post, reply and amplify runs exactly as written. Drafts, agents and assistants plug in through MCP, a REST API and a scriptable CLI.</p>
+            <p class="fig-lead">Every post, reply and amplify runs exactly as written. Drafts, agents and assistants plug in through MCP and a scriptable CLI. A REST API is coming soon.</p>
             {{- end }}
             <div class="fig-actions {{ if eq $variant "v1" }}fig-actions-center{{ end }}">
               <a class="fig-btn {{ if eq $variant "v1" }}fig-btn-black{{ else }}fig-btn-teal{{ end }}" href="{{ "download/" | relURL }}">Download free</a>
@@ -97,7 +97,7 @@
           {{- else if eq $variant "v4" }}
           <div class="fig-visual fig-explode" aria-hidden="true">
             <div>
-              <a class="fig-btn fig-btn-teal" href="{{ "download/" | relURL }}">Download</a>
+              <span class="fig-btn fig-btn-teal">Download</span>
               <p class="fig-visual-note">on your computers</p>
               <div class="fig-chip-row">
                 <span class="fig-chip">LinkedIn</span><span class="fig-chip">X</span><span class="fig-chip">Reddit</span><span class="fig-chip">HN</span><span class="fig-chip">Slack</span><span class="fig-chip">GitHub</span><span class="fig-chip">Bluesky</span>
@@ -108,8 +108,8 @@
         </div>
         {{- if or (eq $variant "v3") (eq $variant "v4") }}
         <div class="wrap">
-          <p class="fig-note fig-center" style="margin-inline:auto">Posts to the places you already are.</p>
-          <p class="fig-center" style="margin-inline:auto">{{ range $i, $p := $platformRows }}{{ if $i }}, {{ end }}{{ $p.name }}{{ end }}.</p>
+          <p class="fig-note fig-center fig-mx-auto">Posts to the places you already are.</p>
+          <p class="fig-center fig-mx-auto">{{ range $i, $p := $platformRows }}{{ if $i }}, {{ end }}{{ $p.name }}{{ end }}.</p>
         </div>
         {{- end }}
       </section>
@@ -157,7 +157,7 @@
       <section id="agents" class="fig-section" aria-labelledby="agents-title">
         <div class="wrap">
           <h2 id="agents-title" class="fig-h2">Built for agents. Still yours.</h2>
-          <p class="fig-lead">MCP &middot; REST &middot; CLI &middot; AI skills &middot; BYOM &middot; built-in generation. Deterministic send either way.</p>
+          <p class="fig-lead">MCP &middot; CLI &middot; AI skills &middot; BYOM &middot; built-in generation &middot; REST API coming soon. Deterministic send either way.</p>
         </div>
       </section>
       {{- else }}
@@ -168,7 +168,7 @@
             <p class="fig-lead">{{ $agents.subhead }}</p>
           </div>
           {{- if eq $variant "v4" }}
-          <p><span class="fig-chip">MCP</span> <span class="fig-chip">CLI</span> <span class="fig-chip">API</span> <span class="fig-chip">Skills</span></p>
+          <p><span class="fig-chip">MCP</span> <span class="fig-chip">CLI</span> <span class="fig-chip">REST API: Coming soon</span> <span class="fig-chip">Skills</span></p>
           {{- end }}
           <div class="fig-grid fig-grid-3">
             {{- $cards := $agents.cards -}}
@@ -290,7 +290,7 @@
       {{- end }}
 
       {{- /* Close CTA */ -}}
-      <section id="download" class="fig-section {{ if eq $variant "v1" }}fig-center{{ else if eq $variant "v2" }}fig-dark{{ else }}fig-dark{{ end }}" aria-labelledby="download-title">
+      <section id="download" class="fig-section {{ if eq $variant "v1" }}fig-center{{ else if eq $variant "v2" }}fig-dark{{ else }}fig-dark{{ end }}" {{ if eq $variant "v1" }}aria-label="Download Blowhorn"{{ else }}aria-labelledby="download-title"{{ end }}>
         <div class="wrap {{ if eq $variant "v1" }}fig-center{{ end }}">
           {{- if eq $variant "v1" }}
           <h2 id="download-title" class="fig-h2">One message. Many ears.</h2>
