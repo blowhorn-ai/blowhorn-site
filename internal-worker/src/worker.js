@@ -118,14 +118,15 @@ function listFrom(value) {
     .filter(Boolean);
 }
 
-// Exact matches only. The domain is whatever follows the LAST "@", so
-// "a@layer5.io@evil.com" is judged on evil.com, and a missing or empty local
-// part ("layer5.io", "@layer5.io") is refused.
+// Exact matches only. A domain match needs exactly one "@" and a non-empty
+// local part, so "a@evil.com@layer5.io", "layer5.io" and "@layer5.io" are
+// refused.
 export function emailAllowed(email, emails, domains) {
   if (!email) return false;
   if (emails.includes(email)) return true;
   const at = email.lastIndexOf('@');
-  if (at <= 0) return false;
+  // Exactly one "@": a real mailbox never has two, so refuse rather than judge.
+  if (at <= 0 || email.indexOf('@') !== at) return false;
   return domains.includes(email.slice(at + 1));
 }
 

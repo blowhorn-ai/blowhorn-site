@@ -68,6 +68,7 @@ test('subdomain of an allowed domain is denied', async () => assert.equal(await 
 test('domain with no local part is denied', async () => assert.equal(await asEmail('layer5.io'), 403));
 test('empty local part is denied', async () => assert.equal(await asEmail('@layer5.io'), 403));
 test('domain is judged after the last @', async () => assert.equal(await asEmail('a@layer5.io@evil.com'), 403));
+test('two @ signs are denied even when the last domain matches', async () => assert.equal(await asEmail('a@evil.com@layer5.io'), 403));
 test('named email is still served when the domain list is empty', async () =>
   assert.equal(await asEmail('lee.calcote@layer5.io', { ...env, ALLOWED_EMAIL_DOMAINS: '' }), 200));
 test('domain member is denied when the domain list is empty', async () =>
