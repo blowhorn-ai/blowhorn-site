@@ -33,7 +33,7 @@
     </div>
 
     <div class="articles-list" data-collection-grid data-collection-noun="pieces">
-      {{- range $pieces }}{{ partial "article-card.html" . }}{{ end }}
+      {{- range $i, $v := $pieces }}{{ partial "article-card.html" (dict "page" $v "i" $i "cols" 1) }}{{ end }}
     </div>
   </div>
 </main>

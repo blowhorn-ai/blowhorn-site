@@ -124,9 +124,6 @@
 html[data-machines="battalion-map"] #how .section-head { margin-inline: auto; text-align: center; }
 html[data-machines="battalion-map"] #how .section-head .body-lg { margin-inline: auto; }
 .machines-card {
-  background: #000;
-  color: var(--app-ink, #E9EFED);
-  border: 1px solid var(--app-line, #26302D);
   border-radius: 14px;
   padding: var(--card-pad);
   text-align: left;

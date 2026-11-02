@@ -70,7 +70,7 @@
     </div>
     <ul class="proof-grid section-body">
       {{- range $i, $t := . }}
-      <li class="proof-card{{ if eq $i 0 }} proof-card-feature{{ end }}">
+      <li class="proof-card{{ if eq $i 0 }} proof-card-feature card-paper{{ else }} {{ partial "card-variant.html" (dict "i" $i "cols" 3 "a" "card-stamp" "b" "card-field") }}{{ end }}">
         {{- if $t.placeholder }}
         <span class="proof-flag">Placeholder</span>
         {{- end }}
@@ -88,8 +88,8 @@
 </section>
 {{- else if eq $slot "closing" -}}
 <div class="proof-band" role="group" aria-label="Blowhorn users">
-  {{- range first 3 . }}
-  <figure>
+  {{- range $i, $t := first 3 . }}
+  <figure class="{{ partial "card-variant.html" (dict "i" $i "cols" 3 "a" "card-stamp" "b" "card-field") }}">
     <blockquote class="h3">{{ .quote | truncate 80 }}</blockquote>
     <figcaption class="caption muted">{{ .name }}, {{ .company }}{{ if .placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</figcaption>
   </figure>
@@ -103,7 +103,7 @@
   </div>
   <div class="proof-rotate" data-proof-rotate>
     {{- range $i, $t := . }}
-    <figure class="proof-rotate-item{{ if eq $i 0 }} is-current{{ end }}"{{ if ne $i 0 }} aria-hidden="true"{{ end }}>
+    <figure class="proof-rotate-item card-paper{{ if eq $i 0 }} is-current{{ end }}"{{ if ne $i 0 }} aria-hidden="true"{{ end }}>
       <blockquote class="body-lg">{{ $t.quote }}</blockquote>
       <figcaption class="proof-who"><span class="proof-avatar" aria-hidden="true">
         {{- with $t.picture }}

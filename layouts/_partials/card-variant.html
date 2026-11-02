@@ -1,0 +1,8 @@
+{{- /* Picks one of two card variants for an item in a grid, as a checkerboard: no
+  card shares a variant with its neighbour in the row or the column. Pass the
+  index in the loop and the number of columns the grid shows (1 for a list).
+  Context: dict "i" (0-based index), "cols" (columns), "a" and "b" (the two
+  variant classes; default card-field and card-plain). See DESIGN.md, "Cards". */ -}}
+{{- $a := .a | default "card-field" -}}
+{{- $b := .b | default "card-plain" -}}
+{{- if eq (mod (add (div .i .cols) (mod .i .cols)) 2) 0 }}{{ $a }}{{ else }}{{ $b }}{{ end -}}

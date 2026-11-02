@@ -13,7 +13,7 @@
         {{- $videos := where .Pages "Layout" "video" -}}
         {{- with $videos }}
         <ul class="video-grid" data-video-grid>
-          {{- range .ByDate.Reverse }}{{ partial "video-card.html" . }}{{ end -}}
+          {{- range $i, $v := .ByDate.Reverse }}{{ partial "video-card.html" (dict "page" $v "i" $i "cols" 3) }}{{ end -}}
         </ul>
         {{- end }}
         {{- $others := where .Pages "Layout" "ne" "video" -}}

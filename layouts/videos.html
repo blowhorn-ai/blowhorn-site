@@ -56,9 +56,11 @@
         <p class="collection-status" data-collection-status aria-live="polite"></p>
 
         <ul class="video-grid" data-collection-grid data-collection-noun="videos">
+          {{- $.Scratch.Set "card" 0 }}
           {{- range .Sections.ByWeight }}
             {{- range .RegularPages.ByDate.Reverse }}
-          {{ partial "video-card.html" . }}
+          {{ partial "video-card.html" (dict "page" . "i" ($.Scratch.Get "card") "cols" 3) }}
+            {{- $.Scratch.Add "card" 1 }}
             {{- end }}
           {{- end }}
         </ul>

@@ -141,7 +141,7 @@
 .oil .oil-faq dd { margin: 6px 0 0; color: var(--oil-muted); line-height: 1.6; }
 .oil .oil-term { margin-top: var(--head-gap); min-width: 0; }
 .oil .oil-caption { margin-top: 10px; font-size: 0.95rem; color: var(--oil-muted); }
-.oil .oil-quote { margin: var(--intro-gap) 0; padding-left: 20px; border-left: 3px solid var(--oil-gilt); }
+.oil .oil-quote { margin: var(--intro-gap) 0; padding: var(--space-4) var(--space-6); border-radius: var(--radius-lg); }
 .oil .oil-quote p { font-family: var(--oil-serif); font-style: italic; font-size: 1.45rem; line-height: 1.35; color: var(--oil-ink); margin: 0; }
 
 /* A slow, subtle lift on hover; off for reduced motion */

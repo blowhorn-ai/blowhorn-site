@@ -2,11 +2,13 @@
   Context: the current page (or the section, which lists them all). */ -}}
 {{- $cur := . -}}
 {{- $section := site.GetPage "/agents" -}}
+{{- /* The index counts only the tiles drawn (the current page is skipped), so the checkerboard has no gaps. */ -}}
+{{- $n := 0 -}}
 <ul class="agent-grid">
   {{- range $section.Pages.ByWeight }}
   {{- if ne .RelPermalink $cur.RelPermalink }}
   <li>
-    <a class="agent-tile glass" href="{{ .RelPermalink }}">
+    <a class="agent-tile {{ partial "card-variant.html" (dict "i" $n "cols" 3) }}" href="{{ .RelPermalink }}">
       {{ partial "agents/mark.html" (dict "page" .) }}
       <span class="agent-tile-copy">
         <span class="h3">{{ .Params.tool }}</span>
@@ -14,6 +16,7 @@
       </span>
     </a>
   </li>
+  {{- $n = add $n 1 }}
   {{- end }}
   {{- end }}
 </ul>

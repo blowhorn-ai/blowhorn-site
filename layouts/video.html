@@ -40,7 +40,7 @@
         {{- with $related }}
         <h2>Related videos</h2>
         <ul class="video-grid" data-video-grid>
-          {{- range first 3 . }}{{ partial "video-card.html" . }}{{ end -}}
+          {{- range $i, $v := first 3 . }}{{ partial "video-card.html" (dict "page" $v "i" $i "cols" 3) }}{{ end -}}
         </ul>
         {{- end }}
       </div>

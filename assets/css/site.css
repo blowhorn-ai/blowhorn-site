@@ -398,12 +398,11 @@ pre code { background: none; padding: 0; }
    last item. Behaviour in assets/js/nav.js; without it (no
    .is-enhanced), hover and focus open the panels and small screens list the
    groups open. */
+/* The fill, blur and edge are the Glass recipe in cards.css (the header variant). */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--surface);
-  border-bottom: var(--stroke-hairline) solid var(--line);
 }
 .site-header .wrap {
   position: relative;
@@ -527,10 +526,8 @@ pre code { background: none; padding: 0; }
 .mm-card {
   position: relative; display: grid; gap: var(--space-2); align-content: start;
   padding: var(--space-4); border-radius: var(--radius-lg); color: var(--ink);
-  background: var(--glass-sheen); box-shadow: inset 0 0 0 1px var(--glass-rim), 0 0 0 1px var(--glass-edge);
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
-.mm-card:hover, .mm-card:focus-visible { transform: translateY(-2px); box-shadow: inset 0 0 0 1px var(--glass-rim), 0 0 0 1px var(--glass-edge), var(--glass-shadow); }
 .mm-card-title { grid-row: 2; grid-column: 1; font-size: 15px; line-height: 21px; font-weight: 700; padding-right: var(--space-6); }
 .mm-card:hover .mm-card-title { color: var(--link); }
 .mm-card-desc { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
@@ -542,7 +539,6 @@ pre code { background: none; padding: 0; }
   transition: background-color 160ms ease, transform 160ms ease;
 }
 .mm-card:hover .mm-card-arrow { background-color: var(--teal); transform: translateX(2px); }
-.mm-card-plan { background: var(--surface-tint); }
 .mm-card-plan-mark, .ways-card-plan .mm-card-plan-mark {
   display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
   background: var(--yellow); color: var(--on-yellow); border: 2px solid var(--near-black);
@@ -1037,10 +1033,10 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
+/* The card structure. cards.css owns the fill, the edge and the text colour. */
 .card {
-  background: var(--surface-raised);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  padding: var(--card-pad);
 }
 .card > * + * { margin-top: var(--space-3); }
 .card .h3 { margin-top: var(--space-4); }
@@ -1272,7 +1268,6 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   margin: var(--space-6) 0;
   padding: var(--space-4) var(--space-6);
   border-radius: var(--radius-lg);
-  background: var(--surface-tint);
 }
 .major-says-art {
   flex: none;
@@ -1289,7 +1284,6 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
 
 /* Download */
 .download-card {
-  background: var(--surface-raised);
   border-radius: var(--radius-lg);
   padding: var(--card-pad);
   display: flex;
@@ -1545,7 +1539,6 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
 .page .trust-body { margin-top: var(--space-12); }
 
 .notice {
-  background: var(--surface-tint);
   color: var(--ink);
   border-radius: var(--radius-md);
   padding: var(--space-3) var(--space-4);
@@ -1574,18 +1567,15 @@ a.card-link, a.platform, a.docs-card {
 a.platform { display: flex; height: 100%; justify-content: center; }
 a.card-link, a.docs-card { height: 100%; }
 a.card-link > * + * { margin-top: var(--space-3); }
-a.card-link .h3 { margin-top: var(--space-4); color: var(--ink); }
+a.card-link .h3 { margin-top: var(--space-4); }
 a.card-link > .h3:first-child { margin-top: 0; }
 a.card-link *, a.platform *, a.docs-card * { text-decoration: none; }
 a.card-link:hover, a.platform:hover, a.docs-card:hover,
 a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   text-decoration: none;
-  box-shadow: 0 0 0 var(--stroke-hairline) var(--line), var(--shadow-soft);
-  transform: translateY(-1px);
 }
 @media (prefers-reduced-motion: reduce) {
   a.card-link, a.platform, a.docs-card { transition: none; }
-  a.card-link:hover, a.platform:hover, a.docs-card:hover { transform: none; }
 }
 /* Logos: one optical size, centred both ways in the tile. */
 .logo-tile img { display: block; margin: auto; object-position: center; }
@@ -1615,43 +1605,13 @@ body::before {
 }
 body { background: var(--surface); }
 
-.glass,
-.card,
-.platform,
-.download-card,
-.docs-banner,
-.major-says,
-.notice,
-.swatch,
+/* The glass recipe for .glass panels is the Glass variant in cards.css. */
 .td-offline-search-results {
-  background:
-    linear-gradient(180deg, var(--glass-sheen), transparent 46%),
-    var(--glass-fill);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   box-shadow:
     inset 0 1px 0 0 var(--glass-specular),
     inset 0 0 0 1px var(--glass-rim),
     0 0 0 1px var(--glass-edge),
     var(--glass-shadow);
-}
-/* Callouts carry a whisper of teal so they read as asides, not cards. */
-.docs-banner,
-.major-says,
-.notice {
-  background:
-    linear-gradient(180deg, var(--glass-sheen), transparent 46%),
-    linear-gradient(120deg, color-mix(in srgb, var(--surface-tint) 70%, transparent), transparent 80%),
-    var(--glass-fill);
-}
-
-/* The header: one sticky glass bar, a hairline under it, content blurring past. */
-.site-header {
-  background: var(--glass-fill-strong);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  backdrop-filter: blur(24px) saturate(180%);
-  border-bottom: 0;
-  box-shadow: inset 0 -1px 0 0 var(--glass-edge), 0 1px 0 0 var(--glass-rim), 0 8px 24px -18px rgba(30, 33, 23, 0.35);
 }
 
 /* Platform logo tiles: opaque white, as each platform asks, with a glass edge. */
@@ -1700,18 +1660,7 @@ body { background: var(--surface); }
   transform: none;
 }
 
-/* Whole-card links lift on hover; the glass edge brightens with them. */
-a.card-link:hover, a.platform:hover, a.docs-card:hover,
-a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
-  box-shadow:
-    inset 0 1px 0 0 var(--glass-specular),
-    inset 0 0 0 1px var(--glass-rim),
-    0 0 0 1px var(--glass-edge),
-    var(--glass-shadow-lift);
-  transform: translateY(-2px);
-}
-.docs-card:hover,
-.docs-landing a.platform:hover { background: linear-gradient(180deg, var(--glass-sheen), transparent 46%), var(--glass-fill-strong); }
+/* Whole-card links: the hover lift and border are per variant (cards.css). */
 
 /* Sections float on the field: the rule between them fades at both ends. */
 .section + .section {
@@ -1723,14 +1672,6 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 }
 
 /* The Major card keeps its tint and pop shadow (the brand moment), on glass. */
-.major-card {
-  background:
-    linear-gradient(180deg, var(--glass-sheen), transparent 50%),
-    color-mix(in srgb, var(--surface-tint) 82%, transparent);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  box-shadow: inset 0 1px 0 0 var(--glass-specular), var(--shadow-pop);
-}
 
 /* Docs: the sidebar search field and code blocks get the same quiet glass. */
 .td-search__input { background: var(--glass-field); border-color: var(--line-strong); color: var(--ink); }
@@ -1746,8 +1687,8 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 }
 @media (prefers-reduced-transparency: reduce) {
   :root { --glass-fill: var(--glass-fill-solid); --glass-fill-strong: var(--surface); --glass-field: var(--surface); --glass-sheen: transparent; }
-  .glass, .card, .platform, .download-card, .docs-banner, .major-says, .notice, .swatch,
-  .td-offline-search-results, .site-header, .button-secondary, .major-card {
+  .glass,
+  .td-offline-search-results, .site-header, .button-secondary {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
@@ -1764,7 +1705,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 }
 @media print {
   body::before { display: none; }
-  .glass, .card, .platform, .download-card, .swatch { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--white); box-shadow: inset 0 0 0 1px var(--line); }
+  .glass { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--white); box-shadow: inset 0 0 0 1px var(--line); }
 }
 
 /* ---------- Brand (/brand/) ----------
@@ -2047,10 +1988,8 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .swatch {
   display: flex;
   flex-direction: column;
-  background: var(--surface-raised);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 0 0 var(--stroke-hairline) var(--line);
 }
 .swatch > .swatch-chip { display: block; height: 64px; box-shadow: inset 0 -1px 0 var(--line); }
 .swatch-meta { padding: var(--space-4); }
@@ -2128,6 +2067,12 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .brand-rules li + li { margin-top: var(--space-2); }
 .bubble-specimens { list-style: none; padding: 0; margin: 0 0 var(--space-8); display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
 .bubble-specimens .ui { margin: 0; }
+/* Cards specimen (brand page): the five surfaces in a grid, the glass panel alone below. */
+.card-specimens { list-style: none; padding: 0; margin: 0 0 var(--space-8); display: grid; gap: var(--grid-gap); grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.card-specimens .label, .card-specimen-glass .label { margin: 0; }
+.card-specimens .ui, .card-specimen-glass .ui { margin: var(--space-2) 0 0; }
+.card-specimens .caption, .card-specimen-glass .caption { margin: var(--space-2) 0 0; }
+.card-specimen-glass { margin: 0 0 var(--space-8); max-width: 32rem; }
 .bubble-specimens .caption { margin: var(--space-1) 0 0; }
 
 /* Usage */
@@ -2275,7 +2220,6 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .coverage .cov-closed { background: var(--surface-raised); color: var(--ink-muted); text-decoration: line-through; }
 .page .coverage tr.cov-us > td:not(.cov),
 .page .coverage th.cov-us { background: var(--surface-tint); color: var(--ink-wordmark); font-weight: 700; border-radius: var(--radius-sm); }
-.page .coverage tr.cov-us > td:first-child { box-shadow: inset 4px 0 0 var(--teal); }
 .coverage tr.cov-us .cov-yes,
 .coverage td.cov-us.cov-yes { background: color-mix(in srgb, var(--teal) 55%, var(--surface)); }
 
@@ -2339,19 +2283,7 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   place-items: center;
   padding: var(--space-4);
   border-radius: var(--radius-xl);
-  background:
-    linear-gradient(180deg, var(--glass-sheen), transparent 46%),
-    var(--glass-fill);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  box-shadow: inset 0 1px 0 0 var(--glass-specular), inset 0 0 0 1px var(--glass-rim), 0 0 0 1px var(--glass-edge), var(--glass-shadow);
   overflow: hidden;
-}
-.step-extension .step-stage {
-  background:
-    linear-gradient(180deg, var(--glass-sheen), transparent 46%),
-    linear-gradient(135deg, color-mix(in srgb, var(--surface-tint) 85%, transparent), transparent 85%),
-    var(--glass-fill);
 }
 .step-text { max-width: 17rem; color: var(--ink-muted); font-size: 15px; line-height: 22px; }
 .step-text b { color: var(--ink); font-weight: 600; }
@@ -2624,7 +2556,6 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   padding: var(--space-4); border-radius: var(--radius-lg); color: inherit; text-decoration: none;
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
-.agent-tile:hover { transform: translateY(-2px); box-shadow: var(--glass-shadow-lift); }
 .agent-tile-copy { display: grid; gap: 2px; }
 @media (prefers-reduced-motion: reduce) { .agent-tile { transition: none; } .agent-tile:hover { transform: none; } }
 
@@ -2645,15 +2576,10 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
   max-width: 40rem;
   padding: var(--space-4) var(--space-6);
   border-radius: var(--radius-md);
-  border-left: 4px solid var(--teal);
-  background: color-mix(in srgb, var(--surface-tint) 80%, transparent);
-  color: var(--ink);
 }
 
 .versus-split { display: grid; gap: var(--grid-gap, var(--space-8)); }
 @media (min-width: 720px) { .versus-split { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.versus-col { padding-top: var(--space-4); border-top: 2px solid var(--line-strong); }
-.versus-col.versus-us { border-top-color: var(--teal); }
 .versus-col > * + * { margin-top: var(--space-3); }
 .versus-list { display: grid; gap: var(--space-2); padding-left: var(--space-6); color: var(--ink-muted); }
 .versus-list li { list-style: disc; }
@@ -2714,10 +2640,6 @@ a.card-link:focus-visible, a.platform:focus-visible, a.docs-card:focus-visible {
 .page .versus-table tbody tr:hover > * { background: color-mix(in srgb, var(--surface-tint) 35%, transparent); }
 .page .versus-table tbody tr:hover > .compare-us { background: var(--surface-tint); }
 
-.versus-belief {
-  padding-left: var(--space-6);
-  border-left: 3px solid var(--teal);
-}
 /* The rule hugs the text, so the section trades its padding for margin. */
 .page .agent-section.versus-belief { padding-block: 0; margin-block: var(--section-y); background-image: none; }
 .versus-belief > * + * { margin-top: var(--space-4); }
@@ -2823,10 +2745,6 @@ section > h2 + :not(p) { margin-top: var(--head-gap); }
 /* Grids and cards. */
 .grid, .agent-prompts, .agent-grid { gap: var(--grid-gap); }
 .agent-faq { gap: var(--stack-gap); }
-.card { padding: var(--card-pad); }
-.card > * + * { margin-top: var(--space-3); }
-.card .h3 { margin-top: var(--space-4); }
-.card > .h3:first-child { margin-top: 0; }
 /* Docs cards (Start here, quadrants, platform lists): the children are spans,
    so without a column layout the title and description run together inline and
    the margin rhythm above never applies. Stack them with gap instead. */
@@ -3063,8 +2981,8 @@ a.card.docs-card > * { margin-top: 0; }
 .proof-ticker:hover .proof-ticker-track { animation-play-state: paused; }
 .proof-ticker-item { display: flex; align-items: center; padding-right: var(--space-8); white-space: nowrap; }
 /* Each organisation's own horizontal logo (data/user_logos.json), bare:
-   no plate, no box. The files are one treated set — grayscale, canvas
-   trimmed to the art, white lockups stored inverted — at one height.
+   no plate, no box. The files are one treated set - grayscale, canvas
+   trimmed to the art, white lockups stored inverted - at one height.
    Dark mode inverts the strip, so the dark-based set reads light on
    the dark ground and the stored-white lockups come back as their
    original white; contrast stays soft in both schemes. The grayscale
@@ -3073,42 +2991,28 @@ a.card.docs-card > * { margin-top: 0; }
 @media (prefers-color-scheme: dark) { .proof-ticker-logo { filter: grayscale(1) invert(1); } }
 @keyframes proof-ticker-slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* Quote grid. A giant quotation mark sits behind the cards, and the cards
-   take turns: a featured opener, then a cycle of accent edge, tinted fill
-   and plain glass, so no two neighbours dress the same. */
+/* Quote grid. A giant quotation mark sits behind the cards. The cards take
+   their variants from the template (cards.css): a featured paper opener, then
+   a checkerboard of stamp and field, so no two neighbours dress the same. */
 .proof-section { position: relative; overflow: hidden; }
 .proof-section .wrap { position: relative; }
 .proof-section .wrap::before { content: "\201C"; position: absolute; top: -3.5rem; right: -1rem; font-family: var(--font-display); font-weight: 800; font-size: 22rem; line-height: 1; color: var(--teal); opacity: 0.08; pointer-events: none; }
 .proof-grid { list-style: none; padding: 0; display: grid; gap: var(--grid-gap, var(--space-6)); grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); }
-.proof-card { position: relative; overflow: hidden; padding: var(--card-pad, var(--space-6)); border-radius: 1.25rem; background: var(--glass-fill); border: 1px solid var(--glass-rim); box-shadow: var(--glass-shadow); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); transition: transform 200ms ease, box-shadow 200ms ease; }
-.proof-card:hover { transform: translateY(-3px); box-shadow: var(--glass-shadow-lift); }
+.proof-card { position: relative; overflow: hidden; padding: var(--card-pad, var(--space-6)); border-radius: 1.25rem; }
 .proof-mark { display: block; font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; line-height: 0.7; color: var(--teal-deep); }
 .proof-card blockquote { margin: var(--space-3) 0 var(--space-4); }
 .proof-who { display: flex; gap: var(--space-3); align-items: center; margin: 0; }
-.proof-card:nth-child(3n+2) { border-left: 4px solid var(--teal); }
-.proof-card:nth-child(3n+2) .proof-mark { color: var(--yellow-shade); }
-.proof-card:nth-child(3n) { background: var(--surface-tint); }
-.proof-card:nth-child(3n) .proof-mark { color: var(--charcoal); }
-@media (prefers-color-scheme: dark) {
-  .proof-card:nth-child(3n) { background: var(--surface-tint); }
-  .proof-card:nth-child(3n) .proof-mark { color: var(--mint); }
-}
-.proof-card-feature { background: var(--near-black); color: var(--cream); border-color: var(--near-black); }
-.proof-card-feature .proof-mark { font-size: 4.5rem; color: var(--yellow); }
+.proof-card-feature .proof-mark { font-size: 4.5rem; }
 .proof-card-feature blockquote { font-family: var(--font-display); font-weight: 700; font-size: 1.45rem; line-height: 1.35; }
-.proof-card-feature .caption { color: var(--mint); }
-.proof-card-feature .proof-avatar { border-color: var(--cream); }
 @media (min-width: 900px) {
   .proof-card-feature { grid-column: span 2; }
 }
 .proof-band { display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin-bottom: var(--space-8); }
-.proof-band figure { margin: 0; padding-left: var(--space-4); border-left: 3px solid var(--teal-deep); }
-.proof-band figure:nth-child(2) { border-left-color: var(--yellow-shade); }
-.proof-band figure:nth-child(3) { border-left-color: var(--charcoal); }
+.proof-band figure { margin: 0; padding: var(--card-pad, var(--space-6)); }
 /* Rotating proof (solutions pages): one quote at a time. The first quote
    shows with no JavaScript; the nav only appears once
    proof-rotation.js has made it work, so a dead button never ships. */
-.proof-rotate-item { display: none; margin: 0; padding: var(--card-pad, var(--space-6)); border-radius: 1.25rem; background: var(--glass-fill); border: 1px solid var(--glass-rim); box-shadow: var(--glass-shadow); }
+.proof-rotate-item { display: none; margin: 0; padding: var(--card-pad, var(--space-6)); border-radius: 1.25rem; }
 .proof-rotate-item.is-current { display: block; }
 .proof-rotate-item blockquote { margin: 0 0 var(--space-4); }
 .proof-rotate-nav { display: none; gap: var(--space-3); margin-top: var(--space-4); }
@@ -3163,10 +3067,6 @@ a.card.docs-card > * { margin-top: 0; }
 .plan { display: flex; flex-direction: column; position: relative; }
 .plan > * + * { margin-top: var(--space-3); }
 .plan .plan-name { margin-top: 0; font-size: 22px; }
-.plan-featured {
-  outline: 2px solid var(--teal); outline-offset: -2px;
-  box-shadow: var(--glass-shadow-lift);
-}
 .plan-badge {
   align-self: flex-start; padding: 2px var(--space-3); border-radius: var(--radius-pill);
   background: var(--teal); color: var(--on-teal); font-weight: 700;
@@ -3270,23 +3170,14 @@ a.card.docs-card > * { margin-top: 0; }
 }
 
 /* ---------- Clickable cards read as clickable at rest ----------
-   Whole-card links (a.card-link, a.docs-card, a.platform, a.agent-tile) carry
-   two at-rest cues that static cards never get: a teal-tinted edge and a round
-   arrow chip. Hover keeps its lift and fills the chip teal; keyboard focus gets
-   a visible ring; reduced motion drops the movement, not the cues.
+   Whole-card links carry one at-rest cue that static cards never get: a round
+   arrow chip. The card's own variant (cards.css) sets the edge and the lift;
+   hover fills the chip teal; keyboard focus gets a visible ring; reduced motion
+   drops the movement, not the cue.
    Tokens (blowhorn repository, marketing/brand/tokens.json): teal, teal-deep,
    teal-bright, surface-tint, near-black (on-teal), radius-pill, space-*. */
-:root { --card-cue-edge: color-mix(in srgb, var(--teal) 34%, transparent); }
-@media (prefers-color-scheme: dark) {
-  :root { --card-cue-edge: color-mix(in srgb, var(--teal-bright) 30%, transparent); }
-}
 a.card-link, a.docs-card, a.platform, a.agent-tile {
   position: relative;
-  box-shadow:
-    inset 0 1px 0 0 var(--glass-specular),
-    inset 0 0 0 1px var(--card-cue-edge),
-    0 0 0 1px var(--glass-edge),
-    var(--glass-shadow);
 }
 a.card-link::after, a.docs-card::after, a.platform::after, a.agent-tile::after {
   content: "";
@@ -3318,13 +3209,6 @@ a.card-link:focus-visible::after, a.docs-card:focus-visible::after, a.platform:f
   --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%231E2117' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   transform: translateX(2px);
 }
-a.card-link:hover, a.docs-card:hover, a.platform:hover, a.agent-tile:hover {
-  box-shadow:
-    inset 0 1px 0 0 var(--glass-specular),
-    inset 0 0 0 1px color-mix(in srgb, var(--teal) 60%, transparent),
-    0 0 0 1px var(--glass-edge),
-    var(--glass-shadow-lift);
-}
 a.card-link:focus-visible, a.docs-card:focus-visible, a.platform:focus-visible, a.agent-tile:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
@@ -3334,11 +3218,6 @@ a.card-link:focus-visible, a.docs-card:focus-visible, a.platform:focus-visible, 
   a.card-link:hover::after, a.docs-card:hover::after, a.platform:hover::after, a.agent-tile:hover::after,
   a.card-link:focus-visible::after, a.docs-card:focus-visible::after, a.platform:focus-visible::after, a.agent-tile:focus-visible::after { transform: none; }
 }
-@media (prefers-contrast: more) {
-  :root { --card-cue-edge: var(--teal-deep); }
-}
-/* Static cards stay flat: testimonial and logo cards no longer lift on hover. */
-.proof-card:hover, .proof-logo-card:hover { transform: none; box-shadow: var(--glass-shadow); }
 a.card-link > :first-child, a.docs-card > :first-child { padding-right: var(--space-8); }
 a.agent-tile { padding-right: var(--space-6); }
 
@@ -3376,7 +3255,6 @@ a.agent-tile { padding-right: var(--space-6); }
    rest, with no lift and no shift, so the arrow stays aligned with the other cards. */
 a.docs-card.platform-card { padding-right: calc(var(--space-8) + var(--space-4)); }
 a.docs-card.platform-card::after { top: 50%; right: var(--space-4); transform: translateY(-50%); }
-a.docs-card.platform-card:hover, a.docs-card.platform-card:focus-visible { transform: none; }
 a.docs-card.platform-card:hover::after, a.docs-card.platform-card:focus-visible::after {
   transform: translateY(-50%);
   background-color: var(--surface-tint);

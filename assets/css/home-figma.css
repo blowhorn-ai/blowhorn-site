@@ -128,17 +128,12 @@
   .fig .fig-grid-2 { grid-template-columns: repeat(2, 1fr); }
 }
 .fig .fig-card {
-  border: 1px solid var(--fig-line); border-radius: 16px; padding: var(--card-pad);
-  background: #fff; color: #1e2117;
+  border-radius: 16px; padding: var(--card-pad);
 }
 @media (prefers-color-scheme: dark) {
-  .fig .fig-card { background: #2a2e25; color: #f4f7f6; }
 }
 .fig .fig-card h3 { margin: 0 0 12px; }
-.fig .fig-card p { margin: 0; color: #3c494f; }
-@media (prefers-color-scheme: dark) {
-  .fig .fig-card p { color: #d5dedd; }
-}
+.fig .fig-card p { margin: 0; }
 .fig .fig-tag { display: block; color: var(--fig-teal-deep); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
 @media (prefers-color-scheme: dark) {
   .fig .fig-tag { color: var(--fig-teal-bright); }
@@ -147,8 +142,6 @@
 /* Dark sections (agents, V1 platforms, V3/V4 close) */
 .fig .fig-dark { background: #1e2117; color: #f4f7f6; }
 .fig .fig-dark p, .fig .fig-dark .fig-lead { color: #d5dedd; }
-.fig .fig-dark .fig-card { background: #2a2e25; border-color: #3c494f; color: #f4f7f6; }
-.fig .fig-dark .fig-card p { color: #d5dedd; }
 .fig .fig-dark .fig-tag { color: var(--fig-teal-bright); }
 .fig .fig-dark a { color: var(--fig-teal-bright); }
 
