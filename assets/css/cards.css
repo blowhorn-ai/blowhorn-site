@@ -58,8 +58,8 @@ a.docs-card,
   background: color-mix(in srgb, var(--card-ink) 10%, transparent);
 }
 
-/* 1. Paper: "Field order". Cream paper, near-black ink, a 1.5px outline and the
-   brand's hard offset pop. Keeps its colours in dark mode, like the paper speech
+/* 1. Paper: "Field order". Cream paper, near-black ink and a 1.5px outline, with
+   no shadow (a hard offset is banned: DESIGN.md, Cards rule 1). Keeps its colours in dark mode, like the paper speech
    bubble. For Major's voice, testimonials and the one featured item in a section. */
 .card-paper {
   --card-bg: var(--cream, #FFF6E0);
@@ -67,9 +67,9 @@ a.docs-card,
   --card-muted: var(--charcoal, #3C494F);
   --card-border-width: 1.5px;
   --card-border-color: var(--near-black, #1E2117);
-  --card-shadow: var(--shadow-pop, 4px 4px 0 0 #1E2117);
+  --card-shadow: none;
   --card-hover-border: var(--near-black, #1E2117);
-  --card-hover-shadow: var(--shadow-pop, 4px 4px 0 0 #1E2117);
+  --card-hover-shadow: none;
 }
 
 /* 2. Dispatch: a terminal teletype. Near-black fill in both themes, light ink, a

@@ -236,7 +236,6 @@ a.tag-chip {
   border-radius: 50%;
   background: var(--teal);
   color: var(--on-teal);
-  box-shadow: var(--shadow-pop);
   font-size: 18px;
   padding-left: 4px;
 }
@@ -367,7 +366,7 @@ a.tag-chip {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-lg);
   background: var(--surface);
-  box-shadow: var(--shadow-pop);
+  box-shadow: var(--glass-shadow);
 }
 
 .video-dialog::backdrop {

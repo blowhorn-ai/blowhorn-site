@@ -30,7 +30,7 @@ Rules:
 
 Two rules, from the owner's order of 2 Nov 2026:
 
-1. **No stripe on one edge.** A card, callout, quote, table row or panel never carries a coloured stripe on one side: no `border-left` or `border-right` (or inline start or end) in a colour, no inset shadow down one side, no `::before` bar. A card keeps an even border on all sides, or none. Emphasis comes from the eyebrow label, the type and the fill. Neutral 1px column rules, the selected-tab mark and checkmarks are structure, not stripes.
+1. **No stripe on one edge.** A card, callout, quote, table row or panel never carries a coloured stripe on one side: no `border-left` or `border-right` (or inline start or end) in a colour, no inset shadow down one side, no `::before` bar, and no hard offset shadow (an outer shadow with no blur pushed off one or two edges, the retired `shadow-pop` sticker that the Download button and the Major card wore; Lee, 2 Nov 2026). Depth is the soft `--glass-shadow`. A card keeps an even border on all sides, or none. Emphasis comes from the eyebrow label, the type and the fill. Neutral 1px column rules, the selected-tab mark and checkmarks are structure, not stripes.
 2. **No single generic card.** Pick the variant by what the content is. No two cards in the same row share a variant, and no card shares one with the card directly above it, at any width the grid is shown at: a 3-column grid that drops to 2 columns on a tablet and 1 on a phone has to hold at all three.
 
 The variants live once, in `assets/css/cards.css`. The same file is published unminified at `/assets/brand/cards.css` for tells.blowhorn.ai. `.card` (padding, radius, gaps) stays the structural base in `site.css`; a variant only sets the look.
@@ -47,7 +47,7 @@ Paper and Dispatch keep one palette in both themes, so they also set `--ink`, `-
 
 | Class | Name | Use for | Fill | Edge | Text (light / dark) | Contrast |
 |---|---|---|---|---|---|---|
-| `card-paper` | Field order | Major's voice, testimonials, the one featured item in a section | cream in both themes | 1.5px near-black, hard `--shadow-pop` | near-black ink, charcoal muted | ink 15.2:1, muted 8.6:1 in both themes |
+| `card-paper` | Field order | Major's voice, testimonials, the one featured item in a section | cream in both themes | 1.5px near-black, no shadow | near-black ink, charcoal muted | ink 15.2:1, muted 8.6:1 in both themes |
 | `card-dispatch` | Dispatch | developer notes, API and JSON facts, commands | near-black in both themes | 1px dashed teal-shade (#008F80) | cream ink, mint muted, teal-bright mono `>` label | ink 15.2:1, muted 12.1:1, label 8.5:1 |
 | `card-stamp` | Stamp | facts, stats, guarantees, proof points, compliance | none (the page shows through) | 2px ink (1px border plus a 1px inset ring, so the box matches the other variants); label boxed in mono caps | ink, ink-muted | 16.3:1 and 5.6 / 7.2:1 for muted; edge 16.3:1 |
 | `card-field` | Field | feature and explanation grids, the common case | surface-tint | none; the hover edge is line-strong | ink, ink-muted | 14.2 / 12.4:1 ink; 4.9 / 5.5:1 muted |
@@ -69,6 +69,7 @@ Do:
 Don't:
 
 - Draw a stripe on one edge, on a card, a quote, a table row or a callout.
+- Give a button, card or tile a hard offset shadow (`4px 4px 0 0`); a primary button stands out by its teal fill and gloss.
 - Put the same variant on two cards in a row or on a card and the one above it, or make a whole grid one variant.
 - Put glass on a grid of cards, or on anything that is not a floating surface.
 - Hard-code a card's colours in a template: add a variant, or use an existing one.
@@ -91,7 +92,7 @@ Say less, more clearly. Turn the verbosity dial down a notch from your first dra
 - [ ] New sections use the shared section and `.section-head` classes, not page-specific spacing
 - [ ] Sections are clearly separated (whitespace, then divider or background shift if needed)
 - [ ] Paragraphs stay within `--text-measure`; cards use `--card-pad` and `--grid-gap`
-- [ ] No coloured stripe on one edge of a card, callout, quote, table row or panel; no two cards in a row, and no card and the one above it, share a card variant, at any width the grid shows
+- [ ] No coloured stripe on one edge of a card, callout, quote, table row or panel, and no hard offset shadow; no two cards in a row, and no card and the one above it, share a card variant, at any width the grid shows
 - [ ] Checked at 1280, 390 and 320 px, light and dark
 - [ ] Intros <= 2 sentences, card bodies <= ~30 words, one idea per sentence
 - [ ] No em dashes; no trailing periods on section titles

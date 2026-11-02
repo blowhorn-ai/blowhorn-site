@@ -31,7 +31,7 @@
             <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-3" "n" (len $p.steps)) }}"><span class="agent-step-n">{{ add $i 1 }}</span><h3 class="h3">{{ $st.t }}</h3><p>{{ $st.b }}</p></li>
             {{- end }}
             {{- else }}
-            <li class="card card-field"><span class="agent-step-n">1</span><h3 class="h3">Install Blowhorn</h3><p>Blowhorn for Mac and the Blowhorn browser extension. Your posts go out from your own signed-in browser.</p></li>
+            <li class="card card-field"><span class="agent-step-n">1</span><h3 class="h3">Install Blowhorn</h3><p>Blowhorn for your computer and the Blowhorn browser extension. Your posts go out from your own signed-in browser.</p></li>
             <li class="card card-plain"><span class="agent-step-n">2</span><h3 class="h3">{{ $p.wire_title }}</h3><p>{{ $p.hook }}. A few lines and {{ $p.tool }} knows the commands.</p></li>
             <li class="card card-stamp"><span class="agent-step-n">3</span><h3 class="h3">Say what you want</h3><p>{{ $p.tool }} turns it into blowhorn commands. You approve what publishes.</p></li>
             {{- end }}
