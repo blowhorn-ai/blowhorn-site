@@ -8,10 +8,12 @@
    a token is missing. Each variant sets the --card-* properties; the shared
    rules below read them. No variant draws a stripe on one edge. */
 
-/* A .card (or an unlabelled docs card) with no variant class gets the field
-   look, so nothing ships unstyled. Every variant below overrides these. */
-.card,
-a.docs-card {
+/* A .card or docs card with no variant class gets the field look, so nothing
+   ships unstyled. On the site every card is dealt a variant (card-cycle.html,
+   docs-content.html); this is the safety net, not a style to choose. Every
+   variant below overrides these: zero specificity, so a.docs-card never outranks
+   a variant class. */
+:where(.card, a.docs-card) {
   --card-bg: var(--surface-tint, #DDF4F1);
   --card-ink: var(--ink, #1E2117);
   --card-muted: var(--ink-muted, #5B6A70);
@@ -37,13 +39,16 @@ a.docs-card,
   -webkit-backdrop-filter: var(--card-blur, none);
   backdrop-filter: var(--card-blur, none);
 }
-:is(.card, a.docs-card, .card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain, .card-glass) :is(h2, h3, h4, .h2, .h3, .h4) {
+/* Text inside a card, at zero specificity: a default, never an override. A
+   component that colours its own text (a badge, a status pill) keeps it, and
+   Paper and Dispatch reach those rules through the tokens they set below. */
+:where(.card, a.docs-card, .card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain, .card-glass) :where(h2, h3, h4, .h2, .h3, .h4) {
   color: var(--card-ink);
 }
-:is(.card, a.docs-card, .card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain, .card-glass) :is(p, ul, li) {
+:where(.card, a.docs-card, .card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain, .card-glass) :where(p, ul, li) {
   color: var(--card-muted);
 }
-:is(.card, a.docs-card, .card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain, .card-glass) code {
+:where(.card, a.docs-card, .card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain, .card-glass) :where(code) {
   color: var(--card-ink);
   background: color-mix(in srgb, var(--card-ink) 10%, transparent);
 }
@@ -84,6 +89,54 @@ a.docs-card,
   margin-right: 0.5em;
 }
 
+/* Paper and Dispatch keep their colours in both themes, so each also sets the
+   page's theme tokens for its own subtree: a component rule that reads --ink,
+   --ink-muted, --link, --line, --surface or a --glass-* token inside one of
+   them (text, a code chip, a secondary button, a form field) gets the card's palette,
+   not the page's, and stays legible (paper is the light palette, dispatch the
+   dark one). The focus ring changes only inside the card: the card's own ring
+   is drawn on the page, so it keeps the page's colour. */
+.card-paper {
+  --ink: var(--near-black, #1E2117);
+  --ink-muted: var(--charcoal, #3C494F);
+  --ink-wordmark: var(--charcoal, #3C494F);
+  --link: var(--teal-deep, #00756A);
+  --link-hover: var(--near-black, #1E2117);
+  --line: #D5DEDD;
+  --surface-tint: #DDF4F1;
+  --surface: #FFFFFF;
+  --surface-raised: #F4F7F6;
+  --glass-fill: rgba(255, 255, 255, 0.58);
+  --glass-fill-strong: rgba(255, 255, 255, 0.72);
+  --glass-fill-solid: #FBFDFC;
+  --glass-field: rgba(255, 255, 255, 0.78);
+  --glass-sheen: rgba(255, 255, 255, 0.55);
+  --glass-specular: rgba(255, 255, 255, 0.95);
+  --glass-rim: rgba(255, 255, 255, 0.65);
+  --glass-edge: rgba(30, 33, 23, 0.08);
+}
+.card-paper * { --focus-ring: var(--teal-deep, #00756A); }
+.card-dispatch {
+  --ink: var(--cream, #FFF6E0);
+  --ink-muted: var(--mint, #A6EBDF);
+  --ink-wordmark: var(--cream, #FFF6E0);
+  --link: var(--teal-bright, #00D3A9);
+  --link-hover: var(--mint, #A6EBDF);
+  --line: #3C494F;
+  --surface-tint: #173A34;
+  --surface: #1E2117;
+  --surface-raised: #2A2E25;
+  --glass-fill: rgba(42, 46, 37, 0.52);
+  --glass-fill-strong: rgba(30, 33, 23, 0.68);
+  --glass-fill-solid: #262A21;
+  --glass-field: rgba(30, 33, 23, 0.60);
+  --glass-sheen: rgba(255, 255, 255, 0.06);
+  --glass-specular: rgba(255, 255, 255, 0.14);
+  --glass-rim: rgba(255, 255, 255, 0.08);
+  --glass-edge: rgba(0, 0, 0, 0.35);
+}
+.card-dispatch * { --focus-ring: var(--teal-bright, #00D3A9); }
+
 /* 3. Stamp: no fill, a 2px ink border, a small radius, and a label boxed in mono
    caps like a rubber stamp. For facts, stats, guarantees, proof, compliance. */
 .card-stamp {
@@ -98,6 +151,8 @@ a.docs-card,
 }
 .card-stamp .label {
   display: inline-block;
+  width: fit-content;
+  max-width: 100%;
   padding: 2px 8px;
   border: 1px solid var(--ink, #1E2117);
   border-radius: 2px;

@@ -9,9 +9,10 @@
           <h1 class="display">{{ .Title }}</h1>
           <p class="body-lg muted lede">{{ .Description }}</p>
         </header>
+        {{- $cycle := partial "card-cycle.html" (dict "grid" "video-grid") }}
         <ul class="video-grid" data-video-grid>
           {{- range $i, $v := .RegularPages.ByDate.Reverse }}
-          {{ partial "video-card.html" (dict "page" $v "i" $i "cols" 3) }}
+          {{ partial "video-card.html" (dict "page" $v "i" $i "cycle" $cycle) }}
           {{- end }}
         </ul>
         <p><a href="{{ (site.GetPage "/resources/videos").RelPermalink }}">All videos</a></p>
@@ -21,6 +22,5 @@
 {{ end }}
 
 {{ define "scripts" }}
-    {{- $js := resources.Get "js/resources.js" | minify | fingerprint }}
-    <script src="{{ $js.RelPermalink }}" defer></script>
+    {{- partial "filter-script.html" "js/resources.js" }}
 {{ end }}

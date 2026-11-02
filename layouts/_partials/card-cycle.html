@@ -1,0 +1,59 @@
+{{- /* The variant cycle for one card grid: the shortest run of variants that,
+  repeated in order, never puts the same variant on two neighbours, in a row
+  or a column, at any width the grid is shown at. card-variant.html picks
+  each card's class from it; a filtered collection prints it as
+  data-card-cycle so resources.js can re-deal the visible cards. See
+  DESIGN.md, "Cards".
+
+  Context: dict
+    "grid"     a grid class named below, or
+    "cols"     a slice of every column count the grid shows (1 for a stack);
+    "n"        optional: how many cards the grid draws. Neighbours further apart
+               than the grid has cards cannot clash, so short grids need fewer
+               variants;
+    "variants" optional: variant classes in order of preference.
+
+  Why a cycle works: card i and card i+d are neighbours when d is 1 (the same
+  row, or a stack) or d is the column count (the same column). A cycle of
+  length p repeats a variant only at distances that are multiples of p, so p
+  must divide none of them. That is why a grid that goes 1, 2 and 3 across
+  needs four variants: 2 and 3 are both taken.
+
+  Column counts per grid class. Keep in step with the grid's CSS: */ -}}
+{{- $grids := dict
+  "stack"        (slice 1)
+  "grid-2"       (slice 1 2)
+  "grid-3"       (slice 1 2 3)
+  "grid-4"       (slice 1 2 4)
+  "agent-grid"   (slice 1 2 4)
+  "video-grid"   (slice 1 2 3)
+  "mm-cards"     (slice 1 2 3)
+  "pricing-grid" (slice 1 2 4)
+  "proof-band"   (slice 1 2 3)
+  "swatches"     (slice 1 2 4)
+  "fig-grid-2"   (slice 1 2)
+  "fig-grid-3"   (slice 1 3)
+-}}
+{{- $cols := .cols -}}
+{{- with .grid -}}
+  {{- $cols = index $grids . -}}
+  {{- if not $cols }}{{ errorf "card-cycle.html: unknown grid %q; add its column counts to the map" . }}{{ $cols = slice 1 }}{{ end -}}
+{{- end -}}
+{{- if not $cols }}{{ errorf "card-cycle.html: pass \"grid\" or \"cols\"" }}{{ $cols = slice 1 }}{{ end -}}
+{{- if not (reflect.IsSlice $cols) }}{{ $cols = slice $cols }}{{ end -}}
+{{- $variants := .variants | default (slice "card-field" "card-plain" "card-stamp" "card-dispatch") -}}
+{{- if lt (len $variants) 2 }}{{ errorf "card-cycle.html: a grid needs at least two variants, got %v" $variants }}{{ end -}}
+{{- $n := int (.n | default 0) -}}
+{{- $gaps := slice 1 | append $cols -}}
+{{- $p := 0 -}}
+{{- range $k := seq 2 (len $variants) -}}
+  {{- if not $p -}}
+    {{- $ok := true -}}
+    {{- range $gaps -}}
+      {{- if and (or (eq $n 0) (lt . $n)) (eq (mod . $k) 0) }}{{ $ok = false }}{{ end -}}
+    {{- end -}}
+    {{- if $ok }}{{ $p = $k }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $p }}{{ errorf "card-cycle.html: columns %v with %d cards need more than the %d variants given (%v)" $cols $n (len $variants) $variants }}{{ $p = len $variants }}{{ end -}}
+{{- return first $p $variants -}}

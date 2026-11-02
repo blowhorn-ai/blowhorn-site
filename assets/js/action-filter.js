@@ -18,6 +18,8 @@
       var wrap = card.closest("li");
       if (wrap && wrap !== card) wrap.hidden = !hit;
     });
+    // Hidden cards leave gaps in the variant cycle; deal it again (card-cycle.js).
+    window.blowhornCardCycle(root);
     root.querySelectorAll("[data-action-catalog]").forEach(function (section) {
       var visible = section.querySelectorAll("[data-action-card]:not([hidden])");
       section.hidden = id !== "" && visible.length === 0;

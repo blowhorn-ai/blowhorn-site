@@ -113,7 +113,7 @@
           </div>
           <ul class="grid grid-2 major-troops">
             {{- range $i, $t := .Params.troops }}
-            <li class="card major-troop {{ partial "card-variant.html" (dict "i" $i "cols" 2) }}"{{ with $t.id }} id="troop-{{ . }}"{{ end }}>
+            <li class="card major-troop {{ partial "card-variant.html" (dict "i" $i "grid" "grid-2" "n" (len $.Params.troops)) }}"{{ with $t.id }} id="troop-{{ . }}"{{ end }}>
               {{- with $t.img }}<img class="major-troop-art" src="{{ . | relURL }}" alt="{{ $t.alt }}" loading="lazy" decoding="async">{{ end }}
               <h3 class="h3">{{ .name }}</h3>
               <p class="label">{{ .tag }}</p>
@@ -137,7 +137,7 @@
           </div>
           <ul class="grid grid-3 major-rules">
             {{- range $i, $r := .Params.rules }}
-            <li class="card {{ partial "card-variant.html" (dict "i" $i "cols" 3) }}">
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-3" "n" (len $.Params.rules)) }}">
               <h3 class="h3">{{ .k }}</h3>
               <p class="major-do"><span class="label">Says</span>{{ .do }}</p>
               <p class="major-dont caption muted"><span class="label">Never</span>{{ .dont }}</p>
@@ -157,7 +157,7 @@
           </div>
           <ul class="grid grid-2">
             {{- range $i, $rv := .Params.rivals }}
-            <li class="card {{ partial "card-variant.html" (dict "i" $i "cols" 2 "a" "card-stamp" "b" "card-field") }}"><h3 class="h3">{{ .name }}</h3><p>{{ .v }}</p></li>
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-2" "n" (len $.Params.rivals) "variants" (slice "card-stamp" "card-field" "card-plain")) }}"><h3 class="h3">{{ .name }}</h3><p>{{ .v }}</p></li>
             {{- end }}
           </ul>
         </section>
@@ -167,17 +167,18 @@
             <h2 id="dispatches-title" class="h2">Dispatches from the barracks</h2>
             <p class="muted">His story keeps going. New entries land here, newest first. <a href="{{ with .OutputFormats.Get "dispatches" }}{{ .RelPermalink }}{{ end }}">RSS feed</a></p>
           </div>
+          {{- /* Entries alternate plain and field; the follow card under them is a stamp, so it never matches the last entry. */}}
           <ol class="major-log">
-            {{- range sort .Params.dispatches "date" "desc" }}
+            {{- range $i, $_ := sort .Params.dispatches "date" "desc" }}
             {{- $d := time.AsTime .date }}
-            <li class="card card-plain" id="dispatch-{{ $d.Format "2006-01-02" }}">
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "stack" "variants" (slice "card-plain" "card-field")) }}" id="dispatch-{{ $d.Format "2006-01-02" }}">
               <p class="label"><time datetime="{{ $d.Format "2006-01-02" }}">{{ $d.Format "January 2, 2006" }}</time></p>
               <h3 class="h3">{{ .title }}</h3>
               <p>{{ .body }}</p>
             </li>
             {{- end }}
           </ol>
-          <div class="major-follow card card-field">
+          <div class="major-follow card card-stamp">
             <h3 class="h3">Follow his story</h3>
             <p class="muted">New dispatches and Blowhorn news, now and then. No spam. Major hates spam.</p>
             {{ partial "newsletter.html" (dict "id" "major-email" "label" "Email address for dispatches" "button" "Enlist" "page" .) }}

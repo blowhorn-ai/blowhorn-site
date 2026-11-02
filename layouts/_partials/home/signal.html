@@ -98,12 +98,13 @@
             <h2 id="roles-title" class="display">Built for the people, and the agents, who carry the message.</h2>
           </div>
           <ul class="grid grid-3 section-body signal-roles">
-            {{- range $i, $role := sort site.Data.roles.roles "weight" }}
+            {{- $roles := sort site.Data.roles.roles "weight" }}
+            {{- range $i, $role := $roles }}
             {{- /* The whole card is the link (a.card-link: pointer, arrow
               cue chip, hover lift). No separate "Blowhorn for X" link: it
               only repeated the card's own title. */}}
             <li>
-              <a class="role-card card card-link {{ partial "card-variant.html" (dict "i" $i "cols" 3) }}" href="{{ printf "for/%s/" $role.slug | relURL }}">
+              <a class="role-card card card-link {{ partial "card-variant.html" (dict "i" $i "grid" "grid-3" "n" (len $roles)) }}" href="{{ printf "for/%s/" $role.slug | relURL }}">
                 <span class="role-art">
                   <img src="{{ $role.art.src | relURL }}" alt="{{ $role.art.alt }}" width="320" height="240" loading="lazy">
                 </span>

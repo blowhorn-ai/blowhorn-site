@@ -238,6 +238,8 @@ code {
   background: var(--surface-raised);
   border-radius: var(--radius-sm);
   padding: 1px var(--space-1);
+  /* A long path or flag breaks inside itself rather than scrolling the page at 320px. */
+  overflow-wrap: anywhere;
 }
 pre {
   margin: 0;
@@ -247,7 +249,7 @@ pre {
   overflow-x: auto;
   color: var(--ink);
 }
-pre code { background: none; padding: 0; }
+pre code { background: none; padding: 0; overflow-wrap: normal; }
 
 .visually-hidden {
   position: absolute !important;
@@ -526,7 +528,6 @@ pre code { background: none; padding: 0; }
 .mm-card {
   position: relative; display: grid; gap: var(--space-2); align-content: start;
   padding: var(--space-4); border-radius: var(--radius-lg); color: var(--ink);
-  transition: transform 160ms ease, box-shadow 160ms ease;
 }
 .mm-card-title { grid-row: 2; grid-column: 1; font-size: 15px; line-height: 21px; font-weight: 700; padding-right: var(--space-6); }
 .mm-card:hover .mm-card-title { color: var(--link); }
@@ -539,6 +540,12 @@ pre code { background: none; padding: 0; }
   transition: background-color 160ms ease, transform 160ms ease;
 }
 .mm-card:hover .mm-card-arrow { background-color: var(--teal); transform: translateX(2px); }
+/* The dispatch card is dark in both themes, so its arrow is always the bright one. */
+.card-dispatch .mm-card-arrow { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2300D3A9' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+@media (prefers-reduced-motion: reduce) {
+  .mm-card-arrow { transition: none; }
+  .mm-card:hover .mm-card-arrow { transform: none; }
+}
 .mm-card-plan-mark, .ways-card-plan .mm-card-plan-mark {
   display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
   background: var(--yellow); color: var(--on-yellow); border: 2px solid var(--near-black);
@@ -1050,7 +1057,6 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   color: var(--ink);
 }
 .card-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
-.card p, .card ul { color: var(--ink-muted); }
 .card pre { margin-top: var(--space-4); max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 /* Platforms */
@@ -1103,7 +1109,8 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
 .logo-tile img[src*="bluesky"],
 .logo-tile img[src*="github"] { width: 27px; height: 27px; }
 
-/* Major Blowhorn marketing card */
+/* Major Blowhorn marketing card. Its fill, edge and pop shadow are the paper
+   variant (card-paper in cards.css); this is only the layout. */
 .major-card {
   position: relative;
   display: grid;
@@ -1111,8 +1118,6 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
   align-items: center;
   padding: var(--space-8) var(--space-6);
   border-radius: var(--radius-xl);
-  background: var(--surface-tint);
-  box-shadow: var(--shadow-pop);
   overflow: hidden;
 }
 .major-figure {
@@ -1671,8 +1676,6 @@ body { background: var(--surface); }
   background-position: top center;
 }
 
-/* The Major card keeps its tint and pop shadow (the brand moment), on glass. */
-
 /* Docs: the sidebar search field and code blocks get the same quiet glass. */
 .td-search__input { background: var(--glass-field); border-color: var(--line-strong); color: var(--ink); }
 .docs-main pre, .card pre { background: var(--glass-field); box-shadow: inset 0 0 0 1px var(--glass-edge); }
@@ -1687,12 +1690,10 @@ body { background: var(--surface); }
 }
 @media (prefers-reduced-transparency: reduce) {
   :root { --glass-fill: var(--glass-fill-solid); --glass-fill-strong: var(--surface); --glass-field: var(--surface); --glass-sheen: transparent; }
-  .glass,
-  .td-offline-search-results, .site-header, .button-secondary {
+  .td-offline-search-results, .button-secondary {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
-  .major-card { background: var(--surface-tint); }
   body::before { opacity: 0.4; }
 }
 @media (prefers-contrast: more) {
@@ -1980,11 +1981,14 @@ body { background: var(--surface); }
 .ratio-yellow { flex: 7; background: var(--yellow); }
 .ratio-coral { flex: 3; background: var(--coral); }
 .color-ratio-note { margin-top: var(--space-2); }
+/* Fixed column counts (1, 2, 4), listed in card-cycle.html, so the swatch variants never repeat side by side. */
 .swatches {
   display: grid;
   gap: var(--space-4);
-  grid-template-columns: repeat(auto-fit, minmax(176px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
 }
+@media (min-width: 480px) { .swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .swatches { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .swatch {
   display: flex;
   flex-direction: column;
@@ -2143,7 +2147,7 @@ body { background: var(--surface); }
   .site-header, .site-footer, .brand-index, .brand-hero-actions, .brand-cta, .asset-gets, .asset-get, .copy, .skip-link { display: none !important; }
   .brand-section { break-inside: auto; padding-block: var(--space-8); }
   .asset, .swatch, .rule, .type-card, .major-card, .clear-grid { break-inside: avoid; }
-  .button-pop, .major-card { box-shadow: none; }
+  .button-pop { box-shadow: none; }
 }
 
 /* ---------- Compare (/compare/) ----------
@@ -2203,8 +2207,8 @@ body { background: var(--surface); }
 /* Coverage matrix: a Markdown table tagged {.coverage}. layouts/_markup/render-table.html
    gives each legend cell a cov-* class; brand tokens only, and every fill is mixed into
    the surface so the same rules hold in light and dark. */
-.coverage-scroll { overflow-x: auto; max-width: 100%; }
-.coverage-scroll:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.table-scroll { overflow-x: auto; max-width: 100%; }
+.table-scroll:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 .page table.coverage { max-width: none; min-width: 56rem; border-collapse: separate; border-spacing: 3px; }
 .page .coverage th, .page .coverage td { padding: var(--space-2); border-bottom: 0; vertical-align: middle; }
 .page .coverage thead th { vertical-align: bottom; border-bottom: var(--stroke-hairline) solid var(--line); }
@@ -2544,20 +2548,21 @@ body { background: var(--surface); }
 .agent-faq { display: grid; gap: var(--space-3); max-width: 48rem; }
 .agent-faq details { padding: var(--space-4) var(--space-6); border-radius: var(--radius-lg); }
 .agent-faq summary { cursor: pointer; font-weight: 600; }
-.agent-faq details p { margin-top: var(--space-3); color: var(--ink-muted); }
+.agent-faq details p { margin-top: var(--space-3); }
 .agent-cta { padding: clamp(24px, 4vw, 48px); border-radius: var(--radius-lg); text-align: center; }
 .agent-cta > * + * { margin-top: var(--space-3); }
 /* Related-page labels come from data and can outrun a 320px screen: let
    them wrap instead of the global .button nowrap scrolling the page. */
-.agent-cta .button { white-space: normal; max-width: 100%; text-align: center; }
-.agent-grid { list-style: none; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.agent-cta .button, .agent-section .actions .button { white-space: normal; max-width: 100%; text-align: center; }
+/* Fixed column counts (1, 2, 4), listed in card-cycle.html, so the tile variants never repeat side by side. */
+.agent-grid { list-style: none; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) { .agent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1080px) { .agent-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .agent-tile {
   display: flex; gap: var(--space-4); align-items: center; height: 100%;
   padding: var(--space-4); border-radius: var(--radius-lg); color: inherit; text-decoration: none;
-  transition: transform 160ms ease, box-shadow 160ms ease;
 }
 .agent-tile-copy { display: grid; gap: 2px; }
-@media (prefers-reduced-motion: reduce) { .agent-tile { transition: none; } .agent-tile:hover { transform: none; } }
 
 /* Blowhorn vs <competitor> pages (/compare/<slug>/, layouts/versus.html).
    Built on the Agentic AI Marketing glass components. */
@@ -2567,11 +2572,13 @@ body { background: var(--surface); }
    a sequence instead of a stack of identical cards (tokens: --teal, --teal-deep,
    --teal-bright, --surface-tint, --line, --line-strong, --ink-muted, --radius-lg,
    --space-*; see the blowhorn repository's marketing/brand/tokens.json).
-   1. Split: two open columns under a rule; Blowhorn's rule is teal. No card.
+   1. Split: two cards, the competitor in plain and Blowhorn in paper, so the
+      difference is the variant, never a coloured edge.
    2. Ledger: one glass panel, check marks for wins, open circles with a dash for gaps.
-   3. Table: an open data table with a ruled header; Blowhorn's column tinted.
-   4. Prose: narrative with a teal side rule, no surface at all.
-   The verdict is the one highlighted callout. */
+   3. Table: an open data table with one ruled header; Blowhorn's column is set
+      in full ink and tinted on row hover.
+   4. Prose: narrative with no surface at all.
+   The verdict is the one paper callout. The FAQ alternates field and plain. */
 .versus-verdict {
   max-width: 40rem;
   padding: var(--space-4) var(--space-6);
@@ -2635,7 +2642,7 @@ body { background: var(--surface); }
   font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--ink-muted);
 }
-.page .versus-table thead .compare-us { color: var(--ink); border-bottom-color: var(--teal); }
+.page .versus-table thead .compare-us { color: var(--ink); }
 .page .versus-table th, .page .versus-table td { padding: var(--space-4); }
 .page .versus-table tbody tr:hover > * { background: color-mix(in srgb, var(--surface-tint) 35%, transparent); }
 .page .versus-table tbody tr:hover > .compare-us { background: var(--surface-tint); }
@@ -2646,16 +2653,6 @@ body { background: var(--surface); }
 .versus-belief p { max-width: var(--text-measure, 64ch); color: var(--ink-muted); }
 .versus-belief p:first-of-type { color: var(--ink); font-size: 18px; line-height: 28px; }
 
-.versus-faq { gap: 0; }
-.versus-faq details {
-  padding: var(--space-4) 0;
-  border-radius: 0;
-  background: none;
-  -webkit-backdrop-filter: none; backdrop-filter: none;
-  box-shadow: none;
-  border-bottom: var(--stroke-hairline) solid var(--line);
-}
-.versus-faq details:first-child { border-top: var(--stroke-hairline) solid var(--line); }
 .versus-all { margin-top: var(--space-6); }
 
 /* ---------- Whitespace and rhythm (DESIGN.md, "Whitespace and rhythm") ----------
@@ -2993,7 +2990,8 @@ a.card.docs-card > * { margin-top: 0; }
 
 /* Quote grid. A giant quotation mark sits behind the cards. The cards take
    their variants from the template (cards.css): a featured paper opener, then
-   a checkerboard of stamp and field, so no two neighbours dress the same. */
+   a cycle of stamp, field and plain (paper again from the fifth quote, never
+   beside the opener), so no two neighbours dress the same at any width. */
 .proof-section { position: relative; overflow: hidden; }
 .proof-section .wrap { position: relative; }
 .proof-section .wrap::before { content: "\201C"; position: absolute; top: -3.5rem; right: -1rem; font-family: var(--font-display); font-weight: 800; font-size: 22rem; line-height: 1; color: var(--teal); opacity: 0.08; pointer-events: none; }
@@ -3018,8 +3016,6 @@ a.card.docs-card > * { margin-top: 0; }
 .proof-rotate-nav { display: none; gap: var(--space-3); margin-top: var(--space-4); }
 .proof-rotate.is-rotating .proof-rotate-nav { display: flex; }
 @media (prefers-reduced-motion: reduce) {
-  .proof-card { transition: none; }
-  .proof-card:hover { transform: none; }
   .proof-ticker-viewport { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
   .proof-ticker-track { animation: none; flex-wrap: wrap; width: auto; row-gap: var(--space-3); }
 }
@@ -3121,7 +3117,7 @@ a.card.docs-card > * { margin-top: 0; }
 .ai-persona { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); margin: 0; }
 .ai-persona .ai-robo { width: clamp(120px, 22vw, 200px); height: auto; }
 .ai-persona figcaption { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.ai-status { display: inline-block; padding: .2rem .7rem; border-radius: 999px; font-size: .8rem; font-weight: 700; letter-spacing: .02em; background: rgba(0, 211, 169, .16); color: #00756A; }
+.ai-status { display: inline-block; padding: .2rem .7rem; border-radius: 999px; font-size: .8rem; font-weight: 700; letter-spacing: .02em; background: rgba(0, 211, 169, .10); color: #00756A; }
 .ai-soon { background: rgba(238, 90, 68, .14); color: #B23A26; }
 .ai-code-grid { display: grid; gap: var(--space-4); }
 @media (min-width: 860px) { .ai-code-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
@@ -3197,6 +3193,15 @@ a.card-link::after, a.docs-card::after, a.platform::after, a.agent-tile::after {
     --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2300D3A9' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 }
+/* Paper and Dispatch keep one palette in both themes (cards.css), so their
+   chip does too: the tint comes from the card's own --surface-tint, and the
+   arrow is the light theme's on paper and the dark theme's on dispatch. */
+a.card-paper::after {
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2300756A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+a.card-dispatch::after {
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2300D3A9' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
 /* Big cards: chip in the top-right corner, beside the icon. Platform tiles:
    agent and versus tiles: a smaller chip in the corner, clear of the copy. */
 a.card-link::after, a.docs-card::after { position: absolute; top: var(--space-4); right: var(--space-4); margin: 0; }
@@ -3234,7 +3239,7 @@ a.agent-tile { padding-right: var(--space-6); }
 .page .fm-matrix td { vertical-align: top; }
 .fm-risk { display: inline-block; padding: 0 var(--space-2); border-radius: var(--radius-pill); font-weight: 600; font-size: 0.8125rem; line-height: 1.6; white-space: nowrap; }
 .fm-note { display: block; margin-top: var(--space-1); font-size: 0.8125rem; }
-.fm-safe .fm-risk { background: var(--teal-shade); color: var(--on-teal); }
+.fm-safe .fm-risk { background: var(--teal); color: var(--on-teal); }
 .fm-care .fm-risk { background: var(--yellow); color: var(--on-yellow); }
 .fm-risky .fm-risk { background: var(--coral); color: var(--near-black); }
 .fm-none .fm-risk { box-shadow: inset 0 0 0 1.5px var(--line-strong); color: var(--ink-muted); font-weight: 500; }

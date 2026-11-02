@@ -70,7 +70,7 @@
     </div>
     <ul class="proof-grid section-body">
       {{- range $i, $t := . }}
-      <li class="proof-card{{ if eq $i 0 }} proof-card-feature card-paper{{ else }} {{ partial "card-variant.html" (dict "i" $i "cols" 3 "a" "card-stamp" "b" "card-field") }}{{ end }}">
+      <li class="proof-card{{ if eq $i 0 }} proof-card-feature card-paper{{ else }} {{ partial "card-variant.html" (dict "i" (sub $i 1) "cols" (slice 1 2 3) "n" (sub (len $items) 1) "variants" (slice "card-stamp" "card-field" "card-plain" "card-paper")) }}{{ end }}">
         {{- if $t.placeholder }}
         <span class="proof-flag">Placeholder</span>
         {{- end }}
@@ -89,7 +89,7 @@
 {{- else if eq $slot "closing" -}}
 <div class="proof-band" role="group" aria-label="Blowhorn users">
   {{- range $i, $t := first 3 . }}
-  <figure class="{{ partial "card-variant.html" (dict "i" $i "cols" 3 "a" "card-stamp" "b" "card-field") }}">
+  <figure class="{{ partial "card-variant.html" (dict "i" $i "grid" "proof-band" "n" (len (first 3 $items)) "variants" (slice "card-stamp" "card-field" "card-plain")) }}">
     <blockquote class="h3">{{ .quote | truncate 80 }}</blockquote>
     <figcaption class="caption muted">{{ .name }}, {{ .company }}{{ if .placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</figcaption>
   </figure>

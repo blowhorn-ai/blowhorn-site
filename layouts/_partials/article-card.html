@@ -1,12 +1,14 @@
 {{- /* One article (or tip) in a collection grid. data-* attributes feed
        the client-side search and tag filter in resources.js. */ -}}
-{{- /* Context: dict "page" (the article), "i" (its index in the list) and "cols" (the list's columns). */ -}}
-{{- $i := .i }}{{- $cols := .cols }}
+{{- /* Context: dict "page" (the article), "i" (its index in the list) and "cycle"
+  (the list's variant cycle from card-cycle.html, also printed on the list as
+  data-card-cycle so a filter can re-deal it). */ -}}
+{{- $variant := index .cycle (mod .i (len .cycle)) }}
 {{- with .page }}
 {{- $tags := .Params.tags | default slice }}
 {{- $column := .Params.column | default "" }}
 {{- $columnLabel := partial "column-label.html" $column }}
-<article class="article-card {{ partial "card-variant.html" (dict "i" $i "cols" $cols) }}" data-card data-tags="{{ delimit $tags " " }}{{ with $column }} column:{{ . }}{{ end }}" data-column="{{ $column }}" data-search="{{ lower (printf "%s %s %s %s" .Title .Params.summary (delimit $tags " ") $columnLabel) }}">
+<article class="article-card {{ $variant }}" data-card data-tags="{{ delimit $tags " " }}{{ with $column }} column:{{ . }}{{ end }}" data-column="{{ $column }}" data-search="{{ lower (printf "%s %s %s %s" .Title .Params.summary (delimit $tags " ") $columnLabel) }}">
   <p class="article-card-kicker">
     {{ if in $tags "tips" }}Tip{{ else }}Article{{ end }}
     <span aria-hidden="true">·</span>

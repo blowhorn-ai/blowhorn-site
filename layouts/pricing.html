@@ -29,7 +29,7 @@
           </div>
           <ul class="pricing-grid">
             {{- range $i, $t := .Params.tiers }}
-            <li class="plan card{{ if .featured }} plan-featured card-paper{{ else }} {{ partial "card-variant.html" (dict "i" $i "cols" 4) }}{{ end }}">
+            <li class="plan card{{ if .featured }} plan-featured card-paper{{ else }} {{ partial "card-variant.html" (dict "i" $i "grid" "pricing-grid" "n" (len $.Params.tiers)) }}{{ end }}">
               {{- with .badge }}<p class="plan-badge caption">{{ . }}</p>{{ end }}
               <h3 class="h3 plan-name">{{ .name }}</h3>
               <p class="plan-blurb">{{ .blurb }}</p>
@@ -56,7 +56,7 @@
           </div>
           <ul class="grid grid-4 pricing-included">
             {{- range $i, $inc := .Params.included }}
-            <li class="card {{ partial "card-variant.html" (dict "i" $i "cols" 4) }}">
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-4" "n" (len $.Params.included)) }}">
               <h3 class="h3">{{ .title }}</h3>
               <p>{{ .body }}</p>
             </li>
@@ -86,7 +86,7 @@
           </div>
           <div class="agent-faq">
             {{- range $i, $f := .Params.faq }}
-            <details class="card {{ partial "card-variant.html" (dict "i" $i "cols" 1 "a" "card-field" "b" "card-plain") }}">
+            <details class="card {{ partial "card-variant.html" (dict "i" $i "grid" "stack" "variants" (slice "card-field" "card-plain")) }}">
               <summary>{{ .q }}</summary>
               <p>{{ .a }}</p>
             </details>

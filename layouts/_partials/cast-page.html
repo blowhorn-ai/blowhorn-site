@@ -32,7 +32,7 @@
           <div class="section-head"><h2 id="pains-title" class="h2">Sound familiar?</h2></div>
           <ul class="grid grid-3">
             {{- range $i, $pa := $item.pains }}
-            <li class="card {{ partial "card-variant.html" (dict "i" $i "cols" 3) }}"><h3 class="h3">{{ .t }}</h3><p>{{ .b }}</p></li>
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-3" "n" (len $item.pains)) }}"><h3 class="h3">{{ .t }}</h3><p>{{ .b }}</p></li>
             {{- end }}
           </ul>
         </section>
@@ -41,7 +41,7 @@
           <div class="section-head"><h2 id="gets-title" class="h2">{{ $meta.getsTitle }}</h2></div>
           <ul class="grid {{ if eq (len $item.gets) 4 }}grid-4{{ else }}grid-3{{ end }}">
             {{- range $i, $ge := $item.gets }}
-            <li class="card {{ partial "card-variant.html" (dict "i" $i "cols" 3) }}"><h3 class="h3">{{ .t }}</h3><p>{{ .b }}</p></li>
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" (cond (eq (len $item.gets) 4) "grid-4" "grid-3") "n" (len $item.gets)) }}"><h3 class="h3">{{ .t }}</h3><p>{{ .b }}</p></li>
             {{- end }}
           </ul>
         </section>
@@ -95,7 +95,7 @@
           <div class="section-head"><h2 id="faq-title" class="h2">Frequently Asked Questions</h2></div>
           <div class="agent-faq">
             {{- range $i, $f := $item.faq }}
-            <details class="card {{ partial "card-variant.html" (dict "i" $i "cols" 1 "a" "card-field" "b" "card-plain") }}"><summary class="ui">{{ .q }}</summary><p>{{ .a }}{{ with .link }} <a href="{{ .href }}">{{ .label }}</a>{{ end }}</p></details>
+            <details class="card {{ partial "card-variant.html" (dict "i" $i "grid" "stack" "variants" (slice "card-field" "card-plain")) }}"><summary class="ui">{{ .q }}</summary><p>{{ .a }}{{ with .link }} <a href="{{ .href }}">{{ .label }}</a>{{ end }}</p></details>
             {{- end }}
           </div>
         </section>

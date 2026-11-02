@@ -70,6 +70,8 @@
       card.hidden = !visible;
       if (visible) shown += 1;
     });
+    // Hidden cards leave gaps in the variant cycle; deal it again (card-cycle.js).
+    window.blowhornCardCycle(grid);
     if (status) {
       status.textContent = shown === cards.length ? "" : shown + " of " + cards.length + " " + (grid.getAttribute("data-collection-noun") || "items") + " shown";
     }

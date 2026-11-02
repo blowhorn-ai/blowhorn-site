@@ -232,9 +232,10 @@
           {{- range first 2 $colors.groups }}
           <h3 class="h3 brand-subhead">{{ .name }}</h3>
           <ul class="swatches">
+            {{- $n := len .colors }}
             {{- range $i, $c := .colors }}
             {{- $rgb := delimit .rgb ", " }}
-            <li class="swatch {{ partial "card-variant.html" (dict "i" $i "cols" 4) }}">
+            <li class="swatch {{ partial "card-variant.html" (dict "i" $i "grid" "swatches" "n" $n) }}">
               <span class="swatch-chip chip-{{ .token }}" aria-hidden="true"></span>
               <div class="swatch-meta">
                 <p class="ui swatch-name">{{ .name }}</p>
@@ -270,7 +271,7 @@
           </div>
           <ul class="grid grid-3 type-grid">
             {{- range $i, $f := .Params.fonts }}
-            <li class="card type-card {{ partial "card-variant.html" (dict "i" $i "cols" 3) }}">
+            <li class="card type-card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-3" "n" (len $.Params.fonts)) }}">
               <p class="type-aa {{ .class }}" aria-hidden="true">Aa</p>
               <p class="label">{{ .role }}</p>
               <h3 class="h3">{{ .family }}</h3>
@@ -351,7 +352,7 @@
         <section id="cards" class="brand-section" aria-labelledby="cards-title">
           <div class="section-head">
             <h2 id="cards-title" class="h2">Cards</h2>
-            <p class="muted">Five surfaces for cards, one for a floating panel. Pick the variant by what the content is, and never give two neighbours in a row the same one. No card has a stripe on one edge.</p>
+            <p class="muted">Five surfaces for cards, one for a floating panel. Pick the variant by what the content is, and never give two neighbours in a row or a column the same one. No card has a stripe on one edge.</p>
           </div>
           <ul class="card-specimens">
             <li class="card card-paper">

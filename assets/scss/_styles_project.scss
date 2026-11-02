@@ -221,7 +221,6 @@ div.docs-start-list {
   flex-direction: column;
   gap: var(--space-1);
   padding: var(--space-4) var(--space-6);
-  border: 1px solid var(--line);
   border-radius: var(--radius-lg);
 }
 
@@ -256,21 +255,19 @@ div.docs-quadrants {
 
 .docs-quadrants .docs-card {
   padding: var(--space-4) var(--space-6);
-  border: 1px solid var(--line);
   border-radius: var(--radius-lg);
 }
 
+// The fill, edge, text colour and hover lift are the card variant each card is
+// dealt (layouts/_partials/docs-content.html, assets/css/cards.css).
 .docs-card {
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  color: var(--ink);
 }
 
 .docs-card:hover {
-  background: var(--surface-tint);
   text-decoration: none;
-  color: var(--ink);
 }
 
 .docs-card > span {

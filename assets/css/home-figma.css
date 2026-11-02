@@ -140,8 +140,16 @@
 }
 
 /* Dark sections (agents, V1 platforms, V3/V4 close) */
-.fig .fig-dark { background: #1e2117; color: #f4f7f6; }
+/* A dark section is dark in both themes, so it carries the dark theme tokens:
+   a card variant inside it (cards.css) reads them and stays legible. */
+.fig .fig-dark {
+  background: #1e2117; color: #f4f7f6;
+  --ink: #FFFFFF; --ink-muted: #A3AEB2; --ink-wordmark: #FFFFFF;
+  --surface: #1E2117; --surface-raised: #2A2E25; --surface-tint: #173A34;
+  --line: #3C494F; --link: var(--teal-bright); --link-hover: var(--mint);
+}
 .fig .fig-dark p, .fig .fig-dark .fig-lead { color: #d5dedd; }
+.fig .fig-dark .fig-card p { color: var(--ink-muted); }
 .fig .fig-dark .fig-tag { color: var(--fig-teal-bright); }
 .fig .fig-dark a { color: var(--fig-teal-bright); }
 

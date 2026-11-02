@@ -1,0 +1,14 @@
+{{- /* A docs page's content, with a card variant dealt to each docs card. The
+  docs Markdown is synced from the product repository and writes its cards as
+  class="card docs-card ...", with no variant, so this deals one in page
+  order from the cycle for a grid of 1 or 2 columns (the start list, the
+  quadrants and grid-2 platform cards): consecutive cards never share a
+  variant. Context: the page. See DESIGN.md, "Cards". */ -}}
+{{- $cycle := partial "card-cycle.html" (dict "cols" (slice 1 2)) -}}
+{{- $marker := `class="card docs-card` -}}
+{{- $parts := split (string .Content) $marker -}}
+{{- $out := index $parts 0 -}}
+{{- range $i, $part := after 1 $parts -}}
+  {{- $out = printf "%s%s %s%s" $out $marker (index $cycle (mod $i (len $cycle))) $part -}}
+{{- end -}}
+{{- $out | safeHTML -}}

@@ -32,14 +32,14 @@
       <p class="collection-status" data-collection-status role="status"></p>
     </div>
 
-    <div class="articles-list" data-collection-grid data-collection-noun="pieces">
-      {{- range $i, $v := $pieces }}{{ partial "article-card.html" (dict "page" $v "i" $i "cols" 1) }}{{ end }}
+    {{- $cycle := partial "card-cycle.html" (dict "grid" "stack" "variants" (slice "card-field" "card-plain")) }}
+    <div class="articles-list" data-collection-grid data-collection-noun="pieces" data-card-cycle="{{ delimit $cycle " " }}">
+      {{- range $i, $v := $pieces }}{{ partial "article-card.html" (dict "page" $v "i" $i "cycle" $cycle) }}{{ end }}
     </div>
   </div>
 </main>
 {{ end }}
 
 {{ define "scripts" }}
-    {{- $js := resources.Get "js/resources.js" | minify | fingerprint }}
-    <script src="{{ $js.RelPermalink }}" defer></script>
+    {{- partial "filter-script.html" "js/resources.js" }}
 {{ end }}

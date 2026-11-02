@@ -174,7 +174,7 @@
             {{- $cards := $agents.cards -}}
             {{- if eq $variant "v1" }}{{ $cards = first 3 $cards }}{{ end -}}
             {{- range $i, $c := $cards }}
-            <div class="fig-card {{ partial "card-variant.html" (dict "i" $i "cols" 3) }}">
+            <div class="fig-card {{ partial "card-variant.html" (dict "i" $i "grid" "fig-grid-3" "n" (len $cards)) }}">
               <span class="fig-tag">{{ .tag }}</span>
               <h3 class="fig-h3">{{ .title }}</h3>
               <p>{{ .body }}</p>
@@ -200,7 +200,7 @@
           </div>
           <div class="fig-grid fig-grid-2">
             {{- range $i, $c := $content.offers }}
-            <div class="fig-card {{ partial "card-variant.html" (dict "i" $i "cols" 2) }}">
+            <div class="fig-card {{ partial "card-variant.html" (dict "i" $i "grid" "fig-grid-2" "n" (len $content.offers)) }}">
               <span class="fig-tag">{{ .tag }}</span>
               <h3 class="fig-h3">{{ .title }}</h3>
               <p>{{ .body }}</p>
