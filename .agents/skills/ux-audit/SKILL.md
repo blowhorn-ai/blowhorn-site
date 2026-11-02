@@ -11,8 +11,8 @@ An audit answers one question per layout: **does the eye land where the page nee
 
 | Rule family | Authority |
 |---|---|
-| Whitespace, rhythm, cards, concision, interface art, speech bubbles | `DESIGN.md` here |
-| Brand-wide language: principles, colour, type, liquid glass, platform logos, mascot | `internal/DESIGN.md` in the product repository (private: cite it in an issue, never link it from a page) |
+| Whitespace, rhythm, site card rules (stripes, variants), concision, interface art, speech bubbles | `DESIGN.md` here |
+| Brand-wide language: principles, colour, type, liquid glass, platform logos, cards, mascot | `internal/DESIGN.md` in the product repository (private: cite it in an issue, never link it from a page) |
 | Tokens | `static/assets/brand/tokens.json`; `assets/css/site.css` implements them |
 | Site rules (browser wording, brand tokens only, product name, third parties) | `AGENTS.md` here |
 | Designs | Figma file `mM9B4Zv9ON3pIyh3IvB4Il` (the site pages and landing concepts) |
@@ -57,7 +57,7 @@ Walk each layout's first viewport, then the full page, with these questions in o
 1. **Where does the eye land first, and is that the page's one job?** Name the focal element. If you cannot, or if three elements compete, that is a `major` finding.
 2. **Inventory the treatments.** List every section and card treatment on the page (gradient card, glass card, plain section, white logo tile, bubble, Major card, `shadow-pop` card, list) and count each. One treatment carrying most of the page, or two neighbouring sections in the same treatment, flattens the hierarchy: the eye has no gradient of importance to follow.
 3. **Does each treatment have one job?** A treatment means something: the focal card is used once, supporting cards are quieter, proof and lists are quieter still. A loud treatment (gradient, `shadow-pop`, a background shift) on something that is not the page's focus is a finding. `shadow-pop` belongs to the Major card and the hero's primary button only; background shifts only to a distinct moment (the CTA, the Major).
-4. **Cards** (`DESIGN.md`, Cards): no coloured stripe on one edge of a card, callout, quote, table row or panel; no two neighbours in a row in the same variant; one `<a>` around the whole card, a title and one short line at most, no underlined card text, no links inside a linked card.
+4. **Cards:** no coloured stripe on one edge of a card, callout, quote, table row or panel, and no two neighbours in a row in the same variant (`DESIGN.md`, Cards); one `<a>` around the whole card, a title and one short line at most, no underlined card text, no links inside a linked card.
 5. **Whitespace:** a title never touches its content (`--head-gap`); sections separate by whitespace first; paragraphs within `--text-measure`; no hard-coded spacing.
 6. **Platform logos:** owners' files on opaque white tiles in both themes, never on glass, teal or yellow, never recoloured.
 7. **The mascot:** one character per page; only Major and the General speak; the line is real text, never inside the art.
