@@ -43,13 +43,13 @@ How a grid gets its variants:
 - **Docs cards** come from the synced Markdown without a variant; `layouts/_partials/docs-content.html` deals each grid of them for the columns its container shows.
 - **A hand-written grid** names each card's variant; or, better, calls the helper with literal indexes; check it at every width the grid shows. Count only the cards drawn: collect a filtered list first, then range over it.
 
-Paper and Dispatch keep one palette in both themes, so they also set `--ink`, `--ink-muted`, `--link`, `--line` and `--surface-tint` for everything inside them. A component rule that reads those tokens stays legible inside either card without a per-variant override.
+Paper and Dispatch keep one palette in both themes, so they also set `--ink`, `--ink-muted`, `--link`, `--line` and `--surface-tint` for everything inside them. A component rule that reads those tokens stays legible inside either card without a per-variant override. A card link's round arrow chip fills with `--card-chip`, which defaults to `--surface-tint`; Field, whose own fill is that tint, sets it to `--surface` so the chip still shows.
 
 | Class | Name | Use for | Fill | Edge | Text (light / dark) | Contrast |
 |---|---|---|---|---|---|---|
 | `card-paper` | Field order | Major's voice, testimonials, the one featured item in a section | cream in both themes | 1.5px near-black, hard `--shadow-pop` | near-black ink, charcoal muted | ink 15.2:1, muted 8.6:1 in both themes |
 | `card-dispatch` | Dispatch | developer notes, API and JSON facts, commands | near-black in both themes | 1px dashed teal-shade (#008F80) | cream ink, mint muted, teal-bright mono `>` label | ink 15.2:1, muted 12.1:1, label 8.5:1 |
-| `card-stamp` | Stamp | facts, stats, guarantees, proof points, compliance | none (the page shows through) | 2px ink; label boxed in mono caps | ink, ink-muted | 16.3:1 and 5.6 / 7.2:1 for muted; edge 16.3:1 |
+| `card-stamp` | Stamp | facts, stats, guarantees, proof points, compliance | none (the page shows through) | 2px ink (1px border plus a 1px inset ring, so the box matches the other variants); label boxed in mono caps | ink, ink-muted | 16.3:1 and 5.6 / 7.2:1 for muted; edge 16.3:1 |
 | `card-field` | Field | feature and explanation grids, the common case | surface-tint | none; the hover edge is line-strong | ink, ink-muted | 14.2 / 12.4:1 ink; 4.9 / 5.5:1 muted |
 | `card-plain` | Plain | secondary lists, link lists, low emphasis | none | 1px line-strong on all sides | ink, ink-muted | 16.3 / 16.3:1 ink; 5.6 / 7.2:1 muted; edge 3.7 / 4.4:1 |
 | `card-glass` | Glass | one floating surface over content: a menu, the header, a hero. Also the `.glass` panel class. Never on a grid | liquid glass (sheen, blur, rim) | rim highlight, no solid edge | ink, ink-muted | 16.0 / 15.0:1 ink; 5.5 / 6.6:1 muted |

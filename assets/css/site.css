@@ -535,7 +535,7 @@ pre code { background: none; padding: 0; overflow-wrap: normal; }
 /* The arrow rides the title's row (the title keeps room for it), never the art. */
 .mm-card-arrow {
   grid-row: 2; grid-column: 1; justify-self: end; align-self: center; width: 22px; height: 22px; border-radius: var(--radius-pill);
-  background-color: var(--surface-tint); background-repeat: no-repeat; background-position: center; background-size: 12px 12px;
+  background-color: var(--card-chip, var(--surface-tint)); background-repeat: no-repeat; background-position: center; background-size: 12px 12px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2300756A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   transition: background-color 160ms ease, transform 160ms ease;
 }
@@ -3165,6 +3165,8 @@ a.card.docs-card > * { margin-top: 0; }
    arrow chip. The card's own variant (cards.css) sets the edge and the lift;
    hover fills the chip teal; keyboard focus gets a visible ring; reduced motion
    drops the movement, not the cue.
+   The chip's fill is the card's --card-chip (cards.css), so it stands off
+   every variant's fill.
    Tokens (blowhorn repository, marketing/brand/tokens.json): teal, teal-deep,
    teal-bright, surface-tint, near-black (on-teal), radius-pill, space-*. */
 a.card-link, a.docs-card, a.platform, a.agent-tile {
@@ -3175,7 +3177,7 @@ a.card-link::after, a.docs-card::after, a.platform::after, a.agent-tile::after {
   flex: none;
   width: 28px; height: 28px;
   border-radius: var(--radius-pill);
-  background-color: var(--surface-tint);
+  background-color: var(--card-chip, var(--surface-tint));
   background-image: var(--card-cue-arrow);
   background-repeat: no-repeat;
   background-position: center;
@@ -3250,14 +3252,17 @@ a.agent-tile { padding-right: var(--space-6); }
 .fm-prose { overflow-wrap: break-word; }
 /* Platform index cards: a resting arrow shows each card opens its own page. */
 .platform-cards { margin-top: var(--space-4); }
-/* They use the shared card cue (teal edge, round arrow chip), centred on the
-   right. Hover is subtle: only the edge brightens; the chip stays as it is at
-   rest, with no lift and no shift, so the arrow stays aligned with the other cards. */
+/* They use the shared round arrow chip, centred on the right. Hover lifts the
+   card 2px like every card link (cards.css); the chip stays as it is at rest,
+   with no fill change and no shift, so the arrow stays aligned with the other cards. */
 a.docs-card.platform-card { padding-right: calc(var(--space-8) + var(--space-4)); }
+/* That padding already clears the centred chip, so the title does not also
+   reserve the corner-chip room every other docs card's first child keeps. */
+a.docs-card.platform-card > :first-child { padding-right: 0; }
 a.docs-card.platform-card::after { top: 50%; right: var(--space-4); transform: translateY(-50%); }
 a.docs-card.platform-card:hover::after, a.docs-card.platform-card:focus-visible::after {
   transform: translateY(-50%);
-  background-color: var(--surface-tint);
+  background-color: var(--card-chip, var(--surface-tint));
   --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2300756A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 @media (prefers-color-scheme: dark) {

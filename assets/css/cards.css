@@ -6,7 +6,12 @@
 
    Every colour is a brand token with a fallback, so the file also works where
    a token is missing. Each variant sets the --card-* properties; the shared
-   rules below read them. No variant draws a stripe on one edge. */
+   rules below read them. No variant draws a stripe on one edge. Every variant
+   keeps the same box (a 1px border, or none): a thicker edge is drawn inside
+   it, so the content box, and where a label wraps, never depends on the
+   variant. --card-chip is the fill of a card link's round arrow chip
+   (site.css); it defaults to --surface-tint, and a variant whose own fill is
+   that tint sets it to something that stands off the card. */
 
 /* A .card or docs card with no variant class gets the field look, so nothing
    ships unstyled. On the site every card is dealt a variant (card-deal.html,
@@ -137,16 +142,19 @@ a.docs-card,
 }
 .card-dispatch * { --focus-ring: var(--teal-bright, #00D3A9); }
 
-/* 3. Stamp: no fill, a 2px ink border, a small radius, and a label boxed in mono
-   caps like a rubber stamp. For facts, stats, guarantees, proof, compliance. */
+/* 3. Stamp: no fill, a 2px ink edge, a small radius, and a label boxed in mono
+   caps like a rubber stamp. For facts, stats, guarantees, proof, compliance.
+   The edge is the 1px border plus a 1px inset ring, so the box matches the
+   other variants. */
 .card-stamp {
   --card-bg: transparent;
   --card-ink: var(--ink, #1E2117);
   --card-muted: var(--ink-muted, #5B6A70);
-  --card-border-width: 2px;
+  --card-border-width: 1px;
   --card-border-color: var(--ink, #1E2117);
+  --card-shadow: inset 0 0 0 1px var(--ink, #1E2117);
   --card-hover-border: var(--ink, #1E2117);
-  --card-hover-shadow: none;
+  --card-hover-shadow: var(--card-shadow);
   border-radius: var(--radius-sm, 6px);
 }
 .card-stamp .label {
@@ -160,9 +168,11 @@ a.docs-card,
 }
 
 /* 4. Field: a flat tint, no border, no shadow, no gradient. The common case, for
-   feature and explanation grids. The hover border is the only edge it draws. */
+   feature and explanation grids. The hover border is the only edge it draws.
+   The fill is the tint a link's arrow chip uses, so the chip takes --surface. */
 .card-field {
   --card-bg: var(--surface-tint, #DDF4F1);
+  --card-chip: var(--surface, #FFFFFF);
   --card-ink: var(--ink, #1E2117);
   --card-muted: var(--ink-muted, #5B6A70);
   --card-border-color: transparent;
@@ -263,6 +273,7 @@ a.card-dispatch:is(:hover, :focus-visible) {
     --card-border-color: var(--ink, #1E2117);
     --card-blur: none;
   }
+  .card-field { --card-chip: var(--surface-tint, #DDF4F1); }
   .card-glass,
   .glass { --card-shadow: 0 0 0 1px var(--ink, #1E2117); }
 }
