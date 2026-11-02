@@ -130,8 +130,6 @@
 .fig .fig-card {
   border-radius: 16px; padding: var(--card-pad);
 }
-@media (prefers-color-scheme: dark) {
-}
 .fig .fig-card h3 { margin: 0 0 12px; }
 .fig .fig-card p { margin: 0; }
 .fig .fig-tag { display: block; color: var(--fig-teal-deep); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }

@@ -9,7 +9,7 @@
   Context: dict
     "grid"     a grid class named below, or
     "cols"     a slice of every column count the grid shows (1 for a stack);
-    "n"        how many cards the grid draws;
+    "n"        how many cards the grid draws (0 gives an empty deal);
     "variants" optional: variant classes in order of preference.
 
   How the deal works: card i, shown c across, has row mates i-1 back to the
@@ -47,11 +47,12 @@
 {{- $cols = slice 1 | append $cols | uniq -}}
 {{- $variants := .variants | default (slice "card-field" "card-plain" "card-stamp" "card-dispatch") -}}
 {{- if lt (len $variants) 2 }}{{ errorf "card-deal.html: a grid needs at least two variants, got %v" $variants }}{{ end -}}
+{{- if not (isset . "n") }}{{ errorf "card-deal.html: pass \"n\", the number of cards the grid draws (grid %v)" $cols }}{{ end -}}
 {{- $n := int (.n | default 0) -}}
-{{- if lt $n 1 }}{{ errorf "card-deal.html: pass \"n\", the number of cards the grid draws (grid %v)" $cols }}{{ end -}}
+{{- if lt $n 0 }}{{ errorf "card-deal.html: \"n\" is %d; a grid draws zero or more cards (grid %v)" $n $cols }}{{ end -}}
 {{- $deal := slice -}}
-{{- range $i := seq 0 (sub $n 1) -}}
-  {{- if ge $i 0 -}}
+{{- if gt $n 0 -}}
+  {{- range $i := seq 0 (sub $n 1) -}}
     {{- $taken := slice -}}
     {{- range $c := $cols -}}
       {{- $pos := mod $i $c -}}
