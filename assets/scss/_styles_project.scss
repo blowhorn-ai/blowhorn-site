@@ -109,7 +109,7 @@
 // state rides on .docs-wrap and persists across docs pages
 // (assets/js/docs-toggle.js). Collapsed, the TOC column shrinks to a
 // narrow rail holding only the toggle, and the content takes the freed
-// width — the same trade the internal layout makes for a page with no
+// width - the same trade the internal layout makes for a page with no
 // table of contents at all. Below 1280px the TOC is hidden anyway and
 // the class is inert.
 .td-toc-toggle {
@@ -201,7 +201,7 @@
 // Start here is a single-column list, not a three-column grid: inside
 // the docs column (sidebar plus table of contents) three columns land
 // around 200px wide, tall and skinny. Each Start item is a
-// full-width row — title left, description right — stacking on narrow
+// full-width row - title left, description right - stacking on narrow
 // viewports. The old .docs-start class keeps working until the product
 // sync brings the new .docs-start-list markup, and vice versa.
 // NOTE: site.css (loaded after this skin) defines .grid/.grid-3, so a
