@@ -30,9 +30,9 @@
     </div>
 
     {{- $paginator := .Paginate (.Pages.ByDate.Reverse) 9 }}
-    {{- $cycle := partial "card-cycle.html" (dict "grid" "stack" "variants" (slice "card-field" "card-plain")) }}
-    <div class="articles-list" data-collection-grid data-collection-noun="articles" data-card-cycle="{{ delimit $cycle " " }}">
-      {{- range $i, $v := $paginator.Pages }}{{ partial "article-card.html" (dict "page" $v "i" $i "cycle" $cycle) }}{{ end }}
+    {{- $deal := partial "card-deal.html" (dict "n" (len $paginator.Pages) "grid" "stack" "variants" (slice "card-field" "card-plain")) }}
+    <div class="articles-list" data-collection-grid data-collection-noun="articles" data-card-deal="{{ delimit $deal " " }}">
+      {{- range $i, $v := $paginator.Pages }}{{ partial "article-card.html" (dict "page" $v "i" $i "deal" $deal) }}{{ end }}
     </div>
 
     {{- if gt $paginator.TotalPages 1 }}

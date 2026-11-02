@@ -9,7 +9,7 @@
    rules below read them. No variant draws a stripe on one edge. */
 
 /* A .card or docs card with no variant class gets the field look, so nothing
-   ships unstyled. On the site every card is dealt a variant (card-cycle.html,
+   ships unstyled. On the site every card is dealt a variant (card-deal.html,
    docs-content.html); this is the safety net, not a style to choose. Every
    variant below overrides these: zero specificity, so a.docs-card never outranks
    a variant class. */

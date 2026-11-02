@@ -56,18 +56,18 @@
 
         {{- with $videos }}
         <h2>Latest videos</h2>
-        {{- $cycle := partial "card-cycle.html" (dict "grid" "video-grid") }}
-        <ul class="video-grid" data-collection-grid data-collection-noun="videos" data-card-cycle="{{ delimit $cycle " " }}">
-          {{- range $i, $v := first 3 (.ByDate.Reverse) }}{{ partial "video-card.html" (dict "page" $v "i" $i "cycle" $cycle) }}{{ end -}}
+        {{- $deal := partial "card-deal.html" (dict "n" (len (first 3 .)) "grid" "video-grid") }}
+        <ul class="video-grid" data-collection-grid data-collection-noun="videos" data-card-deal="{{ delimit $deal " " }}">
+          {{- range $i, $v := first 3 (.ByDate.Reverse) }}{{ partial "video-card.html" (dict "page" $v "i" $i "deal" $deal) }}{{ end -}}
         </ul>
         <p><a href="{{ $videosSection.RelPermalink }}">All videos</a></p>
         {{- end }}
 
         {{- with $intel }}
         <h2>Latest from Product intelligence</h2>
-        {{- $cycle := partial "card-cycle.html" (dict "grid" "stack" "variants" (slice "card-field" "card-plain")) }}
+        {{- $deal := partial "card-deal.html" (dict "n" (len (first 3 .)) "grid" "stack" "variants" (slice "card-field" "card-plain")) }}
         <div class="articles-list">
-          {{- range $i, $v := first 3 (.ByDate.Reverse) }}{{ partial "article-card.html" (dict "page" $v "i" $i "cycle" $cycle) }}{{ end -}}
+          {{- range $i, $v := first 3 (.ByDate.Reverse) }}{{ partial "article-card.html" (dict "page" $v "i" $i "deal" $deal) }}{{ end -}}
         </div>
         <p><a href="{{ $articlesSection.RelPermalink }}">All articles</a></p>
         {{- end }}

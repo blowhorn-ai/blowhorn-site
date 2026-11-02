@@ -3,10 +3,10 @@
   own page, summary, duration and tag chips. Expects a video leaf page.
   The card carries data-* hooks (category, tags, search text) so the
   collection filtering in resources.js can show and hide it. */ -}}
-{{- /* Context: dict "page" (the video), "i" (its index in the grid) and "cycle"
-  (the grid's variant cycle from card-cycle.html, also printed on the grid as
-  data-card-cycle so a filter can re-deal it). */ -}}
-{{- $variant := index .cycle (mod .i (len .cycle)) }}
+{{- /* Context: dict "page" (the video), "i" (its index in the grid) and "deal"
+  (the grid's variants from card-deal.html, one per card, also printed on a
+  filtered grid as data-card-deal so a filter can hand them out again). */ -}}
+{{- $variant := index .deal .i }}
 {{- with .page }}
 {{- $cat := path.Base (strings.TrimSuffix "/" .Parent.RelPermalink) -}}
 {{- $sources := slice -}}

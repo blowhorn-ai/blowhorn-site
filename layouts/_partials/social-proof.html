@@ -68,9 +68,12 @@
       <h2 id="users-title" class="display">Fewer tabs. More reach.</h2>
       <p class="body-lg muted">What users say after a launch or two.</p>
     </div>
+    {{- /* The first quote is the paper feature across the whole first row; the rest
+      are dealt as their own grid. Paper is last in their order, so the deal never
+      reaches it in the row under the feature. */}}
     <ul class="proof-grid section-body">
       {{- range $i, $t := . }}
-      <li class="proof-card{{ if eq $i 0 }} proof-card-feature card-paper{{ else }} {{ partial "card-variant.html" (dict "i" (sub $i 1) "cols" (slice 1 2 3) "n" (sub (len $items) 1) "variants" (slice "card-stamp" "card-field" "card-plain" "card-paper")) }}{{ end }}">
+      <li class="proof-card{{ if eq $i 0 }} proof-card-feature card-paper{{ else }} {{ partial "card-variant.html" (dict "i" (sub $i 1) "grid" "proof-grid" "n" (sub (len $items) 1) "variants" (slice "card-stamp" "card-field" "card-plain" "card-paper")) }}{{ end }}">
         {{- if $t.placeholder }}
         <span class="proof-flag">Placeholder</span>
         {{- end }}

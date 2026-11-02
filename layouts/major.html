@@ -171,7 +171,7 @@
           <ol class="major-log">
             {{- range $i, $_ := sort .Params.dispatches "date" "desc" }}
             {{- $d := time.AsTime .date }}
-            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "stack" "variants" (slice "card-plain" "card-field")) }}" id="dispatch-{{ $d.Format "2006-01-02" }}">
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "stack" "n" (len $.Params.dispatches) "variants" (slice "card-plain" "card-field")) }}" id="dispatch-{{ $d.Format "2006-01-02" }}">
               <p class="label"><time datetime="{{ $d.Format "2006-01-02" }}">{{ $d.Format "January 2, 2006" }}</time></p>
               <h3 class="h3">{{ .title }}</h3>
               <p>{{ .body }}</p>

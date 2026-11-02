@@ -12,9 +12,9 @@
         </header>
         {{- $videos := where .Pages "Layout" "video" -}}
         {{- with $videos }}
-        {{- $cycle := partial "card-cycle.html" (dict "grid" "video-grid") }}
+        {{- $deal := partial "card-deal.html" (dict "n" (len .) "grid" "video-grid") }}
         <ul class="video-grid" data-video-grid>
-          {{- range $i, $v := .ByDate.Reverse }}{{ partial "video-card.html" (dict "page" $v "i" $i "cycle" $cycle) }}{{ end -}}
+          {{- range $i, $v := .ByDate.Reverse }}{{ partial "video-card.html" (dict "page" $v "i" $i "deal" $deal) }}{{ end -}}
         </ul>
         {{- end }}
         {{- $others := where .Pages "Layout" "ne" "video" -}}

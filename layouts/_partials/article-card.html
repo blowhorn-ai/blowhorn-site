@@ -1,9 +1,9 @@
 {{- /* One article (or tip) in a collection grid. data-* attributes feed
        the client-side search and tag filter in resources.js. */ -}}
-{{- /* Context: dict "page" (the article), "i" (its index in the list) and "cycle"
-  (the list's variant cycle from card-cycle.html, also printed on the list as
-  data-card-cycle so a filter can re-deal it). */ -}}
-{{- $variant := index .cycle (mod .i (len .cycle)) }}
+{{- /* Context: dict "page" (the article), "i" (its index in the list) and "deal"
+  (the list's variants from card-deal.html, one per card, also printed on a
+  filtered list as data-card-deal so a filter can hand them out again). */ -}}
+{{- $variant := index .deal .i }}
 {{- with .page }}
 {{- $tags := .Params.tags | default slice }}
 {{- $column := .Params.column | default "" }}

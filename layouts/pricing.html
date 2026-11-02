@@ -86,7 +86,7 @@
           </div>
           <div class="agent-faq">
             {{- range $i, $f := .Params.faq }}
-            <details class="card {{ partial "card-variant.html" (dict "i" $i "grid" "stack" "variants" (slice "card-field" "card-plain")) }}">
+            <details class="card {{ partial "card-variant.html" (dict "i" $i "grid" "stack" "n" (len $.Params.faq) "variants" (slice "card-field" "card-plain")) }}">
               <summary>{{ .q }}</summary>
               <p>{{ .a }}</p>
             </details>

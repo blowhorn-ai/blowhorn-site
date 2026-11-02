@@ -32,9 +32,9 @@
       <p class="collection-status" data-collection-status role="status"></p>
     </div>
 
-    {{- $cycle := partial "card-cycle.html" (dict "grid" "stack" "variants" (slice "card-field" "card-plain")) }}
-    <div class="articles-list" data-collection-grid data-collection-noun="pieces" data-card-cycle="{{ delimit $cycle " " }}">
-      {{- range $i, $v := $pieces }}{{ partial "article-card.html" (dict "page" $v "i" $i "cycle" $cycle) }}{{ end }}
+    {{- $deal := partial "card-deal.html" (dict "n" (len $pieces) "grid" "stack" "variants" (slice "card-field" "card-plain")) }}
+    <div class="articles-list" data-collection-grid data-collection-noun="pieces" data-card-deal="{{ delimit $deal " " }}">
+      {{- range $i, $v := $pieces }}{{ partial "article-card.html" (dict "page" $v "i" $i "deal" $deal) }}{{ end }}
     </div>
   </div>
 </main>

@@ -39,9 +39,9 @@
         {{ .Content }}
         {{- with $related }}
         <h2>Related videos</h2>
-        {{- $cycle := partial "card-cycle.html" (dict "grid" "video-grid") }}
+        {{- $deal := partial "card-deal.html" (dict "n" (len (first 3 .)) "grid" "video-grid") }}
         <ul class="video-grid" data-video-grid>
-          {{- range $i, $v := first 3 . }}{{ partial "video-card.html" (dict "page" $v "i" $i "cycle" $cycle) }}{{ end -}}
+          {{- range $i, $v := first 3 . }}{{ partial "video-card.html" (dict "page" $v "i" $i "deal" $deal) }}{{ end -}}
         </ul>
         {{- end }}
       </div>

@@ -35,11 +35,11 @@
             <h2 id="cat-{{ .id }}" class="h2">{{ .name }}</h2>
             <p class="muted">{{ .summary }}</p>
           </div>
-          {{- $cycle := partial "card-cycle.html" (dict "grid" "grid-3") }}
-          <ul class="grid grid-3 section-body" data-card-cycle="{{ delimit $cycle " " }}">
+          {{- $deal := partial "card-deal.html" (dict "n" (len .platforms) "grid" "grid-3") }}
+          <ul class="grid grid-3 section-body" data-card-deal="{{ delimit $deal " " }}">
             {{- range $i, $pid := .platforms }}
             {{- $p := index $byId $pid }}
-            <li class="card integration-card {{ index $cycle (mod $i (len $cycle)) }}" data-action-card data-actions="{{ delimit $p.actionIds " " }}" data-plat-id="{{ $p.id }}">
+            <li class="card integration-card {{ index $deal $i }}" data-action-card data-actions="{{ delimit $p.actionIds " " }}" data-plat-id="{{ $p.id }}">
               <a class="integration-card-main" href="{{ $p.docs | relURL }}">
                 <span class="logo-tile"><img src="{{ $p.logo | relURL }}" alt="" width="28" height="28"></span>
                 <h3 class="h3">{{ $p.name }}</h3>
