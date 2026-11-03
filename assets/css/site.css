@@ -493,9 +493,14 @@ pre code { background: none; padding: 0; overflow-wrap: normal; }
 }
 .mm-group-title {
   margin: 0;
-  font-size: 14px;
-  line-height: 20px;
+  /* A section label: the shared label style (small uppercase). */
+  font-family: var(--font-label, var(--font-mono));
+  font-optical-sizing: auto;
+  font-size: 11px;
+  line-height: 16px;
   font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--ink-muted);
 }
 .mm-group-title a { color: inherit; }
