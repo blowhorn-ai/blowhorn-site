@@ -119,6 +119,7 @@
   --font-display: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
   --font-sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-label: var(--font-display); /* section and field labels; mirrors the desktop app */
 
   /* Spacing, 4px base */
   --space-1: 4px;
@@ -320,12 +321,13 @@ pre code { background: none; padding: 0; overflow-wrap: normal; }
 .caption { font-size: 13px; line-height: 18px; font-weight: 500; }
 .muted { color: var(--ink-muted); }
 .label {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
   line-height: 16px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  font-optical-sizing: auto;
   color: var(--ink-muted);
 }
 
