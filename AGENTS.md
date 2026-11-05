@@ -46,6 +46,7 @@ Examples live in `data/action_examples.json` ([docs/action-examples.md](docs/act
 Platform docs pages render actions through `{{< supported-actions "id" >}}` (`layouts/_partials/supported-actions.html`); `make check-platform-docs` fails a missing page, a skipped table, or a hand-written action list.
 The central action matrix (`/integrations/actions/`, `layouts/action-matrix.html`) and the docs all-actions table (`{{< all-actions >}}`, `layouts/_partials/action-table.html`) both render from `layouts/_partials/action-matrix.html`: rows are `data/actions.json` (grouped by its `groups`), columns are `data/integrations.json` platforms, page copy is `data/integrations.json` `matrix`. Status is shown by exception: no "Supported" label or check anywhere; a supported cell is a neutral dot, a coming-soon platform gets one clock on its logo. `make check-action-matrix` fails drift or a dead `#action-<id>` link.
 The Signal hero demo is `data/hero_demo.json`.
+The hero activity card reads `data/activity_feed.examples.json` through `layouts/_partials/activity-feed.html` ([docs/activity-feed.md](docs/activity-feed.md)). Live transport stays off.
 Every link to Blowhorn Tells (the free "Am I a Bot?" check) is built by
 `layouts/_partials/tells-link.html` from `data/tells.json`, with UTM tags and a
 placement; never hard-code a Tells URL in a template. `make check-tells` fails a

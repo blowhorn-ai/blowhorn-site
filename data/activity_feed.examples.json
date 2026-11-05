@@ -1,0 +1,984 @@
+{
+  "$schema": "../schemas/activity_feed.schema.json",
+  "version": 1,
+  "sample": true,
+  "generatedAt": "2026-11-04T18:00:00Z",
+  "items": [
+    {
+      "id": "example-040",
+      "userId": "example-account-40",
+      "platform": "linkedin",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager amplified a launch post on LinkedIn and X",
+      "networks": [
+        "LinkedIn",
+        "X"
+      ],
+      "completedAt": "2026-10-12T17:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-001",
+      "userId": "example-account-1",
+      "platform": "bluesky",
+      "role": "Solo founder",
+      "line": "Example: a solo founder shared a launch post on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-01T08:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-002",
+      "userId": "example-account-2",
+      "platform": "bluesky",
+      "role": "Agency",
+      "line": "Example: an agency published a release note on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-02T09:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-003",
+      "userId": "example-account-3",
+      "platform": "bluesky",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer shared a project update on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-03T10:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-004",
+      "userId": "example-account-4",
+      "platform": "bluesky",
+      "role": "DevRel",
+      "line": "Example: a DevRel replied in a thread on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-04T11:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-005",
+      "userId": "example-account-5",
+      "platform": "bluesky",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager replied to a conversation on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-05T12:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-006",
+      "userId": "example-account-6",
+      "platform": "bluesky",
+      "role": "Community manager",
+      "line": "Example: a community manager sent a reply in a thread on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-06T13:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-007",
+      "userId": "example-account-7",
+      "platform": "bluesky",
+      "role": "Founder",
+      "line": "Example: a founder amplified a launch post on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-07T14:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-008",
+      "userId": "example-account-8",
+      "platform": "bluesky",
+      "role": "Solo founder",
+      "line": "Example: a solo founder amplified a release note on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-08T15:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-009",
+      "userId": "example-account-9",
+      "platform": "bluesky",
+      "role": "Agency",
+      "line": "Example: an agency amplified a project update on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-09T16:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-010",
+      "userId": "example-account-10",
+      "platform": "bluesky",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer followed an account on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-10T17:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-011",
+      "userId": "example-account-11",
+      "platform": "bluesky",
+      "role": "DevRel",
+      "line": "Example: a DevRel followed a project account on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-11T08:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-012",
+      "userId": "example-account-12",
+      "platform": "bluesky",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager followed an account on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-12T09:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-013",
+      "userId": "example-account-13",
+      "platform": "bluesky",
+      "role": "Community manager",
+      "line": "Example: a community manager unfollowed an account on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-13T10:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-014",
+      "userId": "example-account-14",
+      "platform": "bluesky",
+      "role": "Founder",
+      "line": "Example: a founder unfollowed a project account on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-14T11:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-015",
+      "userId": "example-account-15",
+      "platform": "bluesky",
+      "role": "Solo founder",
+      "line": "Example: a solo founder unfollowed an account on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-15T12:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-016",
+      "userId": "example-account-16",
+      "platform": "bluesky",
+      "role": "Agency",
+      "line": "Example: an agency searched posts on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-16T13:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-017",
+      "userId": "example-account-17",
+      "platform": "bluesky",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer looked up posts on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-17T14:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-018",
+      "userId": "example-account-18",
+      "platform": "bluesky",
+      "role": "DevRel",
+      "line": "Example: a DevRel searched for a conversation on Bluesky",
+      "networks": [
+        "Bluesky"
+      ],
+      "completedAt": "2026-10-18T15:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-019",
+      "userId": "example-account-19",
+      "platform": "github",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager added reactions on an issue on GitHub",
+      "networks": [
+        "GitHub"
+      ],
+      "completedAt": "2026-10-19T16:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-020",
+      "userId": "example-account-20",
+      "platform": "github",
+      "role": "Community manager",
+      "line": "Example: a community manager added reactions on a pull request on GitHub",
+      "networks": [
+        "GitHub"
+      ],
+      "completedAt": "2026-10-20T17:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-021",
+      "userId": "example-account-21",
+      "platform": "github",
+      "role": "Founder",
+      "line": "Example: a founder added reactions on an issue thread on GitHub",
+      "networks": [
+        "GitHub"
+      ],
+      "completedAt": "2026-10-21T08:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-022",
+      "userId": "example-account-22",
+      "platform": "github",
+      "role": "Solo founder",
+      "line": "Example: a solo founder followed an account on GitHub",
+      "networks": [
+        "GitHub"
+      ],
+      "completedAt": "2026-10-22T09:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-023",
+      "userId": "example-account-23",
+      "platform": "github",
+      "role": "Agency",
+      "line": "Example: an agency followed a project account on GitHub",
+      "networks": [
+        "GitHub"
+      ],
+      "completedAt": "2026-10-23T10:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-024",
+      "userId": "example-account-24",
+      "platform": "github",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer followed an account on GitHub",
+      "networks": [
+        "GitHub"
+      ],
+      "completedAt": "2026-10-24T11:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-025",
+      "userId": "example-account-25",
+      "platform": "github",
+      "role": "DevRel",
+      "line": "Example: a DevRel searched posts on GitHub",
+      "networks": [
+        "GitHub"
+      ],
+      "completedAt": "2026-10-25T12:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-026",
+      "userId": "example-account-26",
+      "platform": "github",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager looked up posts on GitHub",
+      "networks": [
+        "GitHub"
+      ],
+      "completedAt": "2026-10-26T13:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-027",
+      "userId": "example-account-27",
+      "platform": "github",
+      "role": "Community manager",
+      "line": "Example: a community manager searched for a conversation on GitHub",
+      "networks": [
+        "GitHub"
+      ],
+      "completedAt": "2026-10-27T14:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-028",
+      "userId": "example-account-28",
+      "platform": "hacker-news",
+      "role": "Founder",
+      "line": "Example: a founder shared a launch post on Hacker News",
+      "networks": [
+        "Hacker News"
+      ],
+      "completedAt": "2026-10-28T15:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-029",
+      "userId": "example-account-29",
+      "platform": "hacker-news",
+      "role": "Solo founder",
+      "line": "Example: a solo founder published a release note on Hacker News",
+      "networks": [
+        "Hacker News"
+      ],
+      "completedAt": "2026-10-01T16:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-030",
+      "userId": "example-account-30",
+      "platform": "hacker-news",
+      "role": "Agency",
+      "line": "Example: an agency shared a project update on Hacker News",
+      "networks": [
+        "Hacker News"
+      ],
+      "completedAt": "2026-10-02T17:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-031",
+      "userId": "example-account-31",
+      "platform": "hacker-news",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer commented on a post on Hacker News",
+      "networks": [
+        "Hacker News"
+      ],
+      "completedAt": "2026-10-03T08:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-032",
+      "userId": "example-account-32",
+      "platform": "hacker-news",
+      "role": "DevRel",
+      "line": "Example: a DevRel commented in a discussion on Hacker News",
+      "networks": [
+        "Hacker News"
+      ],
+      "completedAt": "2026-10-04T09:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-033",
+      "userId": "example-account-33",
+      "platform": "hacker-news",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager left a comment on a thread on Hacker News",
+      "networks": [
+        "Hacker News"
+      ],
+      "completedAt": "2026-10-05T10:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-034",
+      "userId": "example-account-34",
+      "platform": "linkedin",
+      "role": "Community manager",
+      "line": "Example: a community manager shared a launch post on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-06T11:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-035",
+      "userId": "example-account-35",
+      "platform": "linkedin",
+      "role": "Founder",
+      "line": "Example: a founder published a release note on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-07T12:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-036",
+      "userId": "example-account-36",
+      "platform": "linkedin",
+      "role": "Solo founder",
+      "line": "Example: a solo founder shared a project update on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-08T13:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-037",
+      "userId": "example-account-37",
+      "platform": "linkedin",
+      "role": "Agency",
+      "line": "Example: an agency commented on a post on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-09T14:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-038",
+      "userId": "example-account-38",
+      "platform": "linkedin",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer commented in a discussion on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-10T15:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-039",
+      "userId": "example-account-39",
+      "platform": "linkedin",
+      "role": "DevRel",
+      "line": "Example: a DevRel left a comment on a thread on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-11T16:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-041",
+      "userId": "example-account-41",
+      "platform": "linkedin",
+      "role": "Community manager",
+      "line": "Example: a community manager amplified a release note on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-13T08:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-042",
+      "userId": "example-account-42",
+      "platform": "linkedin",
+      "role": "Founder",
+      "line": "Example: a founder amplified a project update on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-14T09:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-043",
+      "userId": "example-account-43",
+      "platform": "linkedin",
+      "role": "Solo founder",
+      "line": "Example: a solo founder accepted an invitation on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-15T10:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-044",
+      "userId": "example-account-44",
+      "platform": "linkedin",
+      "role": "Agency",
+      "line": "Example: an agency accepted an inbound invitation on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-16T11:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-045",
+      "userId": "example-account-45",
+      "platform": "linkedin",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer accepted an invitation on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-17T12:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-046",
+      "userId": "example-account-46",
+      "platform": "linkedin",
+      "role": "DevRel",
+      "line": "Example: a DevRel withdrew an invitation on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-18T13:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-047",
+      "userId": "example-account-47",
+      "platform": "linkedin",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager withdrew a sent invitation on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-19T14:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-048",
+      "userId": "example-account-48",
+      "platform": "linkedin",
+      "role": "Community manager",
+      "line": "Example: a community manager withdrew an invitation on LinkedIn",
+      "networks": [
+        "LinkedIn"
+      ],
+      "completedAt": "2026-10-20T15:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-049",
+      "userId": "example-account-49",
+      "platform": "reddit",
+      "role": "Founder",
+      "line": "Example: a founder shared a launch post on Reddit",
+      "networks": [
+        "Reddit"
+      ],
+      "completedAt": "2026-10-21T16:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-050",
+      "userId": "example-account-50",
+      "platform": "reddit",
+      "role": "Solo founder",
+      "line": "Example: a solo founder published a release note on Reddit",
+      "networks": [
+        "Reddit"
+      ],
+      "completedAt": "2026-10-22T17:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-051",
+      "userId": "example-account-51",
+      "platform": "reddit",
+      "role": "Agency",
+      "line": "Example: an agency shared a project update on Reddit",
+      "networks": [
+        "Reddit"
+      ],
+      "completedAt": "2026-10-23T08:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-052",
+      "userId": "example-account-52",
+      "platform": "reddit",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer commented on a post on Reddit",
+      "networks": [
+        "Reddit"
+      ],
+      "completedAt": "2026-10-24T09:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-053",
+      "userId": "example-account-53",
+      "platform": "reddit",
+      "role": "DevRel",
+      "line": "Example: a DevRel commented in a discussion on Reddit",
+      "networks": [
+        "Reddit"
+      ],
+      "completedAt": "2026-10-25T10:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-054",
+      "userId": "example-account-54",
+      "platform": "reddit",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager left a comment on a thread on Reddit",
+      "networks": [
+        "Reddit"
+      ],
+      "completedAt": "2026-10-26T11:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-055",
+      "userId": "example-account-55",
+      "platform": "reddit",
+      "role": "Community manager",
+      "line": "Example: a community manager amplified a launch post on Reddit",
+      "networks": [
+        "Reddit"
+      ],
+      "completedAt": "2026-10-27T12:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-056",
+      "userId": "example-account-56",
+      "platform": "reddit",
+      "role": "Founder",
+      "line": "Example: a founder amplified a release note on Reddit",
+      "networks": [
+        "Reddit"
+      ],
+      "completedAt": "2026-10-28T13:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-057",
+      "userId": "example-account-57",
+      "platform": "reddit",
+      "role": "Solo founder",
+      "line": "Example: a solo founder amplified a project update on Reddit",
+      "networks": [
+        "Reddit"
+      ],
+      "completedAt": "2026-10-01T14:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-058",
+      "userId": "example-account-58",
+      "platform": "slack",
+      "role": "Agency",
+      "line": "Example: an agency shared a launch post on Slack",
+      "networks": [
+        "Slack"
+      ],
+      "completedAt": "2026-10-02T15:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-059",
+      "userId": "example-account-59",
+      "platform": "slack",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer published a release note on Slack",
+      "networks": [
+        "Slack"
+      ],
+      "completedAt": "2026-10-03T16:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-060",
+      "userId": "example-account-60",
+      "platform": "slack",
+      "role": "DevRel",
+      "line": "Example: a DevRel shared a project update on Slack",
+      "networks": [
+        "Slack"
+      ],
+      "completedAt": "2026-10-04T17:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-061",
+      "userId": "example-account-61",
+      "platform": "slack",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager replied in a thread on Slack",
+      "networks": [
+        "Slack"
+      ],
+      "completedAt": "2026-10-05T08:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-062",
+      "userId": "example-account-62",
+      "platform": "slack",
+      "role": "Community manager",
+      "line": "Example: a community manager replied to a conversation on Slack",
+      "networks": [
+        "Slack"
+      ],
+      "completedAt": "2026-10-06T09:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-063",
+      "userId": "example-account-63",
+      "platform": "slack",
+      "role": "Founder",
+      "line": "Example: a founder sent a reply in a thread on Slack",
+      "networks": [
+        "Slack"
+      ],
+      "completedAt": "2026-10-07T10:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-064",
+      "userId": "example-account-64",
+      "platform": "x",
+      "role": "Solo founder",
+      "line": "Example: a solo founder shared a launch post on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-08T11:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-065",
+      "userId": "example-account-65",
+      "platform": "x",
+      "role": "Agency",
+      "line": "Example: an agency published a release note on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-09T12:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-066",
+      "userId": "example-account-66",
+      "platform": "x",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer shared a project update on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-10T13:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-067",
+      "userId": "example-account-67",
+      "platform": "x",
+      "role": "DevRel",
+      "line": "Example: a DevRel replied in a thread on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-11T14:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-068",
+      "userId": "example-account-68",
+      "platform": "x",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager replied to a conversation on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-12T15:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-069",
+      "userId": "example-account-69",
+      "platform": "x",
+      "role": "Community manager",
+      "line": "Example: a community manager sent a reply in a thread on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-13T16:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-070",
+      "userId": "example-account-70",
+      "platform": "x",
+      "role": "Founder",
+      "line": "Example: a founder amplified a launch post on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-14T17:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-071",
+      "userId": "example-account-71",
+      "platform": "x",
+      "role": "Solo founder",
+      "line": "Example: a solo founder amplified a release note on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-15T08:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-072",
+      "userId": "example-account-72",
+      "platform": "x",
+      "role": "Agency",
+      "line": "Example: an agency amplified a project update on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-16T09:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-073",
+      "userId": "example-account-73",
+      "platform": "x",
+      "role": "Open source maintainer",
+      "line": "Example: an open source maintainer followed an account on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-17T10:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-074",
+      "userId": "example-account-74",
+      "platform": "x",
+      "role": "DevRel",
+      "line": "Example: a DevRel followed a project account on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-18T11:15:00Z",
+      "example": true,
+      "visibility": "public"
+    },
+    {
+      "id": "example-075",
+      "userId": "example-account-75",
+      "platform": "x",
+      "role": "Marketing manager",
+      "line": "Example: a marketing manager followed an account on X (Twitter)",
+      "networks": [
+        "X (Twitter)"
+      ],
+      "completedAt": "2026-10-19T12:15:00Z",
+      "example": true,
+      "visibility": "public"
+    }
+  ]
+}
