@@ -41,7 +41,11 @@ Items are checked before they are shown: known fields only, length limits, the p
 
 Invalid items are dropped. If none remain, or the body is empty or not JSON, the card uses the fallback. Timeout, a thrown network error, and any non-success status do the same. HTTP 429 also sets a wait from `Retry-After` (delta-seconds or an HTTP date) and will not call the transport again until that time. A missing or unreadable `Retry-After` waits 60 seconds.
 
-A payload with `sample: true`, or an item with `example: true` or `sample: true`, keeps the Examples label. Live rows, if a transport is ever passed in, are kept on the source object in memory. The script does not touch `localStorage`, `sessionStorage`, or `IndexedDB`. On failure the card shows the fallback, not a stale live list.
+A payload with `sample: true`, or an item with `example: true` or `sample: true`, keeps the Examples label. Those rows are not live events.
+
+Live events, if a transport is ever passed in, may be shown only for the response `Cache-Control` `max-age`. That lifetime is capped at 30 seconds. A missing or zero `max-age` does not grant any hold, so the card shows the bundled examples instead. When the lifetime ends, the card asks the transport once more. If that refresh fails, or there is no transport, the live rows are dropped and the bundled examples take their place, with the Examples label. Expired live rows are never the offline fallback.
+
+Nothing in this script writes `localStorage`, `sessionStorage`, `IndexedDB`, or a service-worker cache. Avatar URLs are not requested.
 
 ## Attaching a transport later
 
@@ -58,13 +62,12 @@ const source = createFeedSource({
 mountActivityFeed(card, { source });
 ```
 
-`FEED_URL` belongs to the caller. The browser global `BlowhornActivityFeed` exposes the same functions after the module loads. Do not add a poll loop until the cache policy below is decided. One load at startup is the whole client.
+`FEED_URL` belongs to the caller. The browser global `BlowhornActivityFeed` exposes the same functions after the module loads. The only refresh is the one at the end of `max-age` (30 seconds at most). The transport on the public site stays null, so that refresh never runs there.
 
 ## Unresolved contract
 
 These are open. Do not invent values for them in the page.
 
 - Final field names, and the meaning of `sample`, as served by Layer5 Cloud. This schema is the preview contract (version 1), not a confirmed response.
-- A machine-readable sample or seed marker on Cloud's seed events. Cloud reports about 100 seed events from 25 fake accounts. Those must always render with the Examples label, including when they are mixed into a live payload. Today the card treats `sample: true` on the payload, and `example: true` or `sample: true` on an item. Cloud still needs a stable marker for those seed events.
-- Privacy revocation and the caching policy for real public events. Until that is decided, live items are not written to disk and avatar URLs are not loaded.
-- `Cache-Control` and how often a page may poll. The preview does not poll.
+- A machine-readable sample or seed marker on Cloud's seed events. Cloud reports about 100 seed events from 25 fake accounts. Those must always render with the Examples label, including when they are mixed into a live payload. Today the card treats `sample: true` on the payload, and `example: true` or `sample: true` on an item. The field name Cloud will use is not decided here.
+- Whether real public events may be shown at all, and how a person revokes that. If they are shown, the page holds them only for `max-age`, capped at 30 seconds, then drops them. Avatar URLs stay unloaded.

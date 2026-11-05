@@ -8,6 +8,8 @@ import {
   sanitizeItem,
   normalizePayload,
   parseRetryAfter,
+  parseMaxAge,
+  MAX_LIVE_TTL_MS,
   createFeedSource,
   createRotation,
   paintActivity,
@@ -353,11 +355,11 @@ test("transport is disabled by default and the first visit has no stored feed", 
   assert.equal(createFeedSource({ fallback }).memory, null);
 });
 
-test("a sample payload is labelled as examples and live rows stay in memory only", async () => {
+test("a sample payload is labelled as examples and is not kept as live", async () => {
   const fallback = payload([item()]);
   const live = item({ id: "live-1", example: false, sample: false, line: "A founder shared a launch post on LinkedIn" });
   const source = createFeedSource({
-    transport: async () => response(200, { version: 1, sample: true, items: [live] }),
+    transport: async () => response(200, { version: 1, sample: true, items: [live] }, { "cache-control": "max-age=30" }),
     fallback,
   });
   const result = await source.load();
@@ -365,7 +367,7 @@ test("a sample payload is labelled as examples and live rows stay in memory only
   assert.equal(result.fromFallback, false);
   assert.equal(result.example, true);
   assert.equal(result.items[0].example, true);
-  assert.equal(source.memory[0].id, "live-1");
+  assert.equal(source.memory, null);
 
   const marked = await createFeedSource({
     transport: async () => response(200, { version: 1, sample: false, items: [item({ example: true, id: "seed-1" })] }),
@@ -373,6 +375,89 @@ test("a sample payload is labelled as examples and live rows stay in memory only
   }).load();
   assert.equal(marked.items[0].example, true);
   assert.equal(marked.reason, "live");
+  assert.equal(marked.ttlMs, 0);
+});
+
+test("max-age is capped at 30 seconds", () => {
+  assert.equal(MAX_LIVE_TTL_MS, 30000);
+  assert.equal(parseMaxAge("max-age=10"), 10000);
+  assert.equal(parseMaxAge("public, max-age=30"), 30000);
+  assert.equal(parseMaxAge("max-age=90, public"), 30000);
+  assert.equal(parseMaxAge("max-age=0"), 0);
+  assert.equal(parseMaxAge("no-store"), 0);
+  assert.equal(parseMaxAge(null), 0);
+});
+
+test("live items expire at the TTL and refresh failure restores labeled examples", async () => {
+  const writes = [];
+  const touch = () => writes.push("write");
+  globalThis.localStorage = { setItem: touch, getItem: touch };
+  globalThis.sessionStorage = { setItem: touch, getItem: touch };
+  globalThis.indexedDB = { open: touch };
+  globalThis.caches = { open: touch, put: touch, match: touch };
+  const fallback = payload([item({ id: "ex-1" })]);
+  const live = item({ id: "live-1", example: false, line: "A founder shared a launch post on LinkedIn" });
+  let now = 1_000_000;
+  let calls = 0;
+  let fail = false;
+  const source = createFeedSource({
+    now: () => now,
+    fallback,
+    transport: async () => {
+      calls += 1;
+      if (fail) throw new TypeError("offline");
+      return response(200, { version: 1, sample: false, items: [live] }, { "cache-control": "max-age=90" });
+    },
+  });
+  const first = await source.load();
+  assert.equal(first.reason, "live");
+  assert.equal(first.fromFallback, false);
+  assert.equal(first.ttlMs, 30000);
+  assert.equal(first.items[0].id, "live-1");
+  assert.equal(source.memory[0].id, "live-1");
+  const cached = await source.load();
+  assert.equal(cached.reason, "live");
+  assert.equal(calls, 1);
+  now += 30000;
+  fail = true;
+  const expired = await source.load();
+  assert.equal(expired.fromFallback, true);
+  assert.equal(expired.example, true);
+  assert.equal(expired.items[0].id, "ex-1");
+  assert.equal(expired.items[0].example, true);
+  assert.equal(source.memory.some((entry) => entry.id === "live-1"), false);
+  assert.equal(source.memory[0].example, true);
+  assert.equal(writes.length, 0);
+  delete globalThis.localStorage;
+  delete globalThis.sessionStorage;
+  delete globalThis.indexedDB;
+  delete globalThis.caches;
+});
+
+test("an expired hold is replaced by labeled examples when there is no transport", async () => {
+  let now = 0;
+  const options = {
+    now: () => now,
+    fallback: payload([item({ id: "ex-9" })]),
+    transport: async () => response(200, {
+      version: 1,
+      sample: false,
+      items: [item({ id: "live-9", example: false, line: "A founder shared a launch post on LinkedIn" })],
+    }, { "cache-control": "max-age=5" }),
+  };
+  const source = createFeedSource(options);
+  const first = await source.load();
+  assert.equal(first.items[0].id, "live-9");
+  assert.equal(first.ttlMs, 5000);
+  now = 5000;
+  options.transport = null;
+  const next = await source.load();
+  assert.equal(next.reason, "disabled");
+  assert.equal(next.fromFallback, true);
+  assert.equal(next.example, true);
+  assert.equal(next.items[0].id, "ex-9");
+  assert.equal(source.memory[0].id, "ex-9");
+  assert.equal(source.memory.some((entry) => entry.id === "live-9"), false);
 });
 
 test("rotation pauses for reduced motion, a hidden document and hover, and clears timers", () => {
@@ -446,6 +531,7 @@ test("mount cleans timers and listeners and does not write storage", async () =>
   globalThis.localStorage = storage;
   globalThis.sessionStorage = storage;
   globalThis.indexedDB = storage;
+  globalThis.caches = storage;
 
   const view = card();
   const timers = [];
@@ -478,10 +564,11 @@ test("mount cleans timers and listeners and does not write storage", async () =>
   delete globalThis.localStorage;
   delete globalThis.sessionStorage;
   delete globalThis.indexedDB;
+  delete globalThis.caches;
 });
 
 test("runtime source has no endpoint and no web storage", () => {
-  assert.equal(/localStorage|sessionStorage|indexedDB/.test(sourceText), false);
+  assert.equal(/localStorage|sessionStorage|indexedDB|serviceWorker|caches\.put|caches\.open/.test(sourceText), false);
   assert.equal(/\/api\/public|api\.blowhorn|layer5/.test(sourceText), false);
   assert.equal(/https?:\/\/[A-Za-z0-9.-]+\.[A-Za-z]{2,}/.test(sourceText), false);
   assert.equal(boot({ documentElement: { dataset: { activityFeedBoot: "off" } }, querySelector() { return {}; } }), null);

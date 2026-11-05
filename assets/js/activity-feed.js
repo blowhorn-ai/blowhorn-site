@@ -1,8 +1,9 @@
 /* Hero activity card. Pure helpers are exported for node:test.
    The page boots with transport null: bundled examples only.
    No feed URL lives in this file. A later caller can pass transport
-   to createFeedSource.    Live items stay in memory on the source object.
-   This file does not persist anything in the browser. */
+   to createFeedSource. Live items stay in memory only until
+   Cache-Control max-age, and never longer than 30 seconds. They are
+   not an offline fallback. This file does not persist anything. */
 export const PLATFORMS = Object.freeze([
   "linkedin",
   "x",
@@ -28,6 +29,7 @@ export const LIMITS = Object.freeze({
 
 export const INTERVAL_MS = 7000;
 export const SWAP_MS = 180;
+export const MAX_LIVE_TTL_MS = 30000;
 const RATE_LIMIT_FALLBACK_MS = 60000;
 const HTTPS = "https:";
 const DATE_TIME = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])[Tt]([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?([Zz]|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/;
@@ -171,6 +173,13 @@ export function normalizePayload(payload) {
   return { items, example, dropped, rawCount: raw.length };
 }
 
+export function parseMaxAge(header, capMs = MAX_LIVE_TTL_MS) {
+  if (header == null) return 0;
+  const match = /(?:^|,)\s*max-age\s*=\s*(\d+)/i.exec(String(header));
+  if (!match) return 0;
+  return Math.min(Number(match[1]) * 1000, capMs);
+}
+
 export function parseRetryAfter(header, nowMs) {
   if (header == null) return null;
   const trimmed = String(header).trim();
@@ -187,7 +196,6 @@ function asPayload(value) {
 }
 
 export function createFeedSource(options = {}) {
-  const transport = Object.prototype.hasOwnProperty.call(options, "transport") ? options.transport : null;
   const fallback = asPayload(options.fallback);
   const timeoutMs = options.timeoutMs ?? 8000;
   const now = options.now ?? (() => Date.now());
@@ -199,52 +207,95 @@ export function createFeedSource(options = {}) {
   let timer = null;
   let epoch = 0;
 
-  function finishFallback(reason) {
+  function exampleHold() {
     const normalized = normalizePayload(fallback);
+    return { items: normalized.items, live: false, example: normalized.example, expiresAt: null };
+  }
+
+  function finishFallback(reason, replaceLive) {
+    const normalized = normalizePayload(fallback);
+    if (replaceLive) memory = exampleHold();
     return {
       items: normalized.items,
       example: normalized.example,
       reason,
       fromFallback: true,
+      ttlMs: 0,
     };
   }
 
-  async function handleResponse(response) {
+  function presentLive(hold) {
+    return {
+      items: hold.items,
+      example: hold.example,
+      reason: "live",
+      fromFallback: false,
+      ttlMs: Math.max(0, hold.expiresAt - now()),
+    };
+  }
+
+  async function handleResponse(response, replaceLive) {
     const status = Number(response && response.status);
     if (status === 429) {
       const header = response.headers && response.headers.get ? response.headers.get("retry-after") : null;
       const until = parseRetryAfter(header, now());
       retryNotBefore = until == null ? now() + rateLimitFallbackMs : until;
-      return finishFallback("rate-limit");
+      return finishFallback("rate-limit", replaceLive);
     }
-    if (!status || status < 200 || status >= 300) return finishFallback("http");
+    if (!status || status < 200 || status >= 300) return finishFallback("http", replaceLive);
     let payload;
     try {
       payload = await response.json();
     } catch {
-      return finishFallback("malformed");
+      return finishFallback("malformed", replaceLive);
     }
     const normalized = normalizePayload(payload);
     if (!normalized.items.length) {
-      return finishFallback(normalized.rawCount > 0 ? "invalid" : "empty");
+      return finishFallback(normalized.rawCount > 0 ? "invalid" : "empty", replaceLive);
     }
-    memory = normalized.items;
-    return {
-      items: normalized.items,
-      example: normalized.example,
-      reason: "live",
-      fromFallback: false,
+    const liveItems = normalized.items.filter((item) => !item.example);
+    const header = response.headers && response.headers.get ? response.headers.get("cache-control") : null;
+    const ttlMs = liveItems.length ? parseMaxAge(header) : 0;
+    if (!liveItems.length) {
+      return {
+        items: normalized.items,
+        example: true,
+        reason: "live",
+        fromFallback: false,
+        ttlMs: 0,
+      };
+    }
+    if (ttlMs <= 0) return finishFallback("ttl", true);
+    memory = {
+      items: liveItems,
+      live: true,
+      example: false,
+      expiresAt: now() + ttlMs,
     };
+    return presentLive(memory);
+  }
+
+  function claimFresh() {
+    if (!memory || !memory.live) return { fresh: null, expired: false };
+    if (now() >= memory.expiresAt) {
+      memory = null;
+      return { fresh: null, expired: true };
+    }
+    return { fresh: memory, expired: false };
   }
 
   return {
     get memory() {
-      return memory;
+      return memory ? memory.items : null;
     },
     async load() {
       const gen = ++epoch;
-      if (transport == null) return finishFallback("disabled");
-      if (now() < retryNotBefore) return finishFallback("rate-limit");
+      const claimed = claimFresh();
+      if (claimed.fresh) return presentLive(claimed.fresh);
+      const replaceLive = claimed.expired;
+      const transport = Object.prototype.hasOwnProperty.call(options, "transport") ? options.transport : null;
+      if (transport == null) return finishFallback("disabled", replaceLive);
+      if (now() < retryNotBefore) return finishFallback("rate-limit", replaceLive);
       try {
         const response = await new Promise((resolve, reject) => {
           timer = setTimer(() => {
@@ -256,12 +307,12 @@ export function createFeedSource(options = {}) {
             .then(() => transport())
             .then(resolve, reject);
         });
-        if (gen !== epoch) return finishFallback("destroyed");
-        return await handleResponse(response);
+        if (gen !== epoch) return finishFallback("destroyed", replaceLive);
+        return await handleResponse(response, replaceLive);
       } catch (err) {
-        if (gen !== epoch) return finishFallback("destroyed");
-        if (err && err.code === "TIMEOUT") return finishFallback("timeout");
-        return finishFallback("network");
+        if (gen !== epoch) return finishFallback("destroyed", replaceLive);
+        if (err && err.code === "TIMEOUT") return finishFallback("timeout", replaceLive);
+        return finishFallback("network", replaceLive);
       } finally {
         if (timer != null) {
           clearTimer(timer);
@@ -427,12 +478,20 @@ export function mountActivityFeed(root, options = {}) {
   let items = [];
   let rotation = null;
   let swapTimer = null;
+  let ttlTimer = null;
   let destroyed = false;
 
   function clearSwap() {
     if (swapTimer != null) {
       clearTimer(swapTimer);
       swapTimer = null;
+    }
+  }
+
+  function clearTtl() {
+    if (ttlTimer != null) {
+      clearTimer(ttlTimer);
+      ttlTimer = null;
     }
   }
 
@@ -497,15 +556,30 @@ export function mountActivityFeed(root, options = {}) {
     listen(listeners, reducedQuery, "change", onMotion);
   }
 
+  function showResult(result) {
+    items = result.items || [];
+    if (!items.length) paintEmpty(root);
+    else show(0, false);
+    root.classList.add("is-ready");
+    armRotation();
+    clearTtl();
+    if (destroyed || !result.ttlMs) return;
+    ttlTimer = setTimer(() => {
+      ttlTimer = null;
+      if (destroyed) return;
+      Promise.resolve()
+        .then(() => source.load())
+        .then((next) => {
+          if (!destroyed && next) showResult(next);
+        });
+    }, result.ttlMs);
+  }
+
   const ready = Promise.resolve()
     .then(() => source.load())
     .then((result) => {
       if (destroyed) return result;
-      items = result.items || [];
-      if (!items.length) paintEmpty(root);
-      else show(0, false);
-      root.classList.add("is-ready");
-      armRotation();
+      showResult(result);
       return result;
     });
 
@@ -514,6 +588,7 @@ export function mountActivityFeed(root, options = {}) {
     destroy() {
       destroyed = true;
       clearSwap();
+      clearTtl();
       if (rotation) rotation.destroy();
       if (source.destroy) source.destroy();
       for (const [target, type, fn] of listeners) target.removeEventListener(type, fn);
@@ -554,6 +629,8 @@ export const BlowhornActivityFeed = {
   sanitizeItem,
   normalizePayload,
   parseRetryAfter,
+  parseMaxAge,
+  MAX_LIVE_TTL_MS,
   isHttpsUrl,
   createFeedSource,
   createRotation,
