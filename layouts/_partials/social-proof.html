@@ -13,6 +13,8 @@
    (static/assets/orgs/) is grayscale with its canvas trimmed to the
    art, at one height; white lockups are stored inverted, and dark
    mode inverts the whole strip, so both schemes get their contrast.
+   Testimonial attributions reuse that same set, with dark-mode inversion
+   only on theme-following cards (paper stays light in both schemes).
    Sources and treatment: static/assets/brand/LICENSES.md. */ -}}
 {{- $slot := .slot -}}
 {{- $want := $slot -}}
@@ -56,7 +58,7 @@
   <div class="wrap">
     <figure class="proof-big">
       <blockquote class="display">{{ $t.quote }}</blockquote>
-      <figcaption class="label">{{ $t.name }} · {{ $t.role }}, {{ $t.company }}{{ if $t.placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</figcaption>
+      <figcaption class="label">{{ $t.name }} · {{ $t.role }}, {{ $t.company }}{{ if $t.placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}{{ with $t.companyLogo }}<img class="proof-company-logo" src="{{ . | relURL }}" alt="" loading="lazy">{{ end }}</figcaption>
     </figure>
   </div>
 </section>
@@ -83,7 +85,7 @@
           {{- with $t.picture }}
           <img src="{{ . | relURL }}" alt="">
           {{- end }}
-        </span><span><strong>{{ $t.name }}</strong><br><span class="caption muted">{{ $t.role }}, {{ $t.company }}</span></span></p>
+        </span><span class="proof-attribution"><strong>{{ $t.name }}</strong><br><span class="caption muted">{{ $t.role }}, {{ $t.company }}</span>{{ with $t.companyLogo }}<img class="proof-company-logo" src="{{ . | relURL }}" alt="" loading="lazy">{{ end }}</span></p>
       </li>
       {{- end }}
     </ul>
@@ -94,7 +96,7 @@
   {{- range $i, $t := first 3 . }}
   <figure class="{{ partial "card-variant.html" (dict "i" $i "grid" "proof-band" "n" (len (first 3 $items)) "variants" (slice "card-stamp" "card-field" "card-plain")) }}">
     <blockquote class="h3">{{ .quote | truncate 80 }}</blockquote>
-    <figcaption class="caption muted">{{ .name }}, {{ .company }}{{ if .placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</figcaption>
+    <figcaption class="caption muted">{{ .name }}, {{ .company }}{{ if .placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}{{ with $t.companyLogo }}<img class="proof-company-logo" src="{{ . | relURL }}" alt="" loading="lazy">{{ end }}</figcaption>
   </figure>
   {{- end }}
 </div>
@@ -112,7 +114,7 @@
         {{- with $t.picture }}
         <img src="{{ . | relURL }}" alt="">
         {{- end }}
-      </span><span><strong>{{ $t.name }}</strong><br><span class="caption muted">{{ $t.role }}, {{ $t.company }}</span></span>{{ if $t.placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</figcaption>
+      </span><span class="proof-attribution"><strong>{{ $t.name }}</strong><br><span class="caption muted">{{ $t.role }}, {{ $t.company }}</span>{{ with $t.companyLogo }}<img class="proof-company-logo" src="{{ . | relURL }}" alt="" loading="lazy">{{ end }}</span>{{ if $t.placeholder }} <span class="proof-flag">Placeholder</span>{{ end }}</figcaption>
     </figure>
     {{- end }}
     <div class="proof-rotate-nav">

@@ -80,44 +80,67 @@ each owner's brand guidelines, and are not licensed for any other use.
 
 ## Organisation logos (`../orgs/`)
 
-The logo ticker under the home page hero shows the horizontal logos of
-organisations Blowhorn users work at (`data/user_logos.json`). The current
-set of 22 was supplied by the Blowhorn team on 25 October 2026 (dropped in
-the repo as `user-logos/`) and replaced the previous set the same day. The
+The logo ticker under the home page hero and the testimonial attributions
+show the logos of organisations Blowhorn users work at (`data/user_logos.json`
+and `data/testimonials.json`). The original set of 22 was supplied by the
+Blowhorn team on 25 October 2026 (dropped in the repo as `user-logos/`) and replaced the previous set the same day. The
 files are the owners' logos with one uniform treatment applied before
 publishing, so the strip reads as one set: converted to grayscale, each
 canvas or viewBox trimmed to the drawn art (full-canvas background shapes
 removed), and the five white lockups (Apptega, Aqueduct, Clutch, Innovacare,
 Northwinds) stored inverted, so the set reads dark on the light ground at
 one height. The logos render bare, with no plate or tile behind them; in
-dark mode the strip is inverted by CSS, which returns the five stored
-inversions to their original white. No logo is redrawn, outlined or
-re-proportioned; aspect ratios are the owners' own.
+dark mode the strip and theme-following testimonial cards invert the logos
+by CSS. Paper cards keep their light ground and do not invert the logos. No
+logo is redrawn, outlined or re-proportioned; aspect ratios are the owners' own.
 
-| File | Owner |
-| --- | --- |
-| `airtex.svg` | Airtex |
-| `apptega.webp` | Apptega, Inc. |
-| `aqueduct.png` | Aqueduct |
-| `ascension.svg` | Ascension |
-| `bigcommerce.svg` | BigCommerce |
-| `caritas-argentina.svg` | Caritas Argentina |
-| `clutch.svg` | Clutch |
-| `designer-shoe-warehouse.svg` | Designer Shoe Warehouse |
-| `evercraft.svg` | Evercraft |
-| `gamestop.svg` | GameStop |
-| `horstmann.svg` | Horstmann |
-| `hydroxydase.svg` | Hydroxydase |
-| `innovacare.svg` | Innovacare |
-| `kahlua-surfing.svg` | Kahlua Surfing |
-| `laufenn.svg` | Laufenn |
-| `luar-music.svg` | Luar Music |
-| `nextlevel.webp` | NextLevel |
-| `northwinds.svg` | Northwinds |
-| `opencart.svg` | OpenCart |
-| `pediatric-partners.svg` | Pediatric Partners |
-| `rai-sport.svg` | Rai Sport |
-| `university-of-nottingham.svg` | The University of Nottingham |
+| File | Owner | Source |
+| --- | --- | --- |
+| `airtex.svg` | Airtex | Team-supplied set, 25 October 2026 |
+| `apptega.webp` | Apptega, Inc. | Team-supplied set, 25 October 2026 |
+| `aqueduct.png` | Aqueduct | Team-supplied set, 25 October 2026 |
+| `ascension.svg` | Ascension | Team-supplied set, 25 October 2026 |
+| `bigcommerce.svg` | BigCommerce | Team-supplied set, 25 October 2026 |
+| `caritas-argentina.svg` | Caritas Argentina | Team-supplied set, 25 October 2026 |
+| `clutch.svg` | Clutch | Team-supplied set, 25 October 2026 |
+| `designer-shoe-warehouse.svg` | Designer Shoe Warehouse | Team-supplied set, 25 October 2026 |
+| `evercraft.svg` | Evercraft | Team-supplied set, 25 October 2026 |
+| `gamestop.svg` | GameStop | Team-supplied set, 25 October 2026 |
+| `horstmann.svg` | Horstmann | Team-supplied set, 25 October 2026 |
+| `hydroxydase.svg` | Hydroxydase | Team-supplied set, 25 October 2026 |
+| `innovacare.svg` | Innovacare | Team-supplied set, 25 October 2026 |
+| `kahlua-surfing.svg` | Kahlua Surfing | Team-supplied set, 25 October 2026 |
+| `laufenn.svg` | Laufenn | Team-supplied set, 25 October 2026 |
+| `luar-music.svg` | Luar Music | Team-supplied set, 25 October 2026 |
+| `nextlevel.webp` | NextLevel | Team-supplied set, 25 October 2026 |
+| `northwinds.svg` | Northwinds | Team-supplied set, 25 October 2026 |
+| `opencart.svg` | OpenCart | Team-supplied set, 25 October 2026 |
+| `pediatric-partners.svg` | Pediatric Partners | Team-supplied set, 25 October 2026 |
+| `rai-sport.svg` | Rai Sport | Team-supplied set, 25 October 2026 |
+| `university-of-nottingham.svg` | The University of Nottingham | Team-supplied set, 25 October 2026 |
+| `suburban-propane.webp` | Suburban Propane Partners, L.P. | https://investor.suburbanpropane.com/images/logo.png (owner's investor-site header, https://investor.suburbanpropane.com/) |
+| `wawa.webp` | Wawa, Inc. | https://cdn.phenompeople.com/CareerConnectResources/WAWWAWUS/images/2020_WawaLogo_RGB-1718209550627.png (owner's careers-site header, https://careers.wawa.com/) |
+| `quiktrip.svg` | QuikTrip Corporation | https://www.quiktrip.com/app/themes/quiktrip/public/images/qt-logo-transparent.svg (owner's site header, https://www.quiktrip.com/) |
+| `vayner-media.webp` | VaynerMedia, LLC | PNG embedded in https://vaynermedia.com/wp-content/themes/vaynermedia/assets/images/vm-logo-white.svg (owner's site logo, https://vaynermedia.com/) |
+| `rive.svg` | Rive, Inc. | https://framerusercontent.com/images/CmpP37tfaDkGdDPeW4w9jr54aEw.svg (owner's site header, https://rive.app/) |
+| `c4-energy.webp` | Nutrabolt (Woodbolt Distribution LLC) | https://cellucor.com/cdn/shop/files/C4OTG_0990_Video_Logos_Powerlifting_BlackLogo_2.png?v=1684342695 (owner's C4 Energy site, https://c4energy.com/) |
+
+The six additions were retrieved from the owners' public sites on 6 November
+2026, with the same grayscale and trim treatment. VaynerMedia's SVG contains
+a raster PNG, stored here as lossless WebP and inverted from white to dark.
+Rive's white monogram is also stored inverted. C4's solid yellow canvas was
+removed; the mark and its antialiased silhouette were retained. Wawa was
+reduced from 3042px to 1200px wide. No shapes or proportions were redrawn.
+Apptega reuses the original team-supplied file, unchanged.
+
+Three quoted companies remain text-only pending permission review:
+
+- Roblox restricts general and commercial logo use: https://en.help.roblox.com/hc/en-us/articles/115001708126-Roblox-Name-and-Logo-Community-Usage-Guidelines
+- Meta requires approval for all logo use: https://www.meta.com/brand/resources/meta/company-brand/
+- Google excludes business marketing from its general logo-use guidance: https://about.google/brand-resource-center/brand-elements/
+
+These source records do not establish press-use clearance, a partnership,
+or a grant of trademark rights.
 
 The names above are trademarks of their respective owners. Blowhorn is
 not affiliated with or endorsed by any of them. The logos name the
