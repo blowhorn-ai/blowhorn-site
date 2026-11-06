@@ -28,7 +28,9 @@ cover. A command that only runs in one place, such as accept on LinkedIn, can
 only be saved for that place. One you saved on "all" before keeps running there.
 When you edit it, the editor picks that place for you and says so, and saving
 stores it. `blowhorn schedule upsert` does the same when your change names no
-platform, and prints one line saying it did.
+platform, and prints one line saying it did. Before you save it, **Dry fire** in
+the editor rehearses the routine as you have it and stops before acting, so
+nothing is sent or changed.
 
 To move a job, drag its next time to another time. Only the next one moves, and
 only to a time still ahead; the dashed times after it follow on their own. From
@@ -93,7 +95,12 @@ Run one pass by hand, or force one activity now:
 ```bash
 blowhorn schedule tick --profile all
 blowhorn schedule trigger-now 4
+blowhorn schedule trigger-now 4 --ignore-risk
 ```
+
+`trigger-now` names a Risk Profile hold, including while the profile is warming
+up, and does not run until you confirm or pass `--ignore-risk`. A limit the
+platform publishes still applies.
 
 Read or write a single activity. Activity numbers are stable: they are assigned when a
 activity is created and never reused, so a number you noted keeps meaning the same
