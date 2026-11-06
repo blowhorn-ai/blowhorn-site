@@ -318,7 +318,8 @@ before a destructive call; an additive call still reaches the outside
 world, so it is still a dry run until `confirm` is true.
 
 The additive tools are `accept`, `chrome_create_profile`,
-`chrome_extension_enable`, `chrome_open_profile`, `comment`,
+`chrome_extension_enable`, `chrome_open_profile`, `chrome_remember`,
+`chrome_spaces_setup`, `comment`,
 `diagnostics_opened`, `diagnostics_support`, `find`, `follow`, `post`,
 `profile_create`, `slack_react`, `slack_send` and `star`, and the
 page-invitation tool described in the next paragraph. Every other
@@ -340,7 +341,9 @@ read-only. `schedule_pause` and `schedule_resume` each gain an `--all`
 form for every computer sharing the store, `auth_login` gains
 `auth_login_sign_up`, `profile_auth` gains `profile_auth_all`, and
 `auth_anonymous_usage_stats` gains `auth_anonymous_usage_stats_on` and
-`auth_anonymous_usage_stats_off`. The base tool does not accept the split-out
+`auth_anonymous_usage_stats_off`, and `auth_share_activity_publicly` gains
+`auth_share_activity_publicly_on` and `auth_share_activity_publicly_off`.
+The base tool does not accept the split-out
 arguments: a call to `slack_react` that names `remove` is refused as an
 unknown argument, and the refusal says `remove belongs to slack_unreact`.
 The base tool's description ends by naming each split-out argument and
