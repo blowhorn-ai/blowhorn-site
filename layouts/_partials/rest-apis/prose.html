@@ -1,0 +1,4 @@
+{{- /* Spec text as Markdown, with raw HTML kept as text: the site renders
+  goldmark with unsafe on, and a schema is not a place to inject markup.
+  Context: a string. */ -}}
+{{- . | htmlEscape | markdownify -}}
