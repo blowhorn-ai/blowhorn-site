@@ -1,6 +1,6 @@
 # Public API reference (/docs/reference/api/)
 
-**Status: built, not enabled.** The viewer, the exporter and the checks are in the repository. No page uses them yet, because the product schema (`schemas/dist/openapi.yaml` in the private product repository) was not available when this was built. Nothing here ships a reference page, and the shipped site builds exactly as before.
+**Status: enabled.** Public operations from `schemas/dist/openapi.yaml` are exported to `api/openapi.public.json` and rendered at `/docs/reference/api/`. Re-export after schema changes with `make api-reference-export API_SPEC_SRC=...`. Automated fetch from the private product repo is still a follow-up.
 
 Blowhorn ships a CLI and an MCP server today. It does **not** run an HTTP REST listener. The reference documents the operation contracts (request fields, response shape) and says so on the page: the viewer always renders a "Not an HTTP API" notice, never shows a server URL or a "try it" control, and `make check-api-reference` fails a page that loses the notice.
 

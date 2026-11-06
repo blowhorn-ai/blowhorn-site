@@ -54,6 +54,25 @@ DENY_PATTERNS = (
     r"file://",
 )
 
+# Site naming (check_naming.py): never publish "Blowhorn Cloud" / "Layer5 Cloud".
+SITE_CLOUD_RE = re.compile(r"\b(?:Layer\s?5|Blowhorn)\s+Cloud\b", re.I)
+
+
+def _site_name_string(value: str) -> str:
+    return SITE_CLOUD_RE.sub("Blowhorn", value)
+
+
+def apply_site_naming(node):
+    """Rewrite Cloud product names in every string for the public site."""
+    if isinstance(node, dict):
+        return {k: apply_site_naming(v) for k, v in node.items()}
+    if isinstance(node, list):
+        return [apply_site_naming(v) for v in node]
+    if isinstance(node, str):
+        return _site_name_string(node)
+    return node
+
+
 KEEP_EXTENSIONS = ("x-order", "x-displayName")
 
 SCHEMA_SCALARS = (
@@ -471,7 +490,7 @@ def export_public(doc):
 
     report = {"operations": total, "exported": kept, "excluded": total - kept,
               "tags": len(out_tags), "schemas": len(out_schemas)}
-    return out, report
+    return apply_site_naming(out), report
 
 
 def find_leaks(node, where="$"):
