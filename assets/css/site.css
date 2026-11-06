@@ -3015,6 +3015,14 @@ a.card.docs-card > * { margin-top: 0; }
 .proof-mark { display: block; font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; line-height: 0.7; color: var(--teal-deep); }
 .proof-card blockquote { margin: var(--space-3) 0 var(--space-4); }
 .proof-who { display: flex; gap: var(--space-3); align-items: center; margin: 0; }
+.proof-attribution { min-width: 0; }
+/* Organisation marks stay bare. Paper keeps its light ground in dark mode. */
+.proof-company-logo { display: block; height: 1.5rem; width: auto; max-width: min(100%, 10rem); object-fit: contain; object-position: left center; margin-top: var(--space-2); filter: grayscale(1); }
+.proof-big .proof-company-logo { margin-inline: auto; object-position: center; }
+@media (prefers-color-scheme: dark) {
+  .proof-company-logo { filter: grayscale(1) invert(1); }
+  .card-paper .proof-company-logo { filter: grayscale(1); }
+}
 .proof-card-feature .proof-mark { font-size: 4.5rem; }
 .proof-card-feature blockquote { font-family: var(--font-display); font-weight: 700; font-size: 1.45rem; line-height: 1.35; }
 .proof-band { display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin-bottom: var(--space-8); }
