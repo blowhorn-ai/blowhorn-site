@@ -56,8 +56,10 @@ With a build directory it also checks each built page and runs its script:
   built <main>: picking each type swaps every [data-pp-for] element and marks the
   bound rows; picking each scene shows only its panel, plays the diagram once and
   announces it once; the same radio again plays nothing; replay plays again and
-  announces nothing; the rail pages by hand with aria-disabled ends, and under
-  reduced motion nothing scrolls smoothly.
+  announces nothing; the setups carousel (Embla, with Motion) moves by keys, dots
+  and buttons with aria-disabled ends, marks offscreen setups inert, announces each
+  change once, and under reduced motion (also when it changes while open) makes every
+  move a jump with no Motion call; without the libraries the row stays native.
 
 Usage: check_platform_pages.py --source
        check_platform_pages.py [BUILD_DIR]
@@ -65,6 +67,7 @@ Usage: check_platform_pages.py --source
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -91,6 +94,30 @@ FORBIDDEN_JS = re.compile(
 NUMBER_RE = re.compile(r"\d+(?:[.,]\d+)*")
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 LLMS_EXCLUDE = "/preview/**"
+# The vendored libraries of the setups carousel (assets/js/vendor/, THIRD-PARTY-NOTICES.md).
+# Each served file is a license banner (a comment) followed by the exact npm release
+# body. VENDOR maps the file name to (path, sha256 of the upstream release body, sha256
+# of the served file). Their script tags load before the page script.
+VENDOR = {
+    "embla-carousel-8.6.0.umd.js": ("assets/js/vendor/embla-carousel-8.6.0.umd.js",
+                                    "f05b5dbfe37d79b636b9db74ad04ed5e99b4bce369d781b0fb38b0b2ac619e66",
+                                    "df819d961adce5c25987bcf299d525c409069371f42d13d1dce435ccd37c950f"),
+    "motion-mini-14.10.0.js": ("assets/js/vendor/motion-mini-14.10.0.js",
+                               "2205312f6e86430fc6ef119ee71a98bbf11f0521af1d86c36c32bfa0cbbdee1e",
+                               "92179d86201f67e629aae65447cce8574de7c6f6105ffabd0222991a23d7fe2b"),
+}
+BANNER_END = b"\n */\n"
+
+
+def split_banner(data: bytes) -> tuple[bytes, bytes]:
+    """A vendored file's license banner and its release body. The banner is one
+    /*! comment that closes on its own line (" */"); the body starts after it."""
+    end = data.find(BANNER_END)
+    if not data.startswith(b"/*!") or end < 0:
+        return b"", data
+    cut = end + len(BANNER_END)
+    return data[:cut], data[cut:]
+VENDOR_ORDER = ["embla-carousel-8.6.0.umd.js", "motion-mini-14.10.0.js"]
 
 
 # ---------- source ----------
@@ -410,6 +437,27 @@ def check_source(root: Path) -> list[str]:
         problems.append("assets/css/platform-page.css: an infinite animation; a loop would need a pause control this page does not have")
     if css.is_file():
         problems.extend(check_stage_geometry(css.read_text(encoding="utf-8")))
+    notices = (root / "THIRD-PARTY-NOTICES.md").read_text(encoding="utf-8")
+    for name, (rel, upstream, served) in VENDOR.items():
+        vendored = root / rel
+        if not vendored.is_file():
+            problems.append(f"{rel} is missing; the setups carousel needs its vendored release")
+            continue
+        data = vendored.read_bytes()
+        banner, body = split_banner(data)
+        if not banner:
+            problems.append(f"{rel} has no license banner in front of the release body")
+        if hashlib.sha256(body).hexdigest() != upstream:
+            problems.append(f"{rel}: the release body does not match its pinned upstream sha256; the body must stay the npm bytes")
+        if hashlib.sha256(data).hexdigest() != served:
+            problems.append(f"{rel} does not match its pinned served sha256 (banner and body)")
+        for digest in (upstream, served):
+            if digest not in notices:
+                problems.append(f"THIRD-PARTY-NOTICES.md does not record {name}'s sha256 {digest[:12]}")
+    layout = (root / "layouts" / "platform-page.html").read_text(encoding="utf-8")
+    for name in VENDOR_ORDER:
+        if name not in layout:
+            problems.append(f"layouts/platform-page.html does not load {name}")
     if css.is_file():
         block = re.search(r"\.pp-local \{[^}]*\}", css.read_text(encoding="utf-8"))
         if block is None or "var(--near-black)" not in block.group(0):
@@ -579,40 +627,177 @@ def check_behaviour(label: str, main: dict, rec: dict, actions: list[dict], root
     if [sc for sc in stage if sc["scene"] not in scenes]:
         problems.append(f"{label}: the stage shows a scene the record does not name")
 
-    # The rail, paged by hand.
-    n = len(items)
-    wide = run_harness(main, {"rail": {"width": n * rail["slide"] + (n - 1) * rail["gap"] + 50, "slide": rail["slide"], "gap": rail["gap"]}}, root)[0]
-    if wide["controlsShown"]:
-        problems.append(f"{label}: rail controls show although every setup fits")
-    pages = run_harness(main, {"rail": rail, "steps": [{"click": "next"}] * n + [{"click": "prev"}] * n}, root)
-    start = pages[0]
-    if not start["controlsShown"] or start["prevDisabled"] != "true" or start["nextDisabled"] != "false":
-        problems.append(f"{label}: rail at load shows controls={start['controlsShown']}, prev={start['prevDisabled']}, next={start['nextDisabled']}")
-    if start["count"] != f"1-{per_view} of {n}":
-        problems.append(f"{label}: rail count at load is {start['count']!r}, want '1-{per_view} of {n}'")
-    end = pages[n]
-    if end["nextDisabled"] != "true" or end["prevDisabled"] != "false" or end["scrollLeft"] <= 0:
-        problems.append(f"{label}: rail after paging forward: next={end['nextDisabled']}, prev={end['prevDisabled']}, left={end['scrollLeft']}")
-    if any(p["prevDisabledAttr"] for p in pages) or "data-pp-next" not in end["focus"].split():
-        problems.append(f"{label}: a rail button lost focus at the end (it must use aria-disabled, not disabled)")
-    stray = [p["scrollLeft"] for p in pages if p["scrollLeft"] not in edges]
-    if stray:
-        problems.append(f"{label}: the rail stops mid-card at {stray}; card edges are {sorted(edges)}")
-    if pages[-1]["scrollLeft"] != 0 or pages[-1]["prevDisabled"] != "true":
-        problems.append(f"{label}: rail did not page back to the start: left={pages[-1]['scrollLeft']}")
-    if set(end["scrolls"]) != {"smooth"}:
-        problems.append(f"{label}: rail scrolls {sorted(set(end['scrolls']))}, want smooth")
-    farthest = n * rail["slide"] + (n - 1) * rail["gap"] - rail["width"]
-    swipes = run_harness(main, {"rail": rail, "steps": [{"scroll": farthest}, {"scroll": 0}]}, root)
-    if swipes[1]["count"] != end["count"] or swipes[2]["count"] != start["count"]:
-        problems.append(f"{label}: the rail count while scrolling is {[s['count'] for s in swipes]}, want {end['count']!r} at the far end and {start['count']!r} back at the start")
-    if any(s["railAnnounce"] != "" for s in swipes):
-        problems.append(f"{label}: scrolling the rail announced {[s['railAnnounce'] for s in swipes]}; only a button press may")
-    if end["railAnnounce"] != f"Showing {end['count']}":
-        problems.append(f"{label}: paging forward announced {end['railAnnounce']!r}, want 'Showing {end['count']}'")
-    calm = run_harness(main, {"rail": rail, "reduce": True, "steps": [{"click": "next"}]}, root)[-1]
-    if calm["scrolls"] != ["auto"]:
-        problems.append(f"{label}: under reduced motion the rail scrolls {calm['scrolls']}, want ['auto']")
+    # The setups carousel. With the vendored Embla and Motion the script owns the
+    # row: one setup in focus, keys, dots, buttons, inert offscreen setups, one
+    # announcement per change, and no animation under reduced motion (also when the
+    # preference changes while the page is open). Without them the row stays native.
+    names = [it["label"] for it in rec["usage"]["items"]]
+    n = len(names)
+
+    def visible(i: int) -> list[int]:
+        # The focused setup and both neighbours, which peek in (clipped at the ends).
+        return [j for j in range(n) if abs(j - i) <= 1]
+
+    def inert_for(i: int) -> list[str]:
+        return [names[j] for j in range(n) if j not in visible(i)]
+
+    def announce_for(i: int) -> str:
+        return f"Setup {i + 1} of {n}: {names[i]}."
+
+    def move_log(i: int, jump: bool) -> str:
+        return f"embla.scrollTo {i} {'jump' if jump else 'animated'}"
+
+    def thumb_for(i: int) -> str:
+        return f"translateX({i * 44}px)"
+
+    def run(steps: list[dict], **extra) -> list[dict]:
+        return run_harness(main, {"rail": rail, "steps": steps, **extra}, root)
+
+    def check_init(st: dict, duration: int, where: str) -> None:
+        opts = (st.get("embla") or {}).get("options") or {}
+        if not st["carousel"] or not st["controlsShown"] or not st["pagerShown"]:
+            problems.append(f"{label}: {where}: the carousel is not enhanced (is-embla {st['carousel']}, controls {st['controlsShown']}, pager {st['pagerShown']})")
+        want_opts = {"align": "center", "containScroll": "trimSnaps", "loop": False, "dragFree": False, "skipSnaps": False, "duration": duration}
+        for key, value in want_opts.items():
+            if opts.get(key) != value:
+                problems.append(f"{label}: {where}: Embla option {key} is {opts.get(key)!r}, want {value!r}")
+
+    load_states = run([])
+    load = load_states[0]
+    check_init(load, 25, "at load")
+    if load["dotCurrent"] != [0] or load["current"] != [names[0]] or load["inert"] != inert_for(0):
+        problems.append(f"{label}: at load the setup in focus is {load['current']}, dot {load['dotCurrent']}, inert {load['inert']}")
+    if load["prevDisabled"] != "true" or load["nextDisabled"] != "false" or load["thumb"] != thumb_for(0):
+        problems.append(f"{label}: at load prev={load['prevDisabled']}, next={load['nextDisabled']}, thumb={load['thumb']}")
+    if load["railAnnounce"] != "" or load["railAnnounceWrites"] != 0 or any("motion.animate" in x for x in load["log"]):
+        problems.append(f"{label}: at load the carousel announces or animates: {load['log']}")
+
+    # Keys: arrows, Home and End move one setup and announce it; the ends hold; a key
+    # on a control outside the carousel's own (a link or code) is left alone.
+    first_id = rec["usage"]["items"][0]["id"]
+    keys = run([
+        {"keydown": "ArrowRight", "on": "[data-pp-rail]"},
+        {"keydown": "ArrowRight", "on": "[data-pp-rail]"},
+        {"keydown": "ArrowRight", "on": "[data-pp-rail]"},
+        {"keydown": "Home", "on": "[data-pp-rail]"},
+        {"keydown": "End", "on": "[data-pp-rail]"},
+        {"keydown": "ArrowLeft", "on": "[data-pp-rail]"},
+        {"keydown": "ArrowRight", "on": f'[data-pp-use="{first_id}"]'},
+        {"keydown": "ArrowDown", "on": "[data-pp-rail]"},
+    ])
+    # Each arrow or Home/End moves one setup (End and Home to the ends), and the
+    # ArrowRight at the last setup holds and announces nothing.
+    moves = [1, 2, 2, 0, n - 1, n - 2]
+    prev_writes = keys[0]["railAnnounceWrites"]
+    for step_no, want in enumerate(moves):
+        st = keys[step_no + 1]
+        if st["dotCurrent"] != [want] or st["current"] != [names[want]] or st["inert"] != inert_for(want):
+            problems.append(f"{label}: key step {step_no + 1} shows setup {st['current']}, dot {st['dotCurrent']}, inert {st['inert']}; want {names[want]!r}")
+        if "key ArrowRight prevented" not in st["log"] and "key ArrowLeft prevented" not in st["log"] and "key Home prevented" not in st["log"] and "key End prevented" not in st["log"]:
+            problems.append(f"{label}: key step {step_no + 1} was not taken by the carousel: {st['log']}")
+        expect_writes = prev_writes + (0 if step_no == 2 else 1)
+        if st["railAnnounceWrites"] != expect_writes:
+            problems.append(f"{label}: key step {step_no + 1} announced {st['railAnnounceWrites']} writes; want one per change and none at an end")
+        prev_writes = st["railAnnounceWrites"]
+    if keys[4]["railAnnounce"] != announce_for(0):
+        problems.append(f"{label}: Home announces {keys[4]['railAnnounce']!r}, want {announce_for(0)!r}")
+    # A key pressed on a setup's own link or code is not the carousel's to take.
+    link_key = keys[7]
+    if link_key["dotCurrent"] != keys[6]["dotCurrent"] or "key ArrowRight passed" not in link_key["log"]:
+        problems.append(f"{label}: a key on a setup's own link or code moved the carousel: {link_key['log']}")
+    # The row is horizontal: Up and Down are the page's, so ArrowDown moves nothing and is not prevented.
+    down = keys[8]
+    if down["dotCurrent"] != keys[7]["dotCurrent"] or "key ArrowDown passed" not in down["log"]:
+        problems.append(f"{label}: ArrowDown on the setups moved the carousel or was taken from the page: {down['log']}")
+
+    # Pager dots: one click moves to that setup, the thumb follows and the setup settles.
+    dot = run([{"dot": n - 1}])[1]
+    if dot["dotCurrent"] != [n - 1] or dot["thumb"] != thumb_for(n - 1) or dot["current"] != [names[n - 1]]:
+        problems.append(f"{label}: the last dot shows {dot['current']}, dot {dot['dotCurrent']}, thumb {dot['thumb']}")
+    if not any(x.startswith(f"motion.animate thumb ") and "0.3" in x for x in dot["log"]) or not any(x.startswith(f"motion.animate {names[n - 1]} ") for x in dot["log"]):
+        problems.append(f"{label}: the dot move does not run the thumb and the setup's finite transitions: {dot['log']}")
+
+    # Buttons: prev and next move one setup and stop at the ends, keeping focus.
+    btn = run([{"click": "next"}, {"click": "next"}, {"click": "next"}, {"click": "prev"}, {"click": "prev"}, {"click": "prev"}])
+    shown = [st["dotCurrent"] for st in btn]
+    if shown != [[0], [1], [2], [2], [1], [0], [0]]:
+        problems.append(f"{label}: the buttons move the carousel through {shown}")
+    if btn[3]["railAnnounceWrites"] != btn[2]["railAnnounceWrites"] or btn[6]["railAnnounceWrites"] != btn[5]["railAnnounceWrites"]:
+        problems.append(f"{label}: a button at an end announced")
+    if btn[3]["prevDisabled"] != "false" or btn[3]["nextDisabled"] != "true" or btn[6]["prevDisabled"] != "true":
+        problems.append(f"{label}: the buttons read prev={btn[6]['prevDisabled']} at the start, next={btn[3]['nextDisabled']} at the end")
+    if any(st["prevDisabledAttr"] for st in btn) or "data-pp-next" not in btn[3]["focus"].split():
+        problems.append(f"{label}: a rail button lost focus or was made disabled at an end (it must use aria-disabled)")
+
+    # A drag that settles on a setup announces it once; a settle on the same setup says nothing.
+    drag = run([{"select": 1}, {"select": 1}])
+    if drag[1]["railAnnounce"] != announce_for(1) or drag[2]["railAnnounceWrites"] != drag[1]["railAnnounceWrites"]:
+        problems.append(f"{label}: a drag to setup 2 announced {drag[1]['railAnnounce']!r} and then {drag[2]['railAnnounceWrites']} writes")
+
+    # Reduced motion from the first frame: every move is a jump, nothing animates, the
+    # thumb and setup are placed directly, and Embla starts with duration 0.
+    calm = run([{"click": "next"}, {"dot": 0}, {"select": 2}], reduce=True)
+    check_init(calm[0], 0, "under reduced motion")
+    if any("motion.animate" in x for st in calm for x in st["log"]):
+        problems.append(f"{label}: under reduced motion Motion still animates: {[x for st in calm for x in st['log']]}")
+    if "embla.scrollTo 1 jump" not in calm[1]["log"] or calm[1]["thumb"] != thumb_for(1) or calm[1]["current"] != [names[1]]:
+        problems.append(f"{label}: under reduced motion the next button does not jump: {calm[1]['log']}, thumb {calm[1]['thumb']}")
+    if calm[2]["dotCurrent"] != [0] or "embla.scrollTo 0 jump" not in calm[2]["log"]:
+        problems.append(f"{label}: under reduced motion the first dot does not jump: {calm[2]['log']}")
+    if calm[3]["dotCurrent"] != [2] or any("animated" in x for x in calm[3]["log"]):
+        problems.append(f"{label}: under reduced motion a drag still animates: {calm[3]['log']}")
+
+    # The preference changes while the page is open: running motion stops, Embla
+    # keeps its setup and takes the new duration, and motion returns when it is off.
+    live = run([
+        {"dot": 1}, {"motionChange": True}, {"dot": 2}, {"motionChange": False}, {"dot": 0},
+    ])
+    # live[0] is the load; live[1] the first dot; live[2] the change to reduced motion.
+    if not any(x.startswith("motion.stop") for x in live[2]["log"]) or "embla.reInit duration 0 index 1" not in live[2]["log"]:
+        problems.append(f"{label}: switching to reduced motion while open does not stop motion and set Embla to a jump: {live[2]['log']}")
+    if (live[2]["embla"] or {}).get("index") != 1 or live[2]["thumb"] != thumb_for(1):
+        problems.append(f"{label}: switching to reduced motion while open moved the setup or thumb: {live[2]}")
+    if "embla.scrollTo 2 jump" not in live[3]["log"] or any("motion.animate" in x for x in live[3]["log"]):
+        problems.append(f"{label}: after switching to reduced motion the dot still animates: {live[3]['log']}")
+    if "embla.reInit duration 25 index 2" not in live[4]["log"] or live[4]["dotCurrent"] != [2]:
+        problems.append(f"{label}: switching motion back on does not keep the setup or restore the duration: {live[4]['log']}")
+    if not any(x.startswith("motion.animate thumb ") for x in live[5]["log"]) or "embla.scrollTo 0 animated" not in live[5]["log"]:
+        problems.append(f"{label}: motion does not come back after the preference is turned off: {live[5]['log']}")
+
+    # An interrupted settle (a second move, or the preference changes mid-way) leaves
+    # no setup dimmed or raised: the stopped setup is handed back to its stylesheet.
+    # The thumb ends on the dot it was moving to.
+    rapid = run([{"select": 1}, {"select": 2}])
+    if any(st["opacity"] or st["transform"] for st in rapid[2]["slideStyles"]):
+        problems.append(f"{label}: a second move left a setup with inline style {rapid[2]['slideStyles']}")
+    if f"motion.stop {names[1]}" not in rapid[2]["log"] or rapid[2]["thumb"] != thumb_for(2):
+        problems.append(f"{label}: the second move did not stop the first settle or place the thumb: {rapid[2]['log']} {rapid[2]['thumb']}")
+    mid = run([{"select": 1}, {"motionChange": True}, {"motionChange": False}])
+    if any(st["opacity"] or st["transform"] for st in mid[2]["slideStyles"]) or mid[2]["thumb"] != thumb_for(1):
+        problems.append(f"{label}: switching to reduced motion mid-settle left {mid[2]['slideStyles']} and thumb {mid[2]['thumb']}")
+    thumb_mid = run([{"dot": 1}, {"dot": 2}])
+    if thumb_mid[2]["thumb"] != thumb_for(2) or "motion.stop thumb" not in thumb_mid[2]["log"]:
+        problems.append(f"{label}: an interrupted thumb move did not end on its dot: {thumb_mid[2]['log']} {thumb_mid[2]['thumb']}")
+
+    # Embla that fails to start, or finds other than one stop per setup, leaves the native row
+    # and says so once; no carousel controls and no keyboard handling.
+    broken = run([{"click": "next"}], emblaThrows=True)[0]
+    if broken["carousel"] or broken["controlsShown"] or broken["pagerShown"] or "Embla did not start" not in " ".join(broken["errors"]):
+        problems.append(f"{label}: a failing Embla does not fall back to the native row with a logged error: {broken['errors']}")
+    merged = run([], snapMerge=True)[0]
+    if merged["carousel"] or merged["controlsShown"] or "found 2 stops for 3 setups" not in " ".join(merged["errors"]) or "embla.destroy" not in merged["log"]:
+        problems.append(f"{label}: Embla stops that do not match the setups are not torn down to the native row: {merged['log']} {merged['errors']}")
+
+    # No script (or no vendored library): the page stays the native row, with its
+    # controls and pager hidden and no setup made inert.
+    native = run([{"click": "next"}], noEmbla=True)[0]
+    if native["carousel"] or native["controlsShown"] or native["pagerShown"] or native["inert"] or native["dotCurrent"]:
+        problems.append(f"{label}: without Embla the carousel shows its controls or enhances: {native}")
+    if not any("the setups carousel libraries did not load" in x for x in native["errors"]):
+        problems.append(f"{label}: without the libraries the page does not report the failed load: {native['errors']}")
+    if any(st["errors"] for st in load_states + keys + btn + live + calm + rapid + mid + thumb_mid):
+        problems.append(f"{label}: the carousel reports an error on a normal run")
+
     return problems
 
 
@@ -623,6 +808,34 @@ def built_file(build_dir: Path, route: str) -> Path:
 PRIVATE_ISSUE = "blowhorn-ai/blowhorn/issues/2178"
 # The approved marketing line of the local section (brief: the local-browser differentiator).
 APPROVED_LOCAL_INTRO = "Your login stays home."
+
+
+def check_vendor_built(page_html: str, build_dir: Path) -> list[str]:
+    """The built page loads each vendored library from this site, as pinned, before
+    the page script; no script comes from another host."""
+    problems: list[str] = []
+    srcs = re.findall(r'<script[^>]*\ssrc="([^"]+)"', page_html)
+    if any(src.startswith(("http:", "https:", "//")) for src in srcs):
+        problems.append(f"loads a script from another host: {[x for x in srcs if x.startswith(('http:', 'https:', '//'))]}")
+    positions = []
+    for name in VENDOR_ORDER + ["platform-page.js"]:
+        if name == "platform-page.js":
+            pattern = r"/js/platform-page\.min\.[0-9a-f]+\.js$"
+        else:
+            base, _, ext = name.rpartition(".")
+            pattern = rf"/js/vendor/{re.escape(base)}\.[0-9a-f]+\.{ext}$"
+        hit = [i for i, src in enumerate(srcs) if re.search(pattern, src)]
+        if len(hit) != 1:
+            problems.append(f"loads {name} {len(hit)} times; want once")
+            continue
+        positions.append(hit[0])
+        if name in VENDOR:
+            served = build_dir / srcs[hit[0]].lstrip("/")
+            if not served.is_file() or hashlib.sha256(served.read_bytes()).hexdigest() != VENDOR[name][2]:
+                problems.append(f"serves {srcs[hit[0]]} with bytes other than the pinned served file")
+    if positions != sorted(positions):
+        problems.append("loads the page script before its vendored libraries")
+    return problems
 
 
 def check_local_built(main: dict, rec: dict, root: Path, build_dir: Path, page: Path) -> list[str]:
@@ -880,12 +1093,27 @@ def check_built(build_dir: Path, root: Path) -> list[str]:
                 problems.append(f"{label}: usage {want['id']!r} cannot be copied")
             if not src:
                 problems.append(f"{label}: usage {want['id']!r} does not link {want['source']}")
-        counts = find(main, "data-pp-rail-count")
+        # The setups carousel as built: one focusable viewport, one slide per setup
+        # with its name, one pager dot per setup, one polite status line, and the
+        # controls and pager hidden in the HTML (the script shows them).
+        if find(main, "data-pp-rail-count"):
+            problems.append(f"{label}: the visible count is gone; the pager and the status line carry the position")
+        viewports = find(main, "data-pp-rail")
+        if len(viewports) != 1 or viewports[0]["attrs"].get("tabindex") != "0":
+            problems.append(f"{label}: the setups need one focusable viewport (data-pp-rail, tabindex 0)")
+        slides = find(main, "data-pp-slide")
+        if [sl["attrs"].get("data-pp-name") for sl in slides] != [i["label"] for i in rec["usage"]["items"]]:
+            problems.append(f"{label}: the setups' names {[sl['attrs'].get('data-pp-name') for sl in slides]} do not match the record")
+        dots = find(main, "data-pp-dot")
+        if len(dots) != len(slides) or any(d["attrs"].get("aria-label", "") == "" for d in dots):
+            problems.append(f"{label}: the pager needs one labelled dot per setup")
+        for name in ("data-pp-pager", "data-pp-rail-controls"):
+            hits = find(main, name)
+            if len(hits) != 1 or "hidden" not in hits[0]["attrs"]:
+                problems.append(f"{label}: {name} must be hidden in the HTML; the script shows it")
         announcers = find(main, "data-pp-rail-announce")
-        if any("aria-live" in c["attrs"] for c in counts):
-            problems.append(f"{label}: the rail count is a live region; scrolling would announce every frame")
         if len(announcers) != 1 or announcers[0]["attrs"].get("aria-live") != "polite":
-            problems.append(f"{label}: needs one polite live region for rail button presses")
+            problems.append(f"{label}: needs one polite live region for setup changes")
 
         # Every source anchor resolves on the built site.
         for where_, _quote, href, _shown in sourced_items(rec):
@@ -917,6 +1145,7 @@ def check_built(build_dir: Path, root: Path) -> list[str]:
             if "name" in e["attrs"] and e["tag"] in ("input", "textarea", "select") and e["attrs"].get("type") != "radio":
                 problems.append(f"{label}: a named {e['tag']} ({e['attrs']['name']!r}); nothing on the page is submitted")
         page_html = path.read_text(encoding="utf-8")
+        problems.extend(f"{label}: {m}" for m in check_vendor_built(page_html, build_dir))
         for needle in (PRIVATE_ISSUE, "blowhorn-ai/blowhorn/", "blowhorn-ai/blowhorn#"):
             if needle in page_html:
                 problems.append(f"{label}: names {needle!r}; the private repository and its issues never appear on a public page")

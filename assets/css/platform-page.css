@@ -633,9 +633,14 @@
 .pp-fm-title { color: var(--ink-wordmark); }
 .pp-fm-text { color: var(--ink-muted); max-width: var(--text-measure); }
 
-/* ---------- Setups rail ----------
-   A native scroll area with snap points. Without script it scrolls by touch,
-   trackpad or arrow keys (it is focusable); the script adds previous and next. */
+/* ---------- Setups carousel ----------
+   Without script: a native scroll-snap row (touch, trackpad, or arrow keys on the
+   focused row), two setups wide on a desktop, one and a peek on a phone. With
+   script the row gets .is-embla before Embla measures it: Embla owns the viewport
+   and puts one setup in focus with its neighbours peeking in on both sides. The
+   pager (dots and a thumb that Motion slides) sits between the arrows in the
+   heading row, so the row keeps no empty band under its tallest setup. Motion
+   lives in the script, finite and off under reduced motion; no CSS animation here. */
 .pp-rail-head {
   display: flex;
   flex-wrap: wrap;
@@ -644,8 +649,6 @@
   gap: var(--space-4) var(--space-8);
 }
 .pp-rail-controls { display: flex; align-items: center; gap: var(--space-2); }
-.pp-rail-count { margin-right: var(--space-2); color: var(--ink-muted); font-variant-numeric: tabular-nums; }
-@media (min-width: 640px) { .pp-rail-count { min-width: 5rem; text-align: right; } }
 .pp-icon-button {
   display: inline-grid;
   place-items: center;
@@ -662,11 +665,10 @@
 .pp-icon-button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: var(--stroke-icon); stroke-linecap: round; stroke-linejoin: round; }
 .pp-icon-button:hover { background: var(--surface-raised); }
 .pp-icon-button[aria-disabled="true"] { color: var(--line-strong); background: transparent; box-shadow: inset 0 0 0 var(--stroke-hairline) var(--line); cursor: default; }
-.pp-icon-button:focus-visible { border-radius: var(--radius-pill); }
+.pp-icon-button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
+.pp-carousel { position: relative; min-width: 0; margin-top: var(--head-gap); }
 .pp-rail {
-  position: relative;
-  margin-top: var(--head-gap);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
@@ -688,9 +690,8 @@
 }
 /* A phone shows one setup and a peek of the next (the cue that the row scrolls),
    with a trailing spacer so the last one can start at the left edge. A wider
-   rail shows a whole number (2), so every stop of the scroll range is a setup's
-   own left edge and Next never leaves one cut off at the left. Code needs the
-   width, so the rail never shows three. */
+   row shows a whole number (2), so every stop of the scroll range is a setup's
+   own left edge. Code needs the width, so the row never shows three. */
 .pp-slide {
   flex: 0 0 86%;
   min-width: 0;
@@ -704,11 +705,57 @@
   .pp-slide { flex-basis: calc((100% - var(--grid-gap)) / 2); }
   .pp-rail-track::after { content: none; }
 }
+/* Embla: no native scroll, no snap, no spacer. One setup in focus (66% of the
+   row on a desktop, 84% on a phone), so the neighbours peek in from both sides. */
+.pp-carousel.is-embla .pp-rail {
+  overflow: hidden;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  touch-action: pan-y;
+}
+.pp-carousel.is-embla .pp-rail-track::after { content: none; }
+.pp-carousel.is-embla .pp-slide { flex-basis: 84%; scroll-snap-align: none; }
+@media (min-width: 900px) {
+  .pp-carousel.is-embla .pp-slide { flex-basis: 66%; }
+}
 .pp-use { display: flex; flex-direction: column; }
 .pp-use .h3 { margin-top: var(--eyebrow-gap); }
 .pp-use .term { margin-top: var(--space-4); }
 .pp-use-src { margin-top: var(--space-3); }
 .pp-use-src a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+
+/* The pager: one 44px target per setup, a dot in each, and the thumb (a ring,
+   moved by the script with Motion) that marks the setup in focus. */
+.pp-pager {
+  position: relative;
+  width: max-content;
+}
+.pp-dots { display: flex; margin: 0; padding: 0; list-style: none; }
+.pp-pager-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 var(--stroke-hairline) var(--line-strong);
+  pointer-events: none;
+}
+.pp-dot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+}
+.pp-dot:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.pp-dot-mark { width: var(--space-2); height: var(--space-2); border-radius: var(--radius-pill); background: var(--line-strong); }
+.pp-dot:hover .pp-dot-mark { background: var(--ink-muted); }
+.pp-dot[aria-current="true"] .pp-dot-mark { background: var(--ink); }
 
 /* ---------- Activities continuity: an illustration, not the app's screen ---------- */
 .pp-activities { margin: var(--head-gap) 0 0; }

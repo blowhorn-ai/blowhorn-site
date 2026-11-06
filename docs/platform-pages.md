@@ -6,6 +6,9 @@ hero, then **Only on your computer**, a local-action stage that explains how the
 extension acts as you in your own signed-in browser. X is the first page, at the
 noindex preview route **`/preview/platforms/x/`**.
 
+Read at base `c081f015e8adb977507d85b233658c4ee3956d5a` (master, #491) on 2026-11-06
+(America/Chicago) for issue #500, which replaced the setups rail with a carousel.
+
 ## Figma delta (intentional)
 
 The X frame in Figma (`mM9B4Zv9ON3pIyh3IvB4Il`, node `902:114`, on the shared contract
@@ -20,8 +23,13 @@ local-action direction, requested by the product owner:
 | No account of what runs on the computer | Reach line from the platform YAML, a diagram of this computer, the extension and the signed-in sessions |
 
 Figma was not edited, and this page does not claim parity with it. The matrix, rules
-of engagement, Field Manual, setups and Activities sections are unchanged in content.
+of engagement, Field Manual and Activities sections are unchanged in content.
 Reconcile the frame with this direction before the page leaves preview.
+
+**Setups (issue #500, approved; an intentional delta from 902:114).** The frame's
+setups row becomes a carousel: one setup in focus, the next peeking in, a pager and
+previous and next controls. The three real setups, their copy buttons and source
+links are unchanged.
 
 ## Files
 
@@ -32,6 +40,7 @@ Reconcile the frame with this direction before the page leaves preview.
 | Joins and build-time guards | `layouts/_partials/platform-page-data.html` |
 | Template | `layouts/platform-page.html` |
 | Styles, script | `assets/css/platform-page.css`, `assets/js/platform-page.js` |
+| Vendored libraries (exact npm release files, sha256-pinned) | `assets/js/vendor/embla-carousel-8.6.0.umd.js`, `assets/js/vendor/motion-mini-14.10.0.js`; notices in `THIRD-PARTY-NOTICES.md` |
 | Cutouts (alpha channel only) | `static/assets/brand/cast/icons/` |
 | Checks and DOM harness | `.github/scripts/check_platform_pages.py`, `platform_page_harness.js`, `test_platform_pages.py` |
 | Page file | `content/en/preview-platform-<id>.md` |
@@ -82,15 +91,60 @@ extension from the download page's Web Store link, with nothing under it.
   `static/assets/brand/cast/` are opaque VP8 and would sit in a black box, so the
   checker fails any cutout without an alpha channel.
 
+### Setups carousel
+
+- The row is a native scroll-snap row until the script runs. Without script, or
+  without the vendored libraries, it stays that row (touch, trackpad and arrow keys on
+  the focused row), two setups wide on a desktop and one with a peek on a phone; its
+  controls and pager stay hidden.
+- With the script, the row gets `.is-embla` and Embla (stable v8, `align: center`,
+  `containScroll: trimSnaps`, no loop, no free drag) puts one setup in focus with its
+  neighbours peeking in. Drag and swipe settle on a setup.
+- Keys: Left and Right move one setup, Home and End go to the ends. Up and Down are
+  left to the page (the row is horizontal). The keys act only on the carousel's own
+  controls (the viewport, the arrows, the dots), so arrows inside a code card still
+  scroll that code.
+- The pager (dots beside the arrows) is one 44px target per setup, labelled with its
+  position and name. The arrows and dots use `aria-disabled` at the ends, never
+  `disabled`, so focus stays on them.
+- Setups out of view are `inert`: they cannot take focus, so Tab never lands in an
+  offscreen copy button or link. A focused peek is brought into view by Embla.
+- Status: one polite line announces each change of setup once, "Setup 2 of 3: CLI.",
+  from a key, arrow, dot, drag or button. A settle on the same setup says nothing.
+- Motion, through the vendored Motion mini build (`Motion.animate`, WAAPI): the pager
+  thumb slides to the dot in focus, and the newly selected setup settles in (opacity
+  and a 6px rise, 320 ms). Both are finite. A move that interrupts a settle stops it
+  first. Motion's stop() leaves the in-flight values in the setup's inline style, so
+  the script clears that style, and the setup returns to its stylesheet values. The
+  thumb is then placed on its dot. Browser checks cover a second press less than 100 ms
+  after the first, and a preference change mid-settle.
+- Reduced motion (`prefers-reduced-motion: reduce`) disables every animation the
+  script starts: Embla's duration is 0 (a jump, never a snap), Motion is not called,
+  and the thumb and setup are placed directly. A change to the preference while the
+  page is open is applied at once: running motion stops, Embla keeps its setup and
+  takes the new duration.
+- The copy buttons and source links are the same elements the page ships; the carousel
+  moves them, it does not rebuild them.
+
+Each vendored file is its upstream license banner (a comment, the full MIT notice)
+followed by the npm release body, byte for byte. The body's sha256 is the upstream pin;
+the whole served file's sha256 is the served pin. Both are in
+`.github/scripts/check_platform_pages.py` and `THIRD-PARTY-NOTICES.md`. The banner is
+the only change, and it is a comment. The page loads them as local, fingerprinted scripts
+before the page script, each with `defer`, and never re-minifies them. To update one,
+unpack the new npm release, put its license banner in front of the release file, and
+change the name, the version and both hashes in both places.
+
 ### No composer
 
 The local stage has no text-entry field, no file input and no submission form in
 `<main>`. Its radios (activity and scene) are native and named. The checker fails a
 form, a text field or a file input anywhere in `<main>`. `assets/js/platform-page.js`
-(the stage, the activity selector and the setups rail) makes no request and touches no
-storage, cookie or extension API, and the checker fails a script that does. This promise
-covers that script only: the site's own consent banner, newsletter form and other global
-scripts are outside this page's scope.
+(the stage, the activity selector and the setups carousel) makes no request and touches
+no storage, cookie or extension API, and the checker fails a script that does. The two
+vendored libraries make no request either; they are local files. This promise covers
+that script and those files only: the site's own consent banner, newsletter form and
+other global scripts are outside this page's scope.
 
 ### Visual direction (the "break free" pass)
 
@@ -112,14 +166,15 @@ scripts are outside this page's scope.
   panel repeats that the extension flow is planned, not shipped.
 - **Phone:** a 480 px theatre with the relay and fan moved left and in, two narrow route
   nodes and no full-length stack of boxes; no page overflow at 320 px.
-- **Motion:** finite only in the local stage (routes draw, spokes grow, the relay, slips
-  and outcome fade in once per play; the ledger eases once on a scene change). Reduced
-  motion removes all of it; high contrast solidifies the edges. The stage has no infinite
-  animation (the checker fails one).
+- **Motion:** finite only. In the local stage (routes draw, spokes grow, the relay, slips
+  and outcome fade in once per play; the ledger eases once on a scene change). In the
+  setups carousel (Embla's snap, the pager thumb, the selected setup's settle; see
+  Setups carousel). Reduced motion removes all of it; high contrast solidifies the
+  edges. Nothing on the page is infinite (the checker fails one in the page's CSS).
 - **Rules of engagement** are an open numbered gauge (each row a source link and a bar
   for its daily figure), not a stamp card. **Field Manual** is one two-column briefing
-  with a rule between the facts. Their source text and links are unchanged. The setups
-  rail and Activities are unchanged.
+  with a rule between the facts. Their source text and links are unchanged. Activities
+  is unchanged; the setups are a carousel (Setups carousel, above).
 
 ## Stage geometry checks
 
@@ -165,6 +220,49 @@ if any built page names the private product repository or its issue.
 Promoting a page out of preview is a deliberate change: the schema's `route` pattern
 is preview-only, and a promoted page needs a new route, a navigation entry, sitemap and
 search inclusion, removal of the reviewer note, and an update to these rules.
+
+## Checks for the setups carousel
+
+- `make check-platform-pages` (in `make check`) builds the page and runs the script
+  through `platform_page_harness.js` against stubs of the two libraries: the option set
+  Embla receives, its select, slidesInView, reInit, scrollTo and destroy, and each
+  Motion call (a stop() commits the in-flight value, as the real library does). It
+  covers the keys (Up and Down passed through), the pager, the buttons, the drag settle,
+  inert setups, the announcement, a settle interrupted by a second move or by the
+  preference changing, reduced motion from load and changed while open, the no-script
+  row, and an Embla that throws on start or finds other than one stop per setup (the
+  row falls back and the error is logged).
+- The same target fails a vendored file whose body or served bytes are not the pinned
+  ones, a file without its license banner, a page that loads a library twice, out of
+  order or from another host, a carousel that is not hidden without script, and a
+  single-setup or missing copy button.
+- `make test-scripts` (`test_platform_pages.py`) breaks the script and the built page in
+  each of those ways, including removing the settle reset, and checks that the failure
+  is named.
+- `make check-platform-carousel` is the real-browser pass. It is not in `make check`,
+  because it needs a Chromium and the `playwright-core` package. It builds the site,
+  serves it on a random local port and drives Chromium through: the Left, Right, Home
+  and End keys, Up and Down left to the page, Tab order past an inert setup, the
+  dots, a mouse drag and a touch swipe, copy and source links, two presses less than
+  100 ms apart and reduced motion changed mid-settle (the rest state of every setup
+  and the thumb is checked after each), reduced motion changed while open (every move
+  a jump, no animation anywhere on the page), a resize, an Embla that throws on start,
+  320, 390, 820 and 1440 px in light and dark, the no-script row, and that only this
+  origin is requested. Run it after changing the row's markup, the script, or
+  Embla's options.
+
+  ```sh
+  npm install --no-save playwright-core
+  CHROME_PATH=/path/to/chrome make check-platform-carousel
+  ```
+
+  `CHROME_PATH` is optional; without it Playwright uses the browser it installed for
+  `playwright-core`. `SHOTS_DIR` picks where the screenshots and `results.json` go
+  (default: a temporary folder).
+
+The footer of the site carries a status pulse, an infinite animation outside this page
+(`assets/css/site.css`). It stops under reduced motion. The page's own CSS and script
+have none.
 
 ## Known limits and planned work
 

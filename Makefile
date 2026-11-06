@@ -57,6 +57,9 @@ include .github/build/Makefile.show-help.mk
 #   check-platform-pages Production build, then fail if a platform page drifts
 #                      from data/platform_pages.json, leaks into the sitemap,
 #                      llms.txt or search, or its script stops working.
+#   check-platform-carousel Production build, then drive the platform page's setups
+#                      carousel in a real Chromium (not part of check; needs
+#                      playwright-core and CHROME_PATH, see docs/platform-pages.md).
 #   check-api-reference Production build, then (once params.apiReference.spec is set)
 #                      fail if the API reference page drifts from its spec, loses
 #                      its "Not an HTTP API" notice or names the private repository.
@@ -326,9 +329,13 @@ check-platform-docs: site-build
 check-action-matrix: site-build
 	python3 .github/scripts/check_action_matrix.py $(BUILD_DIR)
 
-## Production build, then fail if a platform page (/preview/platforms/<id>/) drifts from data/platform_pages.json, loses noindex, appears in the sitemap, llms.txt or search, is linked from another page, its call to action stops installing the extension, or its script stops swapping the activity type, playing the local stage's scenes once, paging the setups by hand or honouring reduced motion (docs/platform-pages.md).
+## Production build, then fail if a platform page (/preview/platforms/<id>/) drifts from data/platform_pages.json, loses noindex, appears in the sitemap, llms.txt or search, is linked from another page, its call to action stops installing the extension, or its script stops swapping the activity type, playing the local stage's scenes once, moving the setups carousel (Embla, Motion) or honouring reduced motion (docs/platform-pages.md).
 check-platform-pages: site-build
 	python3 .github/scripts/check_platform_pages.py $(BUILD_DIR)
+
+## Production build, then drive the platform page's setups carousel in a real Chromium: keys, pager, drag, swipe, reduced motion (also changed mid-settle), resize, failure fallback, copy and the no-script row. Not part of make check; needs playwright-core (npm install --no-save playwright-core) and CHROME_PATH or Playwright's own browser (docs/platform-pages.md).
+check-platform-carousel: site-build
+	node .github/scripts/platform_carousel_browser.mjs $(BUILD_DIR)
 
 ## Build for production once, then validate-html, check-links, check-third-party and check-urls, plus check-schemas (what site.yml runs).
 site-check: check-schemas validate-html check-links check-third-party check-urls check-no-internal check-theme check-platform-docs check-naming check-action-matrix check-platform-pages check-download-links check-feeds check-brand-kits check-tells check-tips check-api-reference
@@ -522,6 +529,7 @@ clean:
 	check-platform-docs \
 	check-action-matrix \
 	check-platform-pages \
+	check-platform-carousel \
 	setup \
 	build \
 	build-preview \

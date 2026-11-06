@@ -10,6 +10,7 @@ break the generated page or the script and check that the failure is caught.
 """
 
 import json
+import re
 import shutil
 import subprocess
 import tempfile
@@ -58,6 +59,12 @@ class Fixture:
         shutil.copy(ROOT / "assets/css/platform-page.css", self.root / "assets/css/platform-page.css")
         (self.root / check.SCRIPT).parent.mkdir(parents=True)
         shutil.copy(ROOT / check.SCRIPT, self.root / check.SCRIPT)
+        (self.root / "layouts").mkdir(parents=True)
+        shutil.copy(ROOT / "layouts/platform-page.html", self.root / "layouts/platform-page.html")
+        shutil.copy(ROOT / "THIRD-PARTY-NOTICES.md", self.root / "THIRD-PARTY-NOTICES.md")
+        for rel, _upstream, _served in check.VENDOR.values():
+            (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(ROOT / rel, self.root / rel)
 
     def data(self):
         return json.loads((self.root / "data/platform_pages.json").read_text(encoding="utf-8"))
@@ -614,13 +621,6 @@ class BuiltTest(unittest.TestCase):
         facts = data["pages"][0]["fieldManual"]["facts"]
         self.assertNotIn("Space them out", " ".join(f["text"] for f in facts))
 
-    def test_the_rail_never_stops_mid_card(self):
-        fx = Fixture()
-        self.addCleanup(fx.close)
-        fx.edit(check.SCRIPT, "var left = Math.min(max, slides[i].offsetLeft - origin());",
-                "var left = Math.min(max, slides[i].offsetLeft - origin() + 24);")
-        self.assertIn("the rail stops mid-card", self.problems(self.build, fx.root))
-
     def test_a_script_that_forgets_a_region_is_caught(self):
         fx = Fixture()
         self.addCleanup(fx.close)
@@ -628,19 +628,131 @@ class BuiltTest(unittest.TestCase):
         found = self.problems(self.build, fx.root)
         self.assertIn("choosing 'respond' shows elements for", found)
 
-    def test_a_disabled_rail_button_is_caught(self):
+    def test_a_setup_in_view_must_be_the_one_the_keys_reach(self):
         fx = Fixture()
         self.addCleanup(fx.close)
-        fx.edit(check.SCRIPT,
-                'prev.setAttribute("aria-disabled", atStart() ? "true" : "false");',
-                'prev.setAttribute("aria-disabled", atStart() ? "true" : "false"); if (atStart()) prev.setAttribute("disabled", ""); else prev.removeAttribute("disabled");')
-        self.assertIn("must use aria-disabled", self.problems(self.build, fx.root))
+        fx.edit(check.SCRIPT, "if (visible.indexOf(i) >= 0) slide.removeAttribute(\"inert\");\n        else slide.setAttribute(\"inert\", \"\");",
+                "slide.removeAttribute(\"inert\");")
+        self.assertIn("inert", self.problems(self.build, fx.root))
 
-    def test_reduced_motion_is_honoured(self):
+    def test_a_key_on_a_setups_own_link_is_left_alone(self):
         fx = Fixture()
         self.addCleanup(fx.close)
-        fx.edit(check.SCRIPT, 'behavior: reduced() ? "auto" : "smooth" });\n    }', 'behavior: "smooth" });\n    }')
-        self.assertIn("under reduced motion the rail scrolls ['smooth']", self.problems(self.build, fx.root))
+        fx.edit(check.SCRIPT, 'if (!ev.target || !ev.target.hasAttribute || !ev.target.hasAttribute("data-pp-nav")) return;',
+                'if (!ev.target || !ev.target.hasAttribute) return;')
+        self.assertIn("a key on a setup's own link or code moved the carousel", self.problems(self.build, fx.root))
+
+    def test_embla_snap_is_a_jump_under_reduced_motion(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        fx.edit(check.SCRIPT, "duration: off ? 0 : 25", "duration: 25")
+        self.assertIn("Embla option duration is 25, want 0", self.problems(self.build, fx.root))
+
+    def test_motion_is_not_started_under_reduced_motion(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        fx.edit(check.SCRIPT, "if (animate && !reduced()) {", "if (animate) {")
+        self.assertIn("under reduced motion Motion still animates", self.problems(self.build, fx.root))
+
+    def test_a_motion_change_while_open_is_applied(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        fx.edit(check.SCRIPT, "      embla.reInit(options(off, embla.selectedScrollSnap()));\n", "")
+        self.assertIn("switching to reduced motion while open", self.problems(self.build, fx.root))
+
+    def test_a_setup_out_of_reach_must_not_be_disabled_by_attribute(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        fx.edit(check.SCRIPT, 'prev.setAttribute("aria-disabled", embla.canScrollPrev() ? "false" : "true");',
+                'prev.setAttribute("aria-disabled", embla.canScrollPrev() ? "false" : "true"); if (!embla.canScrollPrev()) prev.setAttribute("disabled", "");')
+        self.assertIn("lost focus or was made disabled", self.problems(self.build, fx.root))
+
+    def test_the_setup_status_is_one_polite_region(self):
+        build = self.copy()
+        self.edit_page(build, '<p class="visually-hidden" data-pp-rail-announce aria-live="polite">',
+                       '<p class="visually-hidden" data-pp-rail-announce>')
+        self.assertIn("needs one polite live region", self.problems(build))
+
+    def test_the_pager_and_controls_start_hidden(self):
+        build = self.copy()
+        self.edit_page(build, "data-pp-pager hidden>", "data-pp-pager>")
+        self.assertIn("data-pp-pager must be hidden in the HTML", self.problems(build))
+
+    def test_every_setup_is_one_slide_with_its_name(self):
+        build = self.copy()
+        self.edit_page(build, 'data-pp-name="CLI"', 'data-pp-name="Terminal"')
+        self.assertIn("the setups' names", self.problems(build))
+
+    def test_a_missing_library_is_reported(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        fx.edit(check.SCRIPT, 'console.error("platform page: the setups carousel libraries did not load; the setups stay a native row.");', "")
+        self.assertIn("does not report the failed load", self.problems(self.build, fx.root))
+
+    def test_an_interrupted_settle_must_hand_the_setup_back(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        fx.edit(check.SCRIPT, '        cardSlide.style.opacity = "";\n', "")
+        self.assertIn("a second move left a setup with inline style", self.problems(self.build, fx.root))
+
+    def test_arrow_down_is_not_taken_from_the_page(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        fx.edit(check.SCRIPT, 'else if (ev.key === "ArrowRight") to = at + 1;', 'else if (ev.key === "ArrowRight" || ev.key === "ArrowDown") to = at + 1;')
+        self.assertIn("ArrowDown on the setups moved the carousel", self.problems(self.build, fx.root))
+
+    def test_a_failing_embla_falls_back_to_the_native_row(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        fx.edit(check.SCRIPT, '      fallBack("Embla did not start: " + (err && err.message ? err.message : String(err)));\n      return;',
+                '      throw err;')
+        self.assertIn("platform_page_harness.js failed", self.problems(self.build, fx.root))
+
+    def test_the_vendored_libraries_are_the_pinned_bytes(self):
+        build = self.copy()
+        served = next((build / "js" / "vendor").glob("embla-carousel-8.6.0.umd.*.js"))
+        served.write_bytes(served.read_bytes() + b"\n;")
+        self.assertIn("bytes other than the pinned served file", self.problems(build))
+
+    def test_the_vendored_libraries_load_before_the_page_script(self):
+        build = self.copy()
+        path = check.built_file(build, ROUTE)
+        text = path.read_text(encoding="utf-8")
+        tag = next(m.group(0) for m in re.finditer(r'<script src="/js/platform-page\.min\.[0-9a-f]+\.js" defer></script>', text))
+        text = text.replace(tag, "")
+        embla = re.search(r'<script src="/js/vendor/embla[^"]+" defer></script>', text).group(0)
+        path.write_text(text.replace(embla, tag + embla), encoding="utf-8")
+        self.assertIn("loads the page script before its vendored libraries", self.problems(build))
+
+    def test_a_missing_vendored_library_is_caught(self):
+        build = self.copy()
+        path = check.built_file(build, ROUTE)
+        text = path.read_text(encoding="utf-8")
+        path.write_text(re.sub(r'<script src="/js/vendor/motion[^"]+" defer></script>', "", text), encoding="utf-8")
+        self.assertIn("loads motion-mini-14.10.0.js 0 times", self.problems(build))
+
+    def test_a_vendored_library_edited_in_the_source_is_caught(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        vendored = fx.root / check.VENDOR["motion-mini-14.10.0.js"][0]
+        vendored.write_bytes(vendored.read_bytes() + b"\n;")
+        self.assertIn("does not match its pinned served sha256", "\n".join(check.check_source(fx.root)))
+
+    def test_a_vendored_body_edit_is_caught_as_an_upstream_change(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        vendored = fx.root / check.VENDOR["motion-mini-14.10.0.js"][0]
+        banner, body = check.split_banner(vendored.read_bytes())
+        vendored.write_bytes(banner + body.replace(b"}", b"} ", 1))
+        self.assertIn("release body does not match its pinned upstream", "\n".join(check.check_source(fx.root)))
+
+    def test_a_vendored_file_without_its_license_banner_is_caught(self):
+        fx = Fixture()
+        self.addCleanup(fx.close)
+        vendored = fx.root / check.VENDOR["embla-carousel-8.6.0.umd.js"][0]
+        _banner, body = check.split_banner(vendored.read_bytes())
+        vendored.write_bytes(body)
+        self.assertIn("has no license banner", "\n".join(check.check_source(fx.root)))
 
     def test_a_link_in_any_form_is_caught(self):
         for href in ("https://blowhorn.ai/preview/platforms/x/", "/preview/platforms/x", "/base/preview/platforms/x/#a"):
@@ -669,24 +781,6 @@ class BuiltTest(unittest.TestCase):
             self.assertIn(limited[action], docs)
         self.assertIn("50 original posts", limited["post"])
         self.assertIn("200 replies", limited["reply"])
-
-    def test_scrolling_the_rail_announces_nothing(self):
-        fx = Fixture()
-        self.addCleanup(fx.close)
-        fx.edit(check.SCRIPT, "if (count) count.textContent = describe(inView());",
-                "if (count) count.textContent = describe(inView()); if (announce) announce.textContent = describe(inView());")
-        self.assertIn("scrolling the rail announced", self.problems(self.build, fx.root))
-
-    def test_a_button_press_announces_where_the_rail_lands(self):
-        fx = Fixture()
-        self.addCleanup(fx.close)
-        fx.edit(check.SCRIPT, 'if (announce) announce.textContent = "Showing " + describe(inView(left));', "")
-        self.assertIn("paging forward announced", self.problems(self.build, fx.root))
-
-    def test_the_rail_count_is_never_live(self):
-        build = self.copy()
-        self.edit_page(build, "data-pp-rail-count>", 'data-pp-rail-count aria-live="polite">')
-        self.assertIn("the rail count is a live region", self.problems(build))
 
 
 if __name__ == "__main__":

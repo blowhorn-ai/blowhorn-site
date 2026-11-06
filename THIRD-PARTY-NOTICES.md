@@ -103,3 +103,81 @@ The upstream `tag-meta.html`, `tag-subsection-meta.html` and
 `x-displayName` or the humanised tag name, and `assets/css/api-reference.css` is
 written against Blowhorn's tokens. Nothing is loaded from layer5io/docs at build
 or run time. Layer5's `head`, navbar, footer and tracking are not used.
+
+## Embla Carousel (David Jerleke)
+
+`assets/js/vendor/embla-carousel-8.6.0.umd.js` is `embla-carousel.umd.js` from the npm
+package `embla-carousel` v8.6.0 (stable v8 line; not the v9 release candidates).
+The release body is byte-identical to that npm file: sha256
+`f05b5dbfe37d79b636b9db74ad04ed5e99b4bce369d781b0fb38b0b2ac619e66`. The served file is
+the license banner below, then that body, unchanged. The served file's sha256 is
+`df819d961adce5c25987bcf299d525c409069371f42d13d1dce435ccd37c950f`. The banner is a
+comment only, added so the MIT notice travels with the code; nothing in the code changed.
+It exposes the global `EmblaCarousel`. Vendored so the setups carousel on the platform
+pages ships no third-party request. It loads only on platform product pages
+(`layouts/platform-page.html`). To update, unpack the new npm tarball, copy its release
+file in behind a new banner, and change the version and both hashes in
+`.github/scripts/check_platform_pages.py`.
+
+The license text below is the one in the upstream repository's `LICENSE` at tag `v8.6.0`
+(the npm package does not carry the file):
+
+```
+MIT License
+
+Copyright (c) David Jerleke.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Motion, mini build (Framer B.V.)
+
+`assets/js/vendor/motion-mini-14.10.0.js` is `dist/dom-mini.js` from the npm package
+`framer-motion` v14.10.0. That is the file the mini entry of the `motion` package
+(`motion/mini`, v14.10.0) re-exports. The release body is byte-identical to that npm
+file: sha256 `2205312f6e86430fc6ef119ee71a98bbf11f0521af1d86c36c32bfa0cbbdee1e`. The
+served file is the license banner, then that body, unchanged; its sha256 is
+`92179d86201f67e629aae65447cce8574de7c6f6105ffabd0222991a23d7fe2b`. The banner is a
+comment only. It exposes the global `Motion` with `animate`, which the platform pages use
+for finite WAAPI transitions (the pager thumb and the newly selected setup). Vendored so
+the pages ship no third-party request. It loads only on platform product pages.
+
+The license text below is the package's `LICENSE.md`:
+
+```
+Copyright (c) 2018 Framer B.V.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
