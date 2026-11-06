@@ -74,12 +74,14 @@ Every CI step that runs repository logic is a make target, and the workflow call
 | `check-links` | every local link, image, font and `srcset` reference resolves | `site-check` |
 | `check-third-party` | no page, or stylesheet or script it loads, requests another host (except the disclosed GitHub release lookup) | `site-check` |
 | `check-urls` | every published URL and anchor still exists | `site-check` |
-| `check-no-internal` | the public build holds nothing from `/internal/` | `site-check` |
+| `check-no-internal` | the public build holds nothing from `/internal/`, and its offline search index exists and lists no `/internal/` page | `site-check` |
 | `check-naming` | no page says Layer5 Cloud or Blowhorn Cloud, names Layer5 outside the footer and legal pages, says machines, or says Macs in marketing copy; the docs say Chrome profile and Chrome extension | `site-check` |
 | `check-download-links` | no page or script links to `/releases/latest/download` | `site-check` |
 | `check-feeds` | the Resources RSS feeds validate | `site-check` |
 | `check-brand-kits` | the Brand page links only kit zips the build publishes, at their real sizes | `site-check` |
 | `check-tells` | every Blowhorn Tells placement in `data/tells.json` is still on its page (header, bar, footer, home band, compare, `/ai/`, `/agents/`, thanks, docs, 404), and every tagged Tells link carries the right UTM parameters ([docs/tells.md](docs/tells.md)) | `site-check` |
+| `check-api-reference` | once `params.apiReference.spec` is set: the API reference page holds exactly the spec's operations, keeps its "Not an HTTP API" notice and names nothing private. Passes and checks nothing while the param is empty, the shipped state ([docs/api-reference.md](docs/api-reference.md)) | `site-check` |
+| `api-reference-export API_SPEC_SRC=...` | write the public API spec (only operations whose `x-internal` lists `public`, filtered and deterministic) from a local OpenAPI file; fetching the product schema is not wired | run by hand |
 | `dmg-resolve`, `dmg-download`, `dmg-package`, `dmg-verify`, `dmg-release` | the five steps of publishing a DMG release, each reading its inputs from the environment ([docs/distribution.md](docs/distribution.md#local-checks)) | `publish-dmg.yml` |
 | `dmg-check DMG=...` | sanity-check a disk image before publishing | `dmg-package` runs the same script (`check-dmg.sh`) |
 | `dmg-sync-docs` | after a public release, start `sync-docs.yml` at the product tag `desktop-<version>` | `publish-dmg.yml` |

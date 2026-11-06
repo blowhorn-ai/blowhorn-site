@@ -99,6 +99,9 @@ PAGES = {
     "for/agencies/index.html": [
         "main", "role-title", "pains-title", "gets-title", "faq-title", "cta-title",
     ],
+    "for/social-media/index.html": [
+        "main", "role-title", "pains-title", "gets-title", "faq-title", "cta-title",
+    ],
     "use-cases/index.html": [
         "main", "use-cases-title", "pick-title",
     ],
@@ -112,6 +115,9 @@ PAGES = {
         "main", "use-case-title", "pains-title", "gets-title", "faq-title", "cta-title",
     ],
     "use-cases/linkedin-outreach/index.html": [
+        "main", "use-case-title", "pains-title", "gets-title", "faq-title", "cta-title",
+    ],
+    "use-cases/team-amplification/index.html": [
         "main", "use-case-title", "pains-title", "gets-title", "faq-title", "cta-title",
     ],
     "solutions/index.html": [
