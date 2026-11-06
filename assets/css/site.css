@@ -3581,25 +3581,26 @@ a.docs-card.platform-card[href$="/facebook/"]::before { background-image: url("/
 }
 /* Dismissed: tells-bar-head.html sets this before first paint. */
 html[data-tells-bar="off"] .tells-bar { display: none; }
-/* Equal side padding reserves the dismiss control's lane so the cluster
-   stays optically centered whether or not the X is visible. */
+/* Three columns: equal side lanes keep the message+CTA group optically
+   centered; the dismiss control sits in the right lane, clear of the CTA. */
 .tells-bar-inner {
-  position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(32px, 1fr) auto minmax(32px, 1fr);
   align-items: center;
-  justify-content: center;
+  column-gap: var(--space-2);
   min-height: 40px;
   padding-block: var(--space-2);
-  padding-inline: calc(var(--gutter) + var(--space-8));
+  padding-inline: var(--gutter);
 }
 /* Message immediately followed by the CTA; the pair is the centered group. */
 .tells-bar-cluster {
+  grid-column: 2;
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 6px var(--space-2);
-  max-width: 100%;
+  max-width: min(100%, 52rem);
   text-align: center;
 }
 .tells-bar-text {
@@ -3700,11 +3701,10 @@ html[data-tells-bar="off"] .tells-bar { display: none; }
   .tells-docs-card-link svg { transition: transform 160ms ease; }
   .tells-docs-card-link a:hover svg { transform: translateX(2px); }
 }
-/* Dismiss stays in its reserved right lane, clear of the centered CTA. */
+/* Dismiss in the right lane, separated from the centered CTA. */
 .tells-bar-close {
-  position: absolute;
-  top: 50%;
-  right: calc(var(--gutter) - var(--space-2));
+  grid-column: 3;
+  justify-self: end;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3716,7 +3716,6 @@ html[data-tells-bar="off"] .tells-bar { display: none; }
   background: transparent;
   color: var(--on-yellow);
   cursor: pointer;
-  transform: translateY(-50%);
 }
 .tells-bar-close[hidden] { display: none; }
 .tells-bar-close:hover { background: color-mix(in srgb, var(--on-yellow) 14%, transparent); color: var(--on-yellow); }
