@@ -1,7 +1,9 @@
 """Tests for check_api_reference.py. Synthetic fixture only; see test_openapi_export.py."""
 
+import os
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 import check_api_reference as car
@@ -17,6 +19,10 @@ def page(ops=3, notice=True, extra=""):
 
 class Case(unittest.TestCase):
     def setUp(self):
+        env = mock.patch.dict(os.environ)
+        env.start()
+        self.addCleanup(env.stop)
+        os.environ.pop(car.ENV_SPEC, None)
         tmp = tempfile.TemporaryDirectory()
         self.addCleanup(tmp.cleanup)
         self.root = Path(tmp.name)
@@ -45,7 +51,7 @@ class TestCheck(Case):
     def test_disabled_passes_without_a_spec_or_a_page(self):
         self.set_param("")
         self.assertEqual(self.problems(), [])
-        self.assertEqual(car.main([str(self.build), "--config", str(self.config)]), 0)
+        self.assertEqual(car.main([str(self.build), "--config", str(self.config), "--root", str(self.root)]), 0)
 
     def test_matching_page_passes(self):
         self.write_page(page())
@@ -95,6 +101,23 @@ class TestCheck(Case):
         self.write_spec(json.dumps(raw))
         self.write_page(page())
         self.assertTrue(self.problems())
+
+    def test_env_override_enables_the_check_when_the_toml_is_disabled(self):
+        self.set_param("")
+        os.environ[car.ENV_SPEC] = "spec/public.json"
+        self.assertTrue(any("no built page" in p for p in self.problems()))
+        self.assertEqual(car.main([str(self.build), "--config", str(self.config), "--root", str(self.root)]), 1)
+        self.write_page(page())
+        self.assertEqual(car.main([str(self.build), "--config", str(self.config), "--root", str(self.root)]), 0)
+
+    def test_env_override_wins_over_the_toml_even_when_empty(self):
+        os.environ[car.ENV_SPEC] = ""
+        self.assertEqual(self.problems(), [])
+        self.assertEqual(car.main([str(self.build), "--config", str(self.config), "--root", str(self.root)]), 0)
+
+    def test_env_override_points_at_its_own_spec(self):
+        os.environ[car.ENV_SPEC] = "spec/missing.json"
+        self.assertTrue(any("missing.json" in p for p in self.problems()))
 
     def test_missing_spec_file(self):
         self.set_param("spec/missing.json")

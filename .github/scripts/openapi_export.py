@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Export the public subset of an OpenAPI document for the docs API reference.
 
-Usage: openapi_export.py INPUT OUTPUT [--deny REGEX ...]
+Usage: openapi_export.py INPUT OUTPUT
 
   INPUT   a local OpenAPI 3.x file (.yaml, .yml or .json); nothing is fetched
   OUTPUT  the JSON the reference page renders (the Hugo site param
@@ -24,7 +24,7 @@ reach it, and every rule fails closed:
   ones the exported operations can reach. Any $ref that is not a local
   #/components/... pointer is an error.
 - The result must not mention the private product repository or the internal
-  site (built-in deny patterns, extend with --deny). A match is an error that
+  site (the fixed DENY_PATTERNS below, which check_api_reference.py also enforces). A match is an error that
   names the JSON path; nothing is written.
 
 Output is deterministic (sorted keys, two-space indent, trailing newline) and
@@ -354,7 +354,7 @@ class Exporter:
 # Export
 # ---------------------------------------------------------------------------
 
-def export_public(doc, deny=()):
+def export_public(doc):
     """Return (public_document, report). Raises ExportError."""
     if not isinstance(doc, dict):
         raise ExportError("the document must be an object")
@@ -461,7 +461,7 @@ def export_public(doc, deny=()):
     if components:
         out["components"] = components
 
-    leaks = find_leaks(out, deny)
+    leaks = find_leaks(out)
     if leaks:
         shown = "\n".join(f"  {where}: matches {pattern!r}" for where, pattern in leaks[:20])
         more = f"\n  ... and {len(leaks) - 20} more" if len(leaks) > 20 else ""
@@ -474,10 +474,10 @@ def export_public(doc, deny=()):
     return out, report
 
 
-def find_leaks(node, deny=(), where="$"):
+def find_leaks(node, where="$"):
     """(json path, pattern) for every string, key included, that matches a
     deny pattern."""
-    patterns = [re.compile(p, re.IGNORECASE) for p in (*DENY_PATTERNS, *deny)]
+    patterns = [re.compile(p, re.IGNORECASE) for p in DENY_PATTERNS]
     found = []
 
     def visit(value, path):
@@ -506,11 +506,9 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("input")
     parser.add_argument("output")
-    parser.add_argument("--deny", action="append", default=[], metavar="REGEX",
-                        help="extra pattern the output must not match (repeatable)")
     args = parser.parse_args(argv)
     try:
-        public, report = export_public(load_document(args.input), args.deny)
+        public, report = export_public(load_document(args.input))
         text = render(public)
     except ExportError as exc:
         print(f"openapi-export: {exc}", file=sys.stderr)

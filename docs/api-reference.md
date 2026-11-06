@@ -13,7 +13,7 @@ product schema (private)  --local file-->  openapi_export.py  -->  api/openapi.p
 | Piece | Where | Job |
 |---|---|---|
 | Exporter | `.github/scripts/openapi_export.py` (`make api-reference-export API_SPEC_SRC=...`) | Reads a **local** OpenAPI 3.x file (YAML or JSON), keeps only operations whose `x-internal` lists `public`, rebuilds each object from an allow-list, writes deterministic JSON. Fails closed (below). |
-| Site param | `[params.apiReference] spec` in `hugo.toml` | Project-relative path of that JSON. Empty means off. `HUGO_PARAMS_APIREFERENCE_SPEC` overrides it for one build. |
+| Site param | `[params.apiReference] spec` in `hugo.toml` | Project-relative path of that JSON. Empty means off. `HUGO_PARAMS_APIREFERENCE_SPEC` overrides it for one build, and `check-api-reference` honours the override too. |
 | Layout and partials | `layouts/docs/rest-apis.html`, `layouts/_partials/rest-apis/` | Adapted from layer5io/docs (see `THIRD-PARTY-NOTICES.md`). One native `<details>` per operation, grouped by tag. |
 | Script and stylesheet | `assets/js/api-reference.js`, `assets/css/api-reference.css` | Filter, expand all, open the operation a `#fragment` names. Brand tokens only. Both load only on this layout. |
 | Build check | `make check-api-reference` (part of `site-check`) | Once the param is set: the page holds exactly the spec's operations, keeps the notice, names nothing private. A no-op while the param is empty. |
@@ -24,7 +24,8 @@ product schema (private)  --local file-->  openapi_export.py  -->  api/openapi.p
 - **Audience.** An operation is exported only when `x-internal` is `"public"` or a list containing `"public"`. `cloud` alone, a missing key, `Public`, `true` and every other shape are excluded. A path item with `x-internal` must list `public` too.
 - **Allow-lists.** `servers`, `externalDocs`, `webhooks`, `callbacks`, `links`, OAuth and OpenID URLs, contact and licence blocks, response headers and every `x-` extension except `x-order`, `x-displayName`, `x-tagGroups` and the normalised `x-internal` are dropped. Unknown schema keywords are dropped too.
 - **Refs.** Path-level parameters, `$ref` parameters, request bodies, responses and examples are inlined; the effective security requirement is written into each operation. Only `components.schemas` and `components.securitySchemes` survive, and only what the exported operations reach. Any `$ref` that is not a local `#/components/...` pointer is an error.
-- **Private mentions.** The result must not match `blowhorn-ai/blowhorn` (the private product repository; `blowhorn-site` is fine), `internal.blowhorn.ai` or `file://` (add more with `--deny REGEX`). A match is an error naming the JSON path, and nothing is written.
+- **Private mentions.** The result must not match `blowhorn-ai/blowhorn` (the private product repository; `blowhorn-site` is fine), `internal.blowhorn.ai` or `file://` (a fixed list, `DENY_PATTERNS` in the exporter; `check_api_reference.py` enforces the same list on the built page). A match is an error naming the JSON path, and nothing is written.
+- **Descriptions are plain text.** The viewer shows every `description` as paragraphs of escaped text, not Markdown (`layouts/_partials/rest-apis/prose.html`). The site renders goldmark with raw HTML on, so Markdown would let a spec inject markup, and escaping before Markdown double-escapes code spans. Markdown syntax therefore appears as written; `<id>` in a description shows as `<id>`.
 - **YAML 1.2 behaviour.** `on`, `off`, `yes`, `no` stay strings, dates stay strings, duplicate keys are an error.
 - The output is a fixed point: exporting it again changes nothing.
 

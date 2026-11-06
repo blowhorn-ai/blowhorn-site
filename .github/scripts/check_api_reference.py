@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Fail if the published API reference could mislead or leak.
 
-Usage: check_api_reference.py BUILD_DIR [--config hugo.toml]
+Usage: check_api_reference.py BUILD_DIR [--config hugo.toml] [--root DIR]
 
-Does nothing (and passes) while params.apiReference.spec is empty, which is the
+Does nothing (and passes) while params.apiReference.spec is empty (hugo.toml,
+or HUGO_PARAMS_APIREFERENCE_SPEC, which overrides it as it does for Hugo), which is the
 shipped state: no page uses the rest-apis layout and there is no spec file.
 Once a spec path is set, the build must hold:
 
@@ -22,6 +23,7 @@ See docs/api-reference.md. Run by `make check-api-reference`.
 
 import argparse
 import json
+import os
 import re
 import sys
 import tomllib
@@ -35,7 +37,14 @@ OP_RE = re.compile(r"<details\b[^>]*\bdata-api-op\b")
 LISTENER_RE = re.compile(r"Try this endpoint|Try it out|api-try", re.IGNORECASE)
 
 
+ENV_SPEC = "HUGO_PARAMS_APIREFERENCE_SPEC"
+
+
 def configured_spec(config):
+    """The spec path Hugo will use: the environment override (it wins, even to
+    an empty value, exactly as Hugo applies it), else hugo.toml."""
+    if ENV_SPEC in os.environ:
+        return os.environ[ENV_SPEC].strip()
     data = tomllib.loads(Path(config).read_text(encoding="utf-8"))
     return ((data.get("params") or {}).get("apiReference") or {}).get("spec") or ""
 
@@ -81,11 +90,12 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("build_dir")
     parser.add_argument("--config", default=str(ROOT / "hugo.toml"))
+    parser.add_argument("--root", default=str(ROOT), help="project root the spec path is relative to")
     args = parser.parse_args(argv)
     if not configured_spec(args.config):
         print("check-api-reference: params.apiReference.spec is empty; nothing to check")
         return 0
-    problems = check(args.build_dir, args.config)
+    problems = check(args.build_dir, args.config, args.root)
     for problem in problems:
         print(f"check-api-reference: {problem}", file=sys.stderr)
     if problems:

@@ -54,7 +54,14 @@
   }
 
   function openFromHash() {
-    var id = decodeURIComponent(window.location.hash.slice(1));
+    var id;
+    try {
+      id = decodeURIComponent(window.location.hash.slice(1));
+    } catch (err) {
+      // A malformed percent escape ("#%", "#%E0%A4%A") names no operation.
+      if (err instanceof URIError) { return; }
+      throw err;
+    }
     if (!id) { return; }
     var target = document.getElementById(id);
     if (!target || !root.contains(target)) { return; }

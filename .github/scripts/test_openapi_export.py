@@ -9,6 +9,7 @@ import io
 import json
 import tempfile
 import unittest
+from unittest import mock
 from contextlib import redirect_stderr
 from pathlib import Path
 
@@ -220,11 +221,12 @@ class TestPrivateMentions(unittest.TestCase):
             self.export(requestBody={"content": {"application/json": {
                 "schema": {"properties": {"blowhorn-ai/blowhorn": {"type": "string"}}}}}})
 
-    def test_extra_deny_patterns(self):
-        d = doc(**{"/a": op(["public"], description="codename Falcon")})
-        with self.assertRaises(ox.ExportError):
-            ox.export_public(d, deny=[r"falcon"])
-        ox.export_public(d)
+    def test_there_is_no_deny_option(self):
+        with self.assertRaises(SystemExit):
+            with mock.patch("sys.stderr"):
+                ox.main(["in.yaml", "out.json", "--deny", "x"])
+        with self.assertRaises(TypeError):
+            ox.export_public(doc(), deny=["x"])
 
     def test_private_text_on_a_dropped_operation_does_not_matter(self):
         d = doc(**{"/a": op(["cloud"], description="blowhorn-ai/blowhorn"),

@@ -6,6 +6,9 @@ check_api_reference.py once a spec is configured.
 """
 
 import re
+import shutil
+import subprocess
+import tempfile
 import tomllib
 import unittest
 from pathlib import Path
@@ -15,6 +18,11 @@ PARTIALS = ROOT / "layouts" / "_partials" / "rest-apis"
 LAYOUT = ROOT / "layouts" / "docs" / "rest-apis.html"
 CSS = ROOT / "assets" / "css" / "api-reference.css"
 JS = ROOT / "assets" / "js" / "api-reference.js"
+HUGO = ROOT / "node_modules" / ".bin" / "hugo"
+
+
+def hugo_binary():
+    return str(HUGO) if HUGO.is_file() else shutil.which("hugo")
 
 
 def read(path):
@@ -101,6 +109,54 @@ class TestSiteRules(unittest.TestCase):
         self.assertIn("<summary>", viewer)
         for path in [*templates(), CSS, JS]:
             self.assertNotIn("—", read(path), path.name)
+
+
+@unittest.skipUnless(shutil.which("node"), "node is not installed")
+class TestHashHandling(unittest.TestCase):
+    def test_malformed_fragments_are_ignored(self):
+        result = subprocess.run(["node", "--test", str(ROOT / ".github" / "scripts" / "api-reference.test.mjs")],
+                                capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+
+@unittest.skipUnless(hugo_binary(), "hugo is not installed")
+class TestProseRendering(unittest.TestCase):
+    """Render the real prose partial in a throwaway Hugo site (no modules, no
+    network, deleted afterwards) and check the output bytes."""
+
+    def render(self, text):
+        with tempfile.TemporaryDirectory() as tmp:
+            site = Path(tmp) / "site"
+            partial = site / "layouts" / "_partials" / "rest-apis"
+            partial.mkdir(parents=True)
+            shutil.copy(PARTIALS / "prose.html", partial / "prose.html")
+            (site / "hugo.toml").write_text(
+                'disableKinds = ["taxonomy", "term", "RSS", "sitemap", "robotsTXT"]\n'
+                '[markup.goldmark.renderer]\n  unsafe = true\n', encoding="utf-8")
+            (site / "data").mkdir()
+            (site / "data" / "t.json").write_text('{"text": %s}' % __import__("json").dumps(text), encoding="utf-8")
+            (site / "layouts" / "home.html").write_text(
+                '<main>{{ partial "rest-apis/prose.html" site.Data.t.text }}</main>', encoding="utf-8")
+            (site / "content").mkdir()
+            (site / "content" / "_index.md").write_text("---\ntitle: t\n---\n", encoding="utf-8")
+            out = Path(tmp) / "out"
+            run = subprocess.run([hugo_binary(), "--source", str(site), "--destination", str(out), "--quiet"],
+                                 capture_output=True, text=True)
+            self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+            return (out / "index.html").read_text(encoding="utf-8")
+
+    def test_angle_brackets_in_code_are_escaped_exactly_once(self):
+        html = self.render("Run `blowhorn <command>` or GET /things/<id>.\n\n> quoted")
+        self.assertIn("`blowhorn &lt;command&gt;` or GET /things/&lt;id&gt;.", html)
+        self.assertNotIn("&amp;lt;", html)
+        self.assertIn("<p>&gt; quoted</p>", html)  # shown as written, not a broken blockquote
+
+    def test_hostile_html_stays_text(self):
+        html = self.render('<script>alert(1)</script><img src=x onerror=alert(1)>\n\n<a href="javascript:x">y</a>')
+        for live in ("<script", "<img", "<a "):
+            self.assertNotIn(live, html)
+        self.assertIn("&lt;script&gt;", html)
+        self.assertEqual(html.count("<p>"), 2)
 
 
 if __name__ == "__main__":
