@@ -52,6 +52,9 @@ Every link to Blowhorn Tells (the free "Am I a Bot?" check) is built by
 `layouts/_partials/tells-link.html` from `data/tells.json`, with UTM tags and a
 placement; never hard-code a Tells URL in a template. `make check-tells` fails a
 lost placement or a mistagged link ([docs/tells.md](docs/tells.md)).
+Every docs page also shows a contact-support card under the Tells card
+(`docs-support-card.html`, `data/support.json`); both use the `docs-rail-card`
+classes that show one copy per width ([docs/tells.md](docs/tells.md)).
 
 Role pages (`/for/<slug>/`), use-case pages (`/use-cases/<slug>/`) and
 solution pages (`/solutions/<slug>/`, one per category of tool replaced) are
