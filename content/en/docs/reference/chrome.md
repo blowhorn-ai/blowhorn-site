@@ -849,7 +849,7 @@ sentence) or `no-email` - plus `proposed_slug` and `slug_state` (`free`,
 Discovery writes nothing to Chrome, and the social links it shows are
 never treated as permission to post. The discovery card reads
 `session_expires_at` for each signed-in platform: a session whose
-expiry is ahead reads "Signed in as <identifier>", and a session that
+expiry is ahead reads "Signed in as `<identifier>`", and a session that
 is expired, expiring within 7 days, or whose expiry could not be read
 reads "Session found, may be expired." The expiry is not yet stored
 in your Blowhorn account: persisting it on the session account is a
