@@ -102,9 +102,13 @@
     if (topLink) {
       topLink.addEventListener('click', function (e) {
         e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (window.history && window.history.pushState) {
-          window.history.pushState(null, '', window.location.pathname + window.location.search);
+        var reduce = false;
+        try {
+          reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        } catch (err) {}
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
         }
       });
     }

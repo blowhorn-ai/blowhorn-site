@@ -555,7 +555,7 @@ div.docs-quadrants {
   display: none;
 }
 
-.docs-toc.is-scrolled .td-toc-title__link {
+.docs-wrap:not(.toc-collapsed) .docs-toc.is-scrolled .td-toc-title__link {
   display: inline-block;
   opacity: 1 !important;
   visibility: visible !important;
