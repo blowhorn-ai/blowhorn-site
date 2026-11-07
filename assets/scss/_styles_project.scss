@@ -35,6 +35,11 @@
 
   .docs-toc {
     display: block;
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-4));
+    align-self: start;
+    max-height: calc(100vh - var(--header-h) - var(--space-8));
+    overflow-y: auto;
   }
 }
 
@@ -109,7 +114,7 @@
 // state rides on .docs-wrap and persists across docs pages
 // (assets/js/docs-toggle.js). Collapsed, the TOC column shrinks to a
 // narrow rail holding only the toggle, and the content takes the freed
-// width — the same trade the internal layout makes for a page with no
+// width - the same trade the internal layout makes for a page with no
 // table of contents at all. Below 1280px the TOC is hidden anyway and
 // the class is inert.
 .td-toc-toggle {
@@ -201,7 +206,7 @@
 // Start here is a single-column list, not a three-column grid: inside
 // the docs column (sidebar plus table of contents) three columns land
 // around 200px wide, tall and skinny. Each Start item is a
-// full-width row — title left, description right — stacking on narrow
+// full-width row - title left, description right - stacking on narrow
 // viewports. The old .docs-start class keeps working until the product
 // sync brings the new .docs-start-list markup, and vice versa.
 // NOTE: site.css (loaded after this skin) defines .grid/.grid-3, so a
@@ -305,6 +310,14 @@ div.docs-quadrants {
 
 .docs-sidebar {
   min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .td-sidebar__inner {
+    top: calc(var(--header-h) + var(--space-4));
+    max-height: calc(100vh - var(--header-h) - var(--space-8));
+    overflow-y: auto;
+  }
 }
 
 .docs-sidebar a {
@@ -533,6 +546,20 @@ div.docs-quadrants {
 
 .td-toc a:hover {
   color: var(--link);
+}
+
+// The "Top of page" link remains hidden (taking no layout space) at the top of the page.
+// When scrolled down past the header, docs-toggle.js adds .is-scrolled to .docs-toc,
+// revealing the up arrow between the title text and the collapse toggle.
+.td-toc-title__link {
+  display: none;
+}
+
+.docs-toc.is-scrolled .td-toc-title__link {
+  display: inline-block;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto;
 }
 
 .section-index .entry h5 a {
