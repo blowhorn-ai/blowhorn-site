@@ -22,7 +22,7 @@
 {{- end -}}
 <header class="site-header">
       <div class="wrap">
-        <a class="brand" href="{{ "" | relURL }}" aria-label="Blowhorn home">
+        <a class="brand" href="{{ "" | relURL }}" aria-label="Blowhorn home" data-is-home="{{ .IsHome }}">
           <img class="logo-on-light" src="{{ "assets/brand/logo/blowhorn-lockup-horizontal.svg" | relURL }}" alt="Blowhorn" width="176" height="44">
           <img class="logo-on-dark" src="{{ "assets/brand/logo/blowhorn-lockup-horizontal-on-dark.svg" | relURL }}" alt="" width="176" height="44">
         </a>

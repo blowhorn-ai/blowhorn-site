@@ -98,4 +98,40 @@
   });
   var onChange = function () { closeAll(); setSheet(false); };
   if (wide.addEventListener) wide.addEventListener('change', onChange); else wide.addListener(onChange);
+
+  // On the homepage, clicking the header logo while scrolled down
+  // scrolls to the top instead of reloading the page.
+  var homeLogo = header.querySelector('.brand[data-is-home="true"]');
+
+  if (homeLogo) {
+    homeLogo.addEventListener('click', function (e) {
+      // Preserve native browser behavior for modified clicks and
+      // links intended to open in another browsing context.
+      if (
+        e.defaultPrevented ||
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey ||
+        homeLogo.hasAttribute('download') ||
+        (homeLogo.target && homeLogo.target.toLowerCase() !== '_self')
+      ) {
+        return;
+      }
+
+      // At the top, preserve the existing navigation/reload behavior.
+      if (window.scrollY <= 1) return;
+
+      e.preventDefault();
+
+      var reducedMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      window.scrollTo({
+        top: 0,
+        behavior: reducedMotion ? 'auto' : 'smooth'
+      });
+    });
+  }
 })();
