@@ -3141,7 +3141,7 @@ a.card.docs-card > * { margin-top: 0; }
   --af-cta-hover: #000000;
   --af-ring: #1B2124;
   --af-dot: rgba(27, 33, 36, 0.18);
-  --af-live: #0F8A5F;
+  --af-live: #0A6B49;
   --af-badge: #FCE7A6;
   --af-badge-ink: #5A4300;
   --af-shadow:
@@ -3229,7 +3229,7 @@ a.card.docs-card > * { margin-top: 0; }
 }
 .af-nav-btn:hover { background: var(--af-ghost-hover); border-color: color-mix(in srgb, var(--af-ink) 24%, transparent); }
 .af-nav-btn:active { transform: scale(0.94); }
-.af-nav-btn:focus-visible, .af-cta:focus-visible, .af-name-link:focus-visible {
+.af-nav-btn:focus-visible, .af-cta:focus-visible {
   outline: 2px solid var(--af-ring); outline-offset: 2px;
 }
 .af-note { margin-top: -8px !important; font-size: 13px; line-height: 18px; color: var(--af-muted) !important; }
@@ -3257,8 +3257,6 @@ a.card.docs-card > * { margin-top: 0; }
 .af-platform-badge img { width: 14px; height: 14px; object-fit: contain; }
 .af-who { display: grid; gap: 2px; min-width: 0; }
 .af-name { font-size: 17px; line-height: 24px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.af-name-link { color: inherit; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; text-decoration-thickness: 1.5px; transition: text-decoration-color 200ms var(--af-ease); }
-.af-name-link:hover { text-decoration-color: currentColor; }
 .af-org { color: var(--af-muted); font-weight: 500; }
 .af-dot { margin: 0 6px; }
 .af-meta { font-size: 14px; line-height: 20px; color: var(--af-muted) !important; }
@@ -3293,6 +3291,7 @@ a.card.docs-card > * { margin-top: 0; }
   transition: background-color 300ms var(--af-ease);
 }
 .af-swatch.is-active { background: var(--af-ring); }
+.af-swatch.af-dot-edge { width: 5px; height: 5px; }
 .af-swatch.is-active::after {
   content: ""; position: absolute; inset: -4px; border-radius: 50%;
   border: 1.5px solid var(--af-ring);
@@ -3301,7 +3300,7 @@ a.card.docs-card > * { margin-top: 0; }
 .activity-feed.is-playing .af-swatch.is-active::after {
   -webkit-mask: conic-gradient(#000 var(--af-fill, 0deg), transparent 0);
   mask: conic-gradient(#000 var(--af-fill, 0deg), transparent 0);
-  animation: af-fill 8000ms linear forwards;
+  animation: af-fill var(--af-interval, 8000ms) linear forwards;
 }
 @property --af-fill { syntax: "<angle>"; inherits: false; initial-value: 360deg; }
 @keyframes af-fill { from { --af-fill: 0deg; } to { --af-fill: 360deg; } }

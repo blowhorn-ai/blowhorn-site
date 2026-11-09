@@ -552,6 +552,7 @@ function paintAvatar(root, item, name) {
     if (img) {
       img.hidden = true;
       img.removeAttribute("src");
+      img.removeAttribute("data-current");
     }
     if (monogram) monogram.hidden = false;
     return;
@@ -566,7 +567,15 @@ function paintAvatar(root, item, name) {
     img.setAttribute("decoding", "async");
     img.setAttribute("width", String(AVATAR_PX));
     img.setAttribute("height", String(AVATAR_PX));
+    img.addEventListener("load", () => {
+      if (img.getAttribute("src") !== img.getAttribute("data-current")) return;
+      img.hidden = false;
+      const mono = slot(root, "[data-activity-monogram]");
+      if (mono) mono.hidden = true;
+    });
     img.addEventListener("error", () => {
+      // A late error for an earlier src must not hide the current image.
+      if (img.getAttribute("src") !== img.getAttribute("data-current")) return;
       img.hidden = true;
       img.removeAttribute("src");
       const mono = slot(root, "[data-activity-monogram]");
@@ -574,9 +583,17 @@ function paintAvatar(root, item, name) {
     });
     media.appendChild(img);
   }
-  img.hidden = false;
+  if (img.getAttribute("data-current") === url && img.getAttribute("src") === url) return;
+  // Show the new person's monogram until their own picture has loaded, so the
+  // previous face never sits next to the new name.
+  img.hidden = true;
+  if (monogram) monogram.hidden = false;
+  img.setAttribute("data-current", url);
   img.setAttribute("src", url);
-  if (monogram) monogram.hidden = true;
+  if (img.complete && img.naturalWidth > 0) {
+    img.hidden = false;
+    if (monogram) monogram.hidden = true;
+  }
 }
 
 function paintNetworks(root, item) {
@@ -643,23 +660,7 @@ export function paintActivity(root, item, flags = {}) {
 
   const showLink = !!(item && item.publicProfileUrl && isHttpsUrl(item.publicProfileUrl, LIMITS.profileUrl) && !example);
   const href = showLink ? item.publicProfileUrl.trim() : null;
-  const nameLink = slot(root, "[data-activity-name-link]");
-  if (nameLink) {
-    if (href) {
-      nameLink.textContent = name;
-      nameLink.setAttribute("href", href);
-      nameLink.setAttribute("rel", "noopener noreferrer nofollow");
-      nameLink.setAttribute("target", "_blank");
-    } else {
-      nameLink.textContent = "";
-      nameLink.removeAttribute("href");
-    }
-    nameLink.hidden = !href;
-  }
-  if (nameSlot) {
-    nameSlot.textContent = href && nameLink ? "" : name;
-    nameSlot.hidden = !!(href && nameLink);
-  }
+  if (nameSlot) nameSlot.textContent = name;
 
   const linkSlot = slot(root, "[data-activity-link-slot]");
   const link = slot(root, "[data-activity-link]");
@@ -695,13 +696,15 @@ export function paintEmpty(root) {
   if (progress) clearChildren(progress);
 }
 
-/* Swatch dots under the card: at most 8, the active one ringed. They are
-   aria-hidden and not interactive; Previous and Next are the controls. */
+/* Swatch dots under the card: a sliding window of at most 8 that always
+   holds the active one, ringed; an end dot is smaller when more items lie
+   beyond it. They are aria-hidden and not interactive; Previous and Next are
+   the controls. */
 export function paintProgress(root, index, count) {
   const progress = slot(root, "[data-activity-progress]");
   if (!progress) return;
   const dots = count >= 2 ? Math.min(count, MAX_DOTS) : 0;
-  const active = dots ? index % dots : -1;
+  const start = Math.max(0, Math.min(index - 3, count - dots));
   const doc = root.ownerDocument;
   const existing = progress.children ? progress.children.length : progress.childElementCount;
   if (existing !== dots) {
@@ -714,7 +717,10 @@ export function paintProgress(root, index, count) {
   }
   const list = progress.children ? Array.from(progress.children) : [];
   list.forEach((dot, i) => {
-    dot.className = i === active ? "af-swatch is-active" : "af-swatch";
+    const classes = ["af-swatch"];
+    if (start + i === index) classes.push("is-active");
+    if ((i === 0 && start > 0) || (i === dots - 1 && start + dots < count)) classes.push("af-dot-edge");
+    dot.className = classes.join(" ");
   });
 }
 
@@ -756,6 +762,9 @@ export function mountActivityFeed(root, options = {}) {
   const clearTimer = options.clearTimer ?? ((id) => clearTimeout(id));
   const now = options.now ?? (() => Date.now());
   const platforms = options.platforms || null;
+  const intervalMs = options.intervalMs ?? INTERVAL_MS;
+  // The progress ring draws in over the same interval the rotation arms.
+  root.style.setProperty("--af-interval", `${intervalMs}ms`);
   const listeners = [];
   let items = [];
   let enterTimer = null;
@@ -847,7 +856,7 @@ export function mountActivityFeed(root, options = {}) {
     if (rotation) rotation.destroy();
     rotation = createRotation({
       count: items.length,
-      intervalMs: options.intervalMs ?? INTERVAL_MS,
+      intervalMs,
       isReduced: () => reduced,
       isHidden: () => !!doc.hidden,
       setTimer,

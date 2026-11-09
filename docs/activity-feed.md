@@ -57,14 +57,14 @@ Rotation is every 8 seconds (`INTERVAL_MS`). A swap lifts the outgoing content 6
 | Identity | A 64px avatar (52px under 600px) with the platform's own logo in a 24px white badge, white in dark mode too so the black X and GitHub marks stay visible. Names and logos come from `data/platforms/*.yaml` through the partial's `data-platforms` attribute; the script has no copy. The name is `displayName`, else the role, with " at <organizationName>" when there is one. The meta line is "<Platform> · <relative time>" in a `<time datetime>`. |
 | Relative time | `relativeTime(iso, now)`: "just now" under 45 seconds (and for a future time), "Nm ago", "Nh ago", "Nd ago" under 7 days, then "Nov 2" (with the year when it is not this year). Recomputed on every paint. |
 | Line | 20px, weight 500, with two lines reserved (three on mobile). |
-| Footer | Up to three `networks` as chips, and for a live row with `publicProfileUrl` a dark "View profile" pill named "View <name>'s public profile". The name links to the same URL. Examples never link. |
-| Progress | Swatch dots (at most 8, aria-hidden, not buttons); the active one is ringed, and while autoplay is armed its ring draws in over the interval (`is-playing`). |
+| Footer | Up to three `networks` as chips, and for a live row with `publicProfileUrl` a dark "View profile" pill named "View <name>'s public profile". The name is plain text; the pill is the only profile link. Examples never link. |
+| Progress | Swatch dots (aria-hidden, not buttons): a sliding window of at most 8 that always holds the active row, with a smaller end dot (`af-dot-edge`) where more rows lie beyond it. The active one is ringed, and while autoplay is armed its ring draws in over the interval (`is-playing`, duration from `--af-interval`, which `mountActivityFeed` sets from the interval it arms). |
 | `data-state` | `live`, `examples` or `empty` on the card root, for styling and tests. |
 | Empty | When there are no rows at all (not even the bundled ones): a muted avatar stack, "No public activity yet" and "Completed activity shows up here as it happens.", with no arrows or dots. An empty live feed still shows the labelled examples. |
 
 ### Avatars
 
-A live row's `avatarUrl` is requested only when it is https and its host is in `AVATAR_HOSTS` (the X, GitHub, LinkedIn, Bluesky, Slack, Gravatar, Google, Reddit and Layer5 / Blowhorn Cloud image hosts). The `<img>` has `alt=""` (the name is text), `referrerpolicy="no-referrer"`, `decoding="async"`, a fixed size and no `crossorigin`. Any other host, an example row, or a load error shows the monogram instead: one or two initials on a gradient whose hue is one of 12 steps from `monogramHue(userId)` (class `af-hue-<n>`; the partial uses the same rule, so there is no inline style). The monogram makes no request.
+A live row's `avatarUrl` is requested only when it is https and its host is in `AVATAR_HOSTS` (the X, GitHub, LinkedIn, Bluesky, Slack, Gravatar, Google, Reddit and Layer5 / Blowhorn Cloud image hosts). The `<img>` has `alt=""` (the name is text), `referrerpolicy="no-referrer"`, `decoding="async"`, a fixed size and no `crossorigin`. When the URL changes, the image hides and the monogram shows until the new image fires `load` (a late `load` or `error` for an earlier URL is ignored), so the previous face never sits next to the new name. Any other host, an example row, or a load error shows the monogram instead: one or two initials on a gradient whose hue is one of 12 steps from `monogramHue(userId)` (class `af-hue-<n>`; the partial uses the same rule, so there is no inline style). The monogram makes no request.
 
 A page is accepted only if it is an `EventFeedPage`: `page`, `pageSize` (1 to 50) and `totalCount` are integers in range, `data` is an array of at most 50 items, and there are no other top-level fields. Items are checked field by field: known fields only, UUIDs, the platform list, length limits, a valid `createdAt`, `https` URLs, no `javascript:` or `data:` URLs. Text is written with `textContent`. A live item's profile links use `rel="noopener noreferrer nofollow"` and `target="_blank"`. Example rows do not render them. Avatar URLs are requested only as described under Avatars. Invalid items are dropped.
 
@@ -74,7 +74,7 @@ Live items are held only for the response `max-age`, capped at 30 seconds. When 
 
 ## Disclosure
 
-The card's request goes to `cloud.blowhorn.ai`, Blowhorn's own account service, from the reader's browser. A live row's profile picture loads from the network that hosts it (only hosts in `AVATAR_HOSTS`), with no referrer. The privacy page lists both with the other requests the site makes. Change the privacy page first if the request changes.
+The card's request goes to `cloud.blowhorn.ai`, Blowhorn's own account service, from the reader's browser. A live row's profile picture loads from the network that hosts it (only hosts in `AVATAR_HOSTS`), with no referrer. `.github/scripts/check-third-party.py` parses that constant and fails on any host missing from its reviewed `AVATAR_HOSTS` set, so a new host needs a reviewed checker change. The privacy page lists both with the other requests the site makes. Change the privacy page first if the request changes.
 
 ## Open items outside this repository
 

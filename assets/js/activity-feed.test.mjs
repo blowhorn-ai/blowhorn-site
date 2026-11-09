@@ -164,8 +164,6 @@ function card() {
     return node;
   };
   const name = make("span", "data-activity-name");
-  const nameLink = make("a", "data-activity-name-link");
-  nameLink.hidden = true;
   const org = make("span", "data-activity-org");
   const platform = make("span", "data-activity-platform");
   const logo = make("img", "data-activity-platform-logo");
@@ -186,8 +184,8 @@ function card() {
   prev.attrs["data-activity-prev"] = "";
   const next = element("button");
   next.attrs["data-activity-next"] = "";
-  for (const child of [line, role, when, badge, note, linkSlot, prev, next, name, nameLink, org, platform, logo, avatar, live, networks, stage, empty, progress]) root.appendChild(child);
-  return { doc, root, line, role, when, badge, note, linkSlot, link, prev, next, name, nameLink, org, platform, logo, avatar, monogram, live, networks, stage, empty, progress };
+  for (const child of [line, role, when, badge, note, linkSlot, prev, next, name, org, platform, logo, avatar, live, networks, stage, empty, progress]) root.appendChild(child);
+  return { doc, root, line, role, when, badge, note, linkSlot, link, prev, next, name, org, platform, logo, avatar, monogram, live, networks, stage, empty, progress };
 }
 
 test("bundled examples stay inside the contract", () => {
@@ -268,10 +266,9 @@ test("paint uses textContent and a hardened profile link", () => {
   assert.equal(link.attrs.rel, "noopener noreferrer nofollow");
   assert.equal(link.attrs.target, "_blank");
   assert.equal(link.attrs["aria-label"], "View Solo founder's public profile");
-  assert.equal(view.nameLink.hidden, false);
-  assert.equal(view.nameLink.textContent, "Solo founder");
-  assert.equal(view.nameLink.attrs.href, "https://example.com/profile");
-  assert.equal(view.name.hidden, true);
+  assert.equal(view.name.textContent, "Solo founder");
+  assert.equal(view.name.tag, "span");
+  assert.equal(view.root.querySelector("[data-activity-name-link]"), null);
 
   paintActivity(view.root, item({ publicProfileUrl: "https://example.com/profile" }), { example: true });
   assert.equal(view.when.textContent, "Example activity");
@@ -280,9 +277,36 @@ test("paint uses textContent and a hardened profile link", () => {
   assert.equal(view.root.attrs["data-state"], "examples");
   assert.equal(view.linkSlot.hidden, true);
   assert.equal(link.attrs.href, undefined);
-  assert.equal(view.nameLink.hidden, true);
-  assert.equal(view.nameLink.attrs.href, undefined);
   assert.equal(view.name.textContent, "Solo founder");
+});
+
+test("a new avatar hides the old face until it loads, and a stale error is ignored", () => {
+  const view = card();
+  const first = "https://pbs.twimg.com/profile/a.jpg";
+  const second = "https://cdn.bsky.app/img/avatar/b.jpg";
+  paintActivity(view.root, item({ displayName: "Ada Lovelace", avatarUrl: first }), { example: false });
+  const img = view.avatar.children.find((child) => child.attrs["data-activity-avatar-img"] !== undefined);
+  const fire = (type) => img.listeners.filter((entry) => entry.type === type).forEach((entry) => entry.fn());
+  fire("load");
+  assert.equal(img.hidden, false);
+
+  paintActivity(view.root, item({ displayName: "Grace Hopper", avatarUrl: second }), { example: false });
+  assert.equal(img.attrs.src, second);
+  assert.equal(img.hidden, true);
+  assert.equal(view.monogram.hidden, false);
+  assert.equal(view.monogram.textContent, "GH");
+
+  // An error that belongs to the earlier src must not hide the newer image.
+  img.attrs.src = first;
+  fire("error");
+  assert.equal(img.attrs.src, first);
+  img.attrs.src = second;
+  fire("load");
+  assert.equal(img.hidden, false);
+  assert.equal(view.monogram.hidden, true);
+  fire("error");
+  assert.equal(img.hidden, true);
+  assert.equal(view.monogram.hidden, false);
 });
 
 test("relativeTime covers each bucket and clamps the future", () => {
@@ -341,6 +365,10 @@ test("paint shows name, org, platform, chips and the avatar or its fallback", ()
   assert.equal(img.attrs.alt, "");
   assert.equal(img.attrs.referrerpolicy, "no-referrer");
   assert.equal(img.attrs.crossorigin, undefined);
+  assert.equal(img.hidden, true);
+  assert.equal(view.monogram.hidden, false);
+  img.listeners.find((entry) => entry.type === "load").fn();
+  assert.equal(img.hidden, false);
   assert.equal(view.monogram.hidden, true);
   img.listeners.find((entry) => entry.type === "error").fn();
   assert.equal(img.hidden, true);
@@ -357,9 +385,21 @@ test("paint shows name, org, platform, chips and the avatar or its fallback", ()
 
 test("paintEmpty shows the designed empty state and progress caps at 8 dots", () => {
   const view = card();
+  const classes = () => view.progress.children.map((dot) => dot.className);
   paintProgress(view.root, 9, 75);
   assert.equal(view.progress.children.length, 8);
-  assert.equal(view.progress.children[1].className, "af-swatch is-active");
+  // Window starts at 6, so item 9 is the fourth dot; more lie on both sides.
+  assert.equal(classes()[3], "af-swatch is-active");
+  assert.equal(classes()[0], "af-swatch af-dot-edge");
+  assert.equal(classes()[7], "af-swatch af-dot-edge");
+  paintProgress(view.root, 0, 75);
+  assert.equal(classes()[0], "af-swatch is-active");
+  assert.equal(classes()[7], "af-swatch af-dot-edge");
+  paintProgress(view.root, 74, 75);
+  assert.equal(classes()[7], "af-swatch is-active");
+  assert.equal(classes()[0], "af-swatch af-dot-edge");
+  paintProgress(view.root, 2, 5);
+  assert.deepEqual(classes(), ["af-swatch", "af-swatch", "af-swatch is-active", "af-swatch", "af-swatch"]);
   paintProgress(view.root, 0, 1);
   assert.equal(view.progress.children.length, 0);
   paintEmpty(view.root);
@@ -747,6 +787,7 @@ test("mount cleans timers and listeners and does not write storage", async () =>
   const cleared = [];
   let seq = 0;
   const mounted = mountActivityFeed(view.root, {
+    intervalMs: 5000,
     matchMedia: () => ({ matches: true, addEventListener() {}, removeEventListener() {} }),
     setTimer(fn, ms) {
       const handle = ++seq;
@@ -758,7 +799,8 @@ test("mount cleans timers and listeners and does not write storage", async () =>
       transport: null,
       fallback: payload([item(), item({ id: EID(2), line: "Example: an agency published a release note on X" })]),
     }),
-  });
+  });  assert.equal(view.root.style.props["--af-interval"], "5000ms");
+
   const result = await mounted.ready;
   assert.equal(result.reason, "disabled");
   assert.equal(view.root.classList.contains("is-ready"), true);
