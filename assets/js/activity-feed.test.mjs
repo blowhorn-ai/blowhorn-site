@@ -13,6 +13,14 @@ import {
   createFeedSource,
   createRotation,
   paintActivity,
+  paintEmpty,
+  paintProgress,
+  relativeTime,
+  monogramHue,
+  initials,
+  avatarAllowed,
+  avatarFor,
+  AVATAR_HOSTS,
   mountActivityFeed,
   boot,
   feedTransport,
@@ -75,7 +83,13 @@ function element(tag) {
     remove(name) { this.set.delete(name); },
     contains(name) { return this.set.has(name); },
   };
+  node.style = { props: {}, setProperty(key, value) { this.props[key] = value; } };
   node.setAttribute = (key, value) => { node.attrs[key] = String(value); };
+  node.getAttribute = (key) => (node.attrs[key] === undefined ? null : node.attrs[key]);
+  node.removeChild = (child) => {
+    node.children = node.children.filter((entry) => entry !== child);
+    child.parentNode = null;
+  };
   node.removeAttribute = (key) => { delete node.attrs[key]; };
   node.appendChild = (child) => {
     child.parentNode = node;
@@ -140,12 +154,40 @@ function card() {
   const linkSlot = element("p");
   linkSlot.attrs["data-activity-link-slot"] = "";
   linkSlot.hidden = true;
+  const link = element("a");
+  link.attrs["data-activity-link"] = "";
+  linkSlot.appendChild(link);
+  const make = (tag, attr) => {
+    const node = element(tag);
+    node.attrs[attr] = "";
+    node.ownerDocument = doc;
+    return node;
+  };
+  const name = make("span", "data-activity-name");
+  const nameLink = make("a", "data-activity-name-link");
+  nameLink.hidden = true;
+  const org = make("span", "data-activity-org");
+  const platform = make("span", "data-activity-platform");
+  const logo = make("img", "data-activity-platform-logo");
+  const avatar = make("span", "data-activity-avatar");
+  const monogram = make("span", "data-activity-monogram");
+  avatar.appendChild(monogram);
+  const live = make("span", "data-activity-live");
+  const networks = make("ul", "data-activity-networks");
+  const stage = make("div", "data-activity-stage");
+  const empty = make("div", "data-activity-empty");
+  empty.hidden = true;
+  const progress = make("div", "data-activity-progress");
+  root.attrs["data-platforms"] = JSON.stringify({
+    linkedin: { name: "LinkedIn", logo: "/assets/platforms/linkedin-in-bug.png" },
+    x: { name: "X", logo: "/assets/platforms/x-logo-black.png" },
+  });
   const prev = element("button");
   prev.attrs["data-activity-prev"] = "";
   const next = element("button");
   next.attrs["data-activity-next"] = "";
-  for (const child of [line, role, when, badge, note, linkSlot, prev, next]) root.appendChild(child);
-  return { doc, root, line, role, when, badge, note, linkSlot, prev, next };
+  for (const child of [line, role, when, badge, note, linkSlot, prev, next, name, nameLink, org, platform, logo, avatar, live, networks, stage, empty, progress]) root.appendChild(child);
+  return { doc, root, line, role, when, badge, note, linkSlot, link, prev, next, name, nameLink, org, platform, logo, avatar, monogram, live, networks, stage, empty, progress };
 }
 
 test("bundled examples stay inside the contract", () => {
@@ -215,20 +257,118 @@ test("paint uses textContent and a hardened profile link", () => {
   paintActivity(view.root, item({
     line: `Example: ${xss} posted`,
     publicProfileUrl: "https://example.com/profile",
-  }), { example: false });
+  }), { example: false, now: Date.parse("2026-10-02T08:17:00Z") });
   assert.equal(view.line.textContent, `Example: ${xss} posted`);
-  assert.equal(view.when.textContent, "2026-10-02");
-  const link = view.linkSlot.children[0];
+  assert.equal(view.when.textContent, "2m ago");
+  assert.equal(view.when.attrs.datetime, "2026-10-02T08:15:00Z");
+  assert.equal(view.root.attrs["data-state"], "live");
+  assert.equal(view.live.hidden, false);
+  const link = view.link;
   assert.equal(link.attrs.href, "https://example.com/profile");
   assert.equal(link.attrs.rel, "noopener noreferrer nofollow");
   assert.equal(link.attrs.target, "_blank");
-  assert.equal(link.textContent, "Public profile");
+  assert.equal(link.attrs["aria-label"], "View Solo founder's public profile");
+  assert.equal(view.nameLink.hidden, false);
+  assert.equal(view.nameLink.textContent, "Solo founder");
+  assert.equal(view.nameLink.attrs.href, "https://example.com/profile");
+  assert.equal(view.name.hidden, true);
 
   paintActivity(view.root, item({ publicProfileUrl: "https://example.com/profile" }), { example: true });
   assert.equal(view.when.textContent, "Example activity");
   assert.equal(view.badge.hidden, false);
+  assert.equal(view.live.hidden, true);
+  assert.equal(view.root.attrs["data-state"], "examples");
   assert.equal(view.linkSlot.hidden, true);
   assert.equal(link.attrs.href, undefined);
+  assert.equal(view.nameLink.hidden, true);
+  assert.equal(view.nameLink.attrs.href, undefined);
+  assert.equal(view.name.textContent, "Solo founder");
+});
+
+test("relativeTime covers each bucket and clamps the future", () => {
+  const now = Date.parse("2026-11-09T12:00:00Z");
+  assert.equal(relativeTime("2026-11-09T11:59:30Z", now), "just now");
+  assert.equal(relativeTime("2026-11-09T12:05:00Z", now), "just now");
+  assert.equal(relativeTime("2026-11-09T11:58:00Z", now), "2m ago");
+  assert.equal(relativeTime("2026-11-09T09:00:00Z", now), "3h ago");
+  assert.equal(relativeTime("2026-11-06T12:00:00Z", now), "3d ago");
+  assert.equal(relativeTime("2026-11-02T08:00:00Z", now), "Nov 2");
+  assert.equal(relativeTime("2025-12-31T08:00:00Z", now), "Dec 31, 2025");
+  assert.equal(relativeTime("nope", now), "");
+});
+
+test("avatars load only from allowlisted https hosts and never for examples", () => {
+  assert.ok(AVATAR_HOSTS.includes("avatars.githubusercontent.com"));
+  assert.equal(avatarAllowed("https://avatars.githubusercontent.com/u/1?v=4"), true);
+  assert.equal(avatarAllowed("https://PBS.twimg.com/a.jpg"), true);
+  assert.equal(avatarAllowed("http://pbs.twimg.com/a.jpg"), false);
+  assert.equal(avatarAllowed("https://evil.example/a.jpg"), false);
+  assert.equal(avatarAllowed("https://pbs.twimg.com.evil.example/a.jpg"), false);
+  assert.equal(avatarAllowed("javascript:alert(1)"), false);
+  const url = "https://cdn.bsky.app/img/avatar/a.jpg";
+  assert.equal(avatarFor({ avatarUrl: url, example: false }), url);
+  assert.equal(avatarFor({ avatarUrl: url, example: true }), null);
+  assert.equal(avatarFor({ example: false }), null);
+});
+
+test("monogram hue and initials are deterministic", () => {
+  assert.equal(monogramHue("3999901e-1256-5af3-96c8-df2d7108ef88"), 0x3999901e % 12);
+  assert.equal(monogramHue(UID), monogramHue(UID));
+  assert.ok(Number.isInteger(monogramHue(UID)) && monogramHue(UID) >= 0 && monogramHue(UID) < 12);
+  assert.equal(monogramHue(""), 0);
+  assert.equal(initials("Open source maintainer"), "OS");
+  assert.equal(initials("Agency"), "A");
+  assert.equal(initials(""), "");
+});
+
+test("paint shows name, org, platform, chips and the avatar or its fallback", () => {
+  const view = card();
+  paintActivity(view.root, item({
+    platform: "x",
+    displayName: "Ada Lovelace",
+    organizationName: "Analytical",
+    networks: ["X", "LinkedIn", "Bluesky", "Reddit"],
+    avatarUrl: "https://pbs.twimg.com/profile/a.jpg",
+  }), { example: false, now: Date.parse("2026-10-02T09:15:00Z") });
+  assert.equal(view.name.textContent, "Ada Lovelace");
+  assert.equal(view.org.textContent, " at Analytical");
+  assert.equal(view.platform.textContent, "X");
+  assert.equal(view.logo.attrs.src, "/assets/platforms/x-logo-black.png");
+  assert.equal(view.when.textContent, "1h ago");
+  assert.deepEqual(view.networks.children.map((chip) => chip.textContent), ["X", "LinkedIn", "Bluesky"]);
+  const img = view.avatar.children.find((child) => child.attrs["data-activity-avatar-img"] !== undefined);
+  assert.equal(img.attrs.src, "https://pbs.twimg.com/profile/a.jpg");
+  assert.equal(img.attrs.alt, "");
+  assert.equal(img.attrs.referrerpolicy, "no-referrer");
+  assert.equal(img.attrs.crossorigin, undefined);
+  assert.equal(view.monogram.hidden, true);
+  img.listeners.find((entry) => entry.type === "error").fn();
+  assert.equal(img.hidden, true);
+  assert.equal(view.monogram.hidden, false);
+
+  paintActivity(view.root, item({ avatarUrl: "https://evil.example/a.jpg" }), { example: false });
+  assert.equal(img.hidden, true);
+  assert.equal(view.monogram.hidden, false);
+  assert.equal(view.monogram.textContent, "SF");
+  assert.equal(view.monogram.className, `af-monogram af-hue-${monogramHue(UID)}`);
+  assert.equal(view.org.hidden, true);
+  assert.equal(view.platform.textContent, "LinkedIn");
+});
+
+test("paintEmpty shows the designed empty state and progress caps at 8 dots", () => {
+  const view = card();
+  paintProgress(view.root, 9, 75);
+  assert.equal(view.progress.children.length, 8);
+  assert.equal(view.progress.children[1].className, "af-swatch is-active");
+  paintProgress(view.root, 0, 1);
+  assert.equal(view.progress.children.length, 0);
+  paintEmpty(view.root);
+  assert.equal(view.root.attrs["data-state"], "empty");
+  assert.equal(view.stage.hidden, true);
+  assert.equal(view.empty.hidden, false);
+  assert.equal(view.badge.hidden, true);
+  assert.equal(view.live.hidden, true);
+  assert.equal(view.linkSlot.hidden, true);
 });
 
 test("empty and malformed payloads fall back", async () => {
@@ -530,7 +670,7 @@ test("an expired hold is replaced by labeled examples when there is no transport
 });
 
 test("rotation pauses for reduced motion, a hidden document and hover, and clears timers", () => {
-  assert.equal(INTERVAL_MS, 7000);
+  assert.equal(INTERVAL_MS, 8000);
   const scheduled = [];
   const cleared = [];
   let id = 0;
@@ -568,7 +708,7 @@ test("rotation pauses for reduced motion, a hidden document and hover, and clear
   hidden = false;
   rotation.onVisibility();
   assert.equal(scheduled.length, 1);
-  assert.equal(scheduled[0].ms, 7000);
+  assert.equal(scheduled[0].ms, 8000);
   assert.equal(rotation.armed, true);
 
   rotation.pause();
@@ -638,7 +778,21 @@ test("mount cleans timers and listeners and does not write storage", async () =>
 
 test("runtime source has no endpoint and no web storage", () => {
   assert.equal(/localStorage|sessionStorage|indexedDB|serviceWorker|caches\.put|caches\.open/.test(sourceText), false);
-  assert.equal(/\/api\/public|api\.blowhorn|layer5|events\/feed/.test(sourceText), false);
+  assert.equal(/\/api\/public|api\.blowhorn|layer5\.io\/|events\/feed/.test(sourceText), false);
   assert.equal(/https?:\/\/[A-Za-z0-9.-]+\.[A-Za-z]{2,}/.test(sourceText), false);
   assert.equal(boot({ documentElement: { dataset: { activityFeedBoot: "off" } }, querySelector() { return {}; } }), null);
+});
+
+test("a single network shows no chip, since the meta line already names the platform", () => {
+  const view = card();
+  paintActivity(view.root, item({ platform: "reddit", networks: ["Reddit"] }), { example: false });
+  assert.equal(view.networks.children.length, 0);
+  assert.equal(view.networks.hidden, true);
+});
+
+test("an organization that is the account itself is not repeated after the name", () => {
+  const view = card();
+  paintActivity(view.root, item({ displayName: "Layer5", organizationName: "layer5" }), { example: false });
+  assert.equal(view.name.textContent, "Layer5");
+  assert.equal(view.org.textContent, "");
 });

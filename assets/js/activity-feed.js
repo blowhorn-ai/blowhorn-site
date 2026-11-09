@@ -33,8 +33,10 @@ export const LIMITS = Object.freeze({
   profileUrl: 2048,
 });
 
-export const INTERVAL_MS = 7000;
-export const SWAP_MS = 180;
+export const INTERVAL_MS = 8000;
+// Outgoing fade, then the incoming stagger; about 420ms end to end.
+export const SWAP_MS = 160;
+export const ENTER_MS = 300;
 export const MAX_LIVE_TTL_MS = 30000;
 const RATE_LIMIT_FALLBACK_MS = 60000;
 const HTTPS = "https:";
@@ -358,6 +360,8 @@ export function createRotation(options = {}) {
   const setTimer = options.setTimer ?? ((fn, ms) => setTimeout(fn, ms));
   const clearTimer = options.clearTimer ?? ((id) => clearTimeout(id));
   const onIndex = options.onIndex ?? (() => {});
+  // Told whether autoplay is armed, so the card can show or still its cue.
+  const onState = options.onState ?? (() => {});
   let index = 0;
   let timer = null;
   let hoverPaused = false;
@@ -377,13 +381,15 @@ export function createRotation(options = {}) {
 
   function arm() {
     clear();
-    if (!canRun()) return;
-    timer = setTimer(() => {
-      timer = null;
-      index = (index + 1) % count;
-      onIndex(index, { manual: false });
-      arm();
-    }, intervalMs);
+    if (canRun()) {
+      timer = setTimer(() => {
+        timer = null;
+        index = (index + 1) % count;
+        onIndex(index, { manual: false });
+        arm();
+      }, intervalMs);
+    }
+    onState(timer != null);
   }
 
   function step(delta, manual) {
@@ -399,6 +405,7 @@ export function createRotation(options = {}) {
     pause() {
       hoverPaused = true;
       clear();
+      onState(false);
     },
     resume() {
       hoverPaused = false;
@@ -406,8 +413,10 @@ export function createRotation(options = {}) {
     },
     onVisibility() {
       hidePaused = isHidden();
-      if (hidePaused) clear();
-      else arm();
+      if (hidePaused) {
+        clear();
+        onState(false);
+      } else arm();
     },
     next() {
       return step(1, true);
@@ -418,6 +427,7 @@ export function createRotation(options = {}) {
     destroy() {
       destroyed = true;
       clear();
+      onState(false);
     },
     get index() {
       return index;
@@ -432,51 +442,301 @@ function slot(root, selector) {
   return root.querySelector(selector);
 }
 
-export function paintActivity(root, item, flags = {}) {
-  const example = !!(flags.example || (item && item.example));
-  const line = slot(root, "[data-activity-line]");
-  const role = slot(root, "[data-activity-role]");
-  const when = slot(root, "[data-activity-when]");
-  const badge = slot(root, "[data-activity-examples]");
-  const note = slot(root, "[data-activity-note]");
-  if (line) line.textContent = item && item.line ? item.line : "";
-  if (role) role.textContent = item && item.role ? item.role : "";
-  if (when) when.textContent = example ? "Example activity" : (item && item.createdAt ? item.createdAt.slice(0, 10) : "");
-  if (badge) badge.hidden = !example;
-  if (note) note.hidden = !example;
+/* Avatar images load only from these hosts, over https, and only for live
+   items. Bare hostnames: the third-party check reads URL-shaped strings. */
+export const AVATAR_HOSTS = Object.freeze([
+  "pbs.twimg.com",
+  "abs.twimg.com",
+  "avatars.githubusercontent.com",
+  "media.licdn.com",
+  "cdn.bsky.app",
+  "avatars.slack-edge.com",
+  "ca.slack-edge.com",
+  "secure.gravatar.com",
+  "www.gravatar.com",
+  "gravatar.com",
+  "lh3.googleusercontent.com",
+  "styles.redditmedia.com",
+  "www.redditstatic.com",
+  "cloud.layer5.io",
+  "cloud.blowhorn.ai",
+]);
+const AVATAR_HOST_SET = new Set(AVATAR_HOSTS);
+const AVATAR_PX = 64;
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MAX_DOTS = 8;
 
-  const linkSlot = slot(root, "[data-activity-link-slot]");
-  if (!linkSlot) return;
-  const showLink = !!(item && item.publicProfileUrl && isHttpsUrl(item.publicProfileUrl) && !example);
-  let link = slot(root, "[data-activity-link]");
-  if (!showLink) {
-    linkSlot.hidden = true;
-    if (link) link.removeAttribute("href");
+export function avatarAllowed(url) {
+  if (!isHttpsUrl(url)) return false;
+  return AVATAR_HOST_SET.has(new URL(url.trim()).hostname.toLowerCase());
+}
+
+/* The avatar a card may request, or null for the monogram. */
+export function avatarFor(item) {
+  if (!item || item.example || !item.avatarUrl) return null;
+  return avatarAllowed(item.avatarUrl) ? item.avatarUrl.trim() : null;
+}
+
+export const HUE_STEPS = 12;
+
+/* Deterministic hue step (0-11, 30 degrees each) from a user id: its first
+   8 hex digits mod 12. The card applies it as the class af-hue-<n>, so no
+   inline style is needed; layouts/_partials/activity-feed.html applies the
+   same rule to the static first example. */
+export function monogramHue(userId) {
+  const hex = String(userId || "").replace(/[^0-9a-f]/gi, "").slice(0, 8);
+  if (!hex) return 0;
+  return parseInt(hex, 16) % HUE_STEPS;
+}
+
+export function initials(name) {
+  const words = String(name || "").trim().split(/\s+/).filter(Boolean);
+  return words.slice(0, 2).map((word) => Array.from(word)[0].toUpperCase()).join("");
+}
+
+export function relativeTime(iso, nowMs) {
+  const then = Date.parse(iso);
+  if (Number.isNaN(then)) return "";
+  const seconds = (nowMs - then) / 1000;
+  if (seconds < 45) return "just now";
+  const minutes = Math.round(seconds / 60);
+  if (minutes < 60) return `${Math.max(1, minutes)}m ago`;
+  const hours = Math.floor(seconds / 3600);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(seconds / 86400);
+  if (days < 7) return `${days}d ago`;
+  const date = new Date(then);
+  const label = `${MONTHS[date.getUTCMonth()]} ${date.getUTCDate()}`;
+  return date.getUTCFullYear() === new Date(nowMs).getUTCFullYear() ? label : `${label}, ${date.getUTCFullYear()}`;
+}
+
+export function displayName(item) {
+  return (item && (item.displayName || item.role)) || "";
+}
+
+const platformCache = new WeakMap();
+function platformsFor(root, flags) {
+  if (flags && flags.platforms) return flags.platforms;
+  if (platformCache.has(root)) return platformCache.get(root);
+  let map = {};
+  const raw = root.getAttribute ? root.getAttribute("data-platforms") : null;
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") map = parsed;
+    } catch {
+      map = {};
+    }
+  }
+  platformCache.set(root, map);
+  return map;
+}
+
+function clearChildren(node) {
+  while (node.children ? node.children.length : node.firstChild) {
+    node.removeChild(node.children ? node.children[0] : node.firstChild);
+  }
+}
+
+function paintAvatar(root, item, name) {
+  const media = slot(root, "[data-activity-avatar]");
+  const monogram = slot(root, "[data-activity-monogram]");
+  if (monogram) {
+    monogram.textContent = initials(name);
+    monogram.className = `af-monogram af-hue-${monogramHue(item && item.userId)}`;
+  }
+  if (!media) return;
+  let img = slot(root, "[data-activity-avatar-img]");
+  const url = avatarFor(item);
+  if (!url) {
+    if (img) {
+      img.hidden = true;
+      img.removeAttribute("src");
+    }
+    if (monogram) monogram.hidden = false;
     return;
   }
   const doc = root.ownerDocument;
-  if (!link) {
-    link = doc.createElement("a");
-    link.setAttribute("data-activity-link", "");
-    link.className = "ui";
-    link.textContent = "Public profile";
-    linkSlot.appendChild(link);
+  if (!img) {
+    img = doc.createElement("img");
+    img.setAttribute("data-activity-avatar-img", "");
+    img.className = "af-avatar-img";
+    img.setAttribute("alt", "");
+    img.setAttribute("referrerpolicy", "no-referrer");
+    img.setAttribute("decoding", "async");
+    img.setAttribute("width", String(AVATAR_PX));
+    img.setAttribute("height", String(AVATAR_PX));
+    img.addEventListener("error", () => {
+      img.hidden = true;
+      img.removeAttribute("src");
+      const mono = slot(root, "[data-activity-monogram]");
+      if (mono) mono.hidden = false;
+    });
+    media.appendChild(img);
   }
-  link.textContent = "Public profile";
-  link.setAttribute("href", item.publicProfileUrl.trim());
+  img.hidden = false;
+  img.setAttribute("src", url);
+  if (monogram) monogram.hidden = true;
+}
+
+function paintNetworks(root, item) {
+  const list = slot(root, "[data-activity-networks]");
+  if (!list) return;
+  clearChildren(list);
+  const doc = root.ownerDocument;
+  // One network is the platform the meta line already names, so chips show
+  // only for a cross-network activity.
+  const networks = item && item.networks && item.networks.length > 1 ? item.networks : [];
+  for (const name of networks.slice(0, 3)) {
+    const chip = doc.createElement("li");
+    chip.className = "af-chip";
+    chip.textContent = name;
+    list.appendChild(chip);
+  }
+  list.hidden = list.children.length === 0;
+}
+
+export function paintActivity(root, item, flags = {}) {
+  const example = !!(flags.example || (item && item.example));
+  const nowMs = flags.now != null ? flags.now : Date.now();
+  const name = displayName(item);
+  const platforms = platformsFor(root, flags);
+  const platform = (item && platforms[item.platform]) || null;
+  if (root.setAttribute) root.setAttribute("data-state", example ? "examples" : "live");
+
+  const stage = slot(root, "[data-activity-stage]");
+  const empty = slot(root, "[data-activity-empty]");
+  if (stage) stage.hidden = false;
+  if (empty) empty.hidden = true;
+
+  const line = slot(root, "[data-activity-line]");
+  const role = slot(root, "[data-activity-role]");
+  const nameSlot = slot(root, "[data-activity-name]");
+  const org = slot(root, "[data-activity-org]");
+  const when = slot(root, "[data-activity-when]");
+  const platformName = slot(root, "[data-activity-platform]");
+  const platformLogo = slot(root, "[data-activity-platform-logo]");
+  const badge = slot(root, "[data-activity-examples]");
+  const live = slot(root, "[data-activity-live]");
+  const note = slot(root, "[data-activity-note]");
+  if (line) line.textContent = item && item.line ? item.line : "";
+  if (role) role.textContent = item && item.role ? item.role : "";
+  if (org) {
+    // An organization's own account names itself; "Layer5 at Layer5" says nothing.
+    const rawOrg = item && item.organizationName ? item.organizationName : "";
+    const orgName = rawOrg && rawOrg.toLowerCase() !== name.toLowerCase() ? rawOrg : "";
+    org.textContent = orgName ? ` at ${orgName}` : "";
+    org.hidden = !orgName;
+  }
+  if (when) {
+    when.textContent = example ? "Example activity" : (item && item.createdAt ? relativeTime(item.createdAt, nowMs) : "");
+    if (item && item.createdAt) when.setAttribute("datetime", item.createdAt);
+    else when.removeAttribute("datetime");
+  }
+  if (platformName) platformName.textContent = platform && platform.name ? platform.name : (item && item.platform) || "";
+  if (platformLogo && platform && platform.logo) platformLogo.setAttribute("src", platform.logo);
+  if (badge) badge.hidden = !example;
+  if (live) live.hidden = example;
+  if (note) note.hidden = !example;
+  paintAvatar(root, item, name);
+  paintNetworks(root, item);
+
+  const showLink = !!(item && item.publicProfileUrl && isHttpsUrl(item.publicProfileUrl, LIMITS.profileUrl) && !example);
+  const href = showLink ? item.publicProfileUrl.trim() : null;
+  const nameLink = slot(root, "[data-activity-name-link]");
+  if (nameLink) {
+    if (href) {
+      nameLink.textContent = name;
+      nameLink.setAttribute("href", href);
+      nameLink.setAttribute("rel", "noopener noreferrer nofollow");
+      nameLink.setAttribute("target", "_blank");
+    } else {
+      nameLink.textContent = "";
+      nameLink.removeAttribute("href");
+    }
+    nameLink.hidden = !href;
+  }
+  if (nameSlot) {
+    nameSlot.textContent = href && nameLink ? "" : name;
+    nameSlot.hidden = !!(href && nameLink);
+  }
+
+  const linkSlot = slot(root, "[data-activity-link-slot]");
+  const link = slot(root, "[data-activity-link]");
+  if (!linkSlot || !link) return;
+  if (!href) {
+    linkSlot.hidden = true;
+    link.removeAttribute("href");
+    link.removeAttribute("aria-label");
+    return;
+  }
+  link.setAttribute("href", href);
   link.setAttribute("rel", "noopener noreferrer nofollow");
   link.setAttribute("target", "_blank");
+  link.setAttribute("aria-label", `View ${name}'s public profile`);
   linkSlot.hidden = false;
 }
 
 export function paintEmpty(root) {
-  paintActivity(root, { line: "No activity to show.", role: "", createdAt: "" }, { example: false });
-  const badge = slot(root, "[data-activity-examples]");
-  const note = slot(root, "[data-activity-note]");
-  if (badge) badge.hidden = true;
-  if (note) note.hidden = true;
+  if (root.setAttribute) root.setAttribute("data-state", "empty");
+  const stage = slot(root, "[data-activity-stage]");
+  const empty = slot(root, "[data-activity-empty]");
+  if (stage) stage.hidden = true;
+  if (empty) empty.hidden = false;
+  for (const selector of ["[data-activity-examples]", "[data-activity-note]", "[data-activity-live]", "[data-activity-link-slot]"]) {
+    const node = slot(root, selector);
+    if (node) node.hidden = true;
+  }
+  const line = slot(root, "[data-activity-line]");
+  if (line) line.textContent = "";
   const when = slot(root, "[data-activity-when]");
   if (when) when.textContent = "";
+  const progress = slot(root, "[data-activity-progress]");
+  if (progress) clearChildren(progress);
+}
+
+/* Swatch dots under the card: at most 8, the active one ringed. They are
+   aria-hidden and not interactive; Previous and Next are the controls. */
+export function paintProgress(root, index, count) {
+  const progress = slot(root, "[data-activity-progress]");
+  if (!progress) return;
+  const dots = count >= 2 ? Math.min(count, MAX_DOTS) : 0;
+  const active = dots ? index % dots : -1;
+  const doc = root.ownerDocument;
+  const existing = progress.children ? progress.children.length : progress.childElementCount;
+  if (existing !== dots) {
+    clearChildren(progress);
+    for (let i = 0; i < dots; i += 1) {
+      const dot = doc.createElement("span");
+      dot.className = "af-swatch";
+      progress.appendChild(dot);
+    }
+  }
+  const list = progress.children ? Array.from(progress.children) : [];
+  list.forEach((dot, i) => {
+    dot.className = i === active ? "af-swatch is-active" : "af-swatch";
+  });
+}
+
+/* Resolves when the avatar is cached (or failed) or after capMs, so a swap
+   never waits long and the incoming avatar does not pop in. */
+export function preloadAvatar(view, url, capMs = 400, setTimer = (fn, ms) => setTimeout(fn, ms)) {
+  if (!url || !view || typeof view.Image !== "function") return Promise.resolve(false);
+  return new Promise((resolve) => {
+    const img = new view.Image();
+    let done = false;
+    const finish = (ok) => {
+      if (done) return;
+      done = true;
+      resolve(ok);
+    };
+    img.referrerPolicy = "no-referrer";
+    img.decoding = "async";
+    img.onload = () => finish(true);
+    img.onerror = () => finish(false);
+    setTimer(() => finish(false), capMs);
+    img.src = url;
+  });
 }
 
 function listen(bag, target, type, fn) {
@@ -494,8 +754,12 @@ export function mountActivityFeed(root, options = {}) {
   const source = options.source || createFeedSource({ transport: null, fallback: options.fallback });
   const setTimer = options.setTimer ?? ((fn, ms) => setTimeout(fn, ms));
   const clearTimer = options.clearTimer ?? ((id) => clearTimeout(id));
+  const now = options.now ?? (() => Date.now());
+  const platforms = options.platforms || null;
   const listeners = [];
   let items = [];
+  let enterTimer = null;
+  let swapGen = 0;
   let rotation = null;
   let swapTimer = null;
   let ttlTimer = null;
@@ -515,26 +779,68 @@ export function mountActivityFeed(root, options = {}) {
     }
   }
 
+  function clearEnter() {
+    if (enterTimer != null) {
+      clearTimer(enterTimer);
+      enterTimer = null;
+    }
+    root.classList.remove("is-entering");
+  }
+
+  // Warm the cache for the row after this one, so its avatar is ready.
+  function warmNext(index) {
+    if (items.length < 2) return;
+    const next = items[(index + 1) % items.length];
+    preloadAvatar(view, avatarFor(next), 400, setTimer);
+  }
+
+  function apply(index) {
+    const item = items[index];
+    paintActivity(root, item, { example: item.example, now: now(), platforms });
+    paintProgress(root, index, items.length);
+    warmNext(index);
+  }
+
   function show(index, animate) {
     const item = items[index];
     if (!item) {
       paintEmpty(root);
       return;
     }
-    const apply = () => paintActivity(root, item, { example: item.example });
     clearSwap();
+    clearEnter();
+    const gen = ++swapGen;
     if (!animate || reduced) {
       root.classList.remove("is-swap");
-      apply();
+      apply(index);
       return;
     }
     root.classList.add("is-swap");
-    swapTimer = setTimer(() => {
-      swapTimer = null;
-      if (destroyed) return;
-      apply();
+    const ready = preloadAvatar(view, avatarFor(item), 400, setTimer);
+    const left = new Promise((resolve) => {
+      swapTimer = setTimer(() => {
+        swapTimer = null;
+        resolve();
+      }, SWAP_MS);
+    });
+    Promise.all([ready, left]).then(() => {
+      if (destroyed || gen !== swapGen) return;
+      apply(index);
       root.classList.remove("is-swap");
-    }, SWAP_MS);
+      root.classList.add("is-entering");
+      enterTimer = setTimer(() => {
+        enterTimer = null;
+        root.classList.remove("is-entering");
+      }, ENTER_MS);
+    });
+  }
+
+  // The progress cue restarts on every armed interval and stills otherwise.
+  function setPlaying(armed) {
+    root.classList.remove("is-playing");
+    if (!armed || destroyed) return;
+    void root.offsetWidth;
+    root.classList.add("is-playing");
   }
 
   function armRotation() {
@@ -547,6 +853,7 @@ export function mountActivityFeed(root, options = {}) {
       setTimer,
       clearTimer,
       onIndex: (index, meta) => show(index, !(meta && meta.manual)),
+      onState: setPlaying,
     });
     rotation.start();
   }
@@ -571,7 +878,10 @@ export function mountActivityFeed(root, options = {}) {
     const onMotion = () => {
       reduced = !!reducedQuery.matches;
       if (rotation) rotation.onVisibility();
-      if (reduced) root.classList.remove("is-swap");
+      if (reduced) {
+        root.classList.remove("is-swap");
+        clearEnter();
+      }
     };
     listen(listeners, reducedQuery, "change", onMotion);
   }
@@ -580,7 +890,7 @@ export function mountActivityFeed(root, options = {}) {
     const nav = slot(root, ".activity-feed-nav");
     const prev = slot(root, "[data-activity-prev]");
     const next = slot(root, "[data-activity-next]");
-    const showNav = items.length >= 2;
+    const showNav = items.length >= 2 && root.getAttribute("data-state") !== "empty";
     if (nav) nav.hidden = !showNav;
     for (const btn of [prev, next]) {
       if (!btn) continue;
@@ -622,6 +932,7 @@ export function mountActivityFeed(root, options = {}) {
     destroy() {
       destroyed = true;
       clearSwap();
+      clearEnter();
       clearTtl();
       if (rotation) rotation.destroy();
       if (source.destroy) source.destroy();
@@ -662,6 +973,7 @@ export function boot(doc) {
   const fallback = embedded || { example: true, data: [] };
   const feedUrl = root.getAttribute("data-feed-url");
   return mountActivityFeed(root, {
+    now: () => Date.now(),
     source: createFeedSource({ transport: feedTransport(feedUrl), fallback }),
   });
 }
@@ -670,6 +982,14 @@ export const BlowhornActivityFeed = {
   PLATFORMS,
   LIMITS,
   INTERVAL_MS,
+  AVATAR_HOSTS,
+  avatarAllowed,
+  avatarFor,
+  monogramHue,
+  initials,
+  relativeTime,
+  paintProgress,
+  preloadAvatar,
   validateItem,
   sanitizeItem,
   normalizePayload,
