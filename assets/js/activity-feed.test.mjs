@@ -350,7 +350,8 @@ test("monogram hue and initials are deterministic", () => {
   assert.equal(initials("@ada"), "A");
   assert.equal(initials("@ada.bsky.social"), "A");
   assert.equal(initials("- Ada"), "A");
-  assert.equal(initials("@"), "");
+  assert.equal(initials("🦊"), "🦊");
+  assert.equal(initials("✨ ✨"), "✨");
   assert.equal(initials(""), "");
 });
 

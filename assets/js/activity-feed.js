@@ -501,6 +501,7 @@ export function monogramHue(userId) {
 
 export function initials(name) {
   const words = String(name || "").split(/\s+/).map((word) => word.replace(/^[^\p{L}\p{N}]+/u, "")).filter(Boolean);
+  if (!words.length) return Array.from(String(name || "").trim()).slice(0, 1).join("");
   return words.slice(0, 2).map((word) => Array.from(word)[0].toUpperCase()).join("");
 }
 
