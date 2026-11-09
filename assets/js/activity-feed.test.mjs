@@ -315,6 +315,10 @@ test("relativeTime covers each bucket and clamps the future", () => {
   assert.equal(relativeTime("2026-11-09T11:59:30Z", now), "just now");
   assert.equal(relativeTime("2026-11-09T12:05:00Z", now), "just now");
   assert.equal(relativeTime("2026-11-09T11:58:00Z", now), "2m ago");
+  assert.equal(relativeTime("2026-11-09T11:59:10Z", now), "1m ago");
+  assert.equal(relativeTime("2026-11-09T11:00:30Z", now), "59m ago");
+  assert.equal(relativeTime("2026-11-09T11:00:01Z", now), "59m ago");
+  assert.equal(relativeTime("2026-11-09T11:00:00Z", now), "1h ago");
   assert.equal(relativeTime("2026-11-09T09:00:00Z", now), "3h ago");
   assert.equal(relativeTime("2026-11-06T12:00:00Z", now), "3d ago");
   assert.equal(relativeTime("2026-11-02T08:00:00Z", now), "Nov 2");
