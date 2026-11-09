@@ -165,6 +165,7 @@ function card() {
   };
   const name = make("span", "data-activity-name");
   const org = make("span", "data-activity-org");
+  const handle = make("span", "data-activity-handle");
   const platform = make("span", "data-activity-platform");
   const logo = make("img", "data-activity-platform-logo");
   const avatar = make("span", "data-activity-avatar");
@@ -184,8 +185,8 @@ function card() {
   prev.attrs["data-activity-prev"] = "";
   const next = element("button");
   next.attrs["data-activity-next"] = "";
-  for (const child of [line, role, when, badge, note, linkSlot, prev, next, name, org, platform, logo, avatar, live, networks, stage, empty, progress]) root.appendChild(child);
-  return { doc, root, line, role, when, badge, note, linkSlot, link, prev, next, name, org, platform, logo, avatar, monogram, live, networks, stage, empty, progress };
+  for (const child of [line, role, when, badge, note, linkSlot, prev, next, name, org, handle, platform, logo, avatar, live, networks, stage, empty, progress]) root.appendChild(child);
+  return { doc, root, line, role, when, badge, note, linkSlot, link, prev, next, name, org, handle, platform, logo, avatar, monogram, live, networks, stage, empty, progress };
 }
 
 test("bundled examples stay inside the contract", () => {
@@ -876,4 +877,26 @@ test("a TTL refresh keeps the shown item and the rotation's running interval", a
   assert.equal(loads, 2);
   assert.deepEqual(seen, [0, 1, 2, 3, 4, 5]);
   mounted.destroy();
+});
+
+test("a handle shows next to a displayName, stands in for a missing one, and a bad one is dropped", () => {
+  const named = sanitizeItem(item({ displayName: "Ada Lovelace", handle: "@ada" }));
+  assert.equal(named.handle, "ada");
+  const view = card();
+  paintActivity(view.root, { ...named, example: false }, { example: false });
+  assert.equal(view.name.textContent, "Ada Lovelace");
+  assert.equal(view.handle.textContent, "@ada");
+  assert.equal(view.handle.hidden, false);
+
+  const handleOnly = sanitizeItem(item({ handle: "ada.bsky.social" }));
+  paintActivity(view.root, { ...handleOnly, example: false }, { example: false });
+  assert.equal(view.name.textContent, "@ada.bsky.social");
+  assert.equal(view.handle.hidden, true);
+
+  const roleOnly = sanitizeItem(item({ handle: "two words<script>" }));
+  assert.ok(roleOnly, "a malformed handle keeps the row");
+  assert.equal(roleOnly.handle, undefined);
+  paintActivity(view.root, { ...roleOnly, example: false }, { example: false });
+  assert.equal(view.name.textContent, "Solo founder");
+  assert.equal(view.handle.hidden, true);
 });

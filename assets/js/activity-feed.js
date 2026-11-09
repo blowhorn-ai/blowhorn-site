@@ -26,6 +26,7 @@ export const LIMITS = Object.freeze({
   lineMin: 10,
   lineMax: 120,
   name: 80,
+  handle: 64,
   organization: 255,
   network: 255,
   networks: 20,
@@ -43,6 +44,7 @@ const HTTPS = "https:";
 const DATE_TIME = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])[Tt]([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?([Zz]|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const PLATFORM_SET = new Set(PLATFORMS);
+const HANDLE = /^[A-Za-z0-9._:\/-]+$/;
 const ITEM_KEYS = new Set([
   "id",
   "userId",
@@ -54,6 +56,7 @@ const ITEM_KEYS = new Set([
   "line",
   "networks",
   "displayName",
+  "handle",
   "avatarUrl",
   "organizationName",
   "publicProfileUrl",
@@ -139,6 +142,12 @@ export function validateItem(input) {
     const displayName = plain(input.displayName, 1, LIMITS.name);
     if (!displayName) return fail("displayName");
     item.displayName = displayName;
+  }
+  // handle is being added by Cloud next to displayName and is not yet in the
+  // pinned meshery/schemas projection. A malformed one is dropped, not the row.
+  if (input.handle !== undefined) {
+    const handle = typeof input.handle === "string" ? plain(input.handle.replace(/^@+/, ""), 1, LIMITS.handle) : null;
+    if (handle && HANDLE.test(handle)) item.handle = handle;
   }
   if (input.organizationName !== undefined) {
     const organizationName = plain(input.organizationName, 1, LIMITS.organization);
@@ -512,7 +521,7 @@ export function relativeTime(iso, nowMs) {
 }
 
 export function displayName(item) {
-  return (item && (item.displayName || item.role)) || "";
+  return (item && (item.displayName || (item.handle ? `@${item.handle}` : "") || item.role)) || "";
 }
 
 const platformCache = new WeakMap();
@@ -650,6 +659,13 @@ export function paintActivity(root, item, flags = {}) {
     when.textContent = example ? "Example activity" : (item && item.createdAt ? relativeTime(item.createdAt, nowMs) : "");
     if (item && item.createdAt) when.setAttribute("datetime", item.createdAt);
     else when.removeAttribute("datetime");
+  }
+  const handleSlot = slot(root, "[data-activity-handle]");
+  if (handleSlot) {
+    // The name line already carries the handle when there is no displayName.
+    const handle = item && item.handle && item.displayName ? `@${item.handle}` : "";
+    handleSlot.textContent = handle;
+    handleSlot.hidden = !handle;
   }
   if (platformName) platformName.textContent = platform && platform.name ? platform.name : (item && item.platform) || "";
   if (platformLogo && platform && platform.logo) platformLogo.setAttribute("src", platform.logo);

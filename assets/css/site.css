@@ -3271,6 +3271,8 @@ a.card.docs-card > * { margin-top: 0; }
 .af-org { color: var(--af-muted); font-weight: 500; }
 .af-dot { margin: 0 6px; }
 .af-meta { font-size: 14px; line-height: 20px; color: var(--af-muted) !important; }
+.af-handle { color: var(--af-ink); font-weight: 500; }
+.af-handle:not([hidden])::after { content: "\00B7"; margin: 0 6px; color: var(--af-muted); font-weight: 400; }
 .af-line {
   font-size: 20px; line-height: 1.35; font-weight: 500; letter-spacing: -0.01em;
   min-height: calc(2em * 1.35); overflow-wrap: anywhere; text-wrap: pretty;

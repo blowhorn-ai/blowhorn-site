@@ -13,7 +13,7 @@ The feed is `GET <cloud_url>/api/events/feed` on the account service (`params.cl
 | Query | `page` (from 0), `pagesize` (default 20, max 50), optional `category`, `action`. The card asks for `page=0&pagesize=20&category=schedule&action=completed`. |
 | Envelope | `{ page, pageSize, totalCount, data: EventFeedItem[] }`, newest first. |
 | Required item fields | `id`, `userId` (UUIDs), `category`, `action`, `createdAt`, `visibility` (`public`), `platform` (one of the seven supported ids), `role` (3 to 40 characters), `line` (10 to 120). |
-| Optional item fields | `networks`, `displayName`, `avatarUrl`, `organizationName`, `publicProfileUrl` (https), present only for a public profile. |
+| Optional item fields | `networks`, `displayName`, `avatarUrl`, `organizationName`, `publicProfileUrl` (https), present only for a public profile. Cloud is adding `handle` (the person's handle on the network, if they have one) next to `displayName`; it is not yet in the pinned meshery/schemas projection, so the script accepts it on its own (letters, digits and `. _ : / -`, up to 64 characters, a leading `@` stripped) and drops a malformed one without dropping the row. Re-project the schema when meshery/schemas publishes it. |
 | Caching | `Cache-Control: public, max-age=N`, N at most 30. Over the limit the service answers 429 with `Retry-After`. |
 | Empty feed | `{ "page": 0, "pageSize": 20, "totalCount": 0, "data": [] }`. This is valid and is what the card sees until public events exist. |
 
@@ -54,7 +54,7 @@ Rotation is every 8 seconds (`INTERVAL_MS`). A swap lifts the outgoing content 6
 | Part | Behaviour |
 |---|---|
 | Header | "Live" with a pulsing dot for live rows, or the Examples badge for examples, then "Recent activity". Round 36px ghost arrows on the right, labelled "Previous activity" and "Next activity". |
-| Identity | A 64px avatar (52px under 600px) with the platform's own logo in a 24px white badge, white in dark mode too so the black X and GitHub marks stay visible. Names and logos come from `data/platforms/*.yaml` through the partial's `data-platforms` attribute; the script has no copy. The name is `displayName`, else the role, with " at <organizationName>" when there is one. The meta line is "<Platform> · <relative time>" in a `<time datetime>`. |
+| Identity | A 64px avatar (52px under 600px) with the platform's own logo in a 24px white badge, white in dark mode too so the black X and GitHub marks stay visible. Names and logos come from `data/platforms/*.yaml` through the partial's `data-platforms` attribute; the script has no copy. The name is `displayName`, else `@handle`, else the role, with " at <organizationName>" when there is one and it is not the name itself. The meta line is "@handle · <Platform> · <relative time>" (the handle only when the name is a `displayName`), the time in a `<time datetime>`. |
 | Relative time | `relativeTime(iso, now)`: "just now" under 45 seconds (and for a future time), "Nm ago", "Nh ago", "Nd ago" under 7 days, then "Nov 2" (with the year when it is not this year). Recomputed on every paint. |
 | Line | 20px, weight 500, with two lines reserved (three on mobile). |
 | Footer | Up to three `networks` as chips, and for a live row with `publicProfileUrl` a dark "View profile" pill named "View profile of <name>". The name is plain text; the pill is the only profile link. Examples never link. |
