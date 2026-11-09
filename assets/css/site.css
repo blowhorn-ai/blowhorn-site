@@ -3913,3 +3913,65 @@ html[data-tells-bar="off"] .tells-bar { display: none; }
    fill it while sighted visitors never see it. The Worker answers such
    submissions with success without storing anything. */
 .signup-honeypot { position: absolute; left: -9999px; }
+
+/* ---------- Image lightbox (internal site, layouts/_partials/image-lightbox.html) ----------
+   The styles are layer5io/docs' assets/scss/_image-modal_project.scss: a
+   fixed dark overlay with the clicked image centred in it. The modal opens
+   from assets/js/image-lightbox.js, which attaches to every image on an
+   internal page. */
+.md__image { cursor: pointer; }
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999999;
+  padding-top: 4em;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.85);
+}
+.modal-cont {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 1400px;
+}
+.modal-pic {
+  display: flex;
+  align-content: center;
+  cursor: pointer;
+}
+/* The close button reads "close" to assistive technology and shows only an
+   x, as upstream: the text is shifted out of the button and the x is drawn
+   by the ::after rule. */
+.modal-close {
+  color: white;
+  background-color: black;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 2.5em;
+  height: 1em;
+  width: 1em;
+  text-indent: 10em;
+  overflow: hidden;
+  border: 0;
+  z-index: 99;
+}
+.modal-close::after {
+  position: absolute;
+  line-height: 0.5;
+  top: 0.2em;
+  left: 0.1em;
+  text-indent: 0;
+  content: "\00D7";
+}
+.modal-close:hover,
+.modal-close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
