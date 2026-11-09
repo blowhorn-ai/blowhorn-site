@@ -80,13 +80,8 @@ AVATAR_HOSTS = {
     "cdn.bsky.app",
     "avatars.slack-edge.com",
     "ca.slack-edge.com",
-    "secure.gravatar.com",
-    "www.gravatar.com",
-    "gravatar.com",
-    "lh3.googleusercontent.com",
     "styles.redditmedia.com",
     "www.redditstatic.com",
-    "cloud.layer5.io",
     "cloud.blowhorn.ai",
 }
 AVATAR_SOURCE = Path(__file__).resolve().parents[2] / "assets" / "js" / "activity-feed.js"

@@ -265,7 +265,7 @@ test("paint uses textContent and a hardened profile link", () => {
   assert.equal(link.attrs.href, "https://example.com/profile");
   assert.equal(link.attrs.rel, "noopener noreferrer nofollow");
   assert.equal(link.attrs.target, "_blank");
-  assert.equal(link.attrs["aria-label"], "View Solo founder's public profile");
+  assert.equal(link.attrs["aria-label"], "View profile of Solo founder");
   assert.equal(view.name.textContent, "Solo founder");
   assert.equal(view.name.tag, "span");
   assert.equal(view.root.querySelector("[data-activity-name-link]"), null);
@@ -837,4 +837,43 @@ test("an organization that is the account itself is not repeated after the name"
   paintActivity(view.root, item({ displayName: "Layer5", organizationName: "layer5" }), { example: false });
   assert.equal(view.name.textContent, "Layer5");
   assert.equal(view.org.textContent, "");
+});
+
+test("a TTL refresh keeps the shown item and the rotation's running interval", async () => {
+  const view = card();
+  let clock = 0;
+  let seq = 0;
+  const timers = new Map();
+  const flush = () => new Promise((resolve) => setImmediate(resolve));
+  const rows = Array.from({ length: 6 }, (_, n) => item({ id: EID(n + 1), line: `Example: row number ${n}` }));
+  const base = await createFeedSource({ transport: null, fallback: payload(rows) }).load();
+  let loads = 0;
+  const mounted = mountActivityFeed(view.root, {
+    intervalMs: 8000,
+    matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
+    setTimer(fn, ms) {
+      const handle = ++seq;
+      timers.set(handle, { at: clock + ms, fn });
+      return handle;
+    },
+    clearTimer(handle) { timers.delete(handle); },
+    source: { load: async () => { loads += 1; return { items: base.items, ttlMs: 30000 }; } },
+  });
+  await mounted.ready;
+  const shownRow = () => Number(/row number (\d)/.exec(view.line.textContent)[1]);
+  const seen = [shownRow()];
+  for (let t = 500; t <= 48000; t += 500) {
+    clock = t;
+    for (const [handle, timer] of [...timers].sort((a, b) => a[1].at - b[1].at)) {
+      if (timer.at > clock || !timers.has(handle)) continue;
+      timers.delete(handle);
+      timer.fn();
+    }
+    await flush();
+    await flush();
+    if (shownRow() !== seen[seen.length - 1]) seen.push(shownRow());
+  }
+  assert.equal(loads, 2);
+  assert.deepEqual(seen, [0, 1, 2, 3, 4, 5]);
+  mounted.destroy();
 });

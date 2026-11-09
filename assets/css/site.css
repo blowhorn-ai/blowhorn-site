@@ -3244,10 +3244,21 @@ a.card.docs-card > * { margin-top: 0; }
 .af-monogram {
   display: grid; place-items: center; width: 100%; height: 100%;
   color: #FFFFFF; font-weight: 600; font-size: calc(var(--af-avatar) * 0.36); letter-spacing: 0.02em;
-  background: linear-gradient(135deg, hsl(var(--af-hue, 170) 68% 46%), hsl(calc(var(--af-hue, 170) + 36) 72% 34%));
+  background: linear-gradient(135deg, hsl(var(--af-hue, 170) 68% var(--af-l1, 30%)), hsl(calc(var(--af-hue, 170) + 36) 72% var(--af-l2, 30%)));
 }
 /* Twelve monogram hues, one per userId step (monogramHue). */
-.af-hue-0 { --af-hue: 0; } .af-hue-1 { --af-hue: 30; } .af-hue-2 { --af-hue: 60; } .af-hue-3 { --af-hue: 90; } .af-hue-4 { --af-hue: 120; } .af-hue-5 { --af-hue: 150; } .af-hue-6 { --af-hue: 180; } .af-hue-7 { --af-hue: 210; } .af-hue-8 { --af-hue: 240; } .af-hue-9 { --af-hue: 270; } .af-hue-10 { --af-hue: 300; } .af-hue-11 { --af-hue: 330; }
+.af-hue-0 { --af-hue: 0; --af-l1: 46%; --af-l2: 34%; }
+.af-hue-1 { --af-hue: 30; --af-l1: 39%; --af-l2: 27%; }
+.af-hue-2 { --af-hue: 60; --af-l1: 27%; --af-l2: 29%; }
+.af-hue-3 { --af-hue: 90; --af-l1: 29%; --af-l2: 30%; }
+.af-hue-4 { --af-hue: 120; --af-l1: 31%; --af-l2: 29%; }
+.af-hue-5 { --af-hue: 150; --af-l1: 30%; --af-l2: 31%; }
+.af-hue-6 { --af-hue: 180; --af-l1: 29%; --af-l2: 34%; }
+.af-hue-7 { --af-hue: 210; --af-l1: 46%; --af-l2: 34%; }
+.af-hue-8 { --af-hue: 240; --af-l1: 46%; --af-l2: 34%; }
+.af-hue-9 { --af-hue: 270; --af-l1: 46%; --af-l2: 34%; }
+.af-hue-10 { --af-hue: 300; --af-l1: 46%; --af-l2: 34%; }
+.af-hue-11 { --af-hue: 330; --af-l1: 46%; --af-l2: 34%; }
 .af-avatar-img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .af-platform-badge {
   position: absolute; right: -4px; bottom: -4px; display: grid; place-items: center;

@@ -353,7 +353,7 @@ export function createFeedSource(options = {}) {
 }
 
 export function createRotation(options = {}) {
-  const count = options.count || 0;
+  let count = options.count || 0;
   const intervalMs = options.intervalMs ?? INTERVAL_MS;
   const isReduced = options.isReduced ?? (() => false);
   const isHidden = options.isHidden ?? (() => false);
@@ -424,6 +424,12 @@ export function createRotation(options = {}) {
     prev() {
       return step(-1, true);
     },
+    // A refreshed list: keep the running interval when autoplay can still run.
+    sync(nextCount, nextIndex) {
+      count = nextCount || 0;
+      index = count ? Math.min(Math.max(nextIndex || 0, 0), count - 1) : 0;
+      if (timer == null || !canRun()) arm();
+    },
     destroy() {
       destroyed = true;
       clear();
@@ -452,13 +458,8 @@ export const AVATAR_HOSTS = Object.freeze([
   "cdn.bsky.app",
   "avatars.slack-edge.com",
   "ca.slack-edge.com",
-  "secure.gravatar.com",
-  "www.gravatar.com",
-  "gravatar.com",
-  "lh3.googleusercontent.com",
   "styles.redditmedia.com",
   "www.redditstatic.com",
-  "cloud.layer5.io",
   "cloud.blowhorn.ai",
 ]);
 const AVATAR_HOST_SET = new Set(AVATAR_HOSTS);
@@ -674,7 +675,7 @@ export function paintActivity(root, item, flags = {}) {
   link.setAttribute("href", href);
   link.setAttribute("rel", "noopener noreferrer nofollow");
   link.setAttribute("target", "_blank");
-  link.setAttribute("aria-label", `View ${name}'s public profile`);
+  link.setAttribute("aria-label", `View profile of ${name}`);
   linkSlot.hidden = false;
 }
 
@@ -909,12 +910,21 @@ export function mountActivityFeed(root, options = {}) {
   }
 
   function showResult(result) {
+    const shown = rotation ? items[rotation.index] : null;
     items = result.items || [];
-    if (!items.length) paintEmpty(root);
-    else show(0, false);
-    syncNav();
-    root.classList.add("is-ready");
-    armRotation();
+    // A refresh keeps the shown item, repainted in place, and the rotation's timer.
+    const kept = shown ? items.findIndex((entry) => entry.id === shown.id) : -1;
+    if (kept >= 0) {
+      show(kept, false);
+      syncNav();
+      rotation.sync(items.length, kept);
+    } else {
+      if (!items.length) paintEmpty(root);
+      else show(0, false);
+      syncNav();
+      root.classList.add("is-ready");
+      armRotation();
+    }
     clearTtl();
     if (destroyed || !result.ttlMs) return;
     ttlTimer = setTimer(() => {
