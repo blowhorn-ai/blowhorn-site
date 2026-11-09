@@ -347,6 +347,10 @@ test("monogram hue and initials are deterministic", () => {
   assert.equal(monogramHue(""), 0);
   assert.equal(initials("Open source maintainer"), "OS");
   assert.equal(initials("Agency"), "A");
+  assert.equal(initials("@ada"), "A");
+  assert.equal(initials("@ada.bsky.social"), "A");
+  assert.equal(initials("- Ada"), "A");
+  assert.equal(initials("@"), "");
   assert.equal(initials(""), "");
 });
 
@@ -895,6 +899,7 @@ test("a handle shows next to a displayName, stands in for a missing one, and a b
   const handleOnly = sanitizeItem(item({ handle: "ada.bsky.social" }));
   paintActivity(view.root, { ...handleOnly, example: false }, { example: false });
   assert.equal(view.name.textContent, "@ada.bsky.social");
+  assert.equal(view.monogram.textContent, "A");
   assert.equal(view.handle.hidden, true);
 
   const roleOnly = sanitizeItem(item({ handle: "two words<script>" }));
