@@ -1312,10 +1312,10 @@ html[data-theme="signal"] #platforms .logo-tile img[src*="github-invertocat-blac
   .home-signal #teams .section-head { grid-column: 1; grid-row: 1; }
   .home-signal #teams .activity-feed-slot {
     grid-column: 2;
-    grid-row: 1 / -1;
+    grid-row: 1;
   }
   .home-signal #teams .teams-layout > .grid,
   .home-signal #teams .teams-layout > .section-body {
-    grid-column: 1;
+    grid-column: 1 / -1;
   }
 }
