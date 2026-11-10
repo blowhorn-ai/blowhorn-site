@@ -520,7 +520,7 @@ the same way:
 | setting | Blowhorn's tab |
 | --- | --- |
 | `side_tab` (the default) | an inactive tab right after the tab you are on, in your window |
-| `own_window` | the selected tab of one window of Blowhorn's own, opened without focus in Chrome's normal window state at the size of the window you used last and 56 px to its right, so it sits mostly behind yours with an edge showing. It holds its own Blowhorn tab group, collapsed or open as above. Blowhorn reuses it for every run until you close it or Chrome quits, and makes a new one after you close it; it never closes it itself |
+| `own_window` | the selected tab of one window of Blowhorn's own, opened without focus in Chrome's normal window state at the size of the window you used last and 56 px to its right, so it sits mostly behind yours with an edge showing. It holds its own Blowhorn tab group, collapsed or open as above. Blowhorn closes it when a run ends, unless you put a tab of your own in it or Blowhorn is waiting for you in it, and makes a new one for the next run. If you close it first, it makes a new one too |
 
 Either way nothing takes focus, your selected tab stays selected, and focus
 emulation is on as the extension mode says. The window is never minimized,
