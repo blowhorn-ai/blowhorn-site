@@ -389,8 +389,12 @@ check-no-internal: site-build
 test-activity-feed:
 	node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test assets/js/activity-feed.test.mjs
 
-## Run the unit tests for the check scripts in .github/scripts/, then the hero activity feed tests.
-test-scripts: test-internal-worker test-activity-feed
+## Unit tests for the download page's Windows waitlist form (node:test, no extra dependencies).
+test-download:
+	node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test assets/js/download.test.mjs
+
+## Run the unit tests for the check scripts in .github/scripts/, then the hero activity feed and download page tests.
+test-scripts: test-internal-worker test-activity-feed test-download
 	python3 -m unittest discover -s .github/scripts -p 'test_*.py'
 
 ## Lint this repo's GitHub Actions workflows with actionlint.
@@ -571,6 +575,7 @@ clean:
 	site-internal-verify \
 	test-internal-worker \
 	test-activity-feed \
+	test-download \
 	preview-internal \
 	check-blowhorn \
 	test-scripts \
