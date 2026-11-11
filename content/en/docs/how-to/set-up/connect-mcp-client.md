@@ -674,7 +674,7 @@ creating one. Create it in Blowhorn Cloud:
 3. Enter a **Token Name** that says where the token is used, such as
    `grok-bot-mcp`, and a **Token Purpose**, then click **Create**. The
    new token appears in the list.
-4. In that token's row, click the **Download** icon. Your browser saves
+4. In that token's row, click the **Download** icon. The download saves
    a file named `token_<id>.json`.
 5. Open the file. The value of its `"token"` field is the API token.
    Give a client that value, and nothing else, where it asks for the
