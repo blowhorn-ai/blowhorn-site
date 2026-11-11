@@ -631,7 +631,7 @@ authorization server, and rewrites Cloud's `401` `WWW-Authenticate` so
 `resource_metadata` points at this origin.
 
 Connect today with a Blowhorn API token as `Authorization: Bearer <token>`.
-Create one on the Tokens page in Blowhorn Cloud; the steps are in
+Create one on the Tokens page of your Blowhorn account; the steps are in
 [Get a Blowhorn API token](/docs/how-to/set-up/connect-mcp-client/#get-a-blowhorn-api-token). The
 Blowhorn desktop app has no screen for creating one.
 Standards-following MCP OAuth clients can discover the authorization server

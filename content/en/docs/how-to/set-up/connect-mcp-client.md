@@ -588,7 +588,8 @@ on the Mac where Blowhorn runs, such as [Claude Code](#claude-code)
 or [Grok Build](#grok).
 
 You need an API token for your Blowhorn account. The Blowhorn app
-has no screen for one; create it in Blowhorn Cloud, as
+has no screen for one; create it on your Blowhorn account's web
+page, as
 [Get a Blowhorn API token](#get-a-blowhorn-api-token) shows.
 
 1. In a chat with your bot, ask it to add the server. Say "custom",
@@ -665,7 +666,7 @@ send a token. The rest of this page covers the local server.
 
 The hosted gateway needs an API token for your Blowhorn account; the
 local server does not. The Blowhorn desktop app has no screen for
-creating one. Create it in Blowhorn Cloud:
+creating one. Create it on your Blowhorn account's web page:
 
 1. Open [cloud.blowhorn.ai/security/tokens](https://cloud.blowhorn.ai/security/tokens)
    and sign in with your Blowhorn account. This is the **Tokens** tab
