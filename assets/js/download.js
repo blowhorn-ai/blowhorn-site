@@ -143,11 +143,12 @@
 // Windows notify signup on the coming-soon card: the button gives way to
 // the waitlist form (topic "windows", stored separately from the newsletter
 // list), and submitting it posts JSON to the signup service and shows an
-// inline result, mirroring assets/js/signup.js. Without JavaScript, or
-// without fetch, the toggle stays hidden and the form stays visible: it
-// posts to the service, which redirects to a thanks page. An invalid
-// address is caught by the browser's own validation, and a failed
-// submission leaves the entered address in place.
+// inline result, mirroring assets/js/signup.js. After a successful signup
+// only the confirmation stays. Without JavaScript, or without fetch, the
+// toggle stays hidden and the form stays visible: it posts to the service,
+// which redirects to a thanks page. An invalid address is caught by the
+// browser's own validation, and a failed submission leaves the form and
+// the entered address in place.
 (function () {
   "use strict";
 
@@ -186,7 +187,13 @@
       .then(function (pair) {
         if (pair.res.ok && pair.body.ok) {
           form.reset();
-          status.textContent = "You are on the list. We will email you when Blowhorn for Windows is ready.";
+          // The field and button go away, so focus moves to the
+          // confirmation instead of being lost with them.
+          form.querySelectorAll(".newsletter-row, .caption").forEach(function (node) {
+            node.hidden = true;
+          });
+          status.textContent = "You are on the list! We will email you when Blowhorn for Windows is ready.";
+          status.focus();
         } else {
           status.textContent = (pair.body && pair.body.error) || "Something went wrong. Please try again.";
         }
