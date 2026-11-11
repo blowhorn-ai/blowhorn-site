@@ -140,8 +140,8 @@
     });
 })();
 
-// Windows notify signup on the coming-soon card: the button reveals the
-// waitlist form (topic "windows", stored separately from the newsletter
+// Windows notify signup on the coming-soon card: the button gives way to
+// the waitlist form (topic "windows", stored separately from the newsletter
 // list), and submitting it posts JSON to the signup service and shows an
 // inline result, mirroring assets/js/signup.js. Without JavaScript, or
 // without fetch, the toggle stays hidden and the form stays visible: it
@@ -161,10 +161,9 @@
   toggle.hidden = false;
   form.hidden = true;
   toggle.addEventListener("click", function () {
-    var open = form.hidden;
-    form.hidden = !open;
-    toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    if (open && email) {
+    toggle.hidden = true;
+    form.hidden = false;
+    if (email) {
       email.focus();
     }
   });
