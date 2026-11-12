@@ -51,7 +51,9 @@ Content screen runs the same verb from the approve control beside a
 waiting activity - the app's calls run as the person at it, so the
 record is the same either way. The record names the approver's signed-in
 identity from the cloud session cache when there is one, else the local
-user name, with the time. The record is a record, not a claim: no payload
+user name, with the time. The desktop app shows an email there as the
+display name of the profile whose person has that email, and shows no name
+when no profile matches; the stored record is unchanged. The record is a record, not a claim: no payload
 can set it, editing an approved activity keeps it, un-approving an
 activity clears it, and approving an already-approved or missing activity
 is refused. An agent-signalled caller is refused by the command itself,

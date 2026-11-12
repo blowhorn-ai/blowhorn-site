@@ -459,6 +459,20 @@ it applies (`upgrading from <old> to <new>`), and logs `updated from
 <old> to <new>` when Chrome reports the update installed, in its service
 worker's console.
 
+### A copied Chrome profile
+
+A copied Chrome profile carries the same storage, so the nonce the
+extension keeps in IndexedDB is found in more than one profile
+directory. The host never guesses which copy asked: `chrome_profile`
+is null when the nonce is in none or several, and from host protocol 5
+the `host_status` answer also says why, in `chrome_profile_reason`
+(`not_found`, or `found_in_several_profiles`). On the several answer
+the extension rotates its nonce, so each copy becomes unique on the
+next ask, and the host answers the same nonce from a short cache while
+the rotation lands. The side panel explains instead of offering a
+mapping link it cannot act on: "This Chrome profile looks like a copy
+of another one. Blowhorn is giving it its own identity."
+
 ## What a site sees: the user agent by driver
 
 Your own user agent, on every driver. The extension and attach drivers
@@ -673,7 +687,8 @@ when it needs the extension it ensures it on demand, as
 `blowhorn chrome extension-install` describes.
 
 `--json` also carries `profile_states`: one item per Chrome profile
-directory (`Default` and `Profile N` with a `Preferences` file), each
+directory with a `Preferences` file (`Default`, `Profile N`, and
+Blowhorn's own `Blowhorn` and `Blowhorn N`), each
 `{profile, state, version}`, read from the same two files. `state` is:
 
 - `enabled` - the extension is in that profile and turned on.
@@ -944,6 +959,15 @@ per-platform choices with it, so an account it had marked not in use is
 not skipped for a different profile later mapped to the same Chrome
 profile; a Chrome profile recorded not in use as a whole stays recorded
 that way, because that mark is about the Chrome profile itself.
+`profile status --chrome --json` reports the refusal on each platform as
+`in_use`: `false` for a recorded refusal (a run on this computer skips the
+account, whatever its connection says), `true` otherwise, and `null` when
+Chrome was not read, the profile maps to no Chrome profile here, or the
+record could not be read. The desktop
+shows it as one note beside the account on Profiles and on the Browser tab
+("Turned off on this computer, so runs skip it."). Nothing clears a refusal but
+switching the account on again: a connection made another way never re-enables
+an account a person turned off.
 Omitting `in_use` applies only the attached activities, as
 an older document does. `chrome discover` reports `in_use` on the profile
 and on each platform, so the next confirm screen can start a recorded
