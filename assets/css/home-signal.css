@@ -1001,7 +1001,7 @@ html[data-theme="signal"] #platforms .logo-tile img[src*="github-invertocat-blac
 .constellation-ctl { z-index: 1; margin-top: var(--space-4); }
 /* The platforms clip (platforms-clip.html): one framed loop under the section
    head; its Pause motion reuses the constellation button. */
-.plat-clip { max-width: 960px; margin: var(--space-8) auto 0; text-align: center; }
+.plat-clip { max-width: 960px; margin: var(--space-8) auto var(--space-4); text-align: center; }
 .plat-clip-video {
   width: 100%;
   height: auto;
