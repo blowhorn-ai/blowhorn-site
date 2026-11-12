@@ -622,7 +622,7 @@ startup:
 
 Until Cloud answers on `mcp.blowhorn.ai` itself, an interim transport proxy
 runs at `https://mcp.blowhorn.ai/mcp` (`hosted/` in blowhorn-ai/blowhorn-mcp).
-It forwards each MCP request to Blowhorn's `/mcp` and Cloud's answer
+It forwards each MCP request to Cloud's `/mcp` and Cloud's answer
 back. Cloud owns the tools, token checks and activity events. The Worker
 serves RFC 9728 protected-resource metadata locally (both
 `/.well-known/oauth-protected-resource` and
