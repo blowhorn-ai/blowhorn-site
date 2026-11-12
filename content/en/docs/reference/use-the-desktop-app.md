@@ -83,7 +83,14 @@ nothing animates.
 1. **Dispatch to** - press one or more platform tiles (LinkedIn, X, Reddit,
    Bluesky, Slack, GitHub), each showing that platform's mark in its own
    colour; a picked tile lifts and rings in that colour. Press again to drop
-   one. Then **Orders that fit**: **Compose a dispatch** (a post), **Answer the
+   one. A platform one of your chosen desks has no connected account on shows
+   faded and can't be picked: point at it and it reads **Connect** and the
+   platform's name. Pressing it keeps your order as a draft and opens that
+   desk's profile window on the **Browser** tab, at that platform. Once the
+   account is connected, the order comes back with the platform picked; close
+   the window without connecting and the order comes back as you left it. If
+   you add a desk that lacks a platform you already picked, that platform is
+   dropped and its tile connects the new desk. Then **Orders that fit**: **Compose a dispatch** (a post), **Answer the
    line** (a reply to a link) or **Rally the troops** (amplify a link). Only
    the orders every picked platform takes are offered; with GitHub picked, that
    is Rally alone. Each order has an info button on its top-right corner, shown when you point at the order: its tip says what the order
@@ -166,9 +173,15 @@ like cards, the message's length (never its words), what landed, and when it
 goes: a field watch shows a set time, and a jump light stands for **On my mark**. When a picked platform has a character limit on record, the message's length carries a meter with a tick at the tightest such limit, and says by how much it runs over. On a narrow window the folded summaries say the same. The line above the
 buttons says what is still missing, or when the order goes out.
 
-**Deploy** (it names the count, for example **Deploy 4**; a single post is just
-**Deploy**) adds one post to the queue for each platform and desk, with the same
-words, link, media and time. The steps fold away and the debrief takes the window: **Orders deployed**, one
+The primary button, **Post now** for **On my mark** or **Schedule** for a set
+time (its tooltip gives the platforms x desks count), adds one post to the queue
+for each platform and desk, with the same words, link, media and time. When
+[approval mode](/docs/reference/configuration/#approval-mode) is `all`, a post order's
+**Post now** reads **Send for approval** and the line above the buttons says
+**Waits for approval**, because even your own posts wait for approval then;
+**On my mark** reads **On my mark - waits for approval**, and the debrief says
+**waiting for approval** where it would say **now** (or **waiting for approval,
+then** the set time). An action order keeps **Post now** and goes out now. The steps fold away and the debrief takes the window: **Orders deployed**, one
 row per platform with how many were queued and when, and "link pending" until
 Blowhorn reads each post's own link back - never a guess. **Debrief** opens
 Performance filtered to just the posts this order wrote: a **these dispatches**
