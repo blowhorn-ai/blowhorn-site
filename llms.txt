@@ -120,6 +120,7 @@
 - [API reference](https://blowhorn.ai/docs/reference/api/index.md): The operations Blowhorn defines, with their request fields and responses.
 - [Explanation](https://blowhorn.ai/docs/explanation/index.md): Understand why: context and trade-offs, no procedures.
 
+- [Content item contract](https://blowhorn.ai/docs/reference/content-item-contract/index.md): What a content item carries: row number, fingerprint, rules of engagement, and thread identity.
 - [Choose your rules of engagement](https://blowhorn.ai/docs/how-to/settings/choose-your-rules-of-engagement/index.md): Your pace. Your risk. Your call. What Safety on, Weapons tight and Weapons free change in your day, and which one to pick.
 - [Connect an assistant and send your first post](https://blowhorn.ai/docs/tutorials/first-mcp-connection/index.md): Add the Blowhorn MCP server to Claude Desktop, read your profiles and queue, and queue a post that waits for your approval.
 - [Install the app](https://blowhorn.ai/docs/how-to/set-up/install-the-app/index.md): Download the signed Mac app from blowhorn.ai and verify it.
@@ -146,7 +147,7 @@
 - [Post to Reddit and Bluesky](https://blowhorn.ai/docs/how-to/publish/post-to-reddit-and-bluesky/index.md): Queue Reddit posts and Bluesky posts, threads, and reposts.
 - [blowhorn config](https://blowhorn.ai/docs/reference/cli/config/index.md): blowhorn config: get, path, set, show.
 - [blowhorn content](https://blowhorn.ai/docs/reference/cli/content/index.md): blowhorn content: approve, delete, get, list, posts, upsert.
-- [blowhorn desktop](https://blowhorn.ai/docs/reference/cli/desktop/index.md): blowhorn desktop: build, install, start, status.
+- [blowhorn desktop](https://blowhorn.ai/docs/reference/cli/desktop/index.md): blowhorn desktop: activity-kinds, build, install, start, status.
 - [blowhorn find](https://blowhorn.ai/docs/reference/cli/find/index.md): Search Bluesky and GitHub for posts, issues, and pull requests matching a query, with optional date, author, and relevancy filters.
 - [blowhorn follow](https://blowhorn.ai/docs/reference/cli/follow/index.md): Follow accounts on X, Bluesky, or GitHub.
 - [Post to Hacker News](https://blowhorn.ai/docs/how-to/publish/post-to-hacker-news/index.md): Submit links and text posts, comment, and stay within the daily cap.

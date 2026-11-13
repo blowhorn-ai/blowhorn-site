@@ -344,7 +344,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b06d3f88e2b9c70e18e61307bd39ad76.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c50bf662616a7cd9ad89e6cafd024164.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -513,7 +513,9 @@
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsreference-li">
     <div class="td-sidebar-row"><a href="/docs/reference/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference"><span class="">Reference</span></a><button type="button" class="td-sidebar-fold" aria-expanded="true" aria-controls="m-docsreference-ul"><span class="visually-hidden">Reference</span></button></div>
     <ul class="ul-2 foldable" id="m-docsreference-ul">
-      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-item-contract-li">
+    <a href="/docs/reference/content-item-contract/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-item-contract"><span class="">Content item contract</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
     <a href="/docs/reference/requirements/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencerequirements"><span class="">System requirements</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-desktop-app-li">
     <a href="/docs/reference/use-the-desktop-app/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-desktop-app"><span class="">The Blowhorn app, screen by screen</span></a>
@@ -753,6 +755,8 @@ starter set. <code>blowhorn schedule trigger-now</code> forces one activity to r
 immediately instead of waiting for the pass. A Risk Profile hold, including
 while a profile is warming up, keeps that run from starting until you confirm
 or pass <code>--ignore-risk</code>. A limit the platform publishes still applies.</p>
+<h2 id="param-values">Param values</h2><p>A param whose type the activity catalog fixes is refused when it does not parse, with the same wording on every surface. An integer param (<code>limit</code>, <code>lookback</code>, <code>older_than</code>, <code>sample</code>) must be a whole number, and a boolean param (<code>headless</code>, <code>headed</code>, <code>verbose</code>, <code>apply</code>, and the reconcile flag) must be true or false (<code>1</code>, <code>true</code>, <code>yes</code>, <code>on</code>, <code>y</code>, and their false counterparts). <code>blowhorn schedule upsert</code>, the MCP <code>schedule_upsert</code> tool, and the desktop editor all refuse the write, so a typo like <code>limit=2o</code> never stores a silent 0. An activity already stored with such a value loads as invalid: the pass skips it, and <code>schedule list</code> and <code>schedule why</code> name the bad param, until a corrected upsert replaces it. An empty param value is absent, and the run takes the flag's default.</p>
+<p>A new write must also carry every param the activity catalog marks required for its command (<code>follow</code> needs <code>target</code>, for example). <code>blowhorn schedule upsert</code>, the MCP <code>schedule_upsert</code> tool, and the desktop editor refuse a write without one in the same words, for example <code>Missing param “target” for command “follow”: an unattended run cannot do without it</code>, because a scheduled run has no one to ask and would fail every time. The rule applies to new writes only: an activity stored before it still loads and runs.</p>
 <h2 id="recurrence">Recurrence</h2>
 <div class="table-scroll" tabindex="0" role="group" aria-label="Table">
 <table>
@@ -873,7 +877,7 @@ exactly what they said.</p>
 </ul>
 
   <div class="td-page-meta__lastmod">
-  Last modified November 6, 2026
+  Last modified November 13, 2026
 </div>
 </div><ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li><a href="/docs/reference/content-queue/" aria-label="Previous - Content queue columns and activity states" class="btn btn-primary"><span class="me-1">←</span>Previous</a></li>
@@ -904,6 +908,7 @@ exactly what they said.</p>
     <nav id="TableOfContents" aria-label="On this page">
   <ul>
     <li><a href="#the-activity">The activity</a></li>
+    <li><a href="#param-values">Param values</a></li>
     <li><a href="#recurrence">Recurrence</a></li>
     <li><a href="#driver-mode">Driver mode</a></li>
     <li><a href="#risk-profile">Risk Profile</a></li>

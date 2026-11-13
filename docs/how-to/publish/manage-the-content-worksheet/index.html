@@ -344,7 +344,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b06d3f88e2b9c70e18e61307bd39ad76.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c50bf662616a7cd9ad89e6cafd024164.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -513,7 +513,9 @@
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsreference-li">
     <div class="td-sidebar-row"><a href="/docs/reference/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference"><span class="">Reference</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docsreference-ul"><span class="visually-hidden">Reference</span></button></div>
     <ul class="ul-2 foldable" id="m-docsreference-ul" hidden>
-      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-item-contract-li">
+    <a href="/docs/reference/content-item-contract/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-item-contract"><span class="">Content item contract</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
     <a href="/docs/reference/requirements/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencerequirements"><span class="">System requirements</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-desktop-app-li">
     <a href="/docs/reference/use-the-desktop-app/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-desktop-app"><span class="">The Blowhorn app, screen by screen</span></a>
@@ -774,6 +776,7 @@ then clear <code>Date Promoted</code> to try it again.</li>
 a warning.</li>
 <li><code>unsupported</code>: a <code>Platform</code> <code>blowhorn post</code> cannot publish to.</li>
 </ul>
+<h2 id="threads">Threads</h2><p>Activities that answer one another show as one thread under Activity › Upcoming: the root first, then its replies in order, under a <code>thread · N</code> line you can expand and collapse. Opening any part of a thread shows the whole chain in its editor, root first, with the open post marked. A thread is created root first from the command line; see <a href="/docs/reference/content-item-contract/">Content item contract</a>.</p>
 <h2 id="approve-a-waiting-activity">Approve a waiting activity</h2><p>An activity whose <code>Approved?</code> is not <code>yes</code> waits, and no run picks it up.
 In the app it reads <strong>waiting for approval</strong>, with an <strong>approve</strong> control
 beside it in the list and in its editor. Approving is a person's act: the
@@ -857,7 +860,7 @@ means and what a run writes back.</li>
 </ul>
 
   <div class="td-page-meta__lastmod">
-  Last modified November 3, 2026
+  Last modified November 13, 2026
 </div>
 </div><ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li><a href="/docs/how-to/publish/post-content/" aria-label="Previous - Post content" class="btn btn-primary"><span class="me-1">←</span>Previous</a></li>
@@ -889,6 +892,7 @@ means and what a run writes back.</li>
   <ul>
     <li><a href="#the-columns-a-run-reads">The columns a run reads</a></li>
     <li><a href="#activity-states">Activity states</a></li>
+    <li><a href="#threads">Threads</a></li>
     <li><a href="#approve-a-waiting-activity">Approve a waiting activity</a></li>
     <li><a href="#from-the-command-line">From the command line</a></li>
     <li><a href="#capture-a-page-from-the-browser">Capture a page from the browser</a></li>

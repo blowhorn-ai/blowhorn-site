@@ -344,7 +344,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b06d3f88e2b9c70e18e61307bd39ad76.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c50bf662616a7cd9ad89e6cafd024164.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -513,7 +513,9 @@
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsreference-li">
     <div class="td-sidebar-row"><a href="/docs/reference/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference"><span class="">Reference</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docsreference-ul"><span class="visually-hidden">Reference</span></button></div>
     <ul class="ul-2 foldable" id="m-docsreference-ul" hidden>
-      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-item-contract-li">
+    <a href="/docs/reference/content-item-contract/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-item-contract"><span class="">Content item contract</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
     <a href="/docs/reference/requirements/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencerequirements"><span class="">System requirements</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-desktop-app-li">
     <a href="/docs/reference/use-the-desktop-app/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-desktop-app"><span class="">The Blowhorn app, screen by screen</span></a>
@@ -745,8 +747,11 @@ field: LinkedIn's sign-in is the person's own Chrome session.
 Chrome profile confirm mapped.</li>
 <li><strong>New activity:</strong> <code>blowhorn schedule destinations</code> reports no blog set up
 for the local organization, and the picker offers no organization
-blog action. The unit tests cover an organization that has one.</li>
-<li><strong>Next run:</strong> saving a daily Accept LinkedIn invitations from that picker
+blog action. The unit tests cover an organization that has one. It offers
+only platforms with a connected account: Slack, and LinkedIn with the
+planted cookie; without it the tile reads <strong>Connect LinkedIn</strong>.</li>
+<li><strong>Next run:</strong> without the planted cookie, the walk first connects a
+LinkedIn account in the local Cloud. Saving a daily Accept LinkedIn invitations from that picker
 stores one enabled routine in the local Cloud, and <strong>Activity &gt; Routines</strong>
 lists it with its next run at the time the step typed. Home names no next run. The rail's status line
 never shows a countdown: it says what this computer is doing, and otherwise it
@@ -863,7 +868,7 @@ It never downloads or falls back to another browser. The check also sets
 throwaway home and does not write the login keychain.</p>
 
   <div class="td-page-meta__lastmod">
-  Last modified November 7, 2026
+  Last modified November 13, 2026
 </div>
 </div><ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li><a href="/docs/how-to/set-up/finish-setup/" aria-label="Previous - Finish setup on this computer" class="btn btn-primary"><span class="me-1">←</span>Previous</a></li>

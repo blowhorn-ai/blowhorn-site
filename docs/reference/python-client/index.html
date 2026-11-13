@@ -344,7 +344,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b06d3f88e2b9c70e18e61307bd39ad76.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c50bf662616a7cd9ad89e6cafd024164.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -513,7 +513,9 @@
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsreference-li">
     <div class="td-sidebar-row"><a href="/docs/reference/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference"><span class="">Reference</span></a><button type="button" class="td-sidebar-fold" aria-expanded="true" aria-controls="m-docsreference-ul"><span class="visually-hidden">Reference</span></button></div>
     <ul class="ul-2 foldable" id="m-docsreference-ul">
-      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-item-contract-li">
+    <a href="/docs/reference/content-item-contract/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-item-contract"><span class="">Content item contract</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
     <a href="/docs/reference/requirements/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencerequirements"><span class="">System requirements</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-desktop-app-li">
     <a href="/docs/reference/use-the-desktop-app/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-desktop-app"><span class="">The Blowhorn app, screen by screen</span></a>
@@ -726,7 +728,7 @@ the CLI's OpenAPI document (<code>schemas/</code>), not hand-written.</p>
 </span></span><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">ConfigShowResponse</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">stdout</span><span class="p">))</span></span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
-<h2 id="what-it-covers">What it covers</h2><p>Every operation in the OpenAPI bundle: 121 commands, each as one
+<h2 id="what-it-covers">What it covers</h2><p>Every operation in the OpenAPI bundle: 122 commands, each as one
 function under <code>blowhorn_schemas.api.&lt;group&gt;.&lt;command&gt;</code>, with the
 request and response models under <code>blowhorn_schemas.models</code>. The
 operations are shaped like the CLI, not like an HTTP service: each
@@ -769,7 +771,7 @@ account, including the OpenAPI 3.2 to 3.1 generator-input gap, is in
 <code>python/generated/README.md</code>.</p>
 
   <div class="td-page-meta__lastmod">
-  Last modified November 6, 2026
+  Last modified November 13, 2026
 </div>
 </div><ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li><a href="/docs/reference/mcp-server/" aria-label="Previous - MCP server" class="btn btn-primary"><span class="me-1">←</span>Previous</a></li>

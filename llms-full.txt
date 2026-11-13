@@ -1598,7 +1598,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn comment`](/docs/reference/cli/comment/) | Post LinkedIn, Reddit, or Bluesky comments from scheduled activities or ad-hoc target/message flags. |
 | [`blowhorn config`](/docs/reference/cli/config/) | blowhorn config: get, path, set, show. |
 | [`blowhorn content`](/docs/reference/cli/content/) | blowhorn content: approve, delete, get, list, posts, upsert. |
-| [`blowhorn desktop`](/docs/reference/cli/desktop/) | blowhorn desktop: build, install, start, status. |
+| [`blowhorn desktop`](/docs/reference/cli/desktop/) | blowhorn desktop: activity-kinds, build, install, start, status. |
 | [`blowhorn find`](/docs/reference/cli/find/) | Search Bluesky and GitHub for posts, issues, and pull requests matching a query, with optional date, author, and relevancy filters. |
 | [`blowhorn follow`](/docs/reference/cli/follow/) | Follow accounts on X, Bluesky, or GitHub. |
 | [`blowhorn github`](/docs/reference/cli/github/) | blowhorn github: squatters. |
@@ -2036,6 +2036,55 @@ description: Understand why: context and trade-offs, no procedures.
 Explanations give the reasoning behind Blowhorn's behaviour: how a post travels from the queue to the platforms, where your data lives, who may post as whom, why Blowhorn uses your own browser, how it paces itself, how it avoids repeat posts, how scheduling works, what runs when the app is closed, what the analytics numbers mean, and how an AI assistant stays inside your rules over MCP.
 
 Read these to build judgment. When you want to act, follow a [how-to guide](/docs/how-to/) instead.
+
+
+--------------------------------------------------------------------------------
+title: "Content item contract"
+url: https://blowhorn.ai/docs/reference/content-item-contract/index.md
+description: What a content item carries: row number, fingerprint, rules of engagement, and thread identity.
+--------------------------------------------------------------------------------
+
+A content item is what the owning service persists for one queued post, and what `blowhorn content list`, `content get`, and `content posts` read back. This page is the contract the generated code references: the TypeScript `ContentItem` type, the `ContentThread` schema, and the CLI reference all point here, so a change to the item's shape starts here.
+
+## Row number and fingerprint
+
+Each item carries a row number, unique across the live content items of the organization, assigned by the server on insert. Each item also carries a fingerprint: a hex digest the server computes over the item's canonical values (`data`, `profile`, `rowNumber` and, when set, `rulesOfEngagement` and `mediaAssetIds`), typed so null, empty string, zero, and false differ. An item without those fields hashes exactly as it did before they existed.
+
+Updates are conditional on the fingerprint the writer read: `content upsert --activity N --expected-fingerprint <fingerprint>` is refused when the fingerprint no longer matches, so a stale write is refused rather than silently applied.
+
+## Rules of engagement
+
+An item may carry its own rules of engagement, which can only tighten.
+
+## Threads
+
+A thread is one chain of content items under one root: the root, then its replies in order. Threads do not nest, and deleting an item leaves the references to it in place. A reply names its parent by item id, which no column holds: the thread identity sits beside the item's values, not in them.
+
+- The root carries no thread fields at all. It is the `threadId` its replies name, and it counts as position 0.
+- A reply names the root item as `threadId`, the item it answers directly as `replyToId`, and its position from 1 as `threadIndex`.
+- The three fields are set on insert only. They are not part of the fingerprint.
+
+Writing a chain:
+
+- Upsert accepts a thread identity on create only (`blowhorn content upsert --thread-id <root id> --reply-to-id <parent id> --thread-index <n>`). `threadIndex` is required exactly when `threadId` is given and is at least 1; `replyToId` requires `threadId`.
+- A field named in both spellings (`threadId` and `thread_id`, and the same for the other two) with different values is refused too, so a caller typo cannot silently win; the same value in both spellings is accepted.
+- An update carrying thread fields is refused unless they equal what is already stored.
+- A chain is written root first: the root's upsert returns the id its replies name as `threadId`.
+
+Reading a chain:
+
+- `content list`, `content get`, and `content posts` JSON carry a `thread` key beside `values` (`item_id`, `thread_id`, `reply_to_id`, `thread_index`; the last three are null on an item that carries no thread). A payload from a backend that does not project the fields yet omits the `thread` key, and the item then reads as a standalone item. A job names no post, so `schedule list` is unchanged.
+- When the desktop reads items back, it checks only `id`, `profile`, `rowNumber`, `fingerprint`, and `data`, and allows every other field.
+- The desktop Activity screen groups each thread under its root: an indented chain with a `thread · N` line, expand and collapse, and the whole chain in the open post's editor. A standalone item with no id keys its group by activity number, so empty ids never collapse rows into one group.
+
+## The Cloud gate
+
+Cloud does not serve the thread fields yet. Until it lands, no live insert carries them: the caller that writes a chain is the desktop radio net Deploy, which stays disabled until then. The fake store round-trips the fields, so the write and read paths are exercised hermetically, and the test fake refuses a thread-field change on update with a 409, as production refuses it.
+
+Two rules stand whatever Cloud serves:
+
+- A thread part's link is recorded only once read back. The parent relation never stands in for a link.
+- Hacker News never joins a coordinated thread. X and Bluesky split one activity's text at post time, so a split thread's parts are not separate content items and carry no thread fields.
 
 
 --------------------------------------------------------------------------------
@@ -2719,7 +2768,7 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   [Map Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/).
 - **Getting ready:** Blowhorn finds your Chrome profiles, then says what it
   installs - the Chrome extension in the profiles you marked in use, plus a
-  helper, the `blowhorn` command and the `blowhorn-mcp` server for the whole
+  helper, the `blowhorn`, `blowhorn-axi` and `blowhorn-mcp` commands for the whole
   computer - and waits for your **Continue** before writing anything. It
   adds its extension only to the profiles you marked in use on Confirm
   troops, one at a time: Chrome opens Blowhorn's page in each, and you click
@@ -2982,8 +3031,11 @@ After setup, both walks also check the console a new person sees:
   Chrome profile confirm mapped.
 - **New activity:** `blowhorn schedule destinations` reports no blog set up
   for the local organization, and the picker offers no organization
-  blog action. The unit tests cover an organization that has one.
-- **Next run:** saving a daily Accept LinkedIn invitations from that picker
+  blog action. The unit tests cover an organization that has one. It offers
+  only platforms with a connected account: Slack, and LinkedIn with the
+  planted cookie; without it the tile reads **Connect LinkedIn**.
+- **Next run:** without the planted cookie, the walk first connects a
+  LinkedIn account in the local Cloud. Saving a daily Accept LinkedIn invitations from that picker
   stores one enabled routine in the local Cloud, and **Activity > Routines**
   lists it with its next run at the time the step typed. Home names no next run. The rail's status line
   never shows a countdown: it says what this computer is doing, and otherwise it
@@ -3118,7 +3170,10 @@ and waits for your **Continue**:
   `~/.local/bin`: `blowhorn` (the CLI), `blowhorn-axi` and `blowhorn-mcp`.
   `blowhorn-mcp` starts the MCP server that comes inside the app when an AI
   assistant asks for it; nothing runs in the background. These belong to the
-  whole computer, not to a Chrome profile. The app writes none of them
+  whole computer, not to a Chrome profile. When Chrome is set to use a
+  custom data directory, the same helper is also written under that
+  directory's `NativeMessagingHosts`, because a Chrome run with a custom
+  data directory reads only its own folder. The app writes none of them
   before you choose Continue; once they exist it keeps them current on each
   launch.
 - **In Google Chrome:** the Blowhorn extension, only in the profiles you
@@ -3909,8 +3964,8 @@ command in any entry on this page for `npx` with the arguments
 On a client's command line, the same swap is `-- npx -y blowhorn-mcp`.
 It still needs the Blowhorn app installed and opened once.
 
-To pin the launcher, add its version: `npx -y blowhorn-mcp@1.0.0`. The
-latest is 1.0.0. To check that the package you run is the one listed,
+To pin the launcher, add its version, for example `npx -y blowhorn-mcp@1.0.2`.
+To check that the package you run is the one listed,
 run these two commands, which print the npm version and the registry entry:
 
 ```sh
@@ -4880,6 +4935,10 @@ rules that make an activity pending for a post run:
 - `invalid`: a `Promote On` that will not parse. A post run skips it with
   a warning.
 - `unsupported`: a `Platform` `blowhorn post` cannot publish to.
+
+## Threads
+
+Activities that answer one another show as one thread under Activity › Upcoming: the root first, then its replies in order, under a `thread · N` line you can expand and collapse. Opening any part of a thread shows the whole chain in its editor, root first, with the open post marked. A thread is created root first from the command line; see [Content item contract](/docs/reference/content-item-contract/).
 
 ## Approve a waiting activity
 
@@ -6168,7 +6227,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn chrome extension-mode
 
-Show or set how runs drive the Blowhorn Chrome extension. background is the default. Both modes open Blowhorn's tab inactive beside the tab you are on (or in its own window with `--window` own-window), in a Blowhorn group that is collapsed by default, and take a screenshot through the debugger without selecting the tab. Nothing brings the tab forward. classic keeps focus emulation on only while an action holds the debugger and sends input through the page. background turns focus emulation on from the first page and sends trusted input. With no MODE it reports the mode a run started now would use and where it comes from: the `BLOWHORN_EXTENSION_ROLLBACK` override, your Blowhorn account setting, or the background default. A job whose driver mode is extension-classic or extension-background outranks the account setting for that job. Setting MODE writes extensionMode to your account's Blowhorn preferences in your Blowhorn account (sign in first with `blowhorn auth login`); default clears it. `--group` collapsed or open writes chromeGroup the same way: how the Blowhorn tab group sits beside your tabs between steps. Collapsed is the default. `--window` side-tab or own-window writes chromeWindow the same way: where Blowhorn works. side-tab is an inactive tab beside your tabs, the default. own-window is one window of its own, mostly behind yours with an edge showing, opened without focus and reused for the browser session; on a Mac keep that edge showing, since a window fully covered, minimized, hidden or on another desktop reads like a background tab. `--json` emits the report as one object, for a script or the desktop app.
+Show or set how runs drive the Blowhorn Chrome extension. background is the default. Both modes open Blowhorn's tab inactive beside the tab you are on (or in its own window with `--window` own-window), in a Blowhorn group that is collapsed by default, and take a screenshot through the debugger without selecting the tab. Nothing brings the tab forward. classic keeps focus emulation on only while an action holds the debugger and sends input through the page. background turns focus emulation on from the first page and sends trusted input. With no MODE it reports the mode a run started now would use and where it comes from: the `BLOWHORN_EXTENSION_ROLLBACK` override, your Blowhorn account setting, or the background default. A job whose driver mode is extension-classic or extension-background outranks the account setting for that job. Setting MODE writes extensionMode to your account's Blowhorn preferences in your Blowhorn account (sign in first with `blowhorn auth login`); default clears it. `--group` collapsed or open writes chromeGroup the same way: how the Blowhorn tab group sits beside your tabs between steps. Collapsed is the default. `--window` side-tab or own-window writes chromeWindow the same way: where Blowhorn works. side-tab is an inactive tab beside your tabs, the default. own-window is one window of its own, mostly behind yours with an edge showing, opened without focus and closed when a run ends; on a Mac keep that edge showing, since a window fully covered, minimized, hidden or on another desktop reads like a background tab. `--json` emits the report as one object, for a script or the desktop app.
 
 ```text
 blowhorn chrome extension-mode [OPTIONS] [MODE]
@@ -6951,6 +7010,9 @@ blowhorn content upsert [OPTIONS]
 | `--payload` | string |  | JSON object of Content column: value pairs in the queue's own column names, for example `{"Platform":"x","Profile":"company","Message Text":"hello","Approved?":"yes"}` |
 | `--activity` | integer |  | Activity number to update in place; omit to create a new activity |
 | `--expected-fingerprint` | string |  | Refuse the write if the post's fingerprint (from `content get` or `content list`) no longer matches |
+| `--thread-id` | string |  | Thread this new activity joins, as the root item's id (the id a root's upsert returned) |
+| `--reply-to-id` | string |  | Item this new activity answers directly, by item id; needs `--thread-id` |
+| `--thread-index` | integer |  | Position of this new activity in its thread, counting from 1 (the root carries no thread fields and counts as 0); needs `--thread-id` |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
 | `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content upsert` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -6973,7 +7035,7 @@ Output: json with `--json`, text otherwise.
 --------------------------------------------------------------------------------
 title: "blowhorn desktop"
 url: https://blowhorn.ai/docs/reference/cli/desktop/index.md
-description: blowhorn desktop: build, install, start, status.
+description: blowhorn desktop: activity-kinds, build, install, start, status.
 --------------------------------------------------------------------------------
 
 <!-- Generated by release/scripts/cli_reference/build.py from schemas/dist/openapi.yaml. Do not edit; run `make cli-reference`. -->
@@ -6982,10 +7044,37 @@ The `blowhorn desktop` commands. Each one's `--help` prints the same text.
 
 | Command | What it does |
 | --- | --- |
+| [`desktop activity-kinds`](#blowhorn-desktop-activity-kinds) | List the activity kinds (command and platform) this organization has ever run, from the run ledger in the store. |
 | [`desktop build`](#blowhorn-desktop-build) | Package the Electron desktop app as an ad-hoc-signed universal macOS build. |
 | [`desktop install`](#blowhorn-desktop-install) | Install the Electron desktop app dependencies with pnpm (pnpm install `--frozen-lockfile`). |
 | [`desktop start`](#blowhorn-desktop-start) | Launch the Electron desktop app through pnpm dev; refuse when one is already running. |
 | [`desktop status`](#blowhorn-desktop-status) | Show whether desktop dependencies and packaged output are present. |
+
+## blowhorn desktop activity-kinds
+
+List the activity kinds (command and platform) this organization has ever run, from the run ledger in the store: one read of the organization's run records, reduced to the distinct pairs, so the desktop app can tell what has been tried on any computer, not just this one. An organization with no recorded runs -- or a store that cannot be reached -- answers an empty list, not an error, so the desktop falls back to this computer's own ledger unchanged.
+
+```text
+blowhorn desktop activity-kinds [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--platform` | string |  | Accepted and ignored by `blowhorn desktop`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn desktop activity-kinds` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn desktop activity-kinds` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn desktop activity-kinds --json
+blowhorn desktop activity-kinds
+```
+
+Output: json with `--json`, text otherwise.
 
 ## blowhorn desktop build
 
@@ -10184,7 +10273,7 @@ page, open the routine after adding it and change its page.
 Open a job (click it, or focus it and press Enter) and its details appear in a
 dialog, a box over the screen. Open its **What**, **When** or **Rules** row to
 change it in place, or choose **Do it now** to run it without waiting for its
-time. The pill beside its title puts it **On hold** or back **In effect**. With "dry fire" on, a run rehearses the routine and claims nothing. When the account is not connected, the preview says the activity is blocked and why, in the same words a real run would meet.
+time. The pill beside its title puts it **On hold** or back **In effect**. The title bar's **On watch** / **Off watch** switch is that routine's own duty hold. With "dry fire" on, a run rehearses the routine and claims nothing. When the account is not connected, the preview says the activity is blocked and why, in the same words a real run would meet.
 
 ## From the command line
 
@@ -10388,10 +10477,14 @@ touches your account. In the app every scope is one duty switch, reading
   the card shows who took it off duty, when and why, and this computer's row is
   held until the fleet is back on duty.
 - **This order** (`--activity N`) - the duty switch on the item's row in the
-  Routines list or on its calendar chip, reading **On duty** or **Off duty**.
-  While it is held, the item's details (click the item and it opens in a
-  dialog, a box over the screen) show who held it, when and why where the
-  **When** row opens, with **Resume**.
+  Routines list or on its calendar chip, reading **On duty** or **Off duty**,
+  and the same hold in the item's details as **On watch** or **Off watch**.
+  Off watch opens an optional reason under the switch: **Save** sends the
+  reason, **Skip** sends none, and Escape sends nothing. Clicking away keeps
+  the reason open and sends nothing. If the hold cannot be written, the reason
+  stays so you can press Save or Skip again. While it is held, the item's
+  details (click the item and it opens in a dialog, a box over the screen)
+  show who held it, when and why where the **When** row opens, with **Resume**.
 
 There is no switch for another computer: take leave on that computer from
 its own Blowhorn app, or take leave for the whole fleet.
@@ -11305,8 +11398,8 @@ tab of its own. Your Blowhorn account has one setting for where that tab lives:
   on, in the Blowhorn tab group.
 - **In its own window, mostly behind yours.** One window of Blowhorn's own, the same size
   as the window you used last and a little to its right, so an edge of it shows,
-  opened without taking focus. Your window stays in front, your tab stays selected, and Blowhorn keeps reusing the
-  same window until you close it or Chrome quits. Its tab sits in its own
+  opened without taking focus. Your window stays in front, your tab stays selected, and Blowhorn closes the
+  window when a run ends, unless you put a tab of your own in it or it is waiting for you. Its tab sits in its own
   Blowhorn tab group.
 
 On a Mac, a page in a tab you are not looking at reads its window size as zero,
@@ -12258,6 +12351,8 @@ present`, `not unregistered` or `failed`:
    running.
 2. **The Chrome native host.** The manifest under Chrome's
    `NativeMessagingHosts`, the launcher and the bridge socket beside it.
+   When the install wrote a second copy of the manifest for a custom Chrome
+   data directory, that copy is removed too.
 3. **The every-profile install entries.** The external-extensions file and
    Blowhorn's own entry in the managed policy, removed with the same
    administrator prompt that wrote them; other keys in that file stay.
@@ -12949,7 +13044,14 @@ nothing animates.
 1. **Dispatch to** - press one or more platform tiles (LinkedIn, X, Reddit,
    Bluesky, Slack, GitHub), each showing that platform's mark in its own
    colour; a picked tile lifts and rings in that colour. Press again to drop
-   one. Then **Orders that fit**: **Compose a dispatch** (a post), **Answer the
+   one. A platform one of your chosen desks has no connected account on shows
+   faded and can't be picked: point at it and it reads **Connect** and the
+   platform's name. Pressing it keeps your order as a draft and opens that
+   desk's profile window on the **Browser** tab, at that platform. Once the
+   account is connected, the order comes back with the platform picked; close
+   the window without connecting and the order comes back as you left it. If
+   you add a desk that lacks a platform you already picked, that platform is
+   dropped and its tile connects the new desk. Then **Orders that fit**: **Compose a dispatch** (a post), **Answer the
    line** (a reply to a link) or **Rally the troops** (amplify a link). Only
    the orders every picked platform takes are offered; with GitHub picked, that
    is Rally alone. Each order has an info button on its top-right corner, shown when you point at the order: its tip says what the order
@@ -13032,9 +13134,15 @@ like cards, the message's length (never its words), what landed, and when it
 goes: a field watch shows a set time, and a jump light stands for **On my mark**. When a picked platform has a character limit on record, the message's length carries a meter with a tick at the tightest such limit, and says by how much it runs over. On a narrow window the folded summaries say the same. The line above the
 buttons says what is still missing, or when the order goes out.
 
-**Deploy** (it names the count, for example **Deploy 4**; a single post is just
-**Deploy**) adds one post to the queue for each platform and desk, with the same
-words, link, media and time. The steps fold away and the debrief takes the window: **Orders deployed**, one
+The primary button, **Post now** for **On my mark** or **Schedule** for a set
+time (its tooltip gives the platforms x desks count), adds one post to the queue
+for each platform and desk, with the same words, link, media and time. When
+[approval mode](/docs/reference/configuration/#approval-mode) is `all`, a post order's
+**Post now** reads **Send for approval** and the line above the buttons says
+**Waits for approval**, because even your own posts wait for approval then;
+**On my mark** reads **On my mark - waits for approval**, and the debrief says
+**waiting for approval** where it would say **now** (or **waiting for approval,
+then** the set time). An action order keeps **Post now** and goes out now. The steps fold away and the debrief takes the window: **Orders deployed**, one
 row per platform with how many were queued and when, and "link pending" until
 Blowhorn reads each post's own link back - never a guess. **Debrief** opens
 Performance filtered to just the posts this order wrote: a **these dispatches**
@@ -13078,9 +13186,17 @@ plays a short call from the sound family picked in Settings under **Sound genre*
 blog still shows and runs. Activity is
 one place. **Filters** opens a drawer: time (Past and Upcoming, each on or off),
 recurrence (Any, Once or Recurring), status and a date range. Each applied
-filter shows once as a chip beside Filters. **List** and **Calendar** choose
-how that same set is shown. Day, week and month appear only while Calendar
-is selected. A deep link or a visit from Home seeds the filters (for example
+value shows once, as a removable pill under **Applied filters** at the top of
+the drawer; the header shows no pills, only a quiet "2 filters applied" beside
+Filters. **Reset** in the drawer clears the whole set, and the footer shows how
+many activities match, with **Close** and **Done**. Past and upcoming are two
+sides of one timeline, and recurrence and status are filters, not places.
+**List** and **Calendar** show the same filtered activities: the calendar puts
+routines at their times and posts at their **Promote On** date, and counts any
+post with no date as "not on the calendar" rather than dropping it. Opening a
+post from the calendar opens the same post dialog the list opens. Day, week and
+month only change the calendar's scale, and appear only while Calendar is
+selected. A deep link or a visit from Home seeds the filters (for example
 Past only for History); clicking Activity again on the rail keeps what you set.
 Past on with Upcoming off shows History in List or Calendar, because Calendar
 has no run events yet. Posture holds every rules-of-engagement choice
@@ -13091,10 +13207,15 @@ computer: **On duty**, or **Off duty** while it is held. Its position and
 colour show the state, and it never names the action. Press it (or ⌘⇧P) to change
 it; it never touches the fleet. Under the fleet's leave alone it reads
 **Off duty** and is held: the fleet's switch on Home's Fleet card is the one
-that changes it. When the service is stopped, not installed or turned off in
-System Settings it still reads **On duty**, and a line above it gives the reason
-and opens This computer; the same line says when a check is late or when the
-fleet's state can't be read. Hover the switch for the next scheduled run (for
+that changes it. When the background service can't run on this computer -
+stopped, not registered, turned off in System Settings, exiting as soon as it
+starts, or not running with no check made lately - the switch still reads
+**On duty**, and a line above it with a red light says **Blowhorn service is
+not running on this computer**. Nothing scheduled goes out until the service
+runs again. Click the line to open This computer, which says why and offers
+the fix where there is one. With a yellow light, the same line says when the
+service runs but no check has been made lately, when the fleet's state can't be
+read, or that only the installed app keeps this computer on duty. Hover the switch for the next scheduled run (for
 example "Next: Post on X, tomorrow at 9:00 AM") or when the leave began. When the service runs from another copy of
 Blowhorn (a dev checkout, or a moved or older app), the line above the switch
 says so, and This computer names that copy in one sentence with its one fix,
@@ -13140,12 +13261,12 @@ activity, is locked. Once you are signed in, the account button stays usable. Se
 |---|---|---|
 | Home (two tabs: **Today** and **Resources**) | Today: whether Blowhorn is working and whether it needs you, but never what runs next: an activity's next run is on Activity with Recurring selected, and the rail's duty toggle names the next one on hover; the Fleet card: computers known (this one and every other computer that has run here or reported lately), how many are on duty or off duty, fleet holds, who took the fleet off duty and why, this computer's row, and a row for each other computer saying **On duty**, **Off duty** or **Last pass failed** from the last pass its background service reported, or **Not reporting** when it has reported nothing in the last half hour; a computer that is not reporting is never counted on duty, and the card says **2 of 3 reporting** while any one is not; "Your draft was saved" once after setup, until you dismiss it or leave Home; beside them your results, and one card with **Recent activity** and **What went wrong** (it opens on what went wrong while something failed). Resources: ideas worth a try, the latest from Blowhorn - each piece labelled with its column, From the Desk of the General, From Boot Camp or From the Field - and the tips as a taught sequence: the next tip you have not seen yet, with its video, one at a time; opening a tip or choosing **Another tip** moves you on, a tip you have seen never comes back, and when you have seen them all the card says so and points to Resources. A newer release is offered on a card at the top of the results column, **Update to Blowhorn** and the version | the entire fleet's switch, which opens an optional reason with **Save** (takes leave with the reason) and **Skip** (takes leave with none) buttons (Escape closes it and takes nothing), or this computer's switch, on the Fleet card; open This computer from this computer's row; reconnect a signed-out account from the **Needs you** section at the top of Today: one full-row button per signed-out account, its platform's mark and **Reconnect** (naming the profile, **Reconnect @handle**, only where two signed-out accounts share a platform), which signs that account in again and reads **Reconnecting…** while it runs, and the **?** beside the title says which computer they are signed out on and how many scheduled posts wait (a Bluesky app password or a GitHub token opens Profiles instead); a sign-in that does not finish leaves the row with a note underneath saying so; open an item's details from a row in **Recent activity** or **What went wrong**; start the update from its card (Blowhorn restarts to finish); **Connect an account** opens a step for your own profile: each platform, how to sign in to it in your Google Chrome profile, and **Check again**, with connected ones ticked; finish setting up |
 | Activity, posts | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones, each with when it goes out: its own time, "next run" when the next run would take it, "not scheduled" when nothing will send it (a draft, or a post that needs you), and "-" once it has gone out; an opened post shows its result: delivery per profile and platform, reception where it was collected, and the follower change since. With recurrence left on Any, the schedule's routines follow below the posts, each labelled by what it does; a routine names no post, so clicking one opens that routine's details | Click a post to open it in a dialog (a box over the screen), or add one; edit it there; clearing a clicked post's "Date Promoted" queues it again |
-| Activity, routines | Your routines as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the service to take them up; a dialog for one item, opened by clicking it in the list or on the calendar; a chooser of sample routines, each one ticked on only once its platform is connected. Calendar is the presentation toggle; day, week and month show only then | Add an item with the **+** button or by clicking a free time (**Schedule** saves it); move an item's next time by dragging it; edit one item in place in its dialog (its changes save as you make them); put it **On hold** or back **In effect** from the state pill beside its title; switch its duty hold from the duty switch on its row or its calendar chip; **Do it now** or **Delete** it from its dialog; turn **dry fire** on in the header to rehearse up to the final click and post nothing (the dry run, `--dry-run`); add the sample routines you tick |
-| Activity, history | Everything Blowhorn did, newest first, reached with Past on and Upcoming off, with each one's detailed log under the log directory's `scheduler/` folder; clicking a run opens it in a dialog over the full-width list: when it started, how it ended and why it stopped, and the log and its file behind **more details**. A post's own result (delivery, reception, the follower change) is in its details on Activity, not on the run | open a run; "try again" on a failure |
-| Profiles | Every profile, its accounts and their state, and the Google Chrome profiles on this computer each one uses. Clicking a profile opens its window over the list: the header says what Blowhorn does for the person and what needs you, and three tabs hold the rest. **Accounts** lists each connected account, and an account that needs you reads **Reconnect**. **Browser** lists the Google Chrome profiles on this computer beside the accounts in the one you pick; each is switched on or off for Blowhorn, and **Discover** finds signed-in sessions again. **About** holds the name, the description, who the profile is for, and delete. Nothing has a Save button: switches and fields save as you change them | Add a profile (in its own form); reconnect an account on **Accounts**; on **Browser**, turn a Google Chrome profile on or off, set up an account, or add a token or app password; change the name, description or who it is for, or delete the profile, on **About**; **check all profiles** on the list |
+| Activity, routines | Your routines as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the service to take them up; a dialog for one item, opened by clicking it in the list or on the calendar; a chooser of sample routines, each one ticked on only once its platform is connected. Calendar is the presentation toggle; day, week and month show only then | Add an item with the **+** button or by clicking a free time (**Schedule** saves it); move an item's next time by dragging it; edit one item in place in its dialog (its changes save as you make them); put it **On hold** or back **In effect** from the state pill beside its title; switch its duty hold from **On watch** / **Off watch** in the details' title bar (Off watch opens an optional reason: **Save** holds it with the reason, **Skip** holds it with none, Escape holds nothing) or from the duty switch on its row or its calendar chip; **Do it now** or **Delete** it from its dialog; turn **dry fire** on in the header to rehearse up to the final click and post nothing (the dry run, `--dry-run`); add the sample routines you tick |
+| Activity, history | Everything Blowhorn did, newest first, reached with Past on and Upcoming off, with each one's detailed log under the log directory's `scheduler/` folder; clicking a run opens it in a dialog over the full-width list, one column with no tabs: what ran, when, how it ended and why it stopped, and the log behind one **Show the log** row that opens in place (it opens by itself while the run is live). The time row says **Started** only when a start was recorded; otherwise it says **Log updated** with the log file's time and "start not recorded". A post's own result (delivery, reception, the follower change) is in its details on Activity, not on the run | open a run; "try again" on a failure |
+| Profiles | Every profile, its accounts and their state, and the Google Chrome profiles on this computer each one uses. Clicking a profile opens its window over the list: the header says what Blowhorn does for the person and what needs you, and three tabs hold the rest. **Accounts** lists each connected account, and an account that needs you reads **Reconnect**. **Browser** lists the Google Chrome profiles on this computer beside the accounts in the one you pick; each is switched on or off for Blowhorn. An account the profile already has reads the same statement here as on **Accounts** (for example **Expired · re-authenticate**, with a **Sign in** button), with what Chrome shows for it on a gray line beneath; **Set up** appears only for an account the profile does not have, and **Discover** finds signed-in sessions again. **About** holds the name, the description, who the profile is for, and delete. Nothing has a Save button: switches and fields save as you change them | Add a profile (in its own form); reconnect an account on **Accounts**; on **Browser**, turn a Google Chrome profile on or off, set up an account, or add a token or app password; change the name, description or who it is for, or delete the profile, on **About**; **check all profiles** on the list |
 | Performance | Followers, growth, and activity per profile; collection freshness in the header. Under the filters, three tabs that all read them: **Activity** (runs by platform, activity per profile), **History** (the figures, followers over time, new versus unfollowed per month) and **Report** (your LinkedIn pages and the health of each profile and page) | Collect now; open the HTML report |
 | Posture (three tabs: **Rules**, **Limits**, **Protection**; the fleet's Take leave and stop sit on the tabs' line) | Rules: the rules of engagement for everyone (the slider across the card: Safety on, Weapons tight or Weapons free; beside Everyone, Custom when a limit is set outside the preset), which choice wins, one grid of every profile on every platform with where each cell's choice comes from. Limits, one row per section: by platform (pace, daily caps as sliders, and how runs overlap), speed and amount (spacing, outreach, how much runs at once), when and who says yes (quiet hours, approval, dry fire), typing, and pointer timing; each row opens its settings in a window. Protection, one row per section: what happens when a platform pushes back, what the last check held back, where your sign-ins live and what Blowhorn will never do | Move the slider; choose a preset for one platform for every profile, one profile on every platform, or one cell, or reset any of them to inherit; reset them to the preset; each limit saves as you change it; take leave or stop every computer; run a held activity once with **Do it anyway**; turn the sign-in check, the needs-you note, dry fire by default and failure reports on or off (while dry fire is on, Approve and every duty switch, a routine's own included, each say so in one line, because nothing was approved or changed) |
-| This computer (from Home's computer row, or the rail's reason line) | **Status:** whether this computer is on duty and, when it is not, the one sentence on what is wrong; one **This computer** card with the background service's state and who registered it (in red when it is anything but this app), the last pass, the engine's version, and the Blowhorn extension in each Google Chrome profile (on, with its version, or not added); the schedule card counts the activities it checked (**5 scheduled**). When the service keeps exiting, its Service row names the likely cause in one line, with **See how to fix it**, which opens Troubleshooting. **Troubleshooting:** while the service keeps exiting, a card at the top says why, from the service's own log: the likely cause, what to do, the last line it logged and the error code for support; then who registered the service, its process, how it last exited, its command, the logs folder, the versions, and the service log's last lines | Its one fix under the banner: "register the service" when the service is not registered or runs from another copy of Blowhorn, "start the service" when it is registered but not running, "open Login Items" when it is turned off in System Settings (only those states offer one); when it keeps exiting, **See how to fix it** on the Status tab, then each step in the Troubleshooting card that Blowhorn can take is its button (**Register the service**, **Update Blowhorn**, **Open service log**, **Contact support**), and after one the card says whether the service now runs or still exits; **Open log** and **Show in Finder** for the service log and the logs folder; "check now" (with "dry fire" to rehearse up to the final click, posting nothing); "take leave for the fleet", and the fleet's switch while the fleet holds |
+| This computer (from Home's computer row, or the rail's reason line) | **Status:** whether this computer is on duty and, when it is not, the one sentence on what is wrong (in red when the background service can't run); one **This computer** card with the background service's state and who registered it (in red when it is anything but this app), the last pass, the engine's version, and the Blowhorn extension in each Google Chrome profile (on, with its version, or not added); the schedule card counts the activities it checked (**5 scheduled**). When the service keeps exiting, its Service row names the likely cause in one line, with **See how to fix it**, which opens Troubleshooting. **Troubleshooting:** while the service keeps exiting, a card at the top says why, from the service's own log: the likely cause, what to do, the last line it logged and the error code for support; then who registered the service, its process, how it last exited, its command, the logs folder, the versions, and the service log's last lines | Its one fix under the banner: "register the service" when the service is not registered or runs from another copy of Blowhorn, "start the service" when it is registered but not running, "open Login Items" when it is turned off in System Settings (only those states offer one); when it keeps exiting, **See how to fix it** on the Status tab, then each step in the Troubleshooting card that Blowhorn can take is its button (**Register the service**, **Update Blowhorn**, **Open service log**, **Contact support**), and after one the card says whether the service now runs or still exits; **Open log** and **Show in Finder** for the service log and the logs folder; "check now" (with "dry fire" to rehearse up to the final click, posting nothing); "take leave for the fleet", and the fleet's switch while the fleet holds |
 | Settings (from the account menu; its pages are listed in the left rail under the places while it is open) | **General**: appearance (theme, material, spacing), notifications (system notifications, Major Blowhorn, Sounds) and usage sharing. **Background & updates**: startup, keeping this computer on duty after quit, the pause shortcut, the update channel, uninstall. **Setup**: setup and the guided setup, the extension card. **Advanced**: app paths and the engine defaults Posture does not hold, rendered from the CLI's own option list | Change defaults, check the extension, choose its mode; run setup again or quit or uninstall; **Posture** for pace, limits, and approval. Your account is not in Settings: the account menu holds **Your account and plan**, **Switch organization** and **Sign out** |
 
 The routines list keeps every value on one line, and it has the whole width of
@@ -13161,7 +13282,7 @@ previous and next at its foot.
 Clicking a routine, in the list or on the calendar, opens its details in a
 dialog (a box over the screen), all on one page with no tabs. Its title band
 shows the platform's mark, what it does and who for, and beside it the state
-pill: **In effect**, or **On hold** while the routine is turned off. Click the
+pill: **In effect**, or **On hold** while the routine is turned off. At the title bar's right, **On watch** while the routine's own duty hold is off, or **Off watch** while that hold stands, with the close **X** to the right of the switch. Choosing **Off watch** opens an optional reason under the switch: **Save** holds the routine with the reason, **Skip** holds it with none, and Escape closes the reason and holds nothing. Choosing **On watch** lifts the hold. Click the
 pill for **Hold** or **Resume**; while that saves, the pill says
 **Holding…** or **Resuming…**. Below are four rows, each with a short summary,
 that open in place when you click them, one at a time:
@@ -13181,10 +13302,10 @@ that open in place when you click them, one at a time:
   troubleshooting facts (the exact call, the driver, the retries, the lock
   and the edit check) folded under it.
 
-The footer holds **Close** on the left and **Do it now** on the right; Do it
-now says **Going out…** while it runs. Esc, **Close** or a click outside
-closes the dialog, and focus goes back to the item you clicked. A post's or a
-run's dialog shows its own facts, with the rest behind **more details**.
+The footer holds **Do it now** on the right; Do it
+now says **Going out…** while it runs. Esc, the title bar's **X**, or a click outside
+closes the dialog, and focus goes back to the item you clicked. A post's dialog is one column with no tabs: the message, then **Where** (platform and profile) and **When** (the time it goes out) rows that open in place; once it has gone out, **Result** takes the top row (how many profiles it reached, with its time; it opens to delivery, reception and followers) and **Where** follows. Everything else sits behind one **More details** row (**Fewer details** when open): targets, links, the other columns, what happened, and **Delete post**. An empty column is not drawn as an empty box: one quiet line says, for example, "GDrive Link and Video URL are empty", and clicking a name brings that field back. The footer has **Close** on the left and, on the right, **Approve** (**Hold back** once approved) or, after it went out, **View on** the platform when the app can open its link (any other link shows as text you can copy in the **Result** row). Edits save as you make them, and **Saved** sits beside the state. A
+run's dialog shows its facts and one **Show the log** row.
 A routine or post on Home, a routine under Activity's posts and a row in the
 menu-bar popover open the same dialog over its own screen; a run on Home opens
 its run dialog where you are.
@@ -13201,7 +13322,7 @@ The Upcoming list has the full width of the screen, so each post's preview is
 on screen at the default window size. Clicking a post opens it in a dialog, a
 box over the screen, with its words, when it goes out, whether it is approved,
 and what came of it; **New order** opens the same dialog on a new entry.
-The columns nobody reads daily sit behind **more details**. If you typed
+The columns nobody reads daily sit behind **More details**. If you typed
 something and close the dialog, it asks before it throws your changes away.
 
 The Routines view opens on the week calendar and remembers the layout you
@@ -13408,7 +13529,9 @@ Content screen runs the same verb from the approve control beside a
 waiting activity - the app's calls run as the person at it, so the
 record is the same either way. The record names the approver's signed-in
 identity from the cloud session cache when there is one, else the local
-user name, with the time. The record is a record, not a claim: no payload
+user name, with the time. The desktop app shows an email there as the
+display name of the profile whose person has that email, and shows no name
+when no profile matches; the stored record is unchanged. The record is a record, not a claim: no payload
 can set it, editing an approved activity keeps it, un-approving an
 activity clears it, and approving an already-approved or missing activity
 is refused. An agent-signalled caller is refused by the command itself,
@@ -13429,6 +13552,10 @@ in every mode: approval is a person's act.
 
 Clearing an unread activity's "Date Promoted" tries the activity again. Neither a
 retry nor a drop is a run's to decide: the run records, you decide.
+
+## Threads
+
+Activities that answer one another form a thread: one root, then its replies in order. The Activity screen groups each thread under its root, with a `thread · N` line you can expand and collapse. The root carries no thread fields; a reply names the root, the activity it answers, and its position from 1. The fields are set when the activity is created and never change afterwards. See [Content item contract](/docs/reference/content-item-contract/).
 
 ## Related
 
@@ -13482,6 +13609,12 @@ starter set. `blowhorn schedule trigger-now` forces one activity to run
 immediately instead of waiting for the pass. A Risk Profile hold, including
 while a profile is warming up, keeps that run from starting until you confirm
 or pass `--ignore-risk`. A limit the platform publishes still applies.
+
+## Param values
+
+A param whose type the activity catalog fixes is refused when it does not parse, with the same wording on every surface. An integer param (`limit`, `lookback`, `older_than`, `sample`) must be a whole number, and a boolean param (`headless`, `headed`, `verbose`, `apply`, and the reconcile flag) must be true or false (`1`, `true`, `yes`, `on`, `y`, and their false counterparts). `blowhorn schedule upsert`, the MCP `schedule_upsert` tool, and the desktop editor all refuse the write, so a typo like `limit=2o` never stores a silent 0. An activity already stored with such a value loads as invalid: the pass skips it, and `schedule list` and `schedule why` name the bad param, until a corrected upsert replaces it. An empty param value is absent, and the run takes the flag's default.
+
+A new write must also carry every param the activity catalog marks required for its command (`follow` needs `target`, for example). `blowhorn schedule upsert`, the MCP `schedule_upsert` tool, and the desktop editor refuse a write without one in the same words, for example `Missing param “target” for command “follow”: an unattended run cannot do without it`, because a scheduled run has no one to ask and would fail every time. The rule applies to new writes only: an activity stored before it still loads and runs.
 
 ## Recurrence
 
@@ -13856,7 +13989,7 @@ environment variables.
 | `defaults.pointer_click_hold_min_ms`, `defaults.pointer_click_hold_max_ms`, `defaults.pointer_key_dwell_min_ms`, `defaults.pointer_key_dwell_max_ms`, `defaults.pointer_hover_pause_min_ms`, `defaults.pointer_hover_pause_max_ms` | `BLOWHORN_POINTER_CLICK_HOLD_MIN_MS`, `BLOWHORN_POINTER_CLICK_HOLD_MAX_MS`, `BLOWHORN_POINTER_KEY_DWELL_MIN_MS`, `BLOWHORN_POINTER_KEY_DWELL_MAX_MS`, `BLOWHORN_POINTER_HOVER_PAUSE_MIN_MS`, `BLOWHORN_POINTER_HOVER_PAUSE_MAX_MS` | 40, 140, 25, 90, 50, 250 | How long a click stays held, how long a key stays pressed, and the pause after the pointer arrives before a click, all in milliseconds (see below) |
 | `defaults.logs.directory` | `BLOWHORN_LOG_DIR` | `data/logs/` in the checkout | Where daily logs go |
 | `defaults.logs.retention_days` | `BLOWHORN_LOG_RETENTION_DAYS` | 30 | Days of daily logs kept; 0 keeps all |
-| `defaults.diagnostics.enabled` | `BLOWHORN_DIAGNOSTICS_ENABLED` | on | Queue and send anonymous failure reports (see [Failure reports](/docs/explanation/your-data/#failure-reports)); off means nothing is queued or sent, and the desktop Settings row is the same choice |
+| `defaults.diagnostics.enabled` | `BLOWHORN_DIAGNOSTICS_ENABLED` | on | Queue and send anonymous failure reports (see [Failure reports](/docs/explanation/your-data/#failure-reports)); off means nothing is queued or sent, and the Send failure reports switch in Posture is the same choice |
 | `defaults.chrome.launch_mode` | `BLOWHORN_CHROME_LAUNCH` | `extension` | How a run reaches Google Chrome |
 | `defaults.chrome.automation_data_dir` | `BLOWHORN_CHROME_AUTOMATION_DATA_DIR` | Blowhorn's own directory | Where a launched Chrome keeps its session |
 | `defaults.chrome.data_dir` | `BLOWHORN_CHROME_DATA_DIR` | Your real Chrome directory | Where the installed Chrome is read from |
@@ -14269,11 +14402,14 @@ then clear "Date Promoted" to try again or leave it. See
 ## Failures inside Blowhorn
 
 A failure Blowhorn has no specific sentence for still prints one sentence
-and a `Details:` line, then exits 1. The `Details:` line names the error log,
-`~/Library/Application Support/Blowhorn/logs/blowhorn-errors.log`. The log
-holds the full error with anything that looks like a password, token or
-cookie removed. Share that log when you report a problem. Add `--debug`, or
-set `BLOWHORN_DEBUG=1`, to see the full error on the terminal as well.
+and a `Details:` line, then exits 1. The `Details:` line names the file it
+wrote, `blowhorn-errors.log`, under `accounts/<your account id>/` (or
+`machine/` before sign-in) in Blowhorn's log directory. On an installed Mac
+that directory is
+`~/Library/Application Support/Blowhorn/home/data/logs/`. The log holds the
+full error with anything that looks like a password, token or cookie
+removed. Share that log when you report a problem. Add `--debug`, or set
+`BLOWHORN_DEBUG=1`, to see the full error on the terminal as well.
 
 `Blowhorn's browser engine didn't start, so nothing was done.`: the browser
 engine bundled with Blowhorn exited before the run could use it. Nothing was
@@ -14341,7 +14477,7 @@ permission to ignore them.
 |---|---|
 | `nativeMessaging` | Talks to the Blowhorn app on this computer. Every action is a request from that app |
 | `alarms` | A one-minute alarm re-opens the connection to the app after Chrome suspends the worker, so a scheduled run finds the extension ready |
-| `tabs` | Opens one background tab on a supported site, or reuses the one it opened earlier, so the action runs where you are signed in. With [where Blowhorn works](/docs/reference/chrome/#extension-mode-classic-or-background) set to its own window, that tab lives in one window the extension opens mostly behind yours without focus, at the size of the window you used last with an edge showing to its right, and reuses until you close it (Chrome's windows API needs no permission of its own). It looks only among tabs on the sites above, only to find its own, and never navigates, drives or closes any other tab, except the one below |
+| `tabs` | Opens one background tab on a supported site, or reuses the one it opened earlier, so the action runs where you are signed in. With [where Blowhorn works](/docs/reference/chrome/#extension-mode-classic-or-background) set to its own window, that tab lives in one window the extension opens mostly behind yours without focus, at the size of the window you used last with an edge showing to its right, and closes that window when a run ends, unless you put a tab of your own in it or Blowhorn is waiting for you in it (Chrome's windows API needs no permission of its own). It looks only among tabs on the sites above, only to find its own, and never navigates, drives or closes any other tab, except the one below |
 | `tabGroups` | In both [classic and background mode](/docs/reference/chrome/#extension-mode-classic-or-background), puts the tab it opened in a tab group named Blowhorn, right after the tab you were on (or in its own window), collapsed by default, so you can see which tab the app is driving and get back to yours. The group is a label: it never moves, selects or closes your other tabs, and a Chrome that cannot group still gets the tab. A screenshot is taken through the debugger and does not select the tab. Nothing brings the tab or the window forward unless you click **Take over** in the side panel; when Blowhorn needs you it renames the group "Blowhorn needs you", turns it red and opens it, shows **!** on the toolbar button, posts a notification when "Tell me when something needs me" is on in Posture, under Protection, then waits for you to click the tab |
 | `cookies` | Reads cookies on the supported sites only when the app asks, to reuse a sign-in you already have. A cookie goes to the local app; the one the app keeps beyond your computer is your Slack workspace session, kept in your account as that profile's Slack credential |
 | `debugger` | Delivers some of your queued clicks and key presses as real input (the rest, and all typing, go through the extension's own script on the page), watches the page's own requests to tell when an action finished, and takes a screenshot when the app asks for one. Attached only to the tab the extension opened. In classic mode it attaches when an action needs it and is released when the run ends or after a short idle period; in [background mode](/docs/reference/chrome/#extension-mode-classic-or-background) it attaches as soon as the extension opens or reuses its tab, before the site loads, and stays attached until the run ends. Chrome shows its debugging bar while it is attached; closing that bar, opening developer tools on the tab or closing the tab stops the extension using the debugger until the next run |
@@ -14898,6 +15034,20 @@ it applies (`upgrading from <old> to <new>`), and logs `updated from
 <old> to <new>` when Chrome reports the update installed, in its service
 worker's console.
 
+### A copied Chrome profile
+
+A copied Chrome profile carries the same storage, so the nonce the
+extension keeps in IndexedDB is found in more than one profile
+directory. The host never guesses which copy asked: `chrome_profile`
+is null when the nonce is in none or several, and from host protocol 5
+the `host_status` answer also says why, in `chrome_profile_reason`
+(`not_found`, or `found_in_several_profiles`). On the several answer
+the extension rotates its nonce, so each copy becomes unique on the
+next ask, and the host answers the same nonce from a short cache while
+the rotation lands. The side panel explains instead of offering a
+mapping link it cannot act on: "This Chrome profile looks like a copy
+of another one. Blowhorn is giving it its own identity."
+
 ## What a site sees: the user agent by driver
 
 Your own user agent, on every driver. The extension and attach drivers
@@ -14959,7 +15109,7 @@ the same way:
 | setting | Blowhorn's tab |
 | --- | --- |
 | `side_tab` (the default) | an inactive tab right after the tab you are on, in your window |
-| `own_window` | the selected tab of one window of Blowhorn's own, opened without focus in Chrome's normal window state at the size of the window you used last and 56 px to its right, so it sits mostly behind yours with an edge showing. It holds its own Blowhorn tab group, collapsed or open as above. Blowhorn reuses it for every run until you close it or Chrome quits, and makes a new one after you close it; it never closes it itself |
+| `own_window` | the selected tab of one window of Blowhorn's own, opened without focus in Chrome's normal window state at the size of the window you used last and 56 px to its right, so it sits mostly behind yours with an edge showing. It holds its own Blowhorn tab group, collapsed or open as above. Blowhorn closes it when a run ends, unless you put a tab of your own in it or Blowhorn is waiting for you in it, and makes a new one for the next run. If you close it first, it makes a new one too |
 
 Either way nothing takes focus, your selected tab stays selected, and focus
 emulation is on as the extension mode says. The window is never minimized,
@@ -15112,7 +15262,8 @@ when it needs the extension it ensures it on demand, as
 `blowhorn chrome extension-install` describes.
 
 `--json` also carries `profile_states`: one item per Chrome profile
-directory (`Default` and `Profile N` with a `Preferences` file), each
+directory with a `Preferences` file (`Default`, `Profile N`, and
+Blowhorn's own `Blowhorn` and `Blowhorn N`), each
 `{profile, state, version}`, read from the same two files. `state` is:
 
 - `enabled` - the extension is in that profile and turned on.
@@ -15383,6 +15534,15 @@ per-platform choices with it, so an account it had marked not in use is
 not skipped for a different profile later mapped to the same Chrome
 profile; a Chrome profile recorded not in use as a whole stays recorded
 that way, because that mark is about the Chrome profile itself.
+`profile status --chrome --json` reports the refusal on each platform as
+`in_use`: `false` for a recorded refusal (a run on this computer skips the
+account, whatever its connection says), `true` otherwise, and `null` when
+Chrome was not read, the profile maps to no Chrome profile here, or the
+record could not be read. The desktop
+shows it as one note beside the account on Profiles and on the Browser tab
+("Turned off on this computer, so runs skip it."). Nothing clears a refusal but
+switching the account on again: a connection made another way never re-enables
+an account a person turned off.
 Omitting `in_use` applies only the attached activities, as
 an older document does. `chrome discover` reports `in_use` on the profile
 and on each platform, so the next confirm screen can start a recorded
@@ -16120,7 +16280,7 @@ startup:
 
 Until Cloud answers on `mcp.blowhorn.ai` itself, an interim transport proxy
 runs at `https://mcp.blowhorn.ai/mcp` (`hosted/` in blowhorn-ai/blowhorn-mcp).
-It forwards each MCP request to Blowhorn's `/mcp` and Cloud's answer
+It forwards each MCP request to Cloud's `/mcp` and Cloud's answer
 back. Cloud owns the tools, token checks and activity events. The Worker
 serves RFC 9728 protected-resource metadata locally (both
 `/.well-known/oauth-protected-resource` and
@@ -16190,8 +16350,9 @@ The server is listed in the
 [official MCP Registry](https://registry.modelcontextprotocol.io/) as
 `io.github.blowhorn-ai/blowhorn`, status `active`, and its launcher is on
 npm as [`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp).
-The latest version is 1.0.0 on both. The registry has 0.1.1 through
-1.0.0; npm has 0.1.0 through 1.0.0.
+The registry lists versions from 0.1.1 on, and npm from 0.1.0 on. As of
+2026-11-13 the latest is 1.0.2 on both; the commands below print the
+current one.
 
 Version 1.0.0 is the first stable release of the launcher. It adds no
 launcher features over 0.1.4. It moves the launcher and the registry
@@ -16249,7 +16410,7 @@ response = ConfigShowResponse.from_dict(json.loads(stdout))
 
 ## What it covers
 
-Every operation in the OpenAPI bundle: 121 commands, each as one
+Every operation in the OpenAPI bundle: 122 commands, each as one
 function under `blowhorn_schemas.api.<group>.<command>`, with the
 request and response models under `blowhorn_schemas.models`. The
 operations are shaped like the CLI, not like an HTTP service: each
@@ -16915,7 +17076,8 @@ queue is cleared from your computer once Cloud accepts it; one Cloud
 refuses stays queued and is retried with a growing delay, at most a
 day apart.
 
-You can turn reports off: Settings has a "Send failure reports" row,
+You can turn reports off: Posture has a "Send failure reports" switch
+in the "Where your sign-ins live" card,
 and `blowhorn config set defaults.diagnostics.enabled false` does the
 same from the command line. Off means nothing is queued or sent.
 The contact support dialog, at a failure line, sends a separate

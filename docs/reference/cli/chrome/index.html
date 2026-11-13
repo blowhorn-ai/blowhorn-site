@@ -344,7 +344,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b06d3f88e2b9c70e18e61307bd39ad76.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c50bf662616a7cd9ad89e6cafd024164.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -513,7 +513,9 @@
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsreference-li">
     <div class="td-sidebar-row"><a href="/docs/reference/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference"><span class="">Reference</span></a><button type="button" class="td-sidebar-fold" aria-expanded="true" aria-controls="m-docsreference-ul"><span class="visually-hidden">Reference</span></button></div>
     <ul class="ul-2 foldable" id="m-docsreference-ul">
-      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-item-contract-li">
+    <a href="/docs/reference/content-item-contract/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-item-contract"><span class="">Content item contract</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
     <a href="/docs/reference/requirements/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencerequirements"><span class="">System requirements</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-desktop-app-li">
     <a href="/docs/reference/use-the-desktop-app/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-desktop-app"><span class="">The Blowhorn app, screen by screen</span></a>
@@ -1356,7 +1358,7 @@
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
 <p>Output: json with <code>--json</code>, text otherwise.</p>
-<h2 id="blowhorn-chrome-extension-mode">blowhorn chrome extension-mode</h2><p>Show or set how runs drive the Blowhorn Chrome extension. background is the default. Both modes open Blowhorn's tab inactive beside the tab you are on (or in its own window with <code>--window</code> own-window), in a Blowhorn group that is collapsed by default, and take a screenshot through the debugger without selecting the tab. Nothing brings the tab forward. classic keeps focus emulation on only while an action holds the debugger and sends input through the page. background turns focus emulation on from the first page and sends trusted input. With no MODE it reports the mode a run started now would use and where it comes from: the <code>BLOWHORN_EXTENSION_ROLLBACK</code> override, your Blowhorn account setting, or the background default. A job whose driver mode is extension-classic or extension-background outranks the account setting for that job. Setting MODE writes extensionMode to your account's Blowhorn preferences in your Blowhorn account (sign in first with <code>blowhorn auth login</code>); default clears it. <code>--group</code> collapsed or open writes chromeGroup the same way: how the Blowhorn tab group sits beside your tabs between steps. Collapsed is the default. <code>--window</code> side-tab or own-window writes chromeWindow the same way: where Blowhorn works. side-tab is an inactive tab beside your tabs, the default. own-window is one window of its own, mostly behind yours with an edge showing, opened without focus and reused for the browser session; on a Mac keep that edge showing, since a window fully covered, minimized, hidden or on another desktop reads like a background tab. <code>--json</code> emits the report as one object, for a script or the desktop app.</p>
+<h2 id="blowhorn-chrome-extension-mode">blowhorn chrome extension-mode</h2><p>Show or set how runs drive the Blowhorn Chrome extension. background is the default. Both modes open Blowhorn's tab inactive beside the tab you are on (or in its own window with <code>--window</code> own-window), in a Blowhorn group that is collapsed by default, and take a screenshot through the debugger without selecting the tab. Nothing brings the tab forward. classic keeps focus emulation on only while an action holds the debugger and sends input through the page. background turns focus emulation on from the first page and sends trusted input. With no MODE it reports the mode a run started now would use and where it comes from: the <code>BLOWHORN_EXTENSION_ROLLBACK</code> override, your Blowhorn account setting, or the background default. A job whose driver mode is extension-classic or extension-background outranks the account setting for that job. Setting MODE writes extensionMode to your account's Blowhorn preferences in your Blowhorn account (sign in first with <code>blowhorn auth login</code>); default clears it. <code>--group</code> collapsed or open writes chromeGroup the same way: how the Blowhorn tab group sits beside your tabs between steps. Collapsed is the default. <code>--window</code> side-tab or own-window writes chromeWindow the same way: where Blowhorn works. side-tab is an inactive tab beside your tabs, the default. own-window is one window of its own, mostly behind yours with an edge showing, opened without focus and closed when a run ends; on a Mac keep that edge showing, since a window fully covered, minimized, hidden or on another desktop reads like a background tab. <code>--json</code> emits the report as one object, for a script or the desktop app.</p>
 <figure class="term term-output" data-lang="text">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -2172,7 +2174,7 @@
 <p>Output: json with <code>--json</code>, text otherwise.</p>
 
   <div class="td-page-meta__lastmod">
-  Last modified November 6, 2026
+  Last modified November 13, 2026
 </div>
 </div><ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li><a href="/docs/reference/cli/auth/" aria-label="Previous - blowhorn auth" class="btn btn-primary"><span class="me-1">←</span>Previous</a></li>

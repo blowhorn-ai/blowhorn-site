@@ -22,12 +22,12 @@
       })();
     </script>
 <title>blowhorn desktop: Blowhorn</title>
-    <meta name="description" content="blowhorn desktop: build, install, start, status.">
+    <meta name="description" content="blowhorn desktop: activity-kinds, build, install, start, status.">
     <link rel="canonical" href="https://blowhorn.ai/docs/reference/cli/desktop/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Blowhorn">
     <meta property="og:title" content="blowhorn desktop: Blowhorn">
-    <meta property="og:description" content="blowhorn desktop: build, install, start, status.">
+    <meta property="og:description" content="blowhorn desktop: activity-kinds, build, install, start, status.">
     <meta property="og:url" content="https://blowhorn.ai/docs/reference/cli/desktop/">
     <meta property="og:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-social-banner-16x9.png">
     <meta property="og:image:width" content="1600">
@@ -35,7 +35,7 @@
     <meta property="og:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline One message. Many ears.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="blowhorn desktop: Blowhorn">
-    <meta name="twitter:description" content="blowhorn desktop: build, install, start, status.">
+    <meta name="twitter:description" content="blowhorn desktop: activity-kinds, build, install, start, status.">
     <meta name="twitter:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-social-banner-16x9.png">
     <meta name="twitter:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline One message. Many ears.">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
@@ -344,7 +344,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b06d3f88e2b9c70e18e61307bd39ad76.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c50bf662616a7cd9ad89e6cafd024164.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -513,7 +513,9 @@
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsreference-li">
     <div class="td-sidebar-row"><a href="/docs/reference/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference"><span class="">Reference</span></a><button type="button" class="td-sidebar-fold" aria-expanded="true" aria-controls="m-docsreference-ul"><span class="visually-hidden">Reference</span></button></div>
     <ul class="ul-2 foldable" id="m-docsreference-ul">
-      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-item-contract-li">
+    <a href="/docs/reference/content-item-contract/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-item-contract"><span class="">Content item contract</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencerequirements-li">
     <a href="/docs/reference/requirements/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencerequirements"><span class="">System requirements</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-desktop-app-li">
     <a href="/docs/reference/use-the-desktop-app/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-desktop-app"><span class="">The Blowhorn app, screen by screen</span></a>
@@ -695,7 +697,7 @@
   </ol>
 </nav><div class="prose docs-page">
   <h1 class="h1">blowhorn desktop</h1>
-  <p class="body-lg docs-lead">blowhorn desktop: build, install, start, status.</p>
+  <p class="body-lg docs-lead">blowhorn desktop: activity-kinds, build, install, start, status.</p>
   <!-- Generated by release/scripts/cli_reference/build.py from schemas/dist/openapi.yaml. Do not edit; run `make cli-reference`. -->
 <p>The <code>blowhorn desktop</code> commands. Each one's <code>--help</code> prints the same text.</p>
 
@@ -708,6 +710,10 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><a href="#blowhorn-desktop-activity-kinds"><code>desktop activity-kinds</code></a></td>
+      <td>List the activity kinds (command and platform) this organization has ever run, from the run ledger in the store.</td>
+    </tr>
     <tr>
       <td><a href="#blowhorn-desktop-build"><code>desktop build</code></a></td>
       <td>Package the Electron desktop app as an ad-hoc-signed universal macOS build.</td>
@@ -727,6 +733,71 @@
   </tbody>
 </table>
 </div>
+<h2 id="blowhorn-desktop-activity-kinds">blowhorn desktop activity-kinds</h2><p>List the activity kinds (command and platform) this organization has ever run, from the run ledger in the store: one read of the organization's run records, reduced to the distinct pairs, so the desktop app can tell what has been tried on any computer, not just this one. An organization with no recorded runs -- or a store that cannot be reached -- answers an empty list, not an error, so the desktop falls back to this computer's own ledger unchanged.</p>
+<figure class="term term-output" data-lang="text">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">output</span>
+    <span class="term-lang" aria-hidden="true">Text</span>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">blowhorn desktop activity-kinds [OPTIONS]</span></span></code></pre></div></div>
+</figure>
+
+<div class="table-scroll" tabindex="0" role="group" aria-label="Table">
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Flag</th>
+      <th scope="col">Type</th>
+      <th scope="col">Default</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--json</code></td>
+      <td>boolean</td>
+      <td><code>false</code></td>
+      <td>Emit machine-readable JSON output</td>
+    </tr>
+    <tr>
+      <td><code>--platform</code></td>
+      <td>string</td>
+      <td></td>
+      <td>Accepted and ignored by <code>blowhorn desktop</code>: this command never acts on a platform, so <code>--platform</code> has no effect here -- including a value inherited from <code>BLOWHORN_PLATFORM</code> or defaults.platform in .blowhorn.yaml</td>
+    </tr>
+    <tr>
+      <td><code>--pace</code></td>
+      <td>string</td>
+      <td></td>
+      <td>Accepted by <code>blowhorn desktop activity-kinds</code> because <code>--pace</code> is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then <code>BLOWHORN_PACE</code>, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs</td>
+    </tr>
+    <tr>
+      <td><code>--risk-profile</code></td>
+      <td>string</td>
+      <td></td>
+      <td>Accepted by <code>blowhorn desktop activity-kinds</code> because <code>--risk-profile</code> is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>Also takes the <a href="/docs/reference/cli/shared-flags/">shared flags</a>: <code>--config</code>, <code>--log-dir</code>, <code>--profile</code>, <code>--exclude</code>, <code>--headless</code>, <code>--chrome-launch</code>, <code>--headed</code>, <code>--dry-run</code>, <code>--verbose</code>.</p>
+<p>Examples:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn desktop activity-kinds --json
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn desktop activity-kinds</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>Output: json with <code>--json</code>, text otherwise.</p>
 <h2 id="blowhorn-desktop-build">blowhorn desktop build</h2><p>Package the Electron desktop app as an ad-hoc-signed universal macOS build.</p>
 <figure class="term term-output" data-lang="text">
   <figcaption class="term-bar">
@@ -1001,7 +1072,7 @@
 <p>Output: json with <code>--json</code>, text otherwise.</p>
 
   <div class="td-page-meta__lastmod">
-  Last modified November 3, 2026
+  Last modified November 13, 2026
 </div>
 </div><ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li><a href="/docs/reference/cli/content/" aria-label="Previous - blowhorn content" class="btn btn-primary"><span class="me-1">←</span>Previous</a></li>
@@ -1031,6 +1102,7 @@
     </div>
     <nav id="TableOfContents" aria-label="On this page">
   <ul>
+    <li><a href="#blowhorn-desktop-activity-kinds">blowhorn desktop activity-kinds</a></li>
     <li><a href="#blowhorn-desktop-build">blowhorn desktop build</a></li>
     <li><a href="#blowhorn-desktop-install">blowhorn desktop install</a></li>
     <li><a href="#blowhorn-desktop-start">blowhorn desktop start</a></li>
