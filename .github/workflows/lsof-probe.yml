@@ -1,0 +1,20 @@
+name: lsof-probe
+on:
+  push:
+    branches: [scout/lsof-probe]
+permissions: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: probe lsof and ps for a socket this process owns
+        shell: python3 {0}
+        run: |
+          import os, socket, subprocess, shutil
+          print("lsof", shutil.which("lsof"), "ps", shutil.which("ps"), "pid", os.getpid())
+          print(subprocess.run(["lsof", "-v"], capture_output=True, text=True).stderr[:300])
+          s = socket.socket(); s.bind(("127.0.0.1", 0)); s.listen(1); port = s.getsockname()[1]
+          r = subprocess.run(["lsof", "-nP", f"-iTCP:{port}", "-sTCP:LISTEN", "-Fpn"], capture_output=True, text=True, timeout=30)
+          print("rc", r.returncode, "stdout", repr(r.stdout), "stderr", repr(r.stderr[:500]))
+          r = subprocess.run(["ps", "-p", str(os.getpid()), "-ww", "-o", "ppid=,command="], capture_output=True, text=True)
+          print("ps", repr(r.stdout), repr(r.stderr))
