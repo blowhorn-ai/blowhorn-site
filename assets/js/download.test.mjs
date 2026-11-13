@@ -41,12 +41,17 @@ function loadPage({ respond, withFetch = true } = {}) {
   const row = node("row");
   const note = node("note");
   const status = node("windows-notify-status");
+  const submit = node("submit", { disabled: false });
   const form = node("windows-notify-form", {
     action: "https://api.blowhorn.ai/api/waitlist",
     fields: { email: "major@example.com", topic: "windows", source_page: "/download/", website: "" },
     resets: 0,
     reset() {
       this.resets += 1;
+    },
+    querySelector(selector) {
+      assert.equal(selector, "[type=submit]");
+      return submit;
     },
     querySelectorAll(selector) {
       assert.equal(selector, ".newsletter-row, .caption");
@@ -77,7 +82,7 @@ function loadPage({ respond, withFetch = true } = {}) {
     document: { getElementById: (id) => byId[id] || null },
   });
   vm.runInContext(source, context);
-  return { page, toggle, form, email, row, note, status };
+  return { page, toggle, form, email, row, note, status, submit };
 }
 
 function reply(ok, body) {
@@ -101,7 +106,7 @@ test("the button gives way to the form and focus moves to the field", () => {
 });
 
 test("a successful signup leaves only the confirmation and focuses it", async () => {
-  const { page, toggle, form, row, note, status } = loadPage({ respond: reply(true, { ok: true }) });
+  const { page, toggle, form, row, note, status, submit } = loadPage({ respond: reply(true, { ok: true }) });
   toggle.fire("click");
   let prevented = false;
   form.fire("submit", { preventDefault: () => (prevented = true) });
@@ -117,10 +122,18 @@ test("a successful signup leaves only the confirmation and focuses it", async ()
   assert.equal(form.hidden, false, "the status line lives in the form, so the form stays");
   assert.equal(status.textContent, CONFIRMATION);
   assert.equal(page.focused, status);
+  assert.equal(submit.disabled, true);
+});
+
+test("the submit button is disabled while the signup is in flight", () => {
+  const { toggle, form, submit } = loadPage({ respond: () => new Promise(() => {}) });
+  toggle.fire("click");
+  form.fire("submit", { preventDefault() {} });
+  assert.equal(submit.disabled, true);
 });
 
 test("a rejected signup keeps the field and shows the service's error", async () => {
-  const { page, toggle, form, email, row, note, status } = loadPage({
+  const { page, toggle, form, email, row, note, status, submit } = loadPage({
     respond: reply(false, { ok: false, error: "Enter a valid email address." }),
   });
   toggle.fire("click");
@@ -132,10 +145,11 @@ test("a rejected signup keeps the field and shows the service's error", async ()
   assert.equal(note.hidden, false);
   assert.equal(form.resets, 0, "the entered address stays for a retry");
   assert.equal(page.focused, email);
+  assert.equal(submit.disabled, false);
 });
 
 test("a network failure keeps the field and shows the generic error", async () => {
-  const { toggle, form, row, status } = loadPage({ respond: () => Promise.reject(new Error("offline")) });
+  const { toggle, form, row, status, submit } = loadPage({ respond: () => Promise.reject(new Error("offline")) });
   toggle.fire("click");
   form.fire("submit", { preventDefault() {} });
   await settle();
@@ -143,6 +157,7 @@ test("a network failure keeps the field and shows the generic error", async () =
   assert.equal(status.textContent, GENERIC_ERROR);
   assert.equal(row.hidden, false);
   assert.equal(form.resets, 0);
+  assert.equal(submit.disabled, false);
 });
 
 test("without fetch the button stays hidden and the form stays visible", () => {

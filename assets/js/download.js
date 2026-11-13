@@ -159,6 +159,7 @@
   }
   var status = document.getElementById("windows-notify-status");
   var email = document.getElementById("windows-notify-email");
+  var submit = form.querySelector("[type=submit]");
   toggle.hidden = false;
   form.hidden = true;
   toggle.addEventListener("click", function () {
@@ -168,8 +169,17 @@
       email.focus();
     }
   });
+  function showError(message) {
+    status.textContent = message;
+    if (submit) {
+      submit.disabled = false;
+    }
+  }
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
+    if (submit) {
+      submit.disabled = true;
+    }
     var data = {};
     new FormData(form).forEach(function (value, key) {
       data[key] = value;
@@ -194,11 +204,11 @@
           status.textContent = "You are on the list! We will email you when Blowhorn for Windows is ready.";
           status.focus();
         } else {
-          status.textContent = (pair.body && pair.body.error) || "Something went wrong. Please try again.";
+          showError((pair.body && pair.body.error) || "Something went wrong. Please try again.");
         }
       })
       .catch(function () {
-        status.textContent = "Something went wrong. Please try again.";
+        showError("Something went wrong. Please try again.");
       });
   });
 })();
