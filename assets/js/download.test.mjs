@@ -3,9 +3,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
 
-// download.js is a classic script, so it runs here in a small fake page that
-// holds only the Windows card. There is no #download-status, so the Mac
-// card's release lookup returns before it touches anything.
+// download.js is a classic script, so it runs in a fake page with only the
+// Windows card. Without #download-status the Mac release lookup does nothing.
 const source = readFileSync(new URL("./download.js", import.meta.url), "utf8");
 const markup = readFileSync(new URL("../../layouts/download.html", import.meta.url), "utf8");
 

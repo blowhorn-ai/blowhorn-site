@@ -187,8 +187,7 @@
       .then(function (pair) {
         if (pair.res.ok && pair.body.ok) {
           form.reset();
-          // The field and button go away, so focus moves to the
-          // confirmation instead of being lost with them.
+          // The field is gone, so focus moves to the confirmation.
           form.querySelectorAll(".newsletter-row, .caption").forEach(function (node) {
             node.hidden = true;
           });

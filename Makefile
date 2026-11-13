@@ -389,7 +389,7 @@ check-no-internal: site-build
 test-activity-feed:
 	node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test assets/js/activity-feed.test.mjs
 
-## Unit tests for the download page's Windows waitlist form (node:test, no extra dependencies).
+## Unit tests for the download page's Windows waitlist form.
 test-download:
 	node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test assets/js/download.test.mjs
 
