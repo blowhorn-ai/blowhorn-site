@@ -42,6 +42,9 @@
     {{- else }}
     {{- partial "footer.html" . }}
     {{- end }}
+    {{- if eq hugo.Environment "internal" }}
+    {{- partial "image-lightbox.html" . }}
+    {{- end }}
     {{- partial "docs-scripts.html" . }}
   </body>
 </html>
