@@ -442,11 +442,11 @@ cloud-auth-smoke:
 
 ## Run the private product repository's CI on a checkout of it, printing only step results and
 ## pass/fail counts (its output goes to PRODUCT_CI_LOG, never printed; product-ci.yml runs this):
-## make product-ci SUITE=python|desktop PRODUCT_DIR=<blowhorn checkout> [PRODUCT_CI_LOG=<file>]
+## make product-ci SUITE=python|desktop|rust PRODUCT_DIR=<blowhorn checkout> [PRODUCT_CI_LOG=<file>]
 PRODUCT_DIR ?= product
 PRODUCT_CI_LOG ?= $(or $(RUNNER_TEMP),/tmp)/product-ci/$(SUITE).log
 product-ci:
-	@test -n "$(SUITE)" || (echo "usage: make product-ci SUITE=python|desktop PRODUCT_DIR=<checkout>"; exit 1)
+	@test -n "$(SUITE)" || (echo "usage: make product-ci SUITE=python|desktop|rust PRODUCT_DIR=<checkout>"; exit 1)
 	python3 .github/scripts/product-ci/run.py $(SUITE) --product "$(PRODUCT_DIR)" --log "$(PRODUCT_CI_LOG)"
 
 ## Sync the user docs from a blowhorn checkout at $(SOURCE_DIR) into $(DOCS_DIR): make docs-sync REF=<tag|branch|sha> (see docs/deploy.md).
