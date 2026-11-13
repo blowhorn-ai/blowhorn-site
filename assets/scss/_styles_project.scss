@@ -313,8 +313,13 @@ div.docs-quadrants {
   display: block;
 }
 
+// The span is the card's body text, so it reads the card's own muted token
+// (cards.css): a dispatch card's description stays mint on near-black and a
+// paper card's stays charcoal on cream. No visual change today, since
+// dispatch and paper already re-scope --ink-muted to the same values; this
+// reads the token directly, so the rule stays right if that changes.
 .docs-card > span:last-child {
-  color: var(--ink-muted);
+  color: var(--card-muted, var(--ink-muted));
 }
 
 .docs-landing .platforms {
