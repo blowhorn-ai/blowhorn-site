@@ -171,11 +171,13 @@ class RunStepsTest(unittest.TestCase):
         self.assertEqual([step.label for step in steps], [
             "install dependencies", "playwright import boundary", "test suite",
         ])
-        self.assertEqual(steps[2].argv, (
+        self.assertEqual(steps[2].argv[:8], (
             "timeout", "-s", "ABRT", "900", "make", "cli-tests",
             "PYTHON=/opt/python/bin/python -u",
             "PYTEST_ARGS=tests/ -q -o faulthandler_timeout=300",
         ))
+        self.assertTrue(steps[2].argv[8].startswith("PYTEST_WORKERS="))
+        self.assertGreaterEqual(int(steps[2].argv[8].split("=", 1)[1]), 2)
         self.assertEqual(steps[2].counts, "pytest")
 
 
