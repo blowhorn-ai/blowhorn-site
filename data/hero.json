@@ -9,7 +9,8 @@
       "r2-sound-wave", "r2-advocacy", "r2-whisper", "r2-ovation", "r2-password",
       "r2-scarecrows", "r2-manners", "r2-backup", "r2-every-computer", "r2-army-marches",
       "r2-halt", "r2-juggling", "r2-agency-name", "r2-remote-team", "r2-no-meter",
-      "r2-per-breath", "r2-crickets", "r2-ai-orders"
+      "r2-per-breath", "r2-crickets", "r2-ai-orders",
+      "copy-paste", "password-cookie-2fa", "nine-likes"
     ]
   },
   "media": {
@@ -109,7 +110,7 @@
       "subhead": "Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.",
       "identification": "If this is you: you are the founder, the DevRel team, and the social team, and launch day is currently seven tabs and a prayer.",
       "differentiators": [13],
-      "note": "Issue #254, tab chaos. Not in the production rotation; reachable via ?hero=copy-paste and the Easter egg hotkey."
+      "note": "Issue #254, tab chaos. In the production rotation (recommended top 3, promoted 2026-11-13); also reachable via ?hero=copy-paste and the Easter egg hotkey."
     },
     {
       "id": "seven-tabs",
@@ -133,7 +134,7 @@
       "subhead": "Blowhorn is a social media console that acts as you, in your browser. Your LinkedIn, X, Reddit and Hacker News sessions stay on your computer. Your account keeps the queue in sync. Your computers do the posting.",
       "identification": "If this is you: you have stared at a vendor login screen and thought, absolutely not, that account is the company.",
       "differentiators": [8, 9],
-      "note": "Issue #254, custody. Not in the production rotation; reachable via ?hero=password-cookie-2fa and the Easter egg hotkey."
+      "note": "Issue #254, custody. In the production rotation (recommended top 3, promoted 2026-11-13); also reachable via ?hero=password-cookie-2fa and the Easter egg hotkey."
     },
     {
       "id": "not-a-vendor",
@@ -157,7 +158,7 @@
       "subhead": "Post once, and Blowhorn amplifies it from every profile you run, in the first hour, when early replies tend to matter most, so it does not sit flat while you are still pasting it elsewhere.",
       "identification": "If this is you: you have shipped something real and then begged in Slack with \"can everyone like this?\"",
       "differentiators": [2, 13],
-      "note": "Issue #254, flat launch. Not in the production rotation; reachable via ?hero=nine-likes and the Easter egg hotkey."
+      "note": "Issue #254, flat launch. In the production rotation (recommended top 3, promoted 2026-11-13); also reachable via ?hero=nine-likes and the Easter egg hotkey."
     },
     {
       "id": "no-begging",

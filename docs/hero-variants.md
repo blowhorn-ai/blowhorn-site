@@ -31,8 +31,9 @@ Twitter and JSON-LD descriptions (the tagline stands in when it does not).
 to rotate every variant. Variants not listed never rotate, but still render after the
 rotating ones, so `?hero=<id>` reaches them for review (`?hero=<n>` counts rotating heroes only).
 
-Production rotates 23 heroes, one per UTC day: the five AI hybrid heroes first (Yi,
-2026-10-20), then the 18 round 2 heroes. With 23 ids a given hero comes back every 23
+Production rotates 26 heroes, one per UTC day: the five AI hybrid heroes first (Yi,
+2026-10-20), then the 18 round 2 heroes, then the 3 issue #254 top picks (one per
+pain: tab chaos, custody, flat launch). With 26 ids a given hero comes back every 26
 days. The five AI hybrid heroes:
 
 1. `plug-in-ai`: "Automate your social voice. Plug in AI anytime."
@@ -65,6 +66,16 @@ order, have a headline only, no subhead and no `cta`, so their secondary button 
 | `r2-per-breath` | Social tools charge per seat, per post, per breath. |
 | `r2-crickets` | Built by a tiny team that got tired of crickets. |
 | `r2-ai-orders` | Let your AI give the orders. Blowhorn follows them. |
+
+The 3 issue #254 top picks (blowhorn-ai/blowhorn-site #254, recommended in the
+issue, promoted 2026-11-13), in rotation order, carry a plain-words subhead and a
+self-identification line in the data file, neither rendered in the hero:
+
+| id | Headline |
+| --- | --- |
+| `copy-paste` | You did not start a company to copy-paste for a living. |
+| `password-cookie-2fa` | Other tools want your password. And your cookie. And your 2FA secret. |
+| `nine-likes` | Your launch post deserves better than nine likes and a Slack pity-react. |
 
 Hero copy says computer, never Mac, and browser, never Chrome (Lee, 2026-10-28).
 `make check-naming` enforces the Mac half, with no exceptions.
@@ -212,8 +223,10 @@ in `layouts/_partials/hero-rotation-head.html`.
 ## The 12 heroes from issue #254
 
 The 12 quippy, sarcastic heroes from blowhorn-ai/blowhorn-site issue #254 are
-in `data/hero.json`, outside the production rotation, so the daily rotation and
-the default hero are unchanged. Their ids, in issue order, are `copy-paste`,
+in `data/hero.json`. Three of them are in the production rotation (the recommended
+top 3, promoted 2026-11-13: `copy-paste`, `password-cookie-2fa`, `nine-likes`);
+the other nine stay outside it, so the daily rotation and the default hero are
+unchanged for them. Their ids, in issue order, are `copy-paste`,
 `seven-tabs`, `congratulations-posted`, `password-cookie-2fa`, `not-a-vendor`,
 `not-rental`, `nine-likes`, `no-begging`, `say-it-like-you-mean-it`,
 `hundred-seats`, `298-stack` and `too-small-for-demo`. Each carries its
