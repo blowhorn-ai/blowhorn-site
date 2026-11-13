@@ -1,0 +1,346 @@
+# Blowhorn
+
+> Blowhorn is a social media console that takes one message and broadcasts, reposts and amplifies it across every profile and platform your community runs, on autopilot. Runs on your computer.
+
+## Pages
+- [Blowhorn: one message, many ears](/pr-preview/pr-602/index.md): Scripted where it counts. AI where it helps. Every post, reply and amplify runs exactly as written. Drafts, agents and assistants plug in through MCP and a scriptable CLI.
+- [Brand](/pr-preview/pr-602/brand/index.md): The Blowhorn logo, wordmark, colors, type, Major Blowhorn and Old Thunderlung, with the rules for using them and two kits to download.
+- [Meet Major Blowhorn](/pr-preview/pr-602/major/index.md): The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
+- [Pricing](/pr-preview/pr-602/pricing/index.md): Start free. Solo is $19 a month, Pro is $39 a month for 10 profiles, Team is $35 a seat a month. Pay yearly and get two months free.
+- [Blowhorn newsletter](/pr-preview/pr-602/newsletter/index.md): Sign up for the Blowhorn newsletter.
+- [Early access](/pr-preview/pr-602/early-access/)
+- [Install](/pr-preview/pr-602/install/)
+- [Log in](/pr-preview/pr-602/login/)
+- [Sign up](/pr-preview/pr-602/signup/)
+- [Welcome](/pr-preview/pr-602/welcome/): You installed the Blowhorn browser extension. Three steps finish the setup on your computer.
+
+## AI native
+- [AI native](/pr-preview/pr-602/ai/index.md): Blowhorn is built so AI agents can run your marketing as safely as you can. Every action is a command, every write is a rehearsal first, and every rule you set applies to agents too.
+
+
+- [blowhorn-axi](/pr-preview/pr-602/ai/blowhorn-axi/index.md): blowhorn-axi lets AI agents use Blowhorn. Compact answers built for agents, rehearsal before every action and clear next steps when something goes wrong. Runs on your computer with Node 18 or later.
+- [Blowhorn MCP server](/pr-preview/pr-602/ai/mcp/index.md): The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.
+
+## The Field Manual
+- [The Field Manual](/pr-preview/pr-602/field-manual/index.md): What LinkedIn, X, Reddit and other social feeds reward and penalize, in plain language, with a source for every claim. Hard-won lessons from Major Blowhorn so you can claim victory.
+
+
+- [Platform action matrix](/pr-preview/pr-602/field-manual/action-matrix/index.md): Every action Blowhorn takes on each platform, and whether that platform's own rules make it safe, a matter of care, or risky.
+- [LinkedIn](/pr-preview/pr-602/field-manual/linkedin/index.md): What LinkedIn's feed rewards (time spent reading, real conversation, relevance to your field) and what it cuts (pods, automated comments, bait, recycled posts), from LinkedIn's own engineering and policy pages.
+- [X](/pr-preview/pr-602/field-manual/x/index.md): What X's For You feed rewards (replies, conversations, time spent, shares) and what sinks a post (mutes, blocks, reports, duplicates, coordinated accounts), straight from the ranking code X published.
+- [Reddit](/pr-preview/pr-602/field-manual/reddit/index.md): What Reddit rewards (being a real member of a community, early votes, fresh posts) and what gets you removed or banned (spam, self-promotion overload, repeated comments, vote manipulation), from Reddit's own rules and code.
+- [Hacker News](/pr-preview/pr-602/field-manual/hacker-news/index.md): What Hacker News asks of posters (curiosity first, your own words, no solicited votes) and why it's the least forgiving front, from its own guidelines.
+- [Bluesky](/pr-preview/pr-602/field-manual/bluesky/index.md): How Bluesky's feeds work (your Following feed, Discover, and custom feeds anyone can build) and the one rule that matters most, no manipulated signals.
+- [Other feeds](/pr-preview/pr-602/field-manual/other-feeds/index.md): What the other big feeds say they reward and reduce, in their own words. General education only. Blowhorn doesn't post to these platforms.
+- [Tune the CLI and blowhorn-axi for the feeds](/pr-preview/pr-602/field-manual/tuning/index.md): Prescriptive settings for the Blowhorn CLI and blowhorn-axi that map each platform rule in this manual to a flag or default. For operators and the agents they run.
+
+## How Blowhorn compares
+- [How Blowhorn compares](/pr-preview/pr-602/compare/index.md): Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
+
+
+- [Blowhorn vs Buffer](/pr-preview/pr-602/compare/buffer/index.md): Blowhorn isn't a bot. It's you. Buffer is the friendliest way to keep a steady, approved calendar on many networks, with every computer switched off. Blowhorn is for the moment you need many real voices on the networks developers use.
+- [Blowhorn vs Hootsuite](/pr-preview/pr-602/compare/hootsuite/index.md): Blowhorn isn't a bot. It's you. Hootsuite is a full social operations suite for larger teams: inbox, listening, approvals, ads. Blowhorn is a lighter, sharper tool for technical voices who need real people amplifying on developer networks.
+- [Blowhorn vs Sprout Social](/pr-preview/pr-602/compare/sprout-social/index.md): Blowhorn isn't a bot. It's you. Sprout Social is superb at reporting, inbox and listening for brand teams. Blowhorn is for getting real people to amplify you.
+- [Blowhorn vs Later](/pr-preview/pr-602/compare/later/index.md): Blowhorn isn't a bot. It's you. Later is the better tool for visual, Instagram-first brands. Blowhorn is for technical launches that need replies from real people.
+- [Blowhorn vs Publer](/pr-preview/pr-602/compare/publer/index.md): Blowhorn isn't a bot. It's you. Publer wins on budget scheduling, recycling and bulk posting across 13 networks. Blowhorn is for real-person amplification on developer networks.
+- [Blowhorn vs SocialBee](/pr-preview/pr-602/compare/socialbee/index.md): SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer networks.
+- [Blowhorn vs Metricool](/pr-preview/pr-602/compare/metricool/index.md): Blowhorn isn't a bot. It's you. Metricool wins on analytics, competitor tracking and ads reporting for brands and agencies. Blowhorn is amplification-first, through real people on developer networks.
+- [Blowhorn vs Typefully](/pr-preview/pr-602/compare/typefully/index.md): Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many networks.
+- [Blowhorn vs Postiz](/pr-preview/pr-602/compare/postiz/index.md): Postiz is the strongest agent-ready scheduler out there, with 30+ networks, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.
+- [Blowhorn vs ContentStudio](/pr-preview/pr-602/compare/contentstudio/index.md): ContentStudio is an AI-positioned cloud scheduler with a discovery engine and a developer API surface. Blowhorn is made for text-first technical audiences and real-person amplification.
+- [Blowhorn vs Taplio](/pr-preview/pr-602/compare/taplio/index.md): Taplio is an all-in-one LinkedIn growth kit: AI writing, inspiration, scheduling and lead tools. Blowhorn isn't a bot. It's you: multi-network, with amplification from real people instead of auto-engagement.
+- [Blowhorn vs Expandi](/pr-preview/pr-602/compare/expandi/index.md): Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi. Blowhorn is for careful outreach and real-person amplification, from your own browser.
+- [Blowhorn vs PhantomBuster](/pr-preview/pr-602/compare/phantombuster/index.md): PhantomBuster is a powerful data and outreach automation platform across 15+ sites. Blowhorn is narrower on purpose: careful actions and real-person amplification, from your own browser.
+- [Blowhorn vs Waalaxy](/pr-preview/pr-602/compare/waalaxy/index.md): Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own browser and adds publishing and amplification across many networks.
+- [Blowhorn vs Dripify](/pr-preview/pr-602/compare/dripify/index.md): Blowhorn isn't a bot. It's you. Dripify is a capable LinkedIn and email drip campaign tool for sales teams, run from its cloud. If simple, always-on drip sequences are the job, pick Dripify. Blowhorn is for careful outreach and real-person amplification, from your own browser.
+- [Blowhorn vs AuthoredUp](/pr-preview/pr-602/compare/authoredup/index.md): AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that your-own-browser belief: it isn't a bot, it's you, and it adds more networks, a fleet of computers and real-person amplification.
+- [Blowhorn vs Linked Helper](/pr-preview/pr-602/compare/linked-helper/index.md): Linked Helper is a long-running desktop LinkedIn tool, priced per LinkedIn account, with deep campaigns and a built-in CRM. Blowhorn isn't a bot. It's you: careful outreach and real-person amplification across many networks, from a fleet of your computers.
+- [Blowhorn vs Dux-Soup](/pr-preview/pr-602/compare/dux-soup/index.md): Dux-Soup, now sold as STACKED, is a long-running LinkedIn outreach tool with drip campaigns and CRM sync. Blowhorn isn't a bot. It's you: careful outreach and real-person amplification across many networks.
+- [Blowhorn vs Sociabble](/pr-preview/pr-602/compare/sociabble/index.md): Sociabble, now the Poppulo Experience Platform, combines advocacy with intranet and internal comms for large companies. Blowhorn is a small, fast way for technical teams to amplify launches.
+- [Blowhorn vs EveryoneSocial](/pr-preview/pr-602/compare/everyonesocial/index.md): EveryoneSocial is a leading employee advocacy platform for large organizations. Blowhorn brings the same 'people beat logos' idea to teams amplifying launches on the networks developers read.
+- [Blowhorn vs DSMN8](/pr-preview/pr-602/compare/dsmn8/index.md): Blowhorn isn't a bot. It's you. DSMN8 is an employee advocacy and executive influence platform for mid-market and enterprise. Blowhorn is a lighter way for small technical teams to amplify through real people.
+- [Blowhorn vs Haiilo](/pr-preview/pr-602/compare/haiilo/index.md): Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer networks.
+- [Blowhorn vs mokumokuren](/pr-preview/pr-602/compare/mokumokuren/index.md): mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your computer, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.
+- [Blowhorn vs Social Browser](/pr-preview/pr-602/compare/social-browser/index.md): Social Browser is a multi-profile browser with an automation studio and MCP control. Blowhorn is a social tool: queue, schedule, amplify and outreach, in your real browser.
+- [Blowhorn vs Multilogin](/pr-preview/pr-602/compare/multilogin/index.md): Multilogin is a professional antidetect browser for multi-accounting, ad ops and automation. Blowhorn is a different thing: real people posting as themselves.
+- [Blowhorn vs GoLogin](/pr-preview/pr-602/compare/gologin/index.md): GoLogin is a popular antidetect browser with an API and MCP. Blowhorn is a social tool that acts as you, in your real browser.
+- [Blowhorn vs AdsPower](/pr-preview/pr-602/compare/adspower/index.md): AdsPower is an antidetect browser with RPA tools for ad and e-commerce teams. Blowhorn is a social tool for real people speaking as themselves.
+- [Blowhorn vs Blotato](/pr-preview/pr-602/compare/blotato/index.md): Blotato is an AI content engine with a hosted MCP that publishes to 9 networks through official APIs. Blowhorn is for real-person amplification on developer networks, driven by your agent through a CLI.
+- [Blowhorn vs Claude in Chrome](/pr-preview/pr-602/compare/claude-in-chrome/index.md): Claude in Chrome is a general browser agent that can do almost anything you can, in your own logins. Blowhorn is a dedicated social tool with a queue, a schedule, amplification and scripted, rehearsable actions, and Claude Code can drive it.
+- [Blowhorn vs Perplexity Comet](/pr-preview/pr-602/compare/perplexity-comet/index.md): Comet is a free AI browser with an assistant that can act on pages for you. Blowhorn is a dedicated social tool, scripted and scheduled, that works from your own browser across many profiles and computers.
+- [Blowhorn vs Thunderclap](/pr-preview/pr-602/compare/thunderclap/index.md): Thunderclap (thunderclap.it, 2012 to 2018) proved that a crowd lifting one message works. It closed on 15 Sep 2018. Blowhorn carries the idea forward with real people acting as themselves, at a human pace.
+- [Blowhorn vs Thunderclap.com](/pr-preview/pr-602/compare/thunderclap-com/index.md): Thunderclap.com sells followers, likes, views and comments, one-off or by subscription. Blowhorn sells none of that. We focus on real people, real replies and real discussion.
+- [Blowhorn vs Lempod](/pr-preview/pr-602/compare/lempod/index.md): Lempod runs LinkedIn engagement pods where members automatically like and comment on each other's posts, with AI-generated comment options. Blowhorn takes a different path: people who know you, in your own words.
+- [Blowhorn vs Podawaa](/pr-preview/pr-602/compare/podawaa/index.md): Podawaa is a LinkedIn engagement exchange: members like and comment on each other's posts, with AI comments and paid private options. Blowhorn sells no engagement and focuses on real people who know you.
+- [Blowhorn vs native scheduling](/pr-preview/pr-602/compare/native-scheduling/index.md): LinkedIn and X let you schedule posts for free, one network and one profile at a time. Blowhorn puts every network and every profile you run in one queue, and lets your profiles amplify each post.
+- [Blowhorn vs Sendible](/pr-preview/pr-602/compare/sendible/index.md): Sendible is a polished cloud scheduler for agencies and marketing teams, with unlimited users, white-label client dashboards and reporting. Blowhorn is for real-person amplification on the networks where developers talk.
+
+## Trust Center
+- [Trust Center](/pr-preview/pr-602/legal/index.md): How Blowhorn handles your data, sessions and accounts, in plain language, and every policy that covers the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.
+
+
+- [Privacy](/pr-preview/pr-602/legal/privacy/index.md): What the Blowhorn website and the Blowhorn app store, where they store it, and what the app sends.
+- [Terms](/pr-preview/pr-602/legal/terms/index.md): The terms between you and Layer5, Inc. for the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.
+
+## Integrations
+- [Integrations](/pr-preview/pr-602/integrations/index.md): Every network Blowhorn reaches. LinkedIn, X, Reddit and Hacker News through your own browser. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts. Coming soon named as such.
+
+
+- [Action matrix](/pr-preview/pr-602/integrations/actions/index.md): Every Blowhorn action on every platform in one grid. Post, comment, reply, amplify, follow and more on LinkedIn, X, Reddit, Hacker News, Slack, Bluesky and GitHub, with coming-soon platforms marked.
+
+## Agentic AI Marketing
+- [Agentic AI Marketing](/pr-preview/pr-602/agents/index.md): Run your marketing from the AI agent you already code with. Blowhorn's CLI does everything the desktop app does, so Claude Code, OpenCode, Pi, Codex, Grok and DeepSeek can schedule and amplify for you.
+
+
+- [Blowhorn for Claude Code](/pr-preview/pr-602/agents/claude-code/index.md): Use Claude Code to run your marketing with Blowhorn: a project skill, an allowlist for the blowhorn CLI, and prompts that schedule, queue and amplify across every computer.
+- [Blowhorn for OpenCode](/pr-preview/pr-602/agents/opencode/index.md): Use OpenCode with Blowhorn: AGENTS.md instructions, per-command bash permissions and opencode run for marketing jobs across every computer.
+- [Blowhorn for Pi](/pr-preview/pr-602/agents/pi/index.md): Use the Pi coding agent with Blowhorn: a minimal agent, a bash tool and an AGENTS.md block that turn it into your marketing operator.
+- [Blowhorn for Codex](/pr-preview/pr-602/agents/codex/index.md): Use Codex with Blowhorn: AGENTS.md rules, codex exec for unattended checks, and approval settings that keep publishing in your hands.
+- [Blowhorn for Grok](/pr-preview/pr-602/agents/grok/index.md): Use Grok as your marketing agent with Blowhorn: plain-language prompts turned into blowhorn commands for scheduling, queueing and team amplification.
+- [Blowhorn for DeepSeek](/pr-preview/pr-602/agents/deepseek/index.md): Run Blowhorn from a DeepSeek-powered agent harness: the same CLI, the same JSON, whichever terminal agent you point at DeepSeek.
+- [The Blowhorn CLI](/pr-preview/pr-602/agents/cli/index.md): The Blowhorn CLI does everything the desktop app does: schedule, queue, post, amplify and pause, with JSON output any script or agent can drive.
+
+## Coming-Soons
+- [Coming-Soons](/pr-preview/pr-602/coming-soon/index.md)
+
+
+- [Thanks](/pr-preview/pr-602/coming-soon/thanks/index.md): Your signup for Blowhorn notifications is saved.
+
+## Blowhorn docs
+- [Blowhorn docs](/pr-preview/pr-602/docs/index.md): Tutorials, how-to guides, reference, and explanation for the Blowhorn app for macOS.
+
+- [Get started](/pr-preview/pr-602/docs/tutorials/index.md): Short lessons that walk you through Blowhorn end to end.
+- [How-to guides](/pr-preview/pr-602/docs/how-to/index.md): Reach one goal: steps first, for a reader who knows the basics.
+- [Set up](/pr-preview/pr-602/docs/how-to/set-up/index.md): Install Blowhorn, sign in, connect Chrome, and add profiles.
+- [Publish](/pr-preview/pr-602/docs/how-to/publish/index.md): Queue a post, preview it, publish it, reply, and amplify.
+- [Grow your audience](/pr-preview/pr-602/docs/how-to/grow/index.md): Follow, find conversations, and build an audience.
+- [Schedule and automate](/pr-preview/pr-602/docs/how-to/schedule/index.md): Jobs, pausing, and the background service.
+- [Measure](/pr-preview/pr-602/docs/how-to/measure/index.md): Analytics and run history.
+- [Settings](/pr-preview/pr-602/docs/how-to/settings/index.md): Defaults and how Blowhorn reaches Chrome.
+- [Troubleshooting](/pr-preview/pr-602/docs/how-to/troubleshoot/index.md): Fix what stopped working, symptom first.
+- [Manage](/pr-preview/pr-602/docs/how-to/manage/index.md): Watch and take over a run, update and uninstall.
+- [Reference](/pr-preview/pr-602/docs/reference/index.md): Look it up: the app, the platforms, the commands, and every message.
+- [Platforms](/pr-preview/pr-602/docs/reference/platforms/index.md): What Blowhorn does on each platform: supported actions, browser or API, sign-in, and limits.
+- [CLI reference](/pr-preview/pr-602/docs/reference/cli/index.md): Every command, the shared flags, and profile resolution.
+- [API reference](/pr-preview/pr-602/docs/reference/api/index.md): The operations Blowhorn defines, with their request fields and responses.
+- [Explanation](/pr-preview/pr-602/docs/explanation/index.md): Understand why: context and trade-offs, no procedures.
+
+- [Content item contract](/pr-preview/pr-602/docs/reference/content-item-contract/index.md): What a content item carries: row number, fingerprint, rules of engagement, and thread identity.
+- [Getting started with the Blowhorn CLI](/pr-preview/pr-602/docs/tutorials/getting-started/index.md): List pending content, preview a run with a dry run, and publish from the command line.
+- [Getting started with the desktop app](/pr-preview/pr-602/docs/tutorials/desktop-quickstart/index.md): Install the app, connect Chrome, and preview your first post without publishing.
+- [Choose your rules of engagement](/pr-preview/pr-602/docs/how-to/settings/choose-your-rules-of-engagement/index.md): Your pace. Your risk. Your call. What Safety on, Weapons tight and Weapons free change in your day, and which one to pick.
+- [Connect an assistant and send your first post](/pr-preview/pr-602/docs/tutorials/first-mcp-connection/index.md): Add the Blowhorn MCP server to Claude Desktop, read your profiles and queue, and queue a post that waits for your approval.
+- [Install the app](/pr-preview/pr-602/docs/how-to/set-up/install-the-app/index.md): Download the signed Mac app from blowhorn.ai and verify it.
+- [Sign in](/pr-preview/pr-602/docs/how-to/set-up/sign-in/index.md): Sign in to your organization from the app or the command line.
+- [Set up Blowhorn at first muster](/pr-preview/pr-602/docs/how-to/set-up/first-muster-setup/index.md): What each step of the desktop app's first-muster setup does, and what it never does.
+- [Create a Blowhorn account](/pr-preview/pr-602/docs/how-to/set-up/create-an-account/index.md): Create your Blowhorn account, or sign in, from the desktop app's setup.
+- [Finish setup on this computer](/pr-preview/pr-602/docs/how-to/set-up/finish-setup/index.md): Run blowhorn setup to check this computer, write the Chrome native host, and see what is left.
+- [Check that onboarding still finishes](/pr-preview/pr-602/docs/how-to/set-up/check-onboarding/index.md): Run the onboarding happy path against the built app before a release.
+- [Install the Chrome extension](/pr-preview/pr-602/docs/how-to/set-up/install-the-chrome-extension/index.md): Add the Blowhorn extension in the Blowhorn app or from the Chrome Web Store, or load it unpacked in one profile.
+- [Map Blowhorn profiles to Chrome profiles](/pr-preview/pr-602/docs/how-to/set-up/map-chrome-profiles/index.md): Say which real Chrome profile each Blowhorn profile belongs to on this computer.
+- [Add a profile](/pr-preview/pr-602/docs/how-to/set-up/add-a-profile/index.md): Create a profile from the desktop app or the command line.
+- [Sign a profile in to each platform](/pr-preview/pr-602/docs/how-to/set-up/platform-accounts/index.md): Browser sign-ins, tokens, and app passwords each profile needs before it can post.
+- [Connect an AI assistant over MCP](/pr-preview/pr-602/docs/how-to/set-up/connect-mcp-client/index.md): Point Claude, ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, or Grok at the Blowhorn MCP server and let an assistant drive Blowhorn from your computer.
+- [Post content](/pr-preview/pr-602/docs/how-to/publish/post-content/index.md): Preview and publish queued posts across profiles and platforms.
+- [Manage the content queue](/pr-preview/pr-602/docs/how-to/publish/manage-the-content-worksheet/index.md): Add, edit, and track queued posts under Activity › Upcoming and from the command line.
+- [Amplify an existing post](/pr-preview/pr-602/docs/how-to/publish/amplify-a-post/index.md): Repost, retweet, quote, upvote, or react to a post from every profile.
+- [blowhorn-axi](/pr-preview/pr-602/docs/reference/cli/blowhorn-axi/index.md): Reply in Slack as Blowhorn profiles, session only. Slack reads stay on the Cursor Slack connection; every write needs `--confirm`.
+- [blowhorn shared flags](/pr-preview/pr-602/docs/reference/cli/shared-flags/index.md): The flags most blowhorn commands take, and its exit codes.
+- [blowhorn accept](/pr-preview/pr-602/docs/reference/cli/accept/index.md): Accept pending LinkedIn connection invitations other people have sent you, one at a time with a randomized pause between each.
+- [Amplify an issue or pull request on GitHub](/pr-preview/pr-602/docs/how-to/publish/amplify-on-github/index.md): React to GitHub issues and pull requests from every profile.
+- [blowhorn analytics](/pr-preview/pr-602/docs/reference/cli/analytics/index.md): blowhorn analytics: activities, activity, history, import-exports, operations, pages.
+- [blowhorn auth](/pr-preview/pr-602/docs/reference/cli/auth/index.md): blowhorn auth: anonymous-usage-stats, login, logout, share-activity-publicly, status, switch-organization.
+- [blowhorn chrome](/pr-preview/pr-602/docs/reference/cli/chrome/index.md): blowhorn chrome: active-tab, attach-chrome, confirm, create-profile, discover, extension-enable, extension-install, extension-mode, extension-status, map, open-profile, profiles, remember, spaces-setup, status, suggest, unmap.
+- [blowhorn classify-url](/pr-preview/pr-602/docs/reference/cli/classify-url/index.md): Say what a link is, by the platform rules the engine keeps.
+- [blowhorn comment](/pr-preview/pr-602/docs/reference/cli/comment/index.md): Post LinkedIn, Reddit, or Bluesky comments from scheduled activities or ad-hoc target/message flags.
+- [Post to Reddit and Bluesky](/pr-preview/pr-602/docs/how-to/publish/post-to-reddit-and-bluesky/index.md): Queue Reddit posts and Bluesky posts, threads, and reposts.
+- [blowhorn config](/pr-preview/pr-602/docs/reference/cli/config/index.md): blowhorn config: get, path, set, show.
+- [blowhorn content](/pr-preview/pr-602/docs/reference/cli/content/index.md): blowhorn content: approve, delete, get, list, posts, upsert.
+- [blowhorn desktop](/pr-preview/pr-602/docs/reference/cli/desktop/index.md): blowhorn desktop: activity-kinds, build, install, start, status.
+- [blowhorn find](/pr-preview/pr-602/docs/reference/cli/find/index.md): Search Bluesky and GitHub for posts, issues, and pull requests matching a query, with optional date, author, and relevancy filters.
+- [blowhorn follow](/pr-preview/pr-602/docs/reference/cli/follow/index.md): Follow accounts on X, Bluesky, or GitHub.
+- [Post to Hacker News](/pr-preview/pr-602/docs/how-to/publish/post-to-hacker-news/index.md): Submit links and text posts, comment, and stay within the daily cap.
+- [blowhorn github](/pr-preview/pr-602/docs/reference/cli/github/index.md): blowhorn github: squatters.
+- [blowhorn org](/pr-preview/pr-602/docs/reference/cli/org/index.md): blowhorn org: members.
+- [blowhorn platforms](/pr-preview/pr-602/docs/reference/cli/platforms/index.md): blowhorn platforms: capabilities.
+- [blowhorn post](/pr-preview/pr-602/docs/reference/cli/post/index.md): Publish pending posts or amplify existing content across supported platforms.
+- [blowhorn profile](/pr-preview/pr-602/docs/reference/cli/profile/index.md): blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update.
+- [Reply to a post](/pr-preview/pr-602/docs/how-to/publish/reply-to-a-post/index.md): Comment on LinkedIn, Reddit, and Bluesky activities, and reply on X.
+- [blowhorn report](/pr-preview/pr-602/docs/reference/cli/report/index.md): Generate a consolidated report summary from the exports already sitting in the repository-root data/analytics/ directory.
+- [Send a Slack message](/pr-preview/pr-602/docs/how-to/publish/send-a-slack-message/index.md): Queue Slack activities or send one message typed on the command line.
+- [blowhorn risk](/pr-preview/pr-602/docs/reference/cli/risk/index.md): blowhorn risk: grid, set, show.
+- [blowhorn schedule](/pr-preview/pr-602/docs/reference/cli/schedule/index.md): blowhorn schedule: bootstrap, delete, destinations, fleet, get, list, pause, resume, status, tick, trigger-now, upsert, validate, why.
+- [blowhorn service](/pr-preview/pr-602/docs/reference/cli/service/index.md): blowhorn service: adopt, cancel, install, restart, run, start, status, stop, test, uninstall, update.
+- [Follow accounts](/pr-preview/pr-602/docs/how-to/grow/follow-on-github/index.md): Follow accounts on X, Bluesky, and GitHub, and unfollow on Bluesky.
+- [blowhorn setup](/pr-preview/pr-602/docs/reference/cli/setup/index.md): Set up Blowhorn on this computer, safely and repeatably.
+- [blowhorn slack](/pr-preview/pr-602/docs/reference/cli/slack/index.md): blowhorn slack: delete, edit, profiles, react, send, whoami.
+- [blowhorn source](/pr-preview/pr-602/docs/reference/cli/source/index.md): GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login.
+- [Star repositories on GitHub](/pr-preview/pr-602/docs/how-to/grow/star-on-github/index.md): Star GitHub repositories from every selected profile, over the REST API.
+- [blowhorn star](/pr-preview/pr-602/docs/reference/cli/star/index.md): Star GitHub repositories.
+- [blowhorn stop](/pr-preview/pr-602/docs/reference/cli/stop/index.md): Stop everything, right now: on this machine, or on every machine sharing the store with `--all`.
+- [Find conversations on Bluesky](/pr-preview/pr-602/docs/how-to/grow/find-on-bluesky/index.md): Search Bluesky posts by query, date, author, and other filters.
+- [blowhorn store](/pr-preview/pr-602/docs/reference/cli/store/index.md): Report whether this computer can use Blowhorn, and say why not when it cannot: signed in, a client the server still accepts, and a member of the organization.
+- [Build a GitHub audience](/pr-preview/pr-602/docs/how-to/grow/build-a-github-audience/index.md): List a repository's stargazers, contributors, or watchers into your account.
+- [blowhorn unfollow](/pr-preview/pr-602/docs/reference/cli/unfollow/index.md): Unfollow one Bluesky account (`--platform` bluesky `--target` &lt;handle&gt;) through the Bluesky API.
+- [Find issues and pull requests on GitHub](/pr-preview/pr-602/docs/how-to/grow/find-on-github/index.md): Search GitHub issues and pull requests by query, repository, type, and state.
+- [blowhorn uninstall](/pr-preview/pr-602/docs/reference/cli/uninstall/index.md): Remove Blowhorn from this machine.
+- [blowhorn upgrade](/pr-preview/pr-602/docs/reference/cli/upgrade/index.md): Carry this Mac's local data from an earlier home into this one.
+- [blowhorn withdraw](/pr-preview/pr-602/docs/reference/cli/withdraw/index.md): Withdraw LinkedIn invitations that have been pending longer than `--older-than` days, freeing headroom under LinkedIn's cap on unaccepted invitations.
+- [Accept incoming invitations](/pr-preview/pr-602/docs/how-to/grow/accept-invitations/index.md): Answer received LinkedIn invitations; flagged ones are skipped.
+- [Sweep stalled GitHub assignments](/pr-preview/pr-602/docs/how-to/grow/squatter-sweep/index.md): Find assigned-but-stalled issues, nudge the assignee, warn them, and release the assignment on a fixed grace-period progression.
+- [Withdraw stale invitations](/pr-preview/pr-602/docs/how-to/grow/withdraw-invitations/index.md): Preview and withdraw old sent invitations to reclaim headroom.
+- [Schedule a job](/pr-preview/pr-602/docs/how-to/schedule/schedule-a-job/index.md): Run posts and other commands on a schedule, from Activity › Routines or the command line.
+- [Pause and resume posting](/pr-preview/pr-602/docs/how-to/schedule/pause/index.md): Stop every scheduled claim on one computer, every computer, or one activity, then resume.
+- [Find out why a job did not run](/pr-preview/pr-602/docs/how-to/schedule/why-not-run/index.md): Ask Blowhorn why one scheduled activity ran or not, in one read-only command.
+- [Keep posting when the app is closed](/pr-preview/pr-602/docs/how-to/schedule/background-service/index.md): Run scheduled passes from the background service, and quit cleanly.
+- [Collect and read your analytics](/pr-preview/pr-602/docs/how-to/measure/analytics/index.md): Collect LinkedIn and X follower numbers, read the history, one activity's result and the HTML report.
+- [Review what ran](/pr-preview/pr-602/docs/how-to/measure/review-runs/index.md): Read the runs ledger: what each computer did, what failed, and what was a preview.
+- [Change your defaults](/pr-preview/pr-602/docs/how-to/settings/defaults/index.md): Set pace, excluded profiles, dry-run default, notifications and logs, in the app or the config file.
+- [Change how the app looks](/pr-preview/pr-602/docs/how-to/settings/appearance/index.md): Pick the app's theme, make the side rail and the + button solid or tinted glass, choose whether the desktop shows through, and see how times follow your Mac's clock.
+- [Choose how Blowhorn reaches Chrome](/pr-preview/pr-602/docs/how-to/settings/launch-mode/index.md): Stay on the extension default, or attach to your Chrome or launch Blowhorn's own. Advanced.
+- [Choose where Blowhorn works in Chrome](/pr-preview/pr-602/docs/how-to/settings/where-blowhorn-works/index.md): Keep Blowhorn's tab beside yours, or give it a window of its own mostly behind yours, in the app or from the command line.
+- [Watch, pause or take over a run in Chrome](/pr-preview/pr-602/docs/how-to/manage/watch-and-take-over-a-run/index.md): Open the Blowhorn side panel to see what Blowhorn is doing in Chrome, pause or stop it, and take over for a sign-in or a check.
+- [Troubleshooting](/pr-preview/pr-602/docs/how-to/troubleshoot/troubleshooting/index.md): Start from the symptom: find the fix for what Blowhorn just told you.
+- [Turn anonymous usage data on or off](/pr-preview/pr-602/docs/how-to/settings/share-usage-data/index.md): Choose whether your Blowhorn account shares anonymous usage data for product improvement, in the app or from the command line.
+- [Update Blowhorn](/pr-preview/pr-602/docs/how-to/manage/update-blowhorn/index.md): Install a newer Blowhorn from the app, follow each step as it runs, and what to do if an update stalls.
+- [Settle something Blowhorn could not confirm](/pr-preview/pr-602/docs/how-to/troubleshoot/clicked-not-confirmed/index.md): Check the platform after a clicked-unread activity, then clear it or leave it.
+- [Share your activity publicly or keep it in your org](/pr-preview/pr-602/docs/how-to/settings/share-activity/index.md): Choose whether your completed runs can appear in the public activity feed, in the app or from the command line.
+- [Fix a sign-in that stopped working](/pr-preview/pr-602/docs/how-to/troubleshoot/sign-in-problems/index.md): Recover expired LinkedIn, X and Reddit sessions, and hand CAPTCHAs back to yourself.
+- [Post to X when it will not confirm](/pr-preview/pr-602/docs/how-to/troubleshoot/x-posting/index.md): What Blowhorn reads after Post on X, the extension typing limit, and what to check.
+- [Fix the Chrome extension connection](/pr-preview/pr-602/docs/how-to/troubleshoot/extension-connection/index.md): Reconnect the extension, resolve version mismatch, and clear bridge and profile contention.
+- [Fix cannot reach your account](/pr-preview/pr-602/docs/how-to/troubleshoot/store-unavailable/index.md): What to do when a command says it cannot reach your Blowhorn account and exits 3.
+- [Fix Blowhorn when its engine won't start](/pr-preview/pr-602/docs/how-to/troubleshoot/engine-wont-start/index.md): What to do when the menu-bar popup says Blowhorn's engine couldn't start or isn't responding.
+- [Uninstall Blowhorn](/pr-preview/pr-602/docs/how-to/manage/uninstall/index.md): Remove the app, the service, the extension host and the checkout's build products. macOS only.
+- [Run a diagnostics check with Tells](/pr-preview/pr-602/docs/how-to/troubleshoot/diagnostics/index.md): Drive one profile to tells.blowhorn.ai under each operating mode, save the reports on this computer, and compare what each mode leaks.
+- [The Blowhorn desktop app bounces in my dock and won't start. Why?](/pr-preview/pr-602/docs/how-to/troubleshoot/bounces-in-dock/index.md): What a bouncing dock icon means, and how to get the app open again without a terminal.
+- [Fix "Blowhorn is damaged and can't be opened"](/pr-preview/pr-602/docs/how-to/troubleshoot/damaged-cant-be-opened/index.md): What to do when macOS says Blowhorn is damaged after you download it from blowhorn.ai or GitHub.
+- [Package the Chrome extension](/pr-preview/pr-602/docs/how-to/manage/package-the-chrome-extension/index.md): Build the store zip locally; submission happens at release time.
+- [System requirements](/pr-preview/pr-602/docs/reference/requirements/index.md): What your computer needs to run Blowhorn: macOS version, Google Chrome, and a Blowhorn account.
+- [The Blowhorn app, screen by screen](/pr-preview/pr-602/docs/reference/use-the-desktop-app/index.md): The menu-bar popover, the console screens, Setup, Settings, and what each one does.
+- [Content queue columns and activity states](/pr-preview/pr-602/docs/reference/content-queue/index.md): Every content column, what each platform reads from an activity, and what each activity state means.
+- [Job options and schedules](/pr-preview/pr-602/docs/reference/jobs/index.md): Schedule activities, recurrence words, driver mode, and the three pause scopes.
+- [Posting: pending activities and platform behavior](/pr-preview/pr-602/docs/reference/post/index.md): What 'pending' means for a queue activity, the one-click rule, and how posting behaves on each platform. Every flag and example is in the CLI reference.
+- [Profile reference](/pr-preview/pr-602/docs/reference/profiles/index.md): What a profile is: a profile in your organization, the list every command reads, its keys per platform, and the Chrome column.
+- [Configuration reference](/pr-preview/pr-602/docs/reference/configuration/index.md): Precedence, every `.blowhorn.yaml` option, environment variables, and output logging.
+- [Messages and exit codes](/pr-preview/pr-602/docs/reference/messages/index.md): Every refusal sentence keyed by its first words, with the cause, the fix, and the exit code.
+- [Chrome extension permissions](/pr-preview/pr-602/docs/reference/extension-permissions/index.md): Each permission the Blowhorn extension asks for, the sites it runs on, and why.
+- [Plans and limits](/pr-preview/pr-602/docs/reference/plans/index.md): Blowhorn is free during early access, with no tiers and no per-action charges.
+- [Release notes](/pr-preview/pr-602/docs/reference/releases/index.md): What changed in each Blowhorn release.
+- [Get help](/pr-preview/pr-602/docs/reference/support/index.md): Where to look first, how to report a problem, and how to report a security issue.
+- [Chrome reference](/pr-preview/pr-602/docs/reference/chrome/index.md): The requirements, the mapping commands, the launch modes, the extension default, and Linux differences.
+- [LinkedIn](/pr-preview/pr-602/docs/reference/platforms/linkedin/index.md): What Blowhorn can do on LinkedIn, and how each action behaves there.
+- [MCP server](/pr-preview/pr-602/docs/reference/mcp-server/index.md): The local MCP server: one tool per CLI command, a few split into two tools, a few hidden by default, over stdio, with dry run as the default for anything that changes state.
+- [Python client library](/pr-preview/pr-602/docs/reference/python-client/index.md): The generated Python client for the CLI's OpenAPI document: one API function per command, one model per JSON payload.
+- [X (Twitter)](/pr-preview/pr-602/docs/reference/platforms/x/index.md): What Blowhorn can do on X (Twitter), and how each action behaves there.
+- [Reddit](/pr-preview/pr-602/docs/reference/platforms/reddit/index.md): What Blowhorn can do on Reddit, and how each action behaves there.
+- [Hacker News](/pr-preview/pr-602/docs/reference/platforms/hacker-news/index.md): What Blowhorn can do on Hacker News, and how each action behaves there.
+- [Slack](/pr-preview/pr-602/docs/reference/platforms/slack/index.md): What Blowhorn can do on Slack, and how each action behaves there.
+- [Bluesky](/pr-preview/pr-602/docs/reference/platforms/bluesky/index.md): What Blowhorn can do on Bluesky, and how each action behaves there.
+- [GitHub](/pr-preview/pr-602/docs/reference/platforms/github/index.md): What Blowhorn can do on GitHub, and how each action behaves there.
+- [YouTube](/pr-preview/pr-602/docs/reference/platforms/youtube/index.md): YouTube in Blowhorn: coming soon.
+- [Instagram](/pr-preview/pr-602/docs/reference/platforms/instagram/index.md): Instagram in Blowhorn: coming soon.
+- [TikTok](/pr-preview/pr-602/docs/reference/platforms/tiktok/index.md): TikTok in Blowhorn: coming soon.
+- [Facebook](/pr-preview/pr-602/docs/reference/platforms/facebook/index.md): Facebook in Blowhorn: coming soon.
+- [How Blowhorn works](/pr-preview/pr-602/docs/explanation/how-it-works/index.md): The app, the engine, the extension, the background service, and your account.
+- [Where your data lives](/pr-preview/pr-602/docs/explanation/your-data/index.md): What stays on your computer, what your account keeps in sync, and what the extension reads.
+- [Who can post as whom](/pr-preview/pr-602/docs/explanation/eligibility/index.md): A credential is permission, a handle is not; a browser mapping is identity, not permission.
+- [Why Blowhorn uses your own browser](/pr-preview/pr-602/docs/explanation/your-own-chrome/index.md): Your signed-in browser through the extension, APIs where they exist, and never headless.
+- [How Blowhorn paces itself](/pr-preview/pr-602/docs/explanation/reliability-and-anti-bot-design/index.md): Measured typing and pauses, per-run pace, and why a failed post is not retried.
+- [How Blowhorn avoids repeat posts](/pr-preview/pr-602/docs/explanation/never-twice/index.md): One click per run, preview first, and what clicked-outcome-not-read means.
+- [How scheduling works](/pr-preview/pr-602/docs/explanation/scheduling/index.md): Ten-minute passes, one shared queue across computers, leases, and the three pause scopes.
+- [What runs when the app is closed](/pr-preview/pr-602/docs/explanation/distribution/index.md): The background service, quitting, keep-running, and how updates reach a closed app.
+- [Why flagged invitations are skipped](/pr-preview/pr-602/docs/explanation/invitation-safety/index.md): A flagged invitation is LinkedIn warning you, so Blowhorn walks away instead of confirming.
+- [What the analytics numbers mean](/pr-preview/pr-602/docs/explanation/analytics/index.md): Measured versus trended counts, what each tile counts, and how fresh the numbers are.
+- [Plans, offline use and lapses](/pr-preview/pr-602/docs/explanation/plans/index.md): Why plans count profiles and platforms, the 72-hour offline grace, and why dry runs stay free.
+- [You're in control](/pr-preview/pr-602/docs/explanation/youre-in-control/index.md): Every worry in one place: getting banned, posting by mistake, posting twice, embarrassing yourself, and AI running away. The controls that stop each one, and where they live.
+- [How the MCP server keeps you in control](/pr-preview/pr-602/docs/explanation/mcp-and-safety/index.md): How the MCP server, the CLI, dry runs, confirms and approvals fit together when an AI assistant drives Blowhorn.
+
+## Download
+- [Download](/pr-preview/pr-602/download/index.md): Download Blowhorn for Mac, add the Blowhorn extension to Google Chrome, and set up the Blowhorn command. One macOS disk image for Apple silicon and Intel.
+
+
+- [Download complete](/pr-preview/pr-602/download/thanks/index.md): Four simple steps to install Blowhorn and add the Blowhorn extension to Google Chrome.
+
+## Resources
+- [Resources](/pr-preview/pr-602/resources/index.md): Videos, articles and reference for getting more out of Blowhorn - product intelligence, tips and the stories behind the features.
+
+- [Articles](/pr-preview/pr-602/resources/articles/index.md): Product intelligence, tips and field notes from the Blowhorn team: how to read your results, schedule well and stay inside every platform's rules.
+- [Videos](/pr-preview/pr-602/resources/videos/index.md): Blowhorn videos - short films and walkthroughs on what Blowhorn does and how to get the most from it, organised by category.
+- [Getting started](/pr-preview/pr-602/resources/videos/getting-started/index.md): Start here - what Blowhorn is, how it works, and the films that introduce it.
+
+- [Failed posts are data: reading failure reasons and fixing the cause](/pr-preview/pr-602/resources/articles/failed-posts-are-data/index.md): A failed post is a report, not just a red mark. The reason on the activity names the cause, and the fix follows from the …
+- [Pace is a feature: typing delay, concurrency and approval gates](/pr-preview/pr-602/resources/articles/pace-is-a-feature/index.md): Speed feels like efficiency until a platform reads it as automation. Typing delay, concurrency and approval gates are …
+- [The open web is closing. Show up where your audience is.](/pr-preview/pr-602/resources/articles/the-open-web-is-closing/index.md): AI answers now reuse Reddit's posts without sending the click, and Reddit is answering with logins and its app. Here is …
+- [Agents across client brands, with a kill switch in your hand](/pr-preview/pr-602/resources/articles/agents-across-client-brands-kill-switch/index.md): If you run several brands, an assistant can save hours, and a mistake lands on someone else's name. One profile per …
+- [Five minutes from ~/.local/bin/blowhorn-mcp to your first dry run](/pr-preview/pr-602/resources/articles/five-minutes-to-your-first-dry-run/index.md): Open Blowhorn once, add one command to your assistant, check it connected, read something, then rehearse your first …
+- [Let an agent rally the first hour without approving itself](/pr-preview/pr-602/resources/articles/rally-the-first-hour-without-approving-itself/index.md): Plan the first hour of a company post with your teammates' contributed profiles, let an agent queue the work, and keep a …
+- [Ship release notes everywhere your contributors read](/pr-preview/pr-602/resources/articles/ship-release-notes-where-contributors-read/index.md): A tagged release deserves notes written for each place your contributors read: Hacker News, GitHub, Reddit, Slack and …
+- [Why your assistant rehearses first](/pr-preview/pr-602/resources/articles/why-your-assistant-rehearses-first/index.md): Every write through the Blowhorn MCP server is a dry run until you confirm. What a rehearsal shows, what to check before …
+- [Your release, drafted by your assistant, fired by you](/pr-preview/pr-602/resources/articles/your-release-drafted-by-your-assistant/index.md): Your changelog already says what shipped. Here is how to have an assistant turn it into release posts for the networks …
+- [A platform limit is information, not an error](/pr-preview/pr-602/resources/articles/tip-a-limit-is-information/index.md): When a platform slows or refuses your posts, it is telling you the current price of attention. The right response is a …
+- [Review the week, not the post](/pr-preview/pr-602/resources/articles/tip-review-the-week/index.md): Single posts are noise. A five-minute weekly review of your activities - success rate, posting times, failure reasons - …
+- [When a platform changes the rules](/pr-preview/pr-602/resources/articles/when-a-platform-changes-the-rules/index.md): Posting limits shrink, formats change, and yesterday's healthy schedule starts failing. Here is how rule changes show up …
+- [Won or lost in the first hour](/pr-preview/pr-602/resources/articles/won-or-lost-in-the-first-hour/index.md): Feeds are widely believed to show a new post to a few people first and widen its reach only if they respond. Here is …
+- [Battalion Thunder](/pr-preview/pr-602/resources/videos/getting-started/battalion-thunder/index.md): From one recruit to one thunder: install Blowhorn on as many computers as you like, they fall in as one unit, and one order goes out to every channel at once.
+- [Post at your audience's hour, not yours](/pr-preview/pr-602/resources/articles/tip-post-at-their-hour/index.md): Write whenever you think clearly; post when your readers are actually scrolling. Scheduling exists to separate those two …
+- [Read the failure before you retry](/pr-preview/pr-602/resources/articles/tip-read-the-failure/index.md): Every failed post carries its reason, and the reason names the fix. Retrying without reading it repeats the same failure …
+- [Space the queue, not the burst](/pr-preview/pr-602/resources/articles/tip-space-the-queue/index.md): If a troop's posts all land inside a few minutes, widen the spacing before you touch anything else. Bursts are the …
+- [Start every new troop on approval](/pr-preview/pr-602/resources/articles/tip-approve-first-run/index.md): Turn on approval for a new troop's first runs. You see each post before it goes out, catch the targeting and wording …
+- [The scheduling craft: spacing, timing and queues](/pr-preview/pr-602/resources/articles/the-scheduling-craft/index.md): Platforms do not judge your posts one at a time; they judge the shape of your activity. Spacing, timing and queue …
+- [Reading your results: what a post's numbers tell you](/pr-preview/pr-602/resources/articles/reading-your-results/index.md): A posted checkmark is the start of the information, not the end. Here is how to read the numbers on a finished activity, …
+- [Template article: replace this headline](/pr-preview/pr-602/resources/articles/template-article/index.md): A one or two sentence summary of what the reader learns.
+- [Template video](/pr-preview/pr-602/resources/videos/template-video/index.md): Template - replace with the video's summary.
+- [Contributing to Resources](/pr-preview/pr-602/resources/contributing/index.md): How to add an article, a tip or a video to the Blowhorn Resources center: content locations, front matter, templates, tagging rules and feed implications.
+- [Desktop app](/pr-preview/pr-602/resources/tags/desktop-app/feed.xml)
+- [Overview](/pr-preview/pr-602/resources/tags/overview/feed.xml)
+- [Platform rules](/pr-preview/pr-602/resources/tags/platform-rules/feed.xml)
+- [Product intelligence](/pr-preview/pr-602/resources/tags/in-product-intelligence/feed.xml)
+- [Reading results](/pr-preview/pr-602/resources/tags/reading-results/feed.xml)
+- [Scheduling](/pr-preview/pr-602/resources/tags/scheduling/feed.xml)
+- [Tips and intelligence](/pr-preview/pr-602/resources/tips/index.md): Every tip and every Product intelligence piece, each under its column: From the Desk of the General, From Boot Camp, and From the Field.
+- [Tips and tricks](/pr-preview/pr-602/resources/tags/tips/feed.xml)
+
+## Blowhorn for your role
+- [Blowhorn for your role](/pr-preview/pr-602/for/index.md): Blowhorn by role: DevRel, marketing managers, founders, open source maintainers, community managers, and agencies and consultants.
+
+
+- [Blowhorn for DevRel](/pr-preview/pr-602/for/devrel/index.md): Blowhorn for developer relations: one queue for the networks developers use, including Hacker News and GitHub, posted as you from your own browser.
+- [Blowhorn for Marketing managers](/pr-preview/pr-602/for/marketing/index.md): Blowhorn for marketing managers: make a sound wave from your team's own profiles, each posting as themselves, coordinated from one queue.
+- [Blowhorn for Founders](/pr-preview/pr-602/for/founders/index.md): Blowhorn for founders: every profile you speak for, from one queue on your own computers, posted as you from your own browser.
+- [Blowhorn for Open source maintainers](/pr-preview/pr-602/for/open-source/index.md): Blowhorn for open source maintainers: announce releases and milestones on GitHub, Slack, Hacker News and every social network from one queue, as yourself.
+- [Blowhorn for Community managers](/pr-preview/pr-602/for/community/index.md): Blowhorn for community managers: Slack announcements as yourself, and supporters amplifying from their own profiles.
+- [Blowhorn for Agencies and consultants](/pr-preview/pr-602/for/agencies/index.md): Blowhorn for agencies and consultants: client profiles in a real browser on your own computer, with dry-run and pause on every action.
+- [Blowhorn for Social media managers](/pr-preview/pr-602/for/social-media/index.md): Blowhorn for social media managers: one queue for LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub and Slack, posted as the company and as you.
+
+## Blowhorn solutions
+- [Blowhorn solutions](/pr-preview/pr-602/solutions/index.md): Blowhorn solutions by role, by use case and by the category of tool you are replacing. One queue, posted as you.
+
+
+- [Blowhorn for developer distribution](/pr-preview/pr-602/solutions/developer-distribution/index.md): One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X and Bluesky, posted as you from your own browser.
+- [Blowhorn for employee advocacy](/pr-preview/pr-602/solutions/employee-advocacy/index.md): Employee advocacy for small teams: real people amplifying one post as themselves, from one coordinated queue, without a 100-seat minimum.
+- [Blowhorn for distributed teams](/pr-preview/pr-602/solutions/distributed-teams/index.md): Blowhorn for distributed teams: one shared queue across your teammates' computers, each posting from its own internet connection and IP address. No proxy to buy or run.
+- [Blowhorn for social scheduling](/pr-preview/pr-602/solutions/social-scheduling/index.md): Schedule posts like any cloud scheduler, but your own computers press Post, as you, and Hacker News, GitHub and Slack join the same queue.
+- [Blowhorn for LinkedIn automation](/pr-preview/pr-602/solutions/linkedin-automation/index.md): LinkedIn posting and careful outreach from your own browser, signed in as you: no password, 2FA secret or session cookie handed to a vendor's server.
+- [Blowhorn for many profiles](/pr-preview/pr-602/solutions/multi-profile/index.md): Run many brand, founder and project profiles from one desk: each in its own real browser profile, no fake fingerprints, from one coordinated queue.
+
+## Use cases
+- [Use cases](/pr-preview/pr-602/use-cases/index.md): Blowhorn use cases: launch-day amplification, open source release announcements, conference promotion, careful LinkedIn outreach, team amplification, and agent publishing, from one queue.
+
+
+- [Blowhorn for launch day](/pr-preview/pr-602/use-cases/launch-day/index.md): Plan a product launch so the announcement goes out everywhere at the right moment, and every profile you add amplifies it in the first hour.
+- [Blowhorn for open source releases](/pr-preview/pr-602/use-cases/open-source-release/index.md): Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, and rally GitHub reactions, from one queue, as yourself.
+- [Blowhorn for conferences](/pr-preview/pr-602/use-cases/conference/index.md): Promote a talk, booth or meetup before, during and after the event, from one queue, while any awake computer covers the schedule.
+- [Blowhorn for careful LinkedIn outreach](/pr-preview/pr-602/use-cases/linkedin-outreach/index.md): Careful LinkedIn outreach from your own browser: invite to your page, connect mentees, accept invitations and withdraw stale invites, at human pace, with built-in caps.
+- [Blowhorn for team amplification](/pr-preview/pr-602/use-cases/team-amplification/index.md): Get teammates and supporters behind every company post: each posts as themselves, in the first hour, from one coordinated queue, with no 100-seat minimum.
+- [Blowhorn for agent publishing](/pr-preview/pr-602/use-cases/agent-publishing/index.md): Let Claude Code, Codex, Cursor or your coding agent of choice draft, dry-run and schedule posts through the Blowhorn CLI, with you approving every post before it goes out.
+
+## Tags
+- [Tags](/pr-preview/pr-602/tags/)
+- [Agents](/pr-preview/pr-602/tags/agents/)
+- [Desktop-App](/pr-preview/pr-602/tags/desktop-app/)
+- [In-Product-Intelligence](/pr-preview/pr-602/tags/in-product-intelligence/)
+- [Overview](/pr-preview/pr-602/tags/overview/)
+- [Platform-Rules](/pr-preview/pr-602/tags/platform-rules/)
+- [Reading-Results](/pr-preview/pr-602/tags/reading-results/)
+- [Scheduling](/pr-preview/pr-602/tags/scheduling/)
+- [Tips](/pr-preview/pr-602/tags/tips/)
