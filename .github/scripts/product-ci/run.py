@@ -61,8 +61,12 @@ def python_steps(python: str) -> list[Step]:
         Step("install dependencies", (python, "-m", "pip", "install", "--disable-pip-version-check",
                                       "-r", "engine/requirements-dev.txt"), timeout_s=600),
         Step("playwright import boundary", (python, "release/scripts/check_playwright_imports.py"), timeout_s=120),
-        Step("test suite", ("timeout", "-s", "ABRT", "900", python, "-u", "-m", "pytest", "tests/", "-q",
-                            "-p", "no:cacheprovider", "-o", "faulthandler_timeout=300"),
+        # The product's own CI runs `make cli-tests` so the suite is spread over
+        # PYTEST_WORKERS (half the cores). A single pytest process hits the 900 s
+        # timeout on the public runner.
+        Step("test suite", ("timeout", "-s", "ABRT", "900", "make", "cli-tests",
+                            f"PYTHON={python} -u",
+                            "PYTEST_ARGS=tests/ -q -o faulthandler_timeout=300"),
              timeout_s=960, counts="pytest"),
     ]
 

@@ -166,6 +166,18 @@ class RunStepsTest(unittest.TestCase):
         self.assertEqual(steps[0].argv, ("make", "cli-rust-tests"))
         self.assertEqual(steps[0].counts, "cargo")
 
+    def test_python_steps_run_make_cli_tests(self):
+        steps = run.python_steps("/opt/python/bin/python")
+        self.assertEqual([step.label for step in steps], [
+            "install dependencies", "playwright import boundary", "test suite",
+        ])
+        self.assertEqual(steps[2].argv, (
+            "timeout", "-s", "ABRT", "900", "make", "cli-tests",
+            "PYTHON=/opt/python/bin/python -u",
+            "PYTEST_ARGS=tests/ -q -o faulthandler_timeout=300",
+        ))
+        self.assertEqual(steps[2].counts, "pytest")
+
 
 class MakeTargetTest(unittest.TestCase):
     def test_make_product_ci_runs_the_suite_and_prints_only_its_summary(self):
