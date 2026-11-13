@@ -83,9 +83,9 @@
             <img class="download-icon" src="{{ "assets/brand/logo/blowhorn-app-icon.svg" | relURL }}" alt="" width="72" height="72">
             <h2 id="windows-title" class="h3">Blowhorn for Windows<span class="visually-hidden">, coming soon</span></h2>
             <p>We're working on it. Really.</p>
-            <p class="actions"><button class="button button-primary windows-notify-toggle" type="button" id="windows-notify-toggle" aria-expanded="false" aria-controls="windows-notify-form" hidden>Notify me when available</button></p>
+            <p class="actions"><button class="button button-primary windows-notify-toggle" type="button" id="windows-notify-toggle" hidden>Notify me when available</button></p>
             <form id="windows-notify-form" class="newsletter windows-notify" method="post" action="https://api.blowhorn.ai/api/waitlist">
-              <label class="newsletter-label ui" for="windows-notify-email">Email address</label>
+              <label class="visually-hidden" for="windows-notify-email">Email address</label>
               <div class="newsletter-row">
                 <input type="email" id="windows-notify-email" name="email" autocomplete="email" placeholder="Email address" required maxlength="254">
                 <button class="button button-primary" type="submit">Notify me</button>
@@ -97,7 +97,7 @@
                 <input id="windows-notify-website" name="website" type="text" tabindex="-1" autocomplete="off">
               </p>
               <p class="caption muted">One email when Windows support ships, nothing else. Your address is only used for that, and every email carries an unsubscribe link.</p>
-              <p id="windows-notify-status" class="windows-notify-status" role="status"></p>
+              <p id="windows-notify-status" class="windows-notify-status" role="status" tabindex="-1"></p>
             </form>
           </div>
         </div>

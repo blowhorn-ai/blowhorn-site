@@ -1364,10 +1364,15 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
 /* Windows notify: the toggle is hidden until download.js reveals it, so
    without JavaScript the form below is simply visible and posts on its
    own. The form reuses the newsletter input row; the card's own gap
-   separates it from the button, so it drops the newsletter's top margin. */
-.windows-notify-toggle[hidden] { display: none !important; }
+   separates it from the button, so it drops the newsletter's top margin.
+   After a signup download.js hides the input row and the note, and the
+   row's display: flex would otherwise keep it on screen. */
+.windows-notify-toggle[hidden],
+.windows-notify [hidden] { display: none !important; }
 .windows-notify { margin-top: 0; }
 .windows-notify-status { margin-top: var(--space-2); color: var(--ink); }
+/* Focus lands here after a signup. It's a message, so no ring. */
+.windows-notify-status:focus { outline: none; }
 .soon-sign {
   position: absolute;
   top: calc(-1 * var(--space-3));
