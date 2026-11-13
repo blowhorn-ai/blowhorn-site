@@ -139,6 +139,47 @@ class RunStepsTest(unittest.TestCase):
         self.assertEqual(status, 0)
         self.assertTrue((self.product / "desktop" / "marker").exists())
 
+    def test_cargo_counts_aggregate_result_lines_and_withhold_test_names(self):
+        code = ("print('running 16 tests');"
+                "print('test python_json::tests::nonfinite_constants_are_json ... ok');"
+                "print('test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s');"
+                "print('running 37 tests');"
+                "print('test result: ok. 37 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.47s');"
+                "print('test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s')")
+        status, out = self._run([run.Step("test suite", _py(code), counts="cargo")])
+        self.assertEqual(status, 0)
+        self.assertNotIn("python_json", out)
+        self.assertNotIn("nonfinite", out)
+        self.assertIn("[55 passed, 1 failed]", out)
+
+    def test_no_cargo_summary_prints_no_counts(self):
+        code = "import sys; print('error: could not compile blowhorn-host'); sys.exit(101)"
+        status, out = self._run([run.Step("test suite", _py(code), counts="cargo")])
+        self.assertEqual(status, 101)
+        self.assertIn("test suite: failed (exit 101)", out)
+        self.assertNotIn("blowhorn-host", out)
+        self.assertNotIn("[", out)
+
+    def test_rust_steps_run_make_cli_rust_tests(self):
+        steps = run.rust_steps()
+        self.assertEqual(len(steps), 1)
+        self.assertEqual(steps[0].argv, ("make", "cli-rust-tests"))
+        self.assertEqual(steps[0].counts, "cargo")
+
+    def test_python_steps_run_make_cli_tests(self):
+        steps = run.python_steps("/opt/python/bin/python")
+        self.assertEqual([step.label for step in steps], [
+            "install dependencies", "playwright import boundary", "test suite",
+        ])
+        self.assertEqual(steps[2].argv[:8], (
+            "timeout", "-s", "ABRT", "900", "make", "cli-tests",
+            "PYTHON=/opt/python/bin/python -u",
+            "PYTEST_ARGS=tests/ -q -o faulthandler_timeout=300",
+        ))
+        self.assertTrue(steps[2].argv[8].startswith("PYTEST_WORKERS="))
+        self.assertGreaterEqual(int(steps[2].argv[8].split("=", 1)[1]), 2)
+        self.assertEqual(steps[2].counts, "pytest")
+
 
 class MakeTargetTest(unittest.TestCase):
     def test_make_product_ci_runs_the_suite_and_prints_only_its_summary(self):
