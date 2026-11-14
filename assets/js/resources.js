@@ -81,7 +81,7 @@
     tab.addEventListener("click", function () {
       activeCategory = tab.getAttribute("data-category-tab");
       tabs.forEach(function (t) {
-        t.setAttribute("aria-selected", t === tab ? "true" : "false");
+        t.setAttribute("aria-pressed", t === tab ? "true" : "false");
       });
       apply();
       if (history.replaceState) {

@@ -156,7 +156,7 @@ a.tag-chip {
   color: var(--ink);
 }
 
-.category-tab[aria-selected="true"] {
+.category-tab[aria-pressed="true"] {
   border-bottom-color: var(--teal);
   color: var(--ink);
   font-weight: 600;
