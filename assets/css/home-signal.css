@@ -1036,11 +1036,12 @@ html[data-theme="signal"] #platforms .logo-tile img[src*="github-invertocat-blac
   margin: 0;
   padding: 0;
   animation: constellation-spin 48s linear infinite;
+  pointer-events: none;
 }
 .constellation:hover .constellation-orbit,
 .constellation:hover .constellation-item .logo-tile,
-.constellation:focus-within .constellation-orbit,
-.constellation:focus-within .constellation-item .logo-tile,
+.constellation:has(.constellation-item :focus) .constellation-orbit,
+.constellation:has(.constellation-item :focus) .constellation-item .logo-tile,
 .constellation.is-paused .constellation-orbit,
 .constellation.is-paused .constellation-item .logo-tile {
   animation-play-state: paused;
@@ -1050,6 +1051,7 @@ html[data-theme="signal"] #platforms .logo-tile img[src*="github-invertocat-blac
   left: 50%;
   top: 50%;
   margin: -24px 0 0 -24px;
+  pointer-events: auto;
   --angle: calc((var(--n, 0) * 360deg) / var(--total, 11));
   transform: rotate(var(--angle)) translate(min(30vw, 200px)) rotate(calc(-1 * var(--angle)));
 }
