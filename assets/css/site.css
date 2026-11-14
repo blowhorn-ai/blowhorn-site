@@ -3085,13 +3085,59 @@ a.card.docs-card > * { margin-top: 0; }
 @media (min-width: 640px) { .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 960px) { .proof-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .proof-card-feature { grid-column: 1 / -1; }
-.proof-card { position: relative; overflow: hidden; padding: var(--card-pad, var(--space-6)); border-radius: 1.25rem; }
+.proof-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  padding: var(--card-pad, var(--space-6));
+  border-radius: var(--radius-lg);
+}
 .proof-mark { display: block; font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; line-height: 0.7; color: var(--teal-deep); }
 .proof-card blockquote { margin: var(--space-3) 0 var(--space-4); }
 .proof-who { display: flex; gap: var(--space-3); align-items: center; margin: 0; }
+.proof-card > .proof-who {
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
 .proof-card-feature .proof-mark { font-size: 4.5rem; }
-.proof-card-feature blockquote { font-family: var(--font-display); font-weight: 700; font-size: 1.45rem; line-height: 1.35; }
-.proof-band { display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin-bottom: var(--space-8); }
+.proof-card-feature {
+  padding: var(--space-8);
+}
+.proof-card.card-field,
+.proof-card.card-plain {
+  --card-shadow: var(--shadow-soft);
+}
+.proof-card-feature blockquote {
+  max-width: 65ch;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.45rem;
+  line-height: 1.35;
+}
+
+/* improved featured testimonial on small screens */
+@media (max-width: 479px) {
+  .proof-card-feature {
+    padding: var(--space-6);
+  }
+
+  .proof-card-feature blockquote {
+    font-size: 1.2rem;
+    line-height: 1.45;
+  }
+
+  .proof-card-feature .proof-mark {
+    font-size: 3.5rem;
+  }
+}
+.proof-band {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  margin-bottom: var(--space-8);
+}
 .proof-band figure { margin: 0; padding: var(--card-pad, var(--space-6)); }
 /* Rotating proof (solutions pages): one quote at a time. The first quote
    shows with no JavaScript; the nav only appears once
@@ -3406,10 +3452,17 @@ a.card.docs-card > * { margin-top: 0; }
 }
 .plan-features li { position: relative; padding-left: 26px; color: var(--ink); }
 .plan-features li::before {
-  content: ""; position: absolute; left: 2px; top: 6px; width: 12px; height: 7px;
-  border-left: 2px solid var(--teal); border-bottom: 2px solid var(--teal);
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 6px;
+  width: 12px;
+  height: 7px;
+  border-left: 2px solid var(--teal);
+  border-bottom: 2px solid var(--teal);
   transform: rotate(-45deg);
 }
+
 .pricing-included .h3 { font-size: 18px; }
 .pricing-refund { padding: clamp(24px, 5vw, 56px); border-radius: var(--radius-xl); }
 .refund-steps {
