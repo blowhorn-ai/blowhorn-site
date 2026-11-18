@@ -239,7 +239,7 @@ def main(root: Path) -> int:
             problems.append(
                 f"/index.html data-theme is {page.html_theme!r}, want {want_theme}"
             )
-        if "Priced per profile, not per channel." not in html:
+        if "Priced per voice, not per channel." not in html:
             problems.append("/index.html is missing the pricing headline")
         check_counts(page, want_counts, "/index.html", problems)
         if 'data-demo-card="github"' in html:

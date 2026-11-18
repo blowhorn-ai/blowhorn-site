@@ -240,12 +240,12 @@
     },
     {
       "slug": "linkedin-outreach",
-      "name": "Careful LinkedIn outreach",
-      "title": "Blowhorn for careful LinkedIn outreach",
+      "name": "LinkedIn hygiene",
+      "title": "Blowhorn for LinkedIn hygiene",
       "weight": 40,
       "headline": "LinkedIn hygiene, at human pace.",
       "lead": "Invite people to your page, connect mentees, accept invitations and withdraw stale invites, in your own browser, signed in as you. No password handed to a server, and no full outbound sequencer: flagged invitations are never auto-accepted.",
-      "description": "Careful LinkedIn outreach from your own browser: invite to your page, connect mentees, accept invitations and withdraw stale invites, at human pace, with built-in caps.",
+      "description": "Careful LinkedIn hygiene from your own browser: invite to your page, connect mentees, accept invitations and withdraw stale invites, at human pace, with built-in caps.",
       "art": {
         "src": "assets/brand/cast/trench-trooper-base.webp",
         "alt": "Trench Trooper, a muddy pig in a helmet holding a rifle with a teal tab bayonet and a gold periscope"
