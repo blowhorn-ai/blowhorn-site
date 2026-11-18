@@ -1,0 +1,27 @@
+{{- /* Gumloop direct: the full-width grey app-preview container under the
+  hero copy, copied from gumloop.com's hero. The film is the centre panel;
+  the desktop console mock (interface-art, sidebar plus centre panel) sits
+  beside it; a smaller chart card overlaps the bottom-left corner. The film
+  keeps its data-hero-media-only attribute, so the hero rotation still
+  shows and hides it, and hero-video.js still finds it. Counts for the
+  chart card come from data/integrations.json via platform-counts.html;
+  its label reuses an existing word. */ -}}
+{{- $rot := partial "hero-rotation.html" . -}}
+{{- $counts := partial "platform-counts.html" . -}}
+<div class="gumloop-app-preview">
+  <div class="gumloop-app-preview-grid">
+    {{- if in $rot.medias "video" }}
+    <div class="hero-film-cell" data-hero-media-only="video">
+      {{ partial "hero-video.html" $rot.video }}
+    </div>
+    {{- end }}
+    <div class="gumloop-app-mock">
+      {{ partial "interface-art.html" "desktop" }}
+    </div>
+  </div>
+  <div class="gumloop-chart-card" aria-hidden="true">
+    <p class="gumloop-chart-label">Activity</p>
+    <p class="gumloop-chart-num">{{ $counts.activities }}</p>
+    <div class="gumloop-chart-bars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+</div>
