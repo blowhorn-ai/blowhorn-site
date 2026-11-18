@@ -28,7 +28,7 @@ Taplio pricing as of Oct 2026: Starter $39, Growth $69, Pro $199 a month ([sourc
 | Amplify one post | Auto-engagement features | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | AI agents | AI inside the product, plus an MCP server | AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
-| Price | Per month | Free plan available, see pricing |
+| Price | Per month | Free during early access |
 
 ## Strong signal, not bought numbers
 

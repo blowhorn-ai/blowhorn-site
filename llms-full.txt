@@ -10,6 +10,13 @@ description: Blowhorn is a social media console. Write one post, and it posts, r
 Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.
 
 --------------------------------------------------------------------------------
+title: "Pricing"
+url: https://blowhorn.ai/pricing/index.md
+description: Blowhorn is free during early access, with no limits on voices or platforms. Paid plans aren't set yet. Here's what a voice is and how plans will count them.
+--------------------------------------------------------------------------------
+Blowhorn is free during early access, with no limits on voices or platforms. Paid plans aren't set yet. Here's what a voice is and how plans will count them.
+
+--------------------------------------------------------------------------------
 title: "Brand"
 url: https://blowhorn.ai/brand/index.md
 description: The Blowhorn logo, wordmark, colors, type, Major Blowhorn and Old Thunderlung, with the rules for using them and two kits to download.
@@ -22,13 +29,6 @@ url: https://blowhorn.ai/major/index.md
 description: The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
 --------------------------------------------------------------------------------
 The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
-
---------------------------------------------------------------------------------
-title: "Pricing"
-url: https://blowhorn.ai/pricing/index.md
-description: Start free. Solo is $19 a month, Pro is $39 a month for 10 profiles, Team is $35 a seat a month. Pay yearly and get two months free.
---------------------------------------------------------------------------------
-Start free. Solo is $19 a month, Pro is $39 a month for 10 profiles, Team is $35 a seat a month. Pay yearly and get two months free.
 
 --------------------------------------------------------------------------------
 title: "Blowhorn newsletter"

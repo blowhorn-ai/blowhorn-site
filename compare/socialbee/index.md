@@ -28,7 +28,7 @@ SocialBee pricing as of Oct 2026: Bootstrap $29, Accelerate $49, Pro $99 a month
 | Hacker News, Reddit, GitHub, Slack | No | Yes |
 | AI agents | AI copilot | MCP server, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
-| Price | Per plan and profile count | Free plan available, see pricing |
+| Price | Per plan and profile count | Free during early access |
 
 ## Strong signal, not bought numbers
 

@@ -4,9 +4,9 @@
 
 ## Pages
 - [Blowhorn: one message, many ears](https://blowhorn.ai/index.md): Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.
+- [Pricing](https://blowhorn.ai/pricing/index.md): Blowhorn is free during early access, with no limits on voices or platforms. Paid plans aren't set yet. Here's what a voice is and how plans will count them.
 - [Brand](https://blowhorn.ai/brand/index.md): The Blowhorn logo, wordmark, colors, type, Major Blowhorn and Old Thunderlung, with the rules for using them and two kits to download.
 - [Meet Major Blowhorn](https://blowhorn.ai/major/index.md): The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
-- [Pricing](https://blowhorn.ai/pricing/index.md): Start free. Solo is $19 a month, Pro is $39 a month for 10 profiles, Team is $35 a seat a month. Pay yearly and get two months free.
 - [Blowhorn newsletter](https://blowhorn.ai/newsletter/index.md): Sign up for the Blowhorn newsletter.
 
 ## AI native

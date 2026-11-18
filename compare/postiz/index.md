@@ -29,7 +29,7 @@ Postiz pricing as of Oct 2026: Standard $29 (5 channels), Team $39, Pro $49, Ult
 | LinkedIn outreach | No | Page invites, connect, accept, withdraw |
 | AI agents | Hosted MCP, CLI, skill, marketplace connectors | MCP server, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
-| Price | Per channel count | Free plan available, see pricing |
+| Price | Per channel count | Free during early access |
 
 ## Strong signal, not bought numbers
 

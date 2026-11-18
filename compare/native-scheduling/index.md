@@ -26,7 +26,7 @@ native scheduling pricing as of Oct 2026: Free, built into LinkedIn and X ([sour
 | Profiles | The one you're signed in as | Every profile you run, in one queue |
 | Amplify one post | Ask people by hand | Your profiles repost and comment while the post is fresh |
 | Needs a computer awake | No | Yes, at least one of your computers (macOS 13 or newer) |
-| Price | Free | Free plan available, see pricing |
+| Price | Free | Free during early access |
 
 ## Strong signal, not bought numbers
 

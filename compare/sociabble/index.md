@@ -28,7 +28,7 @@ Sociabble pricing as of Oct 2026: By quote ([source](https://www.sociabble.com/p
 | Many people amplifying one post | Employees share approved content | Every profile you add amplifies, from your own computers. Multi-user team onboarding is Coming soon |
 | Hacker News, Reddit, GitHub, Slack | Slack and Teams only, as internal comms channels - not advocacy networks | Yes |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
-| Price | By quote | Free plan available |
+| Price | By quote | Free during early access |
 
 ## Strong signal, not bought numbers
 
