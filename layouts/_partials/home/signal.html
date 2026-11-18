@@ -8,6 +8,7 @@
         {{- $film := in $rot.medias "video" }}
         <div class="wrap hero-grid{{ if $film }} has-film{{ end }}">
           <div class="hero-copy">
+            {{- partial "gumloop-blobs.html" . }}
             <h1 id="hero-title" class="display-xl">
               {{- range $rot.heroes }}<span data-hero-only="{{ .id }}">{{ partial "hero-headline.html" .headline }}</span>{{ end -}}
             </h1>
@@ -21,17 +22,14 @@
               <span data-hero-only="{{ .id }}"><a class="button button-secondary" href="{{ $href }}">{{ .cta.label }}</a></span>
               {{- end }}
             </div>
+            {{- partial "gumloop-metrics.html" . }}
           </div>
-          {{- /* data/hero.json media.video (placement inline-expand): the film
-            sits small beside the copy (below it on phones) and expands into
-            a dialog on Play. */ -}}
-          {{- if $film }}
-          <div class="hero-film-cell" data-hero-media-only="video">
-            {{ partial "hero-video.html" $rot.video }}
-          </div>
-          {{- end }}
         </div>
+        {{- /* The film cell lives in the app-preview container below, as its
+          centre panel, not beside the copy. hero-demo still renders when a
+          hero's media is demo. */ -}}
         {{- partial "hero-demo.html" . }}
+        {{- partial "gumloop-app-preview.html" . }}
       </section>
 
       {{- partial "social-proof.html" (dict "slot" "ticker") }}
@@ -210,6 +208,7 @@
         <div class="wrap cta-inner">
           {{- partial "social-proof.html" (dict "slot" "closing") }}
           <img class="download-cta-icon" src="{{ "assets/brand/logo/blowhorn-app-icon.svg" | relURL }}" alt="" width="64" height="64" loading="lazy">
+          {{- partial "gumloop-blobs.html" . }}
           <div class="section-head section-head-center">
             <p class="label">Download</p>
             <h2 id="download-title" class="display">Own your voice. Command your agents.</h2>

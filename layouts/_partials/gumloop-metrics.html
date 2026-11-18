@@ -1,0 +1,12 @@
+{{- /* Gumloop direct: two headline metrics that count up from 0 on load,
+  copied from gumloop.com's count-up metrics. Counts come from
+  data/integrations.json via platform-counts.html, the same numbers the
+  site already computes; labels reuse existing words only. The final
+  values sit in the markup, so the row reads correctly with no script. */ -}}
+{{- $counts := partial "platform-counts.html" . -}}
+<div class="gumloop-metrics">
+  <p class="gumloop-metric"><span class="gumloop-metric-num" data-gumloop-count="{{ $counts.platforms }}">{{ $counts.platforms }}</span> <span class="gumloop-metric-label">platforms</span></p>
+  <p class="gumloop-metric"><span class="gumloop-metric-num" data-gumloop-count="{{ $counts.activities }}">{{ $counts.activities }}</span> <span class="gumloop-metric-label">actions</span></p>
+</div>
+{{- $x := resources.Get "js/style-gumloop-countup.js" | minify | fingerprint }}
+<script src="{{ $x.RelPermalink }}" defer></script>

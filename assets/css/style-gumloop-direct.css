@@ -1,0 +1,680 @@
+/* Style exploration: Gumloop direct.
+   A literal copy of gumloop.com's system, measured from the live homepage
+   on 2026-11-18, applied to the Blowhorn site's home and pricing pages.
+   Measured values, copied exactly:
+   - page background #ffffff; light-grey surface #f3f3f6; inner row tint
+     #f7f7f8; borders and dividers #ebebf1; card top borders #e2e2e8;
+     headings and primary buttons near-black #18191b; body copy mid-grey
+     #7f7f86; button hover #464749.
+   - accent cluster: pink #fb3c98, purple #9810fa, green #11ac4b, blue
+     #03a2fe, orange #fe9a00, red-orange #f15822. Blue #03a2fe for data
+     lines and focus, green #11ac4b for healthy states, orange #fe9a00
+     for waiting states.
+   - dark band #18191b for the trust section, with white headings and
+     lighter-grey body copy.
+   - type: H1 48px tight tracking, section H2s 36px, card titles 20px,
+     body 16px with 24px line-height; metric numbers in the mono face at
+     48px in the hero and 24px in cards.
+   - spacing: section gaps 120px, about 50px between a heading and the
+     content below it, card gaps 24px.
+   - buttons 36px tall with 8px corners; primary #18191b with white text
+     and hover #464749; secondary white with a #ebebf1 border.
+   - cards flat: 1px #ebebf1 border, 12px corners, no heavy shadows.
+   - hero container #f3f3f6 with 20px corners; final call to action in a
+     large #f3f3f6 panel with 24px corners.
+   Light only: gumloop.com has no dark mode, so this sheet pins the light
+   tokens in both OS modes, including the light logo lockup.
+   Teal stays only where the brand demands it: the logo lockup and Major
+   Blowhorn art. The #how concept cards keep their own art (they are
+   excluded from the flat-card rule by selector, not restyled), and the
+   miniature interface art in menus and ways-in cards keeps its colours.
+   The hero app mock is recoloured to the gumloop set. No element is
+   hidden by this sheet; the blob animation is off under
+   prefers-reduced-motion. */
+
+/* ---------- Tokens: white page, gumloop surfaces, ink and line ---------- */
+html[data-theme="signal"],
+html:has(main.pricing-page) {
+  color-scheme: light;
+  --surface: #ffffff;
+  --surface-raised: #f3f3f6;
+  --surface-tint: #f7f7f8;
+  --nav-panel: #ffffff;
+  --ink: #18191b;
+  --ink-muted: #7f7f86;
+  --ink-wordmark: #18191b;
+  --link: #18191b;
+  --link-hover: #18191b;
+  --line: #ebebf1;
+  --line-strong: #ebebf1;
+  --focus-ring: #03a2fe;
+  --shadow-soft: none;
+  --glass-fill: #ffffff;
+  --glass-fill-strong: #ffffff;
+  --glass-fill-solid: #ffffff;
+  --glass-field: #ffffff;
+  --glass-sheen: transparent;
+  --glass-specular: transparent;
+  --glass-rim: #ebebf1;
+  --glass-edge: #ebebf1;
+  --glass-shadow: none;
+  --glass-shadow-lift: none;
+  --glass-blur: 0px;
+  --glass-saturate: 100%;
+  --ambient-base: #ffffff;
+  --ambient-1: transparent;
+  --ambient-2: transparent;
+  --ambient-3: transparent;
+  --ambient-4: transparent;
+  --grid-gap: 24px;
+}
+
+/* The ambient field is plain white: no gradient, no colour wash. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) body::before {
+  background: #ffffff;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) body {
+  background: #ffffff;
+  color: #18191b;
+}
+
+/* Pin the light logo lockup in both OS modes. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .logo-on-dark {
+  display: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .logo-on-light {
+  display: block;
+}
+
+/* ---------- Type: 48 / 36 / 20, body 16 / 24 ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .display-xl {
+  font-size: 48px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .display {
+  font-size: 36px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .pricing-hero .display {
+  font-size: 48px;
+  line-height: 1.05;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .h2 {
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: -0.02em;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .body-lg {
+  font-size: 16px;
+  line-height: 24px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .label {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.12em;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .constellation-num {
+  font-family: var(--font-mono);
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .price-amount {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: 0;
+}
+
+/* ---------- Buttons: 36px tall, 8px corners, black primary ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button {
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border-width: 1px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-primary {
+  background: #18191b;
+  background-image: none;
+  border-color: #18191b;
+  color: #ffffff;
+  box-shadow: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-primary:hover {
+  background: #464749;
+  background-image: none;
+  border-color: #464749;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-secondary,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button:not(.button-primary):not(.button-secondary) {
+  background: #ffffff;
+  background-image: none;
+  border-color: #ebebf1;
+  color: #18191b;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-secondary:hover,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button:not(.button-primary):not(.button-secondary):hover {
+  background: #f7f7f8;
+  background-image: none;
+  border-color: #ebebf1;
+}
+
+/* ---------- Cards: flat, 1px #ebebf1, 12px corners, no heavy shadows ----------
+   The #how concept cards keep their own art, so they are excluded here. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.card, a.docs-card, .card-paper, .card-field, .card-plain, .card-stamp, .card-glass, .glass):not(.machines-card) {
+  --card-bg: #ffffff;
+  --card-ink: #18191b;
+  --card-muted: #7f7f86;
+  --card-chip: #f3f3f6;
+  --card-border-width: 1px;
+  --card-border-style: solid;
+  --card-border-color: #ebebf1;
+  --card-shadow: none;
+  --card-blur: none;
+  --card-hover-border: #ebebf1;
+  --card-hover-shadow: none;
+  --ink: #18191b;
+  --ink-muted: #7f7f86;
+  --ink-wordmark: #18191b;
+  --link: #18191b;
+  --link-hover: #18191b;
+  --line: #ebebf1;
+  --surface: #ffffff;
+  --surface-raised: #f3f3f6;
+  --surface-tint: #f7f7f8;
+  --glass-fill: #ffffff;
+  --glass-fill-strong: #ffffff;
+  --glass-fill-solid: #ffffff;
+  --glass-field: #ffffff;
+  --glass-sheen: transparent;
+  --glass-specular: transparent;
+  --glass-rim: #ebebf1;
+  --glass-edge: #ebebf1;
+  border-top-color: #e2e2e8;
+  border-radius: 12px;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .card-paper *,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .card-dispatch * {
+  --focus-ring: #03a2fe;
+}
+/* No hover lift on whole-card links: flat cards stay flat. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a:is(.card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain, .card-glass, .docs-card):is(:hover, :focus-visible) {
+  transform: none;
+  border-color: #ebebf1;
+  box-shadow: none;
+}
+/* The arrow cue chip: near-black arrow on a #f3f3f6 chip, white arrow on
+   black when hovered or focused. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.card-link::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.docs-card::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.platform::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.agent-tile::after {
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%2318191b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.card-link:hover::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.docs-card:hover::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.platform:hover::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.agent-tile:hover::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.card-link:focus-visible::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.docs-card:focus-visible::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.platform:focus-visible::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) a.agent-tile:focus-visible::after {
+  background-color: #18191b;
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* ---------- Sections: 120px gaps, 50px head to content, no hairlines ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .section {
+  padding-block: 120px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .section + .section {
+  border-top: 0;
+  background-image: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .section-body {
+  margin-top: 50px;
+}
+
+/* ---------- Header and footer: white, one hairline ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .site-footer {
+  border-top: 1px solid #ebebf1;
+}
+
+/* ---------- Hero: left-aligned copy, metrics, grey app-preview ---------- */
+html[data-theme="signal"] .hero-signal {
+  padding-top: 64px;
+  padding-bottom: 96px;
+}
+html[data-theme="signal"] .home-signal .hero-grid,
+html[data-theme="signal"] .home-signal .hero-grid.has-film {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: stretch;
+  text-align: left;
+}
+html[data-theme="signal"] .home-signal .hero-copy {
+  align-items: flex-start;
+  text-align: left;
+}
+html[data-theme="signal"] .home-signal .hero-actions {
+  justify-content: flex-start;
+}
+html[data-theme="signal"] .home-signal .hero-sub {
+  margin-inline: 0;
+}
+html[data-theme="signal"] .home-signal .accent {
+  background: none;
+  color: #18191b;
+}
+
+/* Count-up metrics: mono numbers, 48px in the hero. */
+.gumloop-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 48px;
+  margin-top: 48px;
+}
+.gumloop-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0;
+}
+.gumloop-metric-num {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #18191b;
+}
+.gumloop-metric-label {
+  font-size: 16px;
+  line-height: 24px;
+  color: #7f7f86;
+}
+
+/* Blob cluster: six accent blobs, colour-cycling. Pure CSS; the spans
+   carry no text. */
+.gumloop-blobs {
+  display: flex;
+  align-items: center;
+  margin: 0 0 24px;
+}
+.gumloop-blobs span {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-left: -5px;
+  border-radius: 50%;
+  animation: gumloop-blob-cycle 7.2s linear infinite, gumloop-blob-bob 2.4s ease-in-out infinite alternate;
+}
+.gumloop-blobs span:first-child {
+  margin-left: 0;
+}
+.gumloop-blobs span:nth-child(1) {
+  background: #fb3c98;
+  animation-delay: 0s, 0s;
+}
+.gumloop-blobs span:nth-child(2) {
+  background: #9810fa;
+  animation-delay: -1.2s, 0.2s;
+}
+.gumloop-blobs span:nth-child(3) {
+  background: #11ac4b;
+  animation-delay: -2.4s, 0.4s;
+}
+.gumloop-blobs span:nth-child(4) {
+  background: #03a2fe;
+  animation-delay: -3.6s, 0.6s;
+}
+.gumloop-blobs span:nth-child(5) {
+  background: #fe9a00;
+  animation-delay: -4.8s, 0.8s;
+}
+.gumloop-blobs span:nth-child(6) {
+  background: #f15822;
+  animation-delay: -6s, 1s;
+}
+@keyframes gumloop-blob-cycle {
+  0% { background-color: #fb3c98; }
+  20% { background-color: #9810fa; }
+  40% { background-color: #11ac4b; }
+  60% { background-color: #03a2fe; }
+  80% { background-color: #fe9a00; }
+  100% { background-color: #f15822; }
+}
+@keyframes gumloop-blob-bob {
+  from { transform: translateY(0); }
+  to { transform: translateY(-4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gumloop-blobs span {
+    animation: none;
+  }
+}
+
+/* App-preview container: full-width #f3f3f6 panel, 20px corners. The film
+   is the centre panel; the desktop console mock sits beside it. */
+.gumloop-app-preview {
+  position: relative;
+  margin-top: 48px;
+  padding: 24px;
+  background: #f3f3f6;
+  border: 1px solid #ebebf1;
+  border-radius: 20px;
+}
+@media (min-width: 900px) {
+  .gumloop-app-preview {
+    padding: 32px;
+  }
+}
+.gumloop-app-preview-grid {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .gumloop-app-preview-grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+}
+.gumloop-app-preview .hero-film-cell {
+  width: 100%;
+  min-width: 0;
+}
+.gumloop-app-preview .hero-film-frame {
+  border-radius: 12px;
+  overflow: hidden;
+}
+.gumloop-app-mock {
+  min-width: 0;
+}
+.gumloop-app-mock .iface-art {
+  display: block;
+  width: 100%;
+}
+.gumloop-app-mock .ia-panel {
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px #ebebf1;
+}
+/* The mock recoloured to the gumloop set: black action, green live,
+   orange waiting, near-black pills. */
+.gumloop-app-mock .ia-app-new {
+  background: #18191b;
+  color: #ffffff;
+}
+.gumloop-app-mock .ia-app-status i {
+  background: #11ac4b;
+}
+.gumloop-app-mock .ia-state.live {
+  color: #11ac4b;
+}
+.gumloop-app-mock .ia-state.wait {
+  color: #fe9a00;
+}
+.gumloop-app-mock .ia-state.done {
+  color: #7f7f86;
+}
+.gumloop-app-mock .ia-pill {
+  background: #f3f3f6;
+  color: #18191b;
+}
+.gumloop-app-mock .ia-pill.ok {
+  background: #18191b;
+  color: #ffffff;
+}
+.gumloop-app-mock .ia-live {
+  color: #11ac4b;
+}
+.gumloop-app-mock .ia-live i {
+  background: #11ac4b;
+}
+.gumloop-app-mock .ia-lights i:last-child {
+  background: #11ac4b;
+  opacity: 0.85;
+}
+
+/* Chart card overlapping the container's bottom-left corner. */
+.gumloop-chart-card {
+  position: absolute;
+  left: 24px;
+  bottom: -28px;
+  z-index: 2;
+  width: 208px;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #ebebf1;
+  border-top-color: #e2e2e8;
+  border-radius: 12px;
+}
+.gumloop-chart-label {
+  margin: 0 0 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7f7f86;
+}
+.gumloop-chart-num {
+  margin: 0 0 12px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #18191b;
+}
+.gumloop-chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 48px;
+}
+.gumloop-chart-bars span {
+  flex: 1;
+  background: #03a2fe;
+  border-radius: 2px 2px 0 0;
+}
+.gumloop-chart-bars span:nth-child(1) { height: 40%; }
+.gumloop-chart-bars span:nth-child(2) { height: 65%; }
+.gumloop-chart-bars span:nth-child(3) { height: 52%; }
+.gumloop-chart-bars span:nth-child(4) { height: 80%; }
+.gumloop-chart-bars span:nth-child(5) { height: 58%; }
+.gumloop-chart-bars span:nth-child(6) { height: 92%; background: #11ac4b; }
+.gumloop-chart-bars span:nth-child(7) { height: 70%; }
+
+/* Film controls: black play button, light hover on the bar buttons. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .hero-film-start {
+  background: #18191b;
+  color: #ffffff;
+  border-color: transparent;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .hero-film-start:hover {
+  background: #464749;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .hero-film-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .hero-film-btn:focus-visible,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .hero-film-start:focus-visible {
+  outline-color: #03a2fe;
+}
+
+/* ---------- Platforms: tabs keep their shape, active state goes black ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-tab.is-on,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-tab[aria-selected="true"],
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-action.is-on,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-action[aria-current="true"] {
+  background: #18191b;
+  color: #ffffff;
+  border-color: #18191b;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-tab.is-on:hover,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-action.is-on:hover {
+  color: #ffffff;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-role.is-on,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-role[aria-pressed="true"] {
+  border-color: #18191b;
+  box-shadow: 0 0 0 2px rgba(24, 25, 27, 0.15);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-row-roles .is-hot .platform {
+  border-color: #18191b;
+  box-shadow: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .usecases a {
+  border-color: #ebebf1;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .usecases a:hover {
+  border-color: #18191b;
+  color: #18191b;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-row {
+  gap: 24px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .plat-toolbar {
+  margin-top: 50px;
+}
+
+/* ---------- Sound wave: inner rows in #f7f7f8 ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .wave-grid {
+  gap: 50px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .wave-list {
+  border-radius: 12px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .wave-list li {
+  background: #f7f7f8;
+  border: 1px solid #ebebf1;
+}
+
+/* ---------- Pricing panel on the homepage: black check dots ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .pricing-signal-list li::before {
+  background: #18191b;
+}
+
+/* ---------- Trust: the dark band, #18191b with white headings ---------- */
+html[data-theme="signal"] #trust {
+  background: #18191b;
+  color: #ffffff;
+}
+html[data-theme="signal"] #trust .section-head .label {
+  color: rgba(255, 255, 255, 0.6);
+}
+html[data-theme="signal"] #trust .section-head h2 {
+  color: #ffffff;
+}
+html[data-theme="signal"] #trust .section-head .body-lg {
+  color: rgba(255, 255, 255, 0.75);
+}
+html[data-theme="signal"] #trust .card {
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-ink: #ffffff;
+  --card-muted: rgba(255, 255, 255, 0.75);
+  --card-border-color: rgba(255, 255, 255, 0.14);
+  --card-hover-border: rgba(255, 255, 255, 0.25);
+  --ink: #ffffff;
+  --ink-muted: rgba(255, 255, 255, 0.75);
+  --ink-wordmark: #ffffff;
+  --link: #ffffff;
+  --link-hover: #ffffff;
+  --line: rgba(255, 255, 255, 0.14);
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+html[data-theme="signal"] #trust .button-secondary {
+  background: transparent;
+  background-image: none;
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+html[data-theme="signal"] #trust .button-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  background-image: none;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+/* The posture slider inside the band stays monochrome: white thumb and
+   white tone underline. */
+html[data-theme="signal"] #trust .posture-thumb {
+  border-color: #ffffff;
+}
+html[data-theme="signal"] #trust .posture:has(#posture-cautious:checked) .posture-thumb,
+html[data-theme="signal"] #trust .posture:has(#posture-brisk:checked) .posture-thumb {
+  border-color: #ffffff;
+}
+html[data-theme="signal"] #trust .posture [data-tone] {
+  --tone: #ffffff;
+}
+
+/* ---------- Download: final call to action in a large #f3f3f6 panel ---------- */
+html[data-theme="signal"] .cta-inner {
+  background: #f3f3f6;
+  border: 1px solid #ebebf1;
+  border-top-color: #e2e2e8;
+  border-radius: 24px;
+  padding: 64px 32px;
+}
+@media (max-width: 640px) {
+  html[data-theme="signal"] .cta-inner {
+    padding: 48px 24px;
+  }
+}
+
+/* ---------- Pricing page: flat plan cards, mono numbers, 120px gaps ---------- */
+.pricing-page .pricing-section {
+  margin-top: 120px;
+}
+.pricing-page .pricing-hero + .pricing-plans {
+  margin-top: 50px;
+}
+.pricing-page .pricing-grid {
+  margin-top: 50px;
+}
+.pricing-page .plan .plan-name {
+  font-size: 20px;
+}
+.pricing-page .plan-badge {
+  background: #18191b;
+  color: #ffffff;
+  border-radius: 6px;
+}
+.pricing-page .plan-features li::before {
+  border-left-color: #18191b;
+  border-bottom-color: #18191b;
+}
+.pricing-page .pricing-included .h3 {
+  font-size: 20px;
+}
+.pricing-page .pricing-limits {
+  border-radius: 12px;
+}
+.pricing-page .limit-list {
+  margin-top: 50px;
+}
+.pricing-page .agent-faq {
+  gap: 24px;
+}
+.pricing-page .pricing-cta {
+  margin-top: 50px;
+}
+/* Billing switch: flat, 8px corners, black selected state. */
+.pricing-page .billing-switch {
+  border-radius: 8px;
+}
+.pricing-page .billing-switch label {
+  min-height: 36px;
+  border-radius: 6px;
+}
+.pricing-page #billing-monthly:checked ~ .billing-switch label[for="billing-monthly"],
+.pricing-page #billing-annual:checked ~ .billing-switch label[for="billing-annual"] {
+  background: #18191b;
+  color: #ffffff;
+}
