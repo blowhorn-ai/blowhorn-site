@@ -312,13 +312,13 @@
 - [Blowhorn for many profiles](https://blowhorn.ai/solutions/multi-profile/index.md): Run many brand, founder and project profiles from one desk: each in its own real browser profile, no fake fingerprints, from one coordinated queue.
 
 ## Use cases
-- [Use cases](https://blowhorn.ai/use-cases/index.md): Blowhorn use cases: launch-day amplification, open source release announcements, conference promotion, careful LinkedIn outreach, team amplification, and agent publishing, from one queue.
+- [Use cases](https://blowhorn.ai/use-cases/index.md): Blowhorn use cases: launch-day amplification, open source release announcements, conference promotion, LinkedIn hygiene, team amplification, and agent publishing, from one queue.
 
 
 - [Blowhorn for launch day](https://blowhorn.ai/use-cases/launch-day/index.md): Plan a product launch so the announcement goes out everywhere at the right moment, and every profile you add amplifies it in the first hour.
 - [Blowhorn for open source releases](https://blowhorn.ai/use-cases/open-source-release/index.md): Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, and rally GitHub reactions, from one queue, as yourself.
 - [Blowhorn for conferences](https://blowhorn.ai/use-cases/conference/index.md): Promote a talk, booth or meetup before, during and after the event, from one queue, while any awake computer covers the schedule.
-- [Blowhorn for careful LinkedIn outreach](https://blowhorn.ai/use-cases/linkedin-outreach/index.md): Careful LinkedIn outreach from your own browser: invite to your page, connect mentees, accept invitations and withdraw stale invites, at human pace, with built-in caps.
+- [Blowhorn for LinkedIn hygiene](https://blowhorn.ai/use-cases/linkedin-outreach/index.md): Careful LinkedIn hygiene from your own browser: invite to your page, connect mentees, accept invitations and withdraw stale invites, at human pace, with built-in caps.
 - [Blowhorn for team amplification](https://blowhorn.ai/use-cases/team-amplification/index.md): Get teammates and supporters behind every company post: each posts as themselves, in the first hour, from one coordinated queue, with no 100-seat minimum.
 - [Blowhorn for agent publishing](https://blowhorn.ai/use-cases/agent-publishing/index.md): Let Claude Code, Codex, Cursor or your coding agent of choice draft, dry-run and schedule posts through the Blowhorn CLI, with you approving every post before it goes out.
 

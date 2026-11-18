@@ -19463,9 +19463,9 @@ description: Run many brand, founder and project profiles from one desk: each in
 --------------------------------------------------------------------------------
 title: "Use cases"
 url: https://blowhorn.ai/use-cases/index.md
-description: Blowhorn use cases: launch-day amplification, open source release announcements, conference promotion, careful LinkedIn outreach, team amplification, and agent publishing, from one queue.
+description: Blowhorn use cases: launch-day amplification, open source release announcements, conference promotion, LinkedIn hygiene, team amplification, and agent publishing, from one queue.
 --------------------------------------------------------------------------------
-Blowhorn use cases: launch-day amplification, open source release announcements, conference promotion, careful LinkedIn outreach, team amplification, and agent publishing, from one queue.
+Blowhorn use cases: launch-day amplification, open source release announcements, conference promotion, LinkedIn hygiene, team amplification, and agent publishing, from one queue.
 
 --------------------------------------------------------------------------------
 title: "Blowhorn for launch day"
@@ -19489,9 +19489,9 @@ description: Promote a talk, booth or meetup before, during and after the event,
 
 
 --------------------------------------------------------------------------------
-title: "Blowhorn for careful LinkedIn outreach"
+title: "Blowhorn for LinkedIn hygiene"
 url: https://blowhorn.ai/use-cases/linkedin-outreach/index.md
-description: Careful LinkedIn outreach from your own browser: invite to your page, connect mentees, accept invitations and withdraw stale invites, at human pace, with built-in caps.
+description: Careful LinkedIn hygiene from your own browser: invite to your page, connect mentees, accept invitations and withdraw stale invites, at human pace, with built-in caps.
 --------------------------------------------------------------------------------
 
 
