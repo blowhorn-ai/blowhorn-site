@@ -31,6 +31,13 @@
 {{- end }}
 
 ## Frequently Asked Questions {#questions}
-{{ range .Params.faq }}
+{{- $cats := slice "Plans" "Voices" "Accounts and computers" }}
+{{- range $cat := $cats }}
+{{- $qs := where $.Params.faq "category" $cat }}
+{{- if $qs }}
+### {{ $cat }}
+{{ range $qs }}
 **{{ .q }}** {{ .a }}
 {{ end }}
+{{- end }}
+{{- end }}

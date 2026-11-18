@@ -124,14 +124,24 @@
           <div class="section-head">
             <h2 id="faq-title" class="h2">Frequently Asked Questions</h2>
           </div>
+          {{- /* FAQ categories live on each entry (category: Plans, Voices,
+            Accounts and computers). Group in that order; the JSON-LD in head
+            still reads the flat list. */ -}}
+          {{- $cats := slice "Plans" "Voices" "Accounts and computers" }}
+          {{- range $cat := $cats }}
+          {{- $qs := where $.Params.faq "category" $cat }}
+          {{- if $qs }}
+          <h3 class="h3 faq-category">{{ $cat }}</h3>
           <div class="agent-faq">
-            {{- range $i, $f := .Params.faq }}
-            <details class="card {{ partial "card-variant.html" (dict "i" $i "grid" "stack" "n" (len $.Params.faq) "variants" (slice "card-field" "card-plain")) }}">
+            {{- range $i, $f := $qs }}
+            <details class="card {{ partial "card-variant.html" (dict "i" $i "grid" "stack" "n" (len $qs) "variants" (slice "card-field" "card-plain")) }}">
               <summary>{{ .q }}</summary>
               <p>{{ .a }}</p>
             </details>
             {{- end }}
           </div>
+          {{- end }}
+          {{- end }}
           <p class="compare-cta pricing-cta">{{ partial "download-button.html" (dict "kind" "secondary") }} <a class="button" href="{{ (site.GetPage "/compare").RelPermalink }}">See how we compare</a></p>
         </section>
       </div>
