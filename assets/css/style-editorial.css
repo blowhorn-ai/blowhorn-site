@@ -1,0 +1,91 @@
+/* Style exploration: editorial hierarchy.
+   Borrowed from gumloop.com: sections that breathe at 64px with major
+   breaks at 96px, display type set tighter and larger, mono numbered
+   kickers that mark the reader's place, and a short teal rule above each
+   section head so the eye has a starting line to land on. The site's
+   sections all run at one rhythm today (48px, 64px wide), and every
+   section head reads the same; this direction gives the page a table of
+   contents the reader can feel.
+   What stays: teal brand colours, Bricolage and Instrument type, the
+   glass card system, the cast and the voice. Nothing here changes copy.
+   The numbers are CSS counters, so no markup changes, and a browser
+   without :has simply shows the heads unnumbered. */
+
+/* The counter lives on the page; each headed section takes the next
+   number. */
+main.home-signal,
+main.page { counter-reset: x-section; }
+
+/* Rhythm: more air between sections, more air between a head and its
+   body, and a wider head measure. */
+.home-signal .section,
+.page .section { padding-block: var(--space-16); }
+@media (min-width: 900px) {
+  .home-signal .section,
+  .page .section { padding-block: 96px; }
+}
+.home-signal .section-head,
+.page .section-head { max-width: 44rem; }
+.home-signal .section-head > * + *,
+.page .section-head > * + * { margin-top: var(--space-4); }
+.home-signal .section-body,
+.page .section-body { margin-top: var(--space-12); }
+.pricing-page .pricing-section { margin-top: calc(var(--section-y) + var(--space-8)); }
+
+/* Type: display set larger and tighter, section titles with more
+   presence, and the hero tagline as a proper lede. */
+.home-signal .display,
+.page .display {
+  font-size: clamp(36px, 5.6vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.home-signal .display-xl {
+  font-size: clamp(48px, 8vw, 88px);
+  letter-spacing: -0.025em;
+}
+.home-signal .h2,
+.page .h2 {
+  font-size: 32px;
+  line-height: 38px;
+  letter-spacing: -0.015em;
+}
+.home-signal .hero-tagline {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+/* Numbered kickers on the homepage: the mono label above each section
+   head is prefixed with its number in the link colour. Sections whose
+   head lives inside a card (the pricing panel) take no number. */
+.home-signal .section:has(> .wrap > .section-head) { counter-increment: x-section; }
+.home-signal .section > .wrap > .section-head > .label::before {
+  content: counter(x-section, decimal-leading-zero) " / ";
+  color: var(--link);
+}
+
+/* Numbered heads on the pricing page: the section titles carry their
+   number above them in mono, since that page's heads have no label. */
+.pricing-page .pricing-section:has(.section-head) { counter-increment: x-section; }
+.pricing-page .pricing-section .section-head > .h2::before {
+  content: counter(x-section, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  color: var(--link);
+  margin-bottom: var(--space-3);
+}
+
+/* A short teal rule above each section head: the starting line. */
+.home-signal .section > .wrap > .section-head::before,
+.pricing-page .pricing-section > .section-head::before,
+.pricing-page #limits .pricing-limits > .section-head::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--link);
+  margin-bottom: var(--space-4);
+}
