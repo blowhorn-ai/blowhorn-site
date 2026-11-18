@@ -2545,6 +2545,13 @@ body { background: var(--surface); }
 .agent-faq details { padding: var(--space-4) var(--space-6); border-radius: var(--radius-lg); }
 .agent-faq summary { cursor: pointer; font-weight: 600; }
 .agent-faq details p { margin-top: var(--space-3); }
+/* FAQ category headings (pricing.html) are siblings of the question
+  lists, not prose, so they get no heading margin from the reset. The
+  first heading follows the section head and takes the small gap; a heading
+  after a previous category's list takes the section-scale gap, so the
+  categories read as separate groups instead of running together. */
+.faq-category { margin-top: var(--space-6); margin-bottom: var(--space-4); }
+.agent-faq + .faq-category { margin-top: var(--space-12); }
 .agent-cta { padding: clamp(24px, 4vw, 48px); border-radius: var(--radius-lg); text-align: center; }
 .agent-cta > * + * { margin-top: var(--space-3); }
 /* Related-page labels come from data and can outrun a 320px screen: let
