@@ -255,6 +255,7 @@
 
 - [Amazon blocked Meta's Muse. Here is how it knew.](https://blowhorn.ai/resources/articles/how-amazon-detects-muse/index.md): Twelve days after Meta launched Muse, Amazon cut it off. Amazon never said how it spots the agent, but the evidence …
 - [Beyond the API](https://blowhorn.ai/resources/videos/features/beyond-the-api/index.md): Platform APIs keep some actions for approved partners. Blowhorn works the way you do, so it isn't limited to what those APIs expose.
+- [Getting the most from your Blowhorn subscription](https://blowhorn.ai/resources/articles/getting-the-most-from-your-subscription/index.md): One thing is metered: voices. Everything else is not. Nineteen ways to lean on that shape, from the General and the rest …
 - [Not a bot. It's you.](https://blowhorn.ai/resources/videos/getting-started/not-a-bot/index.md): Platforms are done with bots. Blowhorn isn't one: it's you, on your own computers, under your own profiles, with your people beside you and you in command.
 - [Remote team, one army](https://blowhorn.ai/resources/videos/features/remote-team/index.md): Every teammate runs Blowhorn on their own computer, signed in as themselves. You see the whole fleet and every result in one place.
 - [Blowhorn vs Buffer](https://blowhorn.ai/resources/videos/comparisons/blowhorn-vs-buffer/index.md): Buffer holds your token and publishes from its cloud. Blowhorn runs as you, on your own computer, under your own profile.

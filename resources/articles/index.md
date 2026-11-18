@@ -3,6 +3,8 @@
 Product intelligence, tips and field notes from the Blowhorn team: how to read your results, schedule well and stay inside every platform's rules.
 
 
+- [Getting the most from your Blowhorn subscription](https://blowhorn.ai/resources/articles/getting-the-most-from-your-subscription/) - One thing is metered: voices. Everything else is not. Nineteen ways to lean on that shape, from the General and the rest of the cast.
+
 - [Amazon blocked Meta's Muse. Here is how it knew.](https://blowhorn.ai/resources/articles/how-amazon-detects-muse/) - Twelve days after Meta launched Muse, Amazon cut it off. Amazon never said how it spots the agent, but the evidence points to datacenter traffic, identical browser fingerprints, and behavior, and the Chrome extension changes which signals are left.
 
 - [Failed posts are data: reading failure reasons and fixing the cause](https://blowhorn.ai/resources/articles/failed-posts-are-data/) - A failed post is a report, not just a red mark. The reason on the activity names the cause, and the fix follows from the reason: re-sign in, shrink the run, fix the content, or wait out the platform. Retry only after a fix, never in a loop.
