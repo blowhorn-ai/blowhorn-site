@@ -1,0 +1,99 @@
+/* Style exploration: color blocking.
+   Borrowed from gumloop.com's tonal contrast, in Blowhorn's own palette:
+   instead of one white page broken only by hairlines, each section gets
+   a colour field, so the eye always knows which part of the page it is
+   on. The fields are all existing brand tokens (tint, raised, cream,
+   near-black, teal-deep), so the brand stays teal and no new colour is
+   introduced. The Major gets a bigger figure on his own cream field, and
+   the download call to action becomes a full teal field.
+   What stays: teal brand colours, Bricolage and Instrument type, the
+   glass card system, the cast and the voice. Nothing here changes copy.
+   Every field has a dark-mode treatment; hairlines go away on the
+   homepage because the field edges do the separating now. */
+
+/* The fields replace the hairlines between homepage sections. */
+.home-signal .section + .section { border-top: 0; }
+
+/* The bands. Sound wave, the proof grid and the pricing panel stay white,
+   so a field always has plain ground beside it. */
+.home-signal #how { background: var(--surface-tint); }
+.home-signal #roles { background: var(--surface-raised); }
+.home-signal section[aria-label="Major Blowhorn"] { background: var(--cream); }
+.home-signal #trust { background: var(--near-black); }
+.home-signal #download { background: var(--teal-deep); }
+
+/* Fields get more height than plain sections. */
+.home-signal #how,
+.home-signal #roles,
+.home-signal section[aria-label="Major Blowhorn"],
+.home-signal #trust,
+.home-signal #download { padding-block: var(--space-16); }
+@media (min-width: 900px) {
+  .home-signal #how,
+  .home-signal #roles,
+  .home-signal section[aria-label="Major Blowhorn"],
+  .home-signal #trust,
+  .home-signal #download { padding-block: 96px; }
+}
+
+/* Text on the dark fields: white heads, soft white ledes, mint kickers.
+   The cards inside keep their own fills, so they read as plates on the
+   field. Scoped to the section heads, so card headings are untouched. */
+.home-signal #trust .section-head .display,
+.home-signal #download .section-head .display { color: var(--white); }
+.home-signal #trust .section-head .body-lg,
+.home-signal #download .section-head .body-lg { color: rgba(255, 255, 255, 0.82); }
+.home-signal #trust .section-head .label,
+.home-signal #download .section-head .label { color: var(--mint); }
+
+/* Buttons on the dark fields. The download button goes white on teal;
+   the secondary buttons go white on a white hairline. */
+.home-signal #download .button-primary {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--teal-deep);
+}
+.home-signal #download .button-primary:hover {
+  background: var(--mint);
+  border-color: var(--mint);
+}
+.home-signal #trust p.section-body a.button-secondary,
+.home-signal #download .hero-actions a.button-secondary {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: var(--white);
+}
+.home-signal #trust p.section-body a.button-secondary:hover,
+.home-signal #download .hero-actions a.button-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* The Major, character-forward: a bigger figure on his own cream field.
+   The paper card goes white inside the cream field, so the card still
+   reads as a card instead of melting into the ground. */
+.home-signal section[aria-label="Major Blowhorn"] .major-card { --card-bg: var(--white); }
+.home-signal .major-figure { width: min(100%, 360px); }
+
+/* The pricing page, second surface: a tinted hero panel and a cream
+   panel holding the FAQs. Contained panels, not full-bleed bands, because
+   the pricing sections sit inside the centred wrap. */
+.pricing-page .pricing-hero {
+  background: var(--surface-tint);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+.pricing-page .pricing-section[aria-labelledby="faq-title"] {
+  background: var(--cream);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+}
+
+/* Dark mode: the cream fields go raised, and the near-black field goes
+   raised too, so it still reads as a field against the dark page. The
+   teal download field and the tinted hero panel keep their light values,
+   since their tokens already flip. */
+@media (prefers-color-scheme: dark) {
+  .home-signal section[aria-label="Major Blowhorn"] { background: var(--surface-raised); }
+  .home-signal #trust { background: var(--surface-raised); }
+  .pricing-page .pricing-section[aria-labelledby="faq-title"] { background: var(--surface-raised); }
+}
