@@ -1,0 +1,25 @@
+{{- /* Dark field metric row: dashboard-style cards with mono numbers,
+  after gumloop's headline metrics. Counts come from
+  platform-counts.html, the same source as the site's data-count spans,
+  so the values always match. Labels reuse existing words only:
+  "supported platforms", "actions" and "coming soon" already appear
+  on the platforms section. Static numbers, no count-up. */ -}}
+{{- $counts := partial "platform-counts.html" . -}}
+<section class="section">
+  <div class="wrap">
+    <ul class="dark-field-metrics">
+      <li class="dark-field-metric">
+        <span class="dark-field-metric-num" data-count-platforms>{{ $counts.platforms }}</span>
+        <span class="dark-field-metric-label">supported platforms</span>
+      </li>
+      <li class="dark-field-metric">
+        <span class="dark-field-metric-num" data-count-activities>{{ $counts.activities }}</span>
+        <span class="dark-field-metric-label">actions</span>
+      </li>
+      <li class="dark-field-metric">
+        <span class="dark-field-metric-num" data-count-soon>{{ $counts.comingSoon }}</span>
+        <span class="dark-field-metric-label">coming soon</span>
+      </li>
+    </ul>
+  </div>
+</section>

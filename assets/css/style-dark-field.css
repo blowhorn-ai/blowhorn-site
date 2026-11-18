@@ -1,0 +1,430 @@
+/* Style exploration: Dark field.
+   Gumloop's dark band, expanded to the whole page. Gumloop's homepage
+   (measured live 2026-11-18) is white with one near-black band at
+   #18191b for its enterprise section; this direction makes that band
+   the page: the whole site sits on #18191b, white headings, lighter
+   grey body copy, teal only as an accent (links, focus, small
+   highlights), flat border-only cards, mono metric numbers, and the
+   measured gumloop type and spacing. The first round (#629-631) kept
+   the existing palette; this one does not.
+   Scope: the homepage (html[data-theme="signal"]) and the pricing page
+   (html:has(main.pricing-page)) only. Nothing else on the site moves.
+   The page is dark in BOTH OS modes: the token block below wins over
+   the light tokens, and the same dark values are mirrored under
+   prefers-color-scheme: dark.
+
+   New hex colours, exactly one:
+   - #18191b, copied from gumloop's measured dark band. It is the page
+     field, and the text colour of the inverted white buttons.
+   Every other colour is an existing site token or an existing value
+   copied from the dark block of assets/css/site.css and
+   assets/css/themes.css: --near-black #1E2117, --surface-raised
+   #2A2E25, --surface-tint #173A34, --ink-muted #A3AEB2, --line
+   #3C494F, --nav-panel #222, the dark --glass-* set, the dark --app-*
+   set (#0E1312, #141B19, #26302D, #22302C, #1F2A27, #E9EFED,
+   #9AA8A4, #04110F, #6AE3B6, #E8B04A), and --teal-bright #00D3A9.
+   Contrast, computed: white headings on #18191b are 17.6:1;
+   #A3AEB2 body on #18191b is 7.8:1; #A3AEB2 on the raised
+   #2A2E25 is 6.1:1; #A3AEB2 on the tint #173A34 is 5.5:1;
+   teal-bright links on #18191b are 9.1:1. All pass AA. */
+
+/* The field, in both OS modes. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) {
+  color-scheme: dark;
+  --surface: #18191b;
+  --surface-raised: #2A2E25;
+  --surface-tint: #173A34;
+  --nav-panel: #222;
+  --ink: #FFFFFF;
+  --ink-muted: #A3AEB2;
+  --ink-wordmark: #FFFFFF;
+  --link: var(--teal-bright);
+  --link-hover: var(--mint);
+  --line: #3C494F;
+  --focus-ring: var(--teal-bright);
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  --glass-fill: rgba(42, 46, 37, 0.52);
+  --glass-fill-strong: rgba(30, 33, 23, 0.68);
+  --glass-fill-solid: #262A21;
+  --glass-field: rgba(30, 33, 23, 0.60);
+  --glass-sheen: rgba(255, 255, 255, 0.06);
+  --glass-specular: rgba(255, 255, 255, 0.14);
+  --glass-rim: rgba(255, 255, 255, 0.08);
+  --glass-edge: rgba(0, 0, 0, 0.35);
+  --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.30), 0 16px 40px -14px rgba(0, 0, 0, 0.60);
+  --glass-shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.30), 0 22px 48px -14px rgba(0, 211, 169, 0.22);
+
+  /* The body::before ambient field goes near-black, so no light wash
+     shows behind the dark field. */
+  --ambient-base: linear-gradient(180deg, #18191b 0%, #1E2117 45%, #18191b 100%);
+  --ambient-1: rgba(0, 211, 169, 0.20);
+  --ambient-2: rgba(0, 179, 159, 0.12);
+  --ambient-3: rgba(235, 192, 23, 0.05);
+  --ambient-4: rgba(0, 117, 106, 0.18);
+
+  /* The hero app window goes to its dark set, so it reads as a dark
+     panel on the dark field instead of a light window. */
+  --app-canvas: #0E1312;
+  --app-rail: #141B19;
+  --app-line: #26302D;
+  --app-control: #22302C;
+  --app-selected: #1F2A27;
+  --app-ink: #E9EFED;
+  --app-muted: #9AA8A4;
+  --app-accent: var(--teal);
+  --app-on-accent: #04110F;
+  --app-live: #6AE3B6;
+  --app-pending: #E8B04A;
+  --app-tint: rgba(106, 227, 182, 0.10);
+
+  /* Gumloop's measured rhythm: section-to-section gaps 120-160px,
+     about 50px between a heading and the content below it, card gaps
+     24px. Section padding is half the gap on each side, so 60px
+     mobile and 72px at wide widths give 120px and 144px gaps. */
+  --section-y: 60px;
+  --head-gap: 48px;
+  --grid-gap: 24px;
+}
+@media (min-width: 900px) {
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) {
+    --section-y: 72px;
+  }
+}
+
+/* The same dark values, mirrored under prefers-color-scheme: dark, so
+   the page is dark in both OS modes. */
+@media (prefers-color-scheme: dark) {
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) {
+    color-scheme: dark;
+    --surface: #18191b;
+    --surface-raised: #2A2E25;
+    --surface-tint: #173A34;
+    --nav-panel: #222;
+    --ink: #FFFFFF;
+    --ink-muted: #A3AEB2;
+    --ink-wordmark: #FFFFFF;
+    --link: var(--teal-bright);
+    --link-hover: var(--mint);
+    --line: #3C494F;
+    --focus-ring: var(--teal-bright);
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.45);
+    --glass-fill: rgba(42, 46, 37, 0.52);
+    --glass-fill-strong: rgba(30, 33, 23, 0.68);
+    --glass-fill-solid: #262A21;
+    --glass-field: rgba(30, 33, 23, 0.60);
+    --glass-sheen: rgba(255, 255, 255, 0.06);
+    --glass-specular: rgba(255, 255, 255, 0.14);
+    --glass-rim: rgba(255, 255, 255, 0.08);
+    --glass-edge: rgba(0, 0, 0, 0.35);
+    --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.30), 0 16px 40px -14px rgba(0, 0, 0, 0.60);
+    --glass-shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.30), 0 22px 48px -14px rgba(0, 211, 169, 0.22);
+    --ambient-base: linear-gradient(180deg, #18191b 0%, #1E2117 45%, #18191b 100%);
+    --ambient-1: rgba(0, 211, 169, 0.20);
+    --ambient-2: rgba(0, 179, 159, 0.12);
+    --ambient-3: rgba(235, 192, 23, 0.05);
+    --ambient-4: rgba(0, 117, 106, 0.18);
+    --app-canvas: #0E1312;
+    --app-rail: #141B19;
+    --app-line: #26302D;
+    --app-control: #22302C;
+    --app-selected: #1F2A27;
+    --app-ink: #E9EFED;
+    --app-muted: #9AA8A4;
+    --app-accent: var(--teal);
+    --app-on-accent: #04110F;
+    --app-live: #6AE3B6;
+    --app-pending: #E8B04A;
+    --app-tint: rgba(106, 227, 182, 0.10);
+    --section-y: 60px;
+    --head-gap: 48px;
+    --grid-gap: 24px;
+  }
+  @media (min-width: 900px) {
+    :is(html[data-theme="signal"], html:has(main.pricing-page)) {
+      --section-y: 72px;
+    }
+  }
+}
+
+/* Wide widths in dark OS mode get the same wider section rhythm. */
+@media (prefers-color-scheme: dark) and (min-width: 900px) {
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) {
+    --section-y: 72px;
+  }
+}
+
+/* Type, at gumloop's measured sizes: H1 about 48px with tight
+   tracking, section H2s about 36px, card titles about 20px (already
+   the site's .h3), body about 16px with about 24px line-height. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .display-xl {
+  font-size: clamp(36px, 5.5vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .display {
+  font-size: clamp(30px, 4vw, 36px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .h2 {
+  font-size: 36px;
+  line-height: 42px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .body-lg {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Buttons, gumloop's dark-band style: primary white with near-black
+   text, 36px tall, corner radius 6-8px; secondary transparent with a
+   dark-grey border. Teal stays an accent only, never a button fill.
+   No button elements or classes change. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button {
+  min-height: 36px;
+  padding: 6px 16px;
+  border-radius: 8px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-primary {
+  background: var(--white);
+  border-color: var(--white);
+  color: #18191b;
+  background-image: none;
+  box-shadow: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-primary:hover {
+  background: var(--white);
+  filter: brightness(0.88);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-secondary {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+  background-image: none;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+/* A bare .button (the pricing page's compare link) gets the secondary
+   treatment so it still reads as a button on the field. Disabled
+   buttons keep the site's disabled look. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button:not(.button-primary):not(.button-secondary):not(:disabled) {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+/* The sticky header sits on the dark field throughout, as gumloop's
+   header does over its dark band. The wordmark swaps to its
+   on-dark form in both OS modes, and the logo strip inverts the way
+   the site already inverts it under a dark OS, so both stay legible. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .logo-on-light {
+  display: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .logo-on-dark {
+  display: block;
+}
+html[data-theme="signal"] .proof-ticker-logo {
+  filter: grayscale(1) invert(1);
+}
+
+/* The hero follows gumloop's left-aligned H1: copy, actions and
+   subhead align left instead of centred. */
+html[data-theme="signal"] .home-signal .hero-grid {
+  justify-items: start;
+  text-align: left;
+}
+html[data-theme="signal"] .home-signal .hero-copy,
+html[data-theme="signal"] .home-signal .hero-actions {
+  align-items: flex-start;
+}
+html[data-theme="signal"] .home-signal .hero-actions {
+  justify-content: flex-start;
+}
+html[data-theme="signal"] .home-signal .hero-sub {
+  margin-inline: 0;
+}
+/* The film Play button follows the inverted primary: white, not teal. */
+html[data-theme="signal"] .hero-film-start {
+  background: var(--white);
+  color: #18191b;
+  box-shadow: none;
+}
+html[data-theme="signal"] .hero-film-start:hover {
+  background: var(--white);
+  filter: brightness(0.88);
+}
+
+/* Cards: flat, border-only, 1px border, corner radius 8-12px, no
+   heavy shadows. Field cards sit one step lighter than the page
+   field; plain and stamp cards are transparent with a dark-grey
+   border. Paper and Dispatch keep their own colours, as they do in
+   the site's dark mode today. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .card {
+  border-radius: 12px;
+  box-shadow: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .card-field {
+  --card-bg: var(--surface-raised);
+  --card-border-color: var(--line);
+  --card-hover-border: var(--ink-muted);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .card-plain {
+  --card-bg: transparent;
+  --card-border-color: var(--line);
+  --card-hover-border: var(--ink-muted);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .card-stamp {
+  --card-bg: transparent;
+  --card-border-color: var(--line);
+  --card-shadow: none;
+  --card-hover-border: var(--ink-muted);
+  --card-hover-shadow: none;
+}
+
+/* The trust cards become one bordered container with hairline-divided
+   panels, after gumloop's bento: the 1px grid gap shows the container's
+   line colour as the hairlines, and each cell is a flat dark panel. */
+html[data-theme="signal"] #trust .grid-2 {
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+html[data-theme="signal"] #trust .grid-2 > li {
+  background: var(--near-black);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* The metric row: dashboard-style cards with mono numbers, after
+   gumloop's headline metrics. Numbers come from platform-counts.html,
+   the same source as the site's data-count spans. */
+.dark-field-metrics {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 639px) {
+  .dark-field-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+.dark-field-metric {
+  background: var(--near-black);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+}
+.dark-field-metric-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 28px;
+  line-height: 34px;
+  color: var(--ink-wordmark);
+}
+.dark-field-metric-label {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-muted);
+}
+
+/* The Major card: his art stays, the card surface goes to the dark
+   field with white text, so it still reads as a card. The cream
+   speech bubble and the yellow disc behind him are his art and stay
+   as they are. */
+html[data-theme="signal"] .major-card {
+  --card-bg: var(--near-black);
+  --card-ink: #FFFFFF;
+  --card-muted: #A3AEB2;
+  --card-border-width: 1px;
+  --card-border-style: solid;
+  --card-border-color: var(--line);
+  --card-shadow: none;
+  --card-hover-border: var(--line);
+  --card-hover-shadow: none;
+  --ink: #FFFFFF;
+  --ink-muted: #A3AEB2;
+  --ink-wordmark: #FFFFFF;
+  --link: var(--teal-bright);
+  --link-hover: var(--mint);
+  --line: #3C494F;
+  --surface: #18191b;
+  --surface-raised: #2A2E25;
+  --surface-tint: #173A34;
+  --glass-fill: rgba(42, 46, 37, 0.52);
+  --glass-fill-strong: rgba(30, 33, 23, 0.68);
+  --glass-fill-solid: #262A21;
+  --glass-field: rgba(30, 33, 23, 0.60);
+  --glass-sheen: rgba(255, 255, 255, 0.06);
+  --glass-specular: rgba(255, 255, 255, 0.14);
+  --glass-rim: rgba(255, 255, 255, 0.08);
+  --glass-edge: rgba(0, 0, 0, 0.35);
+}
+
+/* Pricing page: the same dark system. Plan cards are dark with
+   dark-grey borders; the featured paper plan goes dark like the
+   Major card instead of staying cream. Prices are mono numbers.
+   FAQ accordions are flat-bordered. The limits panel gets a flat
+   dark border instead of a glass shadow. */
+html:has(main.pricing-page) .pricing-page .plan.card-paper {
+  --card-bg: var(--near-black);
+  --card-ink: #FFFFFF;
+  --card-muted: #A3AEB2;
+  --card-border-width: 1px;
+  --card-border-style: solid;
+  --card-border-color: var(--line);
+  --card-shadow: none;
+  --card-hover-border: var(--line);
+  --card-hover-shadow: none;
+  --ink: #FFFFFF;
+  --ink-muted: #A3AEB2;
+  --ink-wordmark: #FFFFFF;
+  --link: var(--teal-bright);
+  --link-hover: var(--mint);
+  --line: #3C494F;
+  --surface: #18191b;
+  --surface-raised: #2A2E25;
+  --surface-tint: #173A34;
+  --glass-fill: rgba(42, 46, 37, 0.52);
+  --glass-fill-strong: rgba(30, 33, 23, 0.68);
+  --glass-fill-solid: #262A21;
+  --glass-field: rgba(30, 33, 23, 0.60);
+  --glass-sheen: rgba(255, 255, 255, 0.06);
+  --glass-specular: rgba(255, 255, 255, 0.14);
+  --glass-rim: rgba(255, 255, 255, 0.08);
+  --glass-edge: rgba(0, 0, 0, 0.35);
+}
+html:has(main.pricing-page) .pricing-page .price-amount {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: 0;
+}
+html:has(main.pricing-page) .pricing-page .agent-faq details {
+  --card-bg: transparent;
+  --card-border-color: var(--line);
+  --card-hover-border: var(--ink-muted);
+  border-radius: 12px;
+}
+html:has(main.pricing-page) .pricing-page .pricing-limits {
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+/* The billing switch follows the inverted primary: the checked period
+   is white with near-black text. */
+html:has(main.pricing-page) #billing-monthly:checked ~ .billing-switch label[for="billing-monthly"],
+html:has(main.pricing-page) #billing-annual:checked ~ .billing-switch label[for="billing-annual"] {
+  background: var(--white);
+  color: #18191b;
+}
