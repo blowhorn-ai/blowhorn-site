@@ -144,6 +144,17 @@
           {{- end }}
           <p class="compare-cta pricing-cta">{{ partial "download-button.html" (dict "kind" "secondary") }} <a class="button" href="{{ (site.GetPage "/compare").RelPermalink }}">See how we compare</a></p>
         </section>
+
+        <section class="pricing-section" aria-labelledby="tips-title">
+          <div class="pricing-limits glass">
+            <div class="section-head">
+              <p class="label">From the Desk of the General</p>
+              <h2 id="tips-title" class="h2">Getting the most from your plan</h2>
+              <p class="muted">Nineteen ways to lean on the way Blowhorn counts, from the General and the rest of the cast.</p>
+            </div>
+            <p><a class="button" href="{{ (site.GetPage "/resources/articles/getting-the-most-from-your-subscription").RelPermalink }}">Read the tips</a></p>
+          </div>
+        </section>
       </div>
     </main>
 {{ end }}
