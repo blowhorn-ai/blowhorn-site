@@ -1,0 +1,15 @@
+{{- /* Closing drumbeat before the download call to action: the tagline and
+  the platforms, scrolling once around, pausing on hover. The list is
+  duplicated so the loop has no seam; the second pass is hidden from
+  assistive tech. Separate from the logo ticker above the fold, which
+  shows the organisations our users work at. */ -}}
+{{- $items := slice "One message." "Many ears." "LinkedIn" "X" "Reddit" "Hacker News" "Bluesky" "GitHub" "Slack" -}}
+<div class="x-marquee" role="group" aria-label="One message, many ears, on every platform">
+  <ul class="x-marquee-track">
+    {{- range $pass := slice 1 2 }}
+    {{- range $items }}
+    <li class="x-marquee-item"{{ if eq $pass 2 }} aria-hidden="true"{{ end }}>{{ . }}<span class="x-dot" aria-hidden="true">✦</span></li>
+    {{- end }}
+    {{- end }}
+  </ul>
+</div>

@@ -1,0 +1,155 @@
+/* Style exploration: motion-led.
+   Borrowed from gumloop.com: scroll reveals that settle each section in
+   once, hover feedback on ringed cards, an animated hero entrance, a
+   scrolling marquee, and a thin scroll-progress hairline so the eye always
+   knows where it is on the page. The site already has some of this in
+   pieces (home-reveal.js on the homepage, the logo ticker, the proof
+   quote sweep); this direction makes motion the site-wide system instead
+   of a homepage accent.
+   What stays: teal brand colours, Bricolage and Instrument type, the
+   glass card system, the cast and the voice. Nothing here changes copy.
+   Motion is off under prefers-reduced-motion, and every reveal is written
+   so a browser without scroll timelines, or without the script, shows the
+   content as drawn. No element is hidden by this stylesheet itself. */
+
+/* Scroll progress: a 2px teal hairline under the header that fills as the
+   page scrolls. Pure CSS, driven by the scroll timeline. The header is
+   z-index 20 and the film dialog sits at 1100, so 30 puts the line above
+   the bar and below dialogs. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--link);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  z-index: 30;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      animation: x-progress linear both;
+      animation-timeline: scroll();
+    }
+  }
+}
+@keyframes x-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Hero entrance: the copy and the film cell rise in on load, staggered a
+   beat apart. The keyframes carry the hidden start, so without motion the
+   hero is simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .home-signal .hero-copy > * {
+    animation: x-hero-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .home-signal .hero-copy > *:nth-child(2) { animation-delay: 0.08s; }
+  .home-signal .hero-copy > *:nth-child(3) { animation-delay: 0.16s; }
+  .home-signal .hero-film-cell {
+    animation: x-hero-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both;
+  }
+}
+@keyframes x-hero-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll reveals beyond the homepage. The homepage already settles its
+   sections in through home-reveal.js, so this is scoped to main.page and
+   only touches card grids, plan cards, FAQ accordions and limit rows.
+   Scroll-linked, so the reveal follows the scroll instead of firing once. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    main.page .grid > *,
+    main.page .pricing-grid > *,
+    main.page .agent-faq > *,
+    main.page .limit-list > * {
+      animation: x-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+@keyframes x-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover lift for cards that are not links. Anchor cards already lift 2px
+   in cards.css; the list and panel cards (trust cards, plan cards, the
+   pricing panel) did not answer the pointer at all. This gives them the
+   same treatment, reusing each variant's own hover border and shadow, so
+   paper keeps no shadow and dispatch keeps its dashed edge going solid. */
+@media (prefers-reduced-motion: no-preference) {
+  main li.card,
+  main div.card {
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+}
+main li.card:is(:hover, :focus-visible),
+main div.card:is(:hover, :focus-visible) {
+  transform: translateY(-2px);
+  border-color: var(--card-hover-border, var(--card-border-color, transparent));
+  box-shadow: var(--card-hover-shadow, var(--card-shadow, none));
+}
+@media (prefers-reduced-motion: reduce) {
+  main li.card:is(:hover, :focus-visible),
+  main div.card:is(:hover, :focus-visible) {
+    transform: none;
+  }
+}
+
+/* Buttons answer a press: one pixel down while held. The base button
+   already transitions transform, so this is only the active state. */
+@media (prefers-reduced-motion: no-preference) {
+  .button:active { transform: translateY(1px); }
+}
+
+/* Closing marquee before the download call to action: the tagline and the
+   platforms, scrolling once around, pausing on hover, edges masked like
+   the logo ticker above the fold. The list is duplicated in the partial
+   so the loop has no seam. */
+.x-marquee {
+  border-block: 1px solid var(--line);
+  padding: var(--space-4) 0;
+  overflow: hidden;
+}
+.x-marquee-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  width: max-content;
+}
+.x-marquee-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-right: var(--space-8);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+  color: var(--ink-wordmark);
+  white-space: nowrap;
+}
+.x-marquee-item .x-dot { color: var(--teal); }
+@media (prefers-reduced-motion: no-preference) {
+  .x-marquee-track { animation: x-marquee-slide 60s linear infinite; }
+  .x-marquee:hover .x-marquee-track { animation-play-state: paused; }
+}
+@keyframes x-marquee-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media print {
+  .x-marquee,
+  .scroll-progress { display: none; }
+}
