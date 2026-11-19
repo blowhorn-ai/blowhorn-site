@@ -118,6 +118,7 @@
           </div>
           <p class="hero-actions">
             {{ partial "download-button.html" (dict "kind" "secondary") }}
+            <a class="button button-secondary" href="{{ (site.GetPage "/showcase").RelPermalink }}">See the showcase</a>
             <a class="button button-secondary" href="{{ (site.GetPage "/docs").RelPermalink }}">Read the docs</a>
           </p>
         </div>
