@@ -1,0 +1,1255 @@
+/* Style exploration, round 3: "Blue hour".
+   The reference site's app-mock blues promoted to the whole page: a calm,
+   monochrome-blue Blowhorn on a pale panel tint, white cards with pale
+   blue hairlines, navy type, link-blue buttons, one navy band (#trust) and
+   a sky-gradient hero panel. No teal in the interface: teal stays only in
+   the logo files and the cast art, which are used as files, never
+   recoloured.
+
+   Scope: every rule starts with :root:has(main.blue-hour). The home page
+   (layouts/_partials/home/signal.html) and /pricing/ (layouts/pricing.html)
+   carry the blue-hour class on <main>; no other page changes.
+
+   New colours. Each is a value measured on gumloop.com at 1440px on
+   18 Nov 2026 (computed styles, converted to hex). Nothing else is new:
+   every other colour is white, black, or one of these at an alpha.
+     #eaf1fb  app-mock panel tint             -> page field
+     #cee2f4  app-mock pale blue fill          -> card hairlines, sky top, highlight fill
+     #bae1ff  app-mock pale blue fill          -> secondary-button edge, night muted text, highlight
+     #0b2e69  app-mock navy text               -> ink, headings, the #trust band, the night field
+     #076cc4  link / blue text                 -> links, primary button fill
+     #03a2fe  mascot blob blue                 -> data lines, check discs, blob
+     #1e8cff  app-mock blue                    -> data lines, strong edges, blob
+     #5f5f68  body text                        -> reserved; navy at 78% is used instead (see below)
+
+   Contrast, WCAG 2.1, computed (scripted, not guessed):
+     #0b2e69 on #eaf1fb 11.48   on #ffffff 13.05   on #cee2f4 9.83   on #bae1ff 9.51
+     muted ink rgba(11,46,105,.78): on #eaf1fb 6.19 (#3c5989)   on #ffffff 6.73   on #cee2f4 5.56
+     #076cc4 links on #ffffff 5.31   on #eaf1fb 4.68 (never set on #cee2f4: 4.0)
+     #ffffff on #076cc4 (primary button) 5.31   hover #ffffff on #0b2e69 13.05
+     on #0b2e69: #ffffff 13.05   #bae1ff 9.51   rgba(255,255,255,.78) 8.4   #03a2fe 4.73
+     inner night cards rgba(255,255,255,.06) over #0b2e69 (#1a3b72): #ffffff 10.98   #bae1ff 8.0
+     #1e8cff edge on #ffffff 3.36 (UI boundary, >= 3:1); #0b2e69 check on #03a2fe 4.73
+
+   Dark OS mode is a deliberate "night" variant: the field is #0b2e69, type
+   is white, cards are white at 6% with the reference's 14% white edges, and
+   the #trust band flips to the day sky so it stays a distinct moment. */
+
+/* ======================================================================
+   1. Tokens. "Day" is the default; "night" is the dark OS variant. The
+   #trust band takes the opposite set, so it is navy by day and sky at
+   night. Every token is a literal: a var() chain would resolve on <html>
+   and could not flip inside the band.
+   ====================================================================== */
+:root:has(main.blue-hour),
+:root:has(main.blue-hour) .card-paper {
+  --bh-field: #eaf1fb;
+  --bh-card: #ffffff;
+  --bh-edge: #cee2f4;
+  --bh-ink: #0b2e69;
+  --bh-muted: rgba(11, 46, 105, 0.78);
+  --bh-link: #076cc4;
+  --bh-accent: #1e8cff;
+  --bh-sky: linear-gradient(180deg, #cee2f4 0%, #eaf1fb 100%);
+}
+:root:has(main.blue-hour) {
+  color-scheme: light;
+  --surface: #ffffff;
+  --surface-raised: #eaf1fb;
+  --surface-tint: #eaf1fb;
+  --nav-panel: #ffffff;
+  --ink: #0b2e69;
+  --ink-muted: rgba(11, 46, 105, 0.78);
+  --ink-wordmark: #0b2e69;
+  --link: #076cc4;
+  --link-hover: #0b2e69;
+  --line: #cee2f4;
+  --line-strong: #1e8cff;
+  --focus-ring: #076cc4;
+  --shadow-soft: 0 12px 32px -16px rgba(11, 46, 105, 0.28);
+
+  /* The brand accents, re-pointed at the blues: teal leaves the interface. */
+  --teal: #076cc4;
+  --teal-bright: #1e8cff;
+  --teal-shade: #076cc4;
+  --teal-deep: #0b2e69;
+  --mint: #bae1ff;
+  --on-teal: #ffffff;
+  --near-black: #0b2e69;
+  --charcoal: #0b2e69;
+  --cream: #ffffff;
+  --yellow: #bae1ff;
+  --yellow-shade: #1e8cff;
+  --on-yellow: #0b2e69;
+
+  --glass-fill: rgba(255, 255, 255, 0.72);
+  --glass-fill-strong: rgba(234, 241, 251, 0.86);
+  --glass-fill-solid: #ffffff;
+  --glass-field: rgba(255, 255, 255, 0.86);
+  --glass-sheen: rgba(255, 255, 255, 0);
+  --glass-specular: rgba(255, 255, 255, 0);
+  --glass-rim: rgba(255, 255, 255, 0);
+  --glass-edge: #cee2f4;
+  --glass-shadow: 0 1px 0 rgba(11, 46, 105, 0.04);
+  --glass-shadow-lift: 0 14px 30px -18px rgba(11, 46, 105, 0.35);
+  --glass-saturate: 100%;
+  --ambient-base: #eaf1fb;
+  --ambient-1: transparent;
+  --ambient-2: transparent;
+  --ambient-3: transparent;
+  --ambient-4: transparent;
+
+  --app-canvas: #ffffff;
+  --app-rail: #eaf1fb;
+  --app-line: #cee2f4;
+  --app-control: #eaf1fb;
+  --app-selected: #bae1ff;
+  --app-ink: #0b2e69;
+  --app-muted: rgba(11, 46, 105, 0.78);
+  --app-accent: #076cc4;
+  --app-on-accent: #ffffff;
+  --app-live: #076cc4;
+  --app-pending: #0b2e69;
+  --app-tint: rgba(3, 162, 254, 0.10);
+
+  --term-bg: #ffffff;
+  --term-bar: #eaf1fb;
+  --term-ink: #0b2e69;
+  --term-muted: rgba(11, 46, 105, 0.78);
+  --term-rule: #cee2f4;
+  --tk-key: #076cc4;
+  --tk-head: #0b2e69;
+  --tk-punct: rgba(11, 46, 105, 0.78);
+  --tk-prompt: #076cc4;
+
+  --bh-band: #0b2e69;
+  --bh-announce: #0b2e69;
+}
+
+/* The navy band by day: night tokens inside #trust. */
+:root:has(main.blue-hour) .blue-hour #trust {
+  --surface: #0b2e69;
+  --surface-raised: rgba(255, 255, 255, 0.06);
+  --surface-tint: rgba(255, 255, 255, 0.06);
+  --ink: #ffffff;
+  --ink-muted: #bae1ff;
+  --ink-wordmark: #ffffff;
+  --link: #bae1ff;
+  --link-hover: #ffffff;
+  --line: rgba(255, 255, 255, 0.14);
+  --line-strong: rgba(255, 255, 255, 0.5);
+  --focus-ring: #bae1ff;
+  --bh-field: #0b2e69;
+  --bh-card: rgba(255, 255, 255, 0.06);
+  --bh-edge: rgba(255, 255, 255, 0.14);
+  --bh-ink: #ffffff;
+  --bh-muted: #bae1ff;
+  --bh-link: #bae1ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:has(main.blue-hour) {
+    color-scheme: dark;
+    --bh-field: #0b2e69;
+    --bh-card: rgba(255, 255, 255, 0.06);
+    --bh-edge: rgba(255, 255, 255, 0.14);
+    --bh-ink: #ffffff;
+    --bh-muted: rgba(255, 255, 255, 0.78);
+    --bh-link: #bae1ff;
+    --bh-accent: #03a2fe;
+    --bh-sky: linear-gradient(180deg, rgba(3, 162, 254, 0.30) 0%, rgba(3, 162, 254, 0) 100%);
+    --bh-announce: #076cc4;
+
+    --surface: #0b2e69;
+    --surface-raised: rgba(255, 255, 255, 0.06);
+    --surface-tint: rgba(255, 255, 255, 0.06);
+    --nav-panel: #0b2e69;
+    --ink: #ffffff;
+    --ink-muted: rgba(255, 255, 255, 0.78);
+    --ink-wordmark: #ffffff;
+    --link: #bae1ff;
+    --link-hover: #ffffff;
+    --line: rgba(255, 255, 255, 0.14);
+    --line-strong: #1e8cff;
+    --focus-ring: #bae1ff;
+    --shadow-soft: 0 16px 40px -18px rgba(0, 0, 0, 0.55);
+
+    --teal: #076cc4;
+    --teal-bright: #03a2fe;
+    --teal-shade: #1e8cff;
+    --teal-deep: #076cc4;
+    --mint: #bae1ff;
+
+    --glass-fill: rgba(255, 255, 255, 0.06);
+    --glass-fill-strong: rgba(11, 46, 105, 0.86);
+    --glass-fill-solid: #0b2e69;
+    --glass-field: rgba(255, 255, 255, 0.06);
+    --glass-edge: rgba(255, 255, 255, 0.14);
+    --glass-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    --glass-shadow-lift: 0 16px 34px -18px rgba(0, 0, 0, 0.6);
+    --ambient-base: #0b2e69;
+
+    --app-canvas: #ffffff;
+    --app-rail: #eaf1fb;
+    --app-line: #cee2f4;
+    --app-control: #eaf1fb;
+    --app-selected: #bae1ff;
+    --app-ink: #0b2e69;
+    --app-muted: rgba(11, 46, 105, 0.78);
+    --app-live: #076cc4;
+    --app-pending: #0b2e69;
+
+    --term-bg: rgba(255, 255, 255, 0.06);
+    --term-bar: rgba(255, 255, 255, 0.08);
+    --term-ink: #ffffff;
+    --term-muted: #bae1ff;
+    --term-rule: rgba(255, 255, 255, 0.14);
+    --tk-key: #bae1ff;
+    --tk-head: #ffffff;
+    --tk-punct: #bae1ff;
+    --tk-prompt: #03a2fe;
+  }
+  /* At night the band flips to the day sky. */
+  :root:has(main.blue-hour) .blue-hour #trust {
+    color-scheme: light;
+    --surface: #ffffff;
+    --surface-raised: #eaf1fb;
+    --surface-tint: #eaf1fb;
+    --ink: #0b2e69;
+    --ink-muted: rgba(11, 46, 105, 0.78);
+    --ink-wordmark: #0b2e69;
+    --link: #076cc4;
+    --link-hover: #0b2e69;
+    --line: #cee2f4;
+    --line-strong: #1e8cff;
+    --focus-ring: #076cc4;
+    --bh-field: #eaf1fb;
+    --bh-card: #ffffff;
+    --bh-edge: #cee2f4;
+    --bh-ink: #0b2e69;
+    --bh-muted: rgba(11, 46, 105, 0.78);
+    --bh-link: #076cc4;
+    --bh-band: linear-gradient(180deg, #cee2f4 0%, #eaf1fb 100%);
+  }
+  :root:has(main.blue-hour) .logo-on-light { display: none; }
+  :root:has(main.blue-hour) .logo-on-dark { display: block; }
+}
+
+/* ======================================================================
+   2. Page field, type and links
+   ====================================================================== */
+:root:has(main.blue-hour) body {
+  background: var(--bh-field);
+  color: var(--bh-ink);
+}
+:root:has(main.blue-hour) body::before {
+  display: none;
+}
+:root:has(main.blue-hour) .blue-hour :is(.display-xl, .display, .h2) {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "opsz" 48;
+  color: var(--bh-ink);
+}
+:root:has(main.blue-hour) .blue-hour .hero-copy .display-xl,
+:root:has(main.blue-hour) .pricing-page .pricing-hero .display {
+  font-size: clamp(36px, 5.6vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  max-width: 880px;
+  text-wrap: balance;
+}
+:root:has(main.blue-hour) .blue-hour .display,
+:root:has(main.blue-hour) .blue-hour .h2 {
+  font-size: clamp(28px, 4.2vw, 36px);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+:root:has(main.blue-hour) .blue-hour .h3 {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+:root:has(main.blue-hour) .blue-hour :is(.muted, .body-lg.muted, .hero-sub) {
+  color: var(--bh-muted);
+}
+:root:has(main.blue-hour) .blue-hour .label {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--bh-link);
+}
+:root:has(main.blue-hour) .blue-hour a:not(.button):not(.card):not([class*="card-"]) {
+  color: var(--bh-link);
+}
+:root:has(main.blue-hour) .blue-hour a:not(.button):not(.card):not([class*="card-"]):hover {
+  color: var(--bh-ink);
+}
+
+/* ======================================================================
+   3. Buttons: the reference's 36px, 8px-corner rectangles
+   ====================================================================== */
+:root:has(main.blue-hour) .button {
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: 8px;
+  border-width: 1px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: none;
+  background-image: none;
+}
+:root:has(main.blue-hour) .site-header .button {
+  min-height: 32px;
+}
+:root:has(main.blue-hour) .button-primary,
+:root:has(main.blue-hour) .button-primary:is(:hover, :focus-visible) {
+  background-image: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+:root:has(main.blue-hour) .button-primary {
+  background-color: #076cc4;
+  border-color: #076cc4;
+  color: #ffffff;
+}
+:root:has(main.blue-hour) .button-primary:is(:hover, :focus-visible) {
+  background-color: #0b2e69;
+  border-color: #0b2e69;
+  color: #ffffff;
+}
+:root:has(main.blue-hour) .button:not(.button-primary) {
+  background-color: #ffffff;
+  border-color: #bae1ff;
+  color: #0b2e69;
+}
+:root:has(main.blue-hour) .button:not(.button-primary):is(:hover, :focus-visible) {
+  border-color: #076cc4;
+  color: #0b2e69;
+}
+@media (prefers-color-scheme: dark) {
+  :root:has(main.blue-hour) .button-primary:is(:hover, :focus-visible) {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #0b2e69;
+  }
+}
+
+/* ======================================================================
+   4. Announcement bar and header
+   ====================================================================== */
+.bh-announce {
+  background: var(--bh-announce, #0b2e69);
+  color: #ffffff;
+}
+.bh-announce-text {
+  margin: 0;
+  min-height: 32px;
+  padding: 6px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 var(--space-3);
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+}
+.bh-announce-text a,
+.bh-announce-text a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.bh-announce-text a:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+:root:has(main.blue-hour) .site-header {
+  --card-bg: var(--glass-fill-strong);
+  --card-shadow: inset 0 -1px 0 0 var(--bh-edge);
+}
+
+/* ======================================================================
+   5. Cards: white, 1px pale-blue hairline, 12px corners. Variants stay
+   distinct by fill and edge, in blues only.
+   ====================================================================== */
+:root:has(main.blue-hour) .blue-hour .card,
+:root:has(main.blue-hour) .blue-hour :is(.card-field, .card-plain, .card-stamp, .card-paper, .card-dispatch) {
+  border-radius: 12px;
+}
+:root:has(main.blue-hour) .card-field {
+  --card-bg: var(--bh-card);
+  --card-border-color: var(--bh-edge);
+  --card-hover-border: var(--bh-accent);
+  --card-chip: var(--bh-field);
+}
+:root:has(main.blue-hour) .card-plain {
+  --card-bg: transparent;
+  --card-border-color: var(--bh-accent);
+  --card-hover-border: var(--bh-link);
+}
+:root:has(main.blue-hour) .card-stamp {
+  --card-bg: transparent;
+  --card-border-color: var(--bh-ink);
+  --card-shadow: none;
+  --card-hover-shadow: none;
+}
+:root:has(main.blue-hour) .card-paper {
+  --card-bg: #ffffff;
+  --card-ink: #0b2e69;
+  --card-muted: rgba(11, 46, 105, 0.78);
+  --card-border-width: 1px;
+  --card-border-color: #0b2e69;
+  --card-hover-border: #076cc4;
+  --ink: #0b2e69;
+  --ink-muted: rgba(11, 46, 105, 0.78);
+  --ink-wordmark: #0b2e69;
+  --link: #076cc4;
+  --link-hover: #0b2e69;
+  --line: #cee2f4;
+  --surface: #ffffff;
+  --surface-raised: #eaf1fb;
+  --surface-tint: #eaf1fb;
+  --focus-ring: #076cc4;
+  --bh-card: #ffffff;
+  --bh-field: #eaf1fb;
+  --bh-edge: #cee2f4;
+}
+:root:has(main.blue-hour) .card-dispatch {
+  --card-bg: #0b2e69;
+  --card-ink: #ffffff;
+  --card-muted: #bae1ff;
+  --card-border-style: solid;
+  --card-border-color: #0b2e69;
+  --card-hover-border: #1e8cff;
+  --ink: #ffffff;
+  --ink-muted: #bae1ff;
+  --ink-wordmark: #ffffff;
+  --link: #bae1ff;
+  --link-hover: #ffffff;
+  --line: rgba(255, 255, 255, 0.14);
+  --surface: #0b2e69;
+  --surface-raised: rgba(255, 255, 255, 0.06);
+  --surface-tint: rgba(255, 255, 255, 0.06);
+  --focus-ring: #bae1ff;
+  --bh-ink: #ffffff;
+  --bh-muted: #bae1ff;
+  --bh-link: #bae1ff;
+  --bh-card: rgba(255, 255, 255, 0.06);
+  --bh-field: #0b2e69;
+  --bh-edge: rgba(255, 255, 255, 0.14);
+}
+:root:has(main.blue-hour) .card-dispatch .label {
+  color: #bae1ff;
+}
+@media (prefers-color-scheme: dark) {
+  /* At night the dispatch card would vanish into the field: it takes the
+     link blue instead (white on #076cc4 is 5.31:1; #ffffff muted there). */
+  :root:has(main.blue-hour) .card-dispatch {
+    --card-bg: #076cc4;
+    --card-border-color: #076cc4;
+    --card-muted: #ffffff;
+    --ink-muted: #ffffff;
+    --link: #ffffff;
+    --bh-muted: #ffffff;
+    --bh-link: #ffffff;
+  }
+  :root:has(main.blue-hour) .card-dispatch .label { color: #ffffff; }
+}
+
+/* ======================================================================
+   6. Section rhythm: 120-160px between sections, 48px head to content
+   ====================================================================== */
+:root:has(main.blue-hour) .home-signal .section {
+  padding-block: 96px;
+}
+@media (min-width: 900px) {
+  :root:has(main.blue-hour) .home-signal .section {
+    padding-block: 140px;
+  }
+}
+:root:has(main.blue-hour) .blue-hour .section-head {
+  margin-bottom: 48px;
+}
+:root:has(main.blue-hour) .blue-hour .section-head > .label + * {
+  margin-top: var(--space-3);
+}
+
+/* ======================================================================
+   7. Home hero: left-aligned two-line H1 over a sky panel holding the
+   film as a white app window, the chart card overlapping bottom-left
+   ====================================================================== */
+:root:has(main.blue-hour) .home-signal .hero-signal {
+  padding-top: 72px;
+  padding-bottom: 0;
+}
+:root:has(main.blue-hour) .home-signal .hero-copy .display-xl {
+  margin-top: var(--space-4);
+}
+:root:has(main.blue-hour) .home-signal .hero-sub {
+  font-size: 18px;
+  line-height: 28px;
+}
+:root:has(main.blue-hour) .home-signal .hero-actions {
+  margin-top: var(--space-6);
+}
+
+/* The sky: the film cell is the panel. No z-index or transform here, so
+   the film can still grow into its fixed-position dialog above the page. */
+:root:has(main.blue-hour) .home-signal .hero-film-cell {
+  margin-top: 64px;
+  padding: 88px clamp(16px, 7%, 96px) 64px;
+  background: var(--bh-sky);
+  border: 1px solid var(--bh-edge);
+  border-radius: 20px;
+}
+/* The white app window around the film, drawn by the figure's own
+   pseudo-elements so the figure keeps the film's exact height. */
+:root:has(main.blue-hour) .home-signal .hero-film {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+:root:has(main.blue-hour) .home-signal .hero-film::before {
+  content: "";
+  position: absolute;
+  inset: -40px -10px -10px;
+  background: #ffffff;
+  border: 1px solid #cee2f4;
+  border-radius: 16px;
+  box-shadow: 0 40px 80px -40px rgba(11, 46, 105, 0.45);
+}
+:root:has(main.blue-hour) .home-signal .hero-film::after {
+  content: "";
+  position: absolute;
+  top: -26px;
+  left: 6px;
+  width: 52px;
+  height: 12px;
+  background:
+    radial-gradient(circle at 6px 6px, #1e8cff 5px, transparent 5.5px),
+    radial-gradient(circle at 24px 6px, #03a2fe 5px, transparent 5.5px),
+    radial-gradient(circle at 42px 6px, #bae1ff 5px, transparent 5.5px);
+}
+:root:has(main.blue-hour) .home-signal .hero-film-frame {
+  border-radius: 8px;
+  box-shadow: none;
+}
+:root:has(main.blue-hour) .home-signal .hero-film-frame.is-open {
+  border-radius: 12px;
+}
+:root:has(main.blue-hour) .home-signal :is(.hero-film-btn, .hero-film-start) {
+  border-radius: 8px;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+:root:has(main.blue-hour) .home-signal .hero-film-start {
+  background: #076cc4;
+  color: #ffffff;
+}
+:root:has(main.blue-hour) .home-signal :is(.hero-film-btn, .hero-film-start):hover {
+  background: #0b2e69;
+}
+
+/* The second, smaller window: the chart card overlaps the sky's bottom-left. */
+:root:has(main.blue-hour) .home-signal .gum-app-preview {
+  max-width: var(--measure);
+  margin: -128px auto 0;
+  padding: 0 var(--gutter);
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+:root:has(main.blue-hour) .home-signal .gum-chart-card {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  display: inline-flex;
+  margin-left: clamp(0px, 3%, 40px);
+  padding: 44px var(--space-6) var(--space-6);
+  gap: var(--space-8);
+  background: #ffffff;
+  border: 1px solid #cee2f4;
+  border-radius: 12px;
+  box-shadow: 0 24px 48px -28px rgba(11, 46, 105, 0.45);
+}
+:root:has(main.blue-hour) .home-signal .gum-chart-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  border-bottom: 1px solid #cee2f4;
+  background:
+    radial-gradient(circle at 18px 16px, #1e8cff 4px, transparent 4.5px),
+    radial-gradient(circle at 32px 16px, #03a2fe 4px, transparent 4.5px),
+    radial-gradient(circle at 46px 16px, #bae1ff 4px, transparent 4.5px);
+}
+:root:has(main.blue-hour) .home-signal .gum-chart-num {
+  font-size: 36px;
+  font-weight: 500;
+  color: #0b2e69;
+}
+:root:has(main.blue-hour) .home-signal .gum-chart-label {
+  color: rgba(11, 46, 105, 0.78);
+}
+:root:has(main.blue-hour) .home-signal .gum-chart-bars {
+  height: 64px;
+  gap: 8px;
+}
+:root:has(main.blue-hour) .home-signal .gum-chart-bars span {
+  width: 14px;
+  border-radius: 4px 4px 0 0;
+}
+:root:has(main.blue-hour) .gum-bar-a { height: 22px; background: #bae1ff; }
+:root:has(main.blue-hour) .gum-bar-b { height: 34px; background: #03a2fe; }
+:root:has(main.blue-hour) .gum-bar-c { height: 28px; background: #1e8cff; }
+:root:has(main.blue-hour) .gum-bar-d { height: 48px; background: #076cc4; }
+:root:has(main.blue-hour) .gum-bar-e { height: 64px; background: #0b2e69; }
+
+@media (max-width: 719px) {
+  :root:has(main.blue-hour) .home-signal .hero-film-cell {
+    margin-top: 40px;
+    padding: 56px 18px 32px;
+  }
+  :root:has(main.blue-hour) .home-signal .gum-app-preview {
+    margin-top: -16px;
+  }
+  :root:has(main.blue-hour) .home-signal .gum-chart-card {
+    margin-left: var(--space-3);
+  }
+}
+
+/* The blob cluster, recoloured and reshaped: five blue gumballs. */
+:root:has(main.blue-hour) .gum-blobs {
+  gap: 8px;
+  height: 32px;
+}
+:root:has(main.blue-hour) .gum-blob {
+  width: 24px;
+  height: 24px;
+  animation-name: bh-blob-bob;
+  animation-duration: 5s;
+}
+:root:has(main.blue-hour) .gum-blob-a { background: #03a2fe; border-radius: 50% 50% 50% 18%; }
+:root:has(main.blue-hour) .gum-blob-b { background: #1e8cff; border-radius: 30%; width: 28px; height: 28px; }
+:root:has(main.blue-hour) .gum-blob-c { background: #bae1ff; border-radius: 50%; }
+:root:has(main.blue-hour) .gum-blob-d { background: #076cc4; border-radius: 18% 50% 50% 50%; width: 20px; height: 20px; }
+:root:has(main.blue-hour) .gum-blobs::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: #0b2e69;
+  animation: bh-blob-bob 5s ease-in-out -2s infinite;
+}
+@media (prefers-color-scheme: dark) {
+  :root:has(main.blue-hour) .gum-blobs::after { background: #ffffff; }
+}
+@keyframes bh-blob-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(-8deg); }
+}
+
+/* ======================================================================
+   8. Metric row: white cards, 60px mono navy numbers
+   ====================================================================== */
+:root:has(main.blue-hour) .gum-metrics {
+  margin-top: 120px;
+}
+:root:has(main.blue-hour) .gum-metric {
+  flex: 1 0 min(280px, 82vw);
+  background: var(--bh-card);
+  border: 1px solid var(--bh-edge);
+  border-radius: 12px;
+  padding: var(--space-8);
+}
+:root:has(main.blue-hour) .gum-metric-num {
+  font-size: 60px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--bh-ink);
+}
+:root:has(main.blue-hour) .gum-metric-label {
+  color: var(--bh-muted);
+}
+:root:has(main.blue-hour) .gum-metric::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin-top: var(--space-6);
+  background: linear-gradient(90deg, #03a2fe 0%, #1e8cff 60%, transparent 100%);
+  border-radius: 2px;
+}
+:root:has(main.blue-hour) .gum-arrow {
+  background: var(--bh-card);
+  border-color: var(--bh-edge);
+  color: var(--bh-ink);
+}
+
+/* ======================================================================
+   9. Home sections
+   ====================================================================== */
+/* Platforms: tabs become enclosed folder tabs sitting on a hairline. */
+:root:has(main.blue-hour) .home-signal .plat-tabs {
+  gap: 0;
+  border-bottom: 1px solid var(--bh-edge);
+}
+:root:has(main.blue-hour) .home-signal .plat-tab {
+  height: 40px;
+  margin-bottom: -1px;
+  padding: 0 var(--space-6);
+  border-radius: 8px 8px 0 0;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--bh-muted);
+  font-weight: 500;
+}
+@media (max-width: 719px) {
+  :root:has(main.blue-hour) .home-signal .plat-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  :root:has(main.blue-hour) .home-signal .plat-tab {
+    flex: none;
+    padding: 0 var(--space-3);
+  }
+}
+:root:has(main.blue-hour) .home-signal .plat-tab:hover {
+  color: var(--bh-ink);
+}
+:root:has(main.blue-hour) .home-signal .plat-tab:is(.is-on, [aria-selected="true"]) {
+  background: var(--bh-card);
+  color: var(--bh-ink);
+  border-color: var(--bh-edge);
+  border-bottom-color: var(--bh-card);
+}
+@media (prefers-color-scheme: dark) {
+  :root:has(main.blue-hour) .home-signal .plat-tab:is(.is-on, [aria-selected="true"]) {
+    background: #0b2e69;
+    border-bottom-color: #0b2e69;
+  }
+}
+
+/* Use-case and solution links: 8px rectangles, not pills. */
+:root:has(main.blue-hour) .home-signal .usecases a {
+  border-radius: 8px;
+  border-color: var(--bh-edge);
+  background: var(--bh-card);
+  color: var(--bh-ink);
+}
+:root:has(main.blue-hour) .home-signal .usecases a:hover {
+  border-color: var(--bh-accent);
+}
+
+/* Sound wave: a white timeline with blue data dots. */
+:root:has(main.blue-hour) .home-signal .wave-list {
+  background: var(--bh-card);
+  border: 1px solid var(--bh-edge);
+  border-radius: 12px;
+}
+:root:has(main.blue-hour) .home-signal .wave-list li:not(.wave-more) {
+  border-bottom-color: var(--bh-edge);
+}
+:root:has(main.blue-hour) .home-signal .wave-list li:nth-child(1)::before { background: #03a2fe; }
+:root:has(main.blue-hour) .home-signal .wave-list li:nth-child(2)::before { background: #1e8cff; }
+:root:has(main.blue-hour) .home-signal .wave-list li:nth-child(3)::before { background: #076cc4; }
+:root:has(main.blue-hour) .home-signal .wave-list li:nth-child(4)::before { background: #bae1ff; }
+:root:has(main.blue-hour) .home-signal .wave-list li:nth-child(5)::before { background: #0b2e69; }
+
+/* Trust: the one navy band, full bleed. */
+:root:has(main.blue-hour) .home-signal #trust {
+  background: var(--bh-band);
+  color: var(--ink);
+}
+:root:has(main.blue-hour) .home-signal #trust .label {
+  color: var(--bh-muted);
+}
+:root:has(main.blue-hour) .home-signal #trust ul.grid-2 {
+  border-color: var(--bh-edge);
+  border-radius: 12px;
+}
+:root:has(main.blue-hour) .home-signal #trust ul.grid-2 > li,
+:root:has(main.blue-hour) .home-signal #trust ul.grid-2 > li:first-child {
+  background: var(--bh-card);
+}
+:root:has(main.blue-hour) .home-signal #trust ul.grid-2 > li + li,
+:root:has(main.blue-hour) .home-signal #trust ul.grid-2 > li:nth-child(3) {
+  border-color: var(--bh-edge);
+}
+
+/* Final call to action: a sky panel. */
+:root:has(main.blue-hour) .home-signal #download .cta-inner {
+  background: var(--bh-sky);
+  border: 1px solid var(--bh-edge);
+  border-radius: 20px;
+}
+:root:has(main.blue-hour) .home-signal #download .download-cta-icon {
+  margin-bottom: var(--space-6);
+}
+@media (max-width: 1151px) {
+  :root:has(main.blue-hour) .home-signal #download .cta-inner {
+    width: auto;
+    margin-inline: var(--gutter);
+    padding-inline: var(--space-6);
+  }
+}
+
+/* Card link cue: a blue arrow on a pale chip; solid link blue on hover. */
+:root:has(main.blue-hour) :is(a.card-link, a.docs-card, a.platform, a.agent-tile, a.mm-card)::after,
+:root:has(main.blue-hour) .mm-card-arrow {
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%23076cc4' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: var(--card-cue-arrow);
+}
+:root:has(main.blue-hour) :is(a.card-link, a.docs-card, a.platform, a.agent-tile, a.mm-card):is(:hover, :focus-visible)::after {
+  background-color: #076cc4;
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+:root:has(main.blue-hour) a.card-dispatch::after,
+:root:has(main.blue-hour) .blue-hour #trust :is(a.card-link, a.platform)::after {
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%23bae1ff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  :root:has(main.blue-hour) :is(a.card-link, a.docs-card, a.platform, a.agent-tile, a.mm-card):not(.card-paper)::after,
+  :root:has(main.blue-hour) .mm-card-arrow {
+    --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%23bae1ff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  :root:has(main.blue-hour) :is(a.card-link, a.docs-card, a.platform, a.agent-tile, a.mm-card):is(:hover, :focus-visible)::after {
+    background-color: #ffffff;
+    --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%230b2e69' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+}
+
+/* Platform tiles and the role and pause controls: white, hairline, 8-12px. */
+:root:has(main.blue-hour) .home-signal .platform {
+  background: var(--bh-card);
+  border: 1px solid var(--bh-edge);
+  border-radius: 12px;
+}
+:root:has(main.blue-hour) .home-signal :is(.plat-role, .constellation-pause, .plat-action) {
+  border-radius: 8px;
+  background: var(--bh-card);
+  border-color: var(--bh-edge);
+}
+:root:has(main.blue-hour) .home-signal :is(.plat-role, .constellation-pause):is(.is-on, [aria-pressed="true"]) {
+  border-color: var(--bh-link);
+  box-shadow: 0 0 0 2px rgba(3, 162, 254, 0.35);
+}
+:root:has(main.blue-hour) .home-signal .plat-row-roles .is-hot .platform {
+  border-color: var(--bh-link);
+  box-shadow: 0 12px 30px -12px rgba(3, 162, 254, 0.5);
+}
+:root:has(main.blue-hour) .home-signal .plat-clip-video {
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px var(--bh-edge), 0 40px 80px -40px rgba(11, 46, 105, 0.45);
+}
+
+/* How it works: the dispatch panel's app tokens, in navy. */
+:root:has(main.blue-hour) .machines-card.card-dispatch {
+  --app-canvas: #0b2e69;
+  --app-rail: rgba(255, 255, 255, 0.04);
+  --app-line: rgba(255, 255, 255, 0.14);
+  --app-control: rgba(255, 255, 255, 0.08);
+  --app-selected: rgba(255, 255, 255, 0.12);
+  --app-ink: #ffffff;
+  --app-muted: #bae1ff;
+  --app-live: #03a2fe;
+  --app-pending: #bae1ff;
+  --app-tint: rgba(3, 162, 254, 0.14);
+  --machines-gold: #bae1ff;
+  --machines-teal: #03a2fe;
+}
+:root:has(main.blue-hour) .machines-card.card-paper {
+  --app-canvas: #ffffff;
+  --app-rail: #eaf1fb;
+  --app-line: #cee2f4;
+  --app-control: #eaf1fb;
+  --app-selected: #bae1ff;
+  --app-ink: #0b2e69;
+  --app-muted: rgba(11, 46, 105, 0.78);
+  --app-live: #076cc4;
+  --app-pending: #0b2e69;
+  --app-tint: rgba(3, 162, 254, 0.10);
+  --machines-gold: #0b2e69;
+  --machines-teal: #076cc4;
+}
+@media (prefers-color-scheme: dark) {
+  :root:has(main.blue-hour) .machines-card.card-dispatch {
+    --app-canvas: #076cc4;
+    --app-muted: #ffffff;
+    --app-live: #ffffff;
+    --app-pending: #ffffff;
+    --app-tint: rgba(255, 255, 255, 0.14);
+    --machines-teal: #ffffff;
+    --machines-gold: #ffffff;
+  }
+}
+
+/* The activity card (Teams): its local palette, in blues. */
+:root:has(main.blue-hour) .activity-feed {
+  --af-surface-1: #ffffff;
+  --af-surface-2: #ffffff;
+  --af-tint: rgba(3, 162, 254, 0.10);
+  --af-ink: #0b2e69;
+  --af-muted: rgba(11, 46, 105, 0.78);
+  --af-hairline: #cee2f4;
+  --af-highlight: rgba(255, 255, 255, 0);
+  --af-ghost: #ffffff;
+  --af-ghost-hover: #eaf1fb;
+  --af-ghost-border: #cee2f4;
+  --af-chip: #eaf1fb;
+  --af-ring: #0b2e69;
+  --af-dot: rgba(11, 46, 105, 0.2);
+  --af-live: #076cc4;
+  --af-badge: #bae1ff;
+  --af-badge-ink: #0b2e69;
+  --af-shadow: 0 24px 48px -28px rgba(11, 46, 105, 0.4);
+  border-radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:has(main.blue-hour) .activity-feed {
+    --af-surface-1: rgba(255, 255, 255, 0.08);
+    --af-surface-2: rgba(255, 255, 255, 0.04);
+    --af-tint: rgba(3, 162, 254, 0.16);
+    --af-ink: #ffffff;
+    --af-muted: rgba(255, 255, 255, 0.78);
+    --af-hairline: rgba(255, 255, 255, 0.14);
+    --af-ghost: rgba(255, 255, 255, 0.06);
+    --af-ghost-hover: rgba(255, 255, 255, 0.14);
+    --af-ghost-border: rgba(255, 255, 255, 0.14);
+    --af-chip: rgba(255, 255, 255, 0.08);
+    --af-ring: #ffffff;
+    --af-dot: rgba(255, 255, 255, 0.24);
+    --af-live: #bae1ff;
+    --af-badge: #076cc4;
+    --af-badge-ink: #ffffff;
+    --af-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Links on the navy band are underlined: their #bae1ff matches the body. */
+:root:has(main.blue-hour) .home-signal #trust .card a:not(.button) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* A note or button under a card grid gets air (the round-2 layout zeroed
+   .section-body's top margin, so they touched the cards). */
+:root:has(main.blue-hour) .home-signal .grid + .section-body {
+  margin-top: var(--space-6);
+}
+
+/* Speech bubbles on white paper keep a blue outline at night too (the
+   site's dark rule strokes every bubble in cream, which is white here). */
+:root:has(main.blue-hour) .card-paper .bubble {
+  --bubble-stroke: #1e8cff;
+}
+
+/* Footer status pill, in the palette. */
+:root:has(main.blue-hour) .status-link {
+  background-color: #0b2e69;
+  color: #ffffff;
+}
+:root:has(main.blue-hour) .status-link:hover {
+  color: #bae1ff;
+}
+:root:has(main.blue-hour) .pulse-icon {
+  background: #03a2fe;
+  box-shadow: none;
+}
+
+/* ======================================================================
+   10. Pricing page
+   ====================================================================== */
+:root:has(main.blue-hour) .pricing-page .pricing-hero {
+  padding-top: var(--space-6);
+}
+:root:has(main.blue-hour) .pricing-page .pricing-hero .body-lg {
+  max-width: 40rem;
+  margin-top: var(--space-4);
+}
+
+/* The one plan: a wide white card. One #cee2f4 header strip runs across
+   both columns ("Early access" over the plan, "Paid plans" over the coming
+   note); the coming note is the shaded second column, like the reference's
+   grey plan column. */
+:root:has(main.blue-hour) .pricing-page .pricing-single {
+  /* The plan card keeps the day palette in both modes, like paper. */
+  color-scheme: light;
+  --bh-field: #eaf1fb;
+  --bh-card: #ffffff;
+  --bh-edge: #cee2f4;
+  --bh-ink: #0b2e69;
+  --bh-muted: rgba(11, 46, 105, 0.78);
+  --bh-link: #076cc4;
+  --ink: #0b2e69;
+  --ink-muted: rgba(11, 46, 105, 0.78);
+  --link: #076cc4;
+  --line: #cee2f4;
+  gap: 0;
+  align-items: stretch;
+  background: var(--bh-card);
+  border: 1px solid var(--bh-edge);
+  border-radius: 20px;
+  overflow: hidden;
+}
+@media (min-width: 820px) {
+  :root:has(main.blue-hour) .pricing-page .pricing-single {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+}
+:root:has(main.blue-hour) .pricing-page .pricing-single > .plan {
+  --card-bg: transparent;
+  --card-border-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding: 0 0 var(--space-8);
+  border-radius: 0;
+}
+:root:has(main.blue-hour) .pricing-page .pricing-single :is(.plan-name, .pricing-coming > .label) {
+  align-self: stretch;
+  margin: 0;
+  padding: var(--space-4) var(--space-8);
+  background: #cee2f4;
+  color: #0b2e69;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+:root:has(main.blue-hour) .pricing-page .pricing-single .plan > :not(.plan-name) {
+  margin-inline: var(--space-8);
+}
+:root:has(main.blue-hour) .pricing-page .pricing-single .plan-blurb {
+  margin-top: var(--space-8);
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--bh-ink);
+}
+:root:has(main.blue-hour) .pricing-page .plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+:root:has(main.blue-hour) .pricing-page .price-amount {
+  font-family: var(--font-mono);
+  font-size: 60px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--bh-ink);
+}
+:root:has(main.blue-hour) .pricing-page .price-unit,
+:root:has(main.blue-hour) .pricing-page .plan-note {
+  color: var(--bh-muted);
+}
+:root:has(main.blue-hour) .pricing-page .plan-note {
+  margin-top: var(--space-2);
+}
+:root:has(main.blue-hour) .pricing-page .pricing-single .plan-cta {
+  width: auto;
+  margin-top: var(--space-6);
+}
+:root:has(main.blue-hour) .pricing-page .plan-features {
+  align-self: stretch;
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  padding: var(--space-6) 0 0;
+  border-top: 1px solid var(--bh-edge);
+  list-style: none;
+}
+:root:has(main.blue-hour) .pricing-page .plan-features li {
+  position: relative;
+  padding-left: 32px;
+  color: var(--bh-ink);
+}
+:root:has(main.blue-hour) .pricing-page .plan-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  transform: none;
+  background: #03a2fe url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.4l3 3 6-6.4' fill='none' stroke='%230b2e69' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 20px no-repeat;
+}
+:root:has(main.blue-hour) .pricing-page .pricing-single > .pricing-coming {
+  max-width: none;
+  margin: 0;
+  padding: 0 0 var(--space-8);
+  background: var(--bh-field);
+  border: 0;
+  border-top: 1px solid var(--bh-edge);
+}
+@media (min-width: 820px) {
+  :root:has(main.blue-hour) .pricing-page .pricing-single > .pricing-coming {
+    border-top: 0;
+    border-left: 1px solid var(--bh-edge);
+  }
+}
+:root:has(main.blue-hour) .pricing-page .pricing-coming > .body-lg {
+  margin: var(--space-8) var(--space-8) 0;
+  max-width: 34rem;
+  color: var(--bh-ink);
+}
+
+/* Every plan includes: four white cards in the blue variants. */
+:root:has(main.blue-hour) .pricing-page .pricing-included .card {
+  padding: var(--space-6);
+}
+
+/* What happens at a limit: a comparison table. Label column, shaded
+   value column, hairline rows. The body text is the anonymous second
+   grid item of each row. */
+:root:has(main.blue-hour) .pricing-page #limits .pricing-limits {
+  --card-bg: var(--bh-card);
+  --card-shadow: none;
+  --card-blur: none;
+  padding: 0;
+  border: 1px solid var(--bh-edge);
+  border-radius: 20px;
+  overflow: hidden;
+}
+:root:has(main.blue-hour) .pricing-page #limits .section-head {
+  margin: 0;
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  max-width: none;
+}
+:root:has(main.blue-hour) .pricing-page #limits .limit-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  columns: auto;
+}
+:root:has(main.blue-hour) .pricing-page #limits .limit-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--bh-edge);
+  color: var(--bh-ink);
+}
+:root:has(main.blue-hour) .pricing-page #limits .limit-list li::before {
+  display: none;
+}
+:root:has(main.blue-hour) .pricing-page #limits .limit-list strong {
+  padding: var(--space-4) var(--space-8) var(--space-1);
+  font-weight: 500;
+}
+:root:has(main.blue-hour) .pricing-page #limits .limit-list li {
+  padding-bottom: var(--space-4);
+}
+@media (min-width: 760px) {
+  :root:has(main.blue-hour) .pricing-page #limits .limit-list li {
+    grid-template-columns: minmax(200px, 32%) minmax(0, 1fr);
+    align-items: center;
+    padding: 0 var(--space-8) 0 0;
+    background: linear-gradient(90deg, transparent 0 32%, var(--bh-field) 32% 100%);
+  }
+  :root:has(main.blue-hour) .pricing-page #limits .limit-list strong {
+    padding: var(--space-6) var(--space-8);
+  }
+  :root:has(main.blue-hour) .pricing-page #limits .limit-list li {
+    column-gap: var(--space-8);
+  }
+}
+
+/* FAQ: hairline rows with a chevron, no cards. */
+:root:has(main.blue-hour) .pricing-page .faq-category {
+  margin-top: var(--space-12);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bh-link);
+}
+:root:has(main.blue-hour) .pricing-page .agent-faq {
+  gap: 0;
+  border-top: 1px solid var(--bh-edge);
+}
+:root:has(main.blue-hour) .pricing-page .agent-faq details {
+  --card-bg: transparent;
+  --card-border-color: transparent;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--bh-edge);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+:root:has(main.blue-hour) .pricing-page .agent-faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  list-style: none;
+  font-weight: 500;
+  color: var(--bh-ink);
+  cursor: pointer;
+}
+:root:has(main.blue-hour) .pricing-page .agent-faq summary::-webkit-details-marker {
+  display: none;
+}
+:root:has(main.blue-hour) .pricing-page .agent-faq summary::before {
+  display: none;
+}
+:root:has(main.blue-hour) .pricing-page .agent-faq summary::after {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border-right: 1.5px solid var(--bh-link);
+  border-bottom: 1.5px solid var(--bh-link);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+:root:has(main.blue-hour) .pricing-page .agent-faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+:root:has(main.blue-hour) .pricing-page .agent-faq details > p {
+  margin: 0 0 var(--space-4);
+  color: var(--bh-muted);
+}
+
+/* The closing panel (tips): the sky. */
+:root:has(main.blue-hour) .pricing-page section[aria-labelledby="tips-title"] .pricing-limits {
+  --card-bg: transparent;
+  --card-shadow: none;
+  --card-blur: none;
+  background: var(--bh-sky);
+  border: 1px solid var(--bh-edge);
+  border-radius: 20px;
+  padding: 72px var(--space-8);
+  text-align: center;
+}
+:root:has(main.blue-hour) .pricing-page section[aria-labelledby="tips-title"] .section-head {
+  margin-inline: auto;
+}
+:root:has(main.blue-hour) .pricing-page section[aria-labelledby="tips-title"] .section-head > * {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* ======================================================================
+   11. Motion off: everything final and still
+   ====================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  :root:has(main.blue-hour) .gum-blob,
+  :root:has(main.blue-hour) .gum-blobs::after {
+    animation: none;
+  }
+  :root:has(main.blue-hour) .pricing-page .agent-faq summary::after {
+    transition: none;
+  }
+}
