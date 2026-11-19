@@ -1,0 +1,75 @@
+{{- /* Style exploration "Live run" (assets/css/style-live-run.css): the hero
+  mock, after the reference homepage's two stacked app windows. A big
+  window plays a scripted Blowhorn run (mono status lines, then a summary
+  in the reference's "Worked for ... · ... · ..." format); a small window
+  overlaps its bottom-left corner with the approval card. Example data,
+  labelled as such. The markup is the final state, so with scripts off or
+  prefers-reduced-motion the finished run shows; assets/js/style-live-run.js
+  (Motion) hides the lines and plays them once when the desk scrolls into
+  view. The platform list is every platform the hero demo sends to
+  (integrations.json, posts: true), names and logos from the platform
+  YAML, so the "for N platforms" line counts what it lists. Replaces
+  home/gumloop-app-preview.html under the hero copy. */ -}}
+{{- $dest := slice -}}
+{{- range site.Data.integrations.platforms -}}
+  {{- if and (eq .status "supported") .posts }}{{ $dest = $dest | append (partial "integration-row.html" .) }}{{ end -}}
+{{- end -}}
+{{- $js := resources.Get "js/style-live-run.js" | js.Build (dict "minify" true "target" "es2018") | fingerprint }}
+<script src="{{ $js.RelPermalink }}" defer></script>
+<div class="lr-desk" data-live-run>
+  <figure class="lr-win lr-win-main" aria-labelledby="lr-run-title">
+    <figcaption id="lr-run-title" class="visually-hidden">An example Blowhorn run: it reads today's queue, drafts in your voice for {{ len $dest }} platforms, lines up 5 voices on 5 computers and holds 1 action for your approval. Example data.</figcaption>
+    <div class="lr-bar" aria-hidden="true"><span class="lr-lights"><i></i><i></i><i></i></span><span class="lr-bar-title">blowhorn &#8250; today</span></div>
+    <div class="lr-body">
+      <div class="lr-rail" aria-hidden="true">
+        <span class="lr-new">+ New activity</span>
+        <p class="lr-rail-label">Queue</p>
+        <ul class="lr-rail-list">
+          <li class="is-on"><b class="lr-sq lr-sq-a"></b>Launch day</li>
+          <li><b class="lr-sq lr-sq-b"></b>Weekly digest</li>
+          <li><b class="lr-sq lr-sq-c"></b>Conference recap</li>
+        </ul>
+        <p class="lr-rail-label">Voices</p>
+        <ul class="lr-rail-list">
+          <li><span class="lr-av">YO</span>You</li>
+          <li><span class="lr-av">CO</span>Your company</li>
+          <li><span class="lr-av">DE</span>Designer</li>
+          <li><span class="lr-av">EN</span>Engineer</li>
+          <li><span class="lr-av">AD</span>Advocate</li>
+        </ul>
+      </div>
+      <div class="lr-run">
+        <p class="lr-flag"><span class="lr-flag-tag">Example</span> Launch day</p>
+        <p class="lr-ask">Run today's queue. Ask me before anything big.</p>
+        <ol class="lr-steps" data-lr-steps>
+          <li data-lr-step><span class="lr-state" aria-hidden="true"></span><span data-lr-text>Reading today's queue...</span></li>
+          <li data-lr-step><span class="lr-state" aria-hidden="true"></span><span data-lr-text>Drafting in your voice for {{ len $dest }} platforms</span></li>
+          <li data-lr-step><span class="lr-state" aria-hidden="true"></span><span data-lr-text>Lining up 5 voices on 5 computers</span></li>
+          <li data-lr-step data-lr-hold><span class="lr-state" aria-hidden="true"></span><span data-lr-text>Holding 1 action for your approval</span></li>
+          <li data-lr-step data-lr-after><span class="lr-state" aria-hidden="true"></span><span data-lr-text>You approved. Each voice goes out as itself.</span></li>
+        </ol>
+        <p class="lr-summary" data-lr-summary>Worked for 3 minutes · 12 actions queued · 1 approved</p>
+      </div>
+      <div class="lr-panel" aria-hidden="true">
+        <p class="lr-tabs"><span class="is-on">Run</span><span>Settings</span></p>
+        <p class="lr-panel-head">Platforms <small>{{ len $dest }}</small></p>
+        <ul class="lr-plats">
+          {{- range $dest }}
+          <li data-lr-plat><span class="logo-tile"><img src="{{ .logo | relURL }}" alt="" width="16" height="16"></span>{{ .name }}<b class="lr-tick"></b></li>
+          {{- end }}
+        </ul>
+        <p class="lr-panel-head">Pace</p>
+        <p class="lr-pace">Human, with a nap between each</p>
+      </div>
+    </div>
+  </figure>
+  <div class="lr-win lr-win-mini is-approved" aria-hidden="true" data-lr-mini>
+    <div class="lr-bar"><span class="lr-lights"><i></i><i></i><i></i></span><span class="lr-bar-title">approval</span></div>
+    <div class="lr-mini-body">
+      <p class="lr-mini-label">Needs you · 1 of 12</p>
+      <p class="lr-mini-title">Amplify the launch with 5 voices at 9:30</p>
+      <p class="lr-mini-meta">Each voice posts as itself, from its own browser. Nothing goes out until you say so.</p>
+      <p class="lr-mini-actions"><span class="lr-btn lr-btn-dark" data-lr-approve>Approve</span><span class="lr-btn lr-btn-ghost">Not now</span></p>
+    </div>
+  </div>
+</div>
