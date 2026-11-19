@@ -17,6 +17,13 @@ description: Blowhorn is free during early access, with no limits on voices or p
 Blowhorn is free during early access, with no limits on voices or platforms. Paid plans aren't set yet. Here's what a voice is and how plans will count them.
 
 --------------------------------------------------------------------------------
+title: "Your voice, on every front"
+url: https://blowhorn.ai/showcase/index.md
+description: Blowhorn is a social media console that runs on your own computer. See what it does, how the four formations work, and where it posts.
+--------------------------------------------------------------------------------
+Blowhorn is a social media console that runs on your own computer. See what it does, how the four formations work, and where it posts.
+
+--------------------------------------------------------------------------------
 title: "Brand"
 url: https://blowhorn.ai/brand/index.md
 description: The Blowhorn logo, wordmark, colors, type, Major Blowhorn and Old Thunderlung, with the rules for using them and two kits to download.
