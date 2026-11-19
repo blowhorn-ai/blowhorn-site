@@ -23,7 +23,7 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png">
-<link rel="stylesheet" href="/css/site.min.39469f431bfe81d44366258ccabdc639ca37e404147a491badb29452e93706a6.css">
+<link rel="stylesheet" href="/css/site.min.fb59f5ef57003690c4e4b11205baf968a20dabadbadfb1fc58c63da398131bde.css">
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -547,7 +547,7 @@
             <h2 id="platforms-title" class="display">One queue. Every network that matters.</h2>
             <p class="body-lg muted">One queue for every network your audience reads. LinkedIn, X, Reddit and Hacker News go through your own browser with the Blowhorn extension. Slack and Bluesky use their APIs. On GitHub, Blowhorn stars repositories and rallies reactions on issues and pull requests, it does not post.</p>
           </div><figure class="plat-clip" data-plat-clip data-plat-highlight="" aria-labelledby="plat-clip-title">
-  <figcaption class="visually-hidden"><span id="plat-clip-title">Every platform Blowhorn supports</span>. A 10-second loop. A row of platform logos slides by: LinkedIn, X, Reddit, Hacker News, Slack, Bluesky and GitHub, then YouTube, Instagram, TikTok and Facebook. A cursor picks each supported platform in turn, and its card shows how Blowhorn reaches it and the actions it takes there.</figcaption>
+  <figcaption class="visually-hidden"><span id="plat-clip-title">Every platform Blowhorn supports</span>. A 10-second loop. A row of platform logos slides by: LinkedIn, X, Reddit, Hacker News, Slack, Bluesky and GitHub, then YouTube, Instagram, TikTok and Facebook. A cursor picks each supported platform in turn, and its card shows how Blowhorn reaches it and the actions it takes there. Supported actions differ by platform, from 2 on Hacker News to 7 on Bluesky.</figcaption>
   <video class="plat-clip-video logo-on-light" controls muted loop playsinline preload="metadata" width="1920" height="1080" poster="/assets/video/supported-platforms-light-poster.webp" aria-labelledby="plat-clip-title">
     <source src="/assets/video/supported-platforms-light.webm" type="video/webm">
     <source src="/assets/video/supported-platforms-light.mp4" type="video/mp4">
@@ -555,7 +555,52 @@
   <video class="plat-clip-video logo-on-dark" controls muted loop playsinline preload="metadata" width="1920" height="1080" poster="/assets/video/supported-platforms-dark-poster.webp" aria-labelledby="plat-clip-title">
     <source src="/assets/video/supported-platforms-dark.webm" type="video/webm">
     <source src="/assets/video/supported-platforms-dark.mp4" type="video/mp4">
-  </video>
+  </video><div class="plat-highlight">
+  <p class="plat-highlight-legend"><span class="plat-highlight-legend-label">Colour by action type:</span>
+    <span class="plat-chip plat-chip-broadcast">Broadcast</span>
+    <span class="plat-chip plat-chip-rally">Rally</span>
+    <span class="plat-chip plat-chip-ranks">Ranks</span>
+    <span class="plat-chip plat-chip-recon">Recon</span>
+  </p>
+  <ul class="plat-highlight-list">
+    <li class="plat-highlight-row" data-plat="linkedin" data-plat-index="0">
+      <span class="plat-highlight-name"><a href="/docs/reference/platforms/linkedin/">LinkedIn</a></span>
+      <span class="plat-highlight-actions"><span class="plat-chip plat-chip-broadcast">Post</span><span class="plat-chip plat-chip-broadcast">Comment</span><span class="plat-chip plat-chip-rally">Amplify</span><span class="plat-chip plat-chip-ranks">Accept</span><span class="plat-chip plat-chip-ranks">Withdraw</span><span class="plat-chip plat-chip-recon">Analytics</span>
+      </span>
+    </li>
+    <li class="plat-highlight-row" data-plat="x" data-plat-index="1">
+      <span class="plat-highlight-name"><a href="/docs/reference/platforms/x/">X (Twitter)</a></span>
+      <span class="plat-highlight-actions"><span class="plat-chip plat-chip-broadcast">Post</span><span class="plat-chip plat-chip-broadcast">Reply</span><span class="plat-chip plat-chip-rally">Amplify</span><span class="plat-chip plat-chip-ranks">Follow</span><span class="plat-chip plat-chip-recon">Analytics</span>
+      </span>
+    </li>
+    <li class="plat-highlight-row" data-plat="reddit" data-plat-index="2">
+      <span class="plat-highlight-name"><a href="/docs/reference/platforms/reddit/">Reddit</a></span>
+      <span class="plat-highlight-actions"><span class="plat-chip plat-chip-broadcast">Post</span><span class="plat-chip plat-chip-broadcast">Comment</span><span class="plat-chip plat-chip-rally">Amplify</span>
+      </span>
+    </li>
+    <li class="plat-highlight-row" data-plat="hacker-news" data-plat-index="3">
+      <span class="plat-highlight-name"><a href="/docs/reference/platforms/hacker-news/">Hacker News</a></span>
+      <span class="plat-highlight-actions"><span class="plat-chip plat-chip-broadcast">Post</span><span class="plat-chip plat-chip-broadcast">Comment</span>
+      </span>
+    </li>
+    <li class="plat-highlight-row" data-plat="slack" data-plat-index="4">
+      <span class="plat-highlight-name"><a href="/docs/reference/platforms/slack/">Slack</a></span>
+      <span class="plat-highlight-actions"><span class="plat-chip plat-chip-broadcast">Post</span><span class="plat-chip plat-chip-broadcast">Reply</span><span class="plat-chip plat-chip-rally">React</span>
+      </span>
+    </li>
+    <li class="plat-highlight-row" data-plat="bluesky" data-plat-index="5">
+      <span class="plat-highlight-name"><a href="/docs/reference/platforms/bluesky/">Bluesky</a></span>
+      <span class="plat-highlight-actions"><span class="plat-chip plat-chip-broadcast">Post</span><span class="plat-chip plat-chip-broadcast">Reply</span><span class="plat-chip plat-chip-rally">Amplify</span><span class="plat-chip plat-chip-ranks">Follow</span><span class="plat-chip plat-chip-ranks">Unfollow</span><span class="plat-chip plat-chip-recon">Find</span><span class="plat-chip plat-chip-recon">Analytics</span>
+      </span>
+    </li>
+    <li class="plat-highlight-row" data-plat="github" data-plat-index="6">
+      <span class="plat-highlight-name"><a href="/docs/reference/platforms/github/">GitHub</a></span>
+      <span class="plat-highlight-actions"><span class="plat-chip plat-chip-rally">React</span><span class="plat-chip plat-chip-rally">Star</span><span class="plat-chip plat-chip-ranks">Follow</span><span class="plat-chip plat-chip-recon">Find</span>
+      </span>
+    </li>
+  </ul>
+</div>
+
   <p class="plat-clip-ctl"><button type="button" class="constellation-pause" data-plat-clip-pause aria-pressed="false" hidden>Pause motion</button></p>
 </figure>
 
@@ -1594,7 +1639,7 @@
 
 <script>(function(){var m={"plat-panel-action":"/integrations/#plat-panel-action","plat-panel-category":"/integrations/#plat-panel-category","plat-panel-constellation":"/integrations/#plat-panel-constellation","plat-panel-role":"/integrations/#plat-panel-role"};var h=decodeURIComponent(location.hash.slice(1));if(h&&m[h]){location.replace(m[h]);}})();</script>
 
-    <script src="/js/home-signal.min.4a7546f141c2fb46e1df1d925b35942fd88ff8b45d4895b1fa6c5ad99f291b86.js" defer></script>
+    <script src="/js/home-signal.min.85f3144fbd0d497bccf0c7ff7a80f46334f676deeffc2e2995bf56179cc52b42.js" defer></script>
     <script src="/js/ai-cards.97c5fe4cb62facec47facb6b6ee77f42c6b732db791afa2da549418d2f6ee341.js" defer></script>
     <script src="/js/home-reveal.03a637a508ac7569d7bfa078d7a390092b3d381ab18ed1ff540305ec5f93aa9c.js" defer></script>
     <script src="/js/hero-cycle.min.b12d0b4319439967cc3b3978b2c3ab38cc7c70efa930b7d7e6f2cb2df56b00f8.js" defer></script>
