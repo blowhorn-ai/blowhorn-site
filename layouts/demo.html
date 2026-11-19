@@ -1,0 +1,133 @@
+{{- /* The interactive demo at /demo/ (content/en/demo/_index.md): a hands-on
+  simulation of the Blowhorn queue, client-side only. The visitor picks a
+  formation, builds a queue of posts, and watches the schedule fill in.
+  Nothing is posted and nothing leaves the browser. No prices anywhere. */ -}}
+{{ define "main" }}
+    {{- $mrot := partial "machines-rotation.html" . -}}
+    {{- $names := dict "muster" "Muster" "battalion-map" "Battalion Map" "one-thunder" "One Thunder" "call-to-arms" "Call to Arms" -}}
+    {{- $changes := dict "muster" "In this simulation, each post goes out from the next computer in your roll call." "battalion-map" "In this simulation, each post goes out from a unit on your map, reporting in turn." "one-thunder" "In this simulation, each post goes out from the next voice in your crew." "call-to-arms" "In this simulation, each post sounds the next beat: Enlist, Muster, Rally, Thunder." -}}
+    <main id="main" class="page demo-page">
+      <div class="wrap">
+        <header class="page-head">
+          <p class="label">Interactive demo</p>
+          <h1 class="display">{{ .Title }}</h1>
+          <p class="body-lg muted">{{ .Params.lead }}</p>
+        </header>
+        <noscript><p class="muted">This demo needs JavaScript to run the simulation. The tour below still shows how Blowhorn works.</p></noscript>
+
+        <ol class="steps" aria-label="How the demo works">
+          <li class="step"><span class="step-num" aria-hidden="true">1</span><p class="step-text"><b>Pick a formation.</b> Four ways to run your fleet.</p></li>
+          <li class="step"><span class="step-num" aria-hidden="true">2</span><p class="step-text"><b>Build your queue.</b> Add a sample post, or write your own.</p></li>
+          <li class="step"><span class="step-num" aria-hidden="true">3</span><p class="step-text"><b>Run the schedule.</b> Watch each post go out in turn.</p></li>
+        </ol>
+      </div>
+
+      <section class="section" aria-labelledby="pick-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="label">Step 1</p>
+            <h2 id="pick-title" class="h2">Pick a formation</h2>
+            <p class="muted">Four ways to run your fleet. Each one changes who sends each post in the schedule below.</p>
+          </div>
+          {{- $panes := slice -}}
+          {{- range $mrot.variants }}
+            {{- $inner := printf "<h3 class=\"h3\">%s</h3><p>%s</p><p>%s</p><p class=\"muted\">%s</p>" (index $names .id) .headline .subhead (index $changes .id) -}}
+            {{- $panes = $panes | append (dict "id" .id "name" (index $names .id) "inner" $inner) -}}
+          {{- end }}
+          {{ partial "tabs.html" (dict "id" "demo-machine" "group" "demo-machine" "label" "Formations" "panes" $panes) }}
+          <p aria-live="polite">Formation: <b data-demo-pick-name>Muster</b>. <span data-demo-pick-line>Every computer you own is a recruit.</span></p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="queue-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="label">Step 2</p>
+            <h2 id="queue-title" class="h2">Build your queue</h2>
+            <p class="muted">Add a sample post, or write your own. Your queue lives only in this page.</p>
+          </div>
+          <ul class="grid grid-3 section-body">
+            {{- range $i, $post := .Params.samples }}
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-3" "n" (len $.Params.samples)) }}">
+              <p class="label">{{ $post.platform }}</p>
+              <p>{{ $post.text }}</p>
+              <p><button type="button" class="button button-secondary" data-demo-add data-demo-platform="{{ $post.platform }}" data-demo-text="{{ $post.text }}">Add to queue</button></p>
+            </li>
+            {{- end }}
+          </ul>
+          <form class="section-body" data-demo-form>
+            <p>
+              <label for="demo-custom-text">Write your own post</label><br>
+              <textarea id="demo-custom-text" rows="3" maxlength="280" placeholder="Say it once, and let the queue carry it."></textarea>
+            </p>
+            <p>
+              <label for="demo-custom-platform">Platform</label><br>
+              <select id="demo-custom-platform">
+                <option>LinkedIn</option>
+                <option>X</option>
+                <option>Bluesky</option>
+                <option>Reddit</option>
+                <option>Hacker News</option>
+                <option>Slack</option>
+              </select>
+            </p>
+            <p><button type="submit" class="button button-secondary">Add to queue</button></p>
+          </form>
+          <div class="card card-plain section-body">
+            <h3 class="h3">Your queue</h3>
+            <p class="muted" data-demo-empty>Your queue is empty. Add a post above.</p>
+            <ol data-demo-queue></ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="schedule-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="label">Step 3</p>
+            <h2 id="schedule-title" class="h2">Run the schedule</h2>
+            <p class="muted">Each post in your queue takes the next slot, starting tomorrow at 9:00. Press run and watch them go out.</p>
+          </div>
+          <div class="compare-scroll card-plain section-body">
+            <table>
+              <caption class="visually-hidden">Schedule for your queue. Example rows until you add posts.</caption>
+              <thead>
+                <tr><th scope="col">Time</th><th scope="col">Platform</th><th scope="col">Post</th><th scope="col">From</th><th scope="col">Status</th></tr>
+              </thead>
+              <tbody data-demo-schedule>
+                <tr><td>Tomorrow, 9:00 AM</td><td>X</td><td>Write it once. Deploy to every front.</td><td>Desk rig</td><td>Example</td></tr>
+                <tr><td>Tomorrow, 10:30 AM</td><td>Bluesky</td><td>Real voices make a sound wave. One message, every profile you run, at the moment you pick.</td><td>Laptop</td><td>Example</td></tr>
+                <tr><td>Tomorrow, 12:00 PM</td><td>LinkedIn</td><td>Your launch post should not depend on one laptop being awake. One queue, every computer you own.</td><td>Studio box</td><td>Example</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="hero-actions section-body">
+            <button type="button" class="button button-primary" data-demo-run>Run the simulation</button>
+            <button type="button" class="button button-secondary" data-demo-reset>Reset</button>
+          </p>
+          <p aria-live="polite" data-demo-summary></p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="next-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="label">Next step</p>
+            <h2 id="next-title" class="display">Ready for the real thing</h2>
+            <p class="body-lg muted">The real Blowhorn runs the same queue on your own computer, through your Chrome profiles.</p>
+          </div>
+          <p class="hero-actions">
+            {{ partial "download-button.html" (dict "kind" "secondary") }}
+            <a class="button button-secondary" href="{{ (site.GetPage "/docs").RelPermalink }}">Read the docs</a>
+          </p>
+        </div>
+      </section>
+    </main>
+{{ end }}
+
+{{ define "scripts" }}
+    {{- $tabs := resources.Get "js/tabs.js" }}
+    {{- $demo := resources.Get "js/demo.js" }}
+    {{- $js := slice $tabs $demo | resources.Concat "js/demo-bundle.js" | minify | fingerprint }}
+    <script src="{{ $js.RelPermalink }}" defer></script>
+{{ end }}
