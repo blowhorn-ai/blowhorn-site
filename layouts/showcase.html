@@ -1,0 +1,124 @@
+{{- /* The showcase page at /showcase/ (content/en/showcase/_index.md): a
+  read-only overview of Blowhorn. Major Blowhorn, what the app is, the four
+  formations from data/machines.json, what it does, where it works, and the
+  code on GitHub. No prices anywhere: prices live on /pricing/ only. */ -}}
+{{ define "main" }}
+    {{- $mrot := partial "machines-rotation.html" . -}}
+    {{- $major := site.Data.integrations.major -}}
+    {{- $names := dict "muster" "Muster" "battalion-map" "Battalion Map" "one-thunder" "One Thunder" "call-to-arms" "Call to Arms" -}}
+    <main id="main" class="page showcase-page">
+      <div class="wrap">
+        <header class="page-head">
+          <p class="label">Showcase</p>
+          <h1 class="display">{{ .Title }}</h1>
+          <p class="body-lg muted">{{ .Params.lead }}</p>
+          <p class="hero-actions">
+            {{ partial "download-button.html" (dict) }}
+            <a class="button button-secondary" href="{{ (site.GetPage "/docs").RelPermalink }}">Read the docs</a>
+          </p>
+        </header>
+      </div>
+
+      <section class="section" aria-label="Major Blowhorn">
+        <div class="wrap">
+          <div class="major-card card-paper">
+            <figure class="major-figure">
+              <img src="{{ "assets/brand/mascot/locked-6/major-6-hat-left.webp" | relURL }}" alt="Major Blowhorn, a teal rooster in a drill sergeant's campaign hat, pointing and shouting into his bullhorn" width="657" height="560">
+            </figure>
+            <div class="major-copy">
+              {{ partial "bubble.html" (dict "text" $major.headline "class" "h3" "variant" "paper") }}
+              <p class="label">Major Blowhorn</p>
+              <p>{{ printf $major.supporting "LinkedIn, X and Bluesky" }} <a href="{{ (site.GetPage "/major").RelPermalink }}">Meet the Major</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="what-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="label">What it is</p>
+            <h2 id="what-title" class="display">A social console that runs on your computer</h2>
+            <p class="body-lg muted">You write a post once, queue it, and Blowhorn sends it from your own computer, through your Chrome profiles, at a pace you choose.</p>
+          </div>
+          <div class="section-body">
+            <p>Nothing posts from a vendor server. No server signs in as you, and no post goes out without your queue saying so. Your computers coordinate through one queue, so the same post is never sent twice.</p>
+            <p>Blowhorn is a desktop app with a small browser extension. <a href="{{ (site.GetPage "/docs/reference/requirements").RelPermalink }}">System requirements</a> has the exact versions it needs.</p>
+            {{ partial "interface-art.html" "desktop" }}
+            <p class="muted">The Blowhorn console: your queue, on your own computer.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="formations-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="label">Four formations</p>
+            <h2 id="formations-title" class="display">One recruit or a full squad</h2>
+            <p class="body-lg muted">Install Blowhorn on one computer, then the next. Each one enlists, reports for duty and takes orders from you or your AI agent.</p>
+          </div>
+          <ul class="grid grid-2 section-body">
+            {{- range $i, $v := $mrot.variants }}
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-2" "n" (len $mrot.variants)) }}">
+              <p class="label">{{ index $names $v.id }}</p>
+              <h3 class="h3">{{ $v.headline }}</h3>
+              <p>{{ $v.subhead }}</p>
+            </li>
+            {{- end }}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="does-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="label">What it does</p>
+            <h2 id="does-title" class="display">Built to post as you</h2>
+            <p class="body-lg muted">Six things that make Blowhorn different.</p>
+          </div>
+          <ul class="grid grid-3 section-body">
+            {{- range $i, $f := .Params.features }}
+            <li class="card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-3" "n" (len $.Params.features)) }}">
+              <h3 class="h3">{{ $f.title }}</h3>
+              <p>{{ $f.body }}</p>
+              <p class="ui"><a href="{{ $f.link | relURL }}">Read the details</a></p>
+            </li>
+            {{- end }}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="works-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="label">Where it works</p>
+            <h2 id="works-title" class="display">Every front your people already read</h2>
+            <p class="body-lg muted">Blowhorn works where technical teams talk, each through your own browser or API, as you.</p>
+          </div>
+          <div class="section-body">
+            {{- $named := slice -}}
+            {{- range site.Data.integrations.platforms }}
+              {{- if eq .status "supported" }}{{ $named = $named | append (partial "integration-row.html" .).name }}{{ end }}
+            {{- end }}
+            <p>Supported now: {{ delimit $named ", " }}. Coming soon: YouTube, Instagram, TikTok and Facebook.</p>
+            <p><a href="{{ (site.GetPage "/docs/reference/platforms").RelPermalink }}">All platforms and what each one does</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="code-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="label">Open source</p>
+            <h2 id="code-title" class="display">See the code</h2>
+            <p class="body-lg muted">Blowhorn is open source. Read the code, file an issue, or follow the roadmap.</p>
+          </div>
+          <p class="hero-actions">
+            {{ partial "download-button.html" (dict "kind" "secondary") }}
+            <a class="button button-secondary" href="https://github.com/blowhorn-ai">Blowhorn on GitHub</a>
+            <a class="button button-secondary" href="{{ (site.GetPage "/compare").RelPermalink }}">How Blowhorn compares</a>
+          </p>
+        </div>
+      </section>
+    </main>
+{{ end }}
