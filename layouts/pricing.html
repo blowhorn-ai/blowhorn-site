@@ -27,6 +27,7 @@
           <h1 id="pricing-title" class="display">{{ if $tiers }}Plans that grow with your voices{{ else }}One plan, and it's free{{ end }}</h1>
           <p class="body-lg muted">{{ .Params.lead }}</p>
         </header>
+        {{- partial "social-proof.html" (dict "slot" "ticker") }}
 
         <section class="pricing-section pricing-plans" aria-labelledby="plans-title">
           <h2 id="plans-title" class="visually-hidden">Plans</h2>
@@ -67,32 +68,16 @@
             {{- end }}
           </ul>
           {{- else }}
-          {{- /* One plan: the featured card (paper) is the page's teal primary; the coming note sits beside it. */}}
-          <div class="pricing-single">
-            <div class="plan card card-paper">
-              <h3 class="h3 plan-name">{{ $plan.name }}</h3>
-              <p class="plan-blurb">{{ $plan.blurb }}</p>
-              <p class="plan-price"><span class="price-amount">${{ $plan.price }}</span> <span class="price-unit">{{ $plan.unit }}</span></p>
-              <p class="plan-note caption">No card needed</p>
-              {{ partial "download-button.html" (dict "kind" "primary" "class" "plan-cta") }}
-              <ul class="plan-features">
-                {{- range $plan.features }}
-                <li>{{ . }}</li>
-                {{- end }}
-              </ul>
-            </div>
-            {{- with $pricing.coming }}
-            <div class="pricing-coming">
-              <p class="label">Paid plans</p>
-              <p class="body-lg">{{ . }}</p>
-            </div>
-            {{- end }}
-          </div>
+          {{- /* One plan: the comparison table (live-run-pricing.html) carries the
+            plan's features, what every plan includes and the limits, with the
+            plan column's Download as the page's teal primary. */}}
+          {{ partial "live-run-pricing.html" (dict "page" . "pricing" $pricing) }}
           {{- end }}
         </section>
 
-        {{- partial "home/gumloop-metrics.html" . }}
-
+        {{- /* With tiers, the included cards and the limits panel follow the
+          tier cards; with one plan they are rows in its table. */}}
+        {{- if $tiers }}
         <section class="pricing-section" aria-labelledby="included-title">
           <div class="section-head">
             <h2 id="included-title" class="h2">Every plan includes</h2>
@@ -121,6 +106,7 @@
             </ul>
           </div>
         </section>
+        {{- end }}
 
         <section class="pricing-section" aria-labelledby="faq-title">
           <div class="section-head">

@@ -1,0 +1,52 @@
+{{- /* Style exploration "Live run" (assets/css/style-live-run.css): the one
+  current plan as the reference pricing page's comparison table. A feature
+  column plus one shaded plan column, with category rows for the plan's
+  features, what every plan includes and what happens at a limit. Every
+  row comes from data/pricing.yaml (current_plan, coming, limits) or the
+  page's front matter (included); nothing here names a price that the
+  data does not. Rows with longer explanatory text expand (<details>).
+  The category rows carry the page's old anchors: #included-title, and
+  #limits on the limits group (with #limits-title on its header).
+  Called by layouts/pricing.html while tiers is empty, with
+  (dict "page" . "pricing" site.Data.pricing). */ -}}
+{{- $page := .page -}}
+{{- $pricing := .pricing -}}
+{{- $plan := $pricing.current_plan -}}
+<div class="lr-table-win">
+  <table class="lr-plan-table">
+    <caption class="visually-hidden">What the {{ $plan.name }} plan includes</caption>
+    <colgroup><col class="lr-col-feature"><col class="lr-col-plan"></colgroup>
+    <thead>
+      <tr>
+        <td class="lr-head-feature"><p class="lr-head-note">{{ $plan.blurb }}</p></td>
+        <th scope="col" class="lr-head-plan">
+          <span class="lr-plan-name">{{ $plan.name }}</span>
+          <span class="lr-plan-price"><span class="price-amount">${{ $plan.price }}</span> <span class="price-unit">{{ $plan.unit }}</span></span>
+          {{ partial "download-button.html" (dict "kind" "primary" "class" "plan-cta") }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="lr-cat"><th colspan="2" scope="rowgroup">Plan</th></tr>
+      {{- range $plan.features }}
+      <tr><th scope="row">{{ . }}</th><td><span class="lr-check"><span class="visually-hidden">Included</span></span></td></tr>
+      {{- end }}
+      <tr><th scope="row">Card needed</th><td>No card needed</td></tr>
+      {{- with $pricing.coming }}
+      <tr><td class="lr-feat"><details class="lr-row-more"><summary>Paid plans</summary><p>{{ . }}</p></details></td><td>Not set yet</td></tr>
+      {{- end }}
+    </tbody>
+    <tbody>
+      <tr class="lr-cat"><th id="included-title" colspan="2" scope="rowgroup">Every plan includes</th></tr>
+      {{- range $page.Params.included }}
+      <tr><td class="lr-feat"><details class="lr-row-more"><summary>{{ .title }}</summary><p>{{ .body }}</p></details></td><td><span class="lr-check"><span class="visually-hidden">Included</span></span></td></tr>
+      {{- end }}
+    </tbody>
+    <tbody id="limits">
+      <tr class="lr-cat"><th id="limits-title" colspan="2" scope="rowgroup">What happens at a limit</th></tr>
+      {{- range $pricing.limits }}
+      <tr><td class="lr-feat"><details class="lr-row-more"><summary>{{ .title }}</summary><p>{{ .body }}</p></details></td><td><span class="lr-check"><span class="visually-hidden">Applies</span></span></td></tr>
+      {{- end }}
+    </tbody>
+  </table>
+</div>
