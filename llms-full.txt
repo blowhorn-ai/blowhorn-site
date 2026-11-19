@@ -10,6 +10,13 @@ description: Blowhorn is a social media console. Write one post, and it posts, r
 Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.
 
 --------------------------------------------------------------------------------
+title: "Try Blowhorn in your browser"
+url: https://blowhorn.ai/demo/index.md
+description: A hands-on simulation of the Blowhorn queue. Pick a formation, build a queue, and watch the schedule fill in. Nothing is posted, and nothing leaves your browser.
+--------------------------------------------------------------------------------
+A hands-on simulation of the Blowhorn queue. Pick a formation, build a queue, and watch the schedule fill in. Nothing is posted, and nothing leaves your browser.
+
+--------------------------------------------------------------------------------
 title: "Pricing"
 url: https://blowhorn.ai/pricing/index.md
 description: Blowhorn is free during early access, with no limits on voices or platforms. Paid plans aren't set yet. Here's what a voice is and how plans will count them.
