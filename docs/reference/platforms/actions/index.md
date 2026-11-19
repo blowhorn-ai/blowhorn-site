@@ -4,7 +4,7 @@
 
 
 Each action links to its usage on that platform's page. For the
-at-a-glance grid, including coming-soon platforms, see the
+at-a-glance grid, see the
 [action matrix](/integrations/actions/).
 
 

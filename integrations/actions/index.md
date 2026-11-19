@@ -2,7 +2,7 @@
 
 > Every action on every platform, in one grid. Hover a dot for what it does, click it for usage.
 
-30 actions on 7 platforms. 4 more platforms coming soon.
+30 actions on 11 platforms.
 
 ## Broadcast
 

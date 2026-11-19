@@ -80,10 +80,10 @@
 - [Terms](https://blowhorn.ai/legal/terms/index.md): The terms between you and Layer5, Inc. for the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.
 
 ## Integrations
-- [Integrations](https://blowhorn.ai/integrations/index.md): Every network Blowhorn reaches. LinkedIn, X, Reddit and Hacker News through your own browser. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts. Coming soon named as such.
+- [Integrations](https://blowhorn.ai/integrations/index.md): Every network Blowhorn reaches. LinkedIn, X, Reddit, Hacker News, YouTube, Instagram, TikTok and Facebook through your own browser. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts.
 
 
-- [Action matrix](https://blowhorn.ai/integrations/actions/index.md): Every Blowhorn action on every platform in one grid. Post, comment, reply, amplify, follow and more on LinkedIn, X, Reddit, Hacker News, Slack, Bluesky and GitHub, with coming-soon platforms marked.
+- [Action matrix](https://blowhorn.ai/integrations/actions/index.md): Every Blowhorn action on every platform in one grid. Post, comment, reply, amplify, follow and more on LinkedIn, X, Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube, Instagram, TikTok and Facebook.
 
 ## Agentic AI Marketing
 - [Agentic AI Marketing](https://blowhorn.ai/agents/index.md): Run your marketing from the AI agent you already code with. Blowhorn's CLI does everything the desktop app does, so Claude Code, OpenCode, Pi, Codex, Grok and DeepSeek can schedule and amplify for you.
@@ -228,10 +228,10 @@
 - [Slack](https://blowhorn.ai/docs/reference/platforms/slack/index.md): What Blowhorn can do on Slack, and how each action behaves there.
 - [Bluesky](https://blowhorn.ai/docs/reference/platforms/bluesky/index.md): What Blowhorn can do on Bluesky, and how each action behaves there.
 - [GitHub](https://blowhorn.ai/docs/reference/platforms/github/index.md): What Blowhorn can do on GitHub, and how each action behaves there.
-- [YouTube](https://blowhorn.ai/docs/reference/platforms/youtube/index.md): YouTube in Blowhorn: coming soon.
-- [Instagram](https://blowhorn.ai/docs/reference/platforms/instagram/index.md): Instagram in Blowhorn: coming soon.
-- [TikTok](https://blowhorn.ai/docs/reference/platforms/tiktok/index.md): TikTok in Blowhorn: coming soon.
-- [Facebook](https://blowhorn.ai/docs/reference/platforms/facebook/index.md): Facebook in Blowhorn: coming soon.
+- [YouTube](https://blowhorn.ai/docs/reference/platforms/youtube/index.md): What Blowhorn can do on YouTube, and how each action behaves there.
+- [Instagram](https://blowhorn.ai/docs/reference/platforms/instagram/index.md): What Blowhorn can do on Instagram, and how each action behaves there.
+- [TikTok](https://blowhorn.ai/docs/reference/platforms/tiktok/index.md): What Blowhorn can do on TikTok, and how each action behaves there.
+- [Facebook](https://blowhorn.ai/docs/reference/platforms/facebook/index.md): What Blowhorn can do on Facebook, and how each action behaves there.
 - [How Blowhorn works](https://blowhorn.ai/docs/explanation/how-it-works/index.md): The app, the engine, the extension, the background service, and your account.
 - [Where your data lives](https://blowhorn.ai/docs/explanation/your-data/index.md): What stays on your computer, what your account keeps in sync, and what the extension reads.
 - [Who can post as whom](https://blowhorn.ai/docs/explanation/eligibility/index.md): A credential is permission, a handle is not; a browser mapping is identity, not permission.

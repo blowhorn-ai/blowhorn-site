@@ -36,7 +36,7 @@ From one recruit to a full squad. Install Blowhorn on one computer, then the nex
 - **Where technical teams talk.** Hacker News, Reddit, GitHub and Slack sit in the same queue as LinkedIn, X and Bluesky.
 
 ## Where it works
-Supported now: LinkedIn, X (Twitter), Reddit, Hacker News, Slack, Bluesky, GitHub. Coming soon: YouTube, Instagram, TikTok and Facebook.
+Blowhorn works with LinkedIn, X (Twitter), Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube, Instagram, TikTok, Facebook.
 
 ## See the code
 

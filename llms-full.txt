@@ -1104,15 +1104,15 @@ Telephone: 512-810-8200
 --------------------------------------------------------------------------------
 title: "Integrations"
 url: https://blowhorn.ai/integrations/index.md
-description: Every network Blowhorn reaches. LinkedIn, X, Reddit and Hacker News through your own browser. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts. Coming soon named as such.
+description: Every network Blowhorn reaches. LinkedIn, X, Reddit, Hacker News, YouTube, Instagram, TikTok and Facebook through your own browser. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts.
 --------------------------------------------------------------------------------
-Every network Blowhorn reaches. LinkedIn, X, Reddit and Hacker News through your own browser. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts. Coming soon named as such.
+Every network Blowhorn reaches. LinkedIn, X, Reddit, Hacker News, YouTube, Instagram, TikTok and Facebook through your own browser. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts.
 
 --------------------------------------------------------------------------------
 title: "Action matrix"
 url: https://blowhorn.ai/integrations/actions/index.md
 date: "2026-11-16"
-description: Every Blowhorn action on every platform in one grid. Post, comment, reply, amplify, follow and more on LinkedIn, X, Reddit, Hacker News, Slack, Bluesky and GitHub, with coming-soon platforms marked.
+description: Every Blowhorn action on every platform in one grid. Post, comment, reply, amplify, follow and more on LinkedIn, X, Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube, Instagram, TikTok and Facebook.
 --------------------------------------------------------------------------------
 
 
@@ -1288,22 +1288,18 @@ description: Tutorials, how-to guides, reference, and explanation for the Blowho
   <a class="platform" href="reference/platforms/youtube/">
     <span class="logo-tile"><img src="../assets/platforms/youtube-simple-icons.svg" alt="" width="28" height="28"></span>
     <span class="ui">YouTube</span>
-    <span class="caption">Coming soon</span>
   </a>
   <a class="platform" href="reference/platforms/instagram/">
     <span class="logo-tile"><img src="../assets/platforms/instagram-simple-icons.svg" alt="" width="28" height="28"></span>
     <span class="ui">Instagram</span>
-    <span class="caption">Coming soon</span>
   </a>
   <a class="platform" href="reference/platforms/tiktok/">
     <span class="logo-tile"><img src="../assets/platforms/tiktok-simple-icons.svg" alt="" width="28" height="28"></span>
     <span class="ui">TikTok</span>
-    <span class="caption">Coming soon</span>
   </a>
   <a class="platform" href="reference/platforms/facebook/">
     <span class="logo-tile"><img src="../assets/platforms/facebook-simple-icons.svg" alt="" width="28" height="28"></span>
     <span class="ui">Facebook</span>
-    <span class="caption">Coming soon</span>
   </a>
 </div>
 
@@ -1482,25 +1478,21 @@ Each platform has its own page, listing its supported actions and how each one b
   </a>
   <a class="card docs-card platform-card" href="/docs/reference/platforms/youtube/">
     <span class="h3">YouTube</span>
-    <span>Coming soon - not generally available yet</span>
+    <span>Browser, through the extension</span>
   </a>
   <a class="card docs-card platform-card" href="/docs/reference/platforms/instagram/">
     <span class="h3">Instagram</span>
-    <span>Coming soon - not generally available yet</span>
+    <span>Browser, through the extension</span>
   </a>
   <a class="card docs-card platform-card" href="/docs/reference/platforms/tiktok/">
     <span class="h3">TikTok</span>
-    <span>Coming soon - not generally available yet</span>
+    <span>Browser, through the extension</span>
   </a>
   <a class="card docs-card platform-card" href="/docs/reference/platforms/facebook/">
     <span class="h3">Facebook</span>
-    <span>Coming soon - not generally available yet</span>
+    <span>Browser, through the extension</span>
   </a>
 </div>
-
-YouTube, Instagram, TikTok, and Facebook are coming soon. None of them
-is generally available yet, `blowhorn post --platform` does not list
-them, and each page will list its actions once it ships.
 
 ## Limits
 
@@ -16884,12 +16876,11 @@ No limits are recorded for GitHub.
 --------------------------------------------------------------------------------
 title: "YouTube"
 url: https://blowhorn.ai/docs/reference/platforms/youtube/index.md
-description: YouTube in Blowhorn: coming soon.
+description: What Blowhorn can do on YouTube, and how each action behaves there.
 --------------------------------------------------------------------------------
 
-**Coming soon.** YouTube isn't available in Blowhorn yet. When it is, Blowhorn
-will work on YouTube in your own signed-in Google Chrome, and this page will list what
-it can do there.
+Blowhorn works on YouTube in your own signed-in Google Chrome,
+and this page lists what it can do there.
 
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 
@@ -16918,12 +16909,11 @@ The limits Blowhorn knows for YouTube.
 --------------------------------------------------------------------------------
 title: "Instagram"
 url: https://blowhorn.ai/docs/reference/platforms/instagram/index.md
-description: Instagram in Blowhorn: coming soon.
+description: What Blowhorn can do on Instagram, and how each action behaves there.
 --------------------------------------------------------------------------------
 
-**Coming soon.** Instagram isn't available in Blowhorn yet. When it is, Blowhorn
-will work on Instagram in your own signed-in Google Chrome, and this page will list what
-it can do there.
+Blowhorn works on Instagram in your own signed-in Google Chrome,
+and this page lists what it can do there.
 
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 
@@ -16953,16 +16943,11 @@ The limits Blowhorn knows for Instagram.
 --------------------------------------------------------------------------------
 title: "TikTok"
 url: https://blowhorn.ai/docs/reference/platforms/tiktok/index.md
-description: TikTok in Blowhorn: coming soon.
+description: What Blowhorn can do on TikTok, and how each action behaves there.
 --------------------------------------------------------------------------------
 
-**Coming soon.** TikTok isn't available in Blowhorn yet. When it is, Blowhorn
-will work on TikTok in your own signed-in Google Chrome, and this page will list what
-it can do there.
-
-## Notify me when it ships
-
-{{< signup-form kind="waitlist" topic="tiktok" >}}
+Blowhorn works on TikTok in your own signed-in Google Chrome,
+and this page lists what it can do there.
 
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 
@@ -16994,12 +16979,11 @@ The limits Blowhorn knows for TikTok.
 --------------------------------------------------------------------------------
 title: "Facebook"
 url: https://blowhorn.ai/docs/reference/platforms/facebook/index.md
-description: Facebook in Blowhorn: coming soon.
+description: What Blowhorn can do on Facebook, and how each action behaves there.
 --------------------------------------------------------------------------------
 
-**Coming soon.** Facebook isn't available in Blowhorn yet. When it is, Blowhorn
-will work on Facebook in your own signed-in Google Chrome, and this page will list what
-it can do there.
+Blowhorn works on Facebook in your own signed-in Google Chrome,
+and this page lists what it can do there.
 
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 
