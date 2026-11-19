@@ -1,0 +1,14 @@
+{{- /* Blue hour style direction: a thin navy announcement bar above the
+  site header, copied from the reference site's 32px top bar. It renders
+  only on the pages the direction restyles (the home page and /pricing/,
+  whose <main> carries the blue-hour class) and is a plain text link, never
+  a button, so a view keeps its one primary call to action. The sticky
+  header still sticks: the bar scrolls away above it. Styles in
+  assets/css/style-blue-hour.css. */ -}}
+{{- if or .IsHome (eq .Layout "pricing") }}
+{{- $href := "pricing/" | relURL }}{{ $more := "See pricing" }}
+{{- if not .IsHome }}{{ $href = "" | relURL }}{{ $more = "See what it does" }}{{ end -}}
+<div class="bh-announce">
+  <p class="bh-announce-text">Early access is open. No meter, no card, no catch. <a href="{{ $href }}">{{ $more }}</a></p>
+</div>
+{{- end -}}

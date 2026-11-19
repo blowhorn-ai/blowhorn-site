@@ -3,7 +3,7 @@
   still come from data/hero.json. */ -}}
     {{- $rot := partial "hero-rotation.html" . -}}
     {{- $mrot := partial "machines-rotation.html" . -}}
-    <main id="main" class="home-signal">
+    <main id="main" class="home-signal blue-hour">
       <section class="hero hero-signal" aria-labelledby="hero-title">
         {{- $film := in $rot.medias "video" }}
         <div class="wrap hero-grid{{ if $film }} has-film{{ end }}">

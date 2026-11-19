@@ -20,7 +20,7 @@
     {{- if and (not $tiers) (not $plan) }}{{ errorf "data/pricing.yaml: tiers is empty, so current_plan is required" }}{{ end -}}
     {{- if not $pricing.limits }}{{ errorf "data/pricing.yaml: limits is required" }}{{ end -}}
     {{- $download := "download/" | relURL }}
-    <main id="main" class="page pricing-page">
+    <main id="main" class="page pricing-page blue-hour">
       <div class="wrap">
         <header class="pricing-hero">
           <p class="label">Pricing</p>

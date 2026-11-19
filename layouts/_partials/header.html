@@ -16,6 +16,7 @@
 {{- define "_partials/mm-link.html" -}}
 <li><a class="mm-link" href="{{ .href }}"><span class="mm-link-title">{{ .title }}</span>{{ with .desc }}<span class="mm-link-desc">{{ . }}</span>{{ end }}</a></li>
 {{- end -}}
+{{- partial "blue-hour-announce.html" . -}}
 <header class="site-header">
       <div class="wrap">
         <a class="brand" href="{{ "" | relURL }}" aria-label="Blowhorn home" data-is-home="{{ .IsHome }}">
