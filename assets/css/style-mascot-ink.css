@@ -1,0 +1,1092 @@
+/* Style exploration, round 3: Mascot ink.
+   The reference homepage's mascot art (the blob cluster above its H1 and
+   final call to action) blown up into the whole visual system: flat candy
+   fills, thick ink outlines, sticker cards with hard offset shadows.
+
+   New colours, every one measured from the reference site's mascot SVG
+   fills and outline (gumloop.com, 1440px, 18 Nov 2026). Nothing else here is
+   a literal: every other colour is an existing site token or white.
+
+     #1c1a19  ink       mascot ink / outline
+     #f6c013  yellow    mascot fill (yellow blob)
+     #fb3c98  pink      mascot fill (pink blob)
+     #14bb69  green     mascot fill (green blob)
+     #03a2fe  blue      mascot fill (blue blob)
+     #fa4340  red       mascot fill (red blob)
+     #9810fa  purple    mascot fill (purple blob)
+     #fe9a00  orange    mascot fill (orange blob)
+
+   WCAG 2.1 contrast, ink #1c1a19 text on each fill: white 17.34, yellow
+   10.29, orange 8.12, green 6.89, blue 6.28, pink 5.12, red 4.91, all AA
+   for body text. Purple carries white text only (5.54); ink on purple is
+   3.13, so purple never holds ink text. Muted text on a colour band is ink,
+   never grey.
+
+   Scope: the homepage (html[data-theme="signal"], .home-signal) and the
+   pricing page (html:has(.pricing-page), .pricing-page). The look is one
+   fixed light candy palette: the token block below sits outside any colour
+   scheme query and outranks themes.css and site.css, so dark mode shows the
+   same page. Nothing here touches docs or any other page. */
+
+/* ---------- Tokens: one fixed light candy palette, both colour schemes ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) {
+  --mi-ink: #1c1a19;
+  --mi-yellow: #f6c013;
+  --mi-pink: #fb3c98;
+  --mi-green: #14bb69;
+  --mi-blue: #03a2fe;
+  --mi-red: #fa4340;
+  --mi-purple: #9810fa;
+  --mi-orange: #fe9a00;
+  --mi-white: #ffffff;
+  --mi-edge: 2px solid var(--mi-ink);
+  --mi-pop: 4px 4px 0 0 var(--mi-ink);
+  --mi-pop-lift: 6px 6px 0 0 var(--mi-ink);
+  --mi-radius: 12px;
+
+  color-scheme: light;
+  --surface: var(--mi-white);
+  --surface-raised: var(--mi-white);
+  --surface-tint: var(--mi-white);
+  --nav-panel: var(--mi-white);
+  --ink: var(--mi-ink);
+  --ink-muted: var(--charcoal);
+  --ink-wordmark: var(--mi-ink);
+  --link: var(--mi-ink);
+  --link-hover: var(--mi-ink);
+  --line: var(--mi-ink);
+  --line-strong: var(--mi-ink);
+  --focus-ring: var(--mi-ink);
+  --shadow-soft: var(--mi-pop);
+  --glass-fill: var(--mi-white);
+  --glass-fill-strong: var(--mi-white);
+  --glass-fill-solid: var(--mi-white);
+  --glass-field: var(--mi-white);
+  --glass-sheen: transparent;
+  --glass-specular: transparent;
+  --glass-rim: transparent;
+  --glass-edge: var(--mi-ink);
+  --glass-shadow: var(--mi-pop);
+  --glass-shadow-lift: var(--mi-pop-lift);
+  --glass-blur: 0px;
+  --ambient-base: var(--mi-white);
+  --ambient-1: transparent;
+  --ambient-2: transparent;
+  --ambient-3: transparent;
+  --ambient-4: transparent;
+  --on-teal: var(--mi-white);
+  background: var(--mi-white);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) body {
+  background: var(--mi-white);
+  color: var(--mi-ink);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) body::before {
+  display: none;
+}
+/* The logo swap follows the OS in themes.css; this look is always light. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .logo-on-light { display: block; }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .logo-on-dark { display: none; }
+
+/* Links: ink, underlined, a thicker underline on hover. */
+:is(.home-signal, .pricing-page) a:not(.button, .card, [class*="card-"], .plat-tab, .plat-action, .plat-role, .platform) {
+  color: var(--mi-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+:is(.home-signal, .pricing-page) a:not(.button, .card, [class*="card-"], .plat-tab, .plat-action, .plat-role, .platform):hover {
+  text-decoration-thickness: 4px;
+}
+
+/* ---------- Header and footer: white, ink rule ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .site-header {
+  --card-bg: var(--mi-white);
+  --card-border-color: transparent;
+  --card-shadow: none;
+  --card-blur: none;
+  border-bottom: var(--mi-edge);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .mm-panel {
+  --card-bg: var(--mi-white);
+  background: var(--mi-white);
+  border: var(--mi-edge);
+  box-shadow: var(--mi-pop);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .site-footer {
+  border-top: var(--mi-edge);
+  color: var(--mi-ink);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .footer-panel {
+  background: var(--mi-white);
+  box-shadow: none;
+  border: 0;
+}
+
+/* ---------- Buttons: 8px rectangles, ink outline, sticker shadow ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button {
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: 8px;
+  border: var(--mi-edge);
+  font-weight: 700;
+  background-image: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-primary {
+  background: var(--mi-ink);
+  color: var(--mi-white);
+  box-shadow: 4px 4px 0 0 var(--mi-pink);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button-primary:hover {
+  background: var(--mi-ink);
+  color: var(--mi-white);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button:not(.button-primary) {
+  background: var(--mi-white);
+  color: var(--mi-ink);
+  box-shadow: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .button:not(.button-primary):hover {
+  background: var(--mi-white);
+  box-shadow: var(--mi-pop);
+}
+@media (prefers-reduced-motion: no-preference) {
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) .button {
+    transition: transform 120ms ease, box-shadow 120ms ease;
+  }
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) .button:hover {
+    transform: translate(-2px, -2px);
+  }
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) .button-primary:hover {
+    box-shadow: 6px 6px 0 0 var(--mi-pink);
+  }
+}
+
+/* ---------- Cards: stickers. Fill by variant, so neighbours still differ ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) :is(.card, .card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain) {
+  --card-ink: var(--mi-ink);
+  --card-muted: var(--mi-ink);
+  --card-border-width: 2px;
+  --card-border-style: solid;
+  --card-border-color: var(--mi-ink);
+  --card-hover-border: var(--mi-ink);
+  --card-shadow: var(--mi-pop);
+  --card-hover-shadow: var(--mi-pop-lift);
+  --card-chip: var(--mi-white);
+  --link: var(--mi-ink);
+  --ink: var(--mi-ink);
+  --ink-muted: var(--mi-ink);
+  --line: var(--mi-ink);
+  border-radius: var(--mi-radius);
+  box-shadow: var(--card-shadow);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) .card-plain { --card-bg: var(--mi-white); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) .card-field { --card-bg: var(--mi-blue); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) .card-stamp { --card-bg: var(--mi-yellow); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) .card-paper { --card-bg: var(--mi-pink); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) .card-dispatch {
+  --card-bg: var(--mi-ink);
+  --card-ink: var(--mi-white);
+  --card-muted: var(--mi-white);
+  --card-border-color: var(--mi-ink);
+  --card-shadow: 4px 4px 0 0 var(--mi-yellow);
+  --card-hover-shadow: 6px 6px 0 0 var(--mi-yellow);
+  --link: var(--mi-white);
+  --ink: var(--mi-white);
+  --ink-muted: var(--mi-white);
+  --line: var(--mi-white);
+}
+:is(.home-signal, .pricing-page) .card-dispatch a:not(.button) { color: var(--mi-white); }
+/* Dispatch titles stay white on the ink fill. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) .card-dispatch :is(.h3, h3, .label) {
+  color: var(--mi-white);
+}
+/* Hover: up and left 2px, the shadow grows to 6px. Transform only. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) a:is(.card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain):is(:hover, :focus-visible) {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--card-hover-shadow);
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) a:is(.card-paper, .card-dispatch, .card-stamp, .card-field, .card-plain):is(:hover, :focus-visible) {
+    transform: none;
+  }
+}
+
+/* ---------- Section rhythm: full-bleed bands with an ink seam ---------- */
+html[data-theme="signal"] .home-signal .section {
+  padding-block: 96px;
+  background: var(--mi-white);
+}
+@media (min-width: 900px) {
+  html[data-theme="signal"] .home-signal .section {
+    padding-block: 128px;
+  }
+}
+html[data-theme="signal"] .home-signal .section + .section,
+html[data-theme="signal"] .home-signal .section + .proof-band,
+html[data-theme="signal"] .home-signal .proof-band + .section {
+  border-top: var(--mi-edge);
+}
+html[data-theme="signal"] .home-signal .section-head {
+  margin-bottom: 48px;
+}
+html[data-theme="signal"] .home-signal .section-body {
+  margin-top: 0;
+}
+
+/* Colour bands. Text on every band is ink; muted text is ink too. */
+.home-signal :is(.proof-interlude, #how, #ways-in, #roles, #users, #tells, #pricing, #download) {
+  --ink-muted: var(--mi-ink);
+  --link: var(--mi-ink);
+  color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .proof-interlude { background: var(--mi-pink); }
+html[data-theme="signal"] .home-signal #how { background: var(--mi-yellow); }
+html[data-theme="signal"] .home-signal #ways-in { background: var(--mi-orange); }
+html[data-theme="signal"] .home-signal #roles { background: var(--mi-blue); }
+html[data-theme="signal"] .home-signal #users { background: var(--mi-orange); }
+html[data-theme="signal"] .home-signal #tells { background: var(--mi-red); }
+html[data-theme="signal"] .home-signal #pricing { background: var(--mi-green); }
+html[data-theme="signal"] .home-signal #download { background: var(--mi-yellow); }
+
+/* Cards on a colour band are white stickers; dispatch stays ink. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .home-signal :is(.proof-interlude, #how, #ways-in, #roles, #users, #tells, #pricing, #download) :is(.card-plain, .card-field, .card-stamp, .card-paper) {
+  --card-bg: var(--mi-white);
+}
+
+/* ---------- Type ---------- */
+:is(.home-signal, .pricing-page) :is(.display, .display-xl, .h2, .h3) {
+  color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .display,
+.pricing-page .h2 {
+  font-size: clamp(30px, 4vw, 40px);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+:is(.home-signal, .pricing-page) .muted {
+  color: var(--mi-ink);
+}
+
+/* Section kickers: solid candy stickers with an ink outline, tilted. */
+:is(.home-signal, .pricing-page) :is(.section-head, .pricing-hero, .pricing-coming) > .label {
+  display: inline-block;
+  padding: 5px 10px 4px;
+  background: var(--mi-yellow);
+  color: var(--mi-ink);
+  border: var(--mi-edge);
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 0 var(--mi-ink);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+}
+.home-signal #platforms .section-head > .label { background: var(--mi-blue); }
+.home-signal #teams .section-head > .label { background: var(--mi-green); }
+.home-signal :is(#agents, #trust) .section-head > .label,
+.pricing-page .pricing-section:last-child .section-head > .label {
+  background: var(--mi-purple);
+  color: var(--mi-white);
+}
+.home-signal #sound-wave .section-head > .label { background: var(--mi-pink); }
+.home-signal #ai-content .section-head > .label { background: var(--mi-orange); }
+.home-signal :is(#how, #download, #users, #ways-in) .section-head > .label { background: var(--mi-pink); }
+.home-signal :is(#roles, #tells, #pricing) .section-head > .label { background: var(--mi-yellow); }
+.pricing-page #limits .section-head > .label { background: var(--mi-yellow); }
+.pricing-page .pricing-hero > .label { background: var(--mi-pink); }
+.pricing-page .pricing-coming > .label { background: var(--mi-white); }
+.home-signal .section-head-center > .label { transform-origin: center; }
+
+/* ---------- Hero: big left-aligned H1, the blob cluster blown up ---------- */
+html[data-theme="signal"] .home-signal .hero-signal {
+  background: var(--mi-white);
+  padding-bottom: 96px;
+}
+html[data-theme="signal"] .home-signal .hero-copy .display-xl {
+  font-size: clamp(40px, 5.4vw, 64px);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  max-width: 20ch;
+  color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .hero-tagline {
+  color: var(--mi-ink);
+  font-size: 20px;
+  line-height: 28px;
+}
+html[data-theme="signal"] .home-signal .hero-actions {
+  gap: var(--space-4);
+}
+
+/* The blob cluster: four mascot blobs, 2.5x the old dots, each its own
+   shape, flat candy fill, ink outline and two ink eyes. CSS only. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blobs {
+  height: auto;
+  gap: 10px;
+  margin-bottom: var(--space-8);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blob {
+  --mi-eye: radial-gradient(circle at 34% 42%, var(--mi-ink) 0 3.5px, transparent 4px),
+    radial-gradient(circle at 62% 42%, var(--mi-ink) 0 3.5px, transparent 4px);
+  width: 64px;
+  height: 64px;
+  border: 2.5px solid var(--mi-ink);
+  box-shadow: 3px 3px 0 0 var(--mi-ink);
+  animation: none;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blob-a {
+  width: 56px;
+  height: 66px;
+  border-radius: 50% 50% 16px 16px;
+  background: var(--mi-eye), var(--mi-purple);
+  transform: rotate(-8deg);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blob-b {
+  width: 80px;
+  height: 80px;
+  border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%;
+  background: var(--mi-eye), var(--mi-green);
+  transform: rotate(4deg);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blob-c {
+  width: 74px;
+  height: 74px;
+  border-radius: 22px;
+  background: var(--mi-eye), var(--mi-blue);
+  transform: rotate(-4deg);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blob-d {
+  width: 50px;
+  height: 44px;
+  border-radius: 12px 12px 20px 20px;
+  background: var(--mi-eye), var(--mi-orange);
+  transform: rotate(10deg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blob {
+    animation: mi-wobble 3.2s ease-in-out infinite;
+  }
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blob-b { animation-delay: -0.8s; }
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blob-c { animation-delay: -1.6s; }
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-blob-d { animation-delay: -2.4s; }
+}
+@keyframes mi-wobble {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: 0 -5px; rotate: 4deg; }
+}
+.home-signal .cta-signal .gum-blobs { justify-content: center; }
+
+/* The film becomes a big white sticker window: ink frame, title bar with
+   three candy dots, a blue hard shadow. The frame inside still expands into
+   its dialog on Play (it goes position: fixed, out of this chrome). */
+html[data-theme="signal"] .home-signal .hero-film-cell {
+  position: relative;
+  margin-top: 56px;
+  padding: 40px 0 0;
+  background: var(--mi-white);
+  border: var(--mi-edge);
+  border-radius: 16px;
+  box-shadow: 12px 12px 0 0 var(--mi-blue), 12px 12px 0 2px var(--mi-ink);
+  overflow: hidden;
+}
+html[data-theme="signal"] .home-signal .hero-film-cell::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 40px;
+  border-bottom: var(--mi-edge);
+  background:
+    radial-gradient(circle at 22px 50%, var(--mi-red) 0 5px, var(--mi-ink) 5.5px 7px, transparent 7.5px),
+    radial-gradient(circle at 44px 50%, var(--mi-orange) 0 5px, var(--mi-ink) 5.5px 7px, transparent 7.5px),
+    radial-gradient(circle at 66px 50%, var(--mi-green) 0 5px, var(--mi-ink) 5.5px 7px, transparent 7.5px),
+    var(--mi-white);
+}
+html[data-theme="signal"] .home-signal .hero-film-frame:not(.is-open) {
+  border-radius: 0;
+  box-shadow: none;
+}
+html[data-theme="signal"] .home-signal .hero-film-btn,
+html[data-theme="signal"] .home-signal .hero-film-start {
+  border: var(--mi-edge);
+  border-radius: 8px;
+  background: var(--mi-yellow);
+  color: var(--mi-ink);
+  box-shadow: 3px 3px 0 0 var(--mi-ink);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+html[data-theme="signal"] .home-signal .hero-film-btn:hover,
+html[data-theme="signal"] .home-signal .hero-film-start:hover {
+  background: var(--mi-yellow);
+}
+
+/* The app-preview container holds only the small chart window today (the
+   film is the hero media): drop its empty chrome and let the small window
+   overlap the big one's bottom-left corner, like the reference's two
+   stacked app windows. */
+html[data-theme="signal"] .home-signal .gum-app-preview {
+  max-width: var(--measure);
+  margin: -72px auto 0;
+  padding: 0 var(--gutter);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  pointer-events: none;
+}
+html[data-theme="signal"] .home-signal .gum-chart-card {
+  position: relative;
+  left: -20px;
+  bottom: auto;
+  display: inline-flex;
+  padding: 44px var(--space-6) var(--space-4);
+  background: var(--mi-white);
+  border: var(--mi-edge);
+  border-radius: 12px;
+  box-shadow: 8px 8px 0 0 var(--mi-pink), 8px 8px 0 2px var(--mi-ink);
+  pointer-events: auto;
+}
+html[data-theme="signal"] .home-signal .gum-chart-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 30px;
+  border-bottom: var(--mi-edge);
+  background:
+    radial-gradient(circle at 16px 50%, var(--mi-red) 0 4px, var(--mi-ink) 4.5px 6px, transparent 6.5px),
+    radial-gradient(circle at 34px 50%, var(--mi-orange) 0 4px, var(--mi-ink) 4.5px 6px, transparent 6.5px),
+    radial-gradient(circle at 52px 50%, var(--mi-green) 0 4px, var(--mi-ink) 4.5px 6px, transparent 6.5px);
+}
+html[data-theme="signal"] .home-signal .gum-chart-num {
+  font-size: 32px;
+  color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .gum-chart-label {
+  color: var(--mi-ink);
+  font-weight: 700;
+}
+html[data-theme="signal"] .home-signal .gum-chart-bars {
+  height: 56px;
+}
+html[data-theme="signal"] .home-signal .gum-chart-bars span {
+  width: 14px;
+  border: var(--mi-edge);
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+}
+html[data-theme="signal"] .home-signal .gum-bar-a { height: 22px; background: var(--mi-purple); }
+html[data-theme="signal"] .home-signal .gum-bar-b { height: 32px; background: var(--mi-blue); }
+html[data-theme="signal"] .home-signal .gum-bar-c { height: 26px; background: var(--mi-green); }
+html[data-theme="signal"] .home-signal .gum-bar-d { height: 44px; background: var(--mi-yellow); }
+html[data-theme="signal"] .home-signal .gum-bar-e { height: 56px; background: var(--mi-pink); }
+@media (max-width: 640px) {
+  html[data-theme="signal"] .home-signal .gum-app-preview {
+    margin-top: -16px;
+    padding-left: calc(var(--gutter) + 16px);
+  }
+  html[data-theme="signal"] .home-signal .gum-chart-card {
+    left: 0;
+  }
+}
+
+/* ---------- Metric row: three candy stickers, big mono numbers ---------- */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-metric {
+  background: var(--mi-yellow);
+  border: var(--mi-edge);
+  border-radius: var(--mi-radius);
+  box-shadow: var(--mi-pop);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-metric:nth-child(2) { background: var(--mi-pink); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-metric:nth-child(3) { background: var(--mi-blue); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-metrics-row {
+  padding: 4px 8px 12px 4px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-metric-num {
+  font-size: 60px;
+  color: var(--mi-ink);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-metric-label {
+  color: var(--mi-ink);
+  font-weight: 700;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-arrow {
+  border: var(--mi-edge);
+  border-radius: 8px;
+  background: var(--mi-white);
+  color: var(--mi-ink);
+  box-shadow: 2px 2px 0 0 var(--mi-ink);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-arrow:hover {
+  background: var(--mi-yellow);
+}
+
+@media (min-width: 900px) {
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
+  }
+  :is(html[data-theme="signal"], html:has(main.pricing-page)) .gum-metrics-nav {
+    display: none;
+  }
+}
+
+/* ---------- Logo strip: an ink-ruled strip, logos untouched ---------- */
+html[data-theme="signal"] .home-signal .proof-ticker {
+  border-block: var(--mi-edge);
+  background: var(--mi-white);
+}
+
+/* ---------- Platforms: folder tabs, sticker tiles ---------- */
+html[data-theme="signal"] .home-signal .plat-tabs {
+  gap: 0;
+  align-items: flex-end;
+  border-bottom: var(--mi-edge);
+}
+html[data-theme="signal"] .home-signal .plat-tab {
+  height: 40px;
+  margin-right: -2px;
+  margin-bottom: -2px;
+  padding: 0 18px;
+  border: var(--mi-edge);
+  border-radius: 10px 10px 0 0;
+  background: var(--mi-white);
+  color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal :is(.plat-tab.is-on, .plat-tab[aria-selected="true"]) {
+  background: var(--mi-yellow);
+  color: var(--mi-ink);
+  border-color: var(--mi-ink);
+  position: relative;
+  z-index: 1;
+}
+html[data-theme="signal"] .home-signal .plat-tab.is-on:hover { color: var(--mi-ink); }
+html[data-theme="signal"] .home-signal :is(.plat-action, .plat-role) {
+  border: var(--mi-edge);
+  border-radius: 8px;
+  background: var(--mi-white);
+  color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal :is(.plat-action.is-on, .plat-action[aria-current="true"], .plat-role.is-on) {
+  background: var(--mi-pink);
+  color: var(--mi-ink);
+  border-color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal a.platform {
+  background: var(--mi-white);
+  border: var(--mi-edge);
+  border-radius: var(--mi-radius);
+  box-shadow: var(--mi-pop);
+  color: var(--mi-ink);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme="signal"] .home-signal a.platform {
+    transition: transform 120ms ease, box-shadow 120ms ease;
+  }
+  html[data-theme="signal"] .home-signal a.platform:is(:hover, :focus-visible) {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--mi-pop-lift);
+  }
+}
+html[data-theme="signal"] .home-signal .logo-tile {
+  background: var(--mi-white);
+  border: var(--mi-edge);
+  box-shadow: none;
+}
+
+/* ---------- Testimonial interlude on pink ---------- */
+html[data-theme="signal"] .home-signal .proof-interlude :is(.proof-big-quote, .proof-big-lead, .proof-big-quote *) {
+  color: var(--mi-ink);
+}
+
+/* ---------- Sound wave: a sticker timeline ---------- */
+html[data-theme="signal"] .home-signal .wave-list {
+  background: var(--mi-white);
+  border: var(--mi-edge);
+  border-radius: var(--mi-radius);
+  box-shadow: 8px 8px 0 0 var(--mi-pink), 8px 8px 0 2px var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .wave-list li:not(.wave-more) {
+  border-bottom: 2px dashed var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .wave-list li:not(.wave-more)::before {
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border: var(--mi-edge);
+  border-radius: 4px;
+  background: var(--mi-yellow);
+}
+html[data-theme="signal"] .home-signal .wave-list li:nth-child(2)::before { background: var(--mi-pink); }
+html[data-theme="signal"] .home-signal .wave-list li:nth-child(3)::before { background: var(--mi-green); }
+html[data-theme="signal"] .home-signal .wave-list li:nth-child(4)::before { background: var(--mi-blue); }
+html[data-theme="signal"] .home-signal .wave-list li:nth-child(5)::before { background: var(--mi-orange); }
+html[data-theme="signal"] .home-signal .wave-list .avatar {
+  background: var(--mi-white);
+  color: var(--mi-ink);
+  border: var(--mi-edge);
+}
+html[data-theme="signal"] .home-signal .wave-list time {
+  color: var(--mi-ink);
+  font-weight: 700;
+}
+
+/* ---------- Major card on pink ---------- */
+html[data-theme="signal"] .home-signal .major-card {
+  --card-bg: var(--mi-pink);
+  background: var(--mi-pink);
+  color: var(--mi-ink);
+  border: var(--mi-edge);
+  border-radius: 20px;
+  box-shadow: 10px 10px 0 0 var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .major-card :is(p, .label) {
+  color: var(--mi-ink);
+}
+
+/* ---------- Trust: bento box with ink rules ---------- */
+html[data-theme="signal"] .home-signal #trust ul.grid-2 {
+  border: var(--mi-edge);
+  border-radius: 16px;
+  box-shadow: 8px 8px 0 0 var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal #trust ul.grid-2 > li {
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  background: var(--mi-white);
+}
+html[data-theme="signal"] .home-signal #trust ul.grid-2 > li:first-child { background: var(--mi-yellow); }
+html[data-theme="signal"] .home-signal #trust ul.grid-2 > li:nth-child(4) { background: var(--mi-green); }
+html[data-theme="signal"] .home-signal #trust ul.grid-2 > li + li { border-top: var(--mi-edge); }
+@media (min-width: 640px) {
+  html[data-theme="signal"] .home-signal #trust ul.grid-2 > li:nth-child(3) { border-left: var(--mi-edge); }
+}
+
+/* ---------- Glass panels become plain white stickers ---------- */
+:is(.home-signal, .pricing-page) .glass {
+  --card-bg: var(--mi-white);
+  --card-border-color: var(--mi-ink);
+  --card-border-width: 2px;
+  --card-shadow: 8px 8px 0 0 var(--mi-ink);
+  --card-blur: none;
+  border-radius: 20px;
+}
+
+/* ---------- Home pricing teaser on green ---------- */
+html[data-theme="signal"] .home-signal .pricing-signal {
+  --card-bg: var(--mi-white);
+  box-shadow: 10px 10px 0 0 var(--mi-ink);
+  border-radius: 20px;
+}
+html[data-theme="signal"] .home-signal .pricing-signal-list li {
+  border-color: var(--mi-ink);
+}
+
+/* ---------- Final call to action on yellow ---------- */
+html[data-theme="signal"] .home-signal #download .cta-inner {
+  background: none;
+  border: 0;
+  padding: 0 var(--gutter);
+}
+html[data-theme="signal"] .home-signal #download .gum-blob {
+  width: 76px;
+  height: 76px;
+}
+html[data-theme="signal"] .home-signal #download .gum-blob-a { width: 60px; height: 70px; }
+html[data-theme="signal"] .home-signal #download .gum-blob-d { width: 54px; height: 48px; }
+html[data-theme="signal"] .home-signal #download .display {
+  font-size: clamp(36px, 5vw, 56px);
+}
+
+/* ================= Pricing page ================= */
+.pricing-page {
+  padding-top: 0;
+}
+/* Full-bleed bands from inside the page's .wrap: a spread box-shadow paints
+   the band past the column, clip-path trims it to the band's own height. */
+.pricing-page :is(.pricing-hero, .pricing-plans, #limits) {
+  box-shadow: 0 0 0 100vmax var(--mi-band);
+  clip-path: inset(0 -100vmax);
+  background: var(--mi-band);
+}
+.pricing-page :is(.pricing-hero, .pricing-plans) { --mi-band: var(--mi-yellow); }
+.pricing-page #limits { --mi-band: var(--mi-blue); }
+.pricing-page .pricing-hero {
+  max-width: none;
+  padding-top: 96px;
+}
+.pricing-page .pricing-hero > * {
+  max-width: 44rem;
+}
+.pricing-page .pricing-hero .display {
+  font-size: clamp(40px, 5.4vw, 64px);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--mi-ink);
+}
+.pricing-page .pricing-hero .body-lg {
+  font-size: 18px;
+  line-height: 28px;
+}
+.pricing-page .pricing-hero + .pricing-plans {
+  margin-top: 0;
+  padding-block: 48px 112px;
+}
+.pricing-page .pricing-single {
+  align-items: start;
+}
+@media (min-width: 820px) {
+  .pricing-page .pricing-single {
+    grid-template-columns: minmax(0, 30rem) minmax(0, 1fr);
+    gap: 64px;
+  }
+}
+/* The round-2 layout boxed the plan and the note in one bordered panel;
+   here they are two loose stickers on the yellow band. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .pricing-page .pricing-single {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  overflow: visible;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .pricing-page .pricing-single > .plan {
+  --card-bg: var(--mi-white);
+  --card-shadow: 8px 8px 0 0 var(--mi-ink);
+  border: var(--mi-edge);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  padding: 32px;
+}
+.pricing-page .plan .plan-name {
+  font-size: 28px;
+  font-weight: 700;
+}
+.pricing-page .plan-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+.pricing-page .price-amount {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 120px;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: var(--mi-ink);
+}
+.pricing-page .price-unit {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mi-ink);
+}
+.pricing-page .plan-note {
+  color: var(--mi-ink);
+}
+.pricing-page .plan-cta {
+  min-height: 48px;
+  font-size: 16px;
+}
+.pricing-page .plan-features {
+  border-top: 2px dashed var(--mi-ink);
+}
+/* Included items get a solid green check square with an ink outline. */
+.pricing-page :is(.plan-features li, .pricing-included .h3) {
+  position: relative;
+  padding-left: 32px;
+  color: var(--mi-ink);
+}
+.pricing-page :is(.plan-features li, .pricing-included .h3)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  border: var(--mi-edge);
+  border-radius: 4px;
+  background: var(--mi-green);
+  transform: none;
+}
+.pricing-page :is(.plan-features li, .pricing-included .h3)::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 5px;
+  width: 9px;
+  height: 5px;
+  border-left: 2.5px solid var(--mi-ink);
+  border-bottom: 2.5px solid var(--mi-ink);
+  transform: rotate(-45deg);
+}
+.pricing-page .pricing-included .h3::before { top: 0; }
+.pricing-page .pricing-included .h3::after { top: 4px; }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .pricing-page .pricing-single > .pricing-coming {
+  padding: 32px;
+  border: var(--mi-edge);
+  background: var(--mi-pink);
+  border-radius: 20px;
+  box-shadow: var(--mi-pop);
+  transform: rotate(1.5deg);
+  margin-top: 24px;
+}
+.pricing-page .pricing-coming .body-lg {
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 600;
+  color: var(--mi-ink);
+}
+.pricing-page .pricing-section {
+  margin-top: 0;
+  padding-block: 112px;
+}
+.pricing-page .pricing-section + .pricing-section {
+  border-top: var(--mi-edge);
+}
+.pricing-page .pricing-plans + .gum-metrics {
+  padding-block: 64px 0;
+}
+.pricing-page .gum-metrics + .pricing-section {
+  border-top: 0;
+}
+.pricing-page .section-head {
+  margin-bottom: 48px;
+}
+/* The limits block: a blue band, white sticker cards, no glass. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .pricing-page #limits .pricing-limits {
+  border: 0;
+  --card-bg: transparent;
+  --card-border-color: transparent;
+  --card-shadow: none;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+.pricing-page #limits .limit-list li {
+  padding: var(--card-pad);
+  background: var(--mi-white);
+  border: var(--mi-edge);
+  border-radius: var(--mi-radius);
+  box-shadow: var(--mi-pop);
+  color: var(--mi-ink);
+}
+.pricing-page #limits .limit-list strong {
+  color: var(--mi-ink);
+  font-size: 18px;
+  margin-bottom: var(--space-2);
+}
+.pricing-page #limits,
+.pricing-page #limits + .pricing-section {
+  border-top: 0;
+}
+/* FAQ: ink-outlined white rows with a chevron; open rows get a pink edge. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .pricing-page .agent-faq details {
+  --card-bg: var(--mi-white);
+  --card-shadow: none;
+  border-radius: 10px;
+  padding: 0;
+}
+.pricing-page .agent-faq summary {
+  position: relative;
+  display: block;
+  list-style: none;
+  padding: var(--space-4) 56px var(--space-4) var(--space-6);
+  color: var(--mi-ink);
+  font-weight: 700;
+}
+.pricing-page .agent-faq summary::-webkit-details-marker { display: none; }
+.pricing-page .agent-faq summary::after {
+  content: "";
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: -7px;
+  border-right: 2.5px solid var(--mi-ink);
+  border-bottom: 2.5px solid var(--mi-ink);
+  transform: rotate(45deg);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .pricing-page .agent-faq details[open] {
+  --card-shadow: var(--mi-pop);
+  border-left-width: 8px;
+  border-left-color: var(--mi-pink);
+}
+.pricing-page .agent-faq details[open] summary::after {
+  margin-top: -2px;
+  transform: rotate(-135deg);
+}
+.pricing-page .agent-faq details p {
+  margin: 0;
+  padding: 0 var(--space-6) var(--space-4);
+  color: var(--mi-ink);
+}
+.pricing-page .faq-category {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pricing-page .agent-faq summary::after {
+    transition: transform 160ms ease, margin-top 160ms ease;
+  }
+}
+/* The tips panel closes the page as one white sticker. */
+.pricing-page .pricing-section:last-child .pricing-limits {
+  --card-shadow: 8px 8px 0 0 var(--mi-purple), 8px 8px 0 2px var(--mi-ink);
+}
+
+/* ---------- Leftover teal, recoloured to the candy set ---------- */
+html[data-theme="signal"] .home-signal .proof-big-mark {
+  background: none;
+  color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .proof-big-lead {
+  background: linear-gradient(var(--mi-yellow), var(--mi-yellow)) no-repeat 0 88% / 100% 0.32em;
+  color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .proof-mark {
+  color: var(--mi-pink);
+  -webkit-text-stroke: 1.5px var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .pricing-signal-list li::before {
+  width: 18px;
+  height: 18px;
+  border: var(--mi-edge);
+  border-radius: 4px;
+  background: var(--mi-green);
+}
+html[data-theme="signal"] .home-signal .pricing-signal-list :is(b, span) {
+  color: var(--mi-ink);
+}
+
+/* Use-case and solution links: 8px sticker chips, not pills. */
+html[data-theme="signal"] .home-signal .usecases a {
+  border: var(--mi-edge);
+  border-radius: 8px;
+  background: var(--mi-white);
+  color: var(--mi-ink);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 2px 2px 0 0 var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .usecases a:hover {
+  background: var(--mi-yellow);
+  border-color: var(--mi-ink);
+  color: var(--mi-ink);
+}
+html[data-theme="signal"] .home-signal .usecases .label {
+  color: var(--mi-ink);
+  font-weight: 700;
+}
+
+/* The activity feed card: a white sticker, ink text, no glass. */
+html[data-theme="signal"] .home-signal .activity-feed {
+  --af-surface-1: var(--mi-white);
+  --af-surface-2: var(--mi-white);
+  --af-tint: transparent;
+  --af-ink: var(--mi-ink);
+  --af-muted: var(--mi-ink);
+  --af-hairline: var(--mi-ink);
+  --af-highlight: transparent;
+  --af-ghost: var(--mi-white);
+  --af-ghost-hover: var(--mi-yellow);
+  --af-ghost-border: var(--mi-ink);
+  --af-chip: var(--mi-white);
+  --af-ring: var(--mi-ink);
+  --af-dot: var(--mi-ink);
+  --af-live: var(--teal-deep);
+  background: var(--mi-white);
+  border: var(--mi-edge);
+  box-shadow: 8px 8px 0 0 var(--mi-green), 8px 8px 0 2px var(--mi-ink);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* The final call to action: air between the app icon and its sticker. */
+html[data-theme="signal"] .home-signal #download .download-cta-icon {
+  filter: none;
+  margin-block: var(--space-4) var(--space-6);
+}
+
+/* Platform tiles: room for the sticker shadows, and air above the links. */
+html[data-theme="signal"] .home-signal .plat-row {
+  gap: var(--space-4);
+}
+html[data-theme="signal"] .home-signal .plat-catalog {
+  margin-top: var(--head-gap);
+}
+
+/* ---------- Same look under a dark OS ----------
+   The token block above already outranks the dark token layers. These are
+   the component rules that site.css and themes.css switch on their own
+   under prefers-color-scheme: dark; each is pinned to the light reading
+   here, so the page is identical in both schemes. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .proof-ticker-logo {
+  filter: grayscale(1);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .bubble {
+  --bubble-stroke: var(--mi-ink);
+  --bubble-stroke-w: 2px;
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .ia-panel {
+  box-shadow: inset 0 0 0 1px var(--mi-ink);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.ia-pill, .ia-live, .ia-state.live) { color: var(--teal-deep); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .ia-pill.ok { background: var(--teal-deep); color: var(--mi-white); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .ia-state.wait { color: var(--yellow-shade); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.ia-app-status i, .ia-link .ia-pulse) { background: var(--teal-deep); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .ia-fav.f-team { background: var(--charcoal); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .ia-chip-hub { box-shadow: inset 0 0 0 1px var(--teal-deep); }
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.mm-card-plan-mark, .army-src, .army-mac, .army-plinth, .army-cic, .army-cic-star, .army-halt) {
+  border-color: var(--mi-ink);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .army-packet { stroke: var(--mi-ink); }
+
+/* Card link cue: an ink arrow on a white square chip with an ink edge;
+   hover fills it yellow. The same chip in both schemes. */
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(a.card-link, a.platform, a.agent-tile, a.docs-card):not(.card-dispatch)::after,
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .mm-card:not(.card-dispatch) .mm-card-arrow {
+  --card-cue-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7h8.5M7.5 3.5L11 7l-3.5 3.5' fill='none' stroke='%231c1a19' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) :is(a.card-link, a.platform, a.agent-tile)::after {
+  border-radius: 6px;
+  background-color: var(--mi-white);
+  box-shadow: inset 0 0 0 2px var(--mi-ink);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) :is(.home-signal, .pricing-page) :is(a.card-link, a.platform, a.agent-tile):is(:hover, :focus-visible)::after {
+  background-color: var(--mi-yellow);
+}
+:is(html[data-theme="signal"], html:has(main.pricing-page)) .mm-card:not(.card-dispatch) .mm-card-arrow {
+  background-image: var(--card-cue-arrow);
+}
+@media (max-width: 639px) {
+  html[data-theme="signal"] .home-signal .plat-tabs {
+    flex-wrap: nowrap;
+  }
+  html[data-theme="signal"] .home-signal .plat-tab {
+    padding: 0 11px;
+    font-size: 13px;
+  }
+}
+
+/* The quote grid's giant background mark: ink, not teal, on the orange band. */
+html[data-theme="signal"] .home-signal .proof-section .wrap::before {
+  color: var(--mi-ink);
+  opacity: 0.12;
+}
+html[data-theme="signal"] .home-signal #download .section-head {
+  margin-bottom: var(--head-gap);
+}
