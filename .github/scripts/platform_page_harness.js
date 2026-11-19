@@ -199,7 +199,8 @@ function state(env, root) {
     prevDisabledAttr: q("[data-pp-prev]") ? q("[data-pp-prev]").hasAttribute("disabled") : null,
     dotCurrent: root.querySelectorAll("[data-pp-dot]").map((d, i) => (d.getAttribute("aria-current") === "true" ? i : -1)).filter((i) => i >= 0),
     inert: root.querySelectorAll("[data-pp-slide]").filter((s) => s.hasAttribute("inert")).map((s) => s.getAttribute("data-pp-name")),
-    current: root.querySelectorAll("[data-pp-slide]").filter((s) => s.hasAttribute("data-pp-current")).map((s) => s.getAttribute("data-pp-name")),
+    /* The setup in focus, from the authoritative state: the dot marked aria-current, and its slide. */
+    current: root.querySelectorAll("[data-pp-dot]").filter((d) => d.getAttribute("aria-current") === "true").map((d) => root.querySelectorAll("[data-pp-slide]")[Number(d.getAttribute("data-pp-dot"))]).filter(Boolean).map((s) => s.getAttribute("data-pp-name")),
     thumb: q("[data-pp-thumb]") ? q("[data-pp-thumb]").style.transform || null : null,
     slideStyles: root.querySelectorAll("[data-pp-slide]").map((s) => ({ opacity: s.style.opacity || "", transform: s.style.transform || "" })),
     railScrollLeft: rail ? rail.scrollLeft : null,

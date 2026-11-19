@@ -288,10 +288,6 @@
         if (i === at) dot.setAttribute("aria-current", "true");
         else dot.removeAttribute("aria-current");
       });
-      slides.forEach(function (slide, i) {
-        if (i === at) slide.setAttribute("data-pp-current", "");
-        else slide.removeAttribute("data-pp-current");
-      });
       syncInView();
     }
 
