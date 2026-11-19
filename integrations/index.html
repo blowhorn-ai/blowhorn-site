@@ -23,7 +23,7 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png">
-<link rel="stylesheet" href="/css/site.min.609cbb009c5b6d8904b0652c9600cefbd470cb1d43ce12f9480b27f6f735854d.css">
+<link rel="stylesheet" href="/css/site.min.c036924ccb9a11b5b5b6b2c3c4e9c7fb217814754285c581b9757ff9883164b9.css">
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -175,6 +175,7 @@
                 </div>
               </div>
             </li>
+            <li class="mm-item"><a class="mm-top" href="/integrations/">Integrations</a></li>
             <li class="mm-item"><a class="mm-top" href="/compare/">Compare</a></li>
             <li class="mm-item">
               <button type="button" class="mm-trigger" aria-expanded="false" aria-controls="mm-resources">Resources<span class="mm-chev" aria-hidden="true"></span></button>
@@ -191,13 +192,606 @@
       </div>
     </header>
     <script src="/js/nav.min.f9cb0a1cf5fb98c0ffc9bd2b8aff48c463061d31197aea2cfe97924da2a9a643.js" defer></script>
-<main id="main" class="page integrations-page" data-action-filter>
+<main id="main" class="page integrations-page">
       <div class="wrap"><header class="page-head">
           <p class="label">Integrations</p>
           <h1 id="integrations-title" class="display">Every network on the map</h1>
-          <p class="body-lg muted"><span data-count-platforms>7</span> supported now, <span data-count-soon>4</span> coming soon, <span data-count-activities>30</span> actions in the queue. Blowhorn posts as you through your own browser or a platform API. GitHub does not take a post. Blowhorn stars repositories and rallies reactions on issues and pull requests.</p>
+          <p class="body-lg muted"><span data-count-activities>30</span> actions across more platforms than any screen can show. Blowhorn posts as you through your own browser or a platform API. GitHub does not take a post. Blowhorn stars repositories and rallies reactions on issues and pull requests.</p>
           <p class="integrations-matrix-link"><a class="button button-secondary" href="/integrations/actions/" data-matrix-link>See every action on every platform</a></p>
-        </header>
+        </header><section id="platform-views" class="section platforms-signal platform-views" aria-labelledby="platform-views-title" data-platforms>
+        <div class="section-head">
+          <h2 id="platform-views-title" class="h2">See the map your way</h2>
+          <p class="muted">By type, by role, by action, or all at once.</p>
+        </div>
+        <div class="plat-toolbar">
+          <div class="plat-tabs" role="tablist" aria-label="Compare how the map looks">
+            <a class="plat-tab is-on" role="tab" id="plat-tab-category" href="#plat-panel-category" aria-selected="true" aria-controls="plat-panel-category" data-plat-tab="category">By type</a>
+            <a class="plat-tab" role="tab" id="plat-tab-role" href="#plat-panel-role" aria-selected="false" aria-controls="plat-panel-role" data-plat-tab="role">By role</a>
+            <a class="plat-tab" role="tab" id="plat-tab-constellation" href="#plat-panel-constellation" aria-selected="false" aria-controls="plat-panel-constellation" data-plat-tab="constellation">The map</a>
+            <a class="plat-tab" role="tab" id="plat-tab-action" href="#plat-panel-action" aria-selected="false" aria-controls="plat-panel-action" data-plat-tab="action">By action</a>
+          </div>
+          <p class="plat-count caption" data-plat-count>More platforms than any screen can show.</p>
+        </div>
+        <div class="plat-panel is-on" id="plat-panel-category" role="tabpanel" aria-labelledby="plat-tab-category" data-plat-panel="category">
+          <ul class="plat-cats">
+            <li class="plat-cat">
+              <h3 class="h3">Your browser</h3>
+              <p class="caption muted">Blowhorn types and clicks in your own signed-in browser.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/linkedin/">
+                    <span class="logo-tile"><img src="/assets/platforms/linkedin-in-bug.png" alt="" width="28" height="28"></span>
+                    <span class="ui">LinkedIn</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/x/">
+                    <span class="logo-tile"><img src="/assets/platforms/x-logo-black.png" alt="" width="28" height="28"></span>
+                    <span class="ui">X (Twitter)</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/reddit/">
+                    <span class="logo-tile"><img src="/assets/platforms/reddit-logo.png" alt="" width="28" height="28"></span>
+                    <span class="ui">Reddit</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/hacker-news/">
+                    <span class="logo-tile"><img src="/assets/platforms/hacker-news-y18.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Hacker News</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="plat-cat">
+              <h3 class="h3">Official APIs</h3>
+              <p class="caption muted">Posted as you through the platform&#39;s own API, never a borrowed password.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/slack/">
+                    <span class="logo-tile"><img src="/assets/platforms/slack-mark.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Slack</span>
+                    <span class="caption">Slack API</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/bluesky/">
+                    <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Bluesky</span>
+                    <span class="caption">Bluesky API</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="plat-cat">
+              <h3 class="h3">Rally, not posts</h3>
+              <p class="caption muted">GitHub does not take a post. Blowhorn stars repositories and rallies reactions on issues and pull requests.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/github/">
+                    <span class="logo-tile"><img src="/assets/platforms/github-invertocat-black.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">GitHub</span>
+                    <span class="caption">GitHub API</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="plat-cat">
+              <h3 class="h3">Coming soon</h3>
+              <p class="caption muted">On the map. Not in the queue yet.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/youtube/">
+                    <span class="logo-tile"><img src="/assets/platforms/youtube-simple-icons.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">YouTube</span>
+                    <span class="caption">Coming soon</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/instagram/">
+                    <span class="logo-tile"><img src="/assets/platforms/instagram-simple-icons.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Instagram</span>
+                    <span class="caption">Coming soon</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/tiktok/">
+                    <span class="logo-tile"><img src="/assets/platforms/tiktok-simple-icons.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">TikTok</span>
+                    <span class="caption">Coming soon</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/facebook/">
+                    <span class="logo-tile"><img src="/assets/platforms/facebook-simple-icons.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Facebook</span>
+                    <span class="caption">Coming soon</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="plat-panel" id="plat-panel-role" role="tabpanel" aria-labelledby="plat-tab-role" data-plat-panel="role">
+          <div class="plat-roles">
+            <div class="plat-role-picks" role="group" aria-label="Highlight platforms by role">
+              <button type="button" class="plat-role is-on" data-plat-role="devrel" aria-pressed="true">DevRel</button>
+              <button type="button" class="plat-role" data-plat-role="marketing" aria-pressed="false">Marketing managers</button>
+              <button type="button" class="plat-role" data-plat-role="founders" aria-pressed="false">Founders</button>
+              <button type="button" class="plat-role" data-plat-role="open-source" aria-pressed="false">Open source maintainers</button>
+              <button type="button" class="plat-role" data-plat-role="community" aria-pressed="false">Community managers</button>
+              <button type="button" class="plat-role" data-plat-role="agencies" aria-pressed="false">Agencies and consultants</button>
+              <button type="button" class="plat-role" data-plat-role="social-media" aria-pressed="false">Social media managers</button>
+            </div>
+            <ul class="plat-row plat-row-roles">
+              <li data-plat-id="linkedin" data-plat-roles="devrel marketing founders open-source community agencies social-media">
+                <a class="platform" href="/docs/reference/platforms/linkedin/">
+                  <span class="logo-tile"><img src="/assets/platforms/linkedin-in-bug.png" alt="" width="28" height="28"></span>
+                  <span class="ui">LinkedIn</span>
+                  <span class="caption">Your browser</span>
+                </a>
+              </li>
+              <li data-plat-id="x" data-plat-roles="devrel marketing founders open-source community agencies social-media">
+                <a class="platform" href="/docs/reference/platforms/x/">
+                  <span class="logo-tile"><img src="/assets/platforms/x-logo-black.png" alt="" width="28" height="28"></span>
+                  <span class="ui">X (Twitter)</span>
+                  <span class="caption">Your browser</span>
+                </a>
+              </li>
+              <li data-plat-id="reddit" data-plat-roles="devrel founders open-source community agencies social-media">
+                <a class="platform" href="/docs/reference/platforms/reddit/">
+                  <span class="logo-tile"><img src="/assets/platforms/reddit-logo.png" alt="" width="28" height="28"></span>
+                  <span class="ui">Reddit</span>
+                  <span class="caption">Your browser</span>
+                </a>
+              </li>
+              <li data-plat-id="hacker-news" data-plat-roles="devrel founders open-source agencies social-media">
+                <a class="platform" href="/docs/reference/platforms/hacker-news/">
+                  <span class="logo-tile"><img src="/assets/platforms/hacker-news-y18.svg" alt="" width="28" height="28"></span>
+                  <span class="ui">Hacker News</span>
+                  <span class="caption">Your browser</span>
+                </a>
+              </li>
+              <li data-plat-id="slack" data-plat-roles="devrel marketing founders open-source community agencies social-media">
+                <a class="platform" href="/docs/reference/platforms/slack/">
+                  <span class="logo-tile"><img src="/assets/platforms/slack-mark.svg" alt="" width="28" height="28"></span>
+                  <span class="ui">Slack</span>
+                  <span class="caption">Slack API</span>
+                </a>
+              </li>
+              <li data-plat-id="bluesky" data-plat-roles="devrel marketing founders open-source community agencies social-media">
+                <a class="platform" href="/docs/reference/platforms/bluesky/">
+                  <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                  <span class="ui">Bluesky</span>
+                  <span class="caption">Bluesky API</span>
+                </a>
+              </li>
+              <li data-plat-id="github" data-plat-roles="devrel founders open-source agencies social-media">
+                <a class="platform" href="/docs/reference/platforms/github/">
+                  <span class="logo-tile"><img src="/assets/platforms/github-invertocat-black.svg" alt="" width="28" height="28"></span>
+                  <span class="ui">GitHub</span>
+                  <span class="caption">GitHub API</span>
+                </a>
+              </li>
+              <li data-plat-id="youtube" data-plat-roles="marketing">
+                <a class="platform" href="/docs/reference/platforms/youtube/">
+                  <span class="logo-tile"><img src="/assets/platforms/youtube-simple-icons.svg" alt="" width="28" height="28"></span>
+                  <span class="ui">YouTube</span>
+                  <span class="caption">Coming soon</span>
+                </a>
+              </li>
+              <li data-plat-id="instagram" data-plat-roles="marketing">
+                <a class="platform" href="/docs/reference/platforms/instagram/">
+                  <span class="logo-tile"><img src="/assets/platforms/instagram-simple-icons.svg" alt="" width="28" height="28"></span>
+                  <span class="ui">Instagram</span>
+                  <span class="caption">Coming soon</span>
+                </a>
+              </li>
+              <li data-plat-id="tiktok" data-plat-roles="marketing">
+                <a class="platform" href="/docs/reference/platforms/tiktok/">
+                  <span class="logo-tile"><img src="/assets/platforms/tiktok-simple-icons.svg" alt="" width="28" height="28"></span>
+                  <span class="ui">TikTok</span>
+                  <span class="caption">Coming soon</span>
+                </a>
+              </li>
+              <li data-plat-id="facebook" data-plat-roles="marketing">
+                <a class="platform" href="/docs/reference/platforms/facebook/">
+                  <span class="logo-tile"><img src="/assets/platforms/facebook-simple-icons.svg" alt="" width="28" height="28"></span>
+                  <span class="ui">Facebook</span>
+                  <span class="caption">Coming soon</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="plat-panel" id="plat-panel-constellation" role="tabpanel" aria-labelledby="plat-tab-constellation" data-plat-panel="constellation">
+          <div class="constellation" data-constellation>
+            <p class="constellation-count">
+              <span class="constellation-num" data-count-activities>30</span>
+              <span class="constellation-label">actions</span>
+              <span class="caption muted">across more platforms than any screen can show</span>
+            </p>
+            <p class="constellation-ctl">
+              <button type="button" class="constellation-pause" data-constellation-pause aria-pressed="false">Pause motion</button>
+            </p>
+            <ul class="constellation-orbit" data-constellation-total="11">
+              <li class="constellation-item" data-n="0">
+                <a class="platform" href="/docs/reference/platforms/linkedin/">
+                  <span class="logo-tile"><img src="/assets/platforms/linkedin-in-bug.png" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">LinkedIn</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="1">
+                <a class="platform" href="/docs/reference/platforms/x/">
+                  <span class="logo-tile"><img src="/assets/platforms/x-logo-black.png" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">X (Twitter)</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="2">
+                <a class="platform" href="/docs/reference/platforms/reddit/">
+                  <span class="logo-tile"><img src="/assets/platforms/reddit-logo.png" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">Reddit</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="3">
+                <a class="platform" href="/docs/reference/platforms/hacker-news/">
+                  <span class="logo-tile"><img src="/assets/platforms/hacker-news-y18.svg" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">Hacker News</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="4">
+                <a class="platform" href="/docs/reference/platforms/slack/">
+                  <span class="logo-tile"><img src="/assets/platforms/slack-mark.svg" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">Slack</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="5">
+                <a class="platform" href="/docs/reference/platforms/bluesky/">
+                  <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">Bluesky</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="6">
+                <a class="platform" href="/docs/reference/platforms/github/">
+                  <span class="logo-tile"><img src="/assets/platforms/github-invertocat-black.svg" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">GitHub</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="7">
+                <a class="platform" href="/docs/reference/platforms/youtube/">
+                  <span class="logo-tile"><img src="/assets/platforms/youtube-simple-icons.svg" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">YouTube</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="8">
+                <a class="platform" href="/docs/reference/platforms/instagram/">
+                  <span class="logo-tile"><img src="/assets/platforms/instagram-simple-icons.svg" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">Instagram</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="9">
+                <a class="platform" href="/docs/reference/platforms/tiktok/">
+                  <span class="logo-tile"><img src="/assets/platforms/tiktok-simple-icons.svg" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">TikTok</span>
+                </a>
+              </li>
+              <li class="constellation-item" data-n="10">
+                <a class="platform" href="/docs/reference/platforms/facebook/">
+                  <span class="logo-tile"><img src="/assets/platforms/facebook-simple-icons.svg" alt="" width="28" height="28"></span>
+                  <span class="visually-hidden">Facebook</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="plat-panel" id="plat-panel-action" role="tabpanel" aria-labelledby="plat-tab-action" data-plat-panel="action">
+          <div class="plat-actions" data-action-filter>
+            <nav class="plat-action-picks" aria-label="Show platforms by action">
+              <a class="plat-action" href="#views-action-post" data-action-chip="post">Post</a>
+              <a class="plat-action" href="#views-action-comment" data-action-chip="comment">Comment</a>
+              <a class="plat-action" href="#views-action-reply" data-action-chip="reply">Reply</a>
+              <a class="plat-action" href="#views-action-amplify" data-action-chip="amplify">Amplify</a>
+              <a class="plat-action" href="#views-action-react" data-action-chip="react">React</a>
+              <a class="plat-action" href="#views-action-star" data-action-chip="star">Star</a>
+              <a class="plat-action" href="#views-action-follow" data-action-chip="follow">Follow</a>
+              <a class="plat-action" href="#views-action-unfollow" data-action-chip="unfollow">Unfollow</a>
+              <a class="plat-action" href="#views-action-accept" data-action-chip="accept">Accept</a>
+              <a class="plat-action" href="#views-action-withdraw" data-action-chip="withdraw">Withdraw</a>
+              <a class="plat-action" href="#views-action-find" data-action-chip="find">Find</a>
+              <a class="plat-action" href="#views-action-analytics" data-action-chip="analytics">Analytics</a>
+            </nav>
+            <div class="action-group" id="views-action-post" data-action-group="post">
+              <h3 id="views-action-post-title" class="h3">Post</h3>
+              <p class="caption muted">Publish a message as you.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/linkedin/#action-post">
+                    <span class="logo-tile"><img src="/assets/platforms/linkedin-in-bug.png" alt="" width="28" height="28"></span>
+                    <span class="ui">LinkedIn</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/x/#action-post">
+                    <span class="logo-tile"><img src="/assets/platforms/x-logo-black.png" alt="" width="28" height="28"></span>
+                    <span class="ui">X (Twitter)</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/reddit/#action-post">
+                    <span class="logo-tile"><img src="/assets/platforms/reddit-logo.png" alt="" width="28" height="28"></span>
+                    <span class="ui">Reddit</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/hacker-news/#action-post">
+                    <span class="logo-tile"><img src="/assets/platforms/hacker-news-y18.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Hacker News</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/slack/#action-post">
+                    <span class="logo-tile"><img src="/assets/platforms/slack-mark.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Slack</span>
+                    <span class="caption">Slack API</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/bluesky/#action-post">
+                    <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Bluesky</span>
+                    <span class="caption">Bluesky API</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-comment" data-action-group="comment">
+              <h3 id="views-action-comment-title" class="h3">Comment</h3>
+              <p class="caption muted">Comment on an existing post.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/linkedin/#action-comment">
+                    <span class="logo-tile"><img src="/assets/platforms/linkedin-in-bug.png" alt="" width="28" height="28"></span>
+                    <span class="ui">LinkedIn</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/reddit/#action-comment">
+                    <span class="logo-tile"><img src="/assets/platforms/reddit-logo.png" alt="" width="28" height="28"></span>
+                    <span class="ui">Reddit</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/hacker-news/#action-comment">
+                    <span class="logo-tile"><img src="/assets/platforms/hacker-news-y18.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Hacker News</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-reply" data-action-group="reply">
+              <h3 id="views-action-reply-title" class="h3">Reply</h3>
+              <p class="caption muted">Reply in a conversation or thread.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/x/#action-reply">
+                    <span class="logo-tile"><img src="/assets/platforms/x-logo-black.png" alt="" width="28" height="28"></span>
+                    <span class="ui">X (Twitter)</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/slack/#action-reply">
+                    <span class="logo-tile"><img src="/assets/platforms/slack-mark.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Slack</span>
+                    <span class="caption">Slack API</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/bluesky/#action-reply">
+                    <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Bluesky</span>
+                    <span class="caption">Bluesky API</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-amplify" data-action-group="amplify">
+              <h3 id="views-action-amplify-title" class="h3">Amplify</h3>
+              <p class="caption muted">Repost, retweet, quote, or upvote existing content from each of your profiles.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/linkedin/#action-amplify">
+                    <span class="logo-tile"><img src="/assets/platforms/linkedin-in-bug.png" alt="" width="28" height="28"></span>
+                    <span class="ui">LinkedIn</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/x/#action-amplify">
+                    <span class="logo-tile"><img src="/assets/platforms/x-logo-black.png" alt="" width="28" height="28"></span>
+                    <span class="ui">X (Twitter)</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/reddit/#action-amplify">
+                    <span class="logo-tile"><img src="/assets/platforms/reddit-logo.png" alt="" width="28" height="28"></span>
+                    <span class="ui">Reddit</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/bluesky/#action-amplify">
+                    <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Bluesky</span>
+                    <span class="caption">Bluesky API</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-react" data-action-group="react">
+              <h3 id="views-action-react-title" class="h3">React</h3>
+              <p class="caption muted">Add a reaction to a post or message.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/slack/#action-react">
+                    <span class="logo-tile"><img src="/assets/platforms/slack-mark.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Slack</span>
+                    <span class="caption">Slack API</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/github/#action-react">
+                    <span class="logo-tile"><img src="/assets/platforms/github-invertocat-black.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">GitHub</span>
+                    <span class="caption">GitHub API</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-star" data-action-group="star">
+              <h3 id="views-action-star-title" class="h3">Star</h3>
+              <p class="caption muted">Star repositories over the API.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/github/#action-star">
+                    <span class="logo-tile"><img src="/assets/platforms/github-invertocat-black.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">GitHub</span>
+                    <span class="caption">GitHub API</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-follow" data-action-group="follow">
+              <h3 id="views-action-follow-title" class="h3">Follow</h3>
+              <p class="caption muted">Name a target account. With --limit 0, follow that account, or several comma-separated. With a positive limit, follow up to that many of the target&#39;s followers, never the target itself.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/x/#action-follow">
+                    <span class="logo-tile"><img src="/assets/platforms/x-logo-black.png" alt="" width="28" height="28"></span>
+                    <span class="ui">X (Twitter)</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/bluesky/#action-follow">
+                    <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Bluesky</span>
+                    <span class="caption">Bluesky API</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/github/#action-follow">
+                    <span class="logo-tile"><img src="/assets/platforms/github-invertocat-black.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">GitHub</span>
+                    <span class="caption">GitHub API</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-unfollow" data-action-group="unfollow">
+              <h3 id="views-action-unfollow-title" class="h3">Unfollow</h3>
+              <p class="caption muted">Unfollow an account.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/bluesky/#action-unfollow">
+                    <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Bluesky</span>
+                    <span class="caption">Bluesky API</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-accept" data-action-group="accept">
+              <h3 id="views-action-accept-title" class="h3">Accept</h3>
+              <p class="caption muted">Accept inbound invitations.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/linkedin/#action-accept">
+                    <span class="logo-tile"><img src="/assets/platforms/linkedin-in-bug.png" alt="" width="28" height="28"></span>
+                    <span class="ui">LinkedIn</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-withdraw" data-action-group="withdraw">
+              <h3 id="views-action-withdraw-title" class="h3">Withdraw</h3>
+              <p class="caption muted">Withdraw invitations you sent that have waited long enough.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/linkedin/#action-withdraw">
+                    <span class="logo-tile"><img src="/assets/platforms/linkedin-in-bug.png" alt="" width="28" height="28"></span>
+                    <span class="ui">LinkedIn</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-find" data-action-group="find">
+              <h3 id="views-action-find-title" class="h3">Find</h3>
+              <p class="caption muted">Search posts or list people so you can choose whom to reach.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/bluesky/#action-find">
+                    <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Bluesky</span>
+                    <span class="caption">Bluesky API</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/github/#action-find">
+                    <span class="logo-tile"><img src="/assets/platforms/github-invertocat-black.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">GitHub</span>
+                    <span class="caption">GitHub API</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="action-group" id="views-action-analytics" data-action-group="analytics">
+              <h3 id="views-action-analytics-title" class="h3">Analytics</h3>
+              <p class="caption muted">Record reach figures so you can watch the trend.</p>
+              <ul class="plat-row">
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/linkedin/#action-analytics">
+                    <span class="logo-tile"><img src="/assets/platforms/linkedin-in-bug.png" alt="" width="28" height="28"></span>
+                    <span class="ui">LinkedIn</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/x/#action-analytics">
+                    <span class="logo-tile"><img src="/assets/platforms/x-logo-black.png" alt="" width="28" height="28"></span>
+                    <span class="ui">X (Twitter)</span>
+                    <span class="caption">Your browser</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="platform" href="/docs/reference/platforms/bluesky/#action-analytics">
+                    <span class="logo-tile"><img src="/assets/platforms/bluesky-butterfly-blue.svg" alt="" width="28" height="28"></span>
+                    <span class="ui">Bluesky</span>
+                    <span class="caption">Bluesky API</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+        <div class="integrations-catalog" data-action-filter>
         <nav id="action-filter" class="action-filter" aria-label="Filter by action">
           <p class="label">By action</p>
           <div class="action-filter-picks">
@@ -705,6 +1299,7 @@
             </li>
           </ul>
         </section>
+        </div>
       </div>
     </main>
 
@@ -772,6 +1367,7 @@
 
 <script src="/js/action-filter.bundle.min.6cbe9bfd5bdb82ccf3e70ae8f177e8a6dde8c5a54f69e0bcbd869c8903308604.js" defer></script>
 
+    <script src="/js/home-signal.min.4a7546f141c2fb46e1df1d925b35942fd88ff8b45d4895b1fa6c5ad99f291b86.js" defer></script>
 
     <script src="/js/code-card.min.681cde1d563b320da97fa3f2c094be9469b193e726a2734eb3eb264d3a5e33e4.js" defer></script>
     <script type="application/json" id="docs-events">{"$schema":"../schemas/docs_events.schema.json","attribution_params":["first_source","first_medium","first_campaign","first_content","first_term","first_referrer_host","landing_guide","landing_page"],"clients":{"chatgpt":"ChatGPT","claude-code":"Claude Code","claude-desktop":"Claude Desktop","cline":"Cline","cursor":"Cursor","gemini-cli":"Gemini CLI","goose":"Goose","openai-codex-cli":"OpenAI Codex CLI","vs-code":"VS Code with GitHub Copilot","vs-code-with-github-copilot":"VS Code with GitHub Copilot","windsurf-devin-desktop":"Windsurf (Devin Desktop)","zed":"Zed"},"consent_event":"blowhorn:consent","consent_key":"blowhorn-consent","default_client":"general","events":{"docs_guide_view":{"description":"A tracked guide was viewed after consent: once per page load.","params":["page_path","guide","client"]},"docs_outbound_click":{"description":"A link to npm, an MCP registry or a Blowhorn download was followed.","params":["page_path","client","link_kind","link_url"]},"docs_snippet_copy":{"description":"The copy button on a code card was pressed. Never carries the copied text.","params":["page_path","client","snippet_kind","snippet_title"]}},"internal_hosts":["blowhorn.ai","www.blowhorn.ai"],"outbound":[{"hosts":["npmjs.com","www.npmjs.com","registry.npmjs.org"],"kind":"npm"},{"hosts":["registry.modelcontextprotocol.io"],"kind":"registry"},{"hosts":["github.com"],"kind":"registry","paths":["^/mcp(/|$)"]},{"hosts":["github.com"],"kind":"download","paths":["^/blowhorn-ai/[^/]+/releases(/|$)"]},{"hosts":["blowhorn.ai","www.blowhorn.ai"],"kind":"download","paths":["^/download/"]}],"pages":["/docs/how-to/set-up/connect-mcp-client/","/docs/reference/mcp-server/","/docs/reference/python-client/","/docs/tutorials/first-mcp-connection/","/docs/explanation/mcp-and-safety/","/ai/mcp/"],"snippet_kinds":{"bash":"shell","console":"shell","json":"json","sh":"shell","shell":"shell","text":"text","toml":"toml","yaml":"yaml","yml":"yaml","zsh":"shell"},"storage_key":"blowhorn-docs-attribution","utm_params":["utm_source","utm_medium","utm_campaign","utm_content","utm_term"]}</script>
