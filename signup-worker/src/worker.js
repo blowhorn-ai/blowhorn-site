@@ -1,4 +1,5 @@
-// Blowhorn signup service: coming-soon waitlists and the Blowhorn newsletter.
+// Blowhorn signup service: coming-soon waitlists, the Blowhorn newsletter and
+// the support page's contact form (/api/support).
 //
 // Served at https://api.blowhorn.ai (custom domain). A blowhorn.ai/api/*
 // route was dropped: the apex is DNS-only, so such a route can never
@@ -7,12 +8,13 @@
 // ship email and newsletter email carries an unsubscribe link built from
 // the row token.
 //
-// Storage: one Cloudflare D1 table, signups (see migrations/0001_init.sql).
-// The db object is a small adapter over the D1 binding (d1Db) so tests can
-// inject an in-memory fake with the same six methods.
+// Storage: Cloudflare D1 tables signups and support_messages (see
+// migrations/). The db object is a small adapter over the D1 binding (d1Db)
+// so tests can inject an in-memory fake with the same methods.
 
 export const SITE_ORIGIN = 'https://blowhorn.ai';
 export const THANKS_URL = `${SITE_ORIGIN}/coming-soon/thanks/`;
+export const SUPPORT_THANKS_URL = `${SITE_ORIGIN}/support/thanks/`;
 
 const RATE_LIMIT_PER_MINUTE = 30;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,6 +23,10 @@ const TOKEN_RE = /^[A-Za-z0-9_-]+$/;
 const MAX_EMAIL = 254;
 const MAX_REMARK = 500;
 const MAX_SOURCE_PAGE = 500;
+const MAX_NAME = 100;
+const MAX_SUBJECT = 200;
+const MAX_MESSAGE = 5000;
+const MAX_DETAILS = 5000;
 export const MAX_BODY_BYTES = 10 * 1024;
 
 function randomToken() {
@@ -74,6 +80,21 @@ export function d1Db(db) {
       await db
         .prepare('UPDATE signups SET unsubscribed_at = ?1 WHERE token = ?2')
         .bind(new Date().toISOString(), token)
+        .run();
+    },
+    async insertSupportMessage(row) {
+      const res = await db
+        .prepare(
+          'INSERT INTO support_messages (name, email, subject, message, details, created_at, source_page) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)',
+        )
+        .bind(row.name, row.email, row.subject, row.message, row.details, row.created_at, row.source_page)
+        .run();
+      return res.meta && typeof res.meta.last_row_id === 'number' ? res.meta.last_row_id : null;
+    },
+    async markSupportForwarded(id) {
+      await db
+        .prepare('UPDATE support_messages SET forwarded_at = ?1 WHERE id = ?2')
+        .bind(new Date().toISOString(), id)
         .run();
     },
   };
@@ -186,6 +207,10 @@ async function readFields(request) {
       website: body.website,
       source_page: body.source_page,
       token: body.token,
+      name: body.name,
+      subject: body.subject,
+      message: body.message,
+      details: body.details,
     };
   }
 
@@ -203,6 +228,10 @@ async function readFields(request) {
       website: params.get('website'),
       source_page: params.get('source_page'),
       token: params.get('token'),
+      name: params.get('name'),
+      subject: params.get('subject'),
+      message: params.get('message'),
+      details: params.get('details'),
     };
   }
 
@@ -226,6 +255,10 @@ async function readFields(request) {
       website: form.get('website'),
       source_page: form.get('source_page'),
       token: form.get('token'),
+      name: form.get('name'),
+      subject: form.get('subject'),
+      message: form.get('message'),
+      details: form.get('details'),
     };
   }
 
@@ -266,7 +299,59 @@ function validateSignup(kind, fields) {
   return { email, topic, remark, sourcePage };
 }
 
-export function createHandler(db) {
+function validateSupport(fields) {
+  const name = typeof fields.name === 'string' ? fields.name.trim() : '';
+  if (!name || name.length > MAX_NAME) return { error: 'Enter your name (100 characters max).' };
+  const email = typeof fields.email === 'string' ? fields.email.trim().toLowerCase() : '';
+  if (!email || email.length > MAX_EMAIL || !EMAIL_RE.test(email)) return { error: 'Enter a valid email address.' };
+  const subject = typeof fields.subject === 'string' ? fields.subject.trim() : '';
+  if (!subject || subject.length > MAX_SUBJECT) return { error: 'Enter a subject (200 characters max).' };
+  const message = typeof fields.message === 'string' ? fields.message.trim() : '';
+  if (!message || message.length > MAX_MESSAGE) return { error: 'Enter a message (5,000 characters max).' };
+  const details = typeof fields.details === 'string' ? fields.details.trim() : '';
+  if (details.length > MAX_DETAILS) return { error: 'The details are too long (5,000 characters max).' };
+  const sourcePage = typeof fields.source_page === 'string' ? fields.source_page.trim().slice(0, MAX_SOURCE_PAGE) : '';
+  return { name, email, subject, message, details, sourcePage };
+}
+
+// The support queue lives in Layer5 Cloud's public marketing form API as the
+// blowhorn-support form type (POST /api/marketing/forms/blowhorn-support:
+// email, name, subject, message; no scope). The forward is best-effort: the
+// D1 row is the record, and a failed forward leaves forwarded_at NULL so the
+// message can be replayed once the queue accepts it.
+async function forwardSupport(forward, valid) {
+  if (!forward || !forward.url) return { attempted: false, ok: false };
+  const body = {
+    email: valid.email,
+    name: valid.name,
+    subject: `[Blowhorn support] ${valid.subject}`,
+    message: valid.details
+      ? `${valid.message}\n\nWhat was run / what it printed:\n${valid.details}`
+      : valid.message,
+  };
+  try {
+    const res = await forward.fetchImpl(forward.url, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', accept: 'application/json' },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(10000),
+    });
+    return { attempted: true, ok: res.ok };
+  } catch {
+    return { attempted: true, ok: false };
+  }
+}
+
+// SUPPORT_FORWARD_URL in wrangler.json [vars] wires the forward. An empty
+// SUPPORT_FORWARD_URL stores to D1 only.
+function supportForwardFromEnv(env) {
+  const url = env && typeof env.SUPPORT_FORWARD_URL === 'string' ? env.SUPPORT_FORWARD_URL.trim() : '';
+  if (!url) return null;
+  return { url, fetchImpl: fetch };
+}
+
+export function createHandler(db, options = {}) {
+  const forward = options.forward || null;
   return async function handle(request) {
     const url = new URL(request.url);
     if (request.method === 'OPTIONS' && url.pathname.startsWith('/api/')) {
@@ -283,9 +368,10 @@ export function createHandler(db) {
     }
     const isWaitlist = request.method === 'POST' && url.pathname === '/api/waitlist';
     const isSubscribe = request.method === 'POST' && url.pathname === '/api/subscribe';
+    const isSupport = request.method === 'POST' && url.pathname === '/api/support';
     const isUnsubscribeGet = request.method === 'GET' && url.pathname === '/api/unsubscribe';
     const isUnsubscribePost = request.method === 'POST' && url.pathname === '/api/unsubscribe';
-    if (!isWaitlist && !isSubscribe && !isUnsubscribeGet && !isUnsubscribePost) {
+    if (!isWaitlist && !isSubscribe && !isSupport && !isUnsubscribeGet && !isUnsubscribePost) {
       return new Response('Not found\n', {
         status: 404,
         headers: { 'content-type': 'text/plain; charset=utf-8', ...SECURITY_HEADERS },
@@ -391,6 +477,45 @@ export function createHandler(db) {
       );
     }
 
+    if (isSupport) {
+      const supportFields = await readFields(request);
+      if (supportFields && supportFields.tooLarge) {
+        return fail(request, 413, 'Payload too large.', null);
+      }
+      if (!supportFields) return fail(request, 400, 'Could not read the message.', null);
+      // Honeypot: a filled trap field means a bot. Answer success without storing.
+      if (typeof supportFields.website === 'string' && supportFields.website.trim() !== '') {
+        if (isFormPost(request)) return Response.redirect(SUPPORT_THANKS_URL, 303);
+        return jsonResponse(request, 200, { ok: true });
+      }
+      const validSupport = validateSupport(supportFields);
+      if (validSupport.error) return fail(request, 400, validSupport.error, validSupport.sourcePage || supportFields.source_page);
+      let supportId = null;
+      try {
+        supportId = await db.insertSupportMessage({
+          name: validSupport.name,
+          email: validSupport.email,
+          subject: validSupport.subject,
+          message: validSupport.message,
+          details: validSupport.details,
+          created_at: new Date().toISOString(),
+          source_page: validSupport.sourcePage,
+        });
+      } catch {
+        return fail(request, 500, 'Something went wrong.', validSupport.sourcePage);
+      }
+      const forwarded = await forwardSupport(forward, validSupport);
+      if (forwarded.attempted && forwarded.ok && supportId !== null) {
+        try {
+          await db.markSupportForwarded(supportId);
+        } catch {
+          // The row stands either way; only the replay marker is lost.
+        }
+      }
+      if (isFormPost(request)) return Response.redirect(SUPPORT_THANKS_URL, 303);
+      return jsonResponse(request, 200, { ok: true });
+    }
+
     const kind = isWaitlist ? 'waitlist' : 'newsletter';
     const fields = await readFields(request);
     if (fields && fields.tooLarge) {
@@ -445,7 +570,7 @@ export function createScheduledHandler(db, clock = () => Date.now()) {
 
 export default {
   fetch(request, env) {
-    return createHandler(d1Db(env.SIGNUPS_DB))(request);
+    return createHandler(d1Db(env.SIGNUPS_DB), { forward: supportForwardFromEnv(env) })(request);
   },
   scheduled(event, env) {
     return createScheduledHandler(d1Db(env.SIGNUPS_DB))(event);
