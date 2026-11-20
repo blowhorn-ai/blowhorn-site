@@ -3,7 +3,7 @@
 > Blowhorn is a social media console that takes one message and broadcasts, reposts and amplifies it across every profile and platform your community runs, on autopilot. Runs on your computer.
 
 ## Pages
-- [Blowhorn: one message, many ears](https://blowhorn.ai/index.md): Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.
+- [Blowhorn: not a bot, it's you](https://blowhorn.ai/index.md): Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.
 - [Try Blowhorn in your browser](https://blowhorn.ai/demo/index.md): The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.
 - [Pricing](https://blowhorn.ai/pricing/index.md): Blowhorn is free during early access, with no limits on voices or platforms. Paid plans aren't set yet. Here's what a voice is and how plans will count them.
 - [Your voice, on every front](https://blowhorn.ai/showcase/index.md): Blowhorn is a social media console that runs on your own computer. See what it does, how the four formations work, and where it posts.
@@ -17,6 +17,12 @@
 
 - [blowhorn-axi](https://blowhorn.ai/ai/blowhorn-axi/index.md): blowhorn-axi lets AI agents use Blowhorn. Compact answers built for agents, rehearsal before every action and clear next steps when something goes wrong. Runs on your computer with Node 18 or later.
 - [Blowhorn MCP server](https://blowhorn.ai/ai/mcp/index.md): The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.
+
+## Support
+- [Support](https://blowhorn.ai/support/index.md): Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
+
+
+- [Thanks](https://blowhorn.ai/support/thanks/index.md): Your support message reached the Blowhorn team.
 
 ## The Field Manual
 - [The Field Manual](https://blowhorn.ai/field-manual/index.md): What LinkedIn, X, Reddit and other social feeds reward and penalize, in plain language, with a source for every claim. Hard-won lessons from Major Blowhorn so you can claim victory.
