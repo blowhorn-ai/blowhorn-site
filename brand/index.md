@@ -3,7 +3,7 @@
 > The logo, the colors, the type and one opinionated rooster. Everything you need to show Blowhorn off without upsetting him.
 
 - Download full brand kit: [https://blowhorn.ai/brand/blowhorn-brand-kit.zip](https://blowhorn.ai/brand/blowhorn-brand-kit.zip) (ZIP, 44 MB). Logos, colors, type, usage rules, Major Blowhorn, the troops, Old Thunderlung, the scenes and the launch press graphics.
-- Download logos only: [https://blowhorn.ai/brand/blowhorn-logo-kit.zip](https://blowhorn.ai/brand/blowhorn-logo-kit.zip) (ZIP, 2.4 MB). Logos, icons and wordmarks in SVG and PNG, light and dark.
+- Download logos only: [https://blowhorn.ai/brand/blowhorn-logo-kit.zip](https://blowhorn.ai/brand/blowhorn-logo-kit.zip) (ZIP, 2.2 MB). Logos, icons and wordmarks in SVG and PNG, light and dark.
 
 ## Logo
 
@@ -19,8 +19,6 @@ The Crowhorn: a megaphone that is also a rooster. Use the horizontal lockup unle
 - [One color, white](https://blowhorn.ai/assets/brand/logo/blowhorn-icon-mono-white.svg): On dark photos and busy grounds
 - [Wordmark](https://blowhorn.ai/assets/brand/logo/blowhorn-wordmark.svg): Outlined art, never a font
 - [Wordmark, on dark](https://blowhorn.ai/assets/brand/logo/blowhorn-wordmark-white.svg): White, for dark grounds
-- [Company lockup](https://blowhorn.ai/assets/brand/logo/layer5-blowhorn-lockup.svg): The formal lockup, with the company mark
-- [Company lockup, on dark](https://blowhorn.ai/assets/brand/logo/layer5-blowhorn-lockup-on-dark.svg): The same, after hours
 - [One-color lockup, charcoal](https://blowhorn.ai/assets/brand/logo/blowhorn-lockup-horizontal-mono-charcoal.svg): For teal and busy light grounds
 - [One-color lockup, white](https://blowhorn.ai/assets/brand/logo/blowhorn-lockup-horizontal-mono-white.svg): For busy dark grounds
 
