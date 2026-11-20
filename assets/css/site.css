@@ -4028,3 +4028,58 @@ a.docs-card.platform-card[href$="/facebook/"]::before { background-image: url(".
 .docs-contributor-link:hover { color: var(--link); }
 .docs-contributor-sep { color: var(--line); }
 .docs-contributor-plain { color: var(--ink-muted); }
+
+/* ---------- Support page (/support/) ---------- */
+.support-contact-grid {
+  display: grid;
+  gap: var(--grid-gap);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .support-contact-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+}
+.support-contact-aside > * + * { margin-top: var(--stack-gap); }
+.support-contact-aside .label { margin: 0; }
+.support-mail { font-size: 18px; line-height: 28px; }
+.support-form-card { max-width: 44rem; }
+.support-form { display: grid; gap: var(--stack-gap); }
+.support-form-pair {
+  margin: 0;
+  display: grid;
+  gap: var(--stack-gap);
+}
+@media (min-width: 720px) {
+  .support-form-pair { grid-template-columns: 1fr 1fr; gap: var(--grid-gap); }
+}
+.support-form-field { margin: 0; display: grid; gap: var(--space-2); }
+.support-form-field label { color: var(--ink); font-weight: 500; }
+.support-form input,
+.support-form textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--glass-field);
+  color: var(--ink);
+  font: inherit;
+}
+.support-form input { height: 44px; }
+.support-form textarea { resize: vertical; }
+.support-form input::placeholder,
+.support-form textarea::placeholder { color: var(--ink-muted); }
+.support-form-actions { margin: 0; }
+.support-links { padding: 0; list-style: none; }
+.support-links li { display: grid; }
+.support-links a { text-decoration: none; color: var(--ink); }
+.support-links a .h3 { color: var(--ink); }
+.support-links a:hover .h3 { color: var(--link); }
+.support-links a > * { margin-top: 0; }
+.support-major {
+  display: grid;
+  gap: var(--grid-gap);
+  align-items: center;
+}
+@media (min-width: 720px) {
+  .support-major { grid-template-columns: 12rem 1fr; }
+}
+.support-major-art { width: 12rem; height: auto; }
