@@ -63,6 +63,16 @@ function fakeDb() {
       const row = byToken.get(token);
       if (row) row.unsubscribed_at = '2026-10-27T00:00:00.000Z';
     },
+    supportRows: [],
+    async insertSupportMessage(row) {
+      const full = { ...row, id: this.supportRows.length + 1, forwarded_at: null };
+      this.supportRows.push(full);
+      return full.id;
+    },
+    async markSupportForwarded(id) {
+      const row = this.supportRows.find((r) => r.id === id);
+      if (row) row.forwarded_at = '2026-11-20T00:00:00.000Z';
+    },
   };
 }
 
@@ -756,4 +766,158 @@ test('oversized chunked multipart/form-data returns 413', async () => {
   const html = await res.text();
   assert.match(html, /Payload too large/);
   assert.equal(db.rows.size, 0);
+});
+
+function supportBody(overrides = {}) {
+  return {
+    name: 'Ada Lovelace',
+    email: 'ada@example.com',
+    subject: 'Cannot sign in',
+    message: 'The app refuses my profile.',
+    details: 'blowhorn login\nexit code 3',
+    source_page: '/support/',
+    ...overrides,
+  };
+}
+
+test('support message stores one row and forwards to the queue', async () => {
+  const db = fakeDb();
+  const calls = [];
+  const forward = {
+    url: 'https://cloud.example.test/api/marketing/forms/blowhorn-support',
+    fetchImpl: async (url, init) => {
+      calls.push({ url, body: JSON.parse(init.body) });
+      return { ok: true };
+    },
+  };
+  const res = await createHandler(db, { forward })(post('/api/support', supportBody()));
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { ok: true });
+  assert.equal(db.supportRows.length, 1);
+  const row = db.supportRows[0];
+  assert.equal(row.name, 'Ada Lovelace');
+  assert.equal(row.email, 'ada@example.com');
+  assert.equal(row.subject, 'Cannot sign in');
+  assert.equal(row.details, 'blowhorn login\nexit code 3');
+  assert.equal(row.source_page, '/support/');
+  assert.ok(row.forwarded_at);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, forward.url);
+  assert.equal(calls[0].body.email, 'ada@example.com');
+  assert.equal(calls[0].body.name, 'Ada Lovelace');
+  assert.equal(calls[0].body.subject, '[Blowhorn support] Cannot sign in');
+  assert.match(calls[0].body.message, /The app refuses my profile\./);
+  assert.match(calls[0].body.message, /exit code 3/);
+  assert.deepEqual(Object.keys(calls[0].body).sort(), ['email', 'message', 'name', 'subject']);
+});
+
+test('support form post redirects to the support thanks page', async () => {
+  const db = fakeDb();
+  const res = await createHandler(db)(formPost('/api/support', supportBody()));
+  assert.equal(res.status, 303);
+  assert.equal(res.headers.get('location'), 'https://blowhorn.ai/support/thanks/');
+  assert.equal(db.supportRows.length, 1);
+});
+
+test('support validation rejects missing and over-long fields', async () => {
+  const db = fakeDb();
+  const handle = createHandler(db);
+  for (const body of [
+    supportBody({ name: '' }),
+    supportBody({ name: 'x'.repeat(101) }),
+    supportBody({ email: 'not-an-email' }),
+    supportBody({ subject: '' }),
+    supportBody({ subject: 'x'.repeat(201) }),
+    supportBody({ message: '' }),
+    supportBody({ message: 'x'.repeat(5001) }),
+    supportBody({ details: 'x'.repeat(5001) }),
+  ]) {
+    const res = await handle(post('/api/support', body));
+    assert.equal(res.status, 400);
+    assert.equal((await res.json()).ok, false);
+  }
+  assert.equal(db.supportRows.length, 0);
+});
+
+test('support honeypot answers success without storing or forwarding', async () => {
+  const db = fakeDb();
+  let called = 0;
+  const forward = {
+    url: 'https://cloud.example.test/api/marketing/forms/blowhorn-support',
+    fetchImpl: async () => {
+      called += 1;
+      return { ok: true };
+    },
+  };
+  const res = await createHandler(db, { forward })(
+    post('/api/support', supportBody({ website: 'http://spam' })),
+  );
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { ok: true });
+  assert.equal(db.supportRows.length, 0);
+  assert.equal(called, 0);
+  const formRes = await createHandler(db, { forward })(
+    formPost('/api/support', supportBody({ website: 'http://spam' })),
+  );
+  assert.equal(formRes.status, 303);
+  assert.equal(db.supportRows.length, 0);
+});
+
+test('a failed forward keeps the row and leaves forwarded_at null', async () => {
+  const db = fakeDb();
+  const forward = {
+    url: 'https://cloud.example.test/api/marketing/forms/blowhorn-support',
+    fetchImpl: async () => ({ ok: false, status: 401 }),
+  };
+  const res = await createHandler(db, { forward })(post('/api/support', supportBody()));
+  assert.equal(res.status, 200);
+  assert.equal(db.supportRows.length, 1);
+  assert.equal(db.supportRows[0].forwarded_at, null);
+  const throwing = {
+    url: 'https://cloud.example.test/api/marketing/forms/blowhorn-support',
+    fetchImpl: async () => {
+      throw new Error('network down');
+    },
+  };
+  const res2 = await createHandler(db, { forward: throwing })(
+    post('/api/support', supportBody({ email: 'b@example.com' })),
+  );
+  assert.equal(res2.status, 200);
+  assert.equal(db.supportRows.length, 2);
+  assert.equal(db.supportRows[1].forwarded_at, null);
+});
+
+test('no forward configured stores only', async () => {
+  const db = fakeDb();
+  const res = await createHandler(db, { forward: null })(post('/api/support', supportBody()));
+  assert.equal(res.status, 200);
+  assert.equal(db.supportRows.length, 1);
+  assert.equal(db.supportRows[0].forwarded_at, null);
+});
+
+test('the forward sends the full name as typed', async () => {
+  const db = fakeDb();
+  const calls = [];
+  const forward = {
+    url: 'https://cloud.example.test/api/marketing/forms/blowhorn-support',
+    fetchImpl: async (url, init) => {
+      calls.push(JSON.parse(init.body));
+      return { ok: false, status: 400 };
+    },
+  };
+  await createHandler(db, { forward })(post('/api/support', supportBody({ name: 'Madonna' })));
+  assert.equal(calls[0].name, 'Madonna');
+  assert.deepEqual(Object.keys(calls[0]).sort(), ['email', 'message', 'name', 'subject']);
+  assert.equal(db.supportRows[0].forwarded_at, null);
+});
+
+test('support shares the per-IP rate limit', async () => {
+  const db = fakeDb();
+  const handle = createHandler(db);
+  let last;
+  for (let i = 0; i < 31; i += 1) {
+    last = await handle(post('/api/support', supportBody(), { 'cf-connecting-ip': '203.0.113.9' }));
+  }
+  assert.equal(last.status, 429);
+  assert.equal(db.supportRows.length, 30);
 });
