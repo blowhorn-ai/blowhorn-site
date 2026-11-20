@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshow-to-li">
@@ -590,14 +590,16 @@
   <h1 class="h1">How the MCP server keeps you in control</h1>
   <p class="body-lg docs-lead">How the MCP server, the CLI, dry runs, confirms and approvals fit together when an AI assistant drives Blowhorn.</p>
   <p>An AI assistant that connects to Blowhorn over MCP gets no powers of
-its own. It gets the commands you already run, with the same rules
-around them, and a few more on top. This page explains how those
-pieces fit together. The setup steps are in <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant
-over MCP</a>, and the exact rules
-are in the <a href="/docs/reference/mcp-server/">MCP server reference</a>.</p>
-<h2 id="a-thin-layer-over-the-cli">A thin layer over the CLI</h2><p>The MCP server holds no Blowhorn logic. When an assistant calls a
-tool, the server runs the matching <code>blowhorn</code> command on your computer
-and hands back what it printed. There is one tool per command, built
+its own. The hosted server at <code>https://mcp.blowhorn.ai/mcp</code> serves four
+read-only tools. Writes you make in the app, or through the CLI, keep
+the rules below. This page explains how those pieces fit together. The
+setup steps are in <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over
+MCP</a>, and the exact rules are
+in the <a href="/docs/reference/mcp-server/">MCP server reference</a>.</p>
+<h2 id="a-thin-layer-over-the-cli">A thin layer over the CLI</h2><p>The desktop app's process holds no Blowhorn logic of its own. When it
+runs a tool, it runs the matching <code>blowhorn</code> command on your computer
+and hands back what it printed. The hosted server does not do that:
+its four tools are reads served by Cloud. There is one tool per command, built
 from the same command descriptions the CLI reference is built from,
 except a few that are hidden by default (see below). A new command
 becomes a new tool the next time the server starts.</p>
@@ -667,27 +669,31 @@ an empty value, or a value from a fixed list, such as whether a token
 is set, comes through as it is, so the assistant can still tell what
 is configured. It never logs a tool's arguments, because
 an argument can itself be a secret.</p>
-<h2 id="local-today-hosted-next">Local today, hosted next</h2><p>This server runs on your own computer over stdio. Your client starts
-it as a local process, and it acts with your sign-ins on that
-computer. That is why there is no OAuth step: nothing travels over a
-network to reach it.</p>
-<p>Clients that only connect to remote servers, such as ChatGPT on the
-web, cannot use it. A hosted Blowhorn MCP server is coming for them,
-with its own sign-in. The same rules will hold there: dry run first,
-confirm to act, and approvals kept for a person.</p>
+<h2 id="the-hosted-server">The hosted server</h2><p>Clients connect to the hosted server at <code>https://mcp.blowhorn.ai/mcp</code>
+(Streamable HTTP). The steps are in <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over
+MCP</a>. Sign-in is OAuth 2.1 with
+dynamic client registration and PKCE, or a Bearer Cloud API token. The
+tools today are read-only: <code>listContentItems</code>, <code>getContentItem</code>,
+<code>getEvents</code> and <code>getConnections</code>. A request to post or change anything
+has no tool there.</p>
+<p>The desktop app also ships a process that runs on your computer over
+stdio. That process is not the way to connect a client. Approvals for
+writes you make in the app, or through the CLI, still follow the rules
+above.</p>
 <h2 id="related">Related</h2><ul>
 <li><a href="/docs/explanation/youre-in-control/">You're in control</a> - every safety control in
 one place, and what changes when an AI agent is driving</li>
 <li><a href="/docs/reference/mcp-server/">MCP server reference</a> - the tools, the
 options and the safety rules in full</li>
-<li><a href="/docs/tutorials/first-mcp-connection/">Connect an assistant and send your first
-post</a> - try it end to end</li>
+<li><a href="/docs/tutorials/first-mcp-connection/">Connect an assistant and read your
+queue</a> - try the hosted server
+end to end</li>
 </ul>
 
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/explanation/mcp-and-safety.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -736,7 +742,7 @@ post</a> - try it end to end</li>
     <li><a href="#some-tools-stay-out-of-reach">Some tools stay out of reach</a></li>
     <li><a href="#approvals-stay-with-a-person">Approvals stay with a person</a></li>
     <li><a href="#secrets-stay-out-of-the-conversation">Secrets stay out of the conversation</a></li>
-    <li><a href="#local-today-hosted-next">Local today, hosted next</a></li>
+    <li><a href="#the-hosted-server">The hosted server</a></li>
     <li><a href="#related">Related</a></li>
   </ul>
 </nav>

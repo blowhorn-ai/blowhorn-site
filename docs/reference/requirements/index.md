@@ -10,8 +10,8 @@ or newer and Google Chrome 142 or newer.
 
 | Need | Requirement | Checked by |
 |---|---|---|
-| macOS | 13 or newer, Apple silicon or Intel (one universal build) | The build declares the floor; Setup checks the rest |
-| Google Chrome | 142 or newer, the real Google Chrome (not Chromium), installed and signed in | Setup, "chrome profiles" row; `blowhorn chrome status` |
+| macOS | 13 or newer, Apple silicon or Intel (one universal build) | The desktop build declares the floor (`minimumSystemVersion` 13.0). Guided setup does not check the macOS version |
+| Google Chrome | 142 or newer, the real Google Chrome (not Chromium), installed, opened once, and signed in | Guided setup, before the welcome; `blowhorn chrome status` |
 | Engine | Bundled in the app, with its own Python; nothing to install | Setup, "Blowhorn folder" and "helper tools" rows |
 | Account | A Blowhorn account your profile belongs to | Setup, "organization connection" row; `blowhorn store` |
 | Background runs | The background service, registered from the app | Setup, "this computer on duty" row |

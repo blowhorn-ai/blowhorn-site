@@ -1603,7 +1603,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn accept`](/docs/reference/cli/accept/) | Accept pending LinkedIn connection invitations other people have sent you, one at a time with a randomized pause between each. |
 | [`blowhorn analytics`](/docs/reference/cli/analytics/) | blowhorn analytics: activities, activity, history, import-exports, operations, pages. |
 | [`blowhorn auth`](/docs/reference/cli/auth/) | blowhorn auth: anonymous-usage-stats, login, logout, share-activity-publicly, status, switch-organization. |
-| [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: active-tab, attach-chrome, confirm, create-profile, discover, extension-enable, extension-install, extension-mode, extension-status, map, open-profile, profiles, remember, spaces-setup, status, suggest, unmap. |
+| [`blowhorn chrome`](/docs/reference/cli/chrome/) | blowhorn chrome: active-tab, attach-chrome, confirm, create-profile, discover, extension-enable, extension-install, extension-mode, extension-status, map, open, open-profile, profiles, remember, spaces-setup, status, suggest, unmap. |
 | [`blowhorn classify-url`](/docs/reference/cli/classify-url/) | Say what a link is, by the platform rules the engine keeps. |
 | [`blowhorn comment`](/docs/reference/cli/comment/) | Post LinkedIn, Reddit, or Bluesky comments from scheduled activities or ad-hoc target/message flags. |
 | [`blowhorn config`](/docs/reference/cli/config/) | blowhorn config: get, path, set, show. |
@@ -2156,7 +2156,8 @@ Blowhorn on uses it. If your organization cannot keep it yet, it is saved on
 this computer only: the command says `scope: this_computer` with the reason,
 the app says so in one line under the grid, and the chip's slider reads
 **Set here, on this computer only**. Each grid cell shows only its rules of
-engagement (Warming, Safety on, Weapons tight or Weapons free); hold the
+engagement (Safety on, Weapons tight or Weapons free), or Warming with the
+preset it returns to under it; hold the
 pointer over a chip to see where its choice comes from. Your organization's choice for that platform comes
 first, so when it already has one, the command says it still applies on
 every computer and this computer's choice has no effect until an
@@ -2293,7 +2294,13 @@ A new profile or a new Mac runs under Safety on for scheduled jobs until it
 has history - 14 days, whatever preset you picked. Its caps ramp over
 those 14 days, from about a quarter of Safety on's caps on day one
 (about 1 LinkedIn post a day) to Safety on's full caps by day 14, and
-only then does your chosen preset take over. A profile idle longer
+only then does your chosen preset take over. You can still choose a preset
+while a profile warms up: on the Posture screen its cells keep reading
+**Warming**, and the line under each chip names the preset you chose
+("then Weapons free"), which takes over when the warm-up ends. The 14 days start at the
+first run that reached the platform: a run that failed before it did
+anything there, such as one stopped because Chrome was missing, does not
+start them. A profile idle longer
 than the 15-day ledger window warms up again. A run you start yourself
 is not held by the warmup, only warned about, and it follows your
 chosen preset's caps, quiet hours and outreach.
@@ -2369,178 +2376,81 @@ Blowhorn reads them again on a schedule.
 
 
 --------------------------------------------------------------------------------
-title: "Connect an assistant and send your first post"
+title: "Connect an assistant and read your queue"
 url: https://blowhorn.ai/docs/tutorials/first-mcp-connection/index.md
-description: Add the Blowhorn MCP server to Claude Desktop, read your profiles and queue, and queue a post that waits for your approval.
+description: Add Blowhorn's hosted MCP server to Claude Desktop and ask it to read your content items.
 --------------------------------------------------------------------------------
 
-In this tutorial you connect Claude Desktop to Blowhorn over MCP. You
-ask it to read your profiles and your queue. Then you ask it to draft
-a post and queue it. You see the dry run first, you confirm it, and
-the post lands in your queue waiting for your approval. Nothing is
-published. It takes about ten minutes.
+In this tutorial you connect Claude Desktop to Blowhorn's hosted MCP
+server. You ask it which tools it has, then you ask it to read your
+content items. Nothing is posted or changed. It takes a few minutes.
 
 ## Before you start
 
 You need:
 
-- A Mac with the Blowhorn app, version 1.61.0 or later, installed and
-  signed in to your Blowhorn account. See [Install the
-  app](/docs/how-to/set-up/install-the-app/).
-- At least one profile signed in to LinkedIn, and mapped to its
-  Google Chrome profile. See [Sign a profile in to each
-  platform](/docs/how-to/set-up/platform-accounts/).
+- A Blowhorn account.
 - Claude Desktop, installed and signed in.
+- A Blowhorn API token, if Claude Desktop does not finish the OAuth
+  sign-in. The steps are in [Get a Blowhorn API
+  token](/docs/how-to/set-up/connect-mcp-client/#get-a-blowhorn-api-token).
 
-## 1. Check the blowhorn-mcp command {#section-1-check-the-blowhorn-mcp-command}
+## 1. Add the hosted server {#section-1-add-the-hosted-server}
 
-1. Open the Blowhorn app once, then quit it if you like.
-2. Open Terminal.
-3. Run:
-
-   ```bash
-   ~/.local/bin/blowhorn-mcp --version
-   ```
-
-You see the Blowhorn version number. If you see
-`No such file or directory`, update the app to 1.61.0 or later and
-open it again.
-
-## 2. Add Blowhorn to Claude Desktop {#section-2-add-blowhorn-to-claude-desktop}
-
-1. In Claude Desktop, open Settings > Developer > Edit Config.
-2. Replace the file's contents with this entry. Put your macOS user
-   name in place of `<you>`:
+1. In Claude Desktop, open **Settings**, then **Developer**, then
+   **Edit Config**.
+2. Add this entry to `claude_desktop_config.json`. If Claude Desktop
+   completes OAuth for the URL, omit the `headers` object. Otherwise
+   replace `<token>` with your Blowhorn API token.
 
    ```json
    {
      "mcpServers": {
        "blowhorn": {
-         "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-         "args": []
+         "type": "http",
+         "url": "https://mcp.blowhorn.ai/mcp",
+         "headers": {
+           "Authorization": "Bearer <token>"
+         }
        }
      }
    }
    ```
 
-   If the file already lists other servers, add the `blowhorn` entry
-   beside them inside `mcpServers` instead.
-3. Save the file.
-4. Quit Claude Desktop fully, then open it again.
+3. Save the file and restart Claude Desktop.
 
-## 3. Check that it connected {#section-3-check-that-it-connected}
+The other clients, and what to do when sign-in fails, are in
+[Connect an AI assistant over
+MCP](/docs/how-to/set-up/connect-mcp-client/).
 
-Start a new chat and ask:
+## 2. Ask which tools it has {#section-2-ask-which-tools-it-has}
+
+In a new chat, ask:
 
 > Which Blowhorn tools do you have?
 
-Claude lists tools with names such as `profile_list`, `content_list`
-and `content_upsert`. There is one tool for each Blowhorn command,
-except a few that uninstall Blowhorn or sign you out, which stay
-hidden unless you turn them on.
+You should see four: `listContentItems`, `getContentItem`,
+`getEvents` and `getConnections`. If the list is empty, or the client
+says it cannot connect, check the URL and the token, then restart
+Claude Desktop. A `401` means the header is missing or the token is
+no longer valid.
 
-If Claude has no Blowhorn tools, see Troubleshooting in [Connect an AI
-assistant over MCP](/docs/how-to/set-up/connect-mcp-client/).
-
-## 4. Read your profiles and your queue {#section-4-read-your-profiles-and-your-queue}
+## 3. Read your content {#section-3-read-your-content}
 
 Ask:
 
-> List my Blowhorn profiles, then show me what is in my content queue.
+> List my content items and tell me the status of each one you can see.
 
-When Claude asks to use a tool, allow it. Claude calls `profile_list`
-and then `content_list`. Both only read, so they run as asked. You see
-your profiles by name, and each activity in the queue with its state.
+The assistant calls `listContentItems` and answers from that result.
+It cannot post, schedule, or edit. If you ask it to publish something,
+it should tell you this server has no write tool.
 
-Pick one profile name from the list. This tutorial calls it `<profile>`.
-
-## 5. Ask for a draft and queue it {#section-5-ask-for-a-draft-and-queue-it}
-
-Ask, with your profile name in place of `<profile>`:
-
-> Draft a short LinkedIn post for profile `<profile>` saying we are
-> trying out Blowhorn. Queue it with `content_upsert`, but leave
-> `Approved?` empty. Show me the dry run first.
-
-Claude calls `content_upsert`. A tool that changes anything runs as a
-dry run unless the call confirms it, so nothing is written yet. Claude
-tells you it was a dry run and shows the post. The tool's own result
-looks like this:
-
-```json
-{
-  "activity": null,
-  "dry_run": true,
-  "expected_fingerprint": null,
-  "ok": true,
-  "payload": {
-    "Message Text": "...",
-    "Platform": "linkedin",
-    "Profile": "<profile>"
-  }
-}
-```
-
-## 6. Review the dry run {#section-6-review-the-dry-run}
-
-Read the dry run. Check three things:
-
-- `Platform` is `linkedin`.
-- `Profile` is your profile.
-- `Message Text` is the post you want.
-
-There is no `Approved?` value, so the post will wait for you. If
-anything is wrong, ask Claude to change it and show the dry run again.
-
-## 7. Confirm it {#section-7-confirm-it}
-
-Ask:
-
-> That looks right. Run it again with confirm.
-
-Claude calls `content_upsert` again with `confirm` set to true. This
-time the activity is written. Claude reports the new activity's
-number and its state, `draft`. In the tool's result, `"created"` is
-true and `"state"` is `"draft"`.
-
-`draft` means the activity is not approved, so no run picks it up.
-
-## 8. See it in your queue {#section-8-see-it-in-your-queue}
-
-Ask:
-
-> Show me my content queue again.
-
-The new activity is in the list, in state `draft`. Open the Blowhorn
-app's Content screen and you see it there too, waiting for approval.
-
-## What you did
-
-You connected an assistant to Blowhorn, read your profiles and queue,
-and queued a post. The assistant saw a dry run before anything was
-written, and only your confirm wrote it. The post is still waiting for
-you. The assistant cannot approve it: the `content_approve` tool
-refuses an assistant in every approval mode.
-
-When you want the post to go out, approve it yourself in the app, as in
-[Approve a waiting
-activity](/docs/how-to/publish/manage-the-content-worksheet/#approve-a-waiting-activity).
-If you would rather not keep it, delete it from a terminal, with your
-activity number in place of `<number>`:
-
-```bash
-blowhorn content delete <number> --yes
-```
-
-## Next steps
+## Related
 
 - [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/) -
-  set up ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI, Zed,
-  Cline or Goose, and more example prompts
-- [How the MCP server keeps you in control](/docs/explanation/mcp-and-safety/) -
-  why dry runs, confirms and approvals work the way they do
-- [MCP server reference](/docs/reference/mcp-server/) - every tool and
-  option
+  the same hosted URL in every other client
+- [MCP server reference](/docs/reference/mcp-server/) - what the hosted
+  server serves
 
 
 --------------------------------------------------------------------------------
@@ -2698,7 +2608,9 @@ description: What each step of the desktop app's first-muster setup does, and wh
 The guided setup opens by itself the first time you open Blowhorn, and every
 time after that until you finish it. If you quit partway, or come back with
 Home's **Finish setting up**, it checks what is already done and opens
-straight on the first step that isn't, with one line saying so. It never asks
+straight on the first step that isn't, with one line saying so. You can also
+leave it on any step with **Skip Setup** at the bottom: that finishes setup,
+and it won't open again. It never asks
 whether to pick up first. If your sign-in ended, it asks you to sign in once,
 then picks up the same way. If you are signed out when you open Blowhorn, it
 starts at Sign in. Uninstalling removes that progress with the sign-in, so
@@ -2723,31 +2635,31 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   the waiting screen stops the wait right away - you never have to wait
   it out - and **Open it again** ends the old attempt and starts a fresh
   one. See [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/).
-- **Google Chrome first:** right after your account is set up, Blowhorn
-  checks Google Chrome. With no Google Chrome on this computer, the next
-  screen is **Blowhorn needs Google Chrome**: **Get Google Chrome** opens
-  Google's download page, and once it is installed the app notices by
-  itself when you come back to its window (or choose **Check again**).
-  If Safari or another browser is your default, the screen says you can
-  keep it.
-  A Google Chrome older than Blowhorn needs, or one that has never been
-  opened, gets its own screen the same way. Google Chrome is found in
-  your computer's Applications folder or in your own `~/Applications`.
-  **Check again** on these screens, and on Getting ready, reads
-  **Checking…** and then says what it found: Google Chrome found (the
-  app moves on, or says what is still needed), **Nothing new found** with
-  what is still true (Google Chrome is still missing, still out of date,
-  or still hasn't been opened), or why it couldn't read Google Chrome.
-  Coming back to the window checks quietly and only speaks when
-  something changed.
-- **Blowhorn's own window:** one screen says Blowhorn deploys in its own
-  Google Chrome window, so you keep working in yours while it posts,
-  likes and connects for you. **What's a Google Chrome profile?** explains
-  the rest if you want it. If another browser, such as Safari, is your
-  default, the screen says it stays your default: there is nothing to
-  change. **Continue** moves on. The row of five steps across the top
-  (Mission, Sign in, Browser, Profiles, First post) shows where you are on
-  every screen, and **Back** at the bottom left returns to the screen before.
+- **Google Chrome first:** before the welcome, and again before setup
+  picks up a computer that is already signed in, Blowhorn checks Google
+  Chrome. While that check blocks, it is the only screen, and it moves on
+  by itself once Google Chrome is usable. With no Google Chrome on this
+  computer, the screen says Blowhorn works inside Google Chrome and asks
+  you to install it. **Get Google Chrome** opens Google's download page.
+  A Google Chrome older than Blowhorn needs says to update it to that
+  version or newer, then relaunch it. **How to update** opens Google's
+  update steps. A Google Chrome that has never been opened says to open
+  it once so it can set itself up. **Open Google Chrome** opens it.
+  Google Chrome is found in your computer's Applications folder or in
+  your own `~/Applications`. Each of these screens watches on its own,
+  about every 15 seconds and again when you come back to Blowhorn's
+  window, and carries on as soon as the check passes. There is no
+  **Check again** and no **Back** on them. If Safari or another browser
+  is your default, that note waits for Blowhorn's own window.
+- **Blowhorn's own window:** one screen says Blowhorn deploys as a Google
+  Chrome extension, operating in its own tab group, so you keep working in
+  yours while it posts, likes and connects for you. **What's a Google
+  Chrome profile?** explains the rest if you want it. If another browser,
+  such as Safari, is your default, the screen says it stays your default:
+  there is nothing to change. **Continue** moves on. The row of five steps
+  across the top (Mission, Sign in, Browser, Profiles, First post) shows
+  where you are on every screen, and **Back** at the bottom left returns to
+  the screen before.
 - **Assign troops:** Blowhorn shows what it found in each Chrome
   profile: the Google account, and the platform accounts signed in or
   saved there. Mark each Chrome profile and each account **in use** or
@@ -2757,13 +2669,21 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   alone. Chrome's main profile is not listed here, since Blowhorn never
   works in it; a main profile an earlier setup already mapped is listed
   and keeps its switch. If the main profile is the only one you have, the screen
-  reads **Blowhorn will set up its own profile**: choose **Set up
+  reads **Blowhorn will set up a Blowhorn profile**: choose **Set up
   Blowhorn's profile**, and Google Chrome is asked to open a new window
   in a profile of Blowhorn's own (Chrome should make the profile the
   first time, and open the same one after). Your main profile is left
-  untouched. Sign in there once to LinkedIn, X and the rest, then come
-  back: the app looks again by itself, or choose **Continue**. You can
-  add the rest later, any time. **Open the window again** reopens it.
+  untouched. Sign in there once to LinkedIn, X and the rest. The list
+  gives way to one screen until an account is signed in on Blowhorn's
+  profile: in Blowhorn's Google Chrome window, sign in to the accounts
+  Blowhorn posts from. Chrome lists the profile as soon as it creates
+  it, and the screen stays while nobody is signed in. **Open the window
+  again** reopens that window. If that window does not open, Blowhorn says
+  why in the lower-right corner and the screen keeps its one message.
+  The app looks again about every 15 seconds, and when you come back to
+  its window, and shows the troops list once an account is signed in
+  there. There is no **Continue** and
+  no **Check again** on that screen. You can add the rest later, any time.
   Rather add a profile yourself? The steps are under **What's a Google
   Chrome profile?** on that screen. On **Confirm**, Blowhorn creates the profiles you marked in use,
   saves the handles (and a GitHub token or Bluesky app password you type
@@ -2784,16 +2704,23 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   troops, one at a time: Chrome opens Blowhorn's page in each, and you click
   **Enable now** (or **Add to Chrome**) there. There is no administrator
   prompt and no profile you left out is touched. Each step shows as it
-  runs, with the time left, and **Start again** appears if it takes
-  longer than usual. A profile that already has the extension on
+  runs, and the disabled **Next** carries the time left; **Continue** stays
+  on screen while the install runs, reading **Installing…**, and if it takes
+  longer than usual, **Start again** says so itself. A profile that already has the extension on
   needs nothing. One ready profile you chose
   is enough to go on. If Google Chrome is on this computer but has never
-  been opened, setup stops on its own screen (before Blowhorn's window
-  screen, and again here if that changed) and asks you to open Google
-  Chrome once, then check again: Chrome creates its profile list on that
-  first open, and there is no list for Blowhorn to read before it. The
-  same screen appears when you reopen Blowhorn already signed in, or come
-  back to a setup you left. If a step
+  been opened, setup stops on its own screen before the welcome, and
+  again here if that changed, and asks you to open Google Chrome once.
+  Chrome creates its profile list on that first open, and there is no
+  list for Blowhorn to read before it. The same screen appears when you
+  reopen Blowhorn already signed in, or come back to a setup you left.
+  A chosen profile whose Blowhorn extension is behind the version this
+  app needs stops on its own screen too, including when you reopen
+  Blowhorn already signed in: **Update in** that profile
+  opens the extension's store page there, and the app carries on once
+  the extension is current. If that page does not open, Blowhorn says
+  why in the lower-right corner and the screen keeps its one message.
+  **Check again** stays on Getting ready for the install itself. If a step
   does stop with something wrong, its screen says what stopped in one
   sentence, and **Copy details** keeps the full details for support. See
   [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/).
@@ -3045,7 +2972,7 @@ After setup, both walks also check the console a new person sees:
   only platforms with a connected account: Slack, and LinkedIn with the
   planted cookie; without it the tile reads **Connect LinkedIn**.
 - **Next run:** without the planted cookie, the walk first connects a
-  LinkedIn account in the local Cloud. Saving a daily Accept LinkedIn invitations from that picker
+  LinkedIn account in the local Cloud. Saving a daily Accept invitations from that picker
   stores one enabled routine in the local Cloud, and **Activity > Routines**
   lists it with its next run at the time the step typed. Home names no next run. The rail's status line
   never shows a countdown. The walk reads the rail's duty kind: while this computer is on watch, the
@@ -3067,7 +2994,7 @@ older than its source, naming the newer file. Then, from the checkout:
 make onboarding-e2e
 ```
 
-The check needs Node.js 22, Google Chrome, and a display. On Linux with no
+The check needs Node.js 22.12 or newer, Google Chrome, and a display. On Linux with no
 display it starts Xvfb itself. It finds the Electron binary the way the
 `electron` package does, so the Linux binary and the macOS app inside
 `Electron.app` both start. A packaged Mac app is the same walk:
@@ -3140,7 +3067,10 @@ directory is refused. Every Chrome Blowhorn itself starts on that folder
 during the check, such as the extension's store page during setup, carries
 the same two switches, so macOS never shows "Keychain Not Found". The
 check also sets `BLOWHORN_MUTE_AUDIO=1`, so the app and every Chrome it
-starts stay silent. The
+starts stay silent. On macOS it is quiet too (`BLOWHORN_QUIET_WINDOWS=1`):
+the app's window stays invisible and never takes the focus, and the
+throwaway Google Chrome starts with no window, so you can keep working
+while it runs. Run it with `BLOWHORN_QUIET_WINDOWS=0` to watch the windows. The
 throwaway Chrome profile has no Google account, like many people's: the
 email in the wizard is what finds the person in the local Cloud. The happy
 path ends by checking that `blowhorn chrome profiles --json` still reports
@@ -3221,8 +3151,8 @@ missing. Chrome cannot be forced to update an extension from here: if a
 profile is on an older version, update it in that profile from
 `chrome://extensions`.
 
-If Getting ready says **This is taking longer than usual**, press
-**Start again**: Blowhorn stops the attempt still running and begins a new
+If Getting ready takes longer than usual, **Start again** says so itself -
+press it: Blowhorn stops the attempt still running and begins a new
 one.
 
 One ready profile is enough to carry on. If a
@@ -3873,672 +3803,236 @@ Omit `--workspace` to refresh every workspace already listed under
 --------------------------------------------------------------------------------
 title: "Connect an AI assistant over MCP"
 url: https://blowhorn.ai/docs/how-to/set-up/connect-mcp-client/index.md
-description: Point Claude, ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, or Grok at the Blowhorn MCP server and let an assistant drive Blowhorn from your computer.
+description: Point Claude, ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, Grok, Grok Bot, or Arcade at https://mcp.blowhorn.ai/mcp.
 --------------------------------------------------------------------------------
 
-Connect an MCP client to the Blowhorn MCP server and an assistant can
-use the Blowhorn commands, all but a few
-[hidden by default](#hidden-tools): it reads your queue and analytics, drafts
-and queues posts, amplifies what went out, and manages profiles. The
-server runs on your own computer, and the assistant only ever acts
-through the commands you already run. What the server is, how it
-groups its tools, and how it keeps writes safe are in the
-[MCP server reference](/docs/reference/mcp-server/). New to this?
-Follow [Connect an assistant and send your first
-post](/docs/tutorials/first-mcp-connection/) first.
+Connect an MCP client to Blowhorn's hosted MCP server at
+`https://mcp.blowhorn.ai/mcp`. The server is Streamable HTTP. It serves
+four read-only tools: `listContentItems`, `getContentItem`, `getEvents`
+and `getConnections`. It does not post, schedule, or change anything,
+and it serves tools only: no prompts, resources, or sampling.
 
-Before you connect anything, finish Blowhorn's own setup: [install
-the app](/docs/how-to/set-up/install-the-app/), [sign a profile in to each
-platform](/docs/how-to/set-up/platform-accounts/), and [map each profile to its Google
-Chrome profile](/docs/how-to/set-up/map-chrome-profiles/). The server takes its
-credentials the way the CLI takes them, from your existing Blowhorn
-config and environment, so there is no second sign-in and nothing new
-to paste into a client config. Put no secrets in a client config. If a
-profile is not signed in, its runs fail the way a CLI run would.
+Sign in with OAuth when the client can. A client that supports MCP
+OAuth 2.1 needs only the URL. Dynamic client registration and PKCE are
+on. The resource is `https://mcp.blowhorn.ai/mcp`. The authorization
+server is the one advertised in
+`https://mcp.blowhorn.ai/.well-known/oauth-protected-resource`. A
+client that cannot finish that sign-in sends a Blowhorn API token as
+`Authorization: Bearer <token>`. Create the token in
+[Get a Blowhorn API token](#get-a-blowhorn-api-token). Put no other
+secret in a client config.
 
-The Blowhorn app runs on macOS, and a checkout also runs on Linux.
-The paths below are the macOS ones. On Linux, your home directory is
-`/home/<you>` instead of `/Users/<you>`.
+What the hosted server is, and how it relates to the desktop app's own
+process, is in the [MCP server reference](/docs/reference/mcp-server/).
+New to this? Follow [Connect an assistant and read your
+queue](/docs/tutorials/first-mcp-connection/) first.
 
-## Choose how to start the server
+## The server URL
 
-Every client starts the same server. Use the first route that fits.
-
-### Use the blowhorn-mcp command
-
-This is the route to use. It needs Blowhorn 1.61.0 or later.
-
-1. Open the Blowhorn app once. It writes the `blowhorn-mcp` command to
-   `~/.local/bin`.
-2. Check that `~/.local/bin/blowhorn` contains the line
-   `Managed by Blowhorn installer`.
-3. Use `/Users/<you>/.local/bin/blowhorn-mcp` as the client's command,
-   with no arguments and no `env`.
-
-As a JSON entry, it looks like this:
+Every client uses the same URL.
 
 ```json
 {
   "mcpServers": {
     "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
+      "type": "http",
+      "url": "https://mcp.blowhorn.ai/mcp"
     }
   }
 }
 ```
 
-Write the full path in a client's file. A client started from the
-Dock or Finder does not have `~/.local/bin` on its PATH. A client you
-set up from a terminal command can take `$HOME/.local/bin/blowhorn-mcp`,
-because your shell fills in the path.
-
-The command finds the app again if you move it, and sets
-`PYTHONPATH` and `BLOWHORN_MCP_CLI` itself. If step 2 found no marker
-line, another `blowhorn` sits at that path. Then add `BLOWHORN_MCP_CLI`
-to the entry's environment, naming the `blowhorn` executable to use.
-`blowhorn-mcp` keeps a value the client sets. In JSON that is
-`"env": {"BLOWHORN_MCP_CLI": "/path/to/blowhorn"}`, in TOML a
-`[mcp_servers.blowhorn.env]` table, in Goose's YAML the `envs` map, and
-on a client's command line its `--env` or `-e` option.
-
-A checkout install (`./tools/install.sh`) writes the same
-`~/.local/bin/blowhorn-mcp` command, so the same entry works there.
-
-Check the command on its own before you point a client at it:
-
-```bash
-~/.local/bin/blowhorn-mcp --version
-~/.local/bin/blowhorn-mcp --list-tools
-```
-
-The first prints the Blowhorn version. The second prints the tool
-list as JSON. Neither starts serving.
-
-### Start it with npx
-
-The [`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp) npm
-package is published, and listed in the official MCP Registry as
-`io.github.blowhorn-ai/blowhorn`. With Node.js 20 or later, swap the
-command in any entry on this page for `npx` with the arguments
-`-y blowhorn-mcp`:
+When the client cannot finish OAuth, add the token header:
 
 ```json
 {
   "mcpServers": {
     "blowhorn": {
-      "command": "npx",
-      "args": ["-y", "blowhorn-mcp"]
-    }
-  }
-}
-```
-
-On a client's command line, the same swap is `-- npx -y blowhorn-mcp`.
-It still needs the Blowhorn app installed and opened once.
-
-To pin the launcher, add its version, for example `npx -y blowhorn-mcp@1.0.2`.
-To check that the package you run is the one listed,
-run these two commands, which print the npm version and the registry entry:
-
-```sh
-npm view blowhorn-mcp version
-curl -s "https://registry.modelcontextprotocol.io/v0.1/servers?search=blowhorn"
-```
-
-The registry entry `io.github.blowhorn-ai/blowhorn` is the listing; its
-`"isLatest": true` marks the current version. Both commands need network
-access and Node.js 20 or later for `npx`.
-
-### Fallback: the app's own Python
-
-Use this only if your app is older than 1.61.0 and has no
-`blowhorn-mcp` command. It assumes the app is in `/Applications`; if
-you moved it, `~/Applications` for one, change both paths to match.
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Applications/Blowhorn.app/Contents/Resources/engine/bin/python",
-      "args": ["-P", "-m", "blowhorn.mcp_server"],
-      "env": {
-        "PYTHONPATH": "/Applications/Blowhorn.app/Contents/Resources/engine/engine",
-        "BLOWHORN_MCP_CLI": "/Users/<you>/.local/bin/blowhorn"
+      "type": "http",
+      "url": "https://mcp.blowhorn.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer <token>"
       }
     }
   }
 }
 ```
 
-Both `env` values are needed. Without `PYTHONPATH` the server does not
-start. Without `BLOWHORN_MCP_CLI`, a client started from the Dock or
-Finder lists the tools, but every call fails with
-`blowhorn executable not found: blowhorn`. The `-P` keeps the client's
-working directory off Python's import path, so a file there can never
-stand in for one of the server's own modules.
-
-### Fallback: a checkout
-
-Use this from a Blowhorn checkout that has no `blowhorn-mcp` command.
-Fill in the checkout's real path for `/path/to/blowhorn`:
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/path/to/blowhorn/venv/bin/python",
-      "args": ["-P", "-m", "blowhorn.mcp_server"],
-      "env": {"PYTHONPATH": "/path/to/blowhorn/engine"}
-    }
-  }
-}
-```
-
-The server runs the `blowhorn` executable on your PATH. If you have
-not run `make cli-install`, add `BLOWHORN_MCP_CLI` to `env`, naming the
-executable. From the checkout root, `make mcp-generate` checks that the
-tool list and its output schemas cover every command that is not hidden, and `make mcp-test` runs the server's
-tests.
-
-To use either fallback in a client, keep the client's file and
-top-level key from its section below. Swap in this `command`, `args`
-and `env`.
+Replace `<token>` with the token from
+[Get a Blowhorn API token](#get-a-blowhorn-api-token). Restart the
+client after you save the config. Most clients only pick up a new
+server on restart.
 
 ## Connect your client
 
-Each section below uses the `blowhorn-mcp` command. Fill in your own
-home directory for `<you>`.
-
 ### Claude Desktop
 
-1. In Claude Desktop, open Settings > Developer > Edit Config. It opens
-   `~/Library/Application Support/Claude/claude_desktop_config.json`.
-2. Add the entry under `mcpServers`:
-
-   ```json
-   {
-     "mcpServers": {
-       "blowhorn": {
-         "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-         "args": []
-       }
-     }
-   }
-   ```
-
-3. Quit Claude Desktop fully, then reopen it. It reads the file only at
-   startup.
-
-To check it, ask Claude which Blowhorn tools it has. If none show up,
-read the logs in `~/Library/Logs/Claude/mcp*.log`.
-[Vendor docs](https://modelcontextprotocol.io/docs/develop/connect-local-servers).
+Open **Settings**, then **Developer**, then **Edit Config**, and add the
+entry above to `claude_desktop_config.json`. Save and restart Claude
+Desktop. If it offers an OAuth sign-in for this URL, use that and omit
+the header.
 
 ### Claude Code
 
-Add the server for every project:
+```bash
+claude mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp
+```
+
+If sign-in does not complete, add the header:
 
 ```bash
-claude mcp add --scope user blowhorn -- $HOME/.local/bin/blowhorn-mcp
+claude mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp \
+  --header "Authorization: Bearer <token>"
 ```
 
-Without `--scope user`, the server is added for the current project
-only. To share it with a project, put the entry in `.mcp.json` at the
-project root instead:
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
-    }
-  }
-}
-```
-
-Check it with `claude mcp list`, or `/mcp` inside a session.
-[Vendor docs](https://code.claude.com/docs/en/mcp).
+Check it with `claude mcp list`.
 
 ### ChatGPT
 
-The ChatGPT desktop app can run this server. ChatGPT on the web
-cannot: it connects only to remote servers over HTTPS, and this server
-runs on your computer. The web needs the hosted Blowhorn MCP server,
-which is coming.
-
-In the ChatGPT desktop app:
-
-1. Open Settings > MCP servers > Add server.
-2. Choose STDIO.
-3. Enter the command `/Users/<you>/.local/bin/blowhorn-mcp`.
-4. Restart ChatGPT.
-
-The desktop app shares its MCP config with the Codex CLI, in
-`~/.codex/config.toml`. A server you add in one shows up in the other.
-To check it, ask ChatGPT which Blowhorn tools it has.
-[Vendor docs](https://developers.openai.com/codex/mcp).
+ChatGPT on the web connects only to remote servers. Add a custom
+connector with the URL `https://mcp.blowhorn.ai/mcp`. Sign in with
+OAuth if ChatGPT offers it. Otherwise send the Bearer token where it
+asks for an authorization header.
 
 ### OpenAI Codex CLI
 
-Add the server from a terminal:
-
 ```bash
-codex mcp add blowhorn -- $HOME/.local/bin/blowhorn-mcp
+codex mcp add blowhorn --url https://mcp.blowhorn.ai/mcp
 ```
 
-Or add it to `~/.codex/config.toml`, or to a trusted project's
-`.codex/config.toml`:
-
-```toml
-[mcp_servers.blowhorn]
-command = "/Users/<you>/.local/bin/blowhorn-mcp"
-args = []
-```
-
-Check it with `codex mcp list`, or `/mcp` inside a session. The ChatGPT
-desktop app reads the same file.
-[Vendor docs](https://developers.openai.com/codex/mcp).
+If the CLI asks for a bearer token, give it the Blowhorn API token.
 
 ### Cursor
 
-Create `~/.cursor/mcp.json` for every project, or `.cursor/mcp.json`
-in one project, with the entry under `mcpServers`:
+In **Settings**, then **MCP**, add a server with the URL
+`https://mcp.blowhorn.ai/mcp`. Or write `.cursor/mcp.json`:
 
 ```json
 {
   "mcpServers": {
     "blowhorn": {
-      "type": "stdio",
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
+      "url": "https://mcp.blowhorn.ai/mcp"
     }
   }
 }
 ```
 
-The `type` line is optional. If the server does not connect, open the
-Output panel and choose MCP Logs.
-[Vendor docs](https://cursor.com/docs/context/mcp).
+Add the `headers` object from above when Cursor does not complete
+OAuth sign-in.
 
 ### VS Code with GitHub Copilot
 
-The quickest route is the Command Palette:
-
-1. Run MCP: Add Server.
-2. Choose Command (stdio).
-3. Enter the command `/Users/<you>/.local/bin/blowhorn-mcp`.
-4. Enter the server ID `blowhorn`.
-
-To write the file yourself, use the portable format. Put the entry in
-`~/.copilot/mcp-config.json` for every workspace, or `.mcp.json` at a
-workspace root, under `mcpServers`:
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
-    }
-  }
-}
-```
-
-VS Code's own format also works: `.vscode/mcp.json` in a workspace, or
-the `mcp.json` in your user profile. That file's top-level key is
-`servers`, and the entry needs a `type` of `stdio`:
+In `.vscode/mcp.json`:
 
 ```json
 {
   "servers": {
     "blowhorn": {
-      "type": "stdio",
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
+      "type": "http",
+      "url": "https://mcp.blowhorn.ai/mcp"
     }
   }
 }
 ```
 
-Do not mix the two keys. A file under `.vscode/` takes `servers`; the
-portable files take `mcpServers`.
-[Vendor docs](https://code.visualstudio.com/docs/copilot/customization/mcp-servers).
+Add `"headers": { "Authorization": "Bearer <token>" }` when sign-in
+does not complete.
 
 ### Windsurf (Devin Desktop)
 
-Windsurf is now Devin Desktop. Add the server for your user from a
-terminal:
-
-```bash
-devin mcp add -s user blowhorn -- $HOME/.local/bin/blowhorn-mcp
-```
-
-Or put the entry in `~/.config/devin/mcp_config.json`, or
-`.devin/mcp_config.json` in a project, under `mcpServers`:
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
-    }
-  }
-}
-```
-
-Older Windsurf builds read `~/.codeium/windsurf/mcp_config.json`, with
-the same `mcpServers` shape. Devin Desktop imports that file.
-[Vendor docs](https://docs.devin.ai/desktop/devin-local/customizations).
+Add an MCP server with the URL `https://mcp.blowhorn.ai/mcp`. Use the
+same JSON entry as [The server URL](#the-server-url), including the
+Bearer header when Windsurf does not finish OAuth.
 
 ### Gemini CLI
 
-Add the server for your user:
-
 ```bash
-gemini mcp add -s user blowhorn $HOME/.local/bin/blowhorn-mcp
+gemini mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp
 ```
 
-Without `-s user`, it is added to the current project only. Or put the
-entry in `~/.gemini/settings.json`, or `.gemini/settings.json` in a
-project, under `mcpServers`:
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
-    }
-  }
-}
-```
-
-Gemini CLI starts a local server only in a trusted folder. Run
-`gemini trust` in the folder you work from. Keep the name `blowhorn`:
-server names may not contain underscores. Check it with `/mcp` inside a
-session.
-[Vendor docs](https://geminicli.com/docs/tools/mcp-server/).
+If it cannot finish OAuth, pass the Bearer header the same way Claude
+Code does.
 
 ### Zed
 
-In Zed, open Settings > AI > MCP Servers > Add Server, then choose Add
-Local Server. Or run `zed: open settings file` and add the entry under
-`context_servers`:
-
-```json
-{
-  "context_servers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": [],
-      "env": {}
-    }
-  }
-}
-```
-
-A green dot next to the server, with "Server is active", means it
-connected. Zed asks before each tool call by default. Keep that
-setting.
-[Vendor docs](https://zed.dev/docs/ai/mcp).
+In Zed's settings, add an MCP server whose URL is
+`https://mcp.blowhorn.ai/mcp`. Add the Bearer header when Zed does not
+finish OAuth.
 
 ### Cline
 
-In the editor:
-
-1. Click the MCP Servers icon.
-2. Open the Configure tab.
-3. Click Configure MCP Servers.
-4. Add the entry under `mcpServers`:
-
-   ```json
-   {
-     "mcpServers": {
-       "blowhorn": {
-         "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-         "args": [],
-         "env": {},
-         "disabled": false,
-         "autoApprove": []
-       }
-     }
-   }
-   ```
-
-Leave `autoApprove` empty, so Cline asks you before each tool call.
-
-For the Cline CLI, add the server from a terminal. It writes
-`~/.cline/data/settings/cline_mcp_settings.json`:
-
-```bash
-cline mcp add blowhorn --yes -- $HOME/.local/bin/blowhorn-mcp
-```
-
-[Vendor docs](https://docs.cline.bot/mcp/configuring-mcp-servers).
+In Cline's MCP settings, set the server URL to
+`https://mcp.blowhorn.ai/mcp`. Add the Bearer header when Cline does
+not finish OAuth.
 
 ### Goose
 
-Run `goose configure`, choose Add Extension, then Command-line
-Extension, and enter the command. Or add it under `extensions` in
-Goose's YAML config file, in the `~/.config/goose/` folder:
-
-```yaml
-extensions:
-  blowhorn:
-    type: stdio
-    name: blowhorn
-    enabled: true
-    cmd: /Users/<you>/.local/bin/blowhorn-mcp
-    args: []
-    envs: {}
-    timeout: 300
-```
-
-Goose calls the command `cmd`, not `command`. To try the server in one
-session without saving it:
-
-```bash
-goose session --with-extension "$HOME/.local/bin/blowhorn-mcp"
-```
-
-[Vendor docs](https://github.com/block/goose/blob/main/documentation/docs/guides/config-files.md).
+Add an extension of type **streamable HTTP** with the URI
+`https://mcp.blowhorn.ai/mcp`. Add the Bearer header when Goose does
+not finish OAuth.
 
 ### Muse
 
-A Muse bot can run on your Mac, alongside Blowhorn and
-Google Chrome. That is the setup that gives it every tool: the
-profiles it acts for and the Chrome it acts through are on the
-same computer as the bot, which is all this server ever asks.
-
-Add the server to the bot the way you add any MCP server: the
-`blowhorn-mcp` command (or `npx -y blowhorn-mcp`) as a stdio
-server, with no arguments. In a config file that is the same entry
-every client on this page uses:
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
-    }
-  }
-}
-```
-
-You can also just tell the bot to add it: "Add the Blowhorn MCP
-server, command `~/.local/bin/blowhorn-mcp`", and restart the bot
-so it picks the server up. Check it by asking the bot which
-Blowhorn tools it has.
-
-Then prompt the bot in plain words. It reads first, and every
-write comes back as a dry run before anything goes out, so ask
-for the outcome and read the rehearsal:
-
-> List my Blowhorn profiles and tell me which ones are signed in.
-
-> Show me what is in my queue for today.
-
-> Dry-run accepting my pending LinkedIn connection requests, and
-> show me who it would accept. Then wait for my go.
-
-Say go, and the bot runs the same call confirmed. Under approval
-mode an agent cannot approve its own queued work, so confirmed
-work can still wait for you in the app (see [Dry run first](#dry-run-first)).
-
-A Muse bot that is not running on your Mac can still read
-through the interim hosted gateway. Connect it as a custom MCP
-connector with the server URL `https://mcp.blowhorn.ai/mcp` and an
-API token for your Blowhorn account ([Get a Blowhorn API
-token](#get-a-blowhorn-api-token)), sent as a Bearer token. The
-gateway proxies Cloud's `/mcp` (read tools today). RFC 9728 discovery
-is live on mcp.blowhorn.ai, but end-to-end OAuth sign-in waits on Cloud
-enabling dynamic client registration, so a client that cannot send a
-token still cannot finish sign-in yet.
+A Muse bot connects as a custom MCP connector. Set the server URL to
+`https://mcp.blowhorn.ai/mcp` and send the Blowhorn API token as a
+Bearer token.
 
 ### Grok
 
-Grok Build, xAI's agent that runs in a terminal, can run the local
-server on the same computer as Blowhorn:
+Grok Build connects over HTTP:
 
 ```bash
-grok mcp add blowhorn -- $HOME/.local/bin/blowhorn-mcp
+grok mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp \
+  --header "Authorization: Bearer <token>"
 ```
 
-Or add it to `~/.grok/config.toml`:
-
-```toml
-[mcp_servers.blowhorn]
-command = "/Users/<you>/.local/bin/blowhorn-mcp"
-args = []
-```
-
-Grok Build also reads `~/.claude.json`, `.cursor/mcp.json` and
-project `.mcp.json` files, so an entry you already added for another
-client may already be picked up. Check it with `grok mcp list`, or
-`/mcps` inside a session. Grok names a server's tools
-`<server>__<tool>`, so the `post` tool appears as `blowhorn__post`.
+Omit `--header` if Grok completes the OAuth sign-in from the URL
+alone. Check it with `grok mcp list`.
 [Vendor docs](https://docs.x.ai/build/features/mcp-servers).
-
-Grok Build can also read through the interim hosted gateway:
-
-```bash
-grok mcp add --transport http blowhorn-cloud https://mcp.blowhorn.ai/mcp --header "Authorization: Bearer <token>"
-```
-
-Put an API token for your Blowhorn account in place of `<token>`
-(see [Get a Blowhorn API token](#get-a-blowhorn-api-token)).
-The gateway is read-only, with the four tools `listContentItems`,
-`getContentItem`, `getEvents` and `getConnections`.
-
-Grok on the web cannot finish connect yet. Its custom connectors
-(grok.com/connectors, New Connector, then Custom) take a public
-HTTPS MCP server with an OAuth sign-in. The interim gateway now
-serves RFC 9728 discovery and challenges, but Cloud still has
-dynamic client registration disabled, so the sign-in flow stops at
-registration. Use a Bearer Cloud API token instead, or wait for the
-DCR enable release. The local server is a process on your own
-computer, and Grok on the web cannot start one.
-[Vendor docs](https://docs.x.ai/grok/connectors). Grok Bot can
-connect today with a Bearer token: see [Grok Bot](#grok-bot).
 
 ### Grok Bot
 
-Blowhorn is not in Grok Bot's connector catalog yet. Until it is,
-add Blowhorn to your bot as a custom connection to the interim
-hosted gateway. Grok Bot runs on its own computer in the cloud, so
-it cannot start the local server on your Mac, but it can reach a
-public HTTPS server and send a bearer token with every request.
-
-The gateway is read-only. It has four tools, `listContentItems`,
-`getContentItem`, `getEvents` and `getConnections`, so your bot can
-read your queue, a post, your activity and your connections. It
-cannot post, schedule or change anything. For those, use a client
-on the Mac where Blowhorn runs, such as [Claude Code](#claude-code)
-or [Grok Build](#grok).
-
-You need an API token for your Blowhorn account. The Blowhorn app
-has no screen for one; create it on your Blowhorn account's web
-page, as
-[Get a Blowhorn API token](#get-a-blowhorn-api-token) shows.
-
-1. In a chat with your bot, ask it to add the server. Say "custom",
-   so the bot does not look for a catalog connector instead:
-
-   > Add a custom MCP server named blowhorn at
-   > https://mcp.blowhorn.ai/mcp. It needs the header
-   > Authorization: Bearer followed by my Blowhorn API token.
-
-2. The bot shows the name and the URL and asks you to confirm.
-   Check that the URL is exactly `https://mcp.blowhorn.ai/mcp`, then
-   confirm.
-3. When the bot asks for the token, give it. The bot stores it as
-   the `Authorization` header on the server entry, never in the URL.
-   Prefer a Bearer Cloud API token today: end-to-end OAuth sign-in
-   still waits on Cloud enabling dynamic client registration, so no
-   complete sign-in card finishes yet. The token passes through your
-   chat with the bot, so use one you can revoke, and revoke it when
-   you stop using the connection (see
-   [Revoke a leaked token](#revoke-a-leaked-token)).
-4. Check it in your next message. Ask:
-
-   > Which Blowhorn tools do you have? Then list my Blowhorn
-   > connections.
-
-   The bot should name the four tools above and answer from
-   `getConnections`. Nothing it can call changes anything.
+In the bot's MCP settings, set the server URL to
+`https://mcp.blowhorn.ai/mcp` and the authorization header to
+`Authorization: Bearer <token>`.
 
 If the bot reports `401 Unauthorized` when it connects, the header
-is missing or malformed: the gateway wants exactly
+is missing or malformed: the server wants exactly
 `Authorization: Bearer <token>`. If it connects but a tool call
-fails with a `401` from your Blowhorn account, the token has expired
-or been revoked: get a new token and ask the bot to update the
-header on the `blowhorn` server. If you opened the URL in a
-browser to check it and saw a JSON error, that is expected: see
+fails with a `401`, the token has expired or been revoked: get a new
+token and update the header. If you opened the URL in a browser and
+saw a JSON error, that is expected: see
 [Opening the gateway URL in a browser](#opening-the-gateway-url-in-a-browser).
+
+### Arcade
+
+Arcade connects to the hosted server. Do not create a new Arcade
+server or deploy one. Register the existing hosted server as a Remote
+MCP.
+
+1. Open the [Arcade servers dashboard](https://app.arcade.dev/servers).
+2. Choose **Add Server**, then **Remote MCP**.
+3. Set the ID to `blowhorn` and the URI to `https://mcp.blowhorn.ai/mcp`.
+4. Under **Advanced settings**, choose **OAuth2 authorization**. Leave
+   Client ID, Client Secret, Authorization URL, and Token URL empty so
+   Arcade can use dynamic client registration. That is the same pattern
+   as Arcade's Atlassian remote MCP guide.
+5. Save, then complete the Blowhorn OAuth sign-in.
+6. Pick the tools in an MCP Gateway.
+
+The tools are the four read-only tools named at the top of this page.
+This is a connection in your Arcade account. Blowhorn is not listed in
+Arcade's public catalog.
+
+[Arcade Remote MCP docs](https://docs.arcade.dev/en/operate/governance/remote-mcp-servers).
 
 ## Authentication
 
-The local server has no OAuth step and no token to create. The
-stdio transport does not use OAuth: that belongs to a remote server,
-not to a process on your own computer. A client that offers you an
-OAuth login for this server is pointed at the wrong thing. The local
-server takes its credentials from your Blowhorn config and
-environment, exactly as the CLI does.
-
-With the app, each tool runs the app's `blowhorn` command. It reads
-the app's own settings in
-`~/Library/Application Support/Blowhorn/home/.blowhorn.yaml`, not a
-`./.blowhorn.yaml` in the client's working directory.
-
-The server serves stdio only. Asking it for HTTP refuses at startup:
-
-```bash
-~/.local/bin/blowhorn-mcp --transport http
-```
-
-A hosted Blowhorn MCP server, with its own sign-in, is coming.
-Until it lands, the interim hosted gateway in the Muse, Grok and
-Grok Bot sections above serves a few read-only tools to clients that can
-send a token. The rest of this page covers the local server.
-
-### Local server or hosted gateway
-
-| | Local server (`blowhorn-mcp`) | Interim hosted gateway |
-| --- | --- | --- |
-| Where it runs | On your Mac, started by your client over stdio | `https://mcp.blowhorn.ai/mcp`, over HTTPS |
-| Sign-in | None: it uses the sign-in the Blowhorn app already saved | A Blowhorn API token, sent as `Authorization: Bearer <token>` |
-| Tools | Every Blowhorn command except the hidden ones | Four read-only tools: `listContentItems`, `getContentItem`, `getEvents` and `getConnections` |
-| Writes | Dry run first, `confirm` true to act | None yet: it cannot post, schedule or change anything |
-| Use it from | A client on the same Mac as Blowhorn, such as Claude Desktop, Claude Code or Cursor | A client that cannot start a process on your Mac, such as Grok Bot or a Muse bot in the cloud |
-
 ### Get a Blowhorn API token
 
-The hosted gateway needs an API token for your Blowhorn account; the
-local server does not. The Blowhorn desktop app has no screen for
-creating one. Create it on your Blowhorn account's web page:
+Use this when the client cannot finish OAuth. The Blowhorn desktop app
+has no screen for creating a token. Create it on your Blowhorn
+account's web page:
 
 1. Open [cloud.blowhorn.ai/security/tokens](https://cloud.blowhorn.ai/security/tokens)
    and sign in with your Blowhorn account. This is the **Tokens** tab
@@ -4562,9 +4056,9 @@ client. To stop using a token, delete it from the same page with the
 ### Opening the gateway URL in a browser
 
 `https://mcp.blowhorn.ai/mcp` is an endpoint for MCP clients, not a web
-page. A client sends each request as a JSON-RPC `POST`, with the token
-in the `Authorization` header. A browser sends a plain `GET` without a
-token, so it gets a short JSON error instead of a page, such as:
+page. A client sends each request as a JSON-RPC `POST`. A browser
+sends a plain `GET` without a token, so it gets a short JSON error
+instead of a page, such as:
 
 ```json
 {"error":"unauthorized","error_description":"Bearer token required. Discover the authorization server via the resource_metadata URL in WWW-Authenticate."}
@@ -4576,18 +4070,17 @@ or:
 {"jsonrpc":"2.0","error":{"code":-32000,"message":"Method not allowed: this stateless gateway answers POST only."},"id":null}
 ```
 
-That is the gateway working as designed, not a fault. It keeps no
+That is the server working as designed, not a fault. It keeps no
 session between requests, so it answers MCP messages sent as `POST`
-only. To check from a browser that the gateway is up, open
+only. To check from a browser that the server is up, open
 [mcp.blowhorn.ai/healthz](https://mcp.blowhorn.ai/healthz) instead,
 which answers `{"ok":true,...}`. To check your token, connect a
 client and ask it which Blowhorn tools it has.
 
 ### Revoke a leaked token
 
-The local server uses the token that sign-in saved on this computer.
-If that token, or any other API token for your Blowhorn account, leaks, revoke it
-at once. Having the token is enough; no sign-in is needed:
+If an API token for your Blowhorn account leaks, revoke it at once.
+Having the token is enough; no sign-in is needed:
 
 ```bash
 read -rs TOKEN   # paste the token, then press Enter
@@ -4605,197 +4098,47 @@ the token by ID instead. List your tokens with
 `DELETE https://cloud.blowhorn.ai/api/identity/tokens?tokenId=<id>`
 with `Authorization: Bearer <token>`.
 
-Then sign in again with `blowhorn auth login` to get a fresh token.
+## Example prompts
 
-## Example prompts and workflows
+The server can read. Ask for a read, and read the result before you
+ask for another:
 
-The assistant picks the tools; you approve the writes. These prompts
-are written so the dry run comes first and nothing goes out on the
-first pass.
+> List my content items.
 
-### Draft and queue a post
+> Show me one content item and tell me its status.
 
-> Draft a LinkedIn post for profile personal announcing the v2.4 release,
-> queue it for Tuesday 09:00, and show me the dry run before you
-> confirm anything.
+> What events do you see, and which connections are set up?
 
-The assistant drafts with the content tools and queues the row. A
-changing tool runs with `--dry-run` unless the call confirms it, so
-the first pass shows what would be queued and queues nothing. Say
-go, and the assistant re-runs it confirmed.
-
-### Check analytics
-
-> How did last week's posts do on LinkedIn, and which profile drove
-> the most engagement?
-
-Read-only tools run as asked. The assistant reads the analytics
-tools and reports back; nothing is written, so there is nothing to
-confirm.
-
-### Amplify a post
-
-> This post went live at this URL. Dry-run an amplify from every
-> profile on this computer, then wait for my go.
-
-The amplify runs as a rehearsal first, naming what each profile
-would do. Confirm it and the real run follows. The same shape works
-for a GitHub issue or pull request: the assistant amplifies from
-each profile's own credential, and re-running adds no reaction twice.
-
-### Manage profiles
-
-> Which profiles are signed in and ready, and which ones need
-> attention?
-
-The assistant reads the profile tools and reports each profile's
-state. Changing a profile, switching the current one, or setting a
-risk limit is a write: dry run first, confirm to act, same as every
-other write. `profile status` and `chrome discover` count as writes
-too, because each records the sign-ins it reads as the profile's
-accounts in your Blowhorn account.
-
-<a id="safety"></a>
-
-## Dry run first
-
-Writes need confirmation, and dry run is the default. A tool that
-only reads runs as asked. A tool that changes anything runs with
-`--dry-run` unless the call passes `confirm` as true. A call that
-passes both `confirm` and `dry_run` is refused as contradictory, and
-a changing command with no dry-run path refuses without `confirm`
-rather than running for real.
-
-Every MCP call runs as an agent. The server sets
-`BLOWHORN_ACTOR=agent` for every command it runs, whatever its own
-environment says: `BLOWHORN_ACTOR=human` in a client's `env` is
-ignored, and the server says so in one line on stderr when it starts.
-Under approval mode `agent` or `all`, the queue rules in
-[You are in control](/docs/explanation/youre-in-control/) therefore
-apply to MCP calls exactly as they apply to any other agent caller.
-`content_approve` is one of the tools, but `content approve` refuses
-an agent caller in every mode, so an agent can never approve its own
-content through this server. That only holds work back under `agent`
-or `all`: under `off`, the agent's own writes keep the `Approved?`
-value it sets, and a confirmed ad-hoc action publishes.
-
-Each changing tool also tells the client whether it is destructive.
-An additive tool (`destructiveHint` false), such as `post`, `comment`,
-`follow` or `slack_send`, only adds new things; Blowhorn's own
-bookkeeping on the record it acted on, such as marking a content item
-as posted, does not count as a change. A destructive
-tool (`destructiveHint` true), such as `content_upsert`,
-`schedule_delete` or `unfollow`, may change or remove something that
-already exists. Your client may ask you before a destructive call;
-either kind is still a dry run until `confirm` is true. The full list
-is in the
-[MCP server reference](/docs/reference/mcp-server/#destructive-and-additive-tools).
-
-Note the limit of this transport: there is no desktop-app
-approval step here. On this server, `confirm` true is the approval.
-If you want a person to approve each write in the app, use the queue
-and the approval mode, not a confirmed MCP call.
-
-Keep your client's own approval prompt on, too. Zed, Cline and most
-other clients ask before each tool call unless you turn that off.
-
-Tool results never carry secrets. A value under a secret-named key is
-replaced with `"[redacted]"` before the result reaches the client,
-unless it cannot carry a secret: a boolean, null, a value on its
-schema's fixed list, or a field its schema marks `x-mcp-not-secret`.
-Secret-shaped fragments in text output are replaced the same way. A
-client on protocol version `2025-06-18` or later also gets each JSON
-tool's `outputSchema` and a checked `structuredContent` in its
-results; see [Structured output](/docs/reference/mcp-server/#structured-output). A failed run
-reports its exit code and its (redacted) error, never the arguments
-it ran.
-
-How these rules fit together is in
-[How the MCP server keeps you in control](/docs/explanation/mcp-and-safety/).
-
-### Hidden tools
-
-Seven tools are hidden by default, because each removes or replaces
-your Blowhorn install, removes a background service or LaunchAgent, or
-signs you out: `uninstall`, `service_uninstall`, `service_adopt`,
-`auth_logout`, `desktop_build`, `desktop_install` and
-`chrome_attach_chrome_uninstall_agent`. Your assistant cannot see or
-call them. To serve one, name it in the server's arguments with
-`--allow-hidden-tool`
-(repeat it for more), or list names, comma-separated, in
-`BLOWHORN_MCP_ALLOW_HIDDEN_TOOLS` in the client's `env`. For example,
-to let an assistant uninstall the background service:
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": ["--allow-hidden-tool", "service_uninstall"]
-    }
-  }
-}
-```
-
-There is no "all": name each tool. A name that is not a hidden tool
-stops the server at startup with a line on stderr naming the hidden
-tools, so a typo shows up at once. An opted-in tool is still a dry
-run until `confirm` is true. Restart the client after changing its
-config.
+A request to post, schedule, or change anything has no tool on this
+server. The assistant should say so.
 
 ## Troubleshooting
 
-- **The client shows no Blowhorn server.** Run
-  `~/.local/bin/blowhorn-mcp --version` in a terminal. If the file is
-  missing, open the Blowhorn app once, or update it to 1.61.0 or later.
-  If it says the app is in the Trash or was not found, put the app back
-  or reinstall it. Check that the client's entry uses the full path,
-  not `~`. Then restart the client: most clients only pick up a new
-  server on restart, and Claude Desktop only reads its config at
-  startup.
-- **A tool call fails with `blowhorn executable not found`.** Open the
-  app once, so it rewrites `~/.local/bin/blowhorn`. If that file lacks
-  the line `Managed by Blowhorn installer`, set `BLOWHORN_MCP_CLI` in the
-  entry's environment to the `blowhorn` executable you want. With a
-  fallback entry, set `BLOWHORN_MCP_CLI` to
-  `/Users/<you>/.local/bin/blowhorn`.
-- **A fallback entry shows `No module named 'blowhorn'`.** Its
-  `PYTHONPATH` is missing or wrong. With the app it must be
-  `/Applications/Blowhorn.app/Contents/Resources/engine/engine`; from a
-  checkout, the checkout's `engine` directory. Better, switch to the
-  `blowhorn-mcp` command.
-- **The server starts but lists no tools, or the tools look stale.**
-  The tool list follows the app's version. Update the app, then
-  restart the client. From a checkout, run `make mcp-generate` and
-  restart the server after any change to the CLI.
-- **A write only produced a dry run.** That is the default, not a
-  failure. The assistant must re-run the call with `confirm` true
-  for the real run. If you did not mean to confirm, the dry run is
-  the whole result: nothing was written.
-- **A call is refused as contradictory.** It passed both `confirm`
-  and `dry_run`. Drop one: `confirm` true for the real run, or
-  `dry_run` for the rehearsal.
-- **A changing call is refused without running.** It has no dry-run
-  path, so it refuses rather than running for real without
-  `confirm`. Confirm it, or leave it refused.
-- **The server exits when asked for HTTP.** That is deliberate: this
-  server is local stdio only, and `--transport http` refuses with
-  the reason. Use `--transport stdio`, the default.
-- **ChatGPT on the web cannot find the server.** It connects only to
-  remote servers. Use the ChatGPT desktop app.
+- **The client shows no Blowhorn server.** The URL must be exactly
+  `https://mcp.blowhorn.ai/mcp`. Restart the client after saving the
+  config. Claude Desktop only reads its config at startup.
+- **The client reports 401.** The OAuth sign-in did not finish, or the
+  Bearer header is missing or malformed. Use the header
+  `Authorization: Bearer <token>` with a current token, or sign in
+  again.
+- **A tool call returns 401 after the client connected.** The token
+  expired or was revoked. Create a new one and update the header.
+- **The tool list is not the four read tools.** The client is pointed
+  at a different server. Set the URL to `https://mcp.blowhorn.ai/mcp`
+  and remove any command that starts a local process.
+- **A browser shows a JSON error at `/mcp`.** That is expected. See
+  [Opening the gateway URL in a browser](#opening-the-gateway-url-in-a-browser).
 
 ## Related
 
-- [MCP server reference](/docs/reference/mcp-server/) - what the
-  server is, the tour of its tools, and the safety rules in full
+- [MCP server reference](/docs/reference/mcp-server/) - the hosted
+  server and the desktop app's own process
 - [How the MCP server keeps you in control](/docs/explanation/mcp-and-safety/) -
   how the server, the CLI and approvals fit together
-- [Command reference](/docs/reference/cli/) - every command the
-  tools wrap, generated from the app itself
 - [You are in control](/docs/explanation/youre-in-control/) -
   approval modes, pauses, and every safety control in one place
 - [blowhorn-axi](/docs/reference/cli/blowhorn-axi/) - the agent
-  CLI: the same commands through a command line instead of MCP
+  CLI, for an assistant that runs shell commands instead of MCP
 
 
 --------------------------------------------------------------------------------
@@ -5012,8 +4355,9 @@ the page's address, title, and any selected text to the desktop app, which
 opens Activity › Upcoming on a new entry pre-filled from it.
 
 To install it, open **Settings › Setup** (or **Activity › Upcoming → from browser**) and
-drag the **Blowhorn: capture** link onto your Google Chrome bookmarks bar. If you
-would rather paste, choose **copy code**, add a bookmark in Google Chrome named
+drag the **Blowhorn: capture** link onto your Google Chrome bookmarks bar. The empty Activities
+list offers the same chip and copy button, so the bookmarklet is one drag away before the first
+capture. If you would rather paste, choose **copy code**, add a bookmark in Google Chrome named
 `Blowhorn: capture`, and paste the code as its address.
 
 or paste this:
@@ -5971,7 +5315,7 @@ Output: json with `--json`, text otherwise.
 --------------------------------------------------------------------------------
 title: "blowhorn chrome"
 url: https://blowhorn.ai/docs/reference/cli/chrome/index.md
-description: blowhorn chrome: active-tab, attach-chrome, confirm, create-profile, discover, extension-enable, extension-install, extension-mode, extension-status, map, open-profile, profiles, remember, spaces-setup, status, suggest, unmap.
+description: blowhorn chrome: active-tab, attach-chrome, confirm, create-profile, discover, extension-enable, extension-install, extension-mode, extension-status, map, open, open-profile, profiles, remember, spaces-setup, status, suggest, unmap.
 --------------------------------------------------------------------------------
 
 <!-- Generated by release/scripts/cli_reference/build.py from schemas/dist/openapi.yaml. Do not edit; run `make cli-reference`. -->
@@ -5990,6 +5334,7 @@ The `blowhorn chrome` commands. Each one's `--help` prints the same text.
 | [`chrome extension-mode`](#blowhorn-chrome-extension-mode) | Show or set how runs drive the Blowhorn Chrome extension. |
 | [`chrome extension-status`](#blowhorn-chrome-extension-status) | Report whether the Blowhorn Chrome extension is installed and connected. |
 | [`chrome map`](#blowhorn-chrome-map) | Map a Blowhorn profile to one of this machine's Chrome profiles, by the Chrome profile's directory name as `blowhorn chrome profiles` prints it (`Default`, `Profile 12`). |
+| [`chrome open`](#blowhorn-chrome-open) | Open Google Chrome itself, so a Chrome that has never been opened can write its local state. |
 | [`chrome open-profile`](#blowhorn-chrome-open-profile) | Open a window in the Chrome profile a Blowhorn profile is mapped to on this machine, so you can look at it or sign in to a platform there yourself. |
 | [`chrome profiles`](#blowhorn-chrome-profiles) | List every profile Chrome knows. |
 | [`chrome remember`](#blowhorn-chrome-remember) | Remember the confirm screen's choices as they stand, before Confirm. |
@@ -6190,13 +5535,13 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn chrome extension-install
 
-Write the native-messaging host manifest Chrome launches for the Blowhorn Chrome extension, and print where the unpacked extension lives so you can load it. The manifest is com.blowhorn.chrome_extension.json under Chrome's NativeMessagingHosts directory (~/Library/Application Support/Google/Chrome/NativeMessagingHosts on macOS, ~/.config/google-chrome/NativeMessagingHosts on Linux), named com.blowhorn.chrome_extension, type stdio, path an executable launcher chrome_extension-host in Blowhorn's directory (~/Library/Application Support/Blowhorn on macOS, ~/.local/share/blowhorn on Linux) that runs the Python native-host program by default, or the Rust host with `--native-host` rust, and allowed_origins naming the extension id from the key in extension/manifest.json, the Chrome Web Store id and the older unpacked id. If you already installed the host, run this command again and reload the extension once. A missing key or an unreadable extension manifest is one sentence and nothing is written; `--dry-run` prints both paths and the manifest and writes nothing. This command does not launch Chrome and does not load the extension.
+Write the native-messaging host manifest Chrome launches for the Blowhorn Chrome extension, and print where the unpacked extension lives so you can load it. The manifest is com.blowhorn.chrome_extension.json under Chrome's NativeMessagingHosts directory (~/Library/Application Support/Google/Chrome/NativeMessagingHosts on macOS, ~/.config/google-chrome/NativeMessagingHosts on Linux), named com.blowhorn.chrome_extension, type stdio, path an executable launcher chrome_extension-host in Blowhorn's directory (~/Library/Application Support/Blowhorn on macOS, ~/.local/share/blowhorn on Linux) that execs the Rust native host, blowhorn-host, and allowed_origins naming the extension id from the key in extension/manifest.json, the Chrome Web Store id and the older unpacked id. If you already installed the host, run this command again and reload the extension once. A missing key or an unreadable extension manifest is one sentence and nothing is written; `--dry-run` prints both paths and the manifest and writes nothing. This command does not launch Chrome and does not load the extension.
 
 `--profile` &lt;name&gt; names the Blowhorn profile whose mapped Chrome profile should get the extension (resolved through `blowhorn chrome map` on this machine); `--chrome-profile` `<directory>` names the Chrome profile directory itself, as `blowhorn chrome profiles` prints it, and can be given more than once. Either one writes the native host as above, checks the directory is in Chrome's Local State, and prints the steps to load the extension in that profile alone: Chrome has no file this command can write that installs an extension in one profile only, since the policy and the external-extensions file both reach every profile. A profile with no mapping, a directory Chrome does not have, and either flag with `--all-profiles` are one sentence and nothing is written; a store that cannot be reached is the named cause and exit 3. A `--profile` inherited from `BLOWHORN_PROFILE` or defaults.profile does not count.
 
 `--all-profiles` also asks Chrome to install that extension in every Chrome profile on this machine. It is every Chrome profile, not `--profile` all. The default route writes ExtensionInstallForcelist: silent, every profile, Chrome shows Managed by your organization, and macOS may ask for an administrator password once. On macOS that policy is your own user's, never the computer's, so other macOS users' Chrome is left alone. On Linux the policy file (/etc/opt/chrome/policies/managed/blowhorn.json) and the external file (/usr/share/google-chrome/extensions/&lt;id&gt;.json) need root, Blowhorn never asks for it, and a write this user cannot make is refused with the file, its exact content and the sudo command that writes that one file. Never run this command under sudo: the host and launcher would land under root's home, which your Chrome never reads, so a run under sudo is refused by name. `--external` writes Chrome's external-extensions file instead, so Chrome offers the install in each profile, one click there, and does not show that banner. `--external` without `--all-profiles` is refused and writes nothing. Switching route removes the other route's file for this extension id. Both routes name the extension id from that same key and the Chrome Web Store update url; Chrome can fetch the extension only once that id is published. A policy file that exists and cannot be read is one sentence and nothing is written. Per-profile lines say what Chrome was asked to do, never that a profile's copy was confirmed. Those lines cover the configured Chrome data directory. The policy route applies the extension to every Chrome profile on this machine. `--json` appends one trailing object (manifest, launcher, extension_dir, removed), for a script or the desktop app. With `--all-profiles` that object also carries route, extension_id, profiles, profiles_error and profiles_scope; with `--profile` or `--chrome-profile` it carries targets. `--ensure`, with exactly one `--profile` or `--chrome-profile`, ensures the extension for that profile the way a run does on demand: it repairs the native host when missing or stale, registers the extension for that profile's data directory when nothing is there yet, and re-probes hello once. A profile already carrying a Chrome Web Store install is left alone, and a store install too old for this Blowhorn is reported with Chrome's own update step, never forced. `--ensure` refuses `--all-profiles` and `--external`, writes nothing with `--dry-run`, and never starts, restarts, or kills Chrome.
 
-`--native-host` rust points the same launcher at the Rust native host instead of the Python one: the launcher execs engine/rust/target/release/blowhorn-host in this checkout (built with 'cargo build `--release` -p blowhorn-host' in engine/rust), or the binary `--rust-host` names. It is off by default. A Rust host that is missing or not executable is one sentence, nothing is written, and the installed launcher stays as it is. The choice is kept in the launcher itself: a later install or `--ensure` with no `--native-host`, the desktop app's automatic one included, keeps the Rust host while its binary is still executable, and puts the Python launcher back, saying so, once it is not. `--native-host` python switches back. `--json` carries native_host, python or rust, and native_host_fallback, the sentence when the Rust host was replaced.
+The launcher execs the Rust native host, blowhorn-host: engine/rust/target/release/blowhorn-host under the engine's code root (shipped inside Blowhorn.app; in a checkout, built with 'cargo build `--release` -p blowhorn-host' in engine/rust), or the binary `--rust-host` names. A binary that is missing or not executable is one sentence saying how to get it back, nothing is written, and the installed launcher stays as it is. A `--rust-host` choice is kept in the launcher itself: a later install or `--ensure`, the desktop app's automatic one included, keeps that binary while it is executable, and points the launcher back at the engine's own, saying so, once it is not. A launcher an older Blowhorn left running the Python native host, which is gone, is pointed at the Rust host the same way. `--native-host` python is refused. `--json` carries native_host, rust (or python for a launcher not yet moved), and native_host_fallback, the sentence when the launcher's host was replaced.
 
 ```text
 blowhorn chrome extension-install [OPTIONS]
@@ -6208,8 +5553,8 @@ blowhorn chrome extension-install [OPTIONS]
 | `--external` | boolean | `false` | With `--all-profiles`, write Chrome's external-extensions file instead of the policy, so Chrome offers the install in each profile and does not show Managed by your organization. Refused without `--all-profiles`; nothing is written. |
 | `--ensure` | boolean | `false` | Ensure the extension for one named Chrome profile, the way a run does when it finds the extension missing, stale, or outdated: repair the native host, register the extension for that profile's data directory when nothing is there yet, and re-probe hello once. Needs exactly one `--profile` or `--chrome-profile`, and refuses `--all-profiles` and `--external`. A profile already carrying a Chrome Web Store install is left alone: Chrome's updater owns it, and this never forces a store update. Writes nothing with `--dry-run`. Never starts, restarts, or kills Chrome. |
 | `--chrome-profile` | string, repeatable |  | A Chrome profile directory, exactly as `blowhorn chrome profiles` prints it (`Profile 12`): write the host and print the steps to load the extension in that profile alone. Repeatable. Refused with `--all-profiles` |
-| `--native-host` | string |  | Which native host the launcher runs: python (the default) or rust, the Rust host from engine/rust built with 'cargo build `--release` -p blowhorn-host'. Unset keeps what is installed. A Rust host that is missing or not executable is refused and nothing is written. One of `python`, `rust`. |
-| `--rust-host` | string |  | With `--native-host` rust, the Rust host binary the launcher runs instead of this checkout's engine/rust/target/release/blowhorn-host. Refused without `--native-host` rust |
+| `--native-host` | string |  | Which native host the launcher runs. rust, the default and the only host, is the Rust host the app ships (in a checkout, built with 'cargo build `--release` -p blowhorn-host' in engine/rust). python, the host it replaced, is refused and nothing is written. One of `python`, `rust`. |
+| `--rust-host` | string |  | The Rust host binary the launcher runs instead of the engine's own engine/rust/target/release/blowhorn-host. A binary that is missing or not executable is refused |
 | `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
 | `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn chrome extension-install` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -6231,16 +5576,14 @@ blowhorn chrome extension-install --profile company
 blowhorn chrome extension-install --chrome-profile 'Profile 12'
 blowhorn chrome extension-install --profile company --ensure
 blowhorn chrome extension-install --profile company --ensure --dry-run
-blowhorn chrome extension-install --native-host rust
-blowhorn chrome extension-install --native-host rust --rust-host ~/bin/blowhorn-host
-blowhorn chrome extension-install --native-host python
+blowhorn chrome extension-install --rust-host ~/bin/blowhorn-host
 ```
 
 Output: json with `--json`, text otherwise.
 
 ## blowhorn chrome extension-mode
 
-Show or set how runs drive the Blowhorn Chrome extension. background is the default. Both modes open Blowhorn's tab inactive beside the tab you are on (or in its own window with `--window` own-window, or split beside it with `--window` split-view on Chrome 155 or later), in a Blowhorn group that is collapsed by default, and take a screenshot through the debugger without selecting the tab. Nothing brings the tab forward. classic keeps focus emulation on only while an action holds the debugger and sends input through the page. background turns focus emulation on from the first page and sends trusted input. With no MODE it reports the mode a run started now would use and where it comes from: the `BLOWHORN_EXTENSION_ROLLBACK` override, your Blowhorn account setting, or the background default. A job whose driver mode is extension-classic or extension-background outranks the account setting for that job. Setting MODE writes extensionMode to your account's Blowhorn preferences in your Blowhorn account (sign in first with `blowhorn auth login`); default clears it. `--group` collapsed or open writes chromeGroup the same way: how the Blowhorn tab group sits beside your tabs between steps. Collapsed is the default. `--window` side-tab, own-window or split-view writes chromeWindow the same way: where Blowhorn works. side-tab is an inactive tab beside your tabs, the default. own-window is one window of its own, mostly behind yours with an edge showing, opened without focus and closed when a run ends; on a Mac keep that edge showing, since a window fully covered, minimized, hidden or on another desktop reads like a background tab. split-view is a tab split beside yours on Chrome 155 or later, falling back to own-window on an older Chrome; the split tab stays visible, so the page reads a real outer size and a real screen position. `--json` emits the report as one object, for a script or the desktop app.
+Show or set how runs drive the Blowhorn Chrome extension. background is the default. Both modes open Blowhorn's tab inactive beside the tab you are on (or in its own window with `--window` own-window, or split beside it with `--window` split-view on Chrome 155 or later), in a Blowhorn group that is collapsed by default, and take a screenshot through the debugger without selecting the tab. Nothing brings the tab forward. classic keeps focus emulation on only while an action holds the debugger and sends input through the page. background turns focus emulation on from the first page and sends trusted input. With no MODE it reports the mode a run started now would use and where it comes from: the `BLOWHORN_EXTENSION_ROLLBACK` override, your Blowhorn account setting, or the background default. A job whose driver mode is extension-classic or extension-background outranks the account setting for that job. Setting MODE writes extensionMode to your account's Blowhorn preferences in your Blowhorn account (sign in first with `blowhorn auth login`); default clears it. `--group` collapsed or open writes chromeGroup the same way: how the Blowhorn tab group sits beside your tabs between steps. Collapsed is the default. `--window` side-tab, own-window or split-view writes chromeWindow the same way: where Blowhorn works. side-tab is an inactive tab beside your tabs, the default. own-window is one window of its own, mostly behind yours with an edge showing, opened without focus and closed when a run ends; on a Mac keep that edge showing, since a window fully covered, minimized, hidden or on another desktop reads like a background tab. split-view is a tab split beside yours on Chrome 155 or later, falling back to own-window on an older Chrome; the split tab stays visible, so the page reads a real outer size and a real screen position. Whichever you choose, a run's end closes Blowhorn's tab and its tab group, or waits until you leave the tab if you are looking at it. `--json` emits the report as one object, for a script or the desktop app.
 
 ```text
 blowhorn chrome extension-mode [OPTIONS] [MODE]
@@ -6339,6 +5682,32 @@ blowhorn chrome map company 'Profile 3' --for linkedin,slack
 blowhorn chrome map company 'Profile 12' --replace
 blowhorn chrome map company 'Profile 12' --dry-run
 blowhorn chrome map personal Default --json
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn chrome open
+
+Open Google Chrome itself, so a Chrome that has never been opened can write its local state. The launch is the same handoff as `open-profile` and `create-profile`, on Chrome's main profile and with no page, so Chrome's own startup pages are left alone. Writes nothing, maps nothing, and drives nothing in the window. If no Chrome is running, Chrome starts and is left running. Your own profiles, windows and tabs are left as they are.
+
+```text
+blowhorn chrome open [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
+| `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
+| `--pace` | string |  | Accepted by `blowhorn chrome open` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn chrome open` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+blowhorn chrome open
+blowhorn chrome open --json
 ```
 
 Output: json with `--json`, text otherwise.
@@ -7013,7 +6382,7 @@ Output: json with `--json`, text otherwise.
 
 Create a post, or update one in place, from a JSON object of column: value pairs in the queue's own column names. Without `--activity` a new activity is created and given the next activity number; with `--activity` the payload is merged over that activity, and every column it does not name is left as it was.
 
-Platform must be one `blowhorn post` publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the activity changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
+Platform must be one `blowhorn post` publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Visibility (private, unlisted or public), Short and Community (yes or no) are YouTube settings, kept beside the columns: blank leaves one unset, and any other platform refuses them. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the activity changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
 
 ```text
 blowhorn content upsert [OPTIONS]
@@ -10655,6 +10024,13 @@ pass and the pass in flight. `service start` loads the service if it is stopped
 and asks a running one to look at the schedule now. In the app, the "this
 computer" screen shows the same state.
 
+The same screen shows whether the versions agree: an **Extension** row names
+a Google Chrome profile whose extension is behind the app, and an **Engine** row
+names an engine that is not this app's. A behind extension still runs, and
+Chrome updates it on its own schedule; update it sooner from the Blowhorn
+popup (**Upgrade**, or **Check for update**). An extension below the version
+Blowhorn needs cannot run anything until it is updated.
+
 While no pass is running, the service also tells your Blowhorn account that this
 computer is still here, about once a minute, so the computer shows online there
 between passes. It sends nothing while you are signed out.
@@ -10712,6 +10088,21 @@ Blowhorn 1.100.0 through 2.0.1 had one such cause on every signed-in computer: t
 service's control connection lived inside the account's log folder, whose path is
 longer than macOS allows for one. Update Blowhorn, and the service starts on its
 own.
+
+## When the service is not running
+
+If This computer says the background service is not running, the service stopped and nothing started it again, so nothing scheduled goes out. The screen says so in a card, not a banner: what is wrong, since when, the likely cause read from the service's own state, and the last line it logged. The card offers four things you can do:
+
+- **Restart the service** asks the service to drain and start again.
+- **Re-register the service** asks the app to register it again from this app.
+- **Open service log** opens the service log.
+- **Report the issue** opens support with the app, engine and extension versions, the diagnosis and the last lines of the log already filled in.
+
+After you take one, the screen reads the service again and says whether it now runs. The **On duty** switch follows the same state: it cannot read on while the screen says the service is not running.
+
+A service that keeps exiting gets the same card, with the cause in the diagnosis's words; the full card with its remediations stays on the Troubleshooting tab.
+
+The app also checks on its own. At launch it confirms the service process is actually alive and on this app's version, not only that launchd holds the registration, and starts it again when it finds it registered but dead. While Blowhorn runs, the schedule state arriving with the service dead starts it again, at most once every ten minutes while it stays dead. A registration that fails is tried again every two minutes, up to thirty times, and the failure is shown on This computer instead of sitting silent.
 
 ## When the service runs but passes say Blowhorn is unreachable
 
@@ -11437,11 +10828,19 @@ tab of its own. Your Blowhorn account has one setting for where that tab lives:
 - **In its own window, mostly behind yours.** One window of Blowhorn's own, the same size
   as the window you used last and a little to its right, so an edge of it shows,
   opened without taking focus. Your window stays in front, your tab stays selected, and Blowhorn closes the
-  window when a run ends, unless you put a tab of your own in it or it is waiting for you. Its tab sits in its own
+  window when a run ends, unless you put a tab of your own in it. Its tab sits in its own
   Blowhorn tab group.
 - **Split beside your tab.** On Chrome 155 or later, Blowhorn's tab opens in a split
   view beside the tab you are on, visible, with your tab staying selected. On an
   older Chrome it works in a window of its own instead, as above.
+
+Whichever you choose, Blowhorn closes its tab and its tab group when a run ends,
+whether the run finished, failed or was stopped. If you are looking at Blowhorn's
+tab at that moment, it waits until you switch to another tab or window. A tab of
+your own that you dragged into the Blowhorn group stays open and leaves the group.
+If Blowhorn's tab is the last tab open in that Chrome profile, it leaves the group
+and stays open on a blank page instead, because closing Chrome's last window would
+disconnect Blowhorn from Chrome.
 
 On a Mac, a page in a tab you are not looking at reads its window size as zero,
 which a site can notice. A page in its own window or split beside your tab can avoid that, so choose
@@ -11803,9 +11202,17 @@ step is named as it happens:
    rewritten only if they are out of date. Nothing else changes: Chrome is not
    opened, and your Chrome profiles, other apps' hosts, sign-in and Blowhorn
    settings are left alone. If you installed `blowhorn-axi` globally, it is
-   updated too. This usually takes a few seconds. If it fails, your current
+   updated too. Blowhorn also checks the Chrome extension's version against
+   the new one: if Chrome has not pulled the matching extension yet, the
+   update still goes ahead, and the Service screen says so, with how to
+   update the extension. A behind extension still runs. Only a check that
+   cannot run at all stops the update, and your current version is put back.
+   This usually takes a few seconds. If it fails, your current
    version is put back.
-4. **relaunching**. Blowhorn closes and the new version opens. If Blowhorn
+4. **relaunching**. Blowhorn closes and the new version opens. Before it
+   closes, Blowhorn stops the background service, so the running service is
+   never the old version's; the new version registers the service against
+   itself when it opens. If Blowhorn
    asks what to do about work in progress before it closes and you choose
    **stay open**, the new version stays installed and opens the next time you
    start Blowhorn, or when you press **update** again.
@@ -12170,6 +11577,11 @@ updater owns it, and never forces a store update.
 When the profile is ready the panel also has **Check for update**, so you can take an update
 before the app requires it.
 
+After an update, the Service screen's Extension rows say the same thing: a
+profile whose extension is behind the app reads "update available", and one
+below the version Blowhorn needs reads "update needed". A behind extension
+still runs.
+
 ## "Update the Blowhorn app" when the app is current
 
 Chrome starts the extension's native host once and keeps it until the
@@ -12351,6 +11763,14 @@ release fixes both.
 
 The engine started but did not answer. Press the refresh button at the top of
 the popup. If that doesn't help, quit Blowhorn and open it again.
+
+## "The background service is not running"
+
+The **This computer** screen says the background service is not running, and
+nothing scheduled goes out. The card on that screen names the likely cause and
+offers **Restart the service**, **Re-register the service**, **Open service log**
+and **Report the issue**. See
+[Keep posting when the app is closed](/docs/how-to/schedule/background-service/#when-the-service-is-not-running).
 
 ## Related
 
@@ -12937,6 +12357,19 @@ or Spotlight opens. macOS checks that copy, not the one you just installed.
 To see which version you have, select Blowhorn in Applications and choose
 **File** > **Get Info**.
 
+When you open the copy you want to keep, Blowhorn moves its background
+service to it. If the service was running from a separate copy, Blowhorn
+asks once whether to remove it ("Blowhorn moved its background service to
+this copy", with that copy's path). It asks only about a copy of
+Blowhorn or Blowhorn Dev, never another app. It does not ask when another
+account on this Mac owns that copy or is running it, because removing it
+would remove it for them too.
+
+- Choose **Remove old copy** when the path is a copy you no longer need,
+  such as an older download or a local build.
+- Choose **Close** when you are not sure or when you still use that copy.
+  Close leaves it where it is.
+
 ## If an update left an old copy behind
 
 An in-app update keeps the previous version until the new one starts, in
@@ -12998,8 +12431,8 @@ or newer and Google Chrome 142 or newer.
 
 | Need | Requirement | Checked by |
 |---|---|---|
-| macOS | 13 or newer, Apple silicon or Intel (one universal build) | The build declares the floor; Setup checks the rest |
-| Google Chrome | 142 or newer, the real Google Chrome (not Chromium), installed and signed in | Setup, "chrome profiles" row; `blowhorn chrome status` |
+| macOS | 13 or newer, Apple silicon or Intel (one universal build) | The desktop build declares the floor (`minimumSystemVersion` 13.0). Guided setup does not check the macOS version |
+| Google Chrome | 142 or newer, the real Google Chrome (not Chromium), installed, opened once, and signed in | Guided setup, before the welcome; `blowhorn chrome status` |
 | Engine | Bundled in the app, with its own Python; nothing to install | Setup, "Blowhorn folder" and "helper tools" rows |
 | Account | A Blowhorn account your profile belongs to | Setup, "organization connection" row; `blowhorn store` |
 | Background runs | The background service, registered from the app | Setup, "this computer on duty" row |
@@ -13095,8 +12528,7 @@ switching it on again restores it.
 The console is the full window, reached from the popover. The Blowhorn logo
 at the top of its rail is Home; there is no separate Home item. Below it are
 four places: **Activity**, **Profiles**, **Performance** and **Posture**. The
-round **+** button in the lower right of every screen, teal glass unless you
-change the material, is **New order** (⌘N, or New order in the File menu), or **New activity** when Major Blowhorn is off. It opens a field order you fill in
+labelled **New order** button in the rail's footer, Caribbean Green (⌘N, or New order in the File menu), or **New activity** when Major Blowhorn is off. It opens a field order you fill in
 one step at a time. Only the open step shows its fields; a
 finished step folds to a one-line summary (press it to change it), and the
 steps ahead wait as dim rows. A step that holds what it asks for takes a teal
@@ -13288,10 +12720,15 @@ runs again. Click the line to open This computer, which says why and offers
 the fix where there is one. With a yellow light, the same line says when the
 service runs but no check has been made lately, when the fleet's state can't be
 read, or that only the installed app keeps this computer on duty. Hover the switch for the next scheduled run (for
-example "Next: Post on X, tomorrow at 9:00 AM") or when the leave began. When the service runs from another copy of
+example "Next: Post the queue on X, tomorrow at 9:00 AM") or when the leave began. When the service runs from another copy of
 Blowhorn (a dev checkout, or a moved or older app), the line above the switch
 says so, and This computer names that copy in one sentence with its one fix,
-**Register the service**, which registers the service to this app. Under the switch, the
+**Register the service**, which registers the service to this app. When the installed app
+takes the service over from another copy on its own, it shows no notification, unless you moved the app,
+which still says it registered again from the new location. If that copy is a separate Blowhorn or
+Blowhorn Dev app it can name, and no other account on this Mac owns it or is running it, it asks once, **Blowhorn moved its background service to this copy**,
+with the copy's path and two buttons: **Remove old copy** deletes that app, and **Close** leaves it
+where it is. If the removal fails, **Blowhorn couldn't remove the old copy** says why. Under the switch, the
 account button (desktop v1.27.2) shows who is signed in: your Blowhorn profile photo, or
 your initials, your name, and your organization and plan (for example "Acme ·
 Free plan"). The organization is the one your Blowhorn session has
@@ -13512,9 +12949,12 @@ beside them; the rail names the screen, so it has no visible title.
   the grid has a row for each platform's choice for every profile (**Each
   platform**), a column for each profile's choice on every platform (**Every
   platform**), and a cell for one profile on one platform. A filled chip was chosen
-  at that spot; a dashed chip is inherited, and the line under it says from where
+  at that spot; a dashed chip is inherited, and pointing at it says from where
   ("from LinkedIn", "from this profile", "from everyone"). A profile still warming
-  up shows **Warming** and the preset it returns to. A chip in the **Each
+  up shows **Warming** in each of its cells, with the preset it returns to on a
+  line under the chip ("then Weapons free"): choose a preset there and it is saved,
+  the chip turns filled and that line changes, while scheduled activity stays at
+  Safety on until the warm-up ends. A chip in the **Each
   platform** row or the **Every platform** column opens a small slider, with
   **Follows Everyone** to reset it; when a platform and a profile both choose, the
   more careful one wins, and a profile's slider names each platform that wins over
@@ -13584,6 +13024,21 @@ columns beside them are preserved on write.
 An activity with "Comment on" set can only ever be a comment. An activity with an
 "Amplify" GitHub target can only ever be reactions. Timestamps in
 content values read `%Y-%m-%d %H:%M:%S`.
+
+## YouTube settings
+
+A YouTube activity carries three settings beside its columns. YouTube isn't
+available in Blowhorn yet; until it is, an activity can't name YouTube as its
+Platform. Every other platform refuses these settings by name.
+
+| Setting | Takes | Blank means |
+|---|---|---|
+| Visibility | `private`, `unlisted`, or `public` | `private` |
+| Short | `yes` or `no` (JSON `true` and `false` are written as `yes` and `no`) | Not a Short |
+| Community | `yes` or `no`: `yes` makes the activity a post on the channel's Posts tab instead of an upload | An upload |
+
+A payload may spell a setting's name in any case. A setting shows in an
+activity's values only once it's set; clearing it to blank removes it.
 
 ## Approval
 
@@ -14125,7 +13580,7 @@ The concurrency rows are the values the presets carry, and they are enforced, no
 
 Scheduled jobs on a new profile or a new computer run cautious until the warmup is done, whatever you chose -- the cautious concurrency values included. A run you start yourself is not held by the warmup, only noted; it still follows the caps, quiet hours and outreach setting of the preset you chose. When a run covers several profiles or platforms, a held one is skipped by name and the rest run. To run once anyway, add `--ignore-risk`, or choose **Do it anyway** next to a held item under Activity › History or in Posture's held back list. Logins are never retried under any preset. Choose a preset in the app on the **Posture** screen - the slider for everyone, and a grid for each platform, each profile, and one profile on one platform (the same mode also shows as a mini-slider in the menu-bar popover, which opens Posture) - or with `blowhorn risk set`; see [Which choice wins](#which-choice-wins). `blowhorn risk show` says which preset is in effect and where it comes from, and `blowhorn risk grid` lists every profile on every platform at once. For choosing between the presets in lived terms, see [Choose your rules of engagement](/docs/how-to/settings/choose-your-rules-of-engagement/).
 
-One activity can run under its own preset: set **rules of engagement** in the activity editor, or `risk_profile=cautious` in the activity's params, and that activity runs cautious (pace, caps share, quiet hours, challenge pause) while the same profile × platform runs standard elsewhere. The activity's detail shows the preset and where it came from (`Safety on · this activity`, or `Safety on · inherits: LinkedIn × work profile`); a run report names `schedule` as the source when the activity's own value held it. A run you start by hand can override everything for that one run with `--risk-profile cautious` (before the command word, between a group word and its subcommand, or after it); an unknown value is refused before anything runs. Activities without the field behave exactly as before, and the field is refused on commands the gate does not act on (analytics, report, withdraw, reconcile) rather than accepted and ignored. The upstream Schedule construct gains a top-level `riskProfile` field in a proposed meshery/schemas change (open, not yet released); until a release carries it, the value travels in the activity's params.
+One activity can run under its own preset: set **rules of engagement** in the activity editor, or `risk_profile=cautious` in the activity's params, and that activity runs cautious (pace, caps share, quiet hours, challenge pause) while the same profile × platform runs standard elsewhere. The activity's detail shows the preset and where it came from (`Safety on · this activity`, or `Safety on · inherits: LinkedIn × work profile`); a run report names `schedule` as the source when the activity's own value held it. A run you start by hand can override everything for that one run with `--risk-profile cautious` (before the command word, between a group word and its subcommand, or after it); an unknown value is refused before anything runs. Activities without the field behave exactly as before, and the field is refused on commands the gate does not act on (analytics, report, withdraw, reconcile) rather than accepted and ignored. The value travels on the schedule as its top-level `posture` field (meshery/schemas v1.3.114, which renamed the proposed `riskProfile` construct). For now the same value is also kept in the activity's params, so an activity keeps its preset while your Blowhorn account does not yet store the `posture` field.
 
 ### Which choice wins
 
@@ -14562,10 +14017,10 @@ permission to ignore them.
 |---|---|
 | `nativeMessaging` | Talks to the Blowhorn app on this computer. Every action is a request from that app |
 | `alarms` | A one-minute alarm re-opens the connection to the app after Chrome suspends the worker, so a scheduled run finds the extension ready |
-| `tabs` | Opens one background tab on a supported site, or reuses the one it opened earlier, so the action runs where you are signed in. With [where Blowhorn works](/docs/reference/chrome/#extension-mode-classic-or-background) set to its own window, that tab lives in one window the extension opens mostly behind yours without focus, at the size of the window you used last with an edge showing to its right, and closes that window when a run ends, unless you put a tab of your own in it or Blowhorn is waiting for you in it (Chrome's windows API needs no permission of its own). It looks only among tabs on the sites above, only to find its own, and never navigates, drives or closes any other tab, except the one below |
+| `tabs` | Opens one background tab on a supported site, or reuses the one it opened earlier in the same run, so the action runs where you are signed in, and closes that tab when the run ends (once you leave it, if you are looking at it). With [where Blowhorn works](/docs/reference/chrome/#extension-mode-classic-or-background) set to its own window, that tab lives in one window the extension opens mostly behind yours without focus, at the size of the window you used last with an edge showing to its right, and closes that window when a run ends, unless you put a tab of your own in it (Chrome's windows API needs no permission of its own). It looks only among tabs on the sites above, only to find its own, and never navigates, drives or closes any other tab, except the one below |
 | `tabGroups` | In both [classic and background mode](/docs/reference/chrome/#extension-mode-classic-or-background), puts the tab it opened in a tab group named Blowhorn, right after the tab you were on (or in its own window), collapsed by default, so you can see which tab the app is driving and get back to yours. The group is a label: it never moves, selects or closes your other tabs, and a Chrome that cannot group still gets the tab. A screenshot is taken through the debugger and does not select the tab. Nothing brings the tab or the window forward unless you click **Take over** in the side panel; when Blowhorn needs you it renames the group "Blowhorn needs you", turns it red and opens it, shows **!** on the toolbar button, posts a notification when "Tell me when something needs me" is on in Posture, under Protection, then waits for you to click the tab |
 | `cookies` | Reads cookies on the supported sites only when the app asks, to reuse a sign-in you already have. A cookie goes to the local app; the one the app keeps beyond your computer is your Slack workspace session, kept in your account as that profile's Slack credential |
-| `debugger` | Delivers some of your queued clicks and key presses as real input (the rest, and all typing, go through the extension's own script on the page), watches the page's own requests to tell when an action finished, and takes a screenshot when the app asks for one. Attached only to the tab the extension opened. In classic mode it attaches when an action needs it and is released when the run ends or after a short idle period; in [background mode](/docs/reference/chrome/#extension-mode-classic-or-background) it attaches as soon as the extension opens or reuses its tab, before the site loads, and stays attached until the run ends. Chrome shows its debugging bar while it is attached; closing that bar, opening developer tools on the tab or closing the tab stops the extension using the debugger until the next run |
+| `debugger` | Delivers your queued clicks, key presses and typing as real input in [background mode](/docs/reference/chrome/#extension-mode-classic-or-background) (in classic mode most of them go through the extension's own script on the page), watches the page's own requests to tell when an action finished, and takes a screenshot when the app asks for one. Attached only to the tab the extension opened, and only while that tab is on one of the sites above: if the tab goes anywhere else (a redirect, a sign-in through another site, you browsing in it) the extension lets go of it at once, and in background mode attaches again only if the tab comes back to one of those sites while the run is still driving it (never while you have paused, taken over or stopped it). In classic mode it attaches when an action needs it and is released when the run ends or after a short idle period; in background mode it attaches as soon as the extension opens or reuses its tab, before the site loads, and stays attached until the run ends, even a run that stopped without ending cleanly. Chrome shows its debugging bar while it is attached; closing that bar, opening developer tools on the tab or closing the tab stops the extension using the debugger until the next run |
 | `storage` | Keeps the pairing token `blowhorn chrome map` hands it in this Chrome profile, which tells the app which Chrome profile the extension is in so a run for another Blowhorn profile is refused before it does anything. It also keeps, in session storage that Chrome clears when it closes, the id of the tab and tab group the extension opened (and of its own window, when it works in one) and whether you cancelled Chrome's debugging banner, so if Chrome restarts the extension's worker it reuses that tab instead of opening another one, and it does not attach the debugger again after a cancellation until the run ends. Nothing leaves your computer. Chrome shows no warning for this permission |
 | `sidePanel` | Shows the Blowhorn side panel when you click the toolbar button: this profile's setup status, the task a run is doing, its steps and the Blowhorn tab's address, with Stop, Pause / Resume and Take over / Give back. The panel is part of Chrome, not of any page: nothing is added to the sites Blowhorn acts on. Take over brings the Blowhorn tab and its window to the front only when you click it. Chrome shows no warning for this permission ([Watch, pause or take over a run](/docs/how-to/manage/watch-and-take-over-a-run/)) |
 | `downloads` | Catches the one export you asked for (an analytics or connections export) for the app, then cancels and clears it. A finished file stays where it is; the extension never starts a download on its own |
@@ -14697,7 +14152,10 @@ cookies, saved passwords, storage, or the keychain. It writes nothing
 there and opens no browser, DevTools, or network connection. Whether
 Chrome is running is one bounded process lookup, scoped to that data
 directory: a Chrome on another tree (the attach-chrome Chrome, say) does
-not count. There are four
+not count. A Chrome started without `--user-data-dir` runs on Chrome's
+own default directory, so when `chrome.data_dir` (or
+`BLOWHORN_CHROME_DATA_DIR`) points at another tree, your everyday Chrome
+does not count as running on it. These commands are the
 exceptions. `blowhorn chrome extension-status` also reads each Chrome
 profile's `Secure Preferences` and `Preferences` for the extension's
 entry alone (see [its section](#blowhorn-chrome-extension-status)).
@@ -14711,6 +14169,9 @@ computer's pairing key outside Chrome's directory (see [Pairing](#pairing)).
 `blowhorn chrome extension-enable` asks Chrome to open a window on the
 extension's Chrome Web Store page in each Chrome profile you name (see
 [its section](#blowhorn-chrome-extension-enable)).
+`blowhorn chrome open` asks Chrome to open its main profile with no page,
+so a Chrome that has never been opened can write its local state (see
+[its section](#blowhorn-chrome-open)).
 `blowhorn chrome open-profile` asks Chrome to open a window in the
 Chrome profile a Blowhorn profile is mapped to (see
 [its section](#blowhorn-chrome-open-profile)). When no Chrome is
@@ -14735,7 +14196,9 @@ signs the profile out. A command that would have to start Chrome from
 such a session refuses and says why; use Blowhorn from this computer's
 desktop session, signed in to your account, instead. Asking a Chrome
 that is already running to open a tab or a profile starts nothing and
-is not refused.
+is not refused. Only a Chrome running on the run's own folder counts:
+with `chrome.data_dir` pointing at another folder, your everyday Chrome
+being open does not stop the refusal.
 
 A test or check run that points Blowhorn's Chrome folders at a throwaway
 folder under the system temp directory (`BLOWHORN_USER_DATA_DIR`,
@@ -14925,7 +14388,11 @@ native host if its manifest or launcher is missing or out of date, then
 checks for a native host process from before an earlier upgrade still
 answering on the mapped profile's behalf - such a host keeps serving the
 old shared socket until something ends it - and ends it, by its own
-process id, before opening the profile in the background. That alone is
+process id, before opening the profile in the background. Only a process
+running the native host from the exact path this install's launcher
+names, or the retired host program an older release ran, is ever ended:
+a process that only shares the host's name, such as another install's
+host or a build of it, is left alone. That alone is
 usually enough: ending the stale host
 drops the extension's connection to it, and the extension connects
 again on its own, which starts the host the current launcher names.
@@ -14938,27 +14405,25 @@ help: that is the one action that ends every such host in that Chrome
 instance at once. A pass that is cancelled, stopped or paused, and an
 activity paused on its own, open nothing.
 
-The opening, the wait and every code above can also be handled by a
-compiled helper, `blowhorn-chrome-start`, instead of the Python code
-that handles them by default. It is opt-in while the two are compared:
+The opening, the wait and every code above are handled by a compiled
+helper, `blowhorn-chrome-start`, that ships with Blowhorn. Only a Chrome
+running on the mapped profile's own Chrome folder counts as running: a
+Chrome on another folder, such as the one `blowhorn chrome attach-chrome`
+starts, does not, so Chrome is started on the mapped profile's folder
+as when no Chrome runs at all. When the profile's bridge comes up in the moment between
+Blowhorn's check and the helper's, the helper opens nothing and the run
+connects to it. On macOS the helper opens Chrome in the background
+(`open -g`), so it does not take focus from the app you are using.
 
-| `BLOWHORN_CHROME_START` | What opens Chrome when it is closed |
+The run stops with one sentence, and nothing else opens Chrome in its
+place, when:
+
+| Situation | What to do |
 |---|---|
-| unset, or `python` | The built-in Python cold start (the default). |
-| `rust` | `blowhorn-chrome-start`, built in a checkout with `cargo build --release -p blowhorn-chrome-start` in `engine/rust`. |
-
-Any other value stops a run that needs to open Chrome, and names the two choices. With `rust`
-selected and the helper not built, the run stops and says how to build it;
-nothing falls back to the Python cold start. Either way the line on
-stderr, the codes and the messages are the same, including an
-announcement that carries `NaN` or `Infinity`: both raise
-`blowhorn-engine-1006` and word it as a mismatch. When the profile's
-bridge comes up in the moment between Blowhorn's check and the helper's,
-the helper opens nothing and the run
-connects to it. On macOS the helper
-opens Chrome in the background (`open -g`), so it does not take focus from
-the app you are using. A helper built from an older checkout, whose codes
-no longer match this one, is refused by name.
+| The helper is missing from your copy of Blowhorn | Reinstall Blowhorn. |
+| The helper is not built, in a checkout of the source | Run `cargo build --release -p blowhorn-chrome-start` in `engine/rust`. |
+| The helper was built from an older checkout, whose codes no longer match | Build it again, as above. |
+| `BLOWHORN_CHROME_START` is set to anything but `rust` | Unset it. It chose between two ways of opening Chrome, and only the helper is left. |
 
 Under the extension default, `blowhorn profile auth` is a sign-in by
 hand: it opens the platform's sign-in page once in your mapped Chrome
@@ -15063,14 +14528,16 @@ or registered something and the extension then connects, the run says
 so once on stderr, for example `repaired the native host manifest and
 registered the extension; the Blowhorn extension (1.36.6) is connected`.
 
-In a source checkout, `--native-host rust` points the native host
-launcher at the Rust native host built with `cargo build --release -p
-blowhorn-host` in `engine/rust` (or the binary `--rust-host` names)
-instead of the Python one. It is off by default, and the app does not
-ship that binary. A Rust host that is missing or not executable is
-refused and nothing is written. A later install or ensure keeps the
-Rust host while its binary still runs, and puts the Python one back,
-saying so, once it does not; `--native-host python` switches back.
+The native host launcher runs Blowhorn's compiled native host,
+`blowhorn-host`: the copy the app's engine carries, or in a source
+checkout the one `cargo build --release -p blowhorn-host` builds in
+`engine/rust`. `--rust-host` names another build instead, and a later
+install or ensure keeps it while it still runs. A native host that is
+missing or not executable is refused with how to get it back, and
+nothing is written. A launcher an earlier version of Blowhorn left
+running its older Python native host is moved to `blowhorn-host` by the
+next install, setup or ensure, which says so. `--native-host python` is
+refused: that host is gone.
 
 ### A host that reads as outdated
 
@@ -15080,7 +14547,8 @@ earlier app can therefore outlive the app's replacement and answer
 `host_status` without the newer app's snapshot, which reads as "update
 the app". When `host_status` reads outdated (protocol below the minimum,
 or no snapshot) and no run is at work - no tab held, and the last run
-sent `input_release` - the extension drops the port and connects again,
+sent `input_release` (or, for a run that went away without one, the host
+sent it for that run) - the extension drops the port and connects again,
 so Chrome starts the host the current manifest names. A run in progress
 keeps its host; the switch happens after its `input_release`. The first
 switch is immediate; each later one waits at least a minute, doubling
@@ -15164,7 +14632,7 @@ With the extension driver, a run uses one of two behaviors:
 | --- | --- | --- |
 | Blowhorn's tab | opens inactive beside the tab you are on, in a Blowhorn group that is collapsed by default, or in its own window, mostly behind yours (see below) | the same |
 | focus emulation | from the first action that takes the debugger | from the first page load |
-| Chrome's debugging bar | while an action holds the debugger, gone after a short idle period | for the whole run, from before the site loads |
+| Chrome's debugging bar | while an action holds the debugger, gone after a short idle period | for the whole run, from before the site loads, while Blowhorn's tab is on a supported site |
 | visible screenshot | captured through the debugger, without selecting the tab | captured through the debugger, without selecting the tab |
 | input | synthetic unless `BLOWHORN_EXTENSION_INPUT=trusted` | trusted unless `BLOWHORN_EXTENSION_INPUT=synthetic` |
 | bringing the tab forward | never. When Blowhorn needs you it turns the Blowhorn group red and opens it, posts a notification when "Tell me when something needs me" is on in Posture, and waits for you to click the tab | the same |
@@ -15195,7 +14663,7 @@ the same way:
 | setting | Blowhorn's tab |
 | --- | --- |
 | `side_tab` (the default) | an inactive tab right after the tab you are on, in your window |
-| `own_window` | the selected tab of one window of Blowhorn's own, opened without focus in Chrome's normal window state at the size of the window you used last and 56 px to its right, so it sits mostly behind yours with an edge showing. It holds its own Blowhorn tab group, collapsed or open as above. Blowhorn closes it when a run ends, unless you put a tab of your own in it or Blowhorn is waiting for you in it, and makes a new one for the next run. If you close it first, it makes a new one too |
+| `own_window` | the selected tab of one window of Blowhorn's own, opened without focus in Chrome's normal window state at the size of the window you used last and 56 px to its right, so it sits mostly behind yours with an edge showing. It holds its own Blowhorn tab group, collapsed or open as above. Blowhorn closes it when a run ends, unless you put a tab of your own in it, and makes a new one for the next run. If you close it first, it makes a new one too |
 | `split_view` | a tab in a split view beside the tab you are on, in your window, on Chrome 155 or later. Your tab stays selected and the split tab is visible, so the page reads a real size and a real screen position. On an older Chrome, or when the split cannot be made, Blowhorn works in a window of its own instead, as `own_window` above |
 
 Either way nothing takes focus, your selected tab stays selected, and focus
@@ -15204,6 +14672,11 @@ placed off screen or opened as a popup. On a Mac a background tab reads its
 window's outer size as 0 x 0 (a Chrome behavior), which a page can notice;
 the selected tab of its own window can read a real size. `side_tab` stays the
 default.
+
+In every setting a run's end closes Blowhorn's tab and its tab group, whether the
+run finished, failed or was stopped; it waits while you are looking at that tab,
+and never closes your own tabs or the profile's last tab (see
+[Choose where Blowhorn works in Chrome](/docs/how-to/settings/where-blowhorn-works/)).
 
 **Keep that edge showing.** On a Mac, `own_window` reads a real size only
 while part of Blowhorn's window is visible on the current Space. When the window
@@ -15294,8 +14767,25 @@ reaches. In classic mode typing writes the field's value or text with no
 input event, and those X flows refuse by name there. Clearing a field
 before typing stays a page-side clear in both modes.
 
+A single key press (Enter to send a comment, Escape to close a dialog, a
+select-all before replacing a post's text) follows the input row too. In
+background mode it is a real key through the debugger, so a select-all
+really selects and the typing that follows replaces the text. In classic mode
+it is the page's own key event, a key down and up carrying the key and code a
+US keyboard sends (Space arrives as a space, Control+A holds Control, and on a
+Mac as Command), which the site's key handling reads but which does nothing a
+real key would do on its own.
+
 In background mode Chrome's "started debugging this browser" bar stays up for
-the whole run, and it goes away when the run ends. Closing it, opening
+the whole run, and it goes away when the run ends. It also goes away while
+Blowhorn's tab is on a site Blowhorn does not support - a redirect, a sign-in
+that passes through another site, or you browsing in that tab - and comes back
+if the tab returns to a supported site while the run is still driving it (not
+once you paused, took over or stopped it; the run's next step takes it again
+after you hand it back): the debugger never stays attached to a page Blowhorn
+does not act on. If the Blowhorn app's run
+stops without ending cleanly (it crashed or was stopped), the app's helper
+ends the attachment for it, so the bar does not wait for the next run. Closing it, opening
 developer tools on Blowhorn's tab, or closing that tab takes the debugger away:
 for the rest of that run every click, key press or quiet screenshot that needs
 it fails as `input_revoked`, and the error names which of the three happened.
@@ -15351,9 +14841,12 @@ when it needs the extension it ensures it on demand, as
 `blowhorn chrome extension-install` describes.
 
 `--json` also carries `profile_states`: one item per Chrome profile
-directory with a `Preferences` file (`Default`, `Profile N`, and
-Blowhorn's own `Blowhorn` and `Blowhorn N`), each
-`{profile, state, version}`, read from the same two files. `state` is:
+directory with a `Preferences` file (Chrome's main profile directory,
+`Profile N`, and Blowhorn's own `Blowhorn` and `Blowhorn N`), each
+`{profile, state, version, outdated}`, read from the same two files.
+`outdated` is whether that version is below the one this Blowhorn needs:
+true, false, or null when no version was read (unknown never blocks).
+`state` is:
 
 - `enabled` - the extension is in that profile and turned on.
 - `disabled` - it is in that profile and turned off. The external route
@@ -15385,6 +14878,18 @@ by this command. `--dry-run` opens nothing.
 one `{directory, display_name, opened, detail}` per profile, where
 `detail` says why the page did not open (`chrome could not open the Chrome Web Store page: <reason>`). When it opened in no
 profile, `ok` is `false` and the command exits 1.
+
+## `blowhorn chrome open`
+
+```bash
+blowhorn chrome open
+```
+
+Opens Google Chrome itself, on Chrome's main profile and with no page, so
+a Chrome that has never been opened can write its local state. Chrome's
+own startup pages are left alone. It writes nothing, maps nothing, and
+drives nothing in the window. Flags and the JSON shape are on
+[blowhorn chrome open](/docs/reference/cli/chrome/#blowhorn-chrome-open).
 
 ## `blowhorn chrome open-profile`
 
@@ -15748,12 +15253,16 @@ The same activity is also picked up by `blowhorn comment`. An activity whose
 --------------------------------------------------------------------------------
 title: "MCP server"
 url: https://blowhorn.ai/docs/reference/mcp-server/index.md
-description: The local MCP server: one tool per CLI command, a few split into two tools, a few hidden by default, over stdio, with dry run as the default for anything that changes state.
+description: The hosted MCP server clients connect to, and the desktop app's own process: one tool per CLI command, dry run first for anything that changes state.
 --------------------------------------------------------------------------------
 
-Blowhorn ships a local MCP server so an AI agent can drive the same
-commands you run, through the Model Context Protocol, instead of
-learning a second surface. It is generated, not hand-written: at
+Clients connect to the hosted server at `https://mcp.blowhorn.ai/mcp`.
+The steps are in [Connect an AI assistant over
+MCP](/docs/how-to/set-up/connect-mcp-client/). That server is read-only
+today. The rest of this page describes the process the desktop app
+ships, which speaks stdio and is not a client configuration.
+
+That process is generated, not hand-written: at
 startup it reads `schemas/dist/openapi.yaml` and builds one tool per
 operation in that bundle, except the few
 [hidden by default](#hidden-tools), named by the operation id
@@ -15776,10 +15285,10 @@ is the standard plug: any MCP client can discover one tool per command
 and call it over the protocol. [blowhorn-axi](/docs/reference/cli/blowhorn-axi/) is the
 agent command line: an agent runs it directly and reads compact,
 agent-shaped answers, with every write a dry run until `--confirm`.
-Both drive the same `blowhorn` commands, both rehearse before they
-act, and both run on your own computer. If your assistant speaks MCP,
-connect it here; if it runs shell commands, give it `blowhorn-axi`
-or the CLI itself. The steps for connecting a client are in
+Both drive the same `blowhorn` commands, and both rehearse before they
+act. If your assistant speaks MCP, connect it to the hosted server. If
+it runs shell commands, give it `blowhorn-axi` or the CLI itself. The
+steps for connecting a client are in
 [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/).
 
 ## Tour of the tools
@@ -15814,51 +15323,27 @@ the command there for its flags, its examples, and its exit codes.
 
 ## Starting it
 
-The server runs over stdio. The `blowhorn-mcp` command starts it with
-everything it needs, so a client entry is that one command:
+Do not put this process in a client config. Clients use the hosted
+URL in [Connect an AI assistant over
+MCP](/docs/how-to/set-up/connect-mcp-client/).
 
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
-    }
-  }
-}
-```
-
-The Blowhorn app writes the command to `~/.local/bin` (version 1.61.0
+The desktop app writes `blowhorn-mcp` to `~/.local/bin` (version 1.61.0
 or later; see [The blowhorn-mcp command](#the-blowhorn-mcp-command)),
-and so does a checkout install (`tools/install.sh`). Any arguments after
-the command go to the server unchanged, so
-`~/.local/bin/blowhorn-mcp --list-tools` works too. The npm package
-[`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp) is
-published, so `npx -y blowhorn-mcp` (Node.js 20 or later) starts the
-same server; it still needs the Blowhorn app installed and opened once.
+and so does a checkout install (`tools/install.sh`). That command
+starts the app's process over stdio. Any arguments after the command
+go to the server unchanged, so `~/.local/bin/blowhorn-mcp --list-tools`
+prints the tool list and exits. The npm package
+[`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp) is the
+same launcher the app uses. It is not a server to point a client at.
 
-Without the command, run the server from a checkout, with the
-checkout's Python environment:
+From a checkout, the process starts with the checkout's Python
+environment:
 
 ```bash
-PYTHONPATH=engine ./venv/bin/python -m blowhorn.mcp_server
+PYTHONPATH=engine ./venv/bin/python -P -m blowhorn.mcp_server
 ```
 
-As a client entry, with the paths filled in for your checkout:
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/path/to/blowhorn/venv/bin/python",
-      "args": ["-P", "-m", "blowhorn.mcp_server"],
-      "env": {"PYTHONPATH": "/path/to/blowhorn/engine"}
-    }
-  }
-}
-```
-
-The `-P` keeps the client's working directory off Python's import
+The `-P` flag keeps the working directory off Python's import
 path, so a file there can never stand in for one of the server's own
 modules.
 
@@ -15888,14 +15373,12 @@ you want instead. The app runs on macOS.
 #### The `blowhorn-mcp` command
 
 Blowhorn 1.61.0 and later write `~/.local/bin/blowhorn-mcp` beside the
-other two commands. It is the whole configuration: the command
-`/Users/<you>/.local/bin/blowhorn-mcp`, with no arguments and no
-environment. Write the full path: a client started from the Dock or
-Finder does not have `~/.local/bin` on its PATH. The one exception:
-when `~/.local/bin/blowhorn` is not the app's (it lacks the line
-`Managed by Blowhorn installer`), the entry still needs
-`BLOWHORN_MCP_CLI` in its `env`, naming the `blowhorn` executable to
-use; `blowhorn-mcp` keeps a value the client sets.
+other two commands. It starts the app's process. It is not a command
+to put in a client config. Clients connect to the hosted server. When
+`~/.local/bin/blowhorn` is not the app's (it lacks the line
+`Managed by Blowhorn installer`), `BLOWHORN_MCP_CLI` names the
+`blowhorn` executable to use; `blowhorn-mcp` keeps a value already set
+in its environment.
 
 It finds the app again if the app moves, the way `blowhorn` does,
 sets `PYTHONPATH` itself, and sets `BLOWHORN_MCP_CLI` to the
@@ -15911,35 +15394,21 @@ client already set one.
 
 #### The app's own Python
 
-An app older than 1.61.0 has no `blowhorn-mcp` command. Point the
-client at the app's interpreter instead. With the app in
-`/Applications`, and your home directory filled in:
+An app older than 1.61.0 has no `blowhorn-mcp` command. The process
+then starts from the app's interpreter. With the app in
+`/Applications`, that interpreter is
+`/Applications/Blowhorn.app/Contents/Resources/engine/bin/python`, run
+as `-P -m blowhorn.mcp_server`, with `PYTHONPATH` set to
+`/Applications/Blowhorn.app/Contents/Resources/engine/engine` and
+`BLOWHORN_MCP_CLI` set to `~/.local/bin/blowhorn`.
 
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Applications/Blowhorn.app/Contents/Resources/engine/bin/python",
-      "args": ["-P", "-m", "blowhorn.mcp_server"],
-      "env": {
-        "PYTHONPATH": "/Applications/Blowhorn.app/Contents/Resources/engine/engine",
-        "BLOWHORN_MCP_CLI": "/Users/<you>/.local/bin/blowhorn"
-      }
-    }
-  }
-}
-```
-
-`BLOWHORN_MCP_CLI` names the app's `blowhorn` command outright,
-because an MCP client may start the server without `~/.local/bin` on
-its PATH. Without it, a client started from the Dock or Finder lists
-the tools, but every call fails with
+Without `BLOWHORN_MCP_CLI`, a call fails with
 `blowhorn executable not found: blowhorn`. Without `PYTHONPATH`, the
 server does not start and stderr says `No module named 'blowhorn'`.
 
 | Fact | With the app |
 |---|---|
-| Client command | `/Users/<you>/.local/bin/blowhorn-mcp` (1.61.0 or later) |
+| App launcher | `/Users/<you>/.local/bin/blowhorn-mcp` (1.61.0 or later). Clients do not use this. |
 | Interpreter | `/Applications/Blowhorn.app/Contents/Resources/engine/bin/python` |
 | `PYTHONPATH` | `/Applications/Blowhorn.app/Contents/Resources/engine/engine` |
 | `blowhorn` command | `~/.local/bin/blowhorn`, rewritten by the app each time it opens |
@@ -16066,7 +15535,8 @@ world, so it is still a dry run until `confirm` is true.
 
 The additive tools are `accept`, `analytics`,
 `chrome_create_profile`,
-`chrome_extension_enable`, `chrome_open_profile`, `chrome_remember`,
+`chrome_extension_enable`, `chrome_open`, `chrome_open_profile`,
+`chrome_remember`,
 `chrome_spaces_setup`, `comment`,
 `diagnostics_opened`, `diagnostics_support`, `find`, `follow`, `post`,
 `profile_create`, `slack_react`, `slack_send` and `star`, and the
@@ -16139,16 +15609,9 @@ above: it still runs as a dry run until `confirm` is true.
 the coverage check holds an opted-in tool to the same output schema
 rules as the rest and leaves a hidden one it is not serving alone.
 
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": ["--allow-hidden-tool", "service_uninstall"],
-      "env": {"BLOWHORN_MCP_ALLOW_HIDDEN_TOOLS": "auth_logout"}
-    }
-  }
-}
+```bash
+BLOWHORN_MCP_ALLOW_HIDDEN_TOOLS=auth_logout \
+  ~/.local/bin/blowhorn-mcp --allow-hidden-tool service_uninstall
 ```
 
 ### MCP calls always run as an agent
@@ -16300,21 +15763,12 @@ its own name at 127.0.0.1 (DNS rebinding) cannot read the numbers. It
 logs the address on stderr when it starts. With neither set, nothing
 is counted and no port is opened.
 
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": ["--metrics-port", "9465"]
-    }
-  }
-}
+```bash
+~/.local/bin/blowhorn-mcp --metrics-port 9465
 ```
 
-Your AI client starts the server, so the listener runs only while the
-client keeps it running, and the counts start again at 0 each time.
-Each client starts its own server: give each one its own port, or turn
-metrics on for one client only.
+The listener runs only while that process runs, and the counts start
+again at 0 each time the process starts. Two processes need two ports.
 
 A port the server cannot bind (already in use, or not permitted) does
 not stop it. It prints one warning on stderr naming the port and the
@@ -16327,11 +15781,9 @@ metrics need: the server prints one warning saying so, ending
 loaded, so its absence changes nothing. A port value that is not a
 number from 0 to 65535 is a usage error (exit 2).
 
-A client that starts several server processes from one config (for
-example one per session or window) shares one fixed port among them:
-expect only the first to serve metrics there, and the others to print
-the warning. Port `0` picks a free port for each process instead and
-logs it on stderr.
+Several processes that share one fixed port leave metrics to the first
+one. The others print the warning. Port `0` picks a free port for each
+process instead and logs it on stderr.
 
 To collect the numbers with a Prometheus on the same computer:
 
@@ -16358,8 +15810,8 @@ scrape_configs:
 
 It serves stdio only. It does not serve Streamable HTTP, OAuth, or
 per-organization scoping. Those belong to the hosted Blowhorn MCP
-server, which is coming. Asking this server for HTTP refuses at
-startup:
+server, documented in the next section. Asking this server for HTTP
+refuses at startup:
 
 ```bash
 ~/.local/bin/blowhorn-mcp --transport http
@@ -16377,13 +15829,17 @@ serves RFC 9728 protected-resource metadata locally (both
 authorization server, and rewrites Cloud's `401` `WWW-Authenticate` so
 `resource_metadata` points at this origin.
 
-Connect today with a Blowhorn API token as `Authorization: Bearer <token>`.
-Create one on the Tokens page of your Blowhorn account; the steps are in
+Connect with OAuth 2.1 (dynamic client registration and PKCE), or with
+a Blowhorn API token as `Authorization: Bearer <token>`. The
+authorization server is the one advertised in
+`https://mcp.blowhorn.ai/.well-known/oauth-protected-resource`. The
+resource is `https://mcp.blowhorn.ai/mcp`. Create a token on the Tokens
+page of your Blowhorn account; the steps are in
 [Get a Blowhorn API token](/docs/how-to/set-up/connect-mcp-client/#get-a-blowhorn-api-token). The
 Blowhorn desktop app has no screen for creating one.
-Standards-following MCP OAuth clients can discover the authorization server
-from the metadata, but end-to-end sign-in stays gated until Cloud enables
-dynamic client registration (`POST /oauth2/register` currently returns 403).
+[Arcade](/docs/how-to/set-up/connect-mcp-client/#arcade) registers this URL
+as a Remote MCP and leaves the OAuth client fields empty so dynamic
+client registration can run.
 
 The gateway is read-only today. Cloud serves four tools through it,
 `listContentItems`, `getContentItem`, `getEvents` and `getConnections`, so a
@@ -16440,8 +15896,10 @@ The server is listed in the
 `io.github.blowhorn-ai/blowhorn`, status `active`, and its launcher is on
 npm as [`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp).
 The registry lists versions from 0.1.1 on, and npm from 0.1.0 on. As of
-2026-11-13 the latest is 1.0.2 on both; the commands below print the
-current one.
+2026-11-19 the latest on npm is 1.1.0, and the registry's latest row is
+1.1.0. That registry row still lists a stdio package beside the hosted
+remote. The `server.json` in the repository lists the remote only. The
+commands below print the current versions.
 
 Version 1.0.0 is the first stable release of the launcher. It adds no
 launcher features over 0.1.4. It moves the launcher and the registry
@@ -16453,7 +15911,11 @@ The listing input, `server.json`, lives in the public
 [blowhorn-mcp repository](https://github.com/blowhorn-ai/blowhorn-mcp)
 beside the source of the npm launcher. It carries the npm launcher's
 version, not the Blowhorn release's, and each registry publish pairs with
-an npm publish of the same version. Other catalogs are not listed yet.
+an npm publish of the same version. Other public catalogs are not
+listed yet. Arcade does not list Blowhorn in its public catalog. An
+Arcade user adds the hosted URL as a Remote MCP; see
+[Arcade](/docs/how-to/set-up/connect-mcp-client/#arcade). A public Arcade
+partner or Registry listing has not been submitted.
 
 To check the listing yourself:
 
@@ -16499,7 +15961,7 @@ response = ConfigShowResponse.from_dict(json.loads(stdout))
 
 ## What it covers
 
-Every operation in the OpenAPI bundle: 122 commands, each as one
+Every operation in the OpenAPI bundle: 123 commands, each as one
 function under `blowhorn_schemas.api.<group>.<command>`, with the
 request and response models under `blowhorn_schemas.models`. The
 operations are shaped like the CLI, not like an HTTP service: each
@@ -16890,8 +16352,10 @@ The limits Blowhorn knows for YouTube.
 
 | Limit | Value |
 |---|---|
-| Post | 5000 |
+| Description | 5000 |
 | Title | 100 |
+| Video | 256000000000 bytes |
+| Short length | 180 s |
 
 <!-- END generated limits -->
 
@@ -18005,17 +17469,19 @@ description: How the MCP server, the CLI, dry runs, confirms and approvals fit t
 --------------------------------------------------------------------------------
 
 An AI assistant that connects to Blowhorn over MCP gets no powers of
-its own. It gets the commands you already run, with the same rules
-around them, and a few more on top. This page explains how those
-pieces fit together. The setup steps are in [Connect an AI assistant
-over MCP](/docs/how-to/set-up/connect-mcp-client/), and the exact rules
-are in the [MCP server reference](/docs/reference/mcp-server/).
+its own. The hosted server at `https://mcp.blowhorn.ai/mcp` serves four
+read-only tools. Writes you make in the app, or through the CLI, keep
+the rules below. This page explains how those pieces fit together. The
+setup steps are in [Connect an AI assistant over
+MCP](/docs/how-to/set-up/connect-mcp-client/), and the exact rules are
+in the [MCP server reference](/docs/reference/mcp-server/).
 
 ## A thin layer over the CLI
 
-The MCP server holds no Blowhorn logic. When an assistant calls a
-tool, the server runs the matching `blowhorn` command on your computer
-and hands back what it printed. There is one tool per command, built
+The desktop app's process holds no Blowhorn logic of its own. When it
+runs a tool, it runs the matching `blowhorn` command on your computer
+and hands back what it printed. The hosted server does not do that:
+its four tools are reads served by Cloud. There is one tool per command, built
 from the same command descriptions the CLI reference is built from,
 except a few that are hidden by default (see below). A new command
 becomes a new tool the next time the server starts.
@@ -18108,17 +17574,20 @@ is set, comes through as it is, so the assistant can still tell what
 is configured. It never logs a tool's arguments, because
 an argument can itself be a secret.
 
-## Local today, hosted next
+## The hosted server
 
-This server runs on your own computer over stdio. Your client starts
-it as a local process, and it acts with your sign-ins on that
-computer. That is why there is no OAuth step: nothing travels over a
-network to reach it.
+Clients connect to the hosted server at `https://mcp.blowhorn.ai/mcp`
+(Streamable HTTP). The steps are in [Connect an AI assistant over
+MCP](/docs/how-to/set-up/connect-mcp-client/). Sign-in is OAuth 2.1 with
+dynamic client registration and PKCE, or a Bearer Cloud API token. The
+tools today are read-only: `listContentItems`, `getContentItem`,
+`getEvents` and `getConnections`. A request to post or change anything
+has no tool there.
 
-Clients that only connect to remote servers, such as ChatGPT on the
-web, cannot use it. A hosted Blowhorn MCP server is coming for them,
-with its own sign-in. The same rules will hold there: dry run first,
-confirm to act, and approvals kept for a person.
+The desktop app also ships a process that runs on your computer over
+stdio. That process is not the way to connect a client. Approvals for
+writes you make in the app, or through the CLI, still follow the rules
+above.
 
 ## Related
 
@@ -18126,8 +17595,9 @@ confirm to act, and approvals kept for a person.
   one place, and what changes when an AI agent is driving
 - [MCP server reference](/docs/reference/mcp-server/) - the tools, the
   options and the safety rules in full
-- [Connect an assistant and send your first
-  post](/docs/tutorials/first-mcp-connection/) - try it end to end
+- [Connect an assistant and read your
+  queue](/docs/tutorials/first-mcp-connection/) - try the hosted server
+  end to end
 
 
 --------------------------------------------------------------------------------

@@ -14,12 +14,12 @@
       })();
     </script>
 <title>MCP server: Blowhorn</title>
-    <meta name="description" content="The local MCP server: one tool per CLI command, a few split into two tools, a few hidden by default, over stdio, with dry run as the default for anything that changes state.">
+    <meta name="description" content="The hosted MCP server clients connect to, and the desktop app&#39;s own process: one tool per CLI command, dry run first for anything that changes state.">
     <link rel="canonical" href="https://blowhorn.ai/docs/reference/mcp-server/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Blowhorn">
     <meta property="og:title" content="MCP server: Blowhorn">
-    <meta property="og:description" content="The local MCP server: one tool per CLI command, a few split into two tools, a few hidden by default, over stdio, with dry run as the default for anything that changes state.">
+    <meta property="og:description" content="The hosted MCP server clients connect to, and the desktop app&#39;s own process: one tool per CLI command, dry run first for anything that changes state.">
     <meta property="og:url" content="https://blowhorn.ai/docs/reference/mcp-server/">
     <meta property="og:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-social-banner-16x9.png">
     <meta property="og:image:width" content="1600">
@@ -27,7 +27,7 @@
     <meta property="og:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline One message. Many ears.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="MCP server: Blowhorn">
-    <meta name="twitter:description" content="The local MCP server: one tool per CLI command, a few split into two tools, a few hidden by default, over stdio, with dry run as the default for anything that changes state.">
+    <meta name="twitter:description" content="The hosted MCP server clients connect to, and the desktop app&#39;s own process: one tool per CLI command, dry run first for anything that changes state.">
     <meta name="twitter:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-social-banner-16x9.png">
     <meta name="twitter:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline One message. Many ears.">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshow-to-li">
@@ -588,10 +588,13 @@
   </ol>
 </nav><div class="prose docs-page">
   <h1 class="h1">MCP server</h1>
-  <p class="body-lg docs-lead">The local MCP server: one tool per CLI command, a few split into two tools, a few hidden by default, over stdio, with dry run as the default for anything that changes state.</p>
-  <p>Blowhorn ships a local MCP server so an AI agent can drive the same
-commands you run, through the Model Context Protocol, instead of
-learning a second surface. It is generated, not hand-written: at
+  <p class="body-lg docs-lead">The hosted MCP server clients connect to, and the desktop app's own process: one tool per CLI command, dry run first for anything that changes state.</p>
+  <p>Clients connect to the hosted server at <code>https://mcp.blowhorn.ai/mcp</code>.
+The steps are in <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over
+MCP</a>. That server is read-only
+today. The rest of this page describes the process the desktop app
+ships, which speaks stdio and is not a client configuration.</p>
+<p>That process is generated, not hand-written: at
 startup it reads <code>schemas/dist/openapi.yaml</code> and builds one tool per
 operation in that bundle, except the few
 <a href="#hidden-tools">hidden by default</a>, named by the operation id
@@ -611,10 +614,10 @@ is the standard plug: any MCP client can discover one tool per command
 and call it over the protocol. <a href="/docs/reference/cli/blowhorn-axi/">blowhorn-axi</a> is the
 agent command line: an agent runs it directly and reads compact,
 agent-shaped answers, with every write a dry run until <code>--confirm</code>.
-Both drive the same <code>blowhorn</code> commands, both rehearse before they
-act, and both run on your own computer. If your assistant speaks MCP,
-connect it here; if it runs shell commands, give it <code>blowhorn-axi</code>
-or the CLI itself. The steps for connecting a client are in
+Both drive the same <code>blowhorn</code> commands, and both rehearse before they
+act. If your assistant speaks MCP, connect it to the hosted server. If
+it runs shell commands, give it <code>blowhorn-axi</code> or the CLI itself. The
+steps for connecting a client are in
 <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over MCP</a>.</p>
 <h2 id="tour-of-the-tools">Tour of the tools</h2><p>The tools are grouped the way the command bundle groups them, and a
 group's tools cover the commands in it, no more and no less, except
@@ -643,38 +646,19 @@ is hidden by default.</li>
 <p>A tool's name is its command's operation id, so the
 <a href="/docs/reference/cli/">CLI reference</a> documents exactly what each tool does: find
 the command there for its flags, its examples, and its exit codes.</p>
-<h2 id="starting-it">Starting it</h2><p>The server runs over stdio. The <code>blowhorn-mcp</code> command starts it with
-everything it needs, so a client entry is that one command:</p>
-<figure class="term" data-lang="json">
-  <figcaption class="term-bar">
-    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="term-title">JSON</span>
-    <span class="term-lang" aria-hidden="true">JSON</span>
-    <button type="button" class="term-copy" aria-label="Copy JSON to clipboard" hidden>
-      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
-      <span class="term-copy-text">Copy</span>
-    </button>
-  </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;/Users/&lt;you&gt;/.local/bin/blowhorn-mcp&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
-</figure>
-<p>The Blowhorn app writes the command to <code>~/.local/bin</code> (version 1.61.0
+<h2 id="starting-it">Starting it</h2><p>Do not put this process in a client config. Clients use the hosted
+URL in <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over
+MCP</a>.</p>
+<p>The desktop app writes <code>blowhorn-mcp</code> to <code>~/.local/bin</code> (version 1.61.0
 or later; see <a href="#the-blowhorn-mcp-command">The blowhorn-mcp command</a>),
-and so does a checkout install (<code>tools/install.sh</code>). Any arguments after
-the command go to the server unchanged, so
-<code>~/.local/bin/blowhorn-mcp --list-tools</code> works too. The npm package
-<a href="https://www.npmjs.com/package/blowhorn-mcp"><code>blowhorn-mcp</code></a> is
-published, so <code>npx -y blowhorn-mcp</code> (Node.js 20 or later) starts the
-same server; it still needs the Blowhorn app installed and opened once.</p>
-<p>Without the command, run the server from a checkout, with the
-checkout's Python environment:</p>
+and so does a checkout install (<code>tools/install.sh</code>). That command
+starts the app's process over stdio. Any arguments after the command
+go to the server unchanged, so <code>~/.local/bin/blowhorn-mcp --list-tools</code>
+prints the tool list and exits. The npm package
+<a href="https://www.npmjs.com/package/blowhorn-mcp"><code>blowhorn-mcp</code></a> is the
+same launcher the app uses. It is not a server to point a client at.</p>
+<p>From a checkout, the process starts with the checkout's Python
+environment:</p>
 <figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -685,32 +669,10 @@ checkout's Python environment:</p>
       <span class="term-copy-text">Copy</span>
     </button>
   </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span><span class="nv">PYTHONPATH</span><span class="o">=</span>engine ./venv/bin/python -m blowhorn.mcp_server</span></span></code></pre></div></div>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span><span class="nv">PYTHONPATH</span><span class="o">=</span>engine ./venv/bin/python -P -m blowhorn.mcp_server</span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
-<p>As a client entry, with the paths filled in for your checkout:</p>
-<figure class="term" data-lang="json">
-  <figcaption class="term-bar">
-    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="term-title">JSON</span>
-    <span class="term-lang" aria-hidden="true">JSON</span>
-    <button type="button" class="term-copy" aria-label="Copy JSON to clipboard" hidden>
-      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
-      <span class="term-copy-text">Copy</span>
-    </button>
-  </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;/path/to/blowhorn/venv/bin/python&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;-P&#34;</span><span class="p">,</span> <span class="s2">&#34;-m&#34;</span><span class="p">,</span> <span class="s2">&#34;blowhorn.mcp_server&#34;</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;env&#34;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&#34;PYTHONPATH&#34;</span><span class="p">:</span> <span class="s2">&#34;/path/to/blowhorn/engine&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
-</figure>
-<p>The <code>-P</code> keeps the client's working directory off Python's import
+<p>The <code>-P</code> flag keeps the working directory off Python's import
 path, so a file there can never stand in for one of the server's own
 modules.</p>
 <p>The server reads the bundle from <code>--schema</code>, then <code>BLOWHORN_MCP_OPENAPI</code>,
@@ -733,14 +695,12 @@ app's own command, which contains the line
 alone, and <code>BLOWHORN_MCP_CLI</code> must then name the <code>blowhorn</code> executable
 you want instead. The app runs on macOS.</p>
 <h4 id="the-blowhorn-mcp-command">The <code>blowhorn-mcp</code> command</h4><p>Blowhorn 1.61.0 and later write <code>~/.local/bin/blowhorn-mcp</code> beside the
-other two commands. It is the whole configuration: the command
-<code>/Users/&lt;you&gt;/.local/bin/blowhorn-mcp</code>, with no arguments and no
-environment. Write the full path: a client started from the Dock or
-Finder does not have <code>~/.local/bin</code> on its PATH. The one exception:
-when <code>~/.local/bin/blowhorn</code> is not the app's (it lacks the line
-<code>Managed by Blowhorn installer</code>), the entry still needs
-<code>BLOWHORN_MCP_CLI</code> in its <code>env</code>, naming the <code>blowhorn</code> executable to
-use; <code>blowhorn-mcp</code> keeps a value the client sets.</p>
+other two commands. It starts the app's process. It is not a command
+to put in a client config. Clients connect to the hosted server. When
+<code>~/.local/bin/blowhorn</code> is not the app's (it lacks the line
+<code>Managed by Blowhorn installer</code>), <code>BLOWHORN_MCP_CLI</code> names the
+<code>blowhorn</code> executable to use; <code>blowhorn-mcp</code> keeps a value already set
+in its environment.</p>
 <p>It finds the app again if the app moves, the way <code>blowhorn</code> does,
 sets <code>PYTHONPATH</code> itself, and sets <code>BLOWHORN_MCP_CLI</code> to the
 <code>blowhorn</code> command beside it unless the client already set one. It
@@ -752,37 +712,14 @@ that the <code>blowhorn</code> command runs in those cases. A checkout install
 the checkout's venv the way the command above does and sets
 <code>BLOWHORN_MCP_CLI</code> to the <code>blowhorn</code> launcher beside it unless the
 client already set one.</p>
-<h4 id="the-apps-own-python">The app's own Python</h4><p>An app older than 1.61.0 has no <code>blowhorn-mcp</code> command. Point the
-client at the app's interpreter instead. With the app in
-<code>/Applications</code>, and your home directory filled in:</p>
-<figure class="term" data-lang="json">
-  <figcaption class="term-bar">
-    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="term-title">JSON</span>
-    <span class="term-lang" aria-hidden="true">JSON</span>
-    <button type="button" class="term-copy" aria-label="Copy JSON to clipboard" hidden>
-      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
-      <span class="term-copy-text">Copy</span>
-    </button>
-  </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;/Applications/Blowhorn.app/Contents/Resources/engine/bin/python&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;-P&#34;</span><span class="p">,</span> <span class="s2">&#34;-m&#34;</span><span class="p">,</span> <span class="s2">&#34;blowhorn.mcp_server&#34;</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;env&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;PYTHONPATH&#34;</span><span class="p">:</span> <span class="s2">&#34;/Applications/Blowhorn.app/Contents/Resources/engine/engine&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;BLOWHORN_MCP_CLI&#34;</span><span class="p">:</span> <span class="s2">&#34;/Users/&lt;you&gt;/.local/bin/blowhorn&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
-</figure>
-<p><code>BLOWHORN_MCP_CLI</code> names the app's <code>blowhorn</code> command outright,
-because an MCP client may start the server without <code>~/.local/bin</code> on
-its PATH. Without it, a client started from the Dock or Finder lists
-the tools, but every call fails with
+<h4 id="the-apps-own-python">The app's own Python</h4><p>An app older than 1.61.0 has no <code>blowhorn-mcp</code> command. The process
+then starts from the app's interpreter. With the app in
+<code>/Applications</code>, that interpreter is
+<code>/Applications/Blowhorn.app/Contents/Resources/engine/bin/python</code>, run
+as <code>-P -m blowhorn.mcp_server</code>, with <code>PYTHONPATH</code> set to
+<code>/Applications/Blowhorn.app/Contents/Resources/engine/engine</code> and
+<code>BLOWHORN_MCP_CLI</code> set to <code>~/.local/bin/blowhorn</code>.</p>
+<p>Without <code>BLOWHORN_MCP_CLI</code>, a call fails with
 <code>blowhorn executable not found: blowhorn</code>. Without <code>PYTHONPATH</code>, the
 server does not start and stderr says <code>No module named 'blowhorn'</code>.</p>
 
@@ -796,8 +733,8 @@ server does not start and stderr says <code>No module named 'blowhorn'</code>.</
   </thead>
   <tbody>
     <tr>
-      <td>Client command</td>
-      <td><code>/Users/&lt;you&gt;/.local/bin/blowhorn-mcp</code> (1.61.0 or later)</td>
+      <td>App launcher</td>
+      <td><code>/Users/&lt;you&gt;/.local/bin/blowhorn-mcp</code> (1.61.0 or later). Clients do not use this.</td>
     </tr>
     <tr>
       <td>Interpreter</td>
@@ -1004,7 +941,8 @@ before a destructive call; an additive call still reaches the outside
 world, so it is still a dry run until <code>confirm</code> is true.</p>
 <p>The additive tools are <code>accept</code>, <code>analytics</code>,
 <code>chrome_create_profile</code>,
-<code>chrome_extension_enable</code>, <code>chrome_open_profile</code>, <code>chrome_remember</code>,
+<code>chrome_extension_enable</code>, <code>chrome_open</code>, <code>chrome_open_profile</code>,
+<code>chrome_remember</code>,
 <code>chrome_spaces_setup</code>, <code>comment</code>,
 <code>diagnostics_opened</code>, <code>diagnostics_support</code>, <code>find</code>, <code>follow</code>, <code>post</code>,
 <code>profile_create</code>, <code>slack_react</code>, <code>slack_send</code> and <code>star</code>, and the
@@ -1070,25 +1008,18 @@ above: it still runs as a dry run until <code>confirm</code> is true.
 <code>--list-tools</code> and <code>--check-coverage</code> honour the same opt-ins, so
 the coverage check holds an opted-in tool to the same output schema
 rules as the rest and leaves a hidden one it is not serving alone.</p>
-<figure class="term" data-lang="json">
+<figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="term-title">JSON</span>
-    <span class="term-lang" aria-hidden="true">JSON</span>
-    <button type="button" class="term-copy" aria-label="Copy JSON to clipboard" hidden>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
       <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
       <span class="term-copy-text">Copy</span>
     </button>
   </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;/Users/&lt;you&gt;/.local/bin/blowhorn-mcp&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;--allow-hidden-tool&#34;</span><span class="p">,</span> <span class="s2">&#34;service_uninstall&#34;</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;env&#34;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&#34;BLOWHORN_MCP_ALLOW_HIDDEN_TOOLS&#34;</span><span class="p">:</span> <span class="s2">&#34;auth_logout&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span><span class="nv">BLOWHORN_MCP_ALLOW_HIDDEN_TOOLS</span><span class="o">=</span>auth_logout <span class="se">\
+</span></span></span><span class="line"><span class="cl">  ~/.local/bin/blowhorn-mcp --allow-hidden-tool service_uninstall</span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
 <h3 id="mcp-calls-always-run-as-an-agent">MCP calls always run as an agent</h3><p>Every command the server runs gets <code>BLOWHORN_ACTOR=agent</code>, whatever
@@ -1282,30 +1213,21 @@ is not <code>127.0.0.1:PORT</code> or <code>localhost:PORT</code>, so a web page
 its own name at 127.0.0.1 (DNS rebinding) cannot read the numbers. It
 logs the address on stderr when it starts. With neither set, nothing
 is counted and no port is opened.</p>
-<figure class="term" data-lang="json">
+<figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="term-title">JSON</span>
-    <span class="term-lang" aria-hidden="true">JSON</span>
-    <button type="button" class="term-copy" aria-label="Copy JSON to clipboard" hidden>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
       <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
       <span class="term-copy-text">Copy</span>
     </button>
   </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;/Users/&lt;you&gt;/.local/bin/blowhorn-mcp&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;--metrics-port&#34;</span><span class="p">,</span> <span class="s2">&#34;9465&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>~/.local/bin/blowhorn-mcp --metrics-port <span class="m">9465</span></span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
-<p>Your AI client starts the server, so the listener runs only while the
-client keeps it running, and the counts start again at 0 each time.
-Each client starts its own server: give each one its own port, or turn
-metrics on for one client only.</p>
+<p>The listener runs only while that process runs, and the counts start
+again at 0 each time the process starts. Two processes need two ports.</p>
 <p>A port the server cannot bind (already in use, or not permitted) does
 not stop it. It prints one warning on stderr naming the port and the
 error, ending <code>metrics disabled for this process</code>, and then serves its
@@ -1316,11 +1238,9 @@ metrics need: the server prints one warning saying so, ending
 <code>tools/install.sh</code> to install it. With metrics off the package is never
 loaded, so its absence changes nothing. A port value that is not a
 number from 0 to 65535 is a usage error (exit 2).</p>
-<p>A client that starts several server processes from one config (for
-example one per session or window) shares one fixed port among them:
-expect only the first to serve metrics there, and the others to print
-the warning. Port <code>0</code> picks a free port for each process instead and
-logs it on stderr.</p>
+<p>Several processes that share one fixed port leave metrics to the first
+one. The others print the warning. Port <code>0</code> picks a free port for each
+process instead and logs it on stderr.</p>
 <p>To collect the numbers with a Prometheus on the same computer:</p>
 <figure class="term" data-lang="yaml">
   <figcaption class="term-bar">
@@ -1381,8 +1301,8 @@ logs it on stderr.</p>
 </div>
 <h2 id="what-it-does-not-do">What it does not do</h2><p>It serves stdio only. It does not serve Streamable HTTP, OAuth, or
 per-organization scoping. Those belong to the hosted Blowhorn MCP
-server, which is coming. Asking this server for HTTP refuses at
-startup:</p>
+server, documented in the next section. Asking this server for HTTP
+refuses at startup:</p>
 <figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -1405,13 +1325,17 @@ serves RFC 9728 protected-resource metadata locally (both
 <code>/.well-known/oauth-protected-resource/mcp</code>), naming Cloud's Blowhorn
 authorization server, and rewrites Cloud's <code>401</code> <code>WWW-Authenticate</code> so
 <code>resource_metadata</code> points at this origin.</p>
-<p>Connect today with a Blowhorn API token as <code>Authorization: Bearer &lt;token&gt;</code>.
-Create one on the Tokens page of your Blowhorn account; the steps are in
+<p>Connect with OAuth 2.1 (dynamic client registration and PKCE), or with
+a Blowhorn API token as <code>Authorization: Bearer &lt;token&gt;</code>. The
+authorization server is the one advertised in
+<code>https://mcp.blowhorn.ai/.well-known/oauth-protected-resource</code>. The
+resource is <code>https://mcp.blowhorn.ai/mcp</code>. Create a token on the Tokens
+page of your Blowhorn account; the steps are in
 <a href="/docs/how-to/set-up/connect-mcp-client/#get-a-blowhorn-api-token">Get a Blowhorn API token</a>. The
 Blowhorn desktop app has no screen for creating one.
-Standards-following MCP OAuth clients can discover the authorization server
-from the metadata, but end-to-end sign-in stays gated until Cloud enables
-dynamic client registration (<code>POST /oauth2/register</code> currently returns 403).</p>
+<a href="/docs/how-to/set-up/connect-mcp-client/#arcade">Arcade</a> registers this URL
+as a Remote MCP and leaves the OAuth client fields empty so dynamic
+client registration can run.</p>
 <p>The gateway is read-only today. Cloud serves four tools through it,
 <code>listContentItems</code>, <code>getContentItem</code>, <code>getEvents</code> and <code>getConnections</code>, so a
 client can read your queue, a post, your activity and your connections, but
@@ -1467,8 +1391,10 @@ call may run at most 600 seconds by default
 <code>io.github.blowhorn-ai/blowhorn</code>, status <code>active</code>, and its launcher is on
 npm as <a href="https://www.npmjs.com/package/blowhorn-mcp"><code>blowhorn-mcp</code></a>.
 The registry lists versions from 0.1.1 on, and npm from 0.1.0 on. As of
-2026-11-13 the latest is 1.0.2 on both; the commands below print the
-current one.</p>
+2026-11-19 the latest on npm is 1.1.0, and the registry's latest row is
+1.1.0. That registry row still lists a stdio package beside the hosted
+remote. The <code>server.json</code> in the repository lists the remote only. The
+commands below print the current versions.</p>
 <p>Version 1.0.0 is the first stable release of the launcher. It adds no
 launcher features over 0.1.4. It moves the launcher and the registry
 entry to Apache-2.0 (0.1.4 on npm still says AGPL-3.0-only), and it
@@ -1478,7 +1404,11 @@ changes the hosted endpoint's rate limiter. The launcher needs Node.js
 <a href="https://github.com/blowhorn-ai/blowhorn-mcp">blowhorn-mcp repository</a>
 beside the source of the npm launcher. It carries the npm launcher's
 version, not the Blowhorn release's, and each registry publish pairs with
-an npm publish of the same version. Other catalogs are not listed yet.</p>
+an npm publish of the same version. Other public catalogs are not
+listed yet. Arcade does not list Blowhorn in its public catalog. An
+Arcade user adds the hosted URL as a Remote MCP; see
+<a href="/docs/how-to/set-up/connect-mcp-client/#arcade">Arcade</a>. A public Arcade
+partner or Registry listing has not been submitted.</p>
 <p>To check the listing yourself:</p>
 <figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
@@ -1506,7 +1436,7 @@ environment the server's subprocesses inherit.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 20, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/mcp-server.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

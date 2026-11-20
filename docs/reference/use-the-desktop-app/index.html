@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshow-to-li">
@@ -633,8 +633,7 @@ switching it on again restores it.</p>
 <h2 id="the-console">The console</h2><p>The console is the full window, reached from the popover. The Blowhorn logo
 at the top of its rail is Home; there is no separate Home item. Below it are
 four places: <strong>Activity</strong>, <strong>Profiles</strong>, <strong>Performance</strong> and <strong>Posture</strong>. The
-round <strong>+</strong> button in the lower right of every screen, teal glass unless you
-change the material, is <strong>New order</strong> (⌘N, or New order in the File menu), or <strong>New activity</strong> when Major Blowhorn is off. It opens a field order you fill in
+labelled <strong>New order</strong> button in the rail's footer, Caribbean Green (⌘N, or New order in the File menu), or <strong>New activity</strong> when Major Blowhorn is off. It opens a field order you fill in
 one step at a time. Only the open step shows its fields; a
 finished step folds to a one-line summary (press it to change it), and the
 steps ahead wait as dim rows. A step that holds what it asks for takes a teal
@@ -823,10 +822,15 @@ runs again. Click the line to open This computer, which says why and offers
 the fix where there is one. With a yellow light, the same line says when the
 service runs but no check has been made lately, when the fleet's state can't be
 read, or that only the installed app keeps this computer on duty. Hover the switch for the next scheduled run (for
-example &quot;Next: Post on X, tomorrow at 9:00 AM&quot;) or when the leave began. When the service runs from another copy of
+example &quot;Next: Post the queue on X, tomorrow at 9:00 AM&quot;) or when the leave began. When the service runs from another copy of
 Blowhorn (a dev checkout, or a moved or older app), the line above the switch
 says so, and This computer names that copy in one sentence with its one fix,
-<strong>Register the service</strong>, which registers the service to this app. Under the switch, the
+<strong>Register the service</strong>, which registers the service to this app. When the installed app
+takes the service over from another copy on its own, it shows no notification, unless you moved the app,
+which still says it registered again from the new location. If that copy is a separate Blowhorn or
+Blowhorn Dev app it can name, and no other account on this Mac owns it or is running it, it asks once, <strong>Blowhorn moved its background service to this copy</strong>,
+with the copy's path and two buttons: <strong>Remove old copy</strong> deletes that app, and <strong>Close</strong> leaves it
+where it is. If the removal fails, <strong>Blowhorn couldn't remove the old copy</strong> says why. Under the switch, the
 account button (desktop v1.27.2) shows who is signed in: your Blowhorn profile photo, or
 your initials, your name, and your organization and plan (for example &quot;Acme ·
 Free plan&quot;). The organization is the one your Blowhorn session has
@@ -1072,9 +1076,12 @@ it, <strong>which choice wins</strong> numbers the levels from everyone to one a
 the grid has a row for each platform's choice for every profile (<strong>Each
 platform</strong>), a column for each profile's choice on every platform (<strong>Every
 platform</strong>), and a cell for one profile on one platform. A filled chip was chosen
-at that spot; a dashed chip is inherited, and the line under it says from where
+at that spot; a dashed chip is inherited, and pointing at it says from where
 (&quot;from LinkedIn&quot;, &quot;from this profile&quot;, &quot;from everyone&quot;). A profile still warming
-up shows <strong>Warming</strong> and the preset it returns to. A chip in the <strong>Each
+up shows <strong>Warming</strong> in each of its cells, with the preset it returns to on a
+line under the chip (&quot;then Weapons free&quot;): choose a preset there and it is saved,
+the chip turns filled and that line changes, while scheduled activity stays at
+Safety on until the warm-up ends. A chip in the <strong>Each
 platform</strong> row or the <strong>Every platform</strong> column opens a small slider, with
 <strong>Follows Everyone</strong> to reset it; when a platform and a profile both choose, the
 more careful one wins, and a profile's slider names each platform that wins over
@@ -1109,7 +1116,7 @@ row that opens its details in a window; the failure reports switch is in the sig
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/use-the-desktop-app.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

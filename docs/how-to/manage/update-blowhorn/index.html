@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docshow-to-li">
@@ -641,9 +641,17 @@ Google Chrome connection for the new version: the native host file
 rewritten only if they are out of date. Nothing else changes: Chrome is not
 opened, and your Chrome profiles, other apps' hosts, sign-in and Blowhorn
 settings are left alone. If you installed <code>blowhorn-axi</code> globally, it is
-updated too. This usually takes a few seconds. If it fails, your current
+updated too. Blowhorn also checks the Chrome extension's version against
+the new one: if Chrome has not pulled the matching extension yet, the
+update still goes ahead, and the Service screen says so, with how to
+update the extension. A behind extension still runs. Only a check that
+cannot run at all stops the update, and your current version is put back.
+This usually takes a few seconds. If it fails, your current
 version is put back.</li>
-<li><strong>relaunching</strong>. Blowhorn closes and the new version opens. If Blowhorn
+<li><strong>relaunching</strong>. Blowhorn closes and the new version opens. Before it
+closes, Blowhorn stops the background service, so the running service is
+never the old version's; the new version registers the service against
+itself when it opens. If Blowhorn
 asks what to do about work in progress before it closes and you choose
 <strong>stay open</strong>, the new version stays installed and opens the next time you
 start Blowhorn, or when you press <strong>update</strong> again.</li>
@@ -696,7 +704,7 @@ the signed Mac app.</li>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/manage/update-blowhorn.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

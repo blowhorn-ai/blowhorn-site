@@ -37,7 +37,10 @@ cookies, saved passwords, storage, or the keychain. It writes nothing
 there and opens no browser, DevTools, or network connection. Whether
 Chrome is running is one bounded process lookup, scoped to that data
 directory: a Chrome on another tree (the attach-chrome Chrome, say) does
-not count. There are four
+not count. A Chrome started without `--user-data-dir` runs on Chrome's
+own default directory, so when `chrome.data_dir` (or
+`BLOWHORN_CHROME_DATA_DIR`) points at another tree, your everyday Chrome
+does not count as running on it. These commands are the
 exceptions. `blowhorn chrome extension-status` also reads each Chrome
 profile's `Secure Preferences` and `Preferences` for the extension's
 entry alone (see [its section](#blowhorn-chrome-extension-status)).
@@ -51,6 +54,9 @@ computer's pairing key outside Chrome's directory (see [Pairing](#pairing)).
 `blowhorn chrome extension-enable` asks Chrome to open a window on the
 extension's Chrome Web Store page in each Chrome profile you name (see
 [its section](#blowhorn-chrome-extension-enable)).
+`blowhorn chrome open` asks Chrome to open its main profile with no page,
+so a Chrome that has never been opened can write its local state (see
+[its section](#blowhorn-chrome-open)).
 `blowhorn chrome open-profile` asks Chrome to open a window in the
 Chrome profile a Blowhorn profile is mapped to (see
 [its section](#blowhorn-chrome-open-profile)). When no Chrome is
@@ -75,7 +81,9 @@ signs the profile out. A command that would have to start Chrome from
 such a session refuses and says why; use Blowhorn from this computer's
 desktop session, signed in to your account, instead. Asking a Chrome
 that is already running to open a tab or a profile starts nothing and
-is not refused.
+is not refused. Only a Chrome running on the run's own folder counts:
+with `chrome.data_dir` pointing at another folder, your everyday Chrome
+being open does not stop the refusal.
 
 A test or check run that points Blowhorn's Chrome folders at a throwaway
 folder under the system temp directory (`BLOWHORN_USER_DATA_DIR`,
@@ -265,7 +273,11 @@ native host if its manifest or launcher is missing or out of date, then
 checks for a native host process from before an earlier upgrade still
 answering on the mapped profile's behalf - such a host keeps serving the
 old shared socket until something ends it - and ends it, by its own
-process id, before opening the profile in the background. That alone is
+process id, before opening the profile in the background. Only a process
+running the native host from the exact path this install's launcher
+names, or the retired host program an older release ran, is ever ended:
+a process that only shares the host's name, such as another install's
+host or a build of it, is left alone. That alone is
 usually enough: ending the stale host
 drops the extension's connection to it, and the extension connects
 again on its own, which starts the host the current launcher names.
@@ -278,27 +290,25 @@ help: that is the one action that ends every such host in that Chrome
 instance at once. A pass that is cancelled, stopped or paused, and an
 activity paused on its own, open nothing.
 
-The opening, the wait and every code above can also be handled by a
-compiled helper, `blowhorn-chrome-start`, instead of the Python code
-that handles them by default. It is opt-in while the two are compared:
+The opening, the wait and every code above are handled by a compiled
+helper, `blowhorn-chrome-start`, that ships with Blowhorn. Only a Chrome
+running on the mapped profile's own Chrome folder counts as running: a
+Chrome on another folder, such as the one `blowhorn chrome attach-chrome`
+starts, does not, so Chrome is started on the mapped profile's folder
+as when no Chrome runs at all. When the profile's bridge comes up in the moment between
+Blowhorn's check and the helper's, the helper opens nothing and the run
+connects to it. On macOS the helper opens Chrome in the background
+(`open -g`), so it does not take focus from the app you are using.
 
-| `BLOWHORN_CHROME_START` | What opens Chrome when it is closed |
+The run stops with one sentence, and nothing else opens Chrome in its
+place, when:
+
+| Situation | What to do |
 |---|---|
-| unset, or `python` | The built-in Python cold start (the default). |
-| `rust` | `blowhorn-chrome-start`, built in a checkout with `cargo build --release -p blowhorn-chrome-start` in `engine/rust`. |
-
-Any other value stops a run that needs to open Chrome, and names the two choices. With `rust`
-selected and the helper not built, the run stops and says how to build it;
-nothing falls back to the Python cold start. Either way the line on
-stderr, the codes and the messages are the same, including an
-announcement that carries `NaN` or `Infinity`: both raise
-`blowhorn-engine-1006` and word it as a mismatch. When the profile's
-bridge comes up in the moment between Blowhorn's check and the helper's,
-the helper opens nothing and the run
-connects to it. On macOS the helper
-opens Chrome in the background (`open -g`), so it does not take focus from
-the app you are using. A helper built from an older checkout, whose codes
-no longer match this one, is refused by name.
+| The helper is missing from your copy of Blowhorn | Reinstall Blowhorn. |
+| The helper is not built, in a checkout of the source | Run `cargo build --release -p blowhorn-chrome-start` in `engine/rust`. |
+| The helper was built from an older checkout, whose codes no longer match | Build it again, as above. |
+| `BLOWHORN_CHROME_START` is set to anything but `rust` | Unset it. It chose between two ways of opening Chrome, and only the helper is left. |
 
 Under the extension default, `blowhorn profile auth` is a sign-in by
 hand: it opens the platform's sign-in page once in your mapped Chrome
@@ -403,14 +413,16 @@ or registered something and the extension then connects, the run says
 so once on stderr, for example `repaired the native host manifest and
 registered the extension; the Blowhorn extension (1.36.6) is connected`.
 
-In a source checkout, `--native-host rust` points the native host
-launcher at the Rust native host built with `cargo build --release -p
-blowhorn-host` in `engine/rust` (or the binary `--rust-host` names)
-instead of the Python one. It is off by default, and the app does not
-ship that binary. A Rust host that is missing or not executable is
-refused and nothing is written. A later install or ensure keeps the
-Rust host while its binary still runs, and puts the Python one back,
-saying so, once it does not; `--native-host python` switches back.
+The native host launcher runs Blowhorn's compiled native host,
+`blowhorn-host`: the copy the app's engine carries, or in a source
+checkout the one `cargo build --release -p blowhorn-host` builds in
+`engine/rust`. `--rust-host` names another build instead, and a later
+install or ensure keeps it while it still runs. A native host that is
+missing or not executable is refused with how to get it back, and
+nothing is written. A launcher an earlier version of Blowhorn left
+running its older Python native host is moved to `blowhorn-host` by the
+next install, setup or ensure, which says so. `--native-host python` is
+refused: that host is gone.
 
 ### A host that reads as outdated
 
@@ -420,7 +432,8 @@ earlier app can therefore outlive the app's replacement and answer
 `host_status` without the newer app's snapshot, which reads as "update
 the app". When `host_status` reads outdated (protocol below the minimum,
 or no snapshot) and no run is at work - no tab held, and the last run
-sent `input_release` - the extension drops the port and connects again,
+sent `input_release` (or, for a run that went away without one, the host
+sent it for that run) - the extension drops the port and connects again,
 so Chrome starts the host the current manifest names. A run in progress
 keeps its host; the switch happens after its `input_release`. The first
 switch is immediate; each later one waits at least a minute, doubling
@@ -504,7 +517,7 @@ With the extension driver, a run uses one of two behaviors:
 | --- | --- | --- |
 | Blowhorn's tab | opens inactive beside the tab you are on, in a Blowhorn group that is collapsed by default, or in its own window, mostly behind yours (see below) | the same |
 | focus emulation | from the first action that takes the debugger | from the first page load |
-| Chrome's debugging bar | while an action holds the debugger, gone after a short idle period | for the whole run, from before the site loads |
+| Chrome's debugging bar | while an action holds the debugger, gone after a short idle period | for the whole run, from before the site loads, while Blowhorn's tab is on a supported site |
 | visible screenshot | captured through the debugger, without selecting the tab | captured through the debugger, without selecting the tab |
 | input | synthetic unless `BLOWHORN_EXTENSION_INPUT=trusted` | trusted unless `BLOWHORN_EXTENSION_INPUT=synthetic` |
 | bringing the tab forward | never. When Blowhorn needs you it turns the Blowhorn group red and opens it, posts a notification when "Tell me when something needs me" is on in Posture, and waits for you to click the tab | the same |
@@ -535,7 +548,7 @@ the same way:
 | setting | Blowhorn's tab |
 | --- | --- |
 | `side_tab` (the default) | an inactive tab right after the tab you are on, in your window |
-| `own_window` | the selected tab of one window of Blowhorn's own, opened without focus in Chrome's normal window state at the size of the window you used last and 56 px to its right, so it sits mostly behind yours with an edge showing. It holds its own Blowhorn tab group, collapsed or open as above. Blowhorn closes it when a run ends, unless you put a tab of your own in it or Blowhorn is waiting for you in it, and makes a new one for the next run. If you close it first, it makes a new one too |
+| `own_window` | the selected tab of one window of Blowhorn's own, opened without focus in Chrome's normal window state at the size of the window you used last and 56 px to its right, so it sits mostly behind yours with an edge showing. It holds its own Blowhorn tab group, collapsed or open as above. Blowhorn closes it when a run ends, unless you put a tab of your own in it, and makes a new one for the next run. If you close it first, it makes a new one too |
 | `split_view` | a tab in a split view beside the tab you are on, in your window, on Chrome 155 or later. Your tab stays selected and the split tab is visible, so the page reads a real size and a real screen position. On an older Chrome, or when the split cannot be made, Blowhorn works in a window of its own instead, as `own_window` above |
 
 Either way nothing takes focus, your selected tab stays selected, and focus
@@ -544,6 +557,11 @@ placed off screen or opened as a popup. On a Mac a background tab reads its
 window's outer size as 0 x 0 (a Chrome behavior), which a page can notice;
 the selected tab of its own window can read a real size. `side_tab` stays the
 default.
+
+In every setting a run's end closes Blowhorn's tab and its tab group, whether the
+run finished, failed or was stopped; it waits while you are looking at that tab,
+and never closes your own tabs or the profile's last tab (see
+[Choose where Blowhorn works in Chrome](/docs/how-to/settings/where-blowhorn-works/)).
 
 **Keep that edge showing.** On a Mac, `own_window` reads a real size only
 while part of Blowhorn's window is visible on the current Space. When the window
@@ -634,8 +652,25 @@ reaches. In classic mode typing writes the field's value or text with no
 input event, and those X flows refuse by name there. Clearing a field
 before typing stays a page-side clear in both modes.
 
+A single key press (Enter to send a comment, Escape to close a dialog, a
+select-all before replacing a post's text) follows the input row too. In
+background mode it is a real key through the debugger, so a select-all
+really selects and the typing that follows replaces the text. In classic mode
+it is the page's own key event, a key down and up carrying the key and code a
+US keyboard sends (Space arrives as a space, Control+A holds Control, and on a
+Mac as Command), which the site's key handling reads but which does nothing a
+real key would do on its own.
+
 In background mode Chrome's "started debugging this browser" bar stays up for
-the whole run, and it goes away when the run ends. Closing it, opening
+the whole run, and it goes away when the run ends. It also goes away while
+Blowhorn's tab is on a site Blowhorn does not support - a redirect, a sign-in
+that passes through another site, or you browsing in that tab - and comes back
+if the tab returns to a supported site while the run is still driving it (not
+once you paused, took over or stopped it; the run's next step takes it again
+after you hand it back): the debugger never stays attached to a page Blowhorn
+does not act on. If the Blowhorn app's run
+stops without ending cleanly (it crashed or was stopped), the app's helper
+ends the attachment for it, so the bar does not wait for the next run. Closing it, opening
 developer tools on Blowhorn's tab, or closing that tab takes the debugger away:
 for the rest of that run every click, key press or quiet screenshot that needs
 it fails as `input_revoked`, and the error names which of the three happened.
@@ -691,9 +726,12 @@ when it needs the extension it ensures it on demand, as
 `blowhorn chrome extension-install` describes.
 
 `--json` also carries `profile_states`: one item per Chrome profile
-directory with a `Preferences` file (`Default`, `Profile N`, and
-Blowhorn's own `Blowhorn` and `Blowhorn N`), each
-`{profile, state, version}`, read from the same two files. `state` is:
+directory with a `Preferences` file (Chrome's main profile directory,
+`Profile N`, and Blowhorn's own `Blowhorn` and `Blowhorn N`), each
+`{profile, state, version, outdated}`, read from the same two files.
+`outdated` is whether that version is below the one this Blowhorn needs:
+true, false, or null when no version was read (unknown never blocks).
+`state` is:
 
 - `enabled` - the extension is in that profile and turned on.
 - `disabled` - it is in that profile and turned off. The external route
@@ -725,6 +763,18 @@ by this command. `--dry-run` opens nothing.
 one `{directory, display_name, opened, detail}` per profile, where
 `detail` says why the page did not open (`chrome could not open the Chrome Web Store page: <reason>`). When it opened in no
 profile, `ok` is `false` and the command exits 1.
+
+## `blowhorn chrome open`
+
+```bash
+blowhorn chrome open
+```
+
+Opens Google Chrome itself, on Chrome's main profile and with no page, so
+a Chrome that has never been opened can write its local state. Chrome's
+own startup pages are left alone. It writes nothing, maps nothing, and
+drives nothing in the window. Flags and the JSON shape are on
+[blowhorn chrome open](/docs/reference/cli/chrome/#blowhorn-chrome-open).
 
 ## `blowhorn chrome open-profile`
 

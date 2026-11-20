@@ -109,8 +109,9 @@ the page's address, title, and any selected text to the desktop app, which
 opens Activity › Upcoming on a new entry pre-filled from it.
 
 To install it, open **Settings › Setup** (or **Activity › Upcoming → from browser**) and
-drag the **Blowhorn: capture** link onto your Google Chrome bookmarks bar. If you
-would rather paste, choose **copy code**, add a bookmark in Google Chrome named
+drag the **Blowhorn: capture** link onto your Google Chrome bookmarks bar. The empty Activities
+list offers the same chip and copy button, so the bookmarklet is one drag away before the first
+capture. If you would rather paste, choose **copy code**, add a bookmark in Google Chrome named
 `Blowhorn: capture`, and paste the code as its address.
 
 or paste this:

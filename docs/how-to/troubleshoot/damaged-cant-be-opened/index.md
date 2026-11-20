@@ -77,6 +77,19 @@ or Spotlight opens. macOS checks that copy, not the one you just installed.
 To see which version you have, select Blowhorn in Applications and choose
 **File** > **Get Info**.
 
+When you open the copy you want to keep, Blowhorn moves its background
+service to it. If the service was running from a separate copy, Blowhorn
+asks once whether to remove it ("Blowhorn moved its background service to
+this copy", with that copy's path). It asks only about a copy of
+Blowhorn or Blowhorn Dev, never another app. It does not ask when another
+account on this Mac owns that copy or is running it, because removing it
+would remove it for them too.
+
+- Choose **Remove old copy** when the path is a copy you no longer need,
+  such as an older download or a local build.
+- Choose **Close** when you are not sure or when you still use that copy.
+  Close leaves it where it is.
+
 ## If an update left an old copy behind
 
 An in-app update keeps the previous version until the new one starts, in

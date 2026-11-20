@@ -175,7 +175,7 @@ Output: json with `--json`, text otherwise.
 
 Create a post, or update one in place, from a JSON object of column: value pairs in the queue's own column names. Without `--activity` a new activity is created and given the next activity number; with `--activity` the payload is merged over that activity, and every column it does not name is left as it was.
 
-Platform must be one `blowhorn post` publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the activity changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
+Platform must be one `blowhorn post` publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Visibility (private, unlisted or public), Short and Community (yes or no) are YouTube settings, kept beside the columns: blank leaves one unset, and any other platform refuses them. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the activity changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
 
 ```text
 blowhorn content upsert [OPTIONS]

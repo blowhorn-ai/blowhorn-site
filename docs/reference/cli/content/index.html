@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshow-to-li">
@@ -1043,7 +1043,7 @@
 </figure>
 <p>Output: json with <code>--json</code>, text otherwise.</p>
 <h2 id="blowhorn-content-upsert">blowhorn content upsert</h2><p>Create a post, or update one in place, from a JSON object of column: value pairs in the queue's own column names. Without <code>--activity</code> a new activity is created and given the next activity number; with <code>--activity</code> the payload is merged over that activity, and every column it does not name is left as it was.</p>
-<p>Platform must be one <code>blowhorn post</code> publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or <code>all</code>. Unknown fields are refused rather than written. <code>--expected-fingerprint</code> refuses the write if the activity changed since <code>content get</code> or <code>content list</code> read it. <code>--dry-run</code> prints the payload and touches nothing.</p>
+<p>Platform must be one <code>blowhorn post</code> publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or <code>all</code>. Visibility (private, unlisted or public), Short and Community (yes or no) are YouTube settings, kept beside the columns: blank leaves one unset, and any other platform refuses them. Unknown fields are refused rather than written. <code>--expected-fingerprint</code> refuses the write if the activity changed since <code>content get</code> or <code>content list</code> read it. <code>--dry-run</code> prints the payload and touches nothing.</p>
 <figure class="term term-output" data-lang="text">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -1150,7 +1150,7 @@
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/cli/content.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -8,7 +8,9 @@
 The guided setup opens by itself the first time you open Blowhorn, and every
 time after that until you finish it. If you quit partway, or come back with
 Home's **Finish setting up**, it checks what is already done and opens
-straight on the first step that isn't, with one line saying so. It never asks
+straight on the first step that isn't, with one line saying so. You can also
+leave it on any step with **Skip Setup** at the bottom: that finishes setup,
+and it won't open again. It never asks
 whether to pick up first. If your sign-in ended, it asks you to sign in once,
 then picks up the same way. If you are signed out when you open Blowhorn, it
 starts at Sign in. Uninstalling removes that progress with the sign-in, so
@@ -33,31 +35,31 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   the waiting screen stops the wait right away - you never have to wait
   it out - and **Open it again** ends the old attempt and starts a fresh
   one. See [Create a Blowhorn account](/docs/how-to/set-up/create-an-account/).
-- **Google Chrome first:** right after your account is set up, Blowhorn
-  checks Google Chrome. With no Google Chrome on this computer, the next
-  screen is **Blowhorn needs Google Chrome**: **Get Google Chrome** opens
-  Google's download page, and once it is installed the app notices by
-  itself when you come back to its window (or choose **Check again**).
-  If Safari or another browser is your default, the screen says you can
-  keep it.
-  A Google Chrome older than Blowhorn needs, or one that has never been
-  opened, gets its own screen the same way. Google Chrome is found in
-  your computer's Applications folder or in your own `~/Applications`.
-  **Check again** on these screens, and on Getting ready, reads
-  **Checking…** and then says what it found: Google Chrome found (the
-  app moves on, or says what is still needed), **Nothing new found** with
-  what is still true (Google Chrome is still missing, still out of date,
-  or still hasn't been opened), or why it couldn't read Google Chrome.
-  Coming back to the window checks quietly and only speaks when
-  something changed.
-- **Blowhorn's own window:** one screen says Blowhorn deploys in its own
-  Google Chrome window, so you keep working in yours while it posts,
-  likes and connects for you. **What's a Google Chrome profile?** explains
-  the rest if you want it. If another browser, such as Safari, is your
-  default, the screen says it stays your default: there is nothing to
-  change. **Continue** moves on. The row of five steps across the top
-  (Mission, Sign in, Browser, Profiles, First post) shows where you are on
-  every screen, and **Back** at the bottom left returns to the screen before.
+- **Google Chrome first:** before the welcome, and again before setup
+  picks up a computer that is already signed in, Blowhorn checks Google
+  Chrome. While that check blocks, it is the only screen, and it moves on
+  by itself once Google Chrome is usable. With no Google Chrome on this
+  computer, the screen says Blowhorn works inside Google Chrome and asks
+  you to install it. **Get Google Chrome** opens Google's download page.
+  A Google Chrome older than Blowhorn needs says to update it to that
+  version or newer, then relaunch it. **How to update** opens Google's
+  update steps. A Google Chrome that has never been opened says to open
+  it once so it can set itself up. **Open Google Chrome** opens it.
+  Google Chrome is found in your computer's Applications folder or in
+  your own `~/Applications`. Each of these screens watches on its own,
+  about every 15 seconds and again when you come back to Blowhorn's
+  window, and carries on as soon as the check passes. There is no
+  **Check again** and no **Back** on them. If Safari or another browser
+  is your default, that note waits for Blowhorn's own window.
+- **Blowhorn's own window:** one screen says Blowhorn deploys as a Google
+  Chrome extension, operating in its own tab group, so you keep working in
+  yours while it posts, likes and connects for you. **What's a Google
+  Chrome profile?** explains the rest if you want it. If another browser,
+  such as Safari, is your default, the screen says it stays your default:
+  there is nothing to change. **Continue** moves on. The row of five steps
+  across the top (Mission, Sign in, Browser, Profiles, First post) shows
+  where you are on every screen, and **Back** at the bottom left returns to
+  the screen before.
 - **Assign troops:** Blowhorn shows what it found in each Chrome
   profile: the Google account, and the platform accounts signed in or
   saved there. Mark each Chrome profile and each account **in use** or
@@ -67,13 +69,21 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   alone. Chrome's main profile is not listed here, since Blowhorn never
   works in it; a main profile an earlier setup already mapped is listed
   and keeps its switch. If the main profile is the only one you have, the screen
-  reads **Blowhorn will set up its own profile**: choose **Set up
+  reads **Blowhorn will set up a Blowhorn profile**: choose **Set up
   Blowhorn's profile**, and Google Chrome is asked to open a new window
   in a profile of Blowhorn's own (Chrome should make the profile the
   first time, and open the same one after). Your main profile is left
-  untouched. Sign in there once to LinkedIn, X and the rest, then come
-  back: the app looks again by itself, or choose **Continue**. You can
-  add the rest later, any time. **Open the window again** reopens it.
+  untouched. Sign in there once to LinkedIn, X and the rest. The list
+  gives way to one screen until an account is signed in on Blowhorn's
+  profile: in Blowhorn's Google Chrome window, sign in to the accounts
+  Blowhorn posts from. Chrome lists the profile as soon as it creates
+  it, and the screen stays while nobody is signed in. **Open the window
+  again** reopens that window. If that window does not open, Blowhorn says
+  why in the lower-right corner and the screen keeps its one message.
+  The app looks again about every 15 seconds, and when you come back to
+  its window, and shows the troops list once an account is signed in
+  there. There is no **Continue** and
+  no **Check again** on that screen. You can add the rest later, any time.
   Rather add a profile yourself? The steps are under **What's a Google
   Chrome profile?** on that screen. On **Confirm**, Blowhorn creates the profiles you marked in use,
   saves the handles (and a GitHub token or Bluesky app password you type
@@ -94,16 +104,23 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   troops, one at a time: Chrome opens Blowhorn's page in each, and you click
   **Enable now** (or **Add to Chrome**) there. There is no administrator
   prompt and no profile you left out is touched. Each step shows as it
-  runs, with the time left, and **Start again** appears if it takes
-  longer than usual. A profile that already has the extension on
+  runs, and the disabled **Next** carries the time left; **Continue** stays
+  on screen while the install runs, reading **Installing…**, and if it takes
+  longer than usual, **Start again** says so itself. A profile that already has the extension on
   needs nothing. One ready profile you chose
   is enough to go on. If Google Chrome is on this computer but has never
-  been opened, setup stops on its own screen (before Blowhorn's window
-  screen, and again here if that changed) and asks you to open Google
-  Chrome once, then check again: Chrome creates its profile list on that
-  first open, and there is no list for Blowhorn to read before it. The
-  same screen appears when you reopen Blowhorn already signed in, or come
-  back to a setup you left. If a step
+  been opened, setup stops on its own screen before the welcome, and
+  again here if that changed, and asks you to open Google Chrome once.
+  Chrome creates its profile list on that first open, and there is no
+  list for Blowhorn to read before it. The same screen appears when you
+  reopen Blowhorn already signed in, or come back to a setup you left.
+  A chosen profile whose Blowhorn extension is behind the version this
+  app needs stops on its own screen too, including when you reopen
+  Blowhorn already signed in: **Update in** that profile
+  opens the extension's store page there, and the app carries on once
+  the extension is current. If that page does not open, Blowhorn says
+  why in the lower-right corner and the screen keeps its one message.
+  **Check again** stays on Getting ready for the install itself. If a step
   does stop with something wrong, its screen says what stopped in one
   sentence, and **Copy details** keeps the full details for support. See
   [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/).

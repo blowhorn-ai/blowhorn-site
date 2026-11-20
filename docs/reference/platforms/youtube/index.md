@@ -15,8 +15,10 @@ The limits Blowhorn knows for YouTube.
 
 | Limit | Value |
 |---|---|
-| Post | 5000 |
+| Description | 5000 |
 | Title | 100 |
+| Video | 256000000000 bytes |
+| Short length | 180 s |
 
 <!-- END generated limits -->
 

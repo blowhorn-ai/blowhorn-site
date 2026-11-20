@@ -64,6 +64,11 @@ updater owns it, and never forces a store update.
 When the profile is ready the panel also has **Check for update**, so you can take an update
 before the app requires it.
 
+After an update, the Service screen's Extension rows say the same thing: a
+profile whose extension is behind the app reads "update available", and one
+below the version Blowhorn needs reads "update needed". A behind extension
+still runs.
+
 ## "Update the Blowhorn app" when the app is current
 
 Chrome starts the extension's native host once and keeps it until the

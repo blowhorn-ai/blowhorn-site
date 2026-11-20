@@ -65,9 +65,17 @@ step is named as it happens:
    rewritten only if they are out of date. Nothing else changes: Chrome is not
    opened, and your Chrome profiles, other apps' hosts, sign-in and Blowhorn
    settings are left alone. If you installed `blowhorn-axi` globally, it is
-   updated too. This usually takes a few seconds. If it fails, your current
+   updated too. Blowhorn also checks the Chrome extension's version against
+   the new one: if Chrome has not pulled the matching extension yet, the
+   update still goes ahead, and the Service screen says so, with how to
+   update the extension. A behind extension still runs. Only a check that
+   cannot run at all stops the update, and your current version is put back.
+   This usually takes a few seconds. If it fails, your current
    version is put back.
-4. **relaunching**. Blowhorn closes and the new version opens. If Blowhorn
+4. **relaunching**. Blowhorn closes and the new version opens. Before it
+   closes, Blowhorn stops the background service, so the running service is
+   never the old version's; the new version registers the service against
+   itself when it opens. If Blowhorn
    asks what to do about work in progress before it closes and you choose
    **stay open**, the new version stays installed and opens the next time you
    start Blowhorn, or when you press **update** again.

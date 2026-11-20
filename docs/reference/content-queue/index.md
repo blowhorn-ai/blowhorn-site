@@ -35,6 +35,21 @@ An activity with "Comment on" set can only ever be a comment. An activity with a
 "Amplify" GitHub target can only ever be reactions. Timestamps in
 content values read `%Y-%m-%d %H:%M:%S`.
 
+## YouTube settings
+
+A YouTube activity carries three settings beside its columns. YouTube isn't
+available in Blowhorn yet; until it is, an activity can't name YouTube as its
+Platform. Every other platform refuses these settings by name.
+
+| Setting | Takes | Blank means |
+|---|---|---|
+| Visibility | `private`, `unlisted`, or `public` | `private` |
+| Short | `yes` or `no` (JSON `true` and `false` are written as `yes` and `no`) | Not a Short |
+| Community | `yes` or `no`: `yes` makes the activity a post on the channel's Posts tab instead of an upload | An upload |
+
+A payload may spell a setting's name in any case. A setting shows in an
+activity's values only once it's set; clearing it to blank removes it.
+
 ## Approval
 
 `Approved?` is the gate, and `draft` is what an unapproved activity reads

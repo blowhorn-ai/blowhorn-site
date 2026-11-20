@@ -61,7 +61,7 @@ After setup, both walks also check the console a new person sees:
   only platforms with a connected account: Slack, and LinkedIn with the
   planted cookie; without it the tile reads **Connect LinkedIn**.
 - **Next run:** without the planted cookie, the walk first connects a
-  LinkedIn account in the local Cloud. Saving a daily Accept LinkedIn invitations from that picker
+  LinkedIn account in the local Cloud. Saving a daily Accept invitations from that picker
   stores one enabled routine in the local Cloud, and **Activity > Routines**
   lists it with its next run at the time the step typed. Home names no next run. The rail's status line
   never shows a countdown. The walk reads the rail's duty kind: while this computer is on watch, the
@@ -83,7 +83,7 @@ older than its source, naming the newer file. Then, from the checkout:
 make onboarding-e2e
 ```
 
-The check needs Node.js 22, Google Chrome, and a display. On Linux with no
+The check needs Node.js 22.12 or newer, Google Chrome, and a display. On Linux with no
 display it starts Xvfb itself. It finds the Electron binary the way the
 `electron` package does, so the Linux binary and the macOS app inside
 `Electron.app` both start. A packaged Mac app is the same walk:
@@ -156,7 +156,10 @@ directory is refused. Every Chrome Blowhorn itself starts on that folder
 during the check, such as the extension's store page during setup, carries
 the same two switches, so macOS never shows "Keychain Not Found". The
 check also sets `BLOWHORN_MUTE_AUDIO=1`, so the app and every Chrome it
-starts stay silent. The
+starts stay silent. On macOS it is quiet too (`BLOWHORN_QUIET_WINDOWS=1`):
+the app's window stays invisible and never takes the focus, and the
+throwaway Google Chrome starts with no window, so you can keep working
+while it runs. Run it with `BLOWHORN_QUIET_WINDOWS=0` to watch the windows. The
 throwaway Chrome profile has no Google account, like many people's: the
 email in the wizard is what finds the person in the local Cloud. The happy
 path ends by checking that `blowhorn chrome profiles --json` still reports

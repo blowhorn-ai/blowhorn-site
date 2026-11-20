@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docshow-to-li">
@@ -670,7 +670,8 @@ Blowhorn on uses it. If your organization cannot keep it yet, it is saved on
 this computer only: the command says <code>scope: this_computer</code> with the reason,
 the app says so in one line under the grid, and the chip's slider reads
 <strong>Set here, on this computer only</strong>. Each grid cell shows only its rules of
-engagement (Warming, Safety on, Weapons tight or Weapons free); hold the
+engagement (Safety on, Weapons tight or Weapons free), or Warming with the
+preset it returns to under it; hold the
 pointer over a chip to see where its choice comes from. Your organization's choice for that platform comes
 first, so when it already has one, the command says it still applies on
 every computer and this computer's choice has no effect until an
@@ -789,7 +790,13 @@ retried, and a retry is never granted for an unknown outcome.</li>
 has history - 14 days, whatever preset you picked. Its caps ramp over
 those 14 days, from about a quarter of Safety on's caps on day one
 (about 1 LinkedIn post a day) to Safety on's full caps by day 14, and
-only then does your chosen preset take over. A profile idle longer
+only then does your chosen preset take over. You can still choose a preset
+while a profile warms up: on the Posture screen its cells keep reading
+<strong>Warming</strong>, and the line under each chip names the preset you chose
+(&quot;then Weapons free&quot;), which takes over when the warm-up ends. The 14 days start at the
+first run that reached the platform: a run that failed before it did
+anything there, such as one stopped because Chrome was missing, does not
+start them. A profile idle longer
 than the 15-day ledger window warms up again. A run you start yourself
 is not held by the warmup, only warned about, and it follows your
 chosen preset's caps, quiet hours and outreach.</p>
@@ -876,7 +883,7 @@ Blowhorn reads them again on a schedule.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/settings/choose-your-rules-of-engagement.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

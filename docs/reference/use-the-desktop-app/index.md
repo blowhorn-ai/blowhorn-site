@@ -62,8 +62,7 @@ switching it on again restores it.
 The console is the full window, reached from the popover. The Blowhorn logo
 at the top of its rail is Home; there is no separate Home item. Below it are
 four places: **Activity**, **Profiles**, **Performance** and **Posture**. The
-round **+** button in the lower right of every screen, teal glass unless you
-change the material, is **New order** (⌘N, or New order in the File menu), or **New activity** when Major Blowhorn is off. It opens a field order you fill in
+labelled **New order** button in the rail's footer, Caribbean Green (⌘N, or New order in the File menu), or **New activity** when Major Blowhorn is off. It opens a field order you fill in
 one step at a time. Only the open step shows its fields; a
 finished step folds to a one-line summary (press it to change it), and the
 steps ahead wait as dim rows. A step that holds what it asks for takes a teal
@@ -255,10 +254,15 @@ runs again. Click the line to open This computer, which says why and offers
 the fix where there is one. With a yellow light, the same line says when the
 service runs but no check has been made lately, when the fleet's state can't be
 read, or that only the installed app keeps this computer on duty. Hover the switch for the next scheduled run (for
-example "Next: Post on X, tomorrow at 9:00 AM") or when the leave began. When the service runs from another copy of
+example "Next: Post the queue on X, tomorrow at 9:00 AM") or when the leave began. When the service runs from another copy of
 Blowhorn (a dev checkout, or a moved or older app), the line above the switch
 says so, and This computer names that copy in one sentence with its one fix,
-**Register the service**, which registers the service to this app. Under the switch, the
+**Register the service**, which registers the service to this app. When the installed app
+takes the service over from another copy on its own, it shows no notification, unless you moved the app,
+which still says it registered again from the new location. If that copy is a separate Blowhorn or
+Blowhorn Dev app it can name, and no other account on this Mac owns it or is running it, it asks once, **Blowhorn moved its background service to this copy**,
+with the copy's path and two buttons: **Remove old copy** deletes that app, and **Close** leaves it
+where it is. If the removal fails, **Blowhorn couldn't remove the old copy** says why. Under the switch, the
 account button (desktop v1.27.2) shows who is signed in: your Blowhorn profile photo, or
 your initials, your name, and your organization and plan (for example "Acme ·
 Free plan"). The organization is the one your Blowhorn session has
@@ -479,9 +483,12 @@ beside them; the rail names the screen, so it has no visible title.
   the grid has a row for each platform's choice for every profile (**Each
   platform**), a column for each profile's choice on every platform (**Every
   platform**), and a cell for one profile on one platform. A filled chip was chosen
-  at that spot; a dashed chip is inherited, and the line under it says from where
+  at that spot; a dashed chip is inherited, and pointing at it says from where
   ("from LinkedIn", "from this profile", "from everyone"). A profile still warming
-  up shows **Warming** and the preset it returns to. A chip in the **Each
+  up shows **Warming** in each of its cells, with the preset it returns to on a
+  line under the chip ("then Weapons free"): choose a preset there and it is saved,
+  the chip turns filled and that line changes, while scheduled activity stays at
+  Safety on until the warm-up ends. A chip in the **Each
   platform** row or the **Every platform** column opens a small slider, with
   **Follows Everyone** to reset it; when a platform and a profile both choose, the
   more careful one wins, and a profile's slider names each platform that wins over

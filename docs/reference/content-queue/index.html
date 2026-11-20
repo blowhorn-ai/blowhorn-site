@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshow-to-li">
@@ -690,6 +690,40 @@ columns beside them are preserved on write.</p>
 <p>An activity with &quot;Comment on&quot; set can only ever be a comment. An activity with an
 &quot;Amplify&quot; GitHub target can only ever be reactions. Timestamps in
 content values read <code>%Y-%m-%d %H:%M:%S</code>.</p>
+<h2 id="youtube-settings">YouTube settings</h2><p>A YouTube activity carries three settings beside its columns. YouTube isn't
+available in Blowhorn yet; until it is, an activity can't name YouTube as its
+Platform. Every other platform refuses these settings by name.</p>
+
+<div class="table-scroll" tabindex="0" role="group" aria-label="Table">
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Setting</th>
+      <th scope="col">Takes</th>
+      <th scope="col">Blank means</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Visibility</td>
+      <td><code>private</code>, <code>unlisted</code>, or <code>public</code></td>
+      <td><code>private</code></td>
+    </tr>
+    <tr>
+      <td>Short</td>
+      <td><code>yes</code> or <code>no</code> (JSON <code>true</code> and <code>false</code> are written as <code>yes</code> and <code>no</code>)</td>
+      <td>Not a Short</td>
+    </tr>
+    <tr>
+      <td>Community</td>
+      <td><code>yes</code> or <code>no</code>: <code>yes</code> makes the activity a post on the channel's Posts tab instead of an upload</td>
+      <td>An upload</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>A payload may spell a setting's name in any case. A setting shows in an
+activity's values only once it's set; clearing it to blank removes it.</p>
 <h2 id="approval">Approval</h2><p><code>Approved?</code> is the gate, and <code>draft</code> is what an unapproved activity reads
 as. Who may set it is a policy - approval mode, <code>defaults.approval.mode</code>
 (see <a href="/docs/reference/configuration/">Configuration</a>). With <code>agent</code> or <code>all</code> in force, a
@@ -770,7 +804,7 @@ retry nor a drop is a run's to decide: the run records, you decide.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/content-queue.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -814,6 +848,7 @@ retry nor a drop is a run's to decide: the run records, you decide.</p>
     <nav id="TableOfContents" aria-label="On this page">
   <ul>
     <li><a href="#columns">Columns</a></li>
+    <li><a href="#youtube-settings">YouTube settings</a></li>
     <li><a href="#approval">Approval</a></li>
     <li><a href="#activity-states">Activity states</a></li>
     <li><a href="#threads">Threads</a></li>

@@ -1,12 +1,16 @@
 # MCP server
 
 
-> The local MCP server: one tool per CLI command, a few split into two tools, a few hidden by default, over stdio, with dry run as the default for anything that changes state.
+> The hosted MCP server clients connect to, and the desktop app's own process: one tool per CLI command, dry run first for anything that changes state.
 
 
-Blowhorn ships a local MCP server so an AI agent can drive the same
-commands you run, through the Model Context Protocol, instead of
-learning a second surface. It is generated, not hand-written: at
+Clients connect to the hosted server at `https://mcp.blowhorn.ai/mcp`.
+The steps are in [Connect an AI assistant over
+MCP](/docs/how-to/set-up/connect-mcp-client/). That server is read-only
+today. The rest of this page describes the process the desktop app
+ships, which speaks stdio and is not a client configuration.
+
+That process is generated, not hand-written: at
 startup it reads `schemas/dist/openapi.yaml` and builds one tool per
 operation in that bundle, except the few
 [hidden by default](#hidden-tools), named by the operation id
@@ -29,10 +33,10 @@ is the standard plug: any MCP client can discover one tool per command
 and call it over the protocol. [blowhorn-axi](/docs/reference/cli/blowhorn-axi/) is the
 agent command line: an agent runs it directly and reads compact,
 agent-shaped answers, with every write a dry run until `--confirm`.
-Both drive the same `blowhorn` commands, both rehearse before they
-act, and both run on your own computer. If your assistant speaks MCP,
-connect it here; if it runs shell commands, give it `blowhorn-axi`
-or the CLI itself. The steps for connecting a client are in
+Both drive the same `blowhorn` commands, and both rehearse before they
+act. If your assistant speaks MCP, connect it to the hosted server. If
+it runs shell commands, give it `blowhorn-axi` or the CLI itself. The
+steps for connecting a client are in
 [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/).
 
 ## Tour of the tools
@@ -67,51 +71,27 @@ the command there for its flags, its examples, and its exit codes.
 
 ## Starting it
 
-The server runs over stdio. The `blowhorn-mcp` command starts it with
-everything it needs, so a client entry is that one command:
+Do not put this process in a client config. Clients use the hosted
+URL in [Connect an AI assistant over
+MCP](/docs/how-to/set-up/connect-mcp-client/).
 
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": []
-    }
-  }
-}
-```
-
-The Blowhorn app writes the command to `~/.local/bin` (version 1.61.0
+The desktop app writes `blowhorn-mcp` to `~/.local/bin` (version 1.61.0
 or later; see [The blowhorn-mcp command](#the-blowhorn-mcp-command)),
-and so does a checkout install (`tools/install.sh`). Any arguments after
-the command go to the server unchanged, so
-`~/.local/bin/blowhorn-mcp --list-tools` works too. The npm package
-[`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp) is
-published, so `npx -y blowhorn-mcp` (Node.js 20 or later) starts the
-same server; it still needs the Blowhorn app installed and opened once.
+and so does a checkout install (`tools/install.sh`). That command
+starts the app's process over stdio. Any arguments after the command
+go to the server unchanged, so `~/.local/bin/blowhorn-mcp --list-tools`
+prints the tool list and exits. The npm package
+[`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp) is the
+same launcher the app uses. It is not a server to point a client at.
 
-Without the command, run the server from a checkout, with the
-checkout's Python environment:
+From a checkout, the process starts with the checkout's Python
+environment:
 
 ```bash
-PYTHONPATH=engine ./venv/bin/python -m blowhorn.mcp_server
+PYTHONPATH=engine ./venv/bin/python -P -m blowhorn.mcp_server
 ```
 
-As a client entry, with the paths filled in for your checkout:
-
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/path/to/blowhorn/venv/bin/python",
-      "args": ["-P", "-m", "blowhorn.mcp_server"],
-      "env": {"PYTHONPATH": "/path/to/blowhorn/engine"}
-    }
-  }
-}
-```
-
-The `-P` keeps the client's working directory off Python's import
+The `-P` flag keeps the working directory off Python's import
 path, so a file there can never stand in for one of the server's own
 modules.
 
@@ -141,14 +121,12 @@ you want instead. The app runs on macOS.
 #### The `blowhorn-mcp` command
 
 Blowhorn 1.61.0 and later write `~/.local/bin/blowhorn-mcp` beside the
-other two commands. It is the whole configuration: the command
-`/Users/<you>/.local/bin/blowhorn-mcp`, with no arguments and no
-environment. Write the full path: a client started from the Dock or
-Finder does not have `~/.local/bin` on its PATH. The one exception:
-when `~/.local/bin/blowhorn` is not the app's (it lacks the line
-`Managed by Blowhorn installer`), the entry still needs
-`BLOWHORN_MCP_CLI` in its `env`, naming the `blowhorn` executable to
-use; `blowhorn-mcp` keeps a value the client sets.
+other two commands. It starts the app's process. It is not a command
+to put in a client config. Clients connect to the hosted server. When
+`~/.local/bin/blowhorn` is not the app's (it lacks the line
+`Managed by Blowhorn installer`), `BLOWHORN_MCP_CLI` names the
+`blowhorn` executable to use; `blowhorn-mcp` keeps a value already set
+in its environment.
 
 It finds the app again if the app moves, the way `blowhorn` does,
 sets `PYTHONPATH` itself, and sets `BLOWHORN_MCP_CLI` to the
@@ -164,35 +142,21 @@ client already set one.
 
 #### The app's own Python
 
-An app older than 1.61.0 has no `blowhorn-mcp` command. Point the
-client at the app's interpreter instead. With the app in
-`/Applications`, and your home directory filled in:
+An app older than 1.61.0 has no `blowhorn-mcp` command. The process
+then starts from the app's interpreter. With the app in
+`/Applications`, that interpreter is
+`/Applications/Blowhorn.app/Contents/Resources/engine/bin/python`, run
+as `-P -m blowhorn.mcp_server`, with `PYTHONPATH` set to
+`/Applications/Blowhorn.app/Contents/Resources/engine/engine` and
+`BLOWHORN_MCP_CLI` set to `~/.local/bin/blowhorn`.
 
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Applications/Blowhorn.app/Contents/Resources/engine/bin/python",
-      "args": ["-P", "-m", "blowhorn.mcp_server"],
-      "env": {
-        "PYTHONPATH": "/Applications/Blowhorn.app/Contents/Resources/engine/engine",
-        "BLOWHORN_MCP_CLI": "/Users/<you>/.local/bin/blowhorn"
-      }
-    }
-  }
-}
-```
-
-`BLOWHORN_MCP_CLI` names the app's `blowhorn` command outright,
-because an MCP client may start the server without `~/.local/bin` on
-its PATH. Without it, a client started from the Dock or Finder lists
-the tools, but every call fails with
+Without `BLOWHORN_MCP_CLI`, a call fails with
 `blowhorn executable not found: blowhorn`. Without `PYTHONPATH`, the
 server does not start and stderr says `No module named 'blowhorn'`.
 
 | Fact | With the app |
 |---|---|
-| Client command | `/Users/<you>/.local/bin/blowhorn-mcp` (1.61.0 or later) |
+| App launcher | `/Users/<you>/.local/bin/blowhorn-mcp` (1.61.0 or later). Clients do not use this. |
 | Interpreter | `/Applications/Blowhorn.app/Contents/Resources/engine/bin/python` |
 | `PYTHONPATH` | `/Applications/Blowhorn.app/Contents/Resources/engine/engine` |
 | `blowhorn` command | `~/.local/bin/blowhorn`, rewritten by the app each time it opens |
@@ -319,7 +283,8 @@ world, so it is still a dry run until `confirm` is true.
 
 The additive tools are `accept`, `analytics`,
 `chrome_create_profile`,
-`chrome_extension_enable`, `chrome_open_profile`, `chrome_remember`,
+`chrome_extension_enable`, `chrome_open`, `chrome_open_profile`,
+`chrome_remember`,
 `chrome_spaces_setup`, `comment`,
 `diagnostics_opened`, `diagnostics_support`, `find`, `follow`, `post`,
 `profile_create`, `slack_react`, `slack_send` and `star`, and the
@@ -392,16 +357,9 @@ above: it still runs as a dry run until `confirm` is true.
 the coverage check holds an opted-in tool to the same output schema
 rules as the rest and leaves a hidden one it is not serving alone.
 
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": ["--allow-hidden-tool", "service_uninstall"],
-      "env": {"BLOWHORN_MCP_ALLOW_HIDDEN_TOOLS": "auth_logout"}
-    }
-  }
-}
+```bash
+BLOWHORN_MCP_ALLOW_HIDDEN_TOOLS=auth_logout \
+  ~/.local/bin/blowhorn-mcp --allow-hidden-tool service_uninstall
 ```
 
 ### MCP calls always run as an agent
@@ -553,21 +511,12 @@ its own name at 127.0.0.1 (DNS rebinding) cannot read the numbers. It
 logs the address on stderr when it starts. With neither set, nothing
 is counted and no port is opened.
 
-```json
-{
-  "mcpServers": {
-    "blowhorn": {
-      "command": "/Users/<you>/.local/bin/blowhorn-mcp",
-      "args": ["--metrics-port", "9465"]
-    }
-  }
-}
+```bash
+~/.local/bin/blowhorn-mcp --metrics-port 9465
 ```
 
-Your AI client starts the server, so the listener runs only while the
-client keeps it running, and the counts start again at 0 each time.
-Each client starts its own server: give each one its own port, or turn
-metrics on for one client only.
+The listener runs only while that process runs, and the counts start
+again at 0 each time the process starts. Two processes need two ports.
 
 A port the server cannot bind (already in use, or not permitted) does
 not stop it. It prints one warning on stderr naming the port and the
@@ -580,11 +529,9 @@ metrics need: the server prints one warning saying so, ending
 loaded, so its absence changes nothing. A port value that is not a
 number from 0 to 65535 is a usage error (exit 2).
 
-A client that starts several server processes from one config (for
-example one per session or window) shares one fixed port among them:
-expect only the first to serve metrics there, and the others to print
-the warning. Port `0` picks a free port for each process instead and
-logs it on stderr.
+Several processes that share one fixed port leave metrics to the first
+one. The others print the warning. Port `0` picks a free port for each
+process instead and logs it on stderr.
 
 To collect the numbers with a Prometheus on the same computer:
 
@@ -611,8 +558,8 @@ scrape_configs:
 
 It serves stdio only. It does not serve Streamable HTTP, OAuth, or
 per-organization scoping. Those belong to the hosted Blowhorn MCP
-server, which is coming. Asking this server for HTTP refuses at
-startup:
+server, documented in the next section. Asking this server for HTTP
+refuses at startup:
 
 ```bash
 ~/.local/bin/blowhorn-mcp --transport http
@@ -630,13 +577,17 @@ serves RFC 9728 protected-resource metadata locally (both
 authorization server, and rewrites Cloud's `401` `WWW-Authenticate` so
 `resource_metadata` points at this origin.
 
-Connect today with a Blowhorn API token as `Authorization: Bearer <token>`.
-Create one on the Tokens page of your Blowhorn account; the steps are in
+Connect with OAuth 2.1 (dynamic client registration and PKCE), or with
+a Blowhorn API token as `Authorization: Bearer <token>`. The
+authorization server is the one advertised in
+`https://mcp.blowhorn.ai/.well-known/oauth-protected-resource`. The
+resource is `https://mcp.blowhorn.ai/mcp`. Create a token on the Tokens
+page of your Blowhorn account; the steps are in
 [Get a Blowhorn API token](/docs/how-to/set-up/connect-mcp-client/#get-a-blowhorn-api-token). The
 Blowhorn desktop app has no screen for creating one.
-Standards-following MCP OAuth clients can discover the authorization server
-from the metadata, but end-to-end sign-in stays gated until Cloud enables
-dynamic client registration (`POST /oauth2/register` currently returns 403).
+[Arcade](/docs/how-to/set-up/connect-mcp-client/#arcade) registers this URL
+as a Remote MCP and leaves the OAuth client fields empty so dynamic
+client registration can run.
 
 The gateway is read-only today. Cloud serves four tools through it,
 `listContentItems`, `getContentItem`, `getEvents` and `getConnections`, so a
@@ -693,8 +644,10 @@ The server is listed in the
 `io.github.blowhorn-ai/blowhorn`, status `active`, and its launcher is on
 npm as [`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp).
 The registry lists versions from 0.1.1 on, and npm from 0.1.0 on. As of
-2026-11-13 the latest is 1.0.2 on both; the commands below print the
-current one.
+2026-11-19 the latest on npm is 1.1.0, and the registry's latest row is
+1.1.0. That registry row still lists a stdio package beside the hosted
+remote. The `server.json` in the repository lists the remote only. The
+commands below print the current versions.
 
 Version 1.0.0 is the first stable release of the launcher. It adds no
 launcher features over 0.1.4. It moves the launcher and the registry
@@ -706,7 +659,11 @@ The listing input, `server.json`, lives in the public
 [blowhorn-mcp repository](https://github.com/blowhorn-ai/blowhorn-mcp)
 beside the source of the npm launcher. It carries the npm launcher's
 version, not the Blowhorn release's, and each registry publish pairs with
-an npm publish of the same version. Other catalogs are not listed yet.
+an npm publish of the same version. Other public catalogs are not
+listed yet. Arcade does not list Blowhorn in its public catalog. An
+Arcade user adds the hosted URL as a Remote MCP; see
+[Arcade](/docs/how-to/set-up/connect-mcp-client/#arcade). A public Arcade
+partner or Registry listing has not been submitted.
 
 To check the listing yourself:
 

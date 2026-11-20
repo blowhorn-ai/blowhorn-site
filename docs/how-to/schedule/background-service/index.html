@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docshow-to-li">
@@ -612,6 +612,12 @@ a minute, and starts with a pass as soon as it starts.</p>
 pass and the pass in flight. <code>service start</code> loads the service if it is stopped
 and asks a running one to look at the schedule now. In the app, the &quot;this
 computer&quot; screen shows the same state.</p>
+<p>The same screen shows whether the versions agree: an <strong>Extension</strong> row names
+a Google Chrome profile whose extension is behind the app, and an <strong>Engine</strong> row
+names an engine that is not this app's. A behind extension still runs, and
+Chrome updates it on its own schedule; update it sooner from the Blowhorn
+popup (<strong>Upgrade</strong>, or <strong>Check for update</strong>). An extension below the version
+Blowhorn needs cannot run anything until it is updated.</p>
 <p>While no pass is running, the service also tells your Blowhorn account that this
 computer is still here, about once a minute, so the computer shows online there
 between passes. It sends nothing while you are signed out.</p>
@@ -663,6 +669,16 @@ under <code>last_exit</code>, <code>logs</code> and <code>diagnosis</code>.</p>
 service's control connection lived inside the account's log folder, whose path is
 longer than macOS allows for one. Update Blowhorn, and the service starts on its
 own.</p>
+<h2 id="when-the-service-is-not-running">When the service is not running</h2><p>If This computer says the background service is not running, the service stopped and nothing started it again, so nothing scheduled goes out. The screen says so in a card, not a banner: what is wrong, since when, the likely cause read from the service's own state, and the last line it logged. The card offers four things you can do:</p>
+<ul>
+<li><strong>Restart the service</strong> asks the service to drain and start again.</li>
+<li><strong>Re-register the service</strong> asks the app to register it again from this app.</li>
+<li><strong>Open service log</strong> opens the service log.</li>
+<li><strong>Report the issue</strong> opens support with the app, engine and extension versions, the diagnosis and the last lines of the log already filled in.</li>
+</ul>
+<p>After you take one, the screen reads the service again and says whether it now runs. The <strong>On duty</strong> switch follows the same state: it cannot read on while the screen says the service is not running.</p>
+<p>A service that keeps exiting gets the same card, with the cause in the diagnosis's words; the full card with its remediations stays on the Troubleshooting tab.</p>
+<p>The app also checks on its own. At launch it confirms the service process is actually alive and on this app's version, not only that launchd holds the registration, and starts it again when it finds it registered but dead. While Blowhorn runs, the schedule state arriving with the service dead starts it again, at most once every ten minutes while it stays dead. A registration that fails is tried again every two minutes, up to thirty times, and the failure is shown on This computer instead of sitting silent.</p>
 <h2 id="when-the-service-runs-but-passes-say-blowhorn-is-unreachable">When the service runs but passes say Blowhorn is unreachable</h2><p>A pass that cannot reach your Blowhorn account is skipped and tried again on the next
 pass; the service itself is fine. Each failed attempt writes one line to that pass's log
 (and to the daily error log) saying why the connection failed:</p>
@@ -746,7 +762,7 @@ never failed.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/schedule/background-service.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -791,6 +807,7 @@ never failed.</p>
   <ul>
     <li><a href="#check-the-service">Check the service</a></li>
     <li><a href="#when-the-service-keeps-exiting">When the service keeps exiting</a></li>
+    <li><a href="#when-the-service-is-not-running">When the service is not running</a></li>
     <li><a href="#when-the-service-runs-but-passes-say-blowhorn-is-unreachable">When the service runs but passes say Blowhorn is unreachable</a></li>
     <li><a href="#a-separate-data-folder">A separate data folder</a></li>
     <li><a href="#install-it-without-the-app">Install it without the app</a></li>

@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docshow-to-li">
@@ -599,12 +599,19 @@ on, in the Blowhorn tab group.</li>
 <li><strong>In its own window, mostly behind yours.</strong> One window of Blowhorn's own, the same size
 as the window you used last and a little to its right, so an edge of it shows,
 opened without taking focus. Your window stays in front, your tab stays selected, and Blowhorn closes the
-window when a run ends, unless you put a tab of your own in it or it is waiting for you. Its tab sits in its own
+window when a run ends, unless you put a tab of your own in it. Its tab sits in its own
 Blowhorn tab group.</li>
 <li><strong>Split beside your tab.</strong> On Chrome 155 or later, Blowhorn's tab opens in a split
 view beside the tab you are on, visible, with your tab staying selected. On an
 older Chrome it works in a window of its own instead, as above.</li>
 </ul>
+<p>Whichever you choose, Blowhorn closes its tab and its tab group when a run ends,
+whether the run finished, failed or was stopped. If you are looking at Blowhorn's
+tab at that moment, it waits until you switch to another tab or window. A tab of
+your own that you dragged into the Blowhorn group stays open and leaves the group.
+If Blowhorn's tab is the last tab open in that Chrome profile, it leaves the group
+and stays open on a blank page instead, because closing Chrome's last window would
+disconnect Blowhorn from Chrome.</p>
 <p>On a Mac, a page in a tab you are not looking at reads its window size as zero,
 which a site can notice. A page in its own window or split beside your tab can avoid that, so choose
 <strong>Split beside your tab</strong> or <strong>In its own window, mostly behind yours</strong> if that matters to you. Beside your tabs stays
@@ -656,7 +663,7 @@ one. If no Chrome window is open at all, the run stops and asks you to open one.
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 20, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/settings/where-blowhorn-works.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

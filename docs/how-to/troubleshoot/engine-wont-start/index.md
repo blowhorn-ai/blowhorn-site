@@ -54,6 +54,14 @@ release fixes both.
 The engine started but did not answer. Press the refresh button at the top of
 the popup. If that doesn't help, quit Blowhorn and open it again.
 
+## "The background service is not running"
+
+The **This computer** screen says the background service is not running, and
+nothing scheduled goes out. The card on that screen names the likely cause and
+offers **Restart the service**, **Re-register the service**, **Open service log**
+and **Report the issue**. See
+[Keep posting when the app is closed](/docs/how-to/schedule/background-service/#when-the-service-is-not-running).
+
 ## Related
 
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - start from the symptom.

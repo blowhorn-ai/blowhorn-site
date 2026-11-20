@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshow-to-li">
@@ -638,7 +638,7 @@ permission to ignore them.</p>
     </tr>
     <tr>
       <td><code>tabs</code></td>
-      <td>Opens one background tab on a supported site, or reuses the one it opened earlier, so the action runs where you are signed in. With <a href="/docs/reference/chrome/#extension-mode-classic-or-background">where Blowhorn works</a> set to its own window, that tab lives in one window the extension opens mostly behind yours without focus, at the size of the window you used last with an edge showing to its right, and closes that window when a run ends, unless you put a tab of your own in it or Blowhorn is waiting for you in it (Chrome's windows API needs no permission of its own). It looks only among tabs on the sites above, only to find its own, and never navigates, drives or closes any other tab, except the one below</td>
+      <td>Opens one background tab on a supported site, or reuses the one it opened earlier in the same run, so the action runs where you are signed in, and closes that tab when the run ends (once you leave it, if you are looking at it). With <a href="/docs/reference/chrome/#extension-mode-classic-or-background">where Blowhorn works</a> set to its own window, that tab lives in one window the extension opens mostly behind yours without focus, at the size of the window you used last with an edge showing to its right, and closes that window when a run ends, unless you put a tab of your own in it (Chrome's windows API needs no permission of its own). It looks only among tabs on the sites above, only to find its own, and never navigates, drives or closes any other tab, except the one below</td>
     </tr>
     <tr>
       <td><code>tabGroups</code></td>
@@ -650,7 +650,7 @@ permission to ignore them.</p>
     </tr>
     <tr>
       <td><code>debugger</code></td>
-      <td>Delivers some of your queued clicks and key presses as real input (the rest, and all typing, go through the extension's own script on the page), watches the page's own requests to tell when an action finished, and takes a screenshot when the app asks for one. Attached only to the tab the extension opened. In classic mode it attaches when an action needs it and is released when the run ends or after a short idle period; in <a href="/docs/reference/chrome/#extension-mode-classic-or-background">background mode</a> it attaches as soon as the extension opens or reuses its tab, before the site loads, and stays attached until the run ends. Chrome shows its debugging bar while it is attached; closing that bar, opening developer tools on the tab or closing the tab stops the extension using the debugger until the next run</td>
+      <td>Delivers your queued clicks, key presses and typing as real input in <a href="/docs/reference/chrome/#extension-mode-classic-or-background">background mode</a> (in classic mode most of them go through the extension's own script on the page), watches the page's own requests to tell when an action finished, and takes a screenshot when the app asks for one. Attached only to the tab the extension opened, and only while that tab is on one of the sites above: if the tab goes anywhere else (a redirect, a sign-in through another site, you browsing in it) the extension lets go of it at once, and in background mode attaches again only if the tab comes back to one of those sites while the run is still driving it (never while you have paused, taken over or stopped it). In classic mode it attaches when an action needs it and is released when the run ends or after a short idle period; in background mode it attaches as soon as the extension opens or reuses its tab, before the site loads, and stays attached until the run ends, even a run that stopped without ending cleanly. Chrome shows its debugging bar while it is attached; closing that bar, opening developer tools on the tab or closing the tab stops the extension using the debugger until the next run</td>
     </tr>
     <tr>
       <td><code>storage</code></td>
@@ -684,7 +684,7 @@ only the tab that asked.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 20, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/extension-permissions.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

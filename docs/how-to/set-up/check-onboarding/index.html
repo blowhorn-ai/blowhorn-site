@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docshow-to-li">
@@ -644,7 +644,7 @@ blog action. The unit tests cover an organization that has one. It offers
 only platforms with a connected account: Slack, and LinkedIn with the
 planted cookie; without it the tile reads <strong>Connect LinkedIn</strong>.</li>
 <li><strong>Next run:</strong> without the planted cookie, the walk first connects a
-LinkedIn account in the local Cloud. Saving a daily Accept LinkedIn invitations from that picker
+LinkedIn account in the local Cloud. Saving a daily Accept invitations from that picker
 stores one enabled routine in the local Cloud, and <strong>Activity &gt; Routines</strong>
 lists it with its next run at the time the step typed. Home names no next run. The rail's status line
 never shows a countdown. The walk reads the rail's duty kind: while this computer is on watch, the
@@ -673,7 +673,7 @@ older than its source, naming the newer file. Then, from the checkout:</p>
   <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>make onboarding-e2e</span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
-<p>The check needs Node.js 22, Google Chrome, and a display. On Linux with no
+<p>The check needs Node.js 22.12 or newer, Google Chrome, and a display. On Linux with no
 display it starts Xvfb itself. It finds the Electron binary the way the
 <code>electron</code> package does, so the Linux binary and the macOS app inside
 <code>Electron.app</code> both start. A packaged Mac app is the same walk:</p>
@@ -750,7 +750,10 @@ directory is refused. Every Chrome Blowhorn itself starts on that folder
 during the check, such as the extension's store page during setup, carries
 the same two switches, so macOS never shows &quot;Keychain Not Found&quot;. The
 check also sets <code>BLOWHORN_MUTE_AUDIO=1</code>, so the app and every Chrome it
-starts stay silent. The
+starts stay silent. On macOS it is quiet too (<code>BLOWHORN_QUIET_WINDOWS=1</code>):
+the app's window stays invisible and never takes the focus, and the
+throwaway Google Chrome starts with no window, so you can keep working
+while it runs. Run it with <code>BLOWHORN_QUIET_WINDOWS=0</code> to watch the windows. The
 throwaway Chrome profile has no Google account, like many people's: the
 email in the wizard is what finds the person in the local Cloud. The happy
 path ends by checking that <code>blowhorn chrome profiles --json</code> still reports
@@ -766,7 +769,7 @@ throwaway home and does not write the login keychain.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/set-up/check-onboarding.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -13,11 +13,19 @@ tab of its own. Your Blowhorn account has one setting for where that tab lives:
 - **In its own window, mostly behind yours.** One window of Blowhorn's own, the same size
   as the window you used last and a little to its right, so an edge of it shows,
   opened without taking focus. Your window stays in front, your tab stays selected, and Blowhorn closes the
-  window when a run ends, unless you put a tab of your own in it or it is waiting for you. Its tab sits in its own
+  window when a run ends, unless you put a tab of your own in it. Its tab sits in its own
   Blowhorn tab group.
 - **Split beside your tab.** On Chrome 155 or later, Blowhorn's tab opens in a split
   view beside the tab you are on, visible, with your tab staying selected. On an
   older Chrome it works in a window of its own instead, as above.
+
+Whichever you choose, Blowhorn closes its tab and its tab group when a run ends,
+whether the run finished, failed or was stopped. If you are looking at Blowhorn's
+tab at that moment, it waits until you switch to another tab or window. A tab of
+your own that you dragged into the Blowhorn group stays open and leaves the group.
+If Blowhorn's tab is the last tab open in that Chrome profile, it leaves the group
+and stays open on a blank page instead, because closing Chrome's last window would
+disconnect Blowhorn from Chrome.
 
 On a Mac, a page in a tab you are not looking at reads its window size as zero,
 which a site can notice. A page in its own window or split beside your tab can avoid that, so choose

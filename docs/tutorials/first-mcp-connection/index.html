@@ -13,21 +13,21 @@
         }
       })();
     </script>
-<title>Connect an assistant and send your first post: Blowhorn</title>
-    <meta name="description" content="Add the Blowhorn MCP server to Claude Desktop, read your profiles and queue, and queue a post that waits for your approval.">
+<title>Connect an assistant and read your queue: Blowhorn</title>
+    <meta name="description" content="Add Blowhorn&#39;s hosted MCP server to Claude Desktop and ask it to read your content items.">
     <link rel="canonical" href="https://blowhorn.ai/docs/tutorials/first-mcp-connection/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Blowhorn">
-    <meta property="og:title" content="Connect an assistant and send your first post: Blowhorn">
-    <meta property="og:description" content="Add the Blowhorn MCP server to Claude Desktop, read your profiles and queue, and queue a post that waits for your approval.">
+    <meta property="og:title" content="Connect an assistant and read your queue: Blowhorn">
+    <meta property="og:description" content="Add Blowhorn&#39;s hosted MCP server to Claude Desktop and ask it to read your content items.">
     <meta property="og:url" content="https://blowhorn.ai/docs/tutorials/first-mcp-connection/">
     <meta property="og:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-social-banner-16x9.png">
     <meta property="og:image:width" content="1600">
     <meta property="og:image:height" content="900">
     <meta property="og:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline One message. Many ears.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Connect an assistant and send your first post: Blowhorn">
-    <meta name="twitter:description" content="Add the Blowhorn MCP server to Claude Desktop, read your profiles and queue, and queue a post that waits for your approval.">
+    <meta name="twitter:title" content="Connect an assistant and read your queue: Blowhorn">
+    <meta name="twitter:description" content="Add Blowhorn&#39;s hosted MCP server to Claude Desktop and ask it to read your content items.">
     <meta name="twitter:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-social-banner-16x9.png">
     <meta name="twitter:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline One message. Many ears.">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="true" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul">
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 active td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="td-sidebar-nav-active-item">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 active td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="td-sidebar-nav-active-item">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshow-to-li">
@@ -584,60 +584,31 @@
   <li class="breadcrumb-item">
     <a href="/docs/tutorials/">Get started</a></li>
   <li class="breadcrumb-item active" aria-current="page">
-    Connect an assistant and send your first post</li>
+    Connect an assistant and read your queue</li>
   </ol>
 </nav><div class="prose docs-page">
-  <h1 class="h1">Connect an assistant and send your first post</h1>
-  <p class="body-lg docs-lead">Add the Blowhorn MCP server to Claude Desktop, read your profiles and queue, and queue a post that waits for your approval.</p>
-  <p>In this tutorial you connect Claude Desktop to Blowhorn over MCP. You
-ask it to read your profiles and your queue. Then you ask it to draft
-a post and queue it. You see the dry run first, you confirm it, and
-the post lands in your queue waiting for your approval. Nothing is
-published. It takes about ten minutes.</p>
+  <h1 class="h1">Connect an assistant and read your queue</h1>
+  <p class="body-lg docs-lead">Add Blowhorn's hosted MCP server to Claude Desktop and ask it to read your content items.</p>
+  <p>In this tutorial you connect Claude Desktop to Blowhorn's hosted MCP
+server. You ask it which tools it has, then you ask it to read your
+content items. Nothing is posted or changed. It takes a few minutes.</p>
 <h2 id="before-you-start">Before you start</h2><p>You need:</p>
 <ul>
-<li>A Mac with the Blowhorn app, version 1.61.0 or later, installed and
-signed in to your Blowhorn account. See <a href="/docs/how-to/set-up/install-the-app/">Install the
-app</a>.</li>
-<li>At least one profile signed in to LinkedIn, and mapped to its
-Google Chrome profile. See <a href="/docs/how-to/set-up/platform-accounts/">Sign a profile in to each
-platform</a>.</li>
+<li>A Blowhorn account.</li>
 <li>Claude Desktop, installed and signed in.</li>
+<li>A Blowhorn API token, if Claude Desktop does not finish the OAuth
+sign-in. The steps are in <a href="/docs/how-to/set-up/connect-mcp-client/#get-a-blowhorn-api-token">Get a Blowhorn API
+token</a>.</li>
 </ul>
-<h2 id="section-1-check-the-blowhorn-mcp-command">1. Check the blowhorn-mcp command</h2><ol>
+<h2 id="section-1-add-the-hosted-server">1. Add the hosted server</h2><ol>
 <li>
-<p>Open the Blowhorn app once, then quit it if you like.</p>
+<p>In Claude Desktop, open <strong>Settings</strong>, then <strong>Developer</strong>, then
+<strong>Edit Config</strong>.</p>
 </li>
 <li>
-<p>Open Terminal.</p>
-</li>
-<li>
-<p>Run:</p>
-<figure class="term term-prompt" data-lang="bash">
-  <figcaption class="term-bar">
-    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="term-title">terminal</span>
-    <span class="term-lang" aria-hidden="true">Shell</span>
-    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
-      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
-      <span class="term-copy-text">Copy</span>
-    </button>
-  </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>~/.local/bin/blowhorn-mcp --version</span></span></code></pre></div></div>
-  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
-</figure>
-</li>
-</ol>
-<p>You see the Blowhorn version number. If you see
-<code>No such file or directory</code>, update the app to 1.61.0 or later and
-open it again.</p>
-<h2 id="section-2-add-blowhorn-to-claude-desktop">2. Add Blowhorn to Claude Desktop</h2><ol>
-<li>
-<p>In Claude Desktop, open Settings &gt; Developer &gt; Edit Config.</p>
-</li>
-<li>
-<p>Replace the file's contents with this entry. Put your macOS user
-name in place of <code>&lt;you&gt;</code>:</p>
+<p>Add this entry to <code>claude_desktop_config.json</code>. If Claude Desktop
+completes OAuth for the URL, omit the <code>headers</code> object. Otherwise
+replace <code>&lt;token&gt;</code> with your Blowhorn API token.</p>
 <figure class="term" data-lang="json">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -651,134 +622,51 @@ name in place of <code>&lt;you&gt;</code>:</p>
   <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;/Users/&lt;you&gt;/.local/bin/blowhorn-mcp&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://mcp.blowhorn.ai/mcp&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;Authorization&#34;</span><span class="p">:</span> <span class="s2">&#34;Bearer &lt;token&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
-<p>If the file already lists other servers, add the <code>blowhorn</code> entry
-beside them inside <code>mcpServers</code> instead.</p>
 </li>
 <li>
-<p>Save the file.</p>
-</li>
-<li>
-<p>Quit Claude Desktop fully, then open it again.</p>
+<p>Save the file and restart Claude Desktop.</p>
 </li>
 </ol>
-<h2 id="section-3-check-that-it-connected">3. Check that it connected</h2><p>Start a new chat and ask:</p>
+<p>The other clients, and what to do when sign-in fails, are in
+<a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over
+MCP</a>.</p>
+<h2 id="section-2-ask-which-tools-it-has">2. Ask which tools it has</h2><p>In a new chat, ask:</p>
 <blockquote>
 <p>Which Blowhorn tools do you have?</p>
 </blockquote>
-<p>Claude lists tools with names such as <code>profile_list</code>, <code>content_list</code>
-and <code>content_upsert</code>. There is one tool for each Blowhorn command,
-except a few that uninstall Blowhorn or sign you out, which stay
-hidden unless you turn them on.</p>
-<p>If Claude has no Blowhorn tools, see Troubleshooting in <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI
-assistant over MCP</a>.</p>
-<h2 id="section-4-read-your-profiles-and-your-queue">4. Read your profiles and your queue</h2><p>Ask:</p>
+<p>You should see four: <code>listContentItems</code>, <code>getContentItem</code>,
+<code>getEvents</code> and <code>getConnections</code>. If the list is empty, or the client
+says it cannot connect, check the URL and the token, then restart
+Claude Desktop. A <code>401</code> means the header is missing or the token is
+no longer valid.</p>
+<h2 id="section-3-read-your-content">3. Read your content</h2><p>Ask:</p>
 <blockquote>
-<p>List my Blowhorn profiles, then show me what is in my content queue.</p>
+<p>List my content items and tell me the status of each one you can see.</p>
 </blockquote>
-<p>When Claude asks to use a tool, allow it. Claude calls <code>profile_list</code>
-and then <code>content_list</code>. Both only read, so they run as asked. You see
-your profiles by name, and each activity in the queue with its state.</p>
-<p>Pick one profile name from the list. This tutorial calls it <code>&lt;profile&gt;</code>.</p>
-<h2 id="section-5-ask-for-a-draft-and-queue-it">5. Ask for a draft and queue it</h2><p>Ask, with your profile name in place of <code>&lt;profile&gt;</code>:</p>
-<blockquote>
-<p>Draft a short LinkedIn post for profile <code>&lt;profile&gt;</code> saying we are
-trying out Blowhorn. Queue it with <code>content_upsert</code>, but leave
-<code>Approved?</code> empty. Show me the dry run first.</p>
-</blockquote>
-<p>Claude calls <code>content_upsert</code>. A tool that changes anything runs as a
-dry run unless the call confirms it, so nothing is written yet. Claude
-tells you it was a dry run and shows the post. The tool's own result
-looks like this:</p>
-<figure class="term" data-lang="json">
-  <figcaption class="term-bar">
-    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="term-title">JSON</span>
-    <span class="term-lang" aria-hidden="true">JSON</span>
-    <button type="button" class="term-copy" aria-label="Copy JSON to clipboard" hidden>
-      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
-      <span class="term-copy-text">Copy</span>
-    </button>
-  </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;activity&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dry_run&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;expected_fingerprint&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ok&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;payload&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Message Text&#34;</span><span class="p">:</span> <span class="s2">&#34;...&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Platform&#34;</span><span class="p">:</span> <span class="s2">&#34;linkedin&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Profile&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;profile&gt;&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
-</figure>
-<h2 id="section-6-review-the-dry-run">6. Review the dry run</h2><p>Read the dry run. Check three things:</p>
-<ul>
-<li><code>Platform</code> is <code>linkedin</code>.</li>
-<li><code>Profile</code> is your profile.</li>
-<li><code>Message Text</code> is the post you want.</li>
-</ul>
-<p>There is no <code>Approved?</code> value, so the post will wait for you. If
-anything is wrong, ask Claude to change it and show the dry run again.</p>
-<h2 id="section-7-confirm-it">7. Confirm it</h2><p>Ask:</p>
-<blockquote>
-<p>That looks right. Run it again with confirm.</p>
-</blockquote>
-<p>Claude calls <code>content_upsert</code> again with <code>confirm</code> set to true. This
-time the activity is written. Claude reports the new activity's
-number and its state, <code>draft</code>. In the tool's result, <code>&quot;created&quot;</code> is
-true and <code>&quot;state&quot;</code> is <code>&quot;draft&quot;</code>.</p>
-<p><code>draft</code> means the activity is not approved, so no run picks it up.</p>
-<h2 id="section-8-see-it-in-your-queue">8. See it in your queue</h2><p>Ask:</p>
-<blockquote>
-<p>Show me my content queue again.</p>
-</blockquote>
-<p>The new activity is in the list, in state <code>draft</code>. Open the Blowhorn
-app's Content screen and you see it there too, waiting for approval.</p>
-<h2 id="what-you-did">What you did</h2><p>You connected an assistant to Blowhorn, read your profiles and queue,
-and queued a post. The assistant saw a dry run before anything was
-written, and only your confirm wrote it. The post is still waiting for
-you. The assistant cannot approve it: the <code>content_approve</code> tool
-refuses an assistant in every approval mode.</p>
-<p>When you want the post to go out, approve it yourself in the app, as in
-<a href="/docs/how-to/publish/manage-the-content-worksheet/#approve-a-waiting-activity">Approve a waiting
-activity</a>.
-If you would rather not keep it, delete it from a terminal, with your
-activity number in place of <code>&lt;number&gt;</code>:</p>
-<figure class="term term-prompt" data-lang="bash">
-  <figcaption class="term-bar">
-    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="term-title">terminal</span>
-    <span class="term-lang" aria-hidden="true">Shell</span>
-    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
-      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
-      <span class="term-copy-text">Copy</span>
-    </button>
-  </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn content delete &lt;number&gt; --yes</span></span></code></pre></div></div>
-  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
-</figure>
-<h2 id="next-steps">Next steps</h2><ul>
+<p>The assistant calls <code>listContentItems</code> and answers from that result.
+It cannot post, schedule, or edit. If you ask it to publish something,
+it should tell you this server has no write tool.</p>
+<h2 id="related">Related</h2><ul>
 <li><a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over MCP</a> -
-set up ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI, Zed,
-Cline or Goose, and more example prompts</li>
-<li><a href="/docs/explanation/mcp-and-safety/">How the MCP server keeps you in control</a> -
-why dry runs, confirms and approvals work the way they do</li>
-<li><a href="/docs/reference/mcp-server/">MCP server reference</a> - every tool and
-option</li>
+the same hosted URL in every other client</li>
+<li><a href="/docs/reference/mcp-server/">MCP server reference</a> - what the hosted
+server serves</li>
 </ul>
 
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/tutorials/first-mcp-connection.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -809,7 +697,7 @@ option</li>
   <p class="label">Support</p>
   <p class="docs-support-card-title">Stuck on something?</p>
   <p class="docs-support-card-text">Email us and a person on the team will help.</p>
-  <p class="docs-support-card-link"><a href="mailto:support@blowhorn.ai?subject=Docs%20question%3A%20Connect%20an%20assistant%20and%20send%20your%20first%20post">support@blowhorn.ai</a></p>
+  <p class="docs-support-card-link"><a href="mailto:support@blowhorn.ai?subject=Docs%20question%3A%20Connect%20an%20assistant%20and%20read%20your%20queue">support@blowhorn.ai</a></p>
 </div>
 
       </main>
@@ -822,16 +710,10 @@ option</li>
     <nav id="TableOfContents" aria-label="On this page">
   <ul>
     <li><a href="#before-you-start">Before you start</a></li>
-    <li><a href="#section-1-check-the-blowhorn-mcp-command">1. Check the blowhorn-mcp command</a></li>
-    <li><a href="#section-2-add-blowhorn-to-claude-desktop">2. Add Blowhorn to Claude Desktop</a></li>
-    <li><a href="#section-3-check-that-it-connected">3. Check that it connected</a></li>
-    <li><a href="#section-4-read-your-profiles-and-your-queue">4. Read your profiles and your queue</a></li>
-    <li><a href="#section-5-ask-for-a-draft-and-queue-it">5. Ask for a draft and queue it</a></li>
-    <li><a href="#section-6-review-the-dry-run">6. Review the dry run</a></li>
-    <li><a href="#section-7-confirm-it">7. Confirm it</a></li>
-    <li><a href="#section-8-see-it-in-your-queue">8. See it in your queue</a></li>
-    <li><a href="#what-you-did">What you did</a></li>
-    <li><a href="#next-steps">Next steps</a></li>
+    <li><a href="#section-1-add-the-hosted-server">1. Add the hosted server</a></li>
+    <li><a href="#section-2-ask-which-tools-it-has">2. Ask which tools it has</a></li>
+    <li><a href="#section-3-read-your-content">3. Read your content</a></li>
+    <li><a href="#related">Related</a></li>
   </ul>
 </nav>
   </div>
@@ -847,7 +729,7 @@ option</li>
   <p class="label">Support</p>
   <p class="docs-support-card-title">Stuck on something?</p>
   <p class="docs-support-card-text">Email us and a person on the team will help.</p>
-  <p class="docs-support-card-link"><a href="mailto:support@blowhorn.ai?subject=Docs%20question%3A%20Connect%20an%20assistant%20and%20send%20your%20first%20post">support@blowhorn.ai</a></p>
+  <p class="docs-support-card-link"><a href="mailto:support@blowhorn.ai?subject=Docs%20question%3A%20Connect%20an%20assistant%20and%20read%20your%20queue">support@blowhorn.ai</a></p>
 </div>
 
       </aside>

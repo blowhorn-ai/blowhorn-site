@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.46c610e5abd0dbbcd50fb64fa3c1a126.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0ed4974acb76c3e2faededf3fec445fb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -253,7 +253,7 @@
     <div class="td-sidebar-row"><a href="/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
     <ul class="ul-2 foldable" id="m-docstutorials-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsfirst-mcp-connection-li">
-    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and send your first post</span></a>
+    <a href="/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docshow-to-li">
@@ -679,6 +679,19 @@ Activity Monitor and quit it there.</li>
 </ol>
 <p>To see which version you have, select Blowhorn in Applications and choose
 <strong>File</strong> &gt; <strong>Get Info</strong>.</p>
+<p>When you open the copy you want to keep, Blowhorn moves its background
+service to it. If the service was running from a separate copy, Blowhorn
+asks once whether to remove it (&quot;Blowhorn moved its background service to
+this copy&quot;, with that copy's path). It asks only about a copy of
+Blowhorn or Blowhorn Dev, never another app. It does not ask when another
+account on this Mac owns that copy or is running it, because removing it
+would remove it for them too.</p>
+<ul>
+<li>Choose <strong>Remove old copy</strong> when the path is a copy you no longer need,
+such as an older download or a local build.</li>
+<li>Choose <strong>Close</strong> when you are not sure or when you still use that copy.
+Close leaves it where it is.</li>
+</ul>
 <h2 id="if-an-update-left-an-old-copy-behind">If an update left an old copy behind</h2><p>An in-app update keeps the previous version until the new one starts, in
 <code>~/Library/Caches/ai.blowhorn.desktop/update-backup-&lt;id&gt;</code>. That folder is not
 an application, so nothing opens it by mistake. Older versions of Blowhorn
@@ -757,7 +770,7 @@ Replace the path with the one you found:</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 19, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/troubleshoot/damaged-cant-be-opened.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -65,8 +65,8 @@ missing. Chrome cannot be forced to update an extension from here: if a
 profile is on an older version, update it in that profile from
 `chrome://extensions`.
 
-If Getting ready says **This is taking longer than usual**, press
-**Start again**: Blowhorn stops the attempt still running and begins a new
+If Getting ready takes longer than usual, **Start again** says so itself -
+press it: Blowhorn stops the attempt still running and begins a new
 one.
 
 One ready profile is enough to carry on. If a
