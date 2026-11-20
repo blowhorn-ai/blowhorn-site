@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.1534c39a23585a1b4db732853ab71341.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.989c4f19b39b0dc90493d5eda018d45d.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -590,7 +590,7 @@
   <h1 class="h1">How the MCP server keeps you in control</h1>
   <p class="body-lg docs-lead">How the MCP server, the CLI, dry runs, confirms and approvals fit together when an AI assistant drives Blowhorn.</p>
   <p>An AI assistant that connects to Blowhorn over MCP gets no powers of
-its own. The hosted server at <code>https://mcp.blowhorn.ai/mcp</code> serves four
+its own. The hosted server at <code>https://mcp.blowhorn.ai/mcp</code> serves six
 read-only tools. Writes you make in the app, or through the CLI, keep
 the rules below. This page explains how those pieces fit together. The
 setup steps are in <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over
@@ -599,7 +599,7 @@ in the <a href="/docs/reference/mcp-server/">MCP server reference</a>.</p>
 <h2 id="a-thin-layer-over-the-cli">A thin layer over the CLI</h2><p>The desktop app's process holds no Blowhorn logic of its own. When it
 runs a tool, it runs the matching <code>blowhorn</code> command on your computer
 and hands back what it printed. The hosted server does not do that:
-its four tools are reads served by Cloud. There is one tool per command, built
+its six tools are reads served by Cloud. There is one tool per command, built
 from the same command descriptions the CLI reference is built from,
 except a few that are hidden by default (see below). A new command
 becomes a new tool the next time the server starts.</p>
@@ -674,8 +674,8 @@ an argument can itself be a secret.</p>
 MCP</a>. Sign-in is OAuth 2.1 with
 dynamic client registration and PKCE, or a Bearer Cloud API token. The
 tools today are read-only: <code>listContentItems</code>, <code>getContentItem</code>,
-<code>getEvents</code> and <code>getConnections</code>. A request to post or change anything
-has no tool there.</p>
+<code>getEvents</code>, <code>getConnections</code>, <code>listSchedules</code> and <code>getScheduleById</code>.
+A request to post or change anything has no tool there.</p>
 <p>The desktop app also ships a process that runs on your computer over
 stdio. That process is not the way to connect a client. Approvals for
 writes you make in the app, or through the CLI, still follow the rules
@@ -693,7 +693,7 @@ end to end</li>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 19, 2026
+  Last modified November 20, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/explanation/mcp-and-safety.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

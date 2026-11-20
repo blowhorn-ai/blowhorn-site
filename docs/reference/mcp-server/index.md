@@ -589,11 +589,13 @@ Blowhorn desktop app has no screen for creating one.
 as a Remote MCP and leaves the OAuth client fields empty so dynamic
 client registration can run.
 
-The gateway is read-only today. Cloud serves four tools through it,
-`listContentItems`, `getContentItem`, `getEvents` and `getConnections`, so a
-client can read your queue, a post, your activity and your connections, but
-cannot post, schedule or change anything. Writes with approval come with the
-hosted Blowhorn MCP server.
+The gateway is read-only today. Cloud serves six tools through it,
+`listContentItems`, `getContentItem`, `getEvents`, `getConnections`,
+`listSchedules` and `getScheduleById`, so a client can read your queue,
+a post, your activity, your connections and your schedules, but cannot
+post, schedule or change anything. Writes with approval come with the
+hosted Blowhorn MCP server. Where a tool needs an organization, pass
+it as the `organizationId` argument.
 
 The gateway is stateless: every MCP message is its own JSON-RPC `POST` to
 `/mcp`. Opening `/mcp` in a browser sends a `GET` without a token, so it

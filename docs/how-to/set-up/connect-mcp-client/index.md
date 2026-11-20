@@ -6,9 +6,11 @@
 
 Connect an MCP client to Blowhorn's hosted MCP server at
 `https://mcp.blowhorn.ai/mcp`. The server is Streamable HTTP. It serves
-four read-only tools: `listContentItems`, `getContentItem`, `getEvents`
-and `getConnections`. It does not post, schedule, or change anything,
-and it serves tools only: no prompts, resources, or sampling.
+six read-only tools: `listContentItems`, `getContentItem`, `getEvents`,
+`getConnections`, `listSchedules` and `getScheduleById`. It does not
+post, schedule, or change anything, and it serves tools only: no
+prompts, resources, or sampling. Where a tool needs an organization,
+pass it as the `organizationId` argument.
 
 Sign in with OAuth when the client can. A client that supports MCP
 OAuth 2.1 needs only the URL. Dynamic client registration and PKCE are
@@ -177,29 +179,77 @@ Bearer token.
 
 ### Grok
 
-Grok Build connects over HTTP:
+Grok Build connects over HTTP. If it completes the OAuth sign-in from
+the URL alone, add the server with no header:
+
+```bash
+grok mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp
+```
+
+If it cannot finish OAuth, pass a Blowhorn API token instead:
 
 ```bash
 grok mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp \
   --header "Authorization: Bearer <token>"
 ```
 
-Omit `--header` if Grok completes the OAuth sign-in from the URL
-alone. Check it with `grok mcp list`.
+Check it with `grok mcp list`.
 [Vendor docs](https://docs.x.ai/build/features/mcp-servers).
+
+Grok on the web can use the same URL as a custom connector and
+complete the Blowhorn OAuth sign-in. If it cannot finish OAuth, send a
+Blowhorn API token as a Bearer token instead.
+[Vendor docs](https://docs.x.ai/grok/connectors).
 
 ### Grok Bot
 
-In the bot's MCP settings, set the server URL to
-`https://mcp.blowhorn.ai/mcp` and the authorization header to
-`Authorization: Bearer <token>`.
+Blowhorn is not in Grok Bot's connector catalog yet. Add it as a
+custom MCP server. Grok Bot runs in the cloud, so it cannot start
+Blowhorn's local server on your Mac. It connects to the hosted server
+at `https://mcp.blowhorn.ai/mcp`. No token or header is needed for the
+add step: you sign in with OAuth.
 
-If the bot reports `401 Unauthorized` when it connects, the header
-is missing or malformed: the server wants exactly
-`Authorization: Bearer <token>`. If it connects but a tool call
-fails with a `401`, the token has expired or been revoked: get a new
-token and update the header. If you opened the URL in a browser and
-saw a JSON error, that is expected: see
+The hosted server is read-only. It has the six tools named at the top
+of this page, so your bot can read your queue, a post, your activity,
+your connections and your schedules. It cannot post, schedule or
+change anything. To post, use the [CLI](/docs/how-to/publish/post-content/) or
+[blowhorn-axi](/docs/reference/cli/blowhorn-axi/) on the Mac where
+Blowhorn runs, or the desktop app's own process described in the
+[MCP server reference](/docs/reference/mcp-server/).
+
+1. In a chat with your bot, ask it to add a custom MCP server. Say
+   "custom" so the bot does not look in the catalog:
+
+   > Add a custom MCP server named blowhorn at
+   > https://mcp.blowhorn.ai/mcp.
+
+2. The bot shows the name and the URL and asks you to confirm. Check
+   that the URL is exactly `https://mcp.blowhorn.ai/mcp`, then confirm.
+3. The bot shows a connect card. Open it. You land on the Blowhorn
+   sign-in page at [cloud.blowhorn.ai](https://cloud.blowhorn.ai). Sign
+   in, or create a new Blowhorn account there. Approve access.
+4. Back in the chat, check it in your next message. Ask:
+
+   > Which Blowhorn tools do you have? Then list my Blowhorn
+   > connections.
+
+   The bot should list the six read-only tools above and answer from
+   `getConnections`. Where a tool needs an organization, it is passed
+   as the `organizationId` argument.
+
+If a client cannot finish OAuth, send a Blowhorn API token as
+`Authorization: Bearer <token>` instead. The steps are in
+[Get a Blowhorn API token](#get-a-blowhorn-api-token).
+
+If the bot reports `401 Unauthorized` when it connects, the OAuth
+sign-in did not finish, or a Bearer header is missing or malformed.
+Sign in again, or use the header `Authorization: Bearer <token>` with
+a current token. If it connects but a tool call fails with a `401`,
+the sign-in expired or the token was revoked: sign in again, or get a
+new token and update the header. If you connected before 20 November
+2026, sign in once more: the sign-in address changed, so the client
+registers again and completes sign-in once. If you opened the URL in a
+browser and saw a JSON error, that is expected: see
 [Opening the gateway URL in a browser](#opening-the-gateway-url-in-a-browser).
 
 ### Arcade
@@ -218,7 +268,7 @@ MCP.
 5. Save, then complete the Blowhorn OAuth sign-in.
 6. Pick the tools in an MCP Gateway.
 
-The tools are the four read-only tools named at the top of this page.
+The tools are the six read-only tools named at the top of this page.
 This is a connection in your Arcade account. Blowhorn is not listed in
 Arcade's public catalog.
 
@@ -318,10 +368,13 @@ server. The assistant should say so.
 - **The client reports 401.** The OAuth sign-in did not finish, or the
   Bearer header is missing or malformed. Use the header
   `Authorization: Bearer <token>` with a current token, or sign in
-  again.
-- **A tool call returns 401 after the client connected.** The token
-  expired or was revoked. Create a new one and update the header.
-- **The tool list is not the four read tools.** The client is pointed
+  again. If you connected before 20 November 2026, sign in once more:
+  the sign-in address changed, so the client registers again and
+  completes sign-in once.
+- **A tool call returns 401 after the client connected.** The sign-in
+  expired, or the token was revoked. Sign in again, or create a new
+  token and update the header.
+- **The tool list is not the six read tools.** The client is pointed
   at a different server. Set the URL to `https://mcp.blowhorn.ai/mcp`
   and remove any command that starts a local process.
 - **A browser shows a JSON error at `/mcp`.** That is expected. See

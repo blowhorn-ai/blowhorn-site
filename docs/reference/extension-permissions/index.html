@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.1534c39a23585a1b4db732853ab71341.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.989c4f19b39b0dc90493d5eda018d45d.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -610,6 +610,22 @@ reads a workspace session only from its sign-in pages:</p>
 <li><code>mentorship.lfx.linuxfoundation.org</code>, <code>sso.linuxfoundation.org</code></li>
 <li><code>*.slack.com</code></li>
 </ul>
+<h3 id="sites-you-turn-on">Sites you turn on</h3><p>Some sites are not on the extension's list until you turn them on, one
+Chrome profile at a time, so adding one never asks everyone who already
+uses the extension to approve it:</p>
+<ul>
+<li><code>www.youtube.com</code>, <code>youtube.com</code>, <code>studio.youtube.com</code> (YouTube and
+YouTube Studio)</li>
+</ul>
+<p>Chrome asks you, and only when you click <strong>Allow YouTube</strong> on the
+Blowhorn page that <code>blowhorn chrome open-profile &lt;profile&gt; --sign-in youtube</code>
+(or <code>blowhorn chrome create-profile --sign-in youtube</code>) opens. Until you allow it, the extension cannot open those sites, and a
+YouTube action stops before it opens anything and says how to turn
+YouTube on. Once allowed, the extension treats those sites like the
+ones above: the same content script, in the tab it opened. You can take
+it back in Chrome at any time, under <strong>Site access</strong> on the Blowhorn
+extension's <strong>Details</strong> page in <code>chrome://extensions</code>. The extension then
+lets go of its tab on that site at once.</p>
 <p><code>tells.blowhorn.ai</code>, Blowhorn's own bot-detection page, is the one other
 page the extension will open, and only for <code>blowhorn diagnostics tells-run</code>.
 It adds no permission and no content script, so updating never asks you to
@@ -659,6 +675,10 @@ permission to ignore them.</p>
     <tr>
       <td><code>sidePanel</code></td>
       <td>Shows the Blowhorn side panel when you click the toolbar button: this profile's setup status, the task a run is doing, its steps and the Blowhorn tab's address, with Stop, Pause / Resume and Take over / Give back. The panel is part of Chrome, not of any page: nothing is added to the sites Blowhorn acts on. Take over brings the Blowhorn tab and its window to the front only when you click it. Chrome shows no warning for this permission (<a href="/docs/how-to/manage/watch-and-take-over-a-run/">Watch, pause or take over a run</a>)</td>
+    </tr>
+    <tr>
+      <td><code>scripting</code></td>
+      <td>Runs the extension's own script on a <a href="#sites-you-turn-on">site you turned on</a>, once you turn it on, and stops when you turn it off. It is the same script as on the sites above, and nothing else. Chrome shows no warning for this permission</td>
     </tr>
     <tr>
       <td><code>downloads</code></td>
@@ -727,7 +747,11 @@ only the tab that asked.</p>
     </div>
     <nav id="TableOfContents" aria-label="On this page">
   <ul>
-    <li><a href="#sites">Sites</a></li>
+    <li><a href="#sites">Sites</a>
+      <ul>
+        <li><a href="#sites-you-turn-on">Sites you turn on</a></li>
+      </ul>
+    </li>
     <li><a href="#permissions">Permissions</a></li>
     <li><a href="#closing-the-sign-in-tab">Closing the sign-in tab</a></li>
     <li><a href="#related">Related</a></li>

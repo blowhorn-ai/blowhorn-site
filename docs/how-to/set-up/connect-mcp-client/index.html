@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.1534c39a23585a1b4db732853ab71341.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.989c4f19b39b0dc90493d5eda018d45d.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -593,9 +593,11 @@
   <p class="body-lg docs-lead">Point Claude, ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, Grok, Grok Bot, or Arcade at <a href="https://mcp.blowhorn.ai/mcp">https://mcp.blowhorn.ai/mcp</a>.</p>
   <p>Connect an MCP client to Blowhorn's hosted MCP server at
 <code>https://mcp.blowhorn.ai/mcp</code>. The server is Streamable HTTP. It serves
-four read-only tools: <code>listContentItems</code>, <code>getContentItem</code>, <code>getEvents</code>
-and <code>getConnections</code>. It does not post, schedule, or change anything,
-and it serves tools only: no prompts, resources, or sampling.</p>
+six read-only tools: <code>listContentItems</code>, <code>getContentItem</code>, <code>getEvents</code>,
+<code>getConnections</code>, <code>listSchedules</code> and <code>getScheduleById</code>. It does not
+post, schedule, or change anything, and it serves tools only: no
+prompts, resources, or sampling. Where a tool needs an organization,
+pass it as the <code>organizationId</code> argument.</p>
 <p>Sign in with OAuth when the client can. A client that supports MCP
 OAuth 2.1 needs only the URL. Dynamic client registration and PKCE are
 on. The resource is <code>https://mcp.blowhorn.ai/mcp</code>. The authorization
@@ -785,7 +787,22 @@ not finish OAuth.</p>
 <h3 id="muse">Muse</h3><p>A Muse bot connects as a custom MCP connector. Set the server URL to
 <code>https://mcp.blowhorn.ai/mcp</code> and send the Blowhorn API token as a
 Bearer token.</p>
-<h3 id="grok">Grok</h3><p>Grok Build connects over HTTP:</p>
+<h3 id="grok">Grok</h3><p>Grok Build connects over HTTP. If it completes the OAuth sign-in from
+the URL alone, add the server with no header:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>grok mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>If it cannot finish OAuth, pass a Blowhorn API token instead:</p>
 <figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -800,18 +817,65 @@ Bearer token.</p>
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer &lt;token&gt;&#34;</span></span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
-<p>Omit <code>--header</code> if Grok completes the OAuth sign-in from the URL
-alone. Check it with <code>grok mcp list</code>.
+<p>Check it with <code>grok mcp list</code>.
 <a href="https://docs.x.ai/build/features/mcp-servers">Vendor docs</a>.</p>
-<h3 id="grok-bot">Grok Bot</h3><p>In the bot's MCP settings, set the server URL to
-<code>https://mcp.blowhorn.ai/mcp</code> and the authorization header to
-<code>Authorization: Bearer &lt;token&gt;</code>.</p>
-<p>If the bot reports <code>401 Unauthorized</code> when it connects, the header
-is missing or malformed: the server wants exactly
-<code>Authorization: Bearer &lt;token&gt;</code>. If it connects but a tool call
-fails with a <code>401</code>, the token has expired or been revoked: get a new
-token and update the header. If you opened the URL in a browser and
-saw a JSON error, that is expected: see
+<p>Grok on the web can use the same URL as a custom connector and
+complete the Blowhorn OAuth sign-in. If it cannot finish OAuth, send a
+Blowhorn API token as a Bearer token instead.
+<a href="https://docs.x.ai/grok/connectors">Vendor docs</a>.</p>
+<h3 id="grok-bot">Grok Bot</h3><p>Blowhorn is not in Grok Bot's connector catalog yet. Add it as a
+custom MCP server. Grok Bot runs in the cloud, so it cannot start
+Blowhorn's local server on your Mac. It connects to the hosted server
+at <code>https://mcp.blowhorn.ai/mcp</code>. No token or header is needed for the
+add step: you sign in with OAuth.</p>
+<p>The hosted server is read-only. It has the six tools named at the top
+of this page, so your bot can read your queue, a post, your activity,
+your connections and your schedules. It cannot post, schedule or
+change anything. To post, use the <a href="/docs/how-to/publish/post-content/">CLI</a> or
+<a href="/docs/reference/cli/blowhorn-axi/">blowhorn-axi</a> on the Mac where
+Blowhorn runs, or the desktop app's own process described in the
+<a href="/docs/reference/mcp-server/">MCP server reference</a>.</p>
+<ol>
+<li>
+<p>In a chat with your bot, ask it to add a custom MCP server. Say
+&quot;custom&quot; so the bot does not look in the catalog:</p>
+<blockquote>
+<p>Add a custom MCP server named blowhorn at
+<a href="https://mcp.blowhorn.ai/mcp">https://mcp.blowhorn.ai/mcp</a>.</p>
+</blockquote>
+</li>
+<li>
+<p>The bot shows the name and the URL and asks you to confirm. Check
+that the URL is exactly <code>https://mcp.blowhorn.ai/mcp</code>, then confirm.</p>
+</li>
+<li>
+<p>The bot shows a connect card. Open it. You land on the Blowhorn
+sign-in page at <a href="https://cloud.blowhorn.ai">cloud.blowhorn.ai</a>. Sign
+in, or create a new Blowhorn account there. Approve access.</p>
+</li>
+<li>
+<p>Back in the chat, check it in your next message. Ask:</p>
+<blockquote>
+<p>Which Blowhorn tools do you have? Then list my Blowhorn
+connections.</p>
+</blockquote>
+<p>The bot should list the six read-only tools above and answer from
+<code>getConnections</code>. Where a tool needs an organization, it is passed
+as the <code>organizationId</code> argument.</p>
+</li>
+</ol>
+<p>If a client cannot finish OAuth, send a Blowhorn API token as
+<code>Authorization: Bearer &lt;token&gt;</code> instead. The steps are in
+<a href="#get-a-blowhorn-api-token">Get a Blowhorn API token</a>.</p>
+<p>If the bot reports <code>401 Unauthorized</code> when it connects, the OAuth
+sign-in did not finish, or a Bearer header is missing or malformed.
+Sign in again, or use the header <code>Authorization: Bearer &lt;token&gt;</code> with
+a current token. If it connects but a tool call fails with a <code>401</code>,
+the sign-in expired or the token was revoked: sign in again, or get a
+new token and update the header. If you connected before 20 November
+2026, sign in once more: the sign-in address changed, so the client
+registers again and completes sign-in once. If you opened the URL in a
+browser and saw a JSON error, that is expected: see
 <a href="#opening-the-gateway-url-in-a-browser">Opening the gateway URL in a browser</a>.</p>
 <h3 id="arcade">Arcade</h3><p>Arcade connects to the hosted server. Do not create a new Arcade
 server or deploy one. Register the existing hosted server as a Remote
@@ -827,7 +891,7 @@ as Arcade's Atlassian remote MCP guide.</li>
 <li>Save, then complete the Blowhorn OAuth sign-in.</li>
 <li>Pick the tools in an MCP Gateway.</li>
 </ol>
-<p>The tools are the four read-only tools named at the top of this page.
+<p>The tools are the six read-only tools named at the top of this page.
 This is a connection in your Arcade account. Blowhorn is not listed in
 Arcade's public catalog.</p>
 <p><a href="https://docs.arcade.dev/en/operate/governance/remote-mcp-servers">Arcade Remote MCP docs</a>.</p>
@@ -935,10 +999,13 @@ config. Claude Desktop only reads its config at startup.</li>
 <li><strong>The client reports 401.</strong> The OAuth sign-in did not finish, or the
 Bearer header is missing or malformed. Use the header
 <code>Authorization: Bearer &lt;token&gt;</code> with a current token, or sign in
-again.</li>
-<li><strong>A tool call returns 401 after the client connected.</strong> The token
-expired or was revoked. Create a new one and update the header.</li>
-<li><strong>The tool list is not the four read tools.</strong> The client is pointed
+again. If you connected before 20 November 2026, sign in once more:
+the sign-in address changed, so the client registers again and
+completes sign-in once.</li>
+<li><strong>A tool call returns 401 after the client connected.</strong> The sign-in
+expired, or the token was revoked. Sign in again, or create a new
+token and update the header.</li>
+<li><strong>The tool list is not the six read tools.</strong> The client is pointed
 at a different server. Set the URL to <code>https://mcp.blowhorn.ai/mcp</code>
 and remove any command that starts a local process.</li>
 <li><strong>A browser shows a JSON error at <code>/mcp</code>.</strong> That is expected. See

@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.1534c39a23585a1b4db732853ab71341.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.989c4f19b39b0dc90493d5eda018d45d.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -1336,11 +1336,13 @@ Blowhorn desktop app has no screen for creating one.
 <a href="/docs/how-to/set-up/connect-mcp-client/#arcade">Arcade</a> registers this URL
 as a Remote MCP and leaves the OAuth client fields empty so dynamic
 client registration can run.</p>
-<p>The gateway is read-only today. Cloud serves four tools through it,
-<code>listContentItems</code>, <code>getContentItem</code>, <code>getEvents</code> and <code>getConnections</code>, so a
-client can read your queue, a post, your activity and your connections, but
-cannot post, schedule or change anything. Writes with approval come with the
-hosted Blowhorn MCP server.</p>
+<p>The gateway is read-only today. Cloud serves six tools through it,
+<code>listContentItems</code>, <code>getContentItem</code>, <code>getEvents</code>, <code>getConnections</code>,
+<code>listSchedules</code> and <code>getScheduleById</code>, so a client can read your queue,
+a post, your activity, your connections and your schedules, but cannot
+post, schedule or change anything. Writes with approval come with the
+hosted Blowhorn MCP server. Where a tool needs an organization, pass
+it as the <code>organizationId</code> argument.</p>
 <p>The gateway is stateless: every MCP message is its own JSON-RPC <code>POST</code> to
 <code>/mcp</code>. Opening <code>/mcp</code> in a browser sends a <code>GET</code> without a token, so it
 answers with a JSON error, such as <code>Bearer token required</code> or
