@@ -1,0 +1,36 @@
+{{- /* Support contact form, posting to Blowhorn's own signup service at
+  api.blowhorn.ai (see signup-worker/, POST /api/support). A plain HTML form
+  with no script: the Worker stores the message and redirects to
+  /support/thanks/. The off-screen field is a honeypot: the Worker answers
+  success for it without storing anything. */ -}}
+{{- $source := "" }}{{ with .RelPermalink }}{{ $source = . }}{{ end -}}
+<form class="support-form" name="support" method="post" action="https://api.blowhorn.ai/api/support">
+              <div class="support-form-pair">
+                <p class="support-form-field">
+                  <label for="support-name">Your name</label>
+                  <input type="text" id="support-name" name="name" autocomplete="name" maxlength="100" required>
+                </p>
+                <p class="support-form-field">
+                  <label for="support-email">Email</label>
+                  <input type="email" id="support-email" name="email" autocomplete="email" maxlength="254" required>
+                </p>
+              </div>
+              <p class="support-form-field">
+                <label for="support-subject">Subject</label>
+                <input type="text" id="support-subject" name="subject" maxlength="200" required>
+              </p>
+              <p class="support-form-field">
+                <label for="support-message">Message</label>
+                <textarea id="support-message" name="message" rows="6" maxlength="5000" required></textarea>
+              </p>
+              <p class="support-form-field">
+                <label for="support-details">What you ran and what it printed <span class="muted">(optional)</span></label>
+                <textarea id="support-details" name="details" rows="4" maxlength="5000" placeholder="Include the exit code and the first words of the error. Leave out credentials, session files and anything from your Chrome profile directories."></textarea>
+              </p>
+              <input type="hidden" name="source_page" value="{{ $source }}">
+              <p class="signup-honeypot" aria-hidden="true">
+                <label for="support-website">Website</label>
+                <input id="support-website" name="website" type="text" tabindex="-1" autocomplete="off">
+              </p>
+              <p class="support-form-actions"><button class="button button-primary" type="submit">Send message</button></p>
+</form>
