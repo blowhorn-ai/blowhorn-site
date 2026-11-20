@@ -125,7 +125,7 @@ GitHub's API, never the browser. [GitHub docs](https://blowhorn.ai/docs/referenc
 
 ## Frequently Asked Questions {#questions}
 
-**Does it run in the cloud?** No. It runs on your own computer, through the blowhorn-mcp command the app writes. A hosted server is coming soon; it is design only today.
+**Does it run in the cloud?** The local server runs on your own computer, through the blowhorn-mcp command the app writes. Grok Bot connects to the hosted server at https://mcp.blowhorn.ai/mcp as a custom connector, and signs in with OAuth. [Set up Grok Bot](/docs/how-to/set-up/connect-mcp-client/#grok-bot).
 
 **Can I npx it?** Coming soon. Today, use ~/.local/bin/blowhorn-mcp, which the Blowhorn app writes each time it opens.
 
@@ -137,5 +137,5 @@ GitHub's API, never the browser. [GitHub docs](https://blowhorn.ai/docs/referenc
 
 **Does my assistant see my passwords?** No. Tool results never carry secrets. See [how the MCP server keeps you in control](/docs/explanation/mcp-and-safety/).
 
-**Which assistants can use it?** Any MCP client that can start a local command: Claude Code, Claude Desktop, Cursor and VS Code, for example. [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/) has the steps for each, and the [first-connection tutorial](/docs/tutorials/first-mcp-connection/) takes you through your first post.
+**Which assistants can use it?** Any MCP client that can start a local command: Claude Code, Claude Desktop, Cursor and VS Code, for example. [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/) has the steps for each, and the [first-connection tutorial](/docs/tutorials/first-mcp-connection/) takes you through your first post. Grok Bot connects to the [hosted server](/docs/how-to/set-up/connect-mcp-client/#grok-bot).
 

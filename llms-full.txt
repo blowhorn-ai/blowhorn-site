@@ -73,7 +73,7 @@ description: blowhorn-axi lets AI agents use Blowhorn. Compact answers built for
 --------------------------------------------------------------------------------
 title: "Blowhorn MCP server"
 url: https://blowhorn.ai/ai/mcp/index.md
-date: "2026-10-30"
+date: "2026-11-20"
 description: The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.
 --------------------------------------------------------------------------------
 
@@ -1158,8 +1158,16 @@ description: Use Codex with Blowhorn: AGENTS.md rules, codex exec for unattended
 --------------------------------------------------------------------------------
 title: "Blowhorn for Grok"
 url: https://blowhorn.ai/agents/grok/index.md
-date: "2026-10-12"
+date: "2026-11-20"
 description: Use Grok as your marketing agent with Blowhorn: plain-language prompts turned into blowhorn commands for scheduling, queueing and team amplification.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Ask Grok Bot about your Blowhorn schedule."
+url: https://blowhorn.ai/agents/grok-bot/index.md
+date: "2026-11-20"
+description: Connect Grok Bot to Blowhorn to ask about your connections, events, content and schedules. Read-only, and posting stays on your computer.
 --------------------------------------------------------------------------------
 
 

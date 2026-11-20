@@ -9,6 +9,7 @@ Run your marketing from the AI agent you already code with. Blowhorn's CLI does 
 - [Pi](https://blowhorn.ai/agents/pi/): A minimal agent with a bash tool
 - [Codex](https://blowhorn.ai/agents/codex/): AGENTS.md, codex exec and approvals
 - [Grok](https://blowhorn.ai/agents/grok/): Prompts in, blowhorn commands out
+- [Grok Bot](https://blowhorn.ai/agents/grok-bot/): Ask what's going out this week
 - [DeepSeek](https://blowhorn.ai/agents/deepseek/): Any harness, one CLI
 - [CLI](https://blowhorn.ai/agents/cli/): Every app feature, as a command
 

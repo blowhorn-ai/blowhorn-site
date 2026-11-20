@@ -94,6 +94,7 @@
 - [Blowhorn for Pi](https://blowhorn.ai/agents/pi/index.md): Use the Pi coding agent with Blowhorn: a minimal agent, a bash tool and an AGENTS.md block that turn it into your marketing operator.
 - [Blowhorn for Codex](https://blowhorn.ai/agents/codex/index.md): Use Codex with Blowhorn: AGENTS.md rules, codex exec for unattended checks, and approval settings that keep publishing in your hands.
 - [Blowhorn for Grok](https://blowhorn.ai/agents/grok/index.md): Use Grok as your marketing agent with Blowhorn: plain-language prompts turned into blowhorn commands for scheduling, queueing and team amplification.
+- [Ask Grok Bot about your Blowhorn schedule.](https://blowhorn.ai/agents/grok-bot/index.md): Connect Grok Bot to Blowhorn to ask about your connections, events, content and schedules. Read-only, and posting stays on your computer.
 - [Blowhorn for DeepSeek](https://blowhorn.ai/agents/deepseek/index.md): Run Blowhorn from a DeepSeek-powered agent harness: the same CLI, the same JSON, whichever terminal agent you point at DeepSeek.
 - [The Blowhorn CLI](https://blowhorn.ai/agents/cli/index.md): The Blowhorn CLI does everything the desktop app does: schedule, queue, post, amplify and pause, with JSON output any script or agent can drive.
 
