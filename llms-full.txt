@@ -12,9 +12,9 @@ Blowhorn is a social media console. Write one post, and it posts, reposts, and a
 --------------------------------------------------------------------------------
 title: "Try Blowhorn in your browser"
 url: https://blowhorn.ai/demo/index.md
-description: A hands-on simulation of the Blowhorn queue. Pick a formation, build a queue, and watch the schedule fill in. Nothing is posted, and nothing leaves your browser.
+description: The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.
 --------------------------------------------------------------------------------
-A hands-on simulation of the Blowhorn queue. Pick a formation, build a queue, and watch the schedule fill in. Nothing is posted, and nothing leaves your browser.
+The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.
 
 --------------------------------------------------------------------------------
 title: "Pricing"

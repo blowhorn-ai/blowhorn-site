@@ -16,7 +16,7 @@
     </script>
 
     <title>Try Blowhorn in your browser: Blowhorn</title>
-    <meta name="description" content="A hands-on simulation of the Blowhorn queue. Pick a formation, build a queue, and watch the schedule fill in. Nothing is posted, and nothing leaves your browser.">
+    <meta name="description" content="The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.">
     <link rel="canonical" href="https://blowhorn.ai/demo/">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E2117">
@@ -197,23 +197,35 @@
         <header class="page-head">
           <p class="label">Interactive demo</p>
           <h1 class="display">Try Blowhorn in your browser</h1>
-          <p class="body-lg muted">A hands-on simulation of the real queue. Pick a formation, build a queue, and watch the schedule fill in. Nothing is posted, and nothing leaves your browser.</p>
+          <p class="body-lg muted">The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.</p>
         </header>
         <noscript><p class="muted">This demo needs JavaScript to run the simulation. The tour below still shows how Blowhorn works.</p></noscript>
-
-        <ol class="steps">
-          <li class="step"><span class="step-num" aria-hidden="true">1</span><p class="step-text"><b>Pick a formation.</b> Four ways to run your fleet.</p></li>
-          <li class="step"><span class="step-num" aria-hidden="true">2</span><p class="step-text"><b>Build your queue.</b> Add a sample post, or write your own.</p></li>
-          <li class="step"><span class="step-num" aria-hidden="true">3</span><p class="step-text"><b>Run the schedule.</b> Watch each post go out in turn.</p></li>
-        </ol>
       </div>
+
+      <section class="section" aria-label="The General briefs the launch">
+        <div class="wrap">
+          <div class="major-card card-paper">
+            <figure class="major-figure">
+              <img src="/assets/brand/mascot/locked-6/major-6-hat-left.webp" alt="Major Blowhorn, a teal rooster in a drill sergeant's campaign hat, pointing and shouting into his bullhorn" width="657" height="560">
+            </figure>
+            <div class="major-copy">
+              <p class="bubble bubble--tail-auto bubble--paper h3"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text">Listen up. One launch, four fronts, zero excuses.</span></p>
+              <p class="label">Major Blowhorn</p>
+              <p>You pick the formation. You load the queue. I call the launch. This is a drill, not the real thing. Nothing posts, and nothing leaves your browser.</p>
+            </div>
+          </div>
+          <div class="section-body">
+            <p class="bubble bubble--tail-auto bubble--command"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text">Fall in. Pick your formation.</span></p>
+          </div>
+        </div>
+      </section>
 
       <section class="section" aria-labelledby="pick-title">
         <div class="wrap">
           <div class="section-head">
             <p class="label">Step 1</p>
             <h2 id="pick-title" class="h2">Pick a formation</h2>
-            <p class="muted">Four ways to run your fleet. Each one changes who sends each post in the schedule below.</p>
+            <p class="muted">Four ways to run your fleet. Each one changes who sends each post in the launch below.</p>
           </div>
           <div class="tabs" data-tabs data-tabs-group="demo-machine" data-tabs-id="demo-machine">
   <div class="tabs-list">
@@ -236,7 +248,10 @@
   </div>
   <p class="visually-hidden">Formations</p>
 </div>
-          <p aria-live="polite">Formation: <b data-demo-pick-name>Muster</b>. <span data-demo-pick-line>Every computer you own is a recruit.</span></p>
+          <div class="section-body">
+            <p class="bubble bubble--tail-auto bubble--paper" id="demo-major-pick" aria-live="polite"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text">Every recruit in line. Each post goes out from the next in the roll call.</span></p>
+            <p aria-live="polite">Formation: <b data-demo-pick-name>Muster</b>. <span data-demo-pick-line>Every computer you own is a recruit.</span></p>
+          </div>
         </div>
       </section>
 
@@ -244,8 +259,8 @@
         <div class="wrap">
           <div class="section-head">
             <p class="label">Step 2</p>
-            <h2 id="queue-title" class="h2">Build your queue</h2>
-            <p class="muted">Add a sample post, or write your own. Your queue lives only in this page.</p>
+            <h2 id="queue-title" class="h2">Load the queue</h2>
+            <p class="muted">Add a sample post, or write your own. The board below fills as you add.</p>
           </div>
           <ul class="grid grid-3 section-body">
             <li class="card card-field">
@@ -299,34 +314,32 @@
           </form>
           <div class="card card-plain section-body">
             <h3 class="h3">Your queue</h3>
+            <ol data-demo-board>
+              <li><b>Tomorrow, 9:00 AM</b> · Empty slot</li>
+              <li><b>Tomorrow, 10:30 AM</b> · Empty slot</li>
+              <li><b>Tomorrow, 12:00 PM</b> · Empty slot</li>
+            </ol>
             <p class="muted" data-demo-empty>Your queue is empty. Add a post above.</p>
-            <ol data-demo-queue></ol>
+          </div>
+          <div class="section-body">
+            <p class="bubble bubble--tail-auto bubble--paper" id="demo-major-queue" aria-live="polite"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text">Queue is empty, recruit. Load a round.</span></p>
           </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="schedule-title">
+      <section class="section" aria-labelledby="launch-title">
         <div class="wrap">
           <div class="section-head">
             <p class="label">Step 3</p>
-            <h2 id="schedule-title" class="h2">Run the schedule</h2>
-            <p class="muted">Each post in your queue takes the next slot, starting tomorrow at 9:00. Press run and watch them go out.</p>
+            <h2 id="launch-title" class="h2">Sound the call</h2>
+            <p class="muted">Each post takes the next slot, starting tomorrow at 9:00. Press the call and watch them go out.</p>
           </div>
-          <div class="compare-scroll card-plain section-body">
-            <table>
-              <caption class="visually-hidden">Schedule for your queue. Example rows until you add posts.</caption>
-              <thead>
-                <tr><th scope="col">Time</th><th scope="col">Platform</th><th scope="col">Post</th><th scope="col">From</th><th scope="col">Status</th></tr>
-              </thead>
-              <tbody data-demo-schedule>
-                <tr><td>Tomorrow, 9:00 AM</td><td>X</td><td>Write it once. Deploy to every front.</td><td>Desk rig</td><td>Example</td></tr>
-                <tr><td>Tomorrow, 10:30 AM</td><td>Bluesky</td><td>Real voices make a sound wave. One message, every profile you run, at the moment you pick.</td><td>Laptop</td><td>Example</td></tr>
-                <tr><td>Tomorrow, 12:00 PM</td><td>LinkedIn</td><td>Your launch post should not depend on one laptop being awake. One queue, every computer you own.</td><td>Studio box</td><td>Example</td></tr>
-              </tbody>
-            </table>
+          <div class="section-body">
+            <p><img src="/assets/brand/mascot/locked-6/major-6-head.webp" alt="Major Blowhorn" width="168" height="165"></p>
+            <p class="bubble bubble--tail-auto bubble--paper" id="demo-major-launch" aria-live="polite"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text">No rounds yet. Load the queue, then I sound the call.</span></p>
           </div>
           <p class="hero-actions section-body">
-            <button type="button" class="button button-primary" data-demo-run>Run the simulation</button>
+            <button type="button" class="button button-primary" data-demo-run>Sound the call</button>
             <button type="button" class="button button-secondary" data-demo-reset>Reset</button>
           </p>
           <p aria-live="polite" data-demo-summary></p>
@@ -410,7 +423,7 @@
     </section>
 
 
-    <script src="/js/demo-bundle.min.9952ef57505d1e3bec74f337c301cf18b5172e8ac942af9f8de715797db2ee95.js" defer></script>
+    <script src="/js/demo-bundle.min.9968cd2b71382bfabf4fddc94967617742b23134a763ad5f498b36fe82930106.js" defer></script>
 
     <script src="/js/code-card.min.681cde1d563b320da97fa3f2c094be9469b193e726a2734eb3eb264d3a5e33e4.js" defer></script>
     <script type="application/json" id="docs-events">{"$schema":"../schemas/docs_events.schema.json","attribution_params":["first_source","first_medium","first_campaign","first_content","first_term","first_referrer_host","landing_guide","landing_page"],"clients":{"chatgpt":"ChatGPT","claude-code":"Claude Code","claude-desktop":"Claude Desktop","cline":"Cline","cursor":"Cursor","gemini-cli":"Gemini CLI","goose":"Goose","openai-codex-cli":"OpenAI Codex CLI","vs-code":"VS Code with GitHub Copilot","vs-code-with-github-copilot":"VS Code with GitHub Copilot","windsurf-devin-desktop":"Windsurf (Devin Desktop)","zed":"Zed"},"consent_event":"blowhorn:consent","consent_key":"blowhorn-consent","default_client":"general","events":{"docs_guide_view":{"description":"A tracked guide was viewed after consent: once per page load.","params":["page_path","guide","client"]},"docs_outbound_click":{"description":"A link to npm, an MCP registry or a Blowhorn download was followed.","params":["page_path","client","link_kind","link_url"]},"docs_snippet_copy":{"description":"The copy button on a code card was pressed. Never carries the copied text.","params":["page_path","client","snippet_kind","snippet_title"]}},"internal_hosts":["blowhorn.ai","www.blowhorn.ai"],"outbound":[{"hosts":["npmjs.com","www.npmjs.com","registry.npmjs.org"],"kind":"npm"},{"hosts":["registry.modelcontextprotocol.io"],"kind":"registry"},{"hosts":["github.com"],"kind":"registry","paths":["^/mcp(/|$)"]},{"hosts":["github.com"],"kind":"download","paths":["^/blowhorn-ai/[^/]+/releases(/|$)"]},{"hosts":["blowhorn.ai","www.blowhorn.ai"],"kind":"download","paths":["^/download/"]}],"pages":["/docs/how-to/set-up/connect-mcp-client/","/docs/reference/mcp-server/","/docs/reference/python-client/","/docs/tutorials/first-mcp-connection/","/docs/explanation/mcp-and-safety/","/ai/mcp/"],"snippet_kinds":{"bash":"shell","console":"shell","json":"json","sh":"shell","shell":"shell","text":"text","toml":"toml","yaml":"yaml","yml":"yaml","zsh":"shell"},"storage_key":"blowhorn-docs-attribution","utm_params":["utm_source","utm_medium","utm_campaign","utm_content","utm_term"]}</script>
