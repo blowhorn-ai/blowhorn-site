@@ -1,11 +1,7 @@
 # Blowhorn terms of service
 
-> **Draft, pending legal review.** A lawyer has not yet reviewed these terms. They may change before they are final, and the [history of this page](https://github.com/blowhorn-ai/blowhorn-site/commits/master/content/en/legal/terms.md) records every change.
+> Last updated 20 November 2026. These terms are an agreement between you and Layer5, Inc., which makes Blowhorn and operates this site. Read them together with the [Blowhorn privacy page](/legal/privacy/).
 
-> Last updated 9 October 2026. These terms are an agreement between you and Layer5, Inc., which makes Blowhorn and operates this site. Read them together with the [Blowhorn privacy page](/legal/privacy/).
-
-
-**Draft, pending legal review.** A lawyer has not yet reviewed these terms, and they may change before they are final.
 
 ## What these terms cover
 
@@ -122,8 +118,8 @@ We may change these terms. The current version replaces every earlier one, and t
 Questions about these terms go to:
 
 Layer5, Inc.\
-1000 Congress Avenue\
-Austin, Texas 78735\
+701 Brazos Street, Suite 1600\
+Austin, Texas 78701\
 Email: [legal@blowhorn.ai](mailto:legal@blowhorn.ai)\
 Telephone: 512-810-8200
 

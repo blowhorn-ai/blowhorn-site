@@ -976,11 +976,9 @@ Open an issue on the [site repository](https://github.com/blowhorn-ai/blowhorn-s
 --------------------------------------------------------------------------------
 title: "Terms"
 url: https://blowhorn.ai/legal/terms/index.md
-date: "2026-10-09"
+date: "2026-11-20"
 description: The terms between you and Layer5, Inc. for the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.
 --------------------------------------------------------------------------------
-
-**Draft, pending legal review.** A lawyer has not yet reviewed these terms, and they may change before they are final.
 
 ## What these terms cover
 
@@ -1097,8 +1095,8 @@ We may change these terms. The current version replaces every earlier one, and t
 Questions about these terms go to:
 
 Layer5, Inc.\
-1000 Congress Avenue\
-Austin, Texas 78735\
+701 Brazos Street, Suite 1600\
+Austin, Texas 78701\
 Email: [legal@blowhorn.ai](mailto:legal@blowhorn.ai)\
 Telephone: 512-810-8200
 

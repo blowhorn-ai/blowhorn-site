@@ -31,7 +31,7 @@ The official downloads are signed disk images published with a SHA256SUMS.txt fi
 ## Policies
 
 - [Privacy](https://blowhorn.ai/legal/privacy/): What the Blowhorn website, the app and the extension store, where they store it, and what the app sends.
-- [Terms of service](https://blowhorn.ai/legal/terms/) (Draft, pending legal review): The agreement between you and us for the website, the app and the extension, from early access and downloads to acceptable use.
+- [Terms of service](https://blowhorn.ai/legal/terms/): The agreement between you and us for the website, the app and the extension, from early access and downloads to acceptable use.
 - [Chrome extension permissions](https://blowhorn.ai/docs/reference/extension-permissions/): Each permission the Blowhorn extension asks for, the sites it runs on, and why.
 - [Where your data lives](https://blowhorn.ai/docs/explanation/your-data/): What stays on your computer, what your account keeps in sync, and what the extension reads.
 - [Account policies](https://layer5.io/company/legal/): The privacy policy, terms of service and other policies of Layer5, Inc. that cover your account.
