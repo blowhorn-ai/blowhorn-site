@@ -1,0 +1,60 @@
+{{- /* The support page at /support/ (content/en/support/_index.md): the one
+  place to get help. The contact form posts to api.blowhorn.ai
+  (signup-worker, POST /api/support); the address comes from
+  data/support.json so the page and the docs card never disagree. The cards
+  list is front matter; the deal follows DESIGN.md, "Cards". */ -}}
+{{ define "main" }}
+    {{- $support := site.Data.support -}}
+    {{- if not $support }}{{ errorf "support.html: data/support.json is missing" }}{{ end -}}
+    <main id="main" class="page support-page">
+      <div class="wrap">
+        <div class="page-head">
+          <p class="label">Support</p>
+          <h1 class="h1">{{ .Params.heading | default .Title }}</h1>
+          {{- with .Params.lead }}
+          <p class="body-lg muted">{{ . }}</p>
+          {{- end }}
+        </div>
+
+        <section class="section support-contact" aria-labelledby="contact-title">
+          <div class="section-head">
+            <h2 id="contact-title" class="h2">Send us a message</h2>
+            <p class="muted">Tell us what you tried and what happened. We reply by email, usually within a day.</p>
+          </div>
+          <div class="support-contact-grid">
+            <div class="card card-paper support-form-card">
+              {{ partial "support-form.html" . }}
+            </div>
+            <div class="support-contact-aside">
+              <p class="label">Prefer email?</p>
+              <p class="support-mail"><a href="mailto:{{ $support.email }}?subject=Blowhorn%20support">{{ $support.email }}</a></p>
+              <p class="muted">A security problem goes to <a href="mailto:security@blowhorn.ai">security@blowhorn.ai</a>, never the form or a public issue.</p>
+              <p class="caption muted">The form sends your name, email and message to our support queue. The <a href="{{ "legal/privacy/" | relURL }}">privacy page</a> says what is stored and where it goes.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="self-serve-title">
+          <div class="section-head">
+            <h2 id="self-serve-title" class="h2">Start with the docs</h2>
+            <p class="muted">Most failures are a drifted mapping, an expired session or an unreachable store, and each page names its fix.</p>
+          </div>
+          <ul class="grid grid-4 support-links">
+            {{- range $i, $card := .Params.cards }}
+            <li>
+              <a class="card docs-card {{ partial "card-variant.html" (dict "i" $i "grid" "grid-4" "n" (len $.Params.cards)) }}" href="{{ $card.href | relURL }}">
+                <span class="h3">{{ $card.title }}</span>
+                <span>{{ $card.text }}</span>
+              </a>
+            </li>
+            {{- end }}
+          </ul>
+        </section>
+
+        <section class="section support-major" aria-label="A word from Major">
+          <img class="support-major-art" src="{{ "assets/brand/mascot/locked-6/major-6-plain-left.webp" | relURL }}" alt="Major Blowhorn at ease, listening" width="659" height="560" loading="lazy">
+          {{ partial "bubble.html" (dict "text" "Give us the exit code and the error's first words. We will take it from there." "variant" "paper" "class" "h3" "tail" "left") }}
+        </section>
+      </div>
+    </main>
+{{ end }}
