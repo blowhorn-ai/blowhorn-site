@@ -9,7 +9,8 @@
 # gate on the dispatched site.yml run itself (see below), and merge
 # (squash) only when that run succeeds on the pull request's current
 # head. A failed run merges nothing: this script stops, and the pull
-# request stays open for a human.
+# request stays open for a human. A merge conflict with master is the other
+# stop: it is reported on the pull request and in the job log.
 #
 # Why the second dispatch: the merge is made with github.token, and a
 # push to master made by that token never starts push workflows, so
@@ -113,6 +114,28 @@ while :; do
   echo "Checks on pull request #$pr did not pass (gh exited $rc); not merging."
   exit 1
 done
+
+# A merge conflict is the one reason the sync leaves its pull request open
+# without a failing check. Say so explicitly, on the pull request and in the
+# job log, instead of letting `gh pr merge` fail with a generic error. GitHub
+# reports UNKNOWN for a few seconds after a push, so wait for a real answer.
+mergeable=""
+for _ in $(seq 1 6); do
+  mergeable=$(gh pr view "$pr" --json mergeable --jq '.mergeable')
+  [ "$mergeable" != "UNKNOWN" ] && break
+  sleep 10
+done
+if [ "$mergeable" = "CONFLICTING" ]; then
+  message="Sync pull request #$pr has a merge conflict with master, so the docs sync did not merge it. Resolve the conflict on the docs-sync branch, or re-run the sync after master moves."
+  echo "$message" >&2
+  gh pr comment "$pr" --body "$message" \
+    || echo "Could not comment on pull request #$pr; the job log above is the record." >&2
+  exit 1
+fi
+if [ "$mergeable" != "MERGEABLE" ]; then
+  echo "Sync pull request #$pr reports mergeable=$mergeable after waiting; not merging." >&2
+  exit 1
+fi
 
 gh pr merge "$pr" --squash
 

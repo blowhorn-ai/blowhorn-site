@@ -122,8 +122,10 @@ jobs:
             exit 0
           fi
           PRODUCT_SHA="$(git -C product rev-parse HEAD)"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Commits are made under the arjunmehta-git account (its GitHub
+          # noreply address), so GitHub attributes them to that user.
+          git config user.name "arjunmehta-git"
+          git config user.email "231106746+arjunmehta-git@users.noreply.github.com"
           git add content/en/docs
           git commit -s -m "docs: sync from ${SYNC_REF}" \
             -m "Source: blowhorn-ai/blowhorn@${PRODUCT_SHA}."

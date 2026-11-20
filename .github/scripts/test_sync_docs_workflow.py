@@ -106,12 +106,13 @@ class SyncDocsWorkflowTest(unittest.TestCase):
         # protection, so it would merge before the checks finish.
         self.assertNotRegex(text, r"gh pr merge[^\n]*--auto")
 
-    def run_merge(self, checks_script):
+    def run_merge(self, checks_script, mergeable_script='echo MERGEABLE'):
         """Run the merge script against a fake gh; return (result, log lines).
 
         checks_script is the shell body of the fake `gh pr checks`; the fake
-        sees "$@" and a per-run call counter in "$n". Every other gh call
-        succeeds and is logged, so the log shows whether a merge happened.
+        sees "$@" and a per-run call counter in "$n". mergeable_script is the
+        shell body answering `gh pr view --json mergeable`. Every other gh
+        call succeeds and is logged, so the log shows whether a merge happened.
         """
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
@@ -121,7 +122,14 @@ class SyncDocsWorkflowTest(unittest.TestCase):
                 "#!/usr/bin/env bash\n"
                 f'echo "$*" >> "{log}"\n'
                 'case "$1 $2" in\n'
-                '  "pr view") echo "7 OPEN abc123" ;;\n'
+                '  "pr view")\n'
+                '    case "$*" in\n'
+                '      *mergeable*)\n'
+                f'        n=$(grep -c "mergeable" "{log}")\n'
+                f"{mergeable_script}\n"
+                '        ;;\n'
+                '      *) echo "7 OPEN abc123" ;;\n'
+                '    esac ;;\n'
                 '  "run list") echo "99 completed success" ;;\n'
                 '  "pr checks")\n'
                 f'    n=$(grep -c "^pr checks" "{log}")\n'
@@ -181,6 +189,43 @@ class SyncDocsWorkflowTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("pr merge 7 --squash", calls)
 
+    def test_merge_reports_a_conflict_and_does_not_merge(self):
+        result, calls = self.run_merge(
+            'echo "DCO pass"', mergeable_script="echo CONFLICTING"
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn("pr merge 7 --squash", calls)
+        self.assertTrue(any(c.startswith("pr comment 7 ") for c in calls))
+        self.assertIn("merge conflict", result.stderr)
+
+    def test_merge_waits_for_mergeability_to_settle(self):
+        # GitHub reports UNKNOWN right after a push; the first answer must
+        # not be taken as a verdict.
+        result, calls = self.run_merge(
+            'echo "DCO pass"',
+            mergeable_script='if [ "$n" -le 1 ]; then echo UNKNOWN; else echo MERGEABLE; fi',
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("pr merge 7 --squash", calls)
+
+    def test_merge_refuses_an_unknown_mergeability_it_never_resolves(self):
+        result, calls = self.run_merge(
+            'echo "DCO pass"', mergeable_script="echo UNKNOWN"
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn("pr merge 7 --squash", calls)
+
+    def test_sync_commits_as_the_arjunmehta_git_account(self):
+        text = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn('git config user.name "arjunmehta-git"', text)
+        self.assertIn(
+            'git config user.email "231106746+arjunmehta-git@users.noreply.github.com"',
+            text,
+        )
+        self.assertNotIn("github-actions[bot]", text)
+        # Sign-off (DCO) stays on every sync commit.
+        self.assertIn("git commit -s", text)
+
     def test_makefile_defines_the_merge_target(self):
         text = MAKEFILE.read_text(encoding="utf-8")
         self.assertRegex(text, r"(?m)^docs-sync-merge:")
@@ -194,6 +239,8 @@ class SyncDocsWorkflowTest(unittest.TestCase):
     def test_deploy_docs_say_the_sync_merges(self):
         text = DEPLOY.read_text(encoding="utf-8")
         self.assertIn("docs-sync-merge", text)
+        self.assertIn("arjunmehta-git", text)
+        self.assertIn("merge conflict", text)
 
 
 if __name__ == "__main__":

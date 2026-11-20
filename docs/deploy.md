@@ -393,8 +393,16 @@ here, on the public site repository.
    and would merge before the dispatched run finished. The merge is made
    with `github.token`, whose pushes start no workflows, so the workflow
    then starts `site.yml` on `master` by the same dispatch, and that run
-   deploys. If a check fails, nothing merges and the PR stays open for a
-   human. The workflow never pushes to `master` directly.
+   deploys. The merge is automatic. The only reasons it does not happen are
+   a failed check, which leaves the PR open for a human because a broken
+   site must not deploy, and a merge conflict with `master`, which
+   `make docs-sync-merge` reports on the PR and in the job log before it
+   stops. The workflow never pushes to `master` directly.
+   Every sync commit is authored and committed as the `arjunmehta-git`
+   account (its GitHub noreply address) and carries the DCO sign-off. The
+   pull request itself and its merge are still made with `github.token`,
+   so GitHub shows them as `github-actions[bot]`; attributing those to the
+   account would need a user token, which this workflow does not hold.
 
 A public release starts the sync by itself: `publish-dmg.yml`'s last job
 runs `make dmg-sync-docs`, which starts `sync-docs.yml` at the product tag
