@@ -15,7 +15,7 @@ sitemap:
 
 ## This website
 
-blowhorn.ai is a static site served by GitHub Pages. Its fonts, images and styles are all served from this site. If you accept the cookie notice, it uses Google Analytics to count visits. Until you accept, Google Analytics doesn't load and nothing is sent to Google. The cookies the site itself sets are the analytics cookies described below, and only after you accept. The site's other requests to another host are the download page's release lookup, the home page's recent-activity card, the signup forms described below, and, if you press play on a YouTube film, the YouTube player described below. The newsletter form in the footer sends nothing unless you submit it.
+blowhorn.ai is a static site served by GitHub Pages. Its fonts, images and styles are all served from this site. If you accept the cookie notice, it uses Google Analytics to count visits. Until you accept, Google Analytics doesn't load and nothing is sent to Google. The cookies the site itself sets are the analytics cookies described below, and only after you accept. The site's other requests to another host are the download page's release lookup, the home page's recent-activity card, the signup and support forms described below, and, if you press play on a YouTube film, the YouTube player described below. The newsletter form in the footer and the support form on the support page send nothing unless you submit them.
 
 - GitHub serves the pages and keeps its own server logs. Those are covered by the [GitHub privacy statement](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement).
 - The download page asks GitHub's public API for the newest release from your browser. That request reaches GitHub like any other request your browser makes, with your IP address and the usual request headers. With JavaScript off, no request is made and the download button still works.
@@ -55,6 +55,16 @@ The coming-soon pages and the newsletter page use the same signup service as the
 - What it is for: one email when the feature you signed up for ships, or the Blowhorn newsletter. Signing up for one list never adds you to the other, and neither creates a Blowhorn account.
 - How long it is kept: until you unsubscribe. Unsubscribed rows are deleted after 90 days.
 - Leaving a list: every ship email and newsletter email carries an unsubscribe link. To ask for deletion sooner, write to security@blowhorn.ai.
+
+### Support form
+
+The form on the [support page](/support/) sends a message to the Blowhorn team. It is a plain HTML form with no script, and nothing leaves your browser until you press Send message.
+
+- What is sent: the name, email address, subject and message you type, the optional "what you ran and what it printed" field, the page you sent it from, and an empty bot-trap field. Like any site your browser contacts, the service also receives your IP address and the usual request headers.
+- Who receives it: Layer5, which runs the signup service at `api.blowhorn.ai` (a Cloudflare Worker, not a third-party form service), which stores the message in a Cloudflare D1 database and forwards a copy to the Blowhorn support queue. No other company receives the message.
+- What it is for: answering your message. Sending the form does not create a Blowhorn account and never adds you to a list.
+- Where you go: submitting takes you to a thanks page on blowhorn.ai.
+- To ask for deletion, write to security@blowhorn.ai.
 
 ## The Blowhorn app
 
