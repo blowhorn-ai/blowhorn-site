@@ -1,12 +1,13 @@
 ---
 title: "Facebook"
 linkTitle: "Facebook"
-description: "What Blowhorn can do on Facebook, and how each action behaves there."
+description: "Facebook in Blowhorn: coming soon."
 weight: 244
 ---
 
-Blowhorn works on Facebook in your own signed-in Google Chrome,
-and this page lists what it can do there.
+**Coming soon.** Facebook isn't available in Blowhorn yet. When it is, Blowhorn
+will work on Facebook in your own signed-in Google Chrome, and this page will list what
+it can do there.
 
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 

@@ -1,12 +1,13 @@
 ---
 title: "Instagram"
 linkTitle: "Instagram"
-description: "What Blowhorn can do on Instagram, and how each action behaves there."
+description: "Instagram in Blowhorn: coming soon."
 weight: 242
 ---
 
-Blowhorn works on Instagram in your own signed-in Google Chrome,
-and this page lists what it can do there.
+**Coming soon.** Instagram isn't available in Blowhorn yet. When it is, Blowhorn
+will work on Instagram in your own signed-in Google Chrome, and this page will list what
+it can do there.
 
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 

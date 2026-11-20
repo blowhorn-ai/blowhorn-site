@@ -79,21 +79,25 @@ Each platform has its own page, listing its supported actions and how each one b
   </a>
   <a class="card docs-card platform-card" href="/docs/reference/platforms/youtube/">
     <span class="h3">YouTube</span>
-    <span>Browser, through the extension</span>
+    <span>Coming soon - not generally available yet</span>
   </a>
   <a class="card docs-card platform-card" href="/docs/reference/platforms/instagram/">
     <span class="h3">Instagram</span>
-    <span>Browser, through the extension</span>
+    <span>Coming soon - not generally available yet</span>
   </a>
   <a class="card docs-card platform-card" href="/docs/reference/platforms/tiktok/">
     <span class="h3">TikTok</span>
-    <span>Browser, through the extension</span>
+    <span>Coming soon - not generally available yet</span>
   </a>
   <a class="card docs-card platform-card" href="/docs/reference/platforms/facebook/">
     <span class="h3">Facebook</span>
-    <span>Browser, through the extension</span>
+    <span>Coming soon - not generally available yet</span>
   </a>
 </div>
+
+YouTube, Instagram, TikTok, and Facebook are coming soon. None of them
+is generally available yet, `blowhorn post --platform` does not list
+them, and each page will list its actions once it ships.
 
 ## Limits
 

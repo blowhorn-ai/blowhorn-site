@@ -1,12 +1,13 @@
 ---
 title: "YouTube"
 linkTitle: "YouTube"
-description: "What Blowhorn can do on YouTube, and how each action behaves there."
+description: "YouTube in Blowhorn: coming soon."
 weight: 241
 ---
 
-Blowhorn works on YouTube in your own signed-in Google Chrome,
-and this page lists what it can do there.
+**Coming soon.** YouTube isn't available in Blowhorn yet. When it is, Blowhorn
+will work on YouTube in your own signed-in Google Chrome, and this page will list what
+it can do there.
 
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 
