@@ -1,0 +1,905 @@
+<!DOCTYPE html><html lang="en" data-theme="reveille">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (function () {
+        var allowed = ["signal","reveille"], param = "theme", q = null, i;
+        try { q = new URLSearchParams(window.location.search).get(param); } catch (e) {}
+        if (!q) return;
+        for (i = 0; i < allowed.length; i++) {
+          if (allowed[i] === q) {
+            document.documentElement.setAttribute('data-theme', q);
+            return;
+          }
+        }
+      })();
+    </script>
+<title>All actions: Blowhorn</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Every action Blowhorn takes on each platform, in one table. Sort by action or platform, or filter.">
+    <link rel="canonical" href="/pr-preview/pr-685/docs/reference/platforms/actions/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Blowhorn">
+    <meta property="og:title" content="All actions: Blowhorn">
+    <meta property="og:description" content="Every action Blowhorn takes on each platform, in one table. Sort by action or platform, or filter.">
+    <meta property="og:url" content="/pr-preview/pr-685/docs/reference/platforms/actions/">
+    <meta property="og:image" content="/pr-preview/pr-685/assets/brand/marketing/blowhorn-social-banner-16x9.png">
+    <meta property="og:image:width" content="1600">
+    <meta property="og:image:height" content="900">
+    <meta property="og:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline One message. Many ears.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="All actions: Blowhorn">
+    <meta name="twitter:description" content="Every action Blowhorn takes on each platform, in one table. Sort by action or platform, or filter.">
+    <meta name="twitter:image" content="/pr-preview/pr-685/assets/brand/marketing/blowhorn-social-banner-16x9.png">
+    <meta name="twitter:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline One message. Many ears.">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E2117">
+    <link rel="icon" href="/pr-preview/pr-685/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/pr-preview/pr-685/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/pr-preview/pr-685/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link href="/pr-preview/pr-685/scss/main.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/pr-preview/pr-685/css/site.min.e4278a4ac7a3b6f6ef29f8314851e8ddfcc8067138ea39acbd9f4f17384badd9.css">
+
+    <script src="/pr-preview/pr-685/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
+    <script src="/pr-preview/pr-685/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
+
+  </head>
+  <body class="docs">
+    <a class="skip-link ui" href="#main">Skip to content</a><svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="glyph-menubar" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+        <path d="M3 9h18"></path>
+        <path d="M7 6.5h.01M10 6.5h.01"></path>
+        <path d="M8 14h8M8 17h5"></path>
+      </symbol>
+      <symbol id="glyph-terminal" viewBox="0 0 24 24">
+        <path d="M5 7l5 5-5 5"></path>
+        <path d="M12 17h7"></path>
+      </symbol>
+      <symbol id="glyph-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="M12 7v5l3 2"></path>
+      </symbol>
+      <symbol id="glyph-extension" viewBox="0 0 24 24">
+        <path d="M10 4a2 2 0 1 1 4 0v1h3a1 1 0 0 1 1 1v3h-1a2 2 0 1 0 0 4h1v4a1 1 0 0 1-1 1h-4v-1a2 2 0 1 0-4 0v1H5a1 1 0 0 1-1-1v-4h1a2 2 0 1 0 0-4H4V6a1 1 0 0 1 1-1h5z"></path>
+      </symbol>
+      <symbol id="glyph-download" viewBox="0 0 24 24">
+        <path d="M12 4v11"></path>
+        <path d="M7 11l5 5 5-5"></path>
+        <path d="M4 19h16"></path>
+      </symbol>
+    </svg>
+<header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/pr-preview/pr-685/" aria-label="Blowhorn home" data-is-home="false">
+          <img class="logo-on-light" src="/pr-preview/pr-685/assets/brand/logo/blowhorn-lockup-horizontal.svg" alt="Blowhorn" width="176" height="44">
+          <img class="logo-on-dark" src="/pr-preview/pr-685/assets/brand/logo/blowhorn-lockup-horizontal-on-dark.svg" alt="" width="176" height="44">
+        </a>
+        <button type="button" class="mm-toggle" aria-expanded="false" aria-controls="site-menu" hidden>
+          <span class="mm-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="mm-toggle-text">Menu</span>
+        </button>
+        <nav class="site-nav" id="site-menu" aria-label="Primary">
+          <ul class="mm-list">
+            <li class="mm-item">
+              <button type="button" class="mm-trigger" aria-expanded="false" aria-controls="mm-product">Product<span class="mm-chev" aria-hidden="true"></span></button>
+              <div class="mm-panel mm-panel-cards" id="mm-product">
+                <ul class="mm-cards">
+                  <li><a class="mm-card card-stamp" href="https://chromewebstore.google.com/detail/fcflpiagmpcfifgknledeknedfopnapf">
+                    <span class="mm-card-art">
+                      <span class="iface-art iface-art-extension" aria-hidden="true"><span class="ia-panel ia-browser"><span class="ia-tabstrip">
+  <span class="ia-lights"><i></i><i></i><i></i></span>
+  <span class="ia-tab on"><svg class="ia-mark" viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8.3 10.6v6M12 16.6v-6M12 12.6c0-1.4 1-2.2 2.2-2.2 1.3 0 2.1.9 2.1 2.3v3.9"/><circle cx="8.3" cy="7.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+<span class="ia-tab-title">Feed | LinkedIn</span><span class="ia-tab-x"></span>
+  </span>
+  <span class="ia-tab ia-tab-bg"><i class="ia-fav f-mail"></i><span class="ia-tab-title">Inbox</span></span>
+  <span class="ia-tab-new"></span>
+</span>
+<span class="ia-toolbar">
+  <svg class="ia-nav" viewBox="0 0 30 10" width="30" height="10" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 2L2 5l3 3M2 5h6"/><path class="ia-nav-off" d="M14 2l3 3-3 3M17 5h-6"/><path d="M28 5a3 3 0 1 1-1-2.2M27.4 1.2v1.8h-1.8"/></svg>
+  <span class="ia-omni"><svg viewBox="0 0 10 10" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M1.5 3h4M7.5 3h1M1.5 7h1M4.5 7h4"/><circle cx="6.5" cy="3" r="1"/><circle cx="3.5" cy="7" r="1"/></svg><span class="ia-mono">linkedin.com/feed</span></span><img class="ia-pin" src="/pr-preview/pr-685/assets/brand/logo/blowhorn-app-icon.svg" alt="" width="11" height="11"><span class="ia-avatar"></span>
+</span>
+<span class="ia-bookmarks"><span class="ia-bm"><i class="ia-fav f-docs"></i>Docs</span><span class="ia-bm"><i class="ia-fav f-cal"></i>Calendar</span><span class="ia-bm"><i class="ia-fav f-team"></i>Team</span></span>
+<span class="ia-page">
+      <span class="ia-card"><span class="ia-who"><i class="ia-face"></i><span class="ia-line w45"></span></span><span class="ia-line w75"></span><span class="ia-line w60"></span></span>
+      <span class="ia-row sweep"><span class="ia-line w50"></span><span class="ia-pill ok">Sent as you</span></span>
+    </span>
+  </span></span>
+
+                      <img class="mm-card-chrome" src="/pr-preview/pr-685/assets/platforms/google-chrome-logo.svg" alt="" width="28" height="28">
+                    </span>
+                    <span class="mm-card-title">Browser extension</span>
+                    <span class="mm-card-desc">Blowhorn inside your own browser, where the work happens</span>
+                    <span class="mm-card-arrow" aria-hidden="true"></span>
+                  </a></li>
+                  <li><a class="mm-card card-plain" href="https://cloud.blowhorn.ai">
+                    <span class="iface-art iface-art-web" aria-hidden="true"><span class="ia-panel ia-browser"><span class="ia-tabstrip">
+  <span class="ia-lights"><i></i><i></i><i></i></span>
+  <span class="ia-tab on"><img src="/pr-preview/pr-685/assets/brand/logo/blowhorn-app-icon.svg" alt="" width="9" height="9"><span class="ia-tab-title">Blowhorn</span><span class="ia-tab-x"></span>
+  </span>
+  <span class="ia-tab ia-tab-bg"><i class="ia-fav f-mail"></i><span class="ia-tab-title">Inbox</span></span>
+  <span class="ia-tab-new"></span>
+</span>
+<span class="ia-toolbar">
+  <svg class="ia-nav" viewBox="0 0 30 10" width="30" height="10" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 2L2 5l3 3M2 5h6"/><path class="ia-nav-off" d="M14 2l3 3-3 3M17 5h-6"/><path d="M28 5a3 3 0 1 1-1-2.2M27.4 1.2v1.8h-1.8"/></svg>
+  <span class="ia-omni"><svg viewBox="0 0 10 10" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M1.5 3h4M7.5 3h1M1.5 7h1M4.5 7h4"/><circle cx="6.5" cy="3" r="1"/><circle cx="3.5" cy="7" r="1"/></svg><span class="ia-mono">cloud.blowhorn.ai</span></span><span class="ia-avatar"></span>
+</span>
+<span class="ia-bookmarks"><span class="ia-bm"><i class="ia-fav f-docs"></i>Docs</span><span class="ia-bm"><i class="ia-fav f-cal"></i>Calendar</span><span class="ia-bm"><i class="ia-fav f-team"></i>Team</span></span>
+<span class="ia-page">
+      <span class="ia-page-head"><span class="ia-page-title">Activity</span><span class="ia-live"><i></i>Live</span></span>
+      <span class="ia-rows">
+        <span class="ia-row sweep"><svg class="ia-mark" viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8.3 10.6v6M12 16.6v-6M12 12.6c0-1.4 1-2.2 2.2-2.2 1.3 0 2.1.9 2.1 2.3v3.9"/><circle cx="8.3" cy="7.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+<span class="ia-state live"><i></i>Ready</span><span class="ia-prev">Launch day, 9:30</span></span>
+        <span class="ia-row"><svg class="ia-mark" viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="14" rx="7.5" ry="5.5"/><path d="M12 8.5l1.2-4.5 3.3.9M9.5 16.5c1.5 1.2 3.5 1.2 5 0"/><circle cx="17.5" cy="5" r="1.2"/></svg>
+<span class="ia-state wait"><i></i>Needs you</span><span class="ia-prev">AMA thread</span></span>
+        <span class="ia-row"><svg class="ia-mark" viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+<span class="ia-state done"><i></i>Sent</span><span class="ia-prev">v1.42 is out</span></span>
+      </span>
+    </span>
+  </span></span>
+
+                    <span class="mm-card-title">Web app</span>
+                    <span class="mm-card-desc">Your queue from any browser, at cloud.blowhorn.ai</span>
+                    <span class="mm-card-arrow" aria-hidden="true"></span>
+                  </a></li>
+                  <li><a class="mm-card card-dispatch" href="/pr-preview/pr-685/ai/blowhorn-axi/">
+                    <span class="iface-art iface-art-cli" aria-hidden="true"><span class="ia-panel ia-term">
+    <span class="ia-bar"><span class="ia-lights"><i></i><i></i><i></i></span><span class="ia-caption">zsh · blowhorn</span></span>
+    <span class="ia-code"><span class="ia-cline"><b>$</b> blowhorn post launch.md --dry-run</span><span class="ia-cline ok">✓ rehearsed · 3 voices, nothing sent</span><span class="ia-cline"><b>$</b> blowhorn post launch.md --go <span class="ia-cursor"></span></span></span>
+  </span></span>
+
+                    <span class="mm-card-title">Command line</span>
+                    <span class="mm-card-desc">Every action as a command: for you, scripts and agents</span>
+                    <span class="mm-card-arrow" aria-hidden="true"></span>
+                  </a></li>
+                  <li><a class="mm-card card-field" href="/pr-preview/pr-685/ai/mcp/">
+                    <span class="iface-art iface-art-mcp" aria-hidden="true"><span class="ia-panel ia-diagram">
+    <span class="ia-flow">
+      <span class="ia-chip"><span class="ia-chip-name">Claude</span><span class="ia-chip-sub">assistant</span></span>
+      <span class="ia-link"><i class="ia-pulse"></i></span>
+      <span class="ia-chip ia-chip-hub"><span class="ia-chip-name">MCP</span><span class="ia-chip-sub">tools/list</span></span>
+      <span class="ia-link"><i class="ia-pulse d2"></i></span>
+      <span class="ia-chip"><img src="/pr-preview/pr-685/assets/brand/logo/blowhorn-app-icon.svg" alt="" width="14" height="14"><span class="ia-chip-sub">Blowhorn</span></span>
+    </span>
+    <span class="ia-mono ia-diagram-note">post · amplify · schedule · approval rules on</span>
+  </span></span>
+
+                    <span class="mm-card-title">MCP server</span>
+                    <span class="mm-card-desc">Plug Blowhorn into Claude and other AI assistants</span>
+                    <span class="mm-card-arrow" aria-hidden="true"></span>
+                  </a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="mm-item">
+              <button type="button" class="mm-trigger" aria-expanded="false" aria-controls="mm-solutions">Solutions<span class="mm-chev" aria-hidden="true"></span></button>
+              <div class="mm-panel mm-panel-wide" id="mm-solutions">
+                <div class="mm-group">
+                  <p class="mm-group-title"><a href="/pr-preview/pr-685/for/">By role</a></p>
+                  <ul class="mm-links"><li><a class="mm-link" href="/pr-preview/pr-685/for/devrel/"><span class="mm-link-title">DevRel</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/for/marketing/"><span class="mm-link-title">Marketing managers</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/for/founders/"><span class="mm-link-title">Founders</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/for/open-source/"><span class="mm-link-title">Open source maintainers</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/for/community/"><span class="mm-link-title">Community managers</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/for/agencies/"><span class="mm-link-title">Agencies and consultants</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/for/social-media/"><span class="mm-link-title">Social media managers</span></a></li>
+                  </ul>
+                </div>
+                <div class="mm-group">
+                  <p class="mm-group-title"><a href="/pr-preview/pr-685/use-cases/">By use case</a></p>
+                  <ul class="mm-links"><li><a class="mm-link" href="/pr-preview/pr-685/use-cases/launch-day/"><span class="mm-link-title">Launch day</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/use-cases/open-source-release/"><span class="mm-link-title">Open source release</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/use-cases/conference/"><span class="mm-link-title">Conference</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/use-cases/linkedin-outreach/"><span class="mm-link-title">LinkedIn hygiene</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/use-cases/team-amplification/"><span class="mm-link-title">Team amplification</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/use-cases/agent-publishing/"><span class="mm-link-title">Agent publishing</span></a></li>
+                  </ul>
+                </div>
+                <div class="mm-group">
+                  <p class="mm-group-title"><a href="/pr-preview/pr-685/solutions/">By category</a></p>
+                  <ul class="mm-links"><li><a class="mm-link" href="/pr-preview/pr-685/solutions/developer-distribution/"><span class="mm-link-title">Developer distribution</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/solutions/employee-advocacy/"><span class="mm-link-title">Employee advocacy</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/solutions/distributed-teams/"><span class="mm-link-title">Distributed teams</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/solutions/social-scheduling/"><span class="mm-link-title">Social scheduling</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/solutions/linkedin-automation/"><span class="mm-link-title">LinkedIn automation</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/solutions/multi-profile/"><span class="mm-link-title">Multi-profile</span></a></li>
+                  </ul>
+                </div>
+                <div class="mm-group">
+                  <p class="mm-group-title"><a href="/pr-preview/pr-685/ai/">AI native</a></p>
+                  <ul class="mm-links"><li><a class="mm-link" href="/pr-preview/pr-685/agents/"><span class="mm-link-title">Agentic AI marketing</span><span class="mm-link-desc">Let your AI agent run the launch</span></a></li>
+                  </ul>
+                </div>
+                <div class="mm-group">
+                  <p class="mm-group-title">Works with</p>
+                  <ul class="mm-links mm-compact"><li><a class="mm-link" href="/pr-preview/pr-685/agents/claude-code/"><span class="mm-link-title">Claude Code</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/agents/opencode/"><span class="mm-link-title">OpenCode</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/agents/pi/"><span class="mm-link-title">Pi</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/agents/codex/"><span class="mm-link-title">Codex</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/agents/grok/"><span class="mm-link-title">Grok</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/agents/grok-bot/"><span class="mm-link-title">Grok Bot</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/agents/deepseek/"><span class="mm-link-title">DeepSeek</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/agents/cli/"><span class="mm-link-title">CLI</span></a></li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="mm-item"><a class="mm-top" href="/pr-preview/pr-685/integrations/">Integrations</a></li>
+            <li class="mm-item"><a class="mm-top" href="/pr-preview/pr-685/compare/">Compare</a></li>
+            <li class="mm-item">
+              <button type="button" class="mm-trigger" aria-expanded="false" aria-controls="mm-resources">Resources<span class="mm-chev" aria-hidden="true"></span></button>
+              <div class="mm-panel mm-panel-links" id="mm-resources">
+                <ul class="mm-links mm-cols-3"><li><a class="mm-link" href="/pr-preview/pr-685/docs/"><span class="mm-link-title">Docs</span><span class="mm-link-desc">Set up, how-to guides and reference</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/resources/videos/"><span class="mm-link-title">Videos</span><span class="mm-link-desc">Short films and walkthroughs</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/resources/articles/"><span class="mm-link-title">Articles</span><span class="mm-link-desc">Product intelligence and tips</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/field-manual/"><span class="mm-link-title">Field Manual</span><span class="mm-link-desc">What each feed rewards and punishes</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/docs/reference/support/"><span class="mm-link-title">Get help</span><span class="mm-link-desc">Support and troubleshooting</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/support/"><span class="mm-link-title">Support</span><span class="mm-link-desc">Contact the team, or start with the docs</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/major/"><span class="mm-link-title">Meet Major</span><span class="mm-link-desc">Our mascot and his troops</span></a></li><li><a class="mm-link" href="/pr-preview/pr-685/brand/"><span class="mm-link-title">Brand</span><span class="mm-link-desc">Logo, colors and the brand kit</span></a></li><li><a class="mm-link" href="https://tells.blowhorn.ai/?utm_source=blowhorn.ai&amp;utm_medium=referral&amp;utm_campaign=tells&amp;utm_content=nav"><span class="mm-link-title">Am I a Bot?</span><span class="mm-link-desc">Free check: what sites can see about your browser</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="mm-item"><a class="mm-top" href="/pr-preview/pr-685/pricing/">Pricing</a></li>
+            <li class="mm-item mm-item-download"><a class="button button-secondary mm-download" href="/pr-preview/pr-685/download/">Download</a></li>
+          </ul>
+        </nav>
+        <a class="button button-secondary site-cta" href="/pr-preview/pr-685/download/">Download</a>
+      </div>
+    </header>
+    <script src="/pr-preview/pr-685/js/nav.min.f9cb0a1cf5fb98c0ffc9bd2b8aff48c463061d31197aea2cfe97924da2a9a643.js" defer></script>
+
+    <div class="wrap docs-wrap">
+      <aside class="docs-sidebar" aria-label="Docs sections">
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <div class="td-search td-search--offline">
+      <div class="td-search__icon"></div>
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/pr-preview/pr-685/offline-search-index.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <button type="submit" class="visually-hidden">Search this site…</button>
+    </div>
+    <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="td-sidebar-nav collapse" id="td-section-nav"
+      aria-label="Docs">
+    <ul class="td-sidebar-nav__section pe-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-pr-previewpr-685docs-li">
+    <a href="/pr-preview/pr-685/docs/" title="Blowhorn docs" class="align-left ps-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-pr-previewpr-685docs"><span class="">Docs</span></a>
+    <ul class="ul-1" id="m-pr-previewpr-685docs-ul">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docstutorials-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/tutorials/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docstutorials"><span class="">Get started</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docstutorials-ul"><span class="visually-hidden">Get started</span></button></div>
+    <ul class="ul-2 foldable" id="m-pr-previewpr-685docstutorials-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docstutorialsgetting-started-li">
+    <a href="/pr-preview/pr-685/docs/tutorials/getting-started/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docstutorialsgetting-started"><span class="">Getting started with the Blowhorn CLI</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docstutorialsdesktop-quickstart-li">
+    <a href="/pr-preview/pr-685/docs/tutorials/desktop-quickstart/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docstutorialsdesktop-quickstart"><span class="">Getting started with the desktop app</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docstutorialsfirst-mcp-connection-li">
+    <a href="/pr-preview/pr-685/docs/tutorials/first-mcp-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docstutorialsfirst-mcp-connection"><span class="">Connect an assistant and read your queue</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docshow-to-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/how-to/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docshow-to"><span class="">How-to guides</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docshow-to-ul"><span class="visually-hidden">How-to guides</span></button></div>
+    <ul class="ul-2 foldable" id="m-pr-previewpr-685docshow-to-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docshow-toset-up-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/how-to/set-up/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docshow-toset-up"><span class="">Set up</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docshow-toset-up-ul"><span class="visually-hidden">Set up</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docshow-toset-up-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upinstall-the-app-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/install-the-app/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upinstall-the-app"><span class="">Install the app</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upsign-in-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/sign-in/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upsign-in"><span class="">Sign in</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upfirst-muster-setup-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/first-muster-setup/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upfirst-muster-setup"><span class="">Set up Blowhorn at first muster</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upcreate-an-account-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/create-an-account/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upcreate-an-account"><span class="">Create a Blowhorn account</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upfinish-setup-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/finish-setup/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upfinish-setup"><span class="">Finish setup on this computer</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upcheck-onboarding-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/check-onboarding/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upcheck-onboarding"><span class="">Check that onboarding still finishes</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upinstall-the-chrome-extension-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/install-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upinstall-the-chrome-extension"><span class="">Install the Chrome extension</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upmap-chrome-profiles-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/map-chrome-profiles/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upmap-chrome-profiles"><span class="">Map Blowhorn profiles to Chrome profiles</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upadd-a-profile-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/add-a-profile/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upadd-a-profile"><span class="">Add a profile</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upplatform-accounts-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/platform-accounts/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upplatform-accounts"><span class="">Sign a profile in to each platform</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toset-upconnect-mcp-client-li">
+    <a href="/pr-preview/pr-685/docs/how-to/set-up/connect-mcp-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toset-upconnect-mcp-client"><span class="">Connect an AI assistant over MCP</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docshow-topublish-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/how-to/publish/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docshow-topublish"><span class="">Publish</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docshow-topublish-ul"><span class="visually-hidden">Publish</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docshow-topublish-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-topublishpost-content-li">
+    <a href="/pr-preview/pr-685/docs/how-to/publish/post-content/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-topublishpost-content"><span class="">Post content</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-topublishmanage-the-content-worksheet-li">
+    <a href="/pr-preview/pr-685/docs/how-to/publish/manage-the-content-worksheet/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-topublishmanage-the-content-worksheet"><span class="">Manage the content queue</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-topublishamplify-a-post-li">
+    <a href="/pr-preview/pr-685/docs/how-to/publish/amplify-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-topublishamplify-a-post"><span class="">Amplify an existing post</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-topublishamplify-on-github-li">
+    <a href="/pr-preview/pr-685/docs/how-to/publish/amplify-on-github/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-topublishamplify-on-github"><span class="">Amplify an issue or pull request on GitHub</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-topublishpost-to-reddit-and-bluesky-li">
+    <a href="/pr-preview/pr-685/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-topublishpost-to-hacker-news-li">
+    <a href="/pr-preview/pr-685/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-topublishreply-to-a-post-li">
+    <a href="/pr-preview/pr-685/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-topublishsend-a-slack-message-li">
+    <a href="/pr-preview/pr-685/docs/how-to/publish/send-a-slack-message/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-topublishsend-a-slack-message"><span class="">Send a Slack message</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docshow-togrow-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/how-to/grow/" title="Grow your audience" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docshow-togrow"><span class="">Grow</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docshow-togrow-ul"><span class="visually-hidden">Grow</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docshow-togrow-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-togrowfollow-on-github-li">
+    <a href="/pr-preview/pr-685/docs/how-to/grow/follow-on-github/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-togrowfollow-on-github"><span class="">Follow accounts</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-togrowstar-on-github-li">
+    <a href="/pr-preview/pr-685/docs/how-to/grow/star-on-github/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-togrowstar-on-github"><span class="">Star repositories on GitHub</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-togrowfind-on-bluesky-li">
+    <a href="/pr-preview/pr-685/docs/how-to/grow/find-on-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-togrowfind-on-bluesky"><span class="">Find conversations on Bluesky</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-togrowbuild-a-github-audience-li">
+    <a href="/pr-preview/pr-685/docs/how-to/grow/build-a-github-audience/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-togrowbuild-a-github-audience"><span class="">Build a GitHub audience</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-togrowfind-on-github-li">
+    <a href="/pr-preview/pr-685/docs/how-to/grow/find-on-github/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-togrowfind-on-github"><span class="">Find issues and pull requests on GitHub</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-togrowaccept-invitations-li">
+    <a href="/pr-preview/pr-685/docs/how-to/grow/accept-invitations/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-togrowaccept-invitations"><span class="">Accept incoming invitations</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-togrowsquatter-sweep-li">
+    <a href="/pr-preview/pr-685/docs/how-to/grow/squatter-sweep/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-togrowsquatter-sweep"><span class="">Sweep stalled GitHub assignments</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-togrowwithdraw-invitations-li">
+    <a href="/pr-preview/pr-685/docs/how-to/grow/withdraw-invitations/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-togrowwithdraw-invitations"><span class="">Withdraw stale invitations</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docshow-toschedule-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/how-to/schedule/" title="Schedule and automate" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docshow-toschedule"><span class="">Schedule</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docshow-toschedule-ul"><span class="visually-hidden">Schedule</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docshow-toschedule-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toscheduleschedule-a-job-li">
+    <a href="/pr-preview/pr-685/docs/how-to/schedule/schedule-a-job/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toscheduleschedule-a-job"><span class="">Schedule a job</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toschedulepause-li">
+    <a href="/pr-preview/pr-685/docs/how-to/schedule/pause/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toschedulepause"><span class="">Pause and resume posting</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toschedulewhy-not-run-li">
+    <a href="/pr-preview/pr-685/docs/how-to/schedule/why-not-run/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toschedulewhy-not-run"><span class="">Find out why a job did not run</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-toschedulebackground-service-li">
+    <a href="/pr-preview/pr-685/docs/how-to/schedule/background-service/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-toschedulebackground-service"><span class="">Keep posting when the app is closed</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docshow-tomeasure-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/how-to/measure/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docshow-tomeasure"><span class="">Measure</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docshow-tomeasure-ul"><span class="visually-hidden">Measure</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docshow-tomeasure-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tomeasureanalytics-li">
+    <a href="/pr-preview/pr-685/docs/how-to/measure/analytics/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tomeasureanalytics"><span class="">Collect and read your analytics</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tomeasurereview-runs-li">
+    <a href="/pr-preview/pr-685/docs/how-to/measure/review-runs/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tomeasurereview-runs"><span class="">Review what ran</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docshow-tosettings-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/how-to/settings/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docshow-tosettings"><span class="">Settings</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docshow-tosettings-ul"><span class="visually-hidden">Settings</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docshow-tosettings-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tosettingschoose-your-rules-of-engagement-li">
+    <a href="/pr-preview/pr-685/docs/how-to/settings/choose-your-rules-of-engagement/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tosettingschoose-your-rules-of-engagement"><span class="">Choose your rules of engagement</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tosettingsdefaults-li">
+    <a href="/pr-preview/pr-685/docs/how-to/settings/defaults/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tosettingsdefaults"><span class="">Change your defaults</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tosettingsappearance-li">
+    <a href="/pr-preview/pr-685/docs/how-to/settings/appearance/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tosettingsappearance"><span class="">Change how the app looks</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tosettingslaunch-mode-li">
+    <a href="/pr-preview/pr-685/docs/how-to/settings/launch-mode/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tosettingslaunch-mode"><span class="">Choose how Blowhorn reaches Chrome</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tosettingswhere-blowhorn-works-li">
+    <a href="/pr-preview/pr-685/docs/how-to/settings/where-blowhorn-works/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tosettingswhere-blowhorn-works"><span class="">Choose where Blowhorn works in Chrome</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tosettingsshare-usage-data-li">
+    <a href="/pr-preview/pr-685/docs/how-to/settings/share-usage-data/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tosettingsshare-usage-data"><span class="">Turn anonymous usage data on or off</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tosettingsshare-activity-li">
+    <a href="/pr-preview/pr-685/docs/how-to/settings/share-activity/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tosettingsshare-activity"><span class="">Share your activity publicly or keep it in your org</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docshow-totroubleshoot-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/how-to/troubleshoot/" title="Troubleshooting" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docshow-totroubleshoot"><span class="">Troubleshoot</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docshow-totroubleshoot-ul"><span class="visually-hidden">Troubleshoot</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docshow-totroubleshoot-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshoottroubleshooting-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/troubleshooting/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshoottroubleshooting"><span class="">Troubleshooting</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshootclicked-not-confirmed-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/clicked-not-confirmed/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshootclicked-not-confirmed"><span class="">Settle something Blowhorn could not confirm</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshootsign-in-problems-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/sign-in-problems/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshootsign-in-problems"><span class="">Fix a sign-in that stopped working</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshootx-posting-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/x-posting/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshootx-posting"><span class="">Post to X when it will not confirm</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshootextension-connection-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/extension-connection/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshootextension-connection"><span class="">Fix the Chrome extension connection</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshootstore-unavailable-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/store-unavailable/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshootstore-unavailable"><span class="">Fix cannot reach your account</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshootengine-wont-start-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/engine-wont-start/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshootengine-wont-start"><span class="">Fix Blowhorn when its engine won&#39;t start</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshootdiagnostics-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/diagnostics/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshootdiagnostics"><span class="">Run a diagnostics check with Tells</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshootbounces-in-dock-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/bounces-in-dock/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshootbounces-in-dock"><span class="">The Blowhorn desktop app bounces in my dock and won&#39;t start. Why?</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-totroubleshootdamaged-cant-be-opened-li">
+    <a href="/pr-preview/pr-685/docs/how-to/troubleshoot/damaged-cant-be-opened/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-totroubleshootdamaged-cant-be-opened"><span class="">Fix &#34;Blowhorn is damaged and can&#39;t be opened&#34;</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docshow-tomanage-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/how-to/manage/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docshow-tomanage"><span class="">Manage</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docshow-tomanage-ul"><span class="visually-hidden">Manage</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docshow-tomanage-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tomanagewatch-and-take-over-a-run-li">
+    <a href="/pr-preview/pr-685/docs/how-to/manage/watch-and-take-over-a-run/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tomanagewatch-and-take-over-a-run"><span class="">Watch, pause or take over a run in Chrome</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tomanageupdate-blowhorn-li">
+    <a href="/pr-preview/pr-685/docs/how-to/manage/update-blowhorn/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tomanageupdate-blowhorn"><span class="">Update Blowhorn</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tomanageuninstall-li">
+    <a href="/pr-preview/pr-685/docs/how-to/manage/uninstall/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tomanageuninstall"><span class="">Uninstall Blowhorn</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docshow-tomanagepackage-the-chrome-extension-li">
+    <a href="/pr-preview/pr-685/docs/how-to/manage/package-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docshow-tomanagepackage-the-chrome-extension"><span class="">Package the Chrome extension</span></a>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-pr-previewpr-685docsreference-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/reference/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docsreference"><span class="">Reference</span></a><button type="button" class="td-sidebar-fold" aria-expanded="true" aria-controls="m-pr-previewpr-685docsreference-ul"><span class="visually-hidden">Reference</span></button></div>
+    <ul class="ul-2 foldable" id="m-pr-previewpr-685docsreference-ul">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecontent-item-contract-li">
+    <a href="/pr-preview/pr-685/docs/reference/content-item-contract/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecontent-item-contract"><span class="">Content item contract</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencerequirements-li">
+    <a href="/pr-preview/pr-685/docs/reference/requirements/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencerequirements"><span class="">System requirements</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceuse-the-desktop-app-li">
+    <a href="/pr-preview/pr-685/docs/reference/use-the-desktop-app/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceuse-the-desktop-app"><span class="">The Blowhorn app, screen by screen</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-pr-previewpr-685docsreferenceplatforms-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/reference/platforms/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docsreferenceplatforms"><span class="">Platforms</span></a><button type="button" class="td-sidebar-fold" aria-expanded="true" aria-controls="m-pr-previewpr-685docsreferenceplatforms-ul"><span class="visually-hidden">Platforms</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docsreferenceplatforms-ul">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-pr-previewpr-685docsreferenceplatformsactions-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/actions/" class="align-left ps-0 active td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docsreferenceplatformsactions"><span class="td-sidebar-nav-active-item">All actions</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformslinkedin-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/linkedin/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformslinkedin"><span class="">LinkedIn</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformsx-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/x/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformsx"><span class="">X (Twitter)</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformsreddit-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/reddit/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformsreddit"><span class="">Reddit</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformshacker-news-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformshacker-news"><span class="">Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformsslack-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/slack/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformsslack"><span class="">Slack</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformsbluesky-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformsbluesky"><span class="">Bluesky</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformsgithub-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/github/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformsgithub"><span class="">GitHub</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformsyoutube-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformsyoutube"><span class="">YouTube</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformsinstagram-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/instagram/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformsinstagram"><span class="">Instagram</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformstiktok-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/tiktok/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformstiktok"><span class="">TikTok</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplatformsfacebook-li">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/facebook/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplatformsfacebook"><span class="">Facebook</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecontent-queue-li">
+    <a href="/pr-preview/pr-685/docs/reference/content-queue/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecontent-queue"><span class="">Content queue columns and activity states</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencejobs-li">
+    <a href="/pr-preview/pr-685/docs/reference/jobs/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencejobs"><span class="">Job options and schedules</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docsreferencecli-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/reference/cli/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docsreferencecli"><span class="">CLI reference</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docsreferencecli-ul"><span class="visually-hidden">CLI reference</span></button></div>
+    <ul class="ul-3 foldable" id="m-pr-previewpr-685docsreferencecli-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliblowhorn-axi-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/blowhorn-axi/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliblowhorn-axi"><span class="">blowhorn-axi</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclishared-flags-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/shared-flags/" title="blowhorn shared flags" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclishared-flags"><span class="">Shared flags</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliaccept-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/accept/" title="blowhorn accept" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliaccept"><span class="">accept</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclianalytics-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/analytics/" title="blowhorn analytics" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclianalytics"><span class="">analytics</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliauth-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/auth/" title="blowhorn auth" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliauth"><span class="">auth</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclichrome-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/chrome/" title="blowhorn chrome" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclichrome"><span class="">chrome</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliclassify-url-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/classify-url/" title="blowhorn classify-url" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliclassify-url"><span class="">classify-url</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclicomment-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/comment/" title="blowhorn comment" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclicomment"><span class="">comment</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliconfig-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/config/" title="blowhorn config" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliconfig"><span class="">config</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclicontent-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/content/" title="blowhorn content" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclicontent"><span class="">content</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclidesktop-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/desktop/" title="blowhorn desktop" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclidesktop"><span class="">desktop</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclifind-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/find/" title="blowhorn find" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclifind"><span class="">find</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclifollow-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/follow/" title="blowhorn follow" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclifollow"><span class="">follow</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecligithub-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/github/" title="blowhorn github" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecligithub"><span class="">github</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliorg-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/org/" title="blowhorn org" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliorg"><span class="">org</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliplatforms-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/platforms/" title="blowhorn platforms" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliplatforms"><span class="">platforms</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclipost-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/post/" title="blowhorn post" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclipost"><span class="">post</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliprofile-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/profile/" title="blowhorn profile" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliprofile"><span class="">profile</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclireport-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/report/" title="blowhorn report" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclireport"><span class="">report</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclirisk-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/risk/" title="blowhorn risk" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclirisk"><span class="">risk</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclischedule-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/schedule/" title="blowhorn schedule" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclischedule"><span class="">schedule</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliservice-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/service/" title="blowhorn service" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliservice"><span class="">service</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclisetup-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/setup/" title="blowhorn setup" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclisetup"><span class="">setup</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclislack-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/slack/" title="blowhorn slack" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclislack"><span class="">slack</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclisource-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/source/" title="blowhorn source" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclisource"><span class="">source</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclistar-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/star/" title="blowhorn star" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclistar"><span class="">star</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclistop-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/stop/" title="blowhorn stop" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclistop"><span class="">stop</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceclistore-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/store/" title="blowhorn store" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceclistore"><span class="">store</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliunfollow-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/unfollow/" title="blowhorn unfollow" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliunfollow"><span class="">unfollow</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliuninstall-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/uninstall/" title="blowhorn uninstall" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliuninstall"><span class="">uninstall</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliupgrade-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/upgrade/" title="blowhorn upgrade" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliupgrade"><span class="">upgrade</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencecliwithdraw-li">
+    <a href="/pr-preview/pr-685/docs/reference/cli/withdraw/" title="blowhorn withdraw" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencecliwithdraw"><span class="">withdraw</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencepost-li">
+    <a href="/pr-preview/pr-685/docs/reference/post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencepost"><span class="">Posting: pending activities and platform behavior</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceprofiles-li">
+    <a href="/pr-preview/pr-685/docs/reference/profiles/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceprofiles"><span class="">Profile reference</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceconfiguration-li">
+    <a href="/pr-preview/pr-685/docs/reference/configuration/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceconfiguration"><span class="">Configuration reference</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencemessages-li">
+    <a href="/pr-preview/pr-685/docs/reference/messages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencemessages"><span class="">Messages and exit codes</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceextension-permissions-li">
+    <a href="/pr-preview/pr-685/docs/reference/extension-permissions/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceextension-permissions"><span class="">Chrome extension permissions</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceplans-li">
+    <a href="/pr-preview/pr-685/docs/reference/plans/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferenceplans"><span class="">Plans and limits</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencereleases-li">
+    <a href="/pr-preview/pr-685/docs/reference/releases/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencereleases"><span class="">Release notes</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencesupport-li">
+    <a href="/pr-preview/pr-685/docs/reference/support/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencesupport"><span class="">Get help</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencechrome-li">
+    <a href="/pr-preview/pr-685/docs/reference/chrome/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencechrome"><span class="">Chrome reference</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencemcp-server-li">
+    <a href="/pr-preview/pr-685/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencemcp-server"><span class="">MCP server</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferencepython-client-li">
+    <a href="/pr-preview/pr-685/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsreferenceapi-li">
+    <a href="/pr-preview/pr-685/docs/reference/api/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docsreferenceapi"><span class="">API reference</span></a>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-pr-previewpr-685docsexplanation-li">
+    <div class="td-sidebar-row"><a href="/pr-preview/pr-685/docs/explanation/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-pr-previewpr-685docsexplanation"><span class="">Explanation</span></a><button type="button" class="td-sidebar-fold" aria-expanded="false" aria-controls="m-pr-previewpr-685docsexplanation-ul"><span class="visually-hidden">Explanation</span></button></div>
+    <ul class="ul-2 foldable" id="m-pr-previewpr-685docsexplanation-ul" hidden>
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationhow-it-works-li">
+    <a href="/pr-preview/pr-685/docs/explanation/how-it-works/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationhow-it-works"><span class="">How Blowhorn works</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationyour-data-li">
+    <a href="/pr-preview/pr-685/docs/explanation/your-data/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationyour-data"><span class="">Where your data lives</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationeligibility-li">
+    <a href="/pr-preview/pr-685/docs/explanation/eligibility/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationeligibility"><span class="">Who can post as whom</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationyour-own-chrome-li">
+    <a href="/pr-preview/pr-685/docs/explanation/your-own-chrome/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationyour-own-chrome"><span class="">Why Blowhorn uses your own browser</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationreliability-and-anti-bot-design-li">
+    <a href="/pr-preview/pr-685/docs/explanation/reliability-and-anti-bot-design/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationreliability-and-anti-bot-design"><span class="">How Blowhorn paces itself</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationnever-twice-li">
+    <a href="/pr-preview/pr-685/docs/explanation/never-twice/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationnever-twice"><span class="">How Blowhorn avoids repeat posts</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationscheduling-li">
+    <a href="/pr-preview/pr-685/docs/explanation/scheduling/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationscheduling"><span class="">How scheduling works</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationdistribution-li">
+    <a href="/pr-preview/pr-685/docs/explanation/distribution/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationdistribution"><span class="">What runs when the app is closed</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationinvitation-safety-li">
+    <a href="/pr-preview/pr-685/docs/explanation/invitation-safety/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationinvitation-safety"><span class="">Why flagged invitations are skipped</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationanalytics-li">
+    <a href="/pr-preview/pr-685/docs/explanation/analytics/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationanalytics"><span class="">What the analytics numbers mean</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationplans-li">
+    <a href="/pr-preview/pr-685/docs/explanation/plans/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationplans"><span class="">Plans, offline use and lapses</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationyoure-in-control-li">
+    <a href="/pr-preview/pr-685/docs/explanation/youre-in-control/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationyoure-in-control"><span class="">You&#39;re in control</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-685docsexplanationmcp-and-safety-li">
+    <a href="/pr-preview/pr-685/docs/explanation/mcp-and-safety/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-685docsexplanationmcp-and-safety"><span class="">How the MCP server keeps you in control</span></a>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </nav>
+</div>
+      </aside>
+      <main id="main" class="docs-main">
+        <nav aria-label="breadcrumb" class="td-breadcrumbs">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="/pr-preview/pr-685/docs/">Docs</a></li>
+  <li class="breadcrumb-item">
+    <a href="/pr-preview/pr-685/docs/reference/">Reference</a></li>
+  <li class="breadcrumb-item">
+    <a href="/pr-preview/pr-685/docs/reference/platforms/">Platforms</a></li>
+  <li class="breadcrumb-item active" aria-current="page">
+    All actions</li>
+  </ol>
+</nav><div class="prose docs-section">
+  <h1 class="h1">All actions</h1>
+  <p class="body-lg docs-lead">Every action Blowhorn takes on each platform, in one table. Sort by action or platform, or filter.</p>
+  <p>Each action links to its usage on that platform's page. For the
+at-a-glance grid, see the
+<a href="/pr-preview/pr-685/integrations/actions/">action matrix</a>.</p>
+<section class="action-table-wrap" data-action-table aria-label="All actions on all platforms">
+  <div class="action-table-filters" data-action-table-filters hidden>
+    <div class="action-table-field">
+      <label class="ui" for="action-table-action">Action</label>
+      <select id="action-table-action" data-filter="action">
+        <option value="">All actions</option>
+        <optgroup label="Broadcast">
+          <option value="post">Post</option>
+          <option value="comment">Comment</option>
+          <option value="reply">Reply</option>
+        </optgroup>
+        <optgroup label="Rally">
+          <option value="amplify">Amplify</option>
+          <option value="react">React</option>
+          <option value="star">Star</option>
+        </optgroup>
+        <optgroup label="Ranks">
+          <option value="follow">Follow</option>
+          <option value="unfollow">Unfollow</option>
+          <option value="accept">Accept</option>
+          <option value="withdraw">Withdraw</option>
+        </optgroup>
+        <optgroup label="Recon">
+          <option value="find">Find</option>
+          <option value="analytics">Analytics</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="action-table-field">
+      <label class="ui" for="action-table-platform">Platform</label>
+      <select id="action-table-platform" data-filter="platform">
+        <option value="">All platforms</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="x">X (Twitter)</option>
+        <option value="reddit">Reddit</option>
+        <option value="hacker-news">Hacker News</option>
+        <option value="slack">Slack</option>
+        <option value="bluesky">Bluesky</option>
+        <option value="github">GitHub</option>
+        <option value="youtube">YouTube</option>
+        <option value="instagram">Instagram</option>
+        <option value="tiktok">TikTok</option>
+        <option value="facebook">Facebook</option>
+      </select>
+    </div>
+    <p class="action-table-count caption" aria-live="polite" data-action-table-count></p>
+  </div>
+  <section class="action-table-scroll" tabindex="0" aria-label="All actions table">
+  <table class="action-table">
+    <thead>
+      <tr>
+        <th scope="col" data-sort="action">Action</th>
+        <th scope="col" data-sort="platform">Platform</th>
+        <th scope="col">What it does</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-row="post:linkedin" data-action="post" data-platform="linkedin" data-status="supported" data-order="0" data-k-action="post" data-k-platform="linkedin">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/linkedin/#action-post">Post</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/linkedin/" title="LinkedIn"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/linkedin-in-bug.png" alt="LinkedIn" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Publishes your message to your LinkedIn feed, to a group, or to a Page you manage, with an image or link preview when you add one.</span></td>
+      </tr>
+      <tr data-row="post:x" data-action="post" data-platform="x" data-status="supported" data-order="1" data-k-action="post" data-k-platform="x (twitter)">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/x/#action-post">Post</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/x/" title="X (Twitter)"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/x-logo-black.png" alt="X (Twitter)" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Publishes your message, with an image if you add one. A message longer than 274 characters goes out as a thread. <span class="muted">X publishes 50 original posts a day for an account without a checkmark, and no setting in Blowhorn goes past it.</span></span></td>
+      </tr>
+      <tr data-row="post:reddit" data-action="post" data-platform="reddit" data-status="supported" data-order="2" data-k-action="post" data-k-platform="reddit">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/reddit/#action-post">Post</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/reddit/" title="Reddit"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/reddit-logo.png" alt="Reddit" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Publishes your post to the subreddit you name, as r/&lt;name&gt;. <span class="muted">A post with no subreddit is skipped, never guessed.</span></span></td>
+      </tr>
+      <tr data-row="post:hacker-news" data-action="post" data-platform="hacker-news" data-status="supported" data-order="3" data-k-action="post" data-k-platform="hacker news">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/hacker-news/#action-post">Post</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/hacker-news/" title="Hacker News"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/hacker-news-y18.svg" alt="Hacker News" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Submits a link or a text post. Titles hold up to 80 characters; a longer title is refused, never cut short, because a submission can&#39;t be edited once it&#39;s up. <span class="muted">At most 2 link submissions per profile per UTC day; only link submissions are recorded, so only they count toward the cap. Preview first with --dry-run, because every submission is permanent. Blowhorn never votes.</span></span></td>
+      </tr>
+      <tr data-row="post:slack" data-action="post" data-platform="slack" data-status="supported" data-order="4" data-k-action="post" data-k-platform="slack">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/slack/#action-post">Post</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/slack/" title="Slack"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/slack-mark.svg" alt="Slack" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Sends a message as you to a channel or to a person, as #channel, @user, a channel ID, or a channel link. Shows a preview until you confirm. <span class="muted">One profile sends per run. A target Blowhorn can&#39;t read is refused, never sent somewhere else.</span></span></td>
+      </tr>
+      <tr data-row="post:bluesky" data-action="post" data-platform="bluesky" data-status="supported" data-order="5" data-k-action="post" data-k-platform="bluesky">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/bluesky/#action-post">Post</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/bluesky/" title="Bluesky"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/bluesky-butterfly-blue.svg" alt="Bluesky" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Publishes your message. A message longer than 300 characters goes out as a thread.</span></td>
+      </tr>
+      <tr data-row="comment:linkedin" data-action="comment" data-platform="linkedin" data-status="supported" data-order="6" data-k-action="comment" data-k-platform="linkedin">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/linkedin/#action-comment">Comment</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/linkedin/" title="LinkedIn"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/linkedin-in-bug.png" alt="LinkedIn" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Comments on the LinkedIn post you point it at. Anything that isn&#39;t a LinkedIn post address stays a normal post.</span></td>
+      </tr>
+      <tr data-row="comment:reddit" data-action="comment" data-platform="reddit" data-status="supported" data-order="7" data-k-action="comment" data-k-platform="reddit">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/reddit/#action-comment">Comment</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/reddit/" title="Reddit"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/reddit-logo.png" alt="Reddit" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Comments on the Reddit post or comment you point it at.</span></td>
+      </tr>
+      <tr data-row="comment:hacker-news" data-action="comment" data-platform="hacker-news" data-status="supported" data-order="8" data-k-action="comment" data-k-platform="hacker news">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/hacker-news/#action-comment">Comment</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/hacker-news/" title="Hacker News"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/hacker-news-y18.svg" alt="Hacker News" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Comments on the Hacker News item your post is addressed to, under your name.</span></td>
+      </tr>
+      <tr data-row="reply:x" data-action="reply" data-platform="x" data-status="supported" data-order="9" data-k-action="reply" data-k-platform="x (twitter)">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/x/#action-reply">Reply</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/x/" title="X (Twitter)"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/x-logo-black.png" alt="X (Twitter)" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Replies in a conversation when your post is addressed to it. <span class="muted">X publishes 200 replies a day for an account without a checkmark, and no setting in Blowhorn goes past it.</span></span></td>
+      </tr>
+      <tr data-row="reply:slack" data-action="reply" data-platform="slack" data-status="supported" data-order="10" data-k-action="reply" data-k-platform="slack">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/slack/#action-reply">Reply</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/slack/" title="Slack"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/slack-mark.svg" alt="Slack" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Replies in a thread when you give it the link to the message.</span></td>
+      </tr>
+      <tr data-row="reply:bluesky" data-action="reply" data-platform="bluesky" data-status="supported" data-order="11" data-k-action="reply" data-k-platform="bluesky">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/bluesky/#action-reply">Reply</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/bluesky/" title="Bluesky"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/bluesky-butterfly-blue.svg" alt="Bluesky" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Replies to the Bluesky post you point it at.</span></td>
+      </tr>
+      <tr data-row="amplify:linkedin" data-action="amplify" data-platform="linkedin" data-status="supported" data-order="12" data-k-action="amplify" data-k-platform="linkedin">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/linkedin/#action-amplify">Amplify</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/linkedin/" title="LinkedIn"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/linkedin-in-bug.png" alt="LinkedIn" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Reposts a post from each of your profiles. A post you already reposted is never reposted twice.</span></td>
+      </tr>
+      <tr data-row="amplify:x" data-action="amplify" data-platform="x" data-status="supported" data-order="13" data-k-action="amplify" data-k-platform="x (twitter)">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/x/#action-amplify">Amplify</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/x/" title="X (Twitter)"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/x-logo-black.png" alt="X (Twitter)" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Retweets or quotes a post from each of your profiles.</span></td>
+      </tr>
+      <tr data-row="amplify:reddit" data-action="amplify" data-platform="reddit" data-status="supported" data-order="14" data-k-action="amplify" data-k-platform="reddit">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/reddit/#action-amplify">Amplify</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/reddit/" title="Reddit"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/reddit-logo.png" alt="Reddit" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Upvotes a post from each of your profiles.</span></td>
+      </tr>
+      <tr data-row="amplify:bluesky" data-action="amplify" data-platform="bluesky" data-status="supported" data-order="15" data-k-action="amplify" data-k-platform="bluesky">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/bluesky/#action-amplify">Amplify</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/bluesky/" title="Bluesky"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/bluesky-butterfly-blue.svg" alt="Bluesky" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Reposts a post from each of your profiles.</span></td>
+      </tr>
+      <tr data-row="react:slack" data-action="react" data-platform="slack" data-status="supported" data-order="16" data-k-action="react" data-k-platform="slack">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/slack/#action-react">React</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/slack/" title="Slack"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/slack-mark.svg" alt="Slack" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Adds an emoji reaction to a message. A reaction already there is left as-is. Take it back with --remove.</span></td>
+      </tr>
+      <tr data-row="react:github" data-action="react" data-platform="github" data-status="supported" data-order="17" data-k-action="react" data-k-platform="github">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/github/#action-react">React</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/github/" title="GitHub"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/github-invertocat-black.svg" alt="GitHub" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Adds the five upbeat reactions (&#43;1, laugh, hooray, heart, rocket) to an issue or pull request from each of your profiles. Running it again adds none of them twice. <span class="muted">GitHub doesn&#39;t publish posts; it needs an issue or pull request link.</span></span></td>
+      </tr>
+      <tr data-row="star:github" data-action="star" data-platform="github" data-status="supported" data-order="18" data-k-action="star" data-k-platform="github">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/github/#action-star">Star</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/github/" title="GitHub"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/github-invertocat-black.svg" alt="GitHub" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Stars each named repository from every selected profile, over the REST API. A repository already starred is counted apart, never starred twice. <span class="muted">GitHub only. Repositories are named on the command line; star cannot be scheduled.</span></span></td>
+      </tr>
+      <tr data-row="follow:x" data-action="follow" data-platform="x" data-status="supported" data-order="19" data-k-action="follow" data-k-platform="x (twitter)">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/x/#action-follow">Follow</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/x/" title="X (Twitter)"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/x-logo-black.png" alt="X (Twitter)" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Name a target account. With --limit 0, follow that account, or several comma-separated. With a positive limit, follow up to that many of the target&#39;s followers, never the target itself, skipping anyone you already follow. <span class="muted">At most 400 follows per profile a day, and 15 in any 15 minutes, counted from that profile&#39;s follow log on this computer.</span></span></td>
+      </tr>
+      <tr data-row="follow:bluesky" data-action="follow" data-platform="bluesky" data-status="supported" data-order="20" data-k-action="follow" data-k-platform="bluesky">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/bluesky/#action-follow">Follow</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/bluesky/" title="Bluesky"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/bluesky-butterfly-blue.svg" alt="Bluesky" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Name a target account. With --limit 0, follow that account, or several comma-separated. With a positive limit, follow up to that many of the target&#39;s followers, never the target itself.</span></td>
+      </tr>
+      <tr data-row="follow:github" data-action="follow" data-platform="github" data-status="supported" data-order="21" data-k-action="follow" data-k-platform="github">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/github/#action-follow">Follow</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/github/" title="GitHub"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/github-invertocat-black.svg" alt="GitHub" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Name a target account. With --limit 0, follow that account, or several comma-separated. With a positive limit, follow up to that many of the target&#39;s followers, never the target itself.</span></td>
+      </tr>
+      <tr data-row="unfollow:bluesky" data-action="unfollow" data-platform="bluesky" data-status="supported" data-order="22" data-k-action="unfollow" data-k-platform="bluesky">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/bluesky/#action-unfollow">Unfollow</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/bluesky/" title="Bluesky"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/bluesky-butterfly-blue.svg" alt="Bluesky" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Unfollows one account.</span></td>
+      </tr>
+      <tr data-row="accept:linkedin" data-action="accept" data-platform="linkedin" data-status="supported" data-order="23" data-k-action="accept" data-k-platform="linkedin">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/linkedin/#action-accept">Accept</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/linkedin/" title="LinkedIn"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/linkedin-in-bug.png" alt="LinkedIn" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Accepts the invitations people sent you, one at a time. An invitation LinkedIn flags with its &#34;Take care when connecting&#34; warning is skipped, never accepted. <span class="muted">At most 20 confirmed acceptances a run, unless you set --limit.</span></span></td>
+      </tr>
+      <tr data-row="withdraw:linkedin" data-action="withdraw" data-platform="linkedin" data-status="supported" data-order="24" data-k-action="withdraw" data-k-platform="linkedin">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/linkedin/#action-withdraw">Withdraw</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/linkedin/" title="LinkedIn"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/linkedin-in-bug.png" alt="LinkedIn" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Withdraws invitations you sent that have waited 21 days or more, to free room for new ones. Shows a preview until you add --apply. <span class="muted">At most 20 confirmed withdrawals a run, unless you set --limit. LinkedIn blocks re-inviting a withdrawn person for up to three weeks.</span></span></td>
+      </tr>
+      <tr data-row="find:bluesky" data-action="find" data-platform="bluesky" data-status="supported" data-order="25" data-k-action="find" data-k-platform="bluesky">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/bluesky/#action-find">Find</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/bluesky/" title="Bluesky"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/bluesky-butterfly-blue.svg" alt="Bluesky" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Searches Bluesky posts for the words you give it.</span></td>
+      </tr>
+      <tr data-row="find:github" data-action="find" data-platform="github" data-status="supported" data-order="26" data-k-action="find" data-k-platform="github">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/github/#action-find">Find</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/github/" title="GitHub"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/github-invertocat-black.svg" alt="GitHub" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Searches issues and pull requests by query, with repository, type, and state filters. <span class="muted">Read-only. Issues and pull requests only, not repositories or code.</span></span></td>
+      </tr>
+      <tr data-row="analytics:linkedin" data-action="analytics" data-platform="linkedin" data-status="supported" data-order="27" data-k-action="analytics" data-k-platform="linkedin">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/linkedin/#action-analytics">Analytics</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/linkedin/" title="LinkedIn"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/linkedin-in-bug.png" alt="LinkedIn" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Reads your Page&#39;s analytics for a date range and saves them, so you can watch the trend. <span class="muted">Read-only.</span></span></td>
+      </tr>
+      <tr data-row="analytics:x" data-action="analytics" data-platform="x" data-status="supported" data-order="28" data-k-action="analytics" data-k-platform="x (twitter)">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/x/#action-analytics">Analytics</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/x/" title="X (Twitter)"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/x-logo-black.png" alt="X (Twitter)" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Records your follower and following counts on each run, so you can watch the trend. <span class="muted">Read-only.</span></span></td>
+      </tr>
+      <tr data-row="analytics:bluesky" data-action="analytics" data-platform="bluesky" data-status="supported" data-order="29" data-k-action="analytics" data-k-platform="bluesky">
+        <th scope="row"><a href="/pr-preview/pr-685/docs/reference/platforms/bluesky/#action-analytics">Analytics</a></th>
+        <td data-label="Platform"><a class="action-table-plat" href="/pr-preview/pr-685/docs/reference/platforms/bluesky/" title="Bluesky"><span class="logo-tile"><img src="/pr-preview/pr-685/assets/platforms/bluesky-butterfly-blue.svg" alt="Bluesky" width="20" height="20"></span></a></td>
+        <td data-label="What it does"><span>Records your follower and following counts on each run, so you can watch the trend. <span class="muted">Read-only.</span></span></td>
+      </tr>
+    </tbody>
+  </table>
+  </section>
+  <p class="action-table-empty" data-action-table-empty hidden>No actions match. Clear a filter to see more.</p>
+</section>
+
+
+<div class="section-index">
+</div>
+</div><ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li><a aria-disabled="true" class="btn btn-primary disabled"><span class="me-1">←</span>Previous</a></li>
+  <li><a href="/pr-preview/pr-685/docs/reference/platforms/linkedin/" aria-label="Next - LinkedIn" class="btn btn-primary">Next<span class="ms-1">→</span></a></li>
+</ul>
+
+<div class="tells-docs-card docs-rail-card docs-rail-card-end">
+  <p class="label">Free tool</p>
+  <p class="tells-docs-card-title">Am I a Bot?</p>
+  <p class="tells-docs-card-text">See what sites can read about your Chrome profile.</p>
+  <p class="tells-docs-card-link"><a href="https://tells.blowhorn.ai/?utm_source=blowhorn.ai&amp;utm_medium=referral&amp;utm_campaign=tells&amp;utm_content=docs">Run the check<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"></path></svg></a></p>
+</div>
+
+<div class="docs-support-card card-dispatch docs-rail-card docs-rail-card-end">
+  <p class="label">Support</p>
+  <p class="docs-support-card-title">Stuck on something?</p>
+  <p class="docs-support-card-text">Email us and a person on the team will help.</p>
+  <p class="docs-support-card-link"><a href="mailto:support@blowhorn.ai?subject=Docs%20question%3A%20All%20actions">support@blowhorn.ai</a></p>
+</div>
+
+      </main>
+      <aside class="docs-toc" aria-label="On this page"><div class="td-toc" data-proofer-ignore>
+</div>
+
+<div class="tells-docs-card docs-rail-card docs-rail-card-toc">
+  <p class="label">Free tool</p>
+  <p class="tells-docs-card-title">Am I a Bot?</p>
+  <p class="tells-docs-card-text">See what sites can read about your Chrome profile.</p>
+  <p class="tells-docs-card-link"><a href="https://tells.blowhorn.ai/?utm_source=blowhorn.ai&amp;utm_medium=referral&amp;utm_campaign=tells&amp;utm_content=docs">Run the check<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"></path></svg></a></p>
+</div>
+
+<div class="docs-support-card card-dispatch docs-rail-card docs-rail-card-toc">
+  <p class="label">Support</p>
+  <p class="docs-support-card-title">Stuck on something?</p>
+  <p class="docs-support-card-text">Email us and a person on the team will help.</p>
+  <p class="docs-support-card-link"><a href="mailto:support@blowhorn.ai?subject=Docs%20question%3A%20All%20actions">support@blowhorn.ai</a></p>
+</div>
+
+      </aside>
+    </div><footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-panel glass">
+          <div class="footer-top">
+            <div class="footer-brand">
+              <p class="footer-tagline">Your voice, at full volume.</p>
+              <nav class="footer-social" aria-label="Blowhorn on social media">
+                <ul>
+                  <li><a href="https://x.com/blowhorn_ai" target="_blank" rel="noopener noreferrer" aria-label="X"><img src="/pr-preview/pr-685/assets/platforms/x-logo-black.png" alt="" width="20" height="20"></a></li>
+                  <li><a href="https://www.youtube.com/@blowhorn-ai" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="/pr-preview/pr-685/assets/platforms/youtube-simple-icons.svg" alt="" width="20" height="20"></a></li>
+                  <li><a href="https://www.facebook.com/BlowhornAI" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="/pr-preview/pr-685/assets/platforms/facebook-simple-icons.svg" alt="" width="20" height="20"></a></li>
+                  <li><a href="https://github.com/blowhorn-ai" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><img src="/pr-preview/pr-685/assets/platforms/github-invertocat-black.svg" alt="" width="20" height="20"></a></li>
+                </ul>
+              </nav>
+            </div>
+            <div class="footer-news">
+              <form class="newsletter" name="newsletter" method="post" action="https://api.blowhorn.ai/api/subscribe">
+              <label class="newsletter-label ui" for="newsletter-email">Subscribe to our newsletter</label>
+              <div class="newsletter-row">
+                <input type="email" id="newsletter-email" name="email" autocomplete="email" placeholder="Email address" required>
+                <button class="button button-primary" type="submit">Subscribe</button>
+              </div>
+              <input type="hidden" name="source_page" value="/pr-preview/pr-685/docs/reference/platforms/actions/">
+              <p class="signup-honeypot" aria-hidden="true">
+                <label for="newsletter-email-website">Website</label>
+                <input id="newsletter-email-website" name="website" type="text" tabindex="-1" autocomplete="off">
+              </p>
+            </form>
+
+            </div>
+          </div>
+          <nav class="footer-links" aria-label="Footer">
+            <ul>
+              <li><a href="/pr-preview/pr-685/docs/">Docs</a></li>
+              <li><a href="/pr-preview/pr-685/support/">Support</a></li>
+              <li><a href="/pr-preview/pr-685/pricing/">Pricing</a></li>
+              <li><a href="/pr-preview/pr-685/brand/">Brand</a></li>
+              <li><a href="/pr-preview/pr-685/trust-center/">Trust Center</a></li>
+              <li><a class="status-link" href="https://layer5.statuspage.io" target="_blank" rel="noreferrer">Status <span class="pulse-icon" aria-hidden="true"></span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="footer-bottom caption">
+          <span>&copy; 2026 Layer5, Inc.</span>
+          <span>All product names are trademarks of their respective owners. Blowhorn is not affiliated with or endorsed by them.</span>
+        </div>
+      </div>
+    </footer>
+
+
+<script src="/pr-preview/pr-685/js/docs.js" defer></script>
+
+
+
+  </body>
+</html>
