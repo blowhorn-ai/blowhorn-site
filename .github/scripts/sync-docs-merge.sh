@@ -126,7 +126,7 @@ for _ in $(seq 1 6); do
   sleep 10
 done
 if [ "$mergeable" = "CONFLICTING" ]; then
-  message="Sync pull request #$pr has a merge conflict with master, so the docs sync did not merge it. Resolve the conflict on the docs-sync branch, or re-run the sync after master moves."
+  message="Sync pull request #$pr has a merge conflict with master, so the docs sync did not merge it. While this pull request is open every re-run builds on the same docs-sync branch and hits the same conflict, so either resolve the conflict on the docs-sync branch, or close this pull request and re-run the sync to start fresh from master."
   echo "$message" >&2
   gh pr comment "$pr" --body "$message" \
     || echo "Could not comment on pull request #$pr; the job log above is the record." >&2

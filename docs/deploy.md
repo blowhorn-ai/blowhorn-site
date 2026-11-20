@@ -397,7 +397,10 @@ here, on the public site repository.
    a failed check, which leaves the PR open for a human because a broken
    site must not deploy, and a merge conflict with `master`, which
    `make docs-sync-merge` reports on the PR and in the job log before it
-   stops. The workflow never pushes to `master` directly.
+   stops. A re-run does not clear a conflict: while the PR is open, each
+   sync builds on its `docs-sync` branch. Resolve the conflict on
+   `docs-sync`, or close the PR and re-run the sync, which then starts
+   fresh from `master`. The workflow never pushes to `master` directly.
    Every sync commit is authored and committed as the `arjunmehta-git`
    account (its GitHub noreply address) and carries the DCO sign-off. The
    pull request itself and its merge are still made with `github.token`,

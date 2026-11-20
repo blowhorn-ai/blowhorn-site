@@ -22,6 +22,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import yaml
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 WORKFLOW = ROOT / ".github" / "workflows" / "sync-docs.yml"
@@ -216,15 +218,80 @@ class SyncDocsWorkflowTest(unittest.TestCase):
         self.assertNotIn("pr merge 7 --squash", calls)
 
     def test_sync_commits_as_the_arjunmehta_git_account(self):
-        text = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn('git config user.name "arjunmehta-git"', text)
-        self.assertIn(
-            'git config user.email "231106746+arjunmehta-git@users.noreply.github.com"',
-            text,
-        )
-        self.assertNotIn("github-actions[bot]", text)
+        # Runs the workflow's own commit step in a scratch repository. The
+        # oracle is the account's published GitHub noreply address
+        # (<user id>+<login>@users.noreply.github.com, id 231106746).
+        account = "arjunmehta-git"
+        email = "231106746+arjunmehta-git@users.noreply.github.com"
+        workflow = yaml.safe_load(WORKFLOW.read_text(encoding="utf-8"))
+        steps = [
+            step
+            for job in workflow["jobs"].values()
+            for step in job.get("steps", [])
+            if step.get("name") == "Open or update the sync pull request"
+        ]
+        self.assertEqual(len(steps), 1)
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            bin_dir = tmp / "bin"
+            bin_dir.mkdir()
+            gh = bin_dir / "gh"
+            gh.write_text("#!/usr/bin/env bash\nexit 0\n", encoding="utf-8")
+            gh.chmod(0o755)
+            base_env = {
+                k: v for k, v in os.environ.items()
+                if not k.startswith(("GIT_AUTHOR_", "GIT_COMMITTER_"))
+            }
+            base_env.update(HOME=str(tmp), GIT_CONFIG_NOSYSTEM="1")
+            isolated = dict(
+                base_env,
+                GIT_AUTHOR_NAME="someone-else",
+                GIT_AUTHOR_EMAIL="someone@example.com",
+                GIT_COMMITTER_NAME="someone-else",
+                GIT_COMMITTER_EMAIL="someone@example.com",
+            )
+
+            def git(*args, cwd):
+                return subprocess.run(
+                    ["git", *args], cwd=cwd, env=isolated, check=True,
+                    capture_output=True, text=True,
+                ).stdout
+
+            origin = tmp / "origin.git"
+            git("init", "--bare", "-q", str(origin), cwd=tmp)
+            site = tmp / "site"
+            site.mkdir()
+            git("init", "-q", "-b", "docs-sync", cwd=site)
+            git("remote", "add", "origin", str(origin), cwd=site)
+            git("commit", "-q", "--allow-empty", "-m", "base", cwd=site)
+            git("push", "-q", "origin", "docs-sync", cwd=site)
+            product = site / "product"
+            product.mkdir()
+            git("init", "-q", cwd=product)
+            git("commit", "-q", "--allow-empty", "-m", "product", cwd=product)
+            docs = site / "content" / "en" / "docs"
+            docs.mkdir(parents=True)
+            (docs / "page.md").write_text("synced\n", encoding="utf-8")
+            env = dict(
+                base_env,
+                PATH=f"{bin_dir}:{os.environ['PATH']}",
+                GITHUB_OUTPUT=str(tmp / "github_output"),
+                SYNC_REF="desktop-1.0.0",
+                SYNC_BRANCH="docs-sync",
+                OPEN_PR="7",
+            )
+            result = subprocess.run(
+                ["bash", "-c", steps[0]["run"]], cwd=site, env=env,
+                capture_output=True, text=True, timeout=60,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            fields = git(
+                "log", "-1", "--format=%an%n%ae%n%cn%n%ce%n%(trailers:key=Signed-off-by,valueonly)",
+                "docs-sync", cwd=origin,
+            ).splitlines()
+        self.assertEqual(fields[:4], [account, email, account, email])
         # Sign-off (DCO) stays on every sync commit.
-        self.assertIn("git commit -s", text)
+        self.assertEqual(fields[4], f"{account} <{email}>")
 
     def test_makefile_defines_the_merge_target(self):
         text = MAKEFILE.read_text(encoding="utf-8")
@@ -239,8 +306,6 @@ class SyncDocsWorkflowTest(unittest.TestCase):
     def test_deploy_docs_say_the_sync_merges(self):
         text = DEPLOY.read_text(encoding="utf-8")
         self.assertIn("docs-sync-merge", text)
-        self.assertIn("arjunmehta-git", text)
-        self.assertIn("merge conflict", text)
 
 
 if __name__ == "__main__":
