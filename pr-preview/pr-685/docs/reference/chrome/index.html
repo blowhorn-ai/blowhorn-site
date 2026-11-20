@@ -1475,6 +1475,14 @@ with one of them is how you connect it: Blowhorn never asks for the
 password. After you sign in, <code>blowhorn chrome discover</code> (the desktop's
 <strong>Discover</strong>) sees the sign-in and records it as the profile's
 account in your Blowhorn account.</p>
+<p><code>--sign-in youtube</code> is also where you turn YouTube on. The Blowhorn
+extension works on YouTube only in a Chrome profile that allowed it
+(<a href="/pr-preview/pr-685/docs/reference/extension-permissions/#sites-you-turn-on">sites you turn on</a>), so the
+window opens first on the extension's own page. Choose <strong>Allow YouTube</strong>,
+then <strong>Allow</strong> when Chrome asks, and the page goes on to YouTube for you to
+sign in. In a profile that already allowed it, the page goes straight on.
+<code>url</code> in <code>--json</code> is that extension page. A YouTube action in a profile that
+has not allowed it stops before it opens anything and names this command.</p>
 <h2 id="blowhorn-chrome-create-profile"><code>blowhorn chrome create-profile</code></h2><figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -1526,6 +1534,15 @@ the same as a readable file that does not list the profile yet. With
 instead of a new tab, so setup can guide the sign-in in that window, one
 platform at a time, without a mapping: the profile is not mapped yet at
 that point.</p>
+<p><code>--sign-in youtube</code> opens first on the Blowhorn extension's page that
+turns YouTube on, as <code>open-profile</code> does: choose <strong>Allow YouTube</strong>, then
+<strong>Allow</strong> when Chrome asks, and the page goes on to YouTube. A Chrome
+profile Chrome has just made has no Blowhorn extension yet, so Chrome
+shows that page as blocked. Then add the extension there with
+<code>blowhorn chrome extension-enable --chrome-profile &quot;&lt;directory&gt;&quot;</code> and run
+<code>blowhorn chrome create-profile --profile-directory &quot;&lt;directory&gt;&quot; --sign-in youtube</code>
+again, which opens the same profile; the command's last line names the
+directory. <code>url</code> in <code>--json</code> is the extension page.</p>
 <p>With <code>--json</code> it prints <code>ok</code>, <code>dry_run</code>, <code>directory</code> (the directory
 opened),
 <code>already_listed</code> (whether <code>Local State</code> listed the directory before this

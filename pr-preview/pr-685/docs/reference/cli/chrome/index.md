@@ -138,7 +138,7 @@ blowhorn chrome create-profile [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--sign-in` | string |  | Open on this platform's sign-in page instead of a new tab, so the person signs in there first; the profile is not mapped yet, so no mapping is chosen. One of linkedin, x, reddit, hn, slack, bluesky, github |
+| `--sign-in` | string |  | Open on this platform's sign-in page instead of a new tab, so the person signs in there first; the profile is not mapped yet, so no mapping is chosen. For youtube the window opens first on the Blowhorn extension's page that turns YouTube on (choose Allow YouTube); a new Chrome profile has no extension yet, so Chrome shows that page as blocked until you add the extension there. One of linkedin, x, reddit, hn, slack, bluesky, github, youtube |
 | `--profile-directory` | string |  | A Blowhorn profile directory to open: `Blowhorn` or `Blowhorn N` for N of 2 or more. Anything else is refused and nothing opens. With no directory the command picks the first unused Blowhorn directory in Local State. |
 | `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
 | `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
@@ -412,7 +412,7 @@ blowhorn chrome open-profile [OPTIONS] name
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--sign-in` | string |  | Open on this platform's sign-in page instead of a new tab, and choose the mapping by that platform, as a run would. One of linkedin, x, reddit, hn, slack, bluesky, github |
+| `--sign-in` | string |  | Open on this platform's sign-in page instead of a new tab, and choose the mapping by that platform, as a run would. For youtube the window opens first on the Blowhorn extension's page that turns YouTube on in that Chrome profile (choose Allow YouTube), then goes on to YouTube. One of linkedin, x, reddit, hn, slack, bluesky, github, youtube |
 | `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
 | `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn chrome open-profile` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |

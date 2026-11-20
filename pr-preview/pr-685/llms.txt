@@ -4,7 +4,7 @@
 
 ## Pages
 - [Blowhorn: one message, many ears](/pr-preview/pr-685/index.md): Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.
-- [Try Blowhorn in your browser](/pr-preview/pr-685/demo/index.md): A hands-on simulation of the Blowhorn queue. Pick a formation, build a queue, and watch the schedule fill in. Nothing is posted, and nothing leaves your browser.
+- [Try Blowhorn in your browser](/pr-preview/pr-685/demo/index.md): The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.
 - [Pricing](/pr-preview/pr-685/pricing/index.md): Blowhorn is free during early access, with no limits on voices or platforms. Paid plans aren't set yet. Here's what a voice is and how plans will count them.
 - [Your voice, on every front](/pr-preview/pr-685/showcase/index.md): Blowhorn is a social media console that runs on your own computer. See what it does, how the four formations work, and where it posts.
 - [Brand](/pr-preview/pr-685/brand/index.md): The Blowhorn logo, wordmark, colors, type, Major Blowhorn and Old Thunderlung, with the rules for using them and two kits to download.

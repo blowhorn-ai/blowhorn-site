@@ -29,6 +29,25 @@ reads a workspace session only from its sign-in pages:
 - `mentorship.lfx.linuxfoundation.org`, `sso.linuxfoundation.org`
 - `*.slack.com`
 
+### Sites you turn on
+
+Some sites are not on the extension's list until you turn them on, one
+Chrome profile at a time, so adding one never asks everyone who already
+uses the extension to approve it:
+
+- `www.youtube.com`, `youtube.com`, `studio.youtube.com` (YouTube and
+  YouTube Studio)
+
+Chrome asks you, and only when you click **Allow YouTube** on the
+Blowhorn page that `blowhorn chrome open-profile <profile> --sign-in youtube`
+(or `blowhorn chrome create-profile --sign-in youtube`) opens. Until you allow it, the extension cannot open those sites, and a
+YouTube action stops before it opens anything and says how to turn
+YouTube on. Once allowed, the extension treats those sites like the
+ones above: the same content script, in the tab it opened. You can take
+it back in Chrome at any time, under **Site access** on the Blowhorn
+extension's **Details** page in `chrome://extensions`. The extension then
+lets go of its tab on that site at once.
+
 `tells.blowhorn.ai`, Blowhorn's own bot-detection page, is the one other
 page the extension will open, and only for `blowhorn diagnostics tells-run`.
 It adds no permission and no content script, so updating never asks you to
@@ -51,6 +70,7 @@ permission to ignore them.
 | `debugger` | Delivers your queued clicks, key presses and typing as real input in [background mode](/docs/reference/chrome/#extension-mode-classic-or-background) (in classic mode most of them go through the extension's own script on the page), watches the page's own requests to tell when an action finished, and takes a screenshot when the app asks for one. Attached only to the tab the extension opened, and only while that tab is on one of the sites above: if the tab goes anywhere else (a redirect, a sign-in through another site, you browsing in it) the extension lets go of it at once, and in background mode attaches again only if the tab comes back to one of those sites while the run is still driving it (never while you have paused, taken over or stopped it). In classic mode it attaches when an action needs it and is released when the run ends or after a short idle period; in background mode it attaches as soon as the extension opens or reuses its tab, before the site loads, and stays attached until the run ends, even a run that stopped without ending cleanly. Chrome shows its debugging bar while it is attached; closing that bar, opening developer tools on the tab or closing the tab stops the extension using the debugger until the next run |
 | `storage` | Keeps the pairing token `blowhorn chrome map` hands it in this Chrome profile, which tells the app which Chrome profile the extension is in so a run for another Blowhorn profile is refused before it does anything. It also keeps, in session storage that Chrome clears when it closes, the id of the tab and tab group the extension opened (and of its own window, when it works in one) and whether you cancelled Chrome's debugging banner, so if Chrome restarts the extension's worker it reuses that tab instead of opening another one, and it does not attach the debugger again after a cancellation until the run ends. Nothing leaves your computer. Chrome shows no warning for this permission |
 | `sidePanel` | Shows the Blowhorn side panel when you click the toolbar button: this profile's setup status, the task a run is doing, its steps and the Blowhorn tab's address, with Stop, Pause / Resume and Take over / Give back. The panel is part of Chrome, not of any page: nothing is added to the sites Blowhorn acts on. Take over brings the Blowhorn tab and its window to the front only when you click it. Chrome shows no warning for this permission ([Watch, pause or take over a run](/docs/how-to/manage/watch-and-take-over-a-run/)) |
+| `scripting` | Runs the extension's own script on a [site you turned on](#sites-you-turn-on), once you turn it on, and stops when you turn it off. It is the same script as on the sites above, and nothing else. Chrome shows no warning for this permission |
 | `downloads` | Catches the one export you asked for (an analytics or connections export) for the app, then cancels and clears it. A finished file stays where it is; the extension never starts a download on its own |
 
 ## Closing the sign-in tab

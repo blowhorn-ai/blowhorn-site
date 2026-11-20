@@ -12,9 +12,9 @@ Blowhorn is a social media console. Write one post, and it posts, reposts, and a
 --------------------------------------------------------------------------------
 title: "Try Blowhorn in your browser"
 url: /pr-preview/pr-685/demo/index.md
-description: A hands-on simulation of the Blowhorn queue. Pick a formation, build a queue, and watch the schedule fill in. Nothing is posted, and nothing leaves your browser.
+description: The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.
 --------------------------------------------------------------------------------
-A hands-on simulation of the Blowhorn queue. Pick a formation, build a queue, and watch the schedule fill in. Nothing is posted, and nothing leaves your browser.
+The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.
 
 --------------------------------------------------------------------------------
 title: "Pricing"
@@ -2763,11 +2763,12 @@ In a new chat, ask:
 
 > Which Blowhorn tools do you have?
 
-You should see four: `listContentItems`, `getContentItem`,
-`getEvents` and `getConnections`. If the list is empty, or the client
-says it cannot connect, check the URL and the token, then restart
-Claude Desktop. A `401` means the header is missing or the token is
-no longer valid.
+You should see six: `listContentItems`, `getContentItem`,
+`getEvents`, `getConnections`, `listSchedules` and `getScheduleById`.
+If the list is empty, or the client says it cannot connect, check the
+URL and the token, then restart Claude Desktop. A `401` means the
+header is missing, the token is no longer valid, or you need to sign
+in again.
 
 ## 3. Read your content {#section-3-read-your-content}
 
@@ -4405,9 +4406,11 @@ description: Point Claude, ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI
 
 Connect an MCP client to Blowhorn's hosted MCP server at
 `https://mcp.blowhorn.ai/mcp`. The server is Streamable HTTP. It serves
-four read-only tools: `listContentItems`, `getContentItem`, `getEvents`
-and `getConnections`. It does not post, schedule, or change anything,
-and it serves tools only: no prompts, resources, or sampling.
+six read-only tools: `listContentItems`, `getContentItem`, `getEvents`,
+`getConnections`, `listSchedules` and `getScheduleById`. It does not
+post, schedule, or change anything, and it serves tools only: no
+prompts, resources, or sampling. Where a tool needs an organization,
+pass it as the `organizationId` argument.
 
 Sign in with OAuth when the client can. A client that supports MCP
 OAuth 2.1 needs only the URL. Dynamic client registration and PKCE are
@@ -4576,29 +4579,77 @@ Bearer token.
 
 ### Grok
 
-Grok Build connects over HTTP:
+Grok Build connects over HTTP. If it completes the OAuth sign-in from
+the URL alone, add the server with no header:
+
+```bash
+grok mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp
+```
+
+If it cannot finish OAuth, pass a Blowhorn API token instead:
 
 ```bash
 grok mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp \
   --header "Authorization: Bearer <token>"
 ```
 
-Omit `--header` if Grok completes the OAuth sign-in from the URL
-alone. Check it with `grok mcp list`.
+Check it with `grok mcp list`.
 [Vendor docs](https://docs.x.ai/build/features/mcp-servers).
+
+Grok on the web can use the same URL as a custom connector and
+complete the Blowhorn OAuth sign-in. If it cannot finish OAuth, send a
+Blowhorn API token as a Bearer token instead.
+[Vendor docs](https://docs.x.ai/grok/connectors).
 
 ### Grok Bot
 
-In the bot's MCP settings, set the server URL to
-`https://mcp.blowhorn.ai/mcp` and the authorization header to
-`Authorization: Bearer <token>`.
+Blowhorn is not in Grok Bot's connector catalog yet. Add it as a
+custom MCP server. Grok Bot runs in the cloud, so it cannot start
+Blowhorn's local server on your Mac. It connects to the hosted server
+at `https://mcp.blowhorn.ai/mcp`. No token or header is needed for the
+add step: you sign in with OAuth.
 
-If the bot reports `401 Unauthorized` when it connects, the header
-is missing or malformed: the server wants exactly
-`Authorization: Bearer <token>`. If it connects but a tool call
-fails with a `401`, the token has expired or been revoked: get a new
-token and update the header. If you opened the URL in a browser and
-saw a JSON error, that is expected: see
+The hosted server is read-only. It has the six tools named at the top
+of this page, so your bot can read your queue, a post, your activity,
+your connections and your schedules. It cannot post, schedule or
+change anything. To post, use the [CLI](/docs/how-to/publish/post-content/) or
+[blowhorn-axi](/docs/reference/cli/blowhorn-axi/) on the Mac where
+Blowhorn runs, or the desktop app's own process described in the
+[MCP server reference](/docs/reference/mcp-server/).
+
+1. In a chat with your bot, ask it to add a custom MCP server. Say
+   "custom" so the bot does not look in the catalog:
+
+   > Add a custom MCP server named blowhorn at
+   > https://mcp.blowhorn.ai/mcp.
+
+2. The bot shows the name and the URL and asks you to confirm. Check
+   that the URL is exactly `https://mcp.blowhorn.ai/mcp`, then confirm.
+3. The bot shows a connect card. Open it. You land on the Blowhorn
+   sign-in page at [cloud.blowhorn.ai](https://cloud.blowhorn.ai). Sign
+   in, or create a new Blowhorn account there. Approve access.
+4. Back in the chat, check it in your next message. Ask:
+
+   > Which Blowhorn tools do you have? Then list my Blowhorn
+   > connections.
+
+   The bot should list the six read-only tools above and answer from
+   `getConnections`. Where a tool needs an organization, it is passed
+   as the `organizationId` argument.
+
+If a client cannot finish OAuth, send a Blowhorn API token as
+`Authorization: Bearer <token>` instead. The steps are in
+[Get a Blowhorn API token](#get-a-blowhorn-api-token).
+
+If the bot reports `401 Unauthorized` when it connects, the OAuth
+sign-in did not finish, or a Bearer header is missing or malformed.
+Sign in again, or use the header `Authorization: Bearer <token>` with
+a current token. If it connects but a tool call fails with a `401`,
+the sign-in expired or the token was revoked: sign in again, or get a
+new token and update the header. If you connected before 20 November
+2026, sign in once more: the sign-in address changed, so the client
+registers again and completes sign-in once. If you opened the URL in a
+browser and saw a JSON error, that is expected: see
 [Opening the gateway URL in a browser](#opening-the-gateway-url-in-a-browser).
 
 ### Arcade
@@ -4617,7 +4668,7 @@ MCP.
 5. Save, then complete the Blowhorn OAuth sign-in.
 6. Pick the tools in an MCP Gateway.
 
-The tools are the four read-only tools named at the top of this page.
+The tools are the six read-only tools named at the top of this page.
 This is a connection in your Arcade account. Blowhorn is not listed in
 Arcade's public catalog.
 
@@ -4717,10 +4768,13 @@ server. The assistant should say so.
 - **The client reports 401.** The OAuth sign-in did not finish, or the
   Bearer header is missing or malformed. Use the header
   `Authorization: Bearer <token>` with a current token, or sign in
-  again.
-- **A tool call returns 401 after the client connected.** The token
-  expired or was revoked. Create a new one and update the header.
-- **The tool list is not the four read tools.** The client is pointed
+  again. If you connected before 20 November 2026, sign in once more:
+  the sign-in address changed, so the client registers again and
+  completes sign-in once.
+- **A tool call returns 401 after the client connected.** The sign-in
+  expired, or the token was revoked. Sign in again, or create a new
+  token and update the header.
+- **The tool list is not the six read tools.** The client is pointed
   at a different server. Set the URL to `https://mcp.blowhorn.ai/mcp`
   and remove any command that starts a local process.
 - **A browser shows a JSON error at `/mcp`.** That is expected. See
@@ -6049,7 +6103,7 @@ blowhorn chrome create-profile [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--sign-in` | string |  | Open on this platform's sign-in page instead of a new tab, so the person signs in there first; the profile is not mapped yet, so no mapping is chosen. One of linkedin, x, reddit, hn, slack, bluesky, github |
+| `--sign-in` | string |  | Open on this platform's sign-in page instead of a new tab, so the person signs in there first; the profile is not mapped yet, so no mapping is chosen. For youtube the window opens first on the Blowhorn extension's page that turns YouTube on (choose Allow YouTube); a new Chrome profile has no extension yet, so Chrome shows that page as blocked until you add the extension there. One of linkedin, x, reddit, hn, slack, bluesky, github, youtube |
 | `--profile-directory` | string |  | A Blowhorn profile directory to open: `Blowhorn` or `Blowhorn N` for N of 2 or more. Anything else is refused and nothing opens. With no directory the command picks the first unused Blowhorn directory in Local State. |
 | `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
 | `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
@@ -6323,7 +6377,7 @@ blowhorn chrome open-profile [OPTIONS] name
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--sign-in` | string |  | Open on this platform's sign-in page instead of a new tab, and choose the mapping by that platform, as a run would. One of linkedin, x, reddit, hn, slack, bluesky, github |
+| `--sign-in` | string |  | Open on this platform's sign-in page instead of a new tab, and choose the mapping by that platform, as a run would. For youtube the window opens first on the Blowhorn extension's page that turns YouTube on in that Chrome profile (choose Allow YouTube), then goes on to YouTube. One of linkedin, x, reddit, hn, slack, bluesky, github, youtube |
 | `--json` | boolean | `false` | Emit the report as JSON with a stable shape, for a script or the desktop app |
 | `--platform` | string |  | Accepted and ignored by `blowhorn chrome`: this command never acts on a platform, so `--platform` has no effect here -- including a value inherited from `BLOWHORN_PLATFORM` or defaults.platform in .blowhorn.yaml |
 | `--pace` | string |  | Accepted by `blowhorn chrome open-profile` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
@@ -14171,7 +14225,28 @@ How Blowhorn resolves what a run uses, and where its output goes.
 `engine/blowhorn/config_schema.py` is the one list of options; `blowhorn
 config show` prints each with its stored, environment, effective, and
 source values. `blowhorn config set` edits the file without rewriting
-it: comments, order, and quoting survive.
+it: comments, order, and quoting survive, and a `null` stays `null`.
+A file that cannot be read as YAML is reported once on stderr and read as
+empty, so `--json` output stays one JSON document; `config set` on such
+a file changes nothing and says so. A stored number written in words is
+refused by name (`config show --json` included). A key written twice
+makes the file unreadable, and the warning names it
+(`defaults.profile is written twice; keep one`): Blowhorn does not guess
+which of the two you meant. In a yes/no option, `yes`, `no`, `on` and
+`off` (in any case) mean yes and no, as they always have, and `config
+show` prints them as `true` and `false`; in a text option a hand-written
+`off` or `yes` is read as that word.
+
+A merge key (`<<: *base`) brings its keys in as YAML defines it, the
+mapping's own keys winning. `config set` changes only the key you name:
+a key under an alias (`defaults: *base`), or under a mapping an anchor
+or a merge shares with another key, is refused by name and the file is
+left as it was, because the change would reach the other key too; write
+that mapping out in full and set the key again. A text it writes is
+quoted whenever any YAML reader could take it for something else
+(`profile: '1:30'`, not a number), and a file written with CRLF line
+endings keeps them. A quiet-hours time zone must be spelt as the time
+zone database spells it (`America/New_York`, not `america/new_york`).
 
 Precedence, highest first: the CLI flag, the environment variable, the
 `.blowhorn.yaml` default, then the built-in. The file lives beside the
@@ -14231,7 +14306,8 @@ Blowhorn reads and writes everything in your Blowhorn account. A
 `defaults.store.backend` or `defaults.store.config` key left in an older
 file, and `BLOWHORN_STORE_BACKEND` in the environment, are ignored
 (`config show --json` lists the two keys as unknown), and `config set`
-refuses a `store.<name>` key. Data an older version kept in a local store is
+refuses a `store.<name>` key and any `defaults.store.<name>` but
+`defaults.store.organization`. Data an older version kept in a local store is
 not read and is not brought into your account.
 
 ## Risk Profile presets
@@ -14681,6 +14757,25 @@ reads a workspace session only from its sign-in pages:
 - `mentorship.lfx.linuxfoundation.org`, `sso.linuxfoundation.org`
 - `*.slack.com`
 
+### Sites you turn on
+
+Some sites are not on the extension's list until you turn them on, one
+Chrome profile at a time, so adding one never asks everyone who already
+uses the extension to approve it:
+
+- `www.youtube.com`, `youtube.com`, `studio.youtube.com` (YouTube and
+  YouTube Studio)
+
+Chrome asks you, and only when you click **Allow YouTube** on the
+Blowhorn page that `blowhorn chrome open-profile <profile> --sign-in youtube`
+(or `blowhorn chrome create-profile --sign-in youtube`) opens. Until you allow it, the extension cannot open those sites, and a
+YouTube action stops before it opens anything and says how to turn
+YouTube on. Once allowed, the extension treats those sites like the
+ones above: the same content script, in the tab it opened. You can take
+it back in Chrome at any time, under **Site access** on the Blowhorn
+extension's **Details** page in `chrome://extensions`. The extension then
+lets go of its tab on that site at once.
+
 `tells.blowhorn.ai`, Blowhorn's own bot-detection page, is the one other
 page the extension will open, and only for `blowhorn diagnostics tells-run`.
 It adds no permission and no content script, so updating never asks you to
@@ -14703,6 +14798,7 @@ permission to ignore them.
 | `debugger` | Delivers your queued clicks, key presses and typing as real input in [background mode](/docs/reference/chrome/#extension-mode-classic-or-background) (in classic mode most of them go through the extension's own script on the page), watches the page's own requests to tell when an action finished, and takes a screenshot when the app asks for one. Attached only to the tab the extension opened, and only while that tab is on one of the sites above: if the tab goes anywhere else (a redirect, a sign-in through another site, you browsing in it) the extension lets go of it at once, and in background mode attaches again only if the tab comes back to one of those sites while the run is still driving it (never while you have paused, taken over or stopped it). In classic mode it attaches when an action needs it and is released when the run ends or after a short idle period; in background mode it attaches as soon as the extension opens or reuses its tab, before the site loads, and stays attached until the run ends, even a run that stopped without ending cleanly. Chrome shows its debugging bar while it is attached; closing that bar, opening developer tools on the tab or closing the tab stops the extension using the debugger until the next run |
 | `storage` | Keeps the pairing token `blowhorn chrome map` hands it in this Chrome profile, which tells the app which Chrome profile the extension is in so a run for another Blowhorn profile is refused before it does anything. It also keeps, in session storage that Chrome clears when it closes, the id of the tab and tab group the extension opened (and of its own window, when it works in one) and whether you cancelled Chrome's debugging banner, so if Chrome restarts the extension's worker it reuses that tab instead of opening another one, and it does not attach the debugger again after a cancellation until the run ends. Nothing leaves your computer. Chrome shows no warning for this permission |
 | `sidePanel` | Shows the Blowhorn side panel when you click the toolbar button: this profile's setup status, the task a run is doing, its steps and the Blowhorn tab's address, with Stop, Pause / Resume and Take over / Give back. The panel is part of Chrome, not of any page: nothing is added to the sites Blowhorn acts on. Take over brings the Blowhorn tab and its window to the front only when you click it. Chrome shows no warning for this permission ([Watch, pause or take over a run](/docs/how-to/manage/watch-and-take-over-a-run/)) |
+| `scripting` | Runs the extension's own script on a [site you turned on](#sites-you-turn-on), once you turn it on, and stops when you turn it off. It is the same script as on the sites above, and nothing else. Chrome shows no warning for this permission |
 | `downloads` | Catches the one export you asked for (an analytics or connections export) for the app, then cancels and clears it. A finished file stays where it is; the extension never starts a download on its own |
 
 ## Closing the sign-in tab
@@ -15635,6 +15731,15 @@ password. After you sign in, `blowhorn chrome discover` (the desktop's
 **Discover**) sees the sign-in and records it as the profile's
 account in your Blowhorn account.
 
+`--sign-in youtube` is also where you turn YouTube on. The Blowhorn
+extension works on YouTube only in a Chrome profile that allowed it
+([sites you turn on](/docs/reference/extension-permissions/#sites-you-turn-on)), so the
+window opens first on the extension's own page. Choose **Allow YouTube**,
+then **Allow** when Chrome asks, and the page goes on to YouTube for you to
+sign in. In a profile that already allowed it, the page goes straight on.
+`url` in `--json` is that extension page. A YouTube action in a profile that
+has not allowed it stops before it opens anything and names this command.
+
 ## `blowhorn chrome create-profile`
 
 ```bash
@@ -15681,6 +15786,16 @@ the same as a readable file that does not list the profile yet. With
 instead of a new tab, so setup can guide the sign-in in that window, one
 platform at a time, without a mapping: the profile is not mapped yet at
 that point.
+
+`--sign-in youtube` opens first on the Blowhorn extension's page that
+turns YouTube on, as `open-profile` does: choose **Allow YouTube**, then
+**Allow** when Chrome asks, and the page goes on to YouTube. A Chrome
+profile Chrome has just made has no Blowhorn extension yet, so Chrome
+shows that page as blocked. Then add the extension there with
+`blowhorn chrome extension-enable --chrome-profile "<directory>"` and run
+`blowhorn chrome create-profile --profile-directory "<directory>" --sign-in youtube`
+again, which opens the same profile; the command's last line names the
+directory. `url` in `--json` is the extension page.
 
 With `--json` it prints `ok`, `dry_run`, `directory` (the directory
 opened),
@@ -16542,11 +16657,13 @@ Blowhorn desktop app has no screen for creating one.
 as a Remote MCP and leaves the OAuth client fields empty so dynamic
 client registration can run.
 
-The gateway is read-only today. Cloud serves four tools through it,
-`listContentItems`, `getContentItem`, `getEvents` and `getConnections`, so a
-client can read your queue, a post, your activity and your connections, but
-cannot post, schedule or change anything. Writes with approval come with the
-hosted Blowhorn MCP server.
+The gateway is read-only today. Cloud serves six tools through it,
+`listContentItems`, `getContentItem`, `getEvents`, `getConnections`,
+`listSchedules` and `getScheduleById`, so a client can read your queue,
+a post, your activity, your connections and your schedules, but cannot
+post, schedule or change anything. Writes with approval come with the
+hosted Blowhorn MCP server. Where a tool needs an organization, pass
+it as the `organizationId` argument.
 
 The gateway is stateless: every MCP message is its own JSON-RPC `POST` to
 `/mcp`. Opening `/mcp` in a browser sends a `GET` without a token, so it
@@ -18170,7 +18287,7 @@ description: How the MCP server, the CLI, dry runs, confirms and approvals fit t
 --------------------------------------------------------------------------------
 
 An AI assistant that connects to Blowhorn over MCP gets no powers of
-its own. The hosted server at `https://mcp.blowhorn.ai/mcp` serves four
+its own. The hosted server at `https://mcp.blowhorn.ai/mcp` serves six
 read-only tools. Writes you make in the app, or through the CLI, keep
 the rules below. This page explains how those pieces fit together. The
 setup steps are in [Connect an AI assistant over
@@ -18182,7 +18299,7 @@ in the [MCP server reference](/docs/reference/mcp-server/).
 The desktop app's process holds no Blowhorn logic of its own. When it
 runs a tool, it runs the matching `blowhorn` command on your computer
 and hands back what it printed. The hosted server does not do that:
-its four tools are reads served by Cloud. There is one tool per command, built
+its six tools are reads served by Cloud. There is one tool per command, built
 from the same command descriptions the CLI reference is built from,
 except a few that are hidden by default (see below). A new command
 becomes a new tool the next time the server starts.
@@ -18282,8 +18399,8 @@ Clients connect to the hosted server at `https://mcp.blowhorn.ai/mcp`
 MCP](/docs/how-to/set-up/connect-mcp-client/). Sign-in is OAuth 2.1 with
 dynamic client registration and PKCE, or a Bearer Cloud API token. The
 tools today are read-only: `listContentItems`, `getContentItem`,
-`getEvents` and `getConnections`. A request to post or change anything
-has no tool there.
+`getEvents`, `getConnections`, `listSchedules` and `getScheduleById`.
+A request to post or change anything has no tool there.
 
 The desktop app also ships a process that runs on your computer over
 stdio. That process is not the way to connect a client. Approvals for

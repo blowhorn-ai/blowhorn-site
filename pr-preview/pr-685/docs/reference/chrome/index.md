@@ -819,6 +819,15 @@ password. After you sign in, `blowhorn chrome discover` (the desktop's
 **Discover**) sees the sign-in and records it as the profile's
 account in your Blowhorn account.
 
+`--sign-in youtube` is also where you turn YouTube on. The Blowhorn
+extension works on YouTube only in a Chrome profile that allowed it
+([sites you turn on](/docs/reference/extension-permissions/#sites-you-turn-on)), so the
+window opens first on the extension's own page. Choose **Allow YouTube**,
+then **Allow** when Chrome asks, and the page goes on to YouTube for you to
+sign in. In a profile that already allowed it, the page goes straight on.
+`url` in `--json` is that extension page. A YouTube action in a profile that
+has not allowed it stops before it opens anything and names this command.
+
 ## `blowhorn chrome create-profile`
 
 ```bash
@@ -865,6 +874,16 @@ the same as a readable file that does not list the profile yet. With
 instead of a new tab, so setup can guide the sign-in in that window, one
 platform at a time, without a mapping: the profile is not mapped yet at
 that point.
+
+`--sign-in youtube` opens first on the Blowhorn extension's page that
+turns YouTube on, as `open-profile` does: choose **Allow YouTube**, then
+**Allow** when Chrome asks, and the page goes on to YouTube. A Chrome
+profile Chrome has just made has no Blowhorn extension yet, so Chrome
+shows that page as blocked. Then add the extension there with
+`blowhorn chrome extension-enable --chrome-profile "<directory>"` and run
+`blowhorn chrome create-profile --profile-directory "<directory>" --sign-in youtube`
+again, which opens the same profile; the command's last line names the
+directory. `url` in `--json` is the extension page.
 
 With `--json` it prints `ok`, `dry_run`, `directory` (the directory
 opened),

@@ -591,7 +591,26 @@
   <p>How Blowhorn resolves what a run uses, and where its output goes.
 <code>engine/blowhorn/config_schema.py</code> is the one list of options; <code>blowhorn config show</code> prints each with its stored, environment, effective, and
 source values. <code>blowhorn config set</code> edits the file without rewriting
-it: comments, order, and quoting survive.</p>
+it: comments, order, and quoting survive, and a <code>null</code> stays <code>null</code>.
+A file that cannot be read as YAML is reported once on stderr and read as
+empty, so <code>--json</code> output stays one JSON document; <code>config set</code> on such
+a file changes nothing and says so. A stored number written in words is
+refused by name (<code>config show --json</code> included). A key written twice
+makes the file unreadable, and the warning names it
+(<code>defaults.profile is written twice; keep one</code>): Blowhorn does not guess
+which of the two you meant. In a yes/no option, <code>yes</code>, <code>no</code>, <code>on</code> and
+<code>off</code> (in any case) mean yes and no, as they always have, and <code>config show</code> prints them as <code>true</code> and <code>false</code>; in a text option a hand-written
+<code>off</code> or <code>yes</code> is read as that word.</p>
+<p>A merge key (<code>&lt;&lt;: *base</code>) brings its keys in as YAML defines it, the
+mapping's own keys winning. <code>config set</code> changes only the key you name:
+a key under an alias (<code>defaults: *base</code>), or under a mapping an anchor
+or a merge shares with another key, is refused by name and the file is
+left as it was, because the change would reach the other key too; write
+that mapping out in full and set the key again. A text it writes is
+quoted whenever any YAML reader could take it for something else
+(<code>profile: '1:30'</code>, not a number), and a file written with CRLF line
+endings keeps them. A quiet-hours time zone must be spelt as the time
+zone database spells it (<code>America/New_York</code>, not <code>america/new_york</code>).</p>
 <p>Precedence, highest first: the CLI flag, the environment variable, the
 <code>.blowhorn.yaml</code> default, then the built-in. The file lives beside the
 current directory by default (<code>./.blowhorn.yaml</code>); <code>--config</code> points
@@ -811,7 +830,8 @@ to version 2.</p>
 <code>defaults.store.backend</code> or <code>defaults.store.config</code> key left in an older
 file, and <code>BLOWHORN_STORE_BACKEND</code> in the environment, are ignored
 (<code>config show --json</code> lists the two keys as unknown), and <code>config set</code>
-refuses a <code>store.&lt;name&gt;</code> key. Data an older version kept in a local store is
+refuses a <code>store.&lt;name&gt;</code> key and any <code>defaults.store.&lt;name&gt;</code> but
+<code>defaults.store.organization</code>. Data an older version kept in a local store is
 not read and is not brought into your account.</p>
 <h2 id="risk-profile-presets">Risk Profile presets</h2><p>The app calls these the rules of engagement and shows each preset by its display name: <strong>Safety on</strong> is <code>cautious</code>, <strong>Weapons tight</strong> is <code>standard</code> and <strong>Weapons free</strong> is <code>brisk</code>. The stored value, the config file, <code>--risk-profile</code> and every <code>--json</code> payload keep <code>cautious</code>, <code>standard</code> and <code>brisk</code>.</p>
 
@@ -1210,7 +1230,7 @@ per-command flag.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 19, 2026
+  Last modified November 20, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/configuration.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -9,7 +9,28 @@ How Blowhorn resolves what a run uses, and where its output goes.
 `engine/blowhorn/config_schema.py` is the one list of options; `blowhorn
 config show` prints each with its stored, environment, effective, and
 source values. `blowhorn config set` edits the file without rewriting
-it: comments, order, and quoting survive.
+it: comments, order, and quoting survive, and a `null` stays `null`.
+A file that cannot be read as YAML is reported once on stderr and read as
+empty, so `--json` output stays one JSON document; `config set` on such
+a file changes nothing and says so. A stored number written in words is
+refused by name (`config show --json` included). A key written twice
+makes the file unreadable, and the warning names it
+(`defaults.profile is written twice; keep one`): Blowhorn does not guess
+which of the two you meant. In a yes/no option, `yes`, `no`, `on` and
+`off` (in any case) mean yes and no, as they always have, and `config
+show` prints them as `true` and `false`; in a text option a hand-written
+`off` or `yes` is read as that word.
+
+A merge key (`<<: *base`) brings its keys in as YAML defines it, the
+mapping's own keys winning. `config set` changes only the key you name:
+a key under an alias (`defaults: *base`), or under a mapping an anchor
+or a merge shares with another key, is refused by name and the file is
+left as it was, because the change would reach the other key too; write
+that mapping out in full and set the key again. A text it writes is
+quoted whenever any YAML reader could take it for something else
+(`profile: '1:30'`, not a number), and a file written with CRLF line
+endings keeps them. A quiet-hours time zone must be spelt as the time
+zone database spells it (`America/New_York`, not `america/new_york`).
 
 Precedence, highest first: the CLI flag, the environment variable, the
 `.blowhorn.yaml` default, then the built-in. The file lives beside the
@@ -69,7 +90,8 @@ Blowhorn reads and writes everything in your Blowhorn account. A
 `defaults.store.backend` or `defaults.store.config` key left in an older
 file, and `BLOWHORN_STORE_BACKEND` in the environment, are ignored
 (`config show --json` lists the two keys as unknown), and `config set`
-refuses a `store.<name>` key. Data an older version kept in a local store is
+refuses a `store.<name>` key and any `defaults.store.<name>` but
+`defaults.store.organization`. Data an older version kept in a local store is
 not read and is not brought into your account.
 
 ## Risk Profile presets
