@@ -2,8 +2,8 @@
 
 > The logo, the colors, the type and one opinionated rooster. Everything you need to show Blowhorn off without upsetting him.
 
-- Download full brand kit: [https://blowhorn.ai/brand/blowhorn-brand-kit.zip](https://blowhorn.ai/brand/blowhorn-brand-kit.zip) (ZIP, 35 MB). Logos, colors, type, usage rules, Major Blowhorn, the troops, Old Thunderlung, the scenes and the launch press graphics.
-- Download logos only: [https://blowhorn.ai/brand/blowhorn-logo-kit.zip](https://blowhorn.ai/brand/blowhorn-logo-kit.zip) (ZIP, 2.0 MB). Logos, icons and wordmarks in SVG and PNG, light and dark.
+- Download full brand kit: [https://blowhorn.ai/brand/blowhorn-brand-kit.zip](https://blowhorn.ai/brand/blowhorn-brand-kit.zip) (ZIP, 44 MB). Logos, colors, type, usage rules, Major Blowhorn, the troops, Old Thunderlung, the scenes and the launch press graphics.
+- Download logos only: [https://blowhorn.ai/brand/blowhorn-logo-kit.zip](https://blowhorn.ai/brand/blowhorn-logo-kit.zip) (ZIP, 2.4 MB). Logos, icons and wordmarks in SVG and PNG, light and dark.
 
 ## Logo
 
