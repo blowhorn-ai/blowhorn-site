@@ -1,10 +1,25 @@
 # Blowhorn signup worker
 
-The API behind the coming-soon waitlist forms and the newsletter signup:
-`POST /api/waitlist`, `POST /api/subscribe`, `GET /api/unsubscribe` (confirmation page), `POST /api/unsubscribe`.
+The API behind the coming-soon waitlist forms, the newsletter signup and the
+support page's contact form:
+`POST /api/waitlist`, `POST /api/subscribe`, `POST /api/support`, `GET /api/unsubscribe` (confirmation page), `POST /api/unsubscribe`.
 No confirmation step: a signup is live as soon as it is stored. Every
 ship email and newsletter email carries an unsubscribe link built from
 the row token.
+
+## Support messages
+
+`POST /api/support` takes the /support/ page's contact form (name, email,
+subject, message, optional details of what was run and what it printed).
+The D1 table `support_messages` is the record (migrations/0003). The worker
+also forwards each message to the Layer5 Cloud form queue at
+`SUPPORT_FORWARD_URL` (wrangler.json `[vars]`, the public marketing form
+API's blowhorn-support form type, shared with layer5.io's forms), tagged
+`[Blowhorn support]`. The forward is best-effort: a failure (the queue
+refusing or down) still answers success, and the row keeps a NULL
+`forwarded_at` so it can be replayed. Set `SUPPORT_FORWARD_URL` empty to
+store only. The honeypot, rate limit and CORS rules are the same as the
+signup endpoints; form posts are redirected to `/support/thanks/`.
 
 ## Hosting
 
@@ -16,7 +31,8 @@ the row token.
 - Store: Cloudflare D1 database `blowhorn-signups`, bound as
   `SIGNUPS_DB`. The same database is bound to the internal worker,
   which serves the Access-gated admin page and CSV export at
-  `https://internal.blowhorn.ai/internal/signups/`.
+  `https://internal.blowhorn.ai/internal/signups/`. Support messages
+  live in the same database (`support_messages`).
 - CORS: only `https://blowhorn.ai` may call the API from a browser.
 
 ## Deploy
