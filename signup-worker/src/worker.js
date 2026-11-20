@@ -24,7 +24,9 @@ const MAX_EMAIL = 254;
 const MAX_REMARK = 500;
 const MAX_SOURCE_PAGE = 500;
 const MAX_NAME = 100;
-const MAX_SUBJECT = 200;
+// The queue budget for the prefixed subject is 218 characters; the
+// '[Blowhorn support] ' prefix takes 19, leaving 199 for the form.
+const MAX_SUBJECT = 199;
 const MAX_MESSAGE = 5000;
 const MAX_DETAILS = 5000;
 export const MAX_BODY_BYTES = 10 * 1024;
@@ -305,7 +307,7 @@ function validateSupport(fields) {
   const email = typeof fields.email === 'string' ? fields.email.trim().toLowerCase() : '';
   if (!email || email.length > MAX_EMAIL || !EMAIL_RE.test(email)) return { error: 'Enter a valid email address.' };
   const subject = typeof fields.subject === 'string' ? fields.subject.trim() : '';
-  if (!subject || subject.length > MAX_SUBJECT) return { error: 'Enter a subject (200 characters max).' };
+  if (!subject || subject.length > MAX_SUBJECT) return { error: 'Enter a subject (199 characters max).' };
   const message = typeof fields.message === 'string' ? fields.message.trim() : '';
   if (!message || message.length > MAX_MESSAGE) return { error: 'Enter a message (5,000 characters max).' };
   const details = typeof fields.details === 'string' ? fields.details.trim() : '';
