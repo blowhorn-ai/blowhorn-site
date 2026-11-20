@@ -827,6 +827,7 @@ test('support validation rejects missing and over-long fields', async () => {
     supportBody({ name: 'x'.repeat(101) }),
     supportBody({ email: 'not-an-email' }),
     supportBody({ subject: '' }),
+    supportBody({ subject: 'x'.repeat(200) }),
     supportBody({ subject: 'x'.repeat(201) }),
     supportBody({ message: '' }),
     supportBody({ message: 'x'.repeat(5001) }),
