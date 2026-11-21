@@ -452,12 +452,14 @@ def check_countable_network_copy(root: Path) -> list[str]:
     return problems
 
 
-# What makes a list of networks read as open: "Slack, YouTube and more",
-# "... plus many more", "+ many more", "such as LinkedIn, X ...".
-OPEN_LIST_RE = re.compile(
-    r"\b(?:and|or|plus)\s+(?:many\s+)?more\b|\+\s*many\s+more\b|\bsuch\s+as\b",
+# What makes a list of networks read as open, attached to a network name:
+# right after one, "Slack, YouTube and more", "... plus many more",
+# "+ many more"; or right before one, "such as LinkedIn, X ...".
+OPEN_LIST_END_RE = re.compile(
+    r",?\s*(?:(?:and|or|plus)\s+(?:many\s+)?more|\+\s*many\s+more)\b",
     re.I,
 )
+OPEN_LIST_START_RE = re.compile(r"\bsuch\s+as\s*$", re.I)
 TAG_RE = re.compile(r"<[^>]*>")
 
 # Sentences that name the networks as a record of something fixed, not as
@@ -525,8 +527,15 @@ def check_open_network_lists(root: Path) -> list[str]:
         rel = path.relative_to(root).as_posix()
         allowed = [phrase for (p, phrase) in ALL_NETWORK_LISTS_ALLOWED if p == rel]
         for sentence in copy_sentences(path):
-            missing = [n for n in names if not name_res[n].search(sentence)]
-            if len(missing) > 1 or OPEN_LIST_RE.search(sentence):
+            spans = {n: [m.span() for m in name_res[n].finditer(sentence)] for n in names}
+            missing = [n for n in names if not spans[n]]
+            if len(missing) > 1:
+                continue
+            if any(
+                OPEN_LIST_END_RE.match(sentence, end) or OPEN_LIST_START_RE.search(sentence, 0, start)
+                for found in spans.values()
+                for start, end in found
+            ):
                 continue
             if any(phrase in sentence for phrase in allowed):
                 continue

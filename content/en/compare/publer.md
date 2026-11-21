@@ -32,7 +32,7 @@
     {
       "f": "Networks",
       "t": "13 incl. Instagram, TikTok, Telegram, WordPress, LinkedIn, X, Bluesky",
-      "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, YouTube, Slack message via API and more"
+      "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack message via API, YouTube and more"
     },
     {
       "f": "Recycling and bulk scheduling",

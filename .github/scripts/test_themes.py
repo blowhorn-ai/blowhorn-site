@@ -382,16 +382,22 @@ class OpenNetworkListsTest(unittest.TestCase):
     """A sentence listing all of Blowhorn's networks, or all but one, must
     read as open ("and more"), so it never goes stale when one ships."""
 
-    ALL = "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube"
+    PLATFORMS = {
+        "hacker-news": "Hacker News",
+        "linkedin": "LinkedIn",
+        "x": "X (Twitter)",
+        "youtube": "YouTube",
+    }
+    ALL = "LinkedIn, X, Hacker News and YouTube"
 
     def setUp(self):
-        import shutil
-
         import check_theme as check
 
         self.check = check
         self.tmp = Path(tempfile.mkdtemp())
-        shutil.copytree(ROOT / "data" / "platforms", self.tmp / "data" / "platforms")
+        (self.tmp / "data/platforms").mkdir(parents=True)
+        for pid, name in self.PLATFORMS.items():
+            self.write(f"data/platforms/{pid}.yaml", f"id: {pid}\nname: {name}\n")
         (self.tmp / "content/en/compare").mkdir(parents=True)
         (self.tmp / "content/en/docs").mkdir(parents=True)
         (self.tmp / "layouts").mkdir()
@@ -410,11 +416,11 @@ class OpenNetworkListsTest(unittest.TestCase):
     def test_checked_in_copy_passes(self):
         self.assertEqual(self.check.check_open_network_lists(ROOT), [])
 
-    def test_names_come_from_the_platform_yaml(self):
-        names = self.check.supported_network_names(ROOT)
-        self.assertIn("X", names)
-        self.assertIn("YouTube", names)
-        self.assertNotIn("Instagram", names)
+    def test_names_come_from_the_platform_yaml_without_parentheticals(self):
+        self.assertEqual(
+            self.check.supported_network_names(self.tmp),
+            ["Hacker News", "LinkedIn", "X", "YouTube"],
+        )
 
     def test_closed_list_of_every_network_fails(self):
         self.write("content/en/compare/acme.md", f"Posts to {self.ALL}.\n")
@@ -425,7 +431,7 @@ class OpenNetworkListsTest(unittest.TestCase):
     def test_closed_list_missing_one_network_names_it(self):
         self.write(
             "data/x.json",
-            '{"a": "Hacker News, GitHub and Slack join LinkedIn, X, Reddit and Bluesky in one queue."}\n',
+            '{"a": "Hacker News joins LinkedIn and X in one queue."}\n',
         )
         found = self.found()
         self.assertEqual(len(found), 1, found)
@@ -433,25 +439,39 @@ class OpenNetworkListsTest(unittest.TestCase):
 
     def test_open_lists_pass(self):
         for text in (
-            "Posts to LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more.",
-            "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more",
-            "Accounts you configure, such as LinkedIn, X, Reddit, Hacker News, Slack, Bluesky and GitHub.",
-            "Every network: " + self.ALL.replace(" and ", ", ") + " + many more",
+            "Posts to LinkedIn, X, Hacker News, YouTube and more.",
+            "You also speak on X, Hacker News, YouTube and more",
+            "Your audience is on LinkedIn, X, YouTube and more, and you message Hacker News.",
+            "Accounts you configure, such as LinkedIn, X and Hacker News.",
+            "Every network: LinkedIn, X, Hacker News, YouTube + many more",
         ):
             self.write("content/en/compare/acme.md", text + "\n")
             self.assertEqual(self.found(), [], text)
 
+    def test_open_marker_away_from_the_list_does_not_open_it(self):
+        for text in (
+            "Blowhorn posts to LinkedIn, X and Hacker News from one or more computers.",
+            "Post, follow and more on LinkedIn, X and Hacker News.",
+            "Accounts such as yours post to LinkedIn, X and Hacker News.",
+        ):
+            self.write("content/en/compare/acme.md", text + "\n")
+            found = self.found()
+            self.assertEqual(len(found), 1, (text, found))
+            self.assertIn("leaves out YouTube", found[0])
+
     def test_curated_lists_pass(self):
         self.write(
             "data/x.yaml",
-            "a: Analytics cover LinkedIn, X, Bluesky and YouTube.\n"
-            "b: Hacker News, Reddit, GitHub and Slack.\n",
+            "a: Analytics cover LinkedIn and YouTube.\n"
+            "b: Hacker News and X.\n",
         )
         self.assertEqual(self.found(), [])
 
     def test_layouts_are_scanned_through_their_tags(self):
         self.write("layouts/x.html", f"<p>One queue for <b>{self.ALL}</b>.</p>\n")
         self.assertEqual(len(self.found()), 1)
+        self.write("layouts/x.html", "<p>One queue for <b>LinkedIn, X, Hacker News</b> and more.</p>\n")
+        self.assertEqual(self.found(), [])
 
     def test_synced_docs_are_not_scanned(self):
         self.write("content/en/docs/x.md", f"Blowhorn posts to {self.ALL}.\n")
@@ -461,7 +481,7 @@ class OpenNetworkListsTest(unittest.TestCase):
         (self.tmp / "content/en/resources/videos/getting-started").mkdir(parents=True)
         self.write(
             "content/en/resources/videos/getting-started/battalion-thunder.md",
-            "Major Blowhorn's one call lands on LinkedIn, X, Bluesky, Reddit, GitHub, Hacker News and Slack.\n",
+            "Major Blowhorn's one call lands on LinkedIn, X and Hacker News.\n",
         )
         self.assertEqual(self.found(), [])
 
