@@ -5,9 +5,9 @@
 --------------------------------------------------------------------------------
 title: "Blowhorn: not a bot, it's you"
 url: /pr-preview/pr-701/index.md
-description: Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your profiles on LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, from your own computers, as you.
+description: Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, from your own computers, as you.
 --------------------------------------------------------------------------------
-Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your profiles on LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, from your own computers, as you.
+Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, from your own computers, as you.
 
 --------------------------------------------------------------------------------
 title: "Meet Major Blowhorn"
