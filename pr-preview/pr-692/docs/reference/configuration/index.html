@@ -37,7 +37,7 @@
     <link rel="icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link href="/pr-preview/pr-692/scss/main.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script src="/pr-preview/pr-692/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/pr-preview/pr-692/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -292,6 +292,8 @@
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-youtube-li">
+    <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishreply-to-a-post-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishsend-a-slack-message-li">
@@ -735,7 +737,7 @@ environment variables.</p>
       <td><code>defaults.quiet_hours_tz</code></td>
       <td><code>BLOWHORN_QUIET_HOURS_TZ</code></td>
       <td>this computer's zone</td>
-      <td>The IANA time zone <code>defaults.quiet_hours</code> is read in, like <code>America/New_York</code>. A profile's own Quiet Hours Time Zone setting wins for its activities</td>
+      <td>The IANA time zone <code>defaults.quiet_hours</code> is read in, like <code>America/New_York</code>, spelled exactly as the time-zone database spells it: <code>america/new_york</code> is refused on every computer. A profile's own Quiet Hours Time Zone setting wins for its activities</td>
     </tr>
     <tr>
       <td><code>defaults.typing_delay_min_ms</code>, <code>defaults.typing_delay_max_ms</code>, <code>defaults.typing_jitter_ms</code>, <code>defaults.typing_target_duration_s</code></td>
@@ -1033,7 +1035,7 @@ not read and is not brought into your account.</p>
 <h3 id="caps">Caps</h3><p>The share of each platform's built-in ceiling the preset allows per day (and per hour, scaled the same way): cautious 25%, standard 50%, brisk 100%. No preset can raise a ceiling. A profile's own daily cap (<code>defaults.caps</code>, or its <code>Daily Caps</code> store attribute) can only lower the effective cap further, per action. For example, on LinkedIn the built-in ceiling is 10 posts a day, so cautious allows 2, standard 5 and brisk 10, before any user cap or warmup ramp. A cap that cannot be read holds every action for that platform or profile until it is fixed.</p>
 <h3 id="spacing-between-public-actions">Spacing between public actions</h3><p>The least time between two public actions on one platform for one profile, plus a random wait up to the jitter: cautious 15 minutes plus up to 15 minutes, standard and brisk none. The ready time is seeded by profile, platform and the last action's time, so every computer and a dry run agree on it. This dial is enforced by the gate: an action inside the spacing is held with its ready time.</p>
 <h3 id="quiet-hours">Quiet hours</h3><p>Local hours with no public actions: cautious 22:00 to 07:00, standard and brisk none. This is the preset's quiet hours, separate from <code>defaults.quiet_hours</code>, which is a window you name yourself for scheduled claims. A due scheduled activity inside quiet hours is held, not failed, and runs when the window ends.</p>
-<h3 id="outreach">Outreach</h3><p>Whether connect, invite and follow actions may run: cautious off, standard on established platforms only (off on platforms still being built: Facebook, Instagram, TikTok, YouTube), brisk on everywhere, including those platforms. When outreach is off, the gate refuses the action with the preset named, rather than queuing it silently.</p>
+<h3 id="outreach">Outreach</h3><p>Whether connect, invite and follow actions may run: cautious off, standard on established platforms only (off on platforms still marked experimental in the Risk Profile table: Facebook, Instagram, TikTok, and YouTube, which is otherwise a supported platform), brisk on everywhere, including those platforms. When outreach is off, the gate refuses the action with the preset named, rather than queuing it silently.</p>
 <h3 id="pause-after-a-challenge">Pause after a challenge</h3><p>How long a profile on a platform is held after a CAPTCHA, checkpoint or restriction page: cautious 72 hours, standard 24 hours, brisk 12 hours, counted from the last such record in the ledger. The hold names the reason and the time it can run again. Blowhorn never solves a CAPTCHA or 2FA prompt; a challenge is left for you.</p>
 <h3 id="retries-of-a-failed-scheduled-job">Retries of a failed scheduled job</h3><p>How many times a failed scheduled job may be tried again: cautious 0, standard 0, brisk 1. A login is never retried under any preset, and a retry is never granted for an unknown outcome (a post may have gone out), a warming profile, or a trigger-now run. This dial is about scheduled jobs; within a run, a failed post is not retried, it moves on.</p>
 <h3 id="warmup">Warmup</h3><p>A new profile or a new Mac runs cautious for scheduled jobs until it has history, whatever preset was chosen, and its caps ramp over that period: from about a quarter of cautious's caps on day one to cautious's full caps by day 14. The per-preset figures in the table (14, 7, 3 days) are the values <code>risk show</code> reports for each preset; the gate that holds scheduled jobs uses cautious's 14-day window for every choice, so a brisk choice does not shorten a new profile's cautious period. A run you start yourself is not held by the warmup, only warned about, and it follows the chosen preset's caps, quiet hours and outreach. A profile idle longer than the 15-day ledger window warms up again.</p>
@@ -1230,7 +1232,7 @@ per-command flag.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 20, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/configuration.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

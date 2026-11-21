@@ -41,6 +41,6 @@ Later helps a brand look good. Blowhorn helps a message get answered. On develop
 
 **Is Later better than Blowhorn?** For visual, Instagram-first brands, yes - and we'd tell you to pick it. For technical launches on LinkedIn, X, Reddit, Hacker News and GitHub, we think Blowhorn is the better fit.
 
-**Does Blowhorn support Instagram?** Not for posting: the Instagram, TikTok and Facebook platform pages list no actions. YouTube is supported: uploads, Posts tab posts, comments, replies and likes, from your own browser.
+**Does Blowhorn support Instagram?** Not yet. Instagram, Facebook and TikTok are on the way; Blowhorn doesn't post there yet. YouTube is supported: uploads, Posts tab posts, comments, replies and likes, from your own browser, or through YouTube's official API once you give consent.
 
 [Download](/pr-preview/pr-692/download/)

@@ -110,9 +110,9 @@ GitHub's API, never the browser. [GitHub docs](/docs/reference/platforms/github/
 
 ### YouTube
 
-Your own signed-in browser, through the Blowhorn extension, once you turn on YouTube. [YouTube docs](/docs/reference/platforms/youtube/)
+Your own signed-in browser, through the Blowhorn extension, once you turn on YouTube; after YouTube Data API consent, YouTube's official API. [YouTube docs](/docs/reference/platforms/youtube/)
 
-- **[Post](/docs/reference/platforms/youtube/#action-post)**: Uploads a video through YouTube Studio with its title, description and visibility (private unless you choose unlisted or public), or as a Short. With Community set to yes, it publishes a post on your channel's Posts tab instead. Limits: At most 3 uploads and 2 Posts tab posts per profile a day. A Short longer than 3 minutes or wider than it is tall is refused before anything opens. Check each upload in YouTube Studio.
+- **[Post](/docs/reference/platforms/youtube/#action-post)**: Uploads a video through YouTube Studio in your signed-in browser by default (after YouTube Data API consent, through YouTube's official API) with its title, description and visibility (private unless you choose unlisted or public), or as a Short. With Community set to yes, it publishes a post on your channel's Posts tab instead, always in the signed-in browser. Limits: At most 3 uploads and 2 Posts tab posts per profile a day. A Short longer than 3 minutes or wider than it is tall is refused before anything opens. Check each upload in YouTube Studio.
 - **[Comment](/docs/reference/platforms/youtube/#action-comment)**: Comments on the YouTube video you point it at. Limits: At most 10 a day per profile. A comment with an @name in it is refused. A scheduled run never comments; it waits for a run you start.
 - **[Reply](/docs/reference/platforms/youtube/#action-reply)**: Replies to the YouTube comment you point it at, by the comment's own link. Limits: At most 10 a day per profile. A reply to a reply, or one with an @name in it, is refused. A scheduled run never replies.
 - **[Amplify](/docs/reference/platforms/youtube/#action-amplify)**: Likes a video from each of your profiles. Limits: At most 20 likes a day per profile. A scheduled run never likes; it waits for a run you start.

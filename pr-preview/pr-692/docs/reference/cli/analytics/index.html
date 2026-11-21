@@ -37,7 +37,7 @@
     <link rel="icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link href="/pr-preview/pr-692/scss/main.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script src="/pr-preview/pr-692/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/pr-preview/pr-692/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -292,6 +292,8 @@
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-youtube-li">
+    <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishreply-to-a-post-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishsend-a-slack-message-li">
@@ -670,7 +672,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -702,7 +704,8 @@
   <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --profile personal --dry-run -v
 </span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --profile personal --lookback <span class="m">365</span>
 </span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --platform x --profile personal,acme
-</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --platform x --profile all --exclude <span class="s2">&#34;&#34;</span></span></span></code></pre></div></div>
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --platform x --profile all --exclude <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --platform youtube --profile personal</span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
 <p>Output: json with <code>--json</code>, text otherwise.</p>
@@ -756,7 +759,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -840,7 +843,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -917,7 +920,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1002,7 +1005,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1085,7 +1088,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1192,7 +1195,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn analytics</code>. One of: bluesky, linkedin, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1234,7 +1237,7 @@
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/cli/analytics.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

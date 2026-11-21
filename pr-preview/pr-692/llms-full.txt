@@ -814,7 +814,7 @@ A video people are glad they watched beats a video that tricked them into stayin
 - **Comment spam.** "Using high-volume, repetitive, or deceptive comments, live chats, or other messages," such as "Posting identical or similar 'check out my channel' messages across hundreds of videos" ([Spam policy](https://support.google.com/youtube/answer/2801973)).
 - **Automated access.** You may not "access the Service using any automated means (such as robots, botnets or scrapers)" or "cause or encourage any inaccurate measurements of genuine user engagement with the Service" ([YouTube Terms of Service, 15 Dec 2023](https://www.youtube.com/static?template=terms)).
 
-The last rule is about software, not only behavior. Blowhorn acts in your own signed-in browser, at your pace, and leaves every comment, reply and like to a run you start. It is still software acting on YouTube, so weigh that rule before you run anything there.
+The last rule is about software, not only behavior. Blowhorn acts in your own signed-in browser through the extension, or, once a profile gives YouTube Data API consent, through YouTube's official API. Either way it works at your pace and leaves every comment, reply and like to a run you start. It is still software acting on YouTube, so weigh that rule before you run anything there.
 
 ## Do's and don'ts
 
@@ -825,7 +825,11 @@ The last rule is about software, not only behavior. Blowhorn acts in your own si
 
 ## What Blowhorn does on YouTube
 
-In your own signed-in browser, through the extension, once you turn on YouTube for that browser profile: uploads videos (private unless you choose unlisted or public), publishes posts on your channel's Posts tab, and comments, replies and likes. With your own Data API consent it also reads your channel's analytics. A scheduled run never comments, replies, likes or posts on the Posts tab, and each profile has daily ceilings: 3 uploads, 10 comments, 10 replies, 20 likes and 2 Posts tab posts ([YouTube](/docs/reference/platforms/youtube/)).
+Once you turn on YouTube for a browser profile, Blowhorn runs these actions in your own signed-in browser, through the extension: uploads videos (private unless you choose unlisted or public), publishes posts on your channel's Posts tab, and comments, replies and likes. Once that profile gives YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API instead. Posts on the Posts tab have no Data API path and stay in the signed-in browser. Reading your channel's analytics needs that consent.
+
+A scheduled run never comments, replies, likes or posts on the Posts tab. Each profile has daily ceilings, counted across every run that day: 3 uploads, 10 comments, 10 replies, 20 likes and 2 Posts tab posts. An activity past its ceiling waits for the next day.
+
+Further reading: [YouTube platform reference](/docs/reference/platforms/youtube/).
 
 
 --------------------------------------------------------------------------------
@@ -1469,7 +1473,7 @@ url: /pr-preview/pr-692/docs/how-to/publish/index.md
 description: Queue a post, preview it, publish it, reply, and amplify.
 --------------------------------------------------------------------------------
 
-Add posts to the queue, preview them with a dry run, publish them to several profiles at once, and amplify what worked: reposts, retweets, quotes, upvotes, and GitHub reactions. Reply and comment from the queue too.
+Add posts to the queue, preview them with a dry run, publish them to several profiles at once, and amplify what worked: reposts, retweets, quotes, upvotes, and GitHub reactions. Reply and comment from the queue too. For YouTube uploads, Posts-tab posts, comments, replies and likes, see [Post to YouTube](/docs/how-to/publish/post-to-youtube/).
 
 
 --------------------------------------------------------------------------------
@@ -1550,13 +1554,16 @@ in the how-to guides linked under Related.
 
 {{< major >}}Two hundred seventy-four characters before X wants a thread. I don't make the rules. I thread them.{{< /major >}}
 
-Four platforms drive your own signed-in Google Chrome through the extension:
-LinkedIn, X, Reddit, and Hacker News. Three post through their APIs
+Five platforms drive your own signed-in Google Chrome through the extension:
+LinkedIn, X, Reddit, Hacker News, and YouTube. YouTube needs the
+extension's YouTube permission first, granted with **Turn on YouTube** on a
+profile's **Browser** tab in the desktop app, or with
+`blowhorn chrome open-profile <profile> --sign-in youtube`. Three post through their APIs
 above the browser: Slack, Bluesky, and GitHub. A platform is usable the
 moment its credential exists; see [Who can post as whom](/docs/explanation/eligibility/).
 
 `blowhorn post --platform` accepts one of: `linkedin`, `x`, `reddit`,
-`hn`, `slack`, `bluesky`, `github`, or `all`. `twitter` reads as `x`
+`hn`, `slack`, `bluesky`, `github`, `youtube`, or `all`. `twitter` reads as `x`
 and `bsky` as `bluesky`. GitHub is amplify-only under `post`: it needs
 an issue or pull-request URL and refuses without one.
 
@@ -1625,6 +1632,7 @@ attribute -- but never a higher one. See
 
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
 - [Post to Hacker News](/docs/how-to/publish/post-to-hacker-news/) - the strictest platform, worked.
+- [Post to YouTube](/docs/how-to/publish/post-to-youtube/) - uploads, Posts-tab posts, comments, replies, likes and analytics, worked.
 - [Content queue columns and activity states](/docs/reference/content-queue/) - every column each platform reads.
 - [Messages and exit codes](/docs/reference/messages/) - what a refusal means.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.
@@ -2025,8 +2033,9 @@ The commands that never look at `--platform` do not reject anything:
 - `schedule` reads it as a filter over scheduled activities, and accepts every
   platform an activity may carry.
 - `profile current/list/switch` never read it.
-- `profile auth --all` refreshes a fixed list and ignores `--platform`
-  entirely, so an unsupported platform is inert there too.
+- `profile auth --all` refreshes a fixed list (LinkedIn, X, Reddit and
+  Slack; never the YouTube consent, which is asked for by name) and ignores
+  `--platform` entirely, so an unsupported platform is inert there too.
 
 `schedule` is the one activity that is not "what this command acts on". It dispatches
 whatever a schedule activity names, and its `--platform` filters those activities, so every
@@ -2138,6 +2147,7 @@ blowhorn profile switch your-profile
 blowhorn profile auth --platform x            # a sign-in records the session as valid, checked now
 blowhorn profile auth --platform bluesky --profile your-profile  # prompts for handle + app password; saved only if Bluesky accepts the login
 printf '%s\n' "$APP_PASSWORD" | blowhorn profile auth --platform bluesky --profile your-profile --handle you.bsky.social --app-password-stdin --json
+blowhorn profile auth --platform youtube --profile your-profile  # the Data API consent in your browser, with your own OAuth client; nothing stored if you refuse
 blowhorn profile auth --platform reddit --profile all --exclude ""
 blowhorn profile auth --all
 ```
@@ -2625,7 +2635,7 @@ each platform's built-in ceiling.
 - **After a challenge:** the profile on that platform is held for 24
   hours.
 - **Outreach:** on for established platforms, off on platforms still
-  being built (Facebook, Instagram, TikTok, YouTube).
+  marked experimental in the Risk Profile table (Facebook, Instagram, TikTok, and YouTube, which is otherwise a supported platform).
 - **At once:** one profile at a time on a platform, and no preset limit
   on runs overall. Setting `defaults.concurrency.max_runs` adds one.
 - **Retries:** a failed scheduled job is not retried.
@@ -2647,7 +2657,7 @@ the most throughput and accept the most exposure.
 - **After a challenge:** the profile on that platform is held for 12
   hours - the shortest pause, so a challenge is the place Weapons free costs
   you the most caution.
-- **Outreach:** on everywhere, including platforms still being built.
+- **Outreach:** on everywhere, including platforms marked experimental.
 - **At once:** different profiles may share a platform, and no preset
   limit on runs overall. One profile is still held to one run on a
   platform.
@@ -4251,7 +4261,8 @@ description: Browser sign-ins, tokens, and app passwords each profile needs befo
 One section per platform. LinkedIn, X, and Reddit sign in by hand in your
 Google Chrome; Bluesky takes a handle and an app password; GitHub takes a token;
 Hacker News takes a username and password, or a confirmed Chrome session;
-Slack takes a captured session.
+Slack takes a captured session; YouTube takes a Chrome sign-in, the
+channel's address and, for analytics and the Data API, your own OAuth consent.
 
 Do the mapping first
 ([Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/)):
@@ -4416,6 +4427,169 @@ blowhorn profile auth --platform slack --profile ada --workspace acme.slack.com
 
 Omit `--workspace` to refresh every workspace already listed under
 `slack_workspaces` in that credential.
+
+## YouTube
+
+Let the extension reach YouTube in the profile's mapped Chrome, and sign in
+to the channel there by hand. In the desktop app, open **Profiles**, open the
+profile, go to its **Browser** tab, pick the Google Chrome profile that has
+**Turn on YouTube**, and choose it. From Terminal:
+
+```bash
+blowhorn chrome open-profile ada --sign-in youtube
+```
+
+A Blowhorn page opens in that Chrome profile: choose **Allow YouTube**, then
+**Allow** when Chrome asks, then sign in to YouTube on the page it goes on
+to. If Chrome says the page is blocked, the Blowhorn extension is not in
+that Chrome profile yet: add it there first. **Discover** does not look for
+a YouTube sign-in, so there is nothing to check afterward.
+
+Only the Google Chrome profile a YouTube run would use has the button. If the
+profile has several Chrome profiles and none is chosen for YouTube, choose one
+first; each Chrome profile shows the command that chooses it, for example:
+
+```bash
+blowhorn chrome map ada 'Profile 2' --for youtube
+```
+
+Then give the profile its channel: the channel's address by ID, like
+`https://www.youtube.com/channel/UC...`. YouTube shows the ID at
+[youtube.com/account_advanced](https://www.youtube.com/account_advanced)
+while you are signed in to the channel.
+
+In the desktop app, paste it into **Channel address** on the same
+**YouTube** row of the profile's **Browser** tab (**Find your channel ID**
+opens that YouTube page). It saves when you leave the field. To change it
+later, choose the profile's **YouTube** row on its **Accounts** tab, which
+opens that field; empty the field to remove the channel. From Terminal:
+
+```bash
+blowhorn profile set ada YT_CHANNEL_URL=https://www.youtube.com/channel/UC...
+```
+
+A handle address (`https://www.youtube.com/@name`) is refused with the
+reason, in the app and by `profile set`, and nothing is saved: it names no
+channel ID, and Blowhorn never guesses which channel a handle means. A
+profile that already holds a handle address reads **Needs channel ID** on its
+**Accounts** tab; choose that row and paste the address by ID. Until the
+profile has a channel, its YouTube activities are not eligible.
+
+### Give the YouTube Data API consent
+
+Analytics, and uploads, comments, replies and likes through the Data API
+instead of Google Chrome, need the profile's own OAuth consent. Uploads
+through the Data API are experimental and have not been live-verified;
+Studio in signed-in Google Chrome is the supported default when this
+consent is not given. The consent is given to your own Google Cloud
+OAuth client: Blowhorn ships none.
+
+1. In the [Google Cloud console](https://console.cloud.google.com/), in a
+   project of your own, enable the **YouTube Data API v3** and the
+   **YouTube Analytics API**.
+2. Set up the project's OAuth consent screen. While its publishing status
+   is "Testing", add the Google account that owns the channel as a test
+   user; Google then expires the consent after 7 days, so publish the app
+   to keep it.
+3. Create an OAuth client ID of type **Desktop app**, and store its ID and
+   secret in the profile's credential:
+
+   ```bash
+   blowhorn profile set ada YT_OAUTH_CLIENT_ID=1234-abc.apps.googleusercontent.com YT_OAUTH_CLIENT_SECRET=GOCSPX-...
+   ```
+
+   Or set `BLOWHORN_YOUTUBE_OAUTH_CLIENT_ID` and
+   `BLOWHORN_YOUTUBE_OAUTH_CLIENT_SECRET` in the environment for the next
+   step; the consent stores them in the credential either way, because a
+   consent refreshes only with the client that issued it.
+4. Check that the client is found, opening nothing:
+
+   ```bash
+   blowhorn profile auth --platform youtube --profile ada --dry-run
+   ```
+
+5. Give the consent:
+
+   ```bash
+   blowhorn profile auth --platform youtube --profile ada
+   ```
+
+   Google's consent page opens in your default browser. Sign in, choose
+   the channel and allow access. Blowhorn waits up to five minutes for the
+   answer on 127.0.0.1, then stores `YT_OAUTH_REFRESH_TOKEN` and
+   `YT_OAUTH_SCOPES` in the profile's YouTube credential, with the client
+   from step 3 when it came from the environment. If you refuse, close the
+   page or let the five minutes pass, nothing is stored; run the command
+   again. If your Blowhorn account does not accept YouTube connections yet,
+   the summary says so and nothing is stored, and running the command again
+   does not help until it does. In the rare case Blowhorn also cannot remove
+   the credential it saved for that account, the summary names that
+   credential instead; delete it from the Credentials page of your Blowhorn
+   account. If Google grants only some of the access
+   asked for, the summary names what is missing, and the calls that need it
+   are refused.
+
+In the desktop app, the same consent is **Give consent** under **Data API
+consent** on the YouTube row of the profile's **Browser** tab. It runs the
+command above, so Google's page opens in your default browser the same way,
+and the row says what Google granted or why nothing was stored. Once a
+consent is given, **Give again** runs the same consent and replaces the one
+stored, for example to grant the access Google left out; it deletes nothing.
+
+The consent is given for one profile at a time, and a scheduled run never
+opens it.
+
+### Take the YouTube Data API consent back
+
+To stop Blowhorn using a profile's YouTube consent and delete what it read
+with it:
+
+1. Preview what would go, sending and deleting nothing:
+
+   ```bash
+   blowhorn profile auth --platform youtube --profile ada --revoke --dry-run
+   ```
+
+2. Take the consent back:
+
+   ```bash
+   blowhorn profile auth --platform youtube --profile ada --revoke
+   ```
+
+   Blowhorn revokes the refresh token at Google, deletes the YouTube channel
+   and video figures it kept for that profile, and clears
+   `YT_OAUTH_REFRESH_TOKEN` and `YT_OAUTH_SCOPES`. The summary counts the
+   figures deleted. Other profiles' figures stay, and so does the OAuth
+   client, so giving the consent again needs no setup.
+
+In the desktop app, choose **Take back** under **Data API consent** on the
+YouTube row of the profile's **Browser** tab, then **Take back consent**.
+
+If Google cannot be reached or refuses, nothing is deleted or cleared; run
+the command again. If the profile holds no consent, nothing is sent to
+Google and any figures still kept for it are deleted, so running the command
+twice is harmless. Removing Blowhorn's access at
+[myaccount.google.com/permissions](https://myaccount.google.com/permissions)
+also works: the next YouTube run that tries to refresh the token then
+deletes the figures and forgets the consent.
+
+[YouTube API Services Developer Policies](https://developers.google.com/youtube/terms/developer-policies)
+set the deadlines (last updated 2026-11-06, read 2026-11-20). When Blowhorn
+revokes the consent itself, III.D requires deletion as soon as possible and
+within 7 calendar days, and the token to be revoked immediately; the command
+above does both at once. When you revoke through Google's security settings
+page, III.E.4 (via III.A.2.i) allows 30 calendar days to delete API data
+accessed or stored pursuant to that consent; Blowhorn does this on the next
+run that sees the revocation.
+
+If the store is down or refuses the delete, the consent is kept, so the
+command or the next run can try the deletion again. Blowhorn never forgets
+the consent first and leaves readings behind. None of the consent, refresh or
+revocation path has been live-checked against Google.
+
+The daily deletion of YouTube figures older than 30 days is separate,
+and runs across the organization; see
+[How long YouTube figures are kept](/docs/reference/platforms/youtube/#how-long-youtube-figures-are-kept).
 
 ## Related
 
@@ -5586,7 +5760,7 @@ blowhorn analytics [OPTIONS]
 | --- | --- | --- | --- |
 | `--lookback` | integer |  | Days to look back for export |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn analytics` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -5599,6 +5773,7 @@ blowhorn analytics --profile personal --dry-run -v
 blowhorn analytics --profile personal --lookback 365
 blowhorn analytics --platform x --profile personal,acme
 blowhorn analytics --platform x --profile all --exclude ""
+blowhorn analytics --platform youtube --profile personal
 ```
 
 Output: json with `--json`, text otherwise.
@@ -5618,7 +5793,7 @@ blowhorn analytics activities [OPTIONS] activities...
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics activities` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics activities` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -5648,7 +5823,7 @@ blowhorn analytics activity [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics activity` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics activity` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -5676,7 +5851,7 @@ blowhorn analytics history [OPTIONS]
 | `--since` | string |  | How far back to read: a number with d, w, m or y (30d, 12m, 1y), or `all` (default: 12m) |
 | `--subject` | string |  | One page or profile name (all by default) |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics history` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics history` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -5707,7 +5882,7 @@ blowhorn analytics import-exports [OPTIONS] [paths...]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics import-exports` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics import-exports` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -5736,7 +5911,7 @@ blowhorn analytics operations [OPTIONS]
 | `--group-by` | string |  | Aggregate per profile, platform, command, day or host -- host is the machine that ran it (default: profile) |
 | `--kind` | string |  | Which ledger records to aggregate: run (action runs, the default) or tick (scheduler passes) |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics operations` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics operations` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -5772,7 +5947,7 @@ blowhorn analytics pages [OPTIONS] [pages_action] [pages_name] [pages_kind] [pag
 | --- | --- | --- | --- |
 | `--disabled` | boolean | `false` | Add the page disabled: listed, but collection skips it until it is added again without this flag |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics pages` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics pages` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -6922,7 +7097,7 @@ blowhorn content approve [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content approve` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content approve` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -6955,7 +7130,7 @@ blowhorn content delete [OPTIONS] activity
 | `--yes` | boolean | `false` | Confirm the delete; without it the command refuses and exits 1 (use `--dry-run` to preview) |
 | `--expected-fingerprint` | string |  | Refuse the write if the post's fingerprint (from `content get` or `content list`) no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content delete` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -6986,7 +7161,7 @@ blowhorn content get [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content get` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content get` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7015,7 +7190,7 @@ blowhorn content list [OPTIONS]
 | --- | --- | --- | --- |
 | `--pending` | boolean | `false` | Only posts some profile would pick up right now: the posts `blowhorn post --check-queue` lists |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content list` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content list` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7045,7 +7220,7 @@ blowhorn content posts [OPTIONS]
 | --- | --- | --- | --- |
 | `--pending` | boolean | `false` | Only posts some profile would pick up right now: the posts `blowhorn post --check-queue` lists |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content posts` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content posts` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7065,7 +7240,7 @@ Output: json with `--json`, text otherwise.
 
 Create a post, or update one in place, from a JSON object of column: value pairs in the queue's own column names. Without `--activity` a new activity is created and given the next activity number; with `--activity` the payload is merged over that activity, and every column it does not name is left as it was.
 
-Platform must be one `blowhorn post` publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Visibility (private, unlisted or public), Short and Community (yes or no) are YouTube settings, kept beside the columns: blank leaves one unset, and any other platform refuses them. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the activity changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
+Platform must be one `blowhorn post` publishes to (bluesky, github, hn, linkedin, reddit, slack, x, youtube); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Visibility (private, unlisted or public), Short and Community (yes or no) are YouTube settings, kept beside the columns: blank leaves one unset, and any other platform refuses them. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the activity changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
 
 ```text
 blowhorn content upsert [OPTIONS]
@@ -7080,7 +7255,7 @@ blowhorn content upsert [OPTIONS]
 | `--reply-to-id` | string |  | Item this new activity answers directly, by item id; needs `--thread-id` |
 | `--thread-index` | integer |  | Position of this new activity in its thread, counting from 1 (the root carries no thread fields and counts as 0); needs `--thread-id` |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content upsert` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content upsert` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7584,6 +7759,311 @@ Output: json with `--json`, text otherwise.
 
 
 --------------------------------------------------------------------------------
+title: "Post to YouTube"
+url: /pr-preview/pr-692/docs/how-to/publish/post-to-youtube/index.md
+description: Upload a video, post on the Posts tab, comment, reply, like, and collect analytics, with the behavior of each activity.
+--------------------------------------------------------------------------------
+
+
+Upload a video to YouTube, post on your channel's Posts tab, comment, reply
+or like, and collect analytics, from a content activity.
+
+{{< major >}}Studio is the supported upload path, and the default. Studio starts on Public. We don't. Private is the default visibility, and a dry fire through Google Chrome still leaves a private draft the moment the file attaches. Uploads through the Data API are experimental.{{< /major >}}
+
+Uploads through YouTube Studio, in signed-in Google Chrome, are the
+supported path and the default. One hand-supervised private Studio upload
+has already been run (2026-11-19). Unlisted and Public, Checks,
+the made-for-kids choice, and many dialog selectors have not been
+live-clicked; they are modeled from YouTube's pages and docs.
+
+Uploads through the YouTube Data API are experimental and have not been
+live-verified. Giving the Data API consent switches uploads, comments,
+replies and likes onto that path; there is no fallback to Studio.
+Without the consent, uploads use Studio. Analytics also need that
+consent. Comments, replies, likes and analytics through the Data API
+have not had a live check either. What each activity does, including
+that caveat, is also on the
+[YouTube reference page](/docs/reference/platforms/youtube/).
+
+## Before the first run
+
+1. **Let the extension reach YouTube** in the Google Chrome profile this
+   Blowhorn profile uses, and sign in to the channel by hand. In the
+   desktop app, open **Profiles**, open the profile, go to its **Browser**
+   tab, and choose **Turn on YouTube**. From Terminal:
+
+   ```bash
+   blowhorn chrome open-profile your-profile --sign-in youtube
+   ```
+
+   Allow YouTube when the Blowhorn page and Chrome ask, then sign in on
+   the YouTube page it goes on to. Until that permission is granted, a
+   YouTube run is refused with nothing sent. **Discover** does not look
+   for a YouTube sign-in. The full procedure is in
+   [Set up your platform accounts](/docs/how-to/set-up/platform-accounts/#youtube).
+
+2. **Store the channel's address by ID**, shown at
+   youtube.com/account_advanced. A handle address (`/@name`) is refused,
+   because Blowhorn never guesses which channel a handle means.
+
+   ```bash
+   blowhorn profile set your-profile YT_CHANNEL_URL=https://www.youtube.com/channel/UC...
+   ```
+
+3. **Optional: give the Data API consent** if you want analytics, or if
+   you want comments, replies and likes to go through the YouTube Data
+   API instead of Google Chrome. Uploads through the Data API are
+   experimental and not live-verified; Studio remains the supported
+   default. The consent uses your own Google Cloud OAuth client (type
+   Desktop app); Blowhorn ships none. The steps are in
+   [Give the YouTube Data API consent](/docs/how-to/set-up/platform-accounts/#give-the-youtube-data-api-consent).
+
+   ```bash
+   blowhorn profile auth --platform youtube --profile your-profile
+   ```
+
+   With that consent in place, uploads, comments, replies and likes use
+   the Data API (uploads on that path are experimental). Without it,
+   those activities use signed-in Google Chrome, which is the supported
+   default for uploads, and analytics skips the profile. A failure on
+   one path never falls back to the other.
+
+If the profile has no YouTube credential, `blowhorn post --profile
+your-profile --platform youtube` exits non-zero and says the profile has
+no credential for youtube, so nothing can be selected for posting, and
+to add one with `blowhorn profile set your-profile <KEY>=<value>`. That
+message does not name `YT_CHANNEL_URL`. Set the key as shown above. A
+handle address is refused by name, with the ID form to use. Nothing
+opens Google Chrome in either case.
+
+## Upload a video
+
+Set `Video URL`, `Title` and `Message Text` (the description). Leave
+`Comment on`, `Amplify` and `Community` blank. A blank `Visibility` is
+private.
+
+```bash
+blowhorn content upsert --payload '{"Platform":"YouTube","Profile":"your-profile","Title":"Launch day","Message Text":"What we shipped and why it matters.","Video URL":"https://example.com/launch.mp4","Approved?":"yes"}'
+```
+
+Then preview, and publish:
+
+```bash
+blowhorn post --platform youtube --profile your-profile --dry-run
+blowhorn post --platform youtube --profile your-profile
+```
+
+Through Google Chrome, Blowhorn opens Studio's upload page at the
+channel ID in `YT_CHANNEL_URL`, attaches the file, and walks Details,
+Video elements, Checks and Visibility. It answers "made for kids" with
+No, and stops if Studio Checks reports a problem, with nothing
+published. The channel is checked when the upload page shows, once
+Details opens, and again just before the final click, because Studio can
+switch channels after the upload page first showed. If the address is
+not the channel `YT_CHANNEL_URL` names, the activity stops with nothing
+published.
+
+Visibility is chosen explicitly and verified before that click. Studio's
+Visibility page starts on Public, with the final button reading Publish.
+Blowhorn selects the row's setting (`private` when `Visibility` is
+blank), reads the choice back, and clicks only when the button reads
+Save (private or unlisted) or Publish (public). If the button does not
+read what that setting requires, the click is refused and nothing is
+published. Unlisted and Public have not been live-clicked.
+
+Nothing is read after a successful click, so the activity is recorded as
+*clicked, outcome not read*: check the upload in YouTube Studio.
+
+The title may be at most 100 characters and the description at most
+5,000. A longer value is refused before the file is fetched and before
+Studio opens, not shortened. `<` and `>` are refused in both.
+
+Once the file is attached, Studio has already saved the upload as
+private, including during a dry fire through Google Chrome or a walk
+that later stops. Delete that draft in YouTube Studio if you do not want
+it. A retry starts a new upload; it does not resume the leftover draft.
+
+Through the Data API, which is experimental for uploads and has not
+been live-verified, the same row is sent as a resumable upload under
+your own OAuth client. The file goes in chunks (8 MiB by default, in
+256 KiB units). If the connection drops, the next run of the same row
+(same file, channel and metadata) resumes from the last byte YouTube
+confirmed, never from a byte it did not. After six failures in a row
+with no progress (with exponential backoff capped at 64 seconds), the
+row is held and the session is kept for the next run. If the last chunk
+went out and nothing could be read after it, the activity is recorded as
+sent, outcome not read, and is not blindly retried. A quota,
+`uploadLimitExceeded`, rate-limit or 429 answer holds the row instead of
+failing it, and stops further Data API work for the rest of the run.
+This path has not been live-checked.
+
+On the Data API path no Visibility page is walked. The visibility is
+sent with the upload and read back from YouTube's answer; a different
+visibility, or none, is reported but does not undo the upload, which
+has already happened. YouTube may lock uploads from an API project that
+has not passed Google's audit to private, so a `public` or `unlisted`
+upload says so before it starts. Set
+`BLOWHORN_YOUTUBE_API_PROJECT_UNVERIFIED=false` once your project has
+passed the audit to stop that warning.
+
+Each profile may upload 3 videos a day, counted across every run that
+day. An activity past that ceiling waits for the next day. A dry run
+counts its planned rows against that ceiling for the rest of the same
+run, so it holds what the real run would; it does not stamp the
+activity, so the count does not carry into tomorrow.
+
+## Choose visibility
+
+Set `Visibility` to `private` (the default), `unlisted` or `public`. Any
+other value is refused. These settings belong only to YouTube: a
+LinkedIn, X or other activity that sets `Visibility`, `Short` or
+`Community` is refused by name (leave the setting blank).
+
+```bash
+blowhorn content upsert --payload '{"Platform":"YouTube","Profile":"your-profile","Title":"Launch day","Message Text":"What we shipped and why it matters.","Video URL":"https://example.com/launch.mp4","Visibility":"unlisted","Approved?":"yes"}'
+```
+
+Through Google Chrome, the choice is verified on Studio's Visibility
+page before the final click, as described above. Unlisted and Public
+have not been live-clicked. Through the Data API, the visibility is only
+read back from YouTube's answer after the upload, and a `public` or
+`unlisted` upload may land private on an unaudited API project, as
+described above.
+
+## Upload a Short
+
+Set `Short` to `yes`. The video must be 3 minutes or less, and vertical
+or square (not wider than it is tall). A row that fails either check is
+refused once the file has been downloaded, before Studio's dialog
+proceeds (or, on the Data API path, before any byte is sent). A
+plan-only `--dry-run` does not download the file, so it does not measure
+length or shape and will not catch a Short that is too long or too wide.
+
+```bash
+blowhorn content upsert --payload '{"Platform":"YouTube","Profile":"your-profile","Title":"Launch in 30 seconds","Message Text":"A quick look at what shipped.","Video URL":"https://example.com/short.mp4","Short":"yes","Approved?":"yes"}'
+```
+
+A blank `Short` means the video is not a Short. Use `yes` or `no`; a JSON
+`true` or `false` is stored as `yes` or `no`. The string `"true"` is
+refused.
+
+## Post on the Posts tab
+
+Set `Community` to `yes` and put the text in `Message Text`. Optionally
+set `Image URL` to one image. Leave `Title`, `Video URL`, `Comment on`
+and `Amplify` blank: any of those, or an `@` tag in the text, is refused
+by name. YouTube states no text length, so Blowhorn does not check one.
+
+```bash
+blowhorn content upsert --payload '{"Platform":"YouTube","Profile":"your-profile","Message Text":"The launch stream starts at 15:00 CT.","Community":"yes","Approved?":"yes"}'
+```
+
+A Posts-tab post runs only in signed-in Chrome. There is no Data API call
+for it. A scheduled run holds the activity for a run you start yourself.
+Each profile may publish 2 Posts-tab posts a day.
+
+## Comment, reply or like
+
+A comment puts the video's address in `Comment on` and the text in
+`Message Text`. A reply uses the comment's own address, the watch URL
+with `&lc=`. A like puts the video's address in `Amplify` and leaves
+`Message Text` blank.
+
+```bash
+blowhorn content upsert --payload '{"Platform":"YouTube","Profile":"your-profile","Comment on":"https://www.youtube.com/watch?v=VIDEO_ID","Message Text":"The 2:15 mark is the part we would start with.","Approved?":"yes"}'
+```
+
+```bash
+blowhorn content upsert --payload '{"Platform":"YouTube","Profile":"your-profile","Comment on":"https://www.youtube.com/watch?v=VIDEO_ID&lc=COMMENT_ID","Message Text":"Agreed; that is the cut we kept.","Approved?":"yes"}'
+```
+
+```bash
+blowhorn content upsert --payload '{"Platform":"YouTube","Profile":"your-profile","Amplify":"https://www.youtube.com/watch?v=VIDEO_ID","Approved?":"yes"}'
+```
+
+An `@name` in a comment or reply is refused before anything is typed. A
+reply to a reply is refused. A like that carries text is refused. A
+scheduled run holds every comment, reply and like for a run you start
+yourself: YouTube treats automated engagement as spam.
+
+If the Like button already reads as pressed (`aria-pressed=true`),
+Blowhorn leaves it alone and records the like as done. That differs from
+Facebook, where an already-reacted post is left unclicked and is not
+recorded as done.
+
+Each profile may send 10 comments, 10 replies and 20 likes a day. A dry
+run counts its planned rows against those ceilings for the rest of the
+same run, so it holds what the real run would; it does not stamp the
+activity. With a Data API consent these go through the API; without one
+they go through the signed-in watch page. A Data API quota, rate-limit
+or 429 answer holds the row and stops further API work for the rest of
+the run. The project's quota budget is shared by every profile in the
+run, because the quota belongs to your API project, not to one profile.
+
+## Collect analytics
+
+```bash
+blowhorn analytics --platform youtube --profile your-profile
+```
+
+Analytics are read-only metrics, collected through the profile's own
+Data API consent (your own OAuth client). A profile without a consent is
+skipped. Blowhorn never writes or changes figures on YouTube.
+
+Figures are kept for 30 days, as
+[YouTube API Services Developer Policies](https://developers.google.com/youtube/terms/developer-policies)
+III.E.4 require. A collection deletes expired YouTube readings first,
+before it reads anything. The scheduler also does this on its first real
+pass of each calendar day, across every profile in the organization, so
+figures do not outlive 30 days when nobody collects.
+
+If you take the consent back, only that profile's stored YouTube
+figures are deleted. Other profiles' figures stay. How to take the
+consent back, and what happens if the store is down, is in
+[Give the YouTube Data API consent](/docs/how-to/set-up/platform-accounts/#give-the-youtube-data-api-consent).
+The steps and the history commands are in
+[Collect and read your analytics](/docs/how-to/measure/analytics/).
+
+## Preview without publishing
+
+A plan-only dry run validates the row and prints the plan. It never
+opens Studio or sends to the API:
+
+```bash
+blowhorn post --platform youtube --profile your-profile --dry-run
+```
+
+Without a Data API consent, a dry fire (`blowhorn post --dry-run
+--payload-stdin`) walks Studio's dialog as far as Visibility, chooses the
+row's setting, reads the final button back, and does not click it. Studio
+has already saved a private draft once the file was attached; delete it in
+YouTube Studio afterward. With a consent, the same dry fire goes through
+the Data API and is plan-only: it prints the plan, opens no Studio page,
+sends nothing and leaves no draft.
+
+```bash
+cat youtube-order.json | blowhorn post --dry-run --payload-stdin --json
+```
+
+A dry run still counts planned YouTube rows against the profile's daily
+ceilings for the rest of that run, as described above. It does not spend
+the Data API project's unit budget, because nothing is sent.
+
+## Related
+
+- [YouTube](/docs/reference/platforms/youtube/) - what each activity
+  does, the Data API consent, ceilings and limits.
+- [Set up your platform accounts](/docs/how-to/set-up/platform-accounts/#youtube) -
+  the sign-in and the Data API consent, step by step.
+- [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run
+  for every platform.
+- [Content queue columns and activity states](/docs/reference/content-queue/#youtube-settings) -
+  Visibility, Short and Community.
+- [Collect and read your analytics](/docs/how-to/measure/analytics/) - history and
+  the HTML report.
+
+
+--------------------------------------------------------------------------------
 title: "blowhorn platforms"
 url: /pr-preview/pr-692/docs/reference/cli/platforms/index.md
 description: blowhorn platforms: capabilities.
@@ -7651,7 +8131,7 @@ blowhorn post [OPTIONS]
 | `--check-queue` | boolean | `false` | Show pending posts from the content queue without publishing anything. Honors `--platform` / `--profile` / `--exclude` for filtering. Read-only - does not open a browser, hit a platform API, or invoke `claude` for blog activities. |
 | `--payload-stdin` | boolean | `false` | Dry fire one order that is not saved: read one content item's values as JSON on stdin (the fields `content upsert` takes, naming one Profile and one Platform) and walk it through the dry run as far as the platform's final click, printing each stage as it is reached. Needs `--dry-run`; `--profile` and `--platform` are not read. Writes nothing - no content item, schedule, ledger entry or run record. Hacker News is refused, because its dry run signs in. |
 | `--json` | boolean | `false` | With `--payload-stdin`, end with the dry fire's result as one JSON object |
-| `--platform` | string |  | Platform scope for `blowhorn post`. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn post`. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--slack-auth` | string |  | Which Slack credential may send, for one run: `session` (your captured signed-in web session; the message is yours, with no app attached), `user-token` (an xoxp- app token for you) or `bot-token` (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. `session,user-token,bot-token`). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then `BLOWHORN_SLACK_AUTH`, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
 | `--pace` | string |  | Pace of the random delays between `blowhorn post` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
@@ -7690,6 +8170,9 @@ blowhorn post --platform github --profile all --exclude personal --amplify "http
 blowhorn post --platform github --profile all --amplify "https://github.com/acme/widgets/issues/42" --dry-run
 blowhorn post --platform github --profile personal --amplify "https://github.com/acme/widgets/issues/42" --dry-run -v
 blowhorn post --platform github --profile personal
+blowhorn chrome open-profile personal --sign-in youtube
+blowhorn post --platform youtube --profile personal
+cat youtube-order.json | blowhorn post --dry-run --payload-stdin --json
 ```
 
 Output: json with `--json`, text otherwise.
@@ -7737,7 +8220,7 @@ blowhorn profile accounts [OPTIONS] name
 | `--unmap` | string |  | Unmap this connection id from the profile; the connection is left intact |
 | `--page` | string |  | Record this account page (x.com/&lt;handle&gt;, linkedin.com/in/&lt;name&gt;, github.com/&lt;login&gt;, reddit.com/user/&lt;name&gt; or bsky.app/profile/&lt;handle&gt;) on the account mapped for its platform |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn profile accounts` browser steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7770,6 +8253,8 @@ slack - Hybrid: session credentials (xoxc token + d cookie) captured through the
 
 bluesky - No browser. Logs in to Bluesky with a handle and app password -- the same login every post makes -- and stores the pair only when Bluesky accepts it, so a refused credential is never saved. For one named profile in a terminal it asks for both (the stored handle is the default; a blank app password keeps the stored one); `--handle` and `--app-password-stdin` supply them without a prompt. Otherwise the stored pair is logged in with and nothing is written.
 
+youtube - No Chrome. Runs the YouTube Data API's OAuth consent that analytics and the experimental API upload, edit, playlist, comment and like paths use, for exactly one named profile. Google's consent page opens in your default browser, where you sign in and choose the channel yourself; Blowhorn waits up to five minutes for Google's answer on 127.0.0.1 and keeps the refresh token and the scopes Google granted in the profile's YouTube credential, with the OAuth client that issued them. The client is your own Google Cloud OAuth client (type Desktop app), read from the credential's `YT_OAUTH_CLIENT_ID` / `YT_OAUTH_CLIENT_SECRET` or else from `BLOWHORN_YOUTUBE_OAUTH_CLIENT_ID` / `BLOWHORN_YOUTUBE_OAUTH_CLIENT_SECRET`; Blowhorn ships none and never stores a password. A refused or abandoned consent stores nothing, a scheduled run never opens it, and `--all` does not include it. `--revoke` takes the consent back at once: it revokes the refresh token at Google, deletes that profile's stored YouTube analytics readings and clears `YT_OAUTH_REFRESH_TOKEN` / `YT_OAUTH_SCOPES`, keeping the OAuth client so a new consent needs no setup. Signing in to YouTube in Chrome for browser uploads is `blowhorn chrome open-profile <profile> --sign-in youtube`.
+
 Use `--profile` all to refresh every profile in your organization after applying any `--exclude` filters. The profiles are read from the store; a store that cannot be reached is the named cause and exit 3.
 
 With `--headless` the browser still opens, as a background window (Chrome is never run headless); only automated credential login is attempted and the manual browser fallback is skipped.
@@ -7786,7 +8271,8 @@ blowhorn profile auth [OPTIONS]
 | `--mode` | string |  | Slack only: `session` (default) captures xoxc/d via browser; `paste` prompts for a User OAuth Token (xoxp-…) - requires app install. |
 | `--handle` | string |  | Bluesky only, one named profile: the handle to log in as (alice.bsky.social; a leading @ is dropped). Stored with the app password only when Bluesky accepts the login; omit it to use the stored handle |
 | `--app-password-stdin` | boolean | `false` | Bluesky only, one named profile: read the app password from the first line of stdin, so it never reaches argv, the daily log or a prompt. A blank line is refused and nothing is written |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--revoke` | boolean | `false` | YouTube only, one named profile: take the Data API consent back instead of giving it. Revokes the refresh token at Google, then deletes that profile's stored YouTube readings and clears `YT_OAUTH_REFRESH_TOKEN` and `YT_OAUTH_SCOPES`; the OAuth client stays. With no consent held nothing is sent to Google and the readings are still deleted, so running it twice is harmless |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn profile auth` browser steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7803,6 +8289,11 @@ blowhorn profile auth --platform linkedin --profile all --headless
 blowhorn profile auth --platform bluesky --profile personal
 printf '%s\n' "$APP_PASSWORD" | blowhorn profile auth --platform bluesky --profile personal --handle personal.bsky.social --app-password-stdin --json
 blowhorn profile auth --platform linkedin --profile company --headed --json
+blowhorn profile auth --platform youtube --profile personal
+blowhorn profile auth --platform youtube --profile company --json
+blowhorn profile auth --platform youtube --profile personal --dry-run
+blowhorn profile auth --platform youtube --profile personal --revoke
+blowhorn profile auth --platform youtube --profile company --revoke --dry-run --json
 ```
 
 Output: json with `--json`, text otherwise.
@@ -7819,7 +8310,7 @@ blowhorn profile create [OPTIONS]
 | --- | --- | --- | --- |
 | `--payload-stdin` | boolean | `false` | Read the profile document (JSON: name, description, userId) from stdin; required |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile create` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile create` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7844,7 +8335,7 @@ blowhorn profile current [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile current` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile current` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7875,7 +8366,7 @@ blowhorn profile delete [OPTIONS] name
 | --- | --- | --- | --- |
 | `--yes` | boolean | `false` | Confirm the delete; without it the command refuses and exits 1 |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile delete` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7906,7 +8397,7 @@ blowhorn profile get [OPTIONS] name
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile get` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile get` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7932,7 +8423,7 @@ blowhorn profile list [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile list` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile list` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7965,7 +8456,7 @@ blowhorn profile set [OPTIONS] name [assignments...]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile set` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile set` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -7999,7 +8490,7 @@ blowhorn profile status [OPTIONS]
 | `--roster` | boolean | `false` | Also read the profiles roster from the store and report which platforms each profile has a handle for. Needs the store: a store that cannot be reached is the named cause and exit 3; a roster that reads empty or cannot be read is reported on a Roster: line, not fatal |
 | `--chrome` | boolean | `false` | Read this machine's Chrome profile mappings from the store and Chrome's profile list, and add a Chrome column: the mapped directory and whether its recorded name and account still match. Opens no browser; a store that cannot be reached is the named cause and exit 3 |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn profile status` browser steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8033,7 +8524,7 @@ blowhorn profile switch [OPTIONS] name
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile switch` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile switch` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8064,7 +8555,7 @@ blowhorn profile update [OPTIONS] name
 | --- | --- | --- | --- |
 | `--payload-stdin` | boolean | `false` | Read the profile document (JSON: name, description, userId) from stdin; required |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile update` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile update` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8435,7 +8926,7 @@ blowhorn schedule bootstrap [OPTIONS]
 | --- | --- | --- | --- |
 | `--replace` | boolean | `false` | Replace the current scheduled actions before writing sample ones |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule bootstrap` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule bootstrap` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8467,7 +8958,7 @@ blowhorn schedule delete [OPTIONS] activity
 | --- | --- | --- | --- |
 | `--expected-fingerprint` | string |  | Reject the delete if the current activity fingerprint no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule delete` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8493,7 +8984,7 @@ blowhorn schedule destinations [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule destinations` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule destinations` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8519,7 +9010,7 @@ blowhorn schedule fleet [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule fleet` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule fleet` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8549,7 +9040,7 @@ blowhorn schedule get [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule get` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule get` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8576,7 +9067,7 @@ blowhorn schedule list [OPTIONS]
 | --- | --- | --- | --- |
 | `--due-only` | boolean | `false` | Show only activities that are currently due |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule list` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule list` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8606,7 +9097,7 @@ blowhorn schedule pause [OPTIONS]
 | `--all` | boolean | `false` | Pause every machine sharing this store, not just this one: no machine claims an activity until `blowhorn schedule resume --all`. Recorded in the store with who paused it and why, so every machine reports the same reason. Without this flag the pause is this machine only |
 | `--activity` | integer |  | Pause one scheduled activity instead of a whole machine: that job is claimed by nobody until `blowhorn schedule resume --activity N`, and every other activity keeps running everywhere. Distinct from setting the activity's Enabled to no, which is an editorial state with no reason and no intent to resume |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule pause` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule pause` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8636,7 +9127,7 @@ blowhorn schedule resume [OPTIONS]
 | `--all` | boolean | `false` | Lift the pause every machine sharing this store honours, the one `blowhorn schedule pause --all` set. This machine's own pause and any paused action stay as they are |
 | `--activity` | integer |  | Let one held scheduled activity be claimed again, on every machine, the one `blowhorn schedule pause --activity N` held. Every other scope stays as it is |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule resume` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule resume` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8664,7 +9155,7 @@ blowhorn schedule status [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule status` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule status` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8693,7 +9184,7 @@ blowhorn schedule tick [OPTIONS]
 | `--ignore-pause` | boolean | `false` | Run even while `blowhorn schedule pause` is in effect; without it a paused scheduler claims nothing |
 | `--ignore-quiet-hours` | boolean | `false` | Run even inside the quiet hours (defaults.quiet_hours, or a profile's own Quiet Hours setting); without it a due activity inside the window is held until it ends |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Pace handed to every action `blowhorn schedule tick` runs in-process this pass -- the random delays between that action's browser or API steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8729,7 +9220,7 @@ blowhorn schedule trigger-now [OPTIONS] [activity]
 | `--ignore-quiet-hours` | boolean | `false` | Run even inside the quiet hours (defaults.quiet_hours, or a profile's own Quiet Hours setting); without it a due activity inside the window is held until it ends |
 | `--ignore-risk` | boolean | `false` | Run this once even if your Risk Profile would hold it (a daily cap, quiet hours, outreach turned off or a pause after a sign-in challenge). Only this run; your Risk Profile stays as it is. A limit the platform itself publishes still applies |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Pace handed to every action `blowhorn schedule trigger-now` runs in-process this pass -- the random delays between that action's browser or API steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8761,7 +9252,7 @@ blowhorn schedule upsert [OPTIONS]
 | `--activity` | integer |  | Activity number to update; omit to create a new activity |
 | `--expected-fingerprint` | string |  | Reject the write if the current activity fingerprint no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule upsert` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule upsert` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8789,7 +9280,7 @@ blowhorn schedule validate [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule validate` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule validate` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -8819,7 +9310,7 @@ blowhorn schedule why [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule why` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule why` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -10799,9 +11290,11 @@ pass; the service itself is fine. Each failed attempt writes one line to that pa
 - `refused` or `reset`: something closed the connection.
 - `other`: none of the above; the line also names the error's type.
 
-The Service log on the Troubleshooting tab shows the end of the launcher's own error file,
-which is never cleared, so lines from an earlier version can sit beside today's.
-Check the **written** time and the version before reading one as current.
+The Service log on the Troubleshooting tab shows what the service has written since it last
+started. Its first line says when that was, which process it is and which version:
+`service run: started at 2026-11-20 09:49:50 (pid 25304, Blowhorn 2.11.1)`. Every line below it
+is from that run. **Open log** opens the whole file, which is never cleared, so it also holds
+earlier runs and versions, each beginning with its own start line.
 
 ## A separate data folder
 
@@ -10869,26 +11362,64 @@ never failed.
 --------------------------------------------------------------------------------
 title: "Collect and read your analytics"
 url: /pr-preview/pr-692/docs/how-to/measure/analytics/index.md
-description: Collect LinkedIn and X follower numbers, read the history, one activity's result and the HTML report.
+description: Collect LinkedIn, X and YouTube follower numbers, read the history, one activity's result and the HTML report.
 --------------------------------------------------------------------------------
 
 
-Collect follower numbers from LinkedIn and X, then read them back as dated
-series in the app or the command line.
+Collect follower numbers from LinkedIn, X and YouTube, then read them back as
+dated series in the app or the command line.
 
-Blowhorn collects LinkedIn pages and X profiles. A Bluesky scope is accepted by
-the command but collects nothing today, so scope your runs to `linkedin` and
-`x`.
+Blowhorn collects LinkedIn pages, X profiles and YouTube channels. A Bluesky
+scope is accepted by the command but collects nothing today, so scope your
+runs to `linkedin`, `x` and `youtube`. YouTube analytics are read-only
+metrics: Blowhorn never writes or changes figures on YouTube. They are
+read through each profile's own OAuth consent. Figures are kept for 30
+days, and a daily organization-wide purge deletes YouTube readings older
+than that, under
+[YouTube API Services Developer Policies](https://developers.google.com/youtube/terms/developer-policies)
+III.E.4. Taking one profile's consent back deletes only that profile's
+stored YouTube figures; other profiles' figures stay. See
+[YouTube](/docs/reference/platforms/youtube/#how-long-youtube-figures-are-kept).
+
+## Before you collect YouTube
+
+A YouTube collection skips any profile without its own Data API consent.
+Store your own Google Cloud OAuth client (type Desktop app) in the profile's
+credential, then give the consent in your default browser:
+
+```bash
+blowhorn profile set ada YT_OAUTH_CLIENT_ID=1234-abc.apps.googleusercontent.com YT_OAUTH_CLIENT_SECRET=GOCSPX-...
+blowhorn profile auth --platform youtube --profile ada
+```
+
+Creating the client and what the consent stores are in
+[Give the YouTube Data API consent](/docs/how-to/set-up/platform-accounts/#give-the-youtube-data-api-consent).
+In the desktop app, **Give consent** on the YouTube row of the profile's
+**Browser** tab does the same.
+
+Taking the consent back deletes that profile's YouTube figures at once, as
+YouTube's policies require; other profiles' figures stay:
+
+```bash
+blowhorn profile auth --platform youtube --profile ada --revoke
+```
+
+See
+[Take the YouTube Data API consent back](/docs/how-to/set-up/platform-accounts/#take-the-youtube-data-api-consent-back).
 
 ## Collect
 
 ```bash
 blowhorn analytics --platform linkedin --profile ada --lookback 30
 blowhorn analytics --platform x --profile all
+blowhorn analytics --platform youtube --profile ada
 ```
 
-LinkedIn exports honour `--lookback`; X appends a follower and following trend
-row per profile. Each run prints a receipt of the rows it collected. In the
+LinkedIn exports honor `--lookback`; X appends a follower and following trend
+row per profile; YouTube reads the 30 days ending yesterday, and a run that
+covers every platform leaves out a profile with no YouTube credential. Each
+run prints a receipt of the LinkedIn and X rows it collected, and a summary of the YouTube
+figures it read. In the
 app, the "results" screen collects on demand with "collect now" and draws
 the same series.
 
@@ -13538,7 +14069,7 @@ activity, is locked. Once you are signed in, the account button stays usable. Se
 | Activity, posts | Your posts with their status - "ready", "scheduled", "partly sent", "sent", "draft", "needs you" - and clicked-but-unread ones, each with when it goes out: its own time, "next run" when the next run would take it, "not scheduled" when nothing will send it (a draft, or a post that needs you), and "-" once it has gone out; an opened post shows its result: delivery per profile and platform, reception where it was collected, and the follower change since. With recurrence left on Any, the schedule's routines follow below the posts, each labelled by what it does; a routine names no post, so clicking one opens that routine's details | Click a post to open it in a dialog (a box over the screen), or add one; edit it there; clearing a clicked post's "Date Promoted" queues it again |
 | Activity, routines | Your routines as a day, week or month calendar, or as a list: each item's next time, its last time, and the times that would follow, dashed because they are estimates; a "now" row for items going out or waiting for the service to take them up; a dialog for one item, opened by clicking it in the list or on the calendar; a chooser of sample routines, each one ticked on only once its platform is connected. Calendar is the presentation toggle; day, week and month show only then | Add an item with the **+** button or by clicking a free time (**Schedule** saves it); move an item's next time by dragging it; edit one item in place in its dialog (its changes save as you make them); put it **On hold** or back **In effect** from the state pill beside its title; switch its duty hold from **On watch** / **Off watch** in the details' title bar (Off watch opens an optional reason: **Save** holds it with the reason, **Skip** holds it with none, Escape holds nothing) or from the duty switch on its row or its calendar chip; **Do it now** or **Delete** it from its dialog; turn **dry fire** on in the header to rehearse up to the final click and post nothing (the dry run, `--dry-run`); add the sample routines you tick |
 | Activity, history | Everything Blowhorn did, newest first, reached with Past on and Upcoming off, with each one's detailed log under the log directory's `scheduler/` folder; clicking a run opens it in a dialog over the full-width list, one column with no tabs: what ran, when, how it ended and why it stopped, and the log behind one **Show the log** row that opens in place (it opens by itself while the run is live). The time row says **Started** only when a start was recorded; otherwise it says **Log updated** with the log file's time and "start not recorded". A post's own result (delivery, reception, the follower change) is in its details on Activity, not on the run | open a run; "try again" on a failure |
-| Profiles | Every profile, its accounts and their state, and the Google Chrome profiles on this computer each one uses. Clicking a profile opens its window over the list: the header says what Blowhorn does for the person and what needs you, and three tabs hold the rest. **Accounts** lists each connected account, and an account that needs you reads **Reconnect**. **Browser** lists the Google Chrome profiles on this computer beside the accounts in the one you pick; each is switched on or off for Blowhorn. An account the profile already has reads the same statement here as on **Accounts** (for example **Expired · re-authenticate**, with a **Sign in** button), with what Chrome shows for it on a gray line beneath; **Set up** appears only for an account the profile does not have, and **Discover** finds signed-in sessions again. **About** holds the name, the description, who the profile is for, and delete. Nothing has a Save button: switches and fields save as you change them | Add a profile (in its own form); reconnect an account on **Accounts**; on **Browser**, turn a Google Chrome profile on or off, set up an account, or add a token or app password; change the name, description or who it is for, or delete the profile, on **About**; **check all profiles** on the list |
+| Profiles | Every profile, its accounts and their state, and the Google Chrome profiles on this computer each one uses. Clicking a profile opens its window over the list: the header says what Blowhorn does for the person and what needs you, and three tabs hold the rest. **Accounts** lists each connected account, and an account that needs you reads **Reconnect**; YouTube is listed by its channel ID once the profile has a channel, and choosing it opens the channel's field on **Browser**. **Browser** lists the Google Chrome profiles on this computer beside the accounts in the one you pick; each is switched on or off for Blowhorn. An account the profile already has reads the same statement here as on **Accounts** (for example **Expired · re-authenticate**, with a **Sign in** button), with what Chrome shows for it on a gray line beneath; **Set up** appears only for an account the profile does not have, **Turn on YouTube**, on the Google Chrome profile a YouTube run of the profile uses, opens the Blowhorn page that lets the extension reach YouTube there, the same row's **Channel address** takes the channel's address by ID (a handle address is refused with the reason), and its **Data API consent** offers **Give consent** (Google's consent page opens in your default browser) or, once given, **Give again** (the same consent, replacing the stored one and deleting nothing) and **Take back**, which after a confirm revokes the consent at Google and deletes the profile's YouTube figures; **Discover** finds signed-in sessions again. **About** holds the name, the description, who the profile is for, and delete. Nothing has a Save button: switches and fields save as you change them | Add a profile (in its own form); reconnect an account on **Accounts**; on **Browser**, turn a Google Chrome profile on or off, set up an account, add a token or app password, set the profile's YouTube channel, or give or take back its YouTube Data API consent; change the name, description or who it is for, or delete the profile, on **About**; **check all profiles** on the list |
 | Performance | Followers, growth, and activity per profile; collection freshness in the header. Under the filters, three tabs that all read them: **Activity** (runs by platform, activity per profile), **History** (the figures, followers over time, new versus unfollowed per month) and **Report** (your LinkedIn pages and the health of each profile and page) | Collect now; open the HTML report |
 | Posture (three tabs: **Rules**, **Limits**, **Protection**; the fleet's Take leave and stop sit on the tabs' line) | Rules: the rules of engagement for everyone (the slider across the card: Safety on, Weapons tight or Weapons free; beside Everyone, Custom when a limit is set outside the preset), which choice wins, one grid of every profile on every platform with where each cell's choice comes from. Limits, one row per section: by platform (pace, daily caps as sliders, and how runs overlap), speed and amount (spacing, outreach, how much runs at once), when and who says yes (quiet hours, approval, dry fire), typing, and pointer timing; each row opens its settings in a window. Protection, one row per section: what happens when a platform pushes back, what the last check held back, where your sign-ins live and what Blowhorn will never do | Move the slider; choose a preset for one platform for every profile, one profile on every platform, or one cell, or reset any of them to inherit; reset them to the preset; each limit saves as you change it; take leave or stop every computer; run a held activity once with **Do it anyway**; turn the sign-in check, the needs-you note, dry fire by default and failure reports on or off (while dry fire is on, Approve and every duty switch, a routine's own included, each say so in one line, because nothing was approved or changed) |
 | This computer (from Home's computer row, or the rail's reason line) | **Status:** whether this computer is on duty and, when it is not, the one sentence on what is wrong (in red when the background service can't run); one **This computer** card with the background service's state and who registered it (in red when it is anything but this app), the last pass, the engine's version, and the Blowhorn extension in each Google Chrome profile (on, with its version, or not added); the schedule card counts the activities it checked (**5 scheduled**). When the service keeps exiting, its Service row names the likely cause in one line, with **See how to fix it**, which opens Troubleshooting. **Troubleshooting:** while the service keeps exiting, a card at the top says why, from the service's own log: the likely cause, what to do, the last line it logged and the error code for support; then who registered the service, its process, how it last exited, its command, the logs folder, the versions, and the service log's last lines | Its one fix under the banner: "register the service" when the service is not registered or runs from another copy of Blowhorn, "start the service" when it is registered but not running, "open Login Items" when it is turned off in System Settings (only those states offer one); when it keeps exiting, **See how to fix it** on the Status tab, then each step in the Troubleshooting card that Blowhorn can take is its button (**Register the service**, **Update Blowhorn**, **Open service log**, **Contact support**), and after one the card says whether the service now runs or still exits; **Open log** and **Show in Finder** for the service log and the logs folder; "check now" (with "dry fire" to rehearse up to the final click, posting nothing); "take leave for the fleet", and the fleet's switch while the fleet holds |
@@ -13770,11 +14301,11 @@ columns beside them are preserved on write.
 
 | Column | Means | Read by |
 |---|---|---|
-| Platform | Where the activity goes: `linkedin`, `x`, `reddit`, `hn`, `slack`, `bluesky`, or `github` (`twitter` reads as `x`, `bsky` as `bluesky`; `Venue` is the old spelling) | Every run, as the platform gate |
+| Platform | Where the activity goes: `linkedin`, `x`, `reddit`, `hn`, `slack`, `bluesky`, `github`, or `youtube` (`twitter` reads as `x`, `bsky` as `bluesky`; `Venue` is the old spelling) | Every run, as the platform gate |
 | Profile | Which profile publishes it; blank or naming nothing resolvable is refused, never widened to everybody | The profile match |
 | Destination | Where on the platform: a subreddit as `r/<name>` for Reddit; the channel, person, or thread for Slack's "Amplify" use | Reddit, Slack |
 | Message Text | The message itself | Every platform that publishes |
-| Title | The title where the platform needs one: Hacker News submissions | Hacker News |
+| Title | The title where the platform needs one: Hacker News submissions, and YouTube uploads | Hacker News, YouTube |
 | Encoded Post | The pre-encoded form, when the activity carries one | The post path |
 | Approved? | `yes` or `true` selects the activity; anything else leaves it out | `get_posts_to_process` |
 | Approved by | Who approved the activity and when, as `<who> at <when>`; empty until then. Written by `blowhorn content approve` alone - a payload naming it is refused | The approval record |
@@ -13793,18 +14324,32 @@ content values read `%Y-%m-%d %H:%M:%S`.
 
 ## YouTube settings
 
-A YouTube activity carries three settings beside its columns. YouTube isn't
-available in Blowhorn yet; until it is, an activity can't name YouTube as its
-Platform. Every other platform refuses these settings by name.
+A YouTube activity carries three settings beside its columns. Every other
+platform refuses these settings by name. What each does on YouTube is on
+the [YouTube page](/docs/reference/platforms/youtube/).
 
 | Setting | Takes | Blank means |
 |---|---|---|
 | Visibility | `private`, `unlisted`, or `public` | `private` |
-| Short | `yes` or `no` (JSON `true` and `false` are written as `yes` and `no`) | Not a Short |
+| Short | `yes` or `no` (JSON `true` and `false` are written as `yes` and `no`; the string `"true"` is refused) | Not a Short |
 | Community | `yes` or `no`: `yes` makes the activity a post on the channel's Posts tab instead of an upload | An upload |
 
 A payload may spell a setting's name in any case. A setting shows in an
-activity's values only once it's set; clearing it to blank removes it.
+activity's values only once it's set; clearing it to blank removes it. A
+value that is not in the table is refused, for example `Visibility` set
+to `members`.
+
+These settings are rejected on a non-YouTube activity. This payload is
+refused:
+
+```bash
+blowhorn content upsert --payload '{"Platform":"LinkedIn","Profile":"your-profile","Message Text":"Hello from the launch.","Visibility":"private","Approved?":"yes"}'
+```
+
+The refusal names the setting: `Visibility is a YouTube setting; a
+LinkedIn activity does not take it (leave it blank)`. The same sentence
+is used for `Short` and `Community`, and for any other non-YouTube
+platform.
 
 ## Approval
 
@@ -14034,6 +14579,12 @@ each stage as it is reached (`Dry fire · signin · signed in to LinkedIn`).
 It writes nothing to your Blowhorn account - no post, routine, ledger entry
 or run record - and `--json` ends with the result. Hacker News is refused,
 because its dry run signs in. The app's New order uses it for **Dry fire**.
+A YouTube upload from a profile without a Data API consent is walked
+through Studio's upload dialog as far as the Visibility page and stops
+before the final button, so nothing is published. Studio saves the upload
+as private as soon as the video is attached, so the dry fire's last line
+says so; delete that private upload in YouTube Studio. With a consent, the
+upload goes through the Data API and the dry fire only prints the plan.
 
 ```bash
 echo '{"Platform": "LinkedIn", "Profile": "company", "Message Text": "Release day."}' \
@@ -14047,8 +14598,8 @@ nothing, and never retried by the run. See
 
 ## Platform behavior
 
-LinkedIn, X, Reddit, and Hacker News drive your Google Chrome through the
-extension. Slack, Bluesky, and GitHub post through their APIs. Reddit
+LinkedIn, X, Reddit, Hacker News, and YouTube drive your Google Chrome
+through the extension. Slack, Bluesky, and GitHub post through their APIs. Reddit
 activities need their subreddit as `r/<name>` in "Destination" or "Amplify";
 without one the activity is skipped. A "Comment on" activity addressed to a
 LinkedIn or Reddit location becomes a comment under `post` as well as
@@ -14163,13 +14714,16 @@ profile represents is a member you pick, never an email you type.
 the person it represents, the accounts mapped to it, and which fields each
 platform's credential holds. A credential field is shown only as set,
 never with its value. `blowhorn profile status` reports every profile with
-its sessions.
+its sessions, and its YouTube channel by its address (YouTube has no session
+to check, so it is not a column of the table).
 
 `blowhorn profile set <name> KEY=VALUE` writes a platform key to that
 platform's credential in your account, and a run setting to the profile's
 settings there. The run settings are `Risk Profile`, `Risk Profile By
 Platform`, `Daily Caps`, `Quiet Hours` and `Quiet Hours Time Zone`; a value
-a run could not read is refused. Any other key is refused by name before
+a run could not read is refused. So is a `YT_CHANNEL_URL` that is not the
+channel's address by ID, such as a handle address
+([YouTube](/docs/reference/platforms/youtube/)). Any other key is refused by name before
 anything is sent, and a blank value clears a key. If someone else changes the
 profile while you set it, Blowhorn reads it again and applies your keys once
 more, so their change is kept; if it changes a second time, nothing is written
@@ -14199,6 +14753,7 @@ Chrome, and follower counts grant nothing.
 | Slack | `SLACK_USER_TOKEN`, `SLACK_BOT_TOKEN`, or a captured workspace session |
 | Bluesky | `BLUESKY_HANDLE`, `BLUESKY_APP_PASSWORD` |
 | GitHub | `GH_TOKEN` |
+| YouTube | `YT_CHANNEL_URL`, the channel's address by ID (the `YT_OAUTH_*` keys beside it for analytics and the experimental Data API write path) |
 
 Every platform reads its credential from your account, and only from
 there: a run takes the secret from the same read that decided the profile
@@ -14208,7 +14763,11 @@ file is never read. `blowhorn profile auth --platform slack` captures a
 workspace session through the run's browser driver and lands it in your
 account; no Slack app install is needed. `blowhorn profile auth --platform
 bluesky` logs in with a handle and app password and stores them only when
-Bluesky accepts them.
+Bluesky accepts them. `blowhorn profile auth --platform youtube` runs the
+YouTube Data API consent in your default browser and stores the refresh token it
+returns, with your own OAuth client, and `--revoke` takes it back: revoked at
+Google, that profile's YouTube figures deleted and the token cleared
+([YouTube](/docs/reference/platforms/youtube/#the-data-api-consent)).
 
 LinkedIn and Hacker News also accept a **confirmed Chrome session**
 instead of a password: `LI_CHROME_SESSION` and `HN_CHROME_SESSION` name
@@ -14309,7 +14868,7 @@ environment variables.
 | `defaults.approval.mode` | `BLOWHORN_APPROVAL_MODE` | `off` | `off`, `agent` or `all`: who must approve before work publishes (see below) |
 | `defaults.caps` | none | none | Your own daily caps per platform and action, under the built-in ceilings (see below) |
 | `defaults.quiet_hours` | `BLOWHORN_QUIET_HOURS` | none | Hours when the scheduler claims nothing, written `HH:MM-HH:MM` like `22:00-07:00` (the window may wrap midnight). A due activity inside it is held, not failed, and runs when the window ends. A profile's own Quiet Hours setting wins for its activities |
-| `defaults.quiet_hours_tz` | `BLOWHORN_QUIET_HOURS_TZ` | this computer's zone | The IANA time zone `defaults.quiet_hours` is read in, like `America/New_York`. A profile's own Quiet Hours Time Zone setting wins for its activities |
+| `defaults.quiet_hours_tz` | `BLOWHORN_QUIET_HOURS_TZ` | this computer's zone | The IANA time zone `defaults.quiet_hours` is read in, like `America/New_York`, spelled exactly as the time-zone database spells it: `america/new_york` is refused on every computer. A profile's own Quiet Hours Time Zone setting wins for its activities |
 | `defaults.typing_delay_min_ms`, `defaults.typing_delay_max_ms`, `defaults.typing_jitter_ms`, `defaults.typing_target_duration_s` | `BLOWHORN_TYPING_DELAY_MIN_MS`, `BLOWHORN_TYPING_DELAY_MAX_MS`, `BLOWHORN_TYPING_JITTER_MS`, `BLOWHORN_TYPING_TARGET_DURATION_S` | 35, 165, 9, 20 | How fast keys are typed: the pause band between keys in milliseconds, the random wobble on each pause, and how long a whole entry aims to take in seconds. Shapes both drivers (see below) |
 | `defaults.typing_micro_pause_chance_pct`, `defaults.typing_micro_pause_min_ms`, `defaults.typing_micro_pause_max_ms`, `defaults.typing_long_pause_min_chars`, `defaults.typing_long_pause_max_chars`, `defaults.typing_long_pause_min_ms`, `defaults.typing_long_pause_max_ms` | `BLOWHORN_TYPING_MICRO_PAUSE_CHANCE_PCT`, `BLOWHORN_TYPING_MICRO_PAUSE_MIN_MS`, `BLOWHORN_TYPING_MICRO_PAUSE_MAX_MS`, `BLOWHORN_TYPING_LONG_PAUSE_MIN_CHARS`, `BLOWHORN_TYPING_LONG_PAUSE_MAX_CHARS`, `BLOWHORN_TYPING_LONG_PAUSE_MIN_MS`, `BLOWHORN_TYPING_LONG_PAUSE_MAX_MS` | 7, 50, 220, 45, 85, 350, 1250 | Short hesitations between keys and longer pauses every so many keys. Playwright only: the extension driver sends one key per message and runs no pause plan (see below) |
 | `defaults.typing_allow_mistakes`, `defaults.typing_mistake_rate_pct`, `defaults.typing_max_mistakes_per_entry`, `defaults.typing_mistake_min_text_length`, `defaults.typing_mistake_delay_min_ms`, `defaults.typing_mistake_delay_max_ms`, `defaults.typing_mistake_pause_min_ms`, `defaults.typing_mistake_pause_max_ms` | `BLOWHORN_TYPING_ALLOW_MISTAKES`, `BLOWHORN_TYPING_MISTAKE_RATE_PCT`, `BLOWHORN_TYPING_MAX_MISTAKES_PER_ENTRY`, `BLOWHORN_TYPING_MISTAKE_MIN_TEXT_LENGTH`, `BLOWHORN_TYPING_MISTAKE_DELAY_MIN_MS`, `BLOWHORN_TYPING_MISTAKE_DELAY_MAX_MS`, `BLOWHORN_TYPING_MISTAKE_PAUSE_MIN_MS`, `BLOWHORN_TYPING_MISTAKE_PAUSE_MAX_MS` | on, 3, 4, 20, 55, 170, 80, 350 | Whether a typed entry may include a wrong key that is then corrected, how often, and the pauses around the correction. Playwright only, never on sign-in (see below) |
@@ -14431,7 +14990,7 @@ Local hours with no public actions: cautious 22:00 to 07:00, standard and brisk 
 
 ### Outreach
 
-Whether connect, invite and follow actions may run: cautious off, standard on established platforms only (off on platforms still being built: Facebook, Instagram, TikTok, YouTube), brisk on everywhere, including those platforms. When outreach is off, the gate refuses the action with the preset named, rather than queuing it silently.
+Whether connect, invite and follow actions may run: cautious off, standard on established platforms only (off on platforms still marked experimental in the Risk Profile table: Facebook, Instagram, TikTok, and YouTube, which is otherwise a supported platform), brisk on everywhere, including those platforms. When outreach is off, the gate refuses the action with the preset named, rather than queuing it silently.
 
 ### Pause after a challenge
 
@@ -14799,7 +15358,8 @@ uses the extension to approve it:
   YouTube Studio)
 
 Chrome asks you, and only when you click **Allow YouTube** on the
-Blowhorn page that `blowhorn chrome open-profile <profile> --sign-in youtube`
+Blowhorn page that the desktop app's **Turn on YouTube** (on a profile's
+**Browser** tab) or `blowhorn chrome open-profile <profile> --sign-in youtube`
 (or `blowhorn chrome create-profile --sign-in youtube`) opens. Until you allow it, the extension cannot open those sites, and a
 YouTube action stops before it opens anything and says how to turn
 YouTube on. Once allowed, the extension treats those sites like the
@@ -14923,8 +15483,7 @@ your browser.
 
 To report a problem, file an issue on the public site repository,
 `blowhorn-ai/blowhorn-site`, with what you ran, what it printed, and what
-you expected, or send the same details through the form on the
-[support page](/support/). Include the exit code and the first words of the error;
+you expected. Include the exit code and the first words of the error;
 leave out credentials, session files, and anything from your Google Chrome
 profile directories. For a security problem, do not file a public
 issue: email [security@blowhorn.ai](mailto:security@blowhorn.ai)
@@ -14935,7 +15494,6 @@ early access covers.
 
 ## Related
 
-- [Support page](/support/) - contact the team, or start with the docs.
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - the troubleshooting index.
 - [Messages and exit codes](/docs/reference/messages/) - every refusal sentence, including store outages.
 - [Plans and limits](/docs/reference/plans/) - access and billing questions.
@@ -15763,7 +16321,8 @@ password. After you sign in, `blowhorn chrome discover` (the desktop's
 **Discover**) sees the sign-in and records it as the profile's
 account in your Blowhorn account.
 
-`--sign-in youtube` is also where you turn YouTube on. The Blowhorn
+`--sign-in youtube` (the desktop's **Turn on YouTube**) is also where you
+turn YouTube on. The Blowhorn
 extension works on YouTube only in a Chrome profile that allowed it
 ([sites you turn on](/docs/reference/extension-permissions/#sites-you-turn-on)), so the
 window opens first on the extension's own page. Choose **Allow YouTube**,
@@ -15879,8 +16438,16 @@ against your account's users, under the same rule as profile creation:
 `one` (with the user, and their account's social links for display
 only), `several` (with the candidates), `none` (with the refusal's
 sentence) or `no-email` - plus `proposed_slug` and `slug_state` (`free`,
-`own`, `taken`, `invalid`) for the profile a confirm would create.
-Discovery writes nothing to Chrome, and the social links it shows are
+`own`, `taken`, `invalid`) for the profile a confirm would create,
+and `mapped_to` and `mapped_platforms`, the profile the Chrome profile
+is mapped to and the platforms that mapping is chosen for. The
+document's `mappings` lists every mapping on this computer, each with
+its `profile`, `directory`, `platforms`, `identity` and `detail` (the
+sentence a run through it would be refused with, or `null`), including
+one whose Chrome profile is gone (`identity` `missing`): `profiles`
+cannot list that one, but a run still counts it when it picks a Chrome
+profile, so the text form prints its refusal too. Under `--local`
+`mappings` is empty. Discovery writes nothing to Chrome, and the social links it shows are
 never treated as permission to post. The discovery card reads
 `session_expires_at` for each signed-in platform: a session whose
 expiry is ahead reads "Signed in as `<identifier>`", and a session that
@@ -17191,8 +17758,290 @@ url: /pr-preview/pr-692/docs/reference/platforms/youtube/index.md
 description: What Blowhorn can do on YouTube, and how each action behaves there.
 --------------------------------------------------------------------------------
 
-Blowhorn works on YouTube in your own signed-in Google Chrome,
-and this page lists what it can do there.
+Blowhorn works on YouTube in your own signed-in Google Chrome, through the
+extension. The extension reaches YouTube only once you allow it, one Chrome
+profile at a time. To grant that permission and sign in to your channel in
+the desktop app, open **Profiles**, open the profile, go to its **Browser**
+tab, pick the Google Chrome profile that runs YouTube for it, and choose
+**Turn on YouTube**. The guided setup's list of Google Chrome profiles has
+the same button once Blowhorn is added to that profile. From Terminal:
+
+```bash
+blowhorn chrome open-profile <profile> --sign-in youtube
+```
+
+Either way, a Blowhorn page opens in that Chrome profile: choose **Allow
+YouTube**, then **Allow** when Chrome asks, then sign in to YouTube on the
+page it goes on to. Until the permission is granted, a YouTube run is
+refused with nothing sent.
+
+The button is on one Google Chrome profile only: the one a YouTube run of
+that profile uses, which is the Chrome profile mapped for YouTube, else the
+profile's only one, else its default. When a profile has several Chrome
+profiles and none of those picks one, or the one they pick is no longer
+in Google Chrome (a deleted Chrome profile), no Chrome profile has the
+button; each shows the `blowhorn chrome map <profile> '<Chrome profile>' --for youtube`
+that chooses it instead (see [Google Chrome](/docs/reference/chrome/)). When the one
+they pick has been renamed or signed in to another account since it was
+mapped, that Chrome profile shows the `blowhorn chrome map <profile> '<Chrome profile>'`
+that confirms it instead of the button.
+
+A profile can post to YouTube once it has `YT_CHANNEL_URL` in its credential,
+set to the channel's address by ID (`https://www.youtube.com/channel/UC...`,
+shown at youtube.com/account_advanced). In the desktop app it is the
+**Channel address** field on the same **YouTube** row of the profile's
+**Browser** tab; once it is set, the profile's **Accounts** tab lists
+YouTube by its channel ID, with **Channel set** (nothing checks a YouTube
+sign-in from there), and choosing that row opens the field to change it.
+From Terminal it is
+`blowhorn profile set <profile> YT_CHANNEL_URL=https://www.youtube.com/channel/UC...`
+([Connect platform accounts](/docs/how-to/set-up/platform-accounts/)).
+A handle address (`/@name`) is refused by both, with the reason and nothing
+saved, because Blowhorn never guesses which channel a handle means. A handle
+address saved before that refusal reads **Needs channel ID** on **Accounts**,
+and the field shows why until you replace it.
+`blowhorn profile status --json` reports the channel as YouTube's account
+(its `username`); YouTube is not a column of the status table and
+`--check-sessions` does not check it.
+
+## Live checks
+
+Uploads through YouTube Studio, in signed-in Google Chrome, are the
+supported path and the default. One hand-supervised private Studio upload
+has already been run (2026-11-19): the upload page, the hidden
+file input, overwriting the title Studio fills from the file name, three
+presses of Next, and choosing Private so the final button reads Save.
+Unlisted and Public, the Checks page, the made-for-kids radio, and the
+rest of the dialog selectors have not been live-clicked; they are
+modeled.
+
+Uploads through the YouTube Data API are experimental and have not been
+live-verified. Giving the Data API consent switches uploads, comments,
+replies and likes onto that path; there is no fallback to Studio.
+Without the consent, uploads use Studio. Analytics, comments, replies
+and likes through the Data API have not had a live check either.
+
+Worked examples for each activity are in
+[Post to YouTube](/docs/how-to/publish/post-to-youtube/).
+
+## What Blowhorn does on YouTube
+
+- **Uploads a video** with `blowhorn post --platform youtube`. Set the
+  activity's `Video URL`, `Title` and `Message Text` (the description).
+  Blowhorn walks YouTube Studio's upload dialog: Details, Video elements,
+  Checks and Visibility. It answers "made for kids" with No, and stops if
+  Studio Checks reports a problem, with nothing published. The channel is
+  checked when the upload page shows, once Details opens, and again just
+  before the final click; a mismatch stops the activity with nothing
+  published. Visibility is chosen explicitly and verified before that
+  click: Blowhorn selects the row's setting, reads it back, and clicks
+  only when the final button reads Save (private or unlisted) or Publish
+  (public). If the button does not match, the click is refused. Nothing
+  is read after a successful click, so the activity is recorded as
+  *clicked, outcome not read*: check the upload in YouTube Studio.
+- **Visibility** is the activity's `Visibility` setting: `private` (the
+  default), `unlisted` or `public`. Any other value is refused. Through
+  the Data API, the visibility is read back from YouTube's answer after
+  the upload and a different one is reported, not undone; see the Data
+  API upload below. **Short**
+  set to `yes` marks a Short; the video must be 3 minutes or less and
+  vertical or square (not wider than it is tall). That length and shape
+  are measured only once the file is on disk, so a plan-only
+  `--dry-run` does not catch a Short that is too long or too wide. A live
+  run, or a Google Chrome dry fire that downloads the file, refuses it
+  before Studio's dialog proceeds (or, on the Data API path, before any
+  byte is sent). See [YouTube settings](/docs/reference/content-queue/#youtube-settings).
+- **Comments, replies and likes.** `Comment on` set to a video address is a
+  comment, and set to a comment's address (its `&lc=` link) is a reply.
+  `Amplify` set to a video address with no `Message Text` is a like.
+  A comment or reply with an `@name` in it is refused before anything is
+  typed. A reply to a reply is refused. If the Like button already reads
+  as pressed, Blowhorn leaves it alone and records the like as done.
+  That differs from Facebook, where an already-reacted post is left
+  unclicked and is not recorded as done.
+- **Posts on the Posts tab.** `Community` set to `yes` makes the activity a
+  post on your channel's Posts tab instead of an upload. Posts run only in
+  signed-in Chrome; there is no Data API call for them. A title, a video,
+  `Comment on`, `Amplify` or an `@` tag on a post row is refused by name.
+  YouTube states no text length, so none is checked. At most one image
+  (`Image URL`) may be attached.
+- **Analytics.** `blowhorn analytics --platform youtube` reads your
+  channel's and videos' figures through the YouTube Analytics and Data APIs, using the
+  profile's own OAuth consent (its `YT_OAUTH_*` keys; see
+  [The Data API consent](#the-data-api-consent)). These are read-only
+  metrics: Blowhorn never writes or changes figures on YouTube. A profile
+  without a consent is skipped. `--platform all` reads YouTube for every
+  profile with a YouTube credential and leaves the others out; naming
+  `--platform youtube` for a profile with no credential says what is
+  missing. How long figures are kept, and what happens when you take the
+  consent back, is in [How long YouTube figures are kept](#how-long-youtube-figures-are-kept).
+  With that consent in place, uploads, comments, replies and likes go
+  through the Data API too, instead of Google Chrome; uploads on that
+  path are experimental and have not been live-verified. A failure on
+  one path never falls back to the other. Studio remains the supported
+  default for uploads when the profile has no Data API consent.
+
+## The Data API consent
+
+Analytics, and uploads, comments, replies and likes through the Data API,
+read the profile's own OAuth consent from its YouTube credential.
+Uploads through the Data API are experimental and not live-verified;
+Studio is the supported default when this consent is not given:
+
+| Key | What it holds |
+|---|---|
+| `YT_OAUTH_CLIENT_ID`, `YT_OAUTH_CLIENT_SECRET` | Your own Google Cloud OAuth client, type Desktop app. Blowhorn ships none. When the credential holds none, the consent reads `BLOWHORN_YOUTUBE_OAUTH_CLIENT_ID` and `BLOWHORN_YOUTUBE_OAUTH_CLIENT_SECRET` and stores them here. |
+| `YT_OAUTH_REFRESH_TOKEN` | Written by the consent. The access token it refreshes is kept in memory for the run and never stored. |
+| `YT_OAUTH_SCOPES` | The access Google granted, written by the consent. |
+
+`blowhorn profile auth --platform youtube --profile <profile>` gives the
+consent, for exactly one named profile. It opens Google's consent page in
+your default browser and waits up to five minutes for the answer on
+127.0.0.1. It asks for upload (`youtube.upload`), editing and playlists
+(`youtube`), comments, replies and likes (`youtube.force-ssl`), Data API
+reads (`youtube.readonly`) and analytics (`yt-analytics.readonly`). A
+refused or abandoned consent stores nothing, and a scheduled run never
+opens one. The steps, including creating the OAuth client, are in
+[Give the YouTube Data API consent](/docs/how-to/set-up/platform-accounts/#give-the-youtube-data-api-consent).
+
+When Google no longer accepts the consent, the next YouTube run that
+tries to refresh it deletes only that profile's stored YouTube figures,
+forgets the consent, and asks you to give it again. Other profiles'
+figures, read under consents that still hold, stay. Details are in
+[Taking the Data API consent back](#taking-the-data-api-consent-back).
+
+## Taking the Data API consent back
+
+`blowhorn profile auth --platform youtube --profile <profile> --revoke` takes
+the consent back at once: it revokes the refresh token at Google, deletes the
+YouTube figures Blowhorn kept for that profile and clears
+`YT_OAUTH_REFRESH_TOKEN` and `YT_OAUTH_SCOPES`, keeping the OAuth client. A
+revocation Google does not answer, or refuses, deletes and clears nothing.
+With no consent held it sends nothing to Google and still deletes the
+figures, so a second run is harmless. The steps are in
+[Take the YouTube Data API consent back](/docs/how-to/set-up/platform-accounts/#take-the-youtube-data-api-consent-back).
+The desktop app gives and takes back the same consent under **Data API
+consent** on the YouTube row of a profile's **Browser** tab.
+
+Removing Blowhorn's access at
+[myaccount.google.com/permissions](https://myaccount.google.com/permissions),
+or Google expiring the consent, works too: the next YouTube run that tries
+to refresh the token then deletes the YouTube figures Blowhorn kept for that
+profile, forgets the consent, and asks you to give it again. Other profiles
+in the organization are not touched.
+
+[YouTube API Services Developer Policies](https://developers.google.com/youtube/terms/developer-policies)
+set the deadlines (last updated 2026-11-06, read 2026-11-20):
+
+- **III.D, revocation in the client.** When Blowhorn revokes the consent
+  itself, it must delete Authorized Data accessed or stored pursuant to
+  that consent as soon as possible and within 7 calendar days, and it
+  must revoke the token immediately. `--revoke` does both at once.
+- **III.E.4, revocation through Google's security settings page**
+  (III.A.2.i). When you remove access at Google's page, Blowhorn must
+  delete API data related to that user accessed or stored pursuant to
+  that consent within 30 calendar days. It does this on the next run that
+  sees the revocation.
+
+If the store is down or refuses the delete, the consent is kept, so
+`--revoke` or the next run can try the deletion again. Blowhorn never
+forgets the consent first and leaves readings behind. None of the consent,
+refresh or revocation path has been live-checked against Google.
+
+## How long YouTube figures are kept
+
+No YouTube reading is kept past 30 days, under
+[YouTube API Services Developer Policies](https://developers.google.com/youtube/terms/developer-policies)
+III.E.4. A collection deletes expired YouTube readings first, before it
+reads anything. The scheduler also does this on its first real pass of
+each calendar day, across every profile in the organization, so figures
+do not outlive 30 days when nobody collects. A store refusal is tried
+again on the next pass.
+
+Revoking one profile's consent is separate: it deletes only that
+profile's stored YouTube figures, as described above. The daily 30-day
+purge stays organization-wide.
+
+## What Blowhorn does not do on YouTube
+
+- **A scheduled run never comments, replies, likes or posts on the Posts
+  tab.** YouTube treats automated engagement as spam, so those activities
+  wait for a run you start yourself.
+- **No sign-in for you.** You sign in to YouTube by hand. A sign-in page, a
+  verification step, a captcha, or YouTube sending the tab off its own site
+  (where Blowhorn cannot read the address) stops YouTube for that profile.
+- **No cards or end screens** on an upload, and no likes on comments.
+- **One channel per profile**: the one `YT_CHANNEL_URL` names. If Studio
+  shows another channel, the activity stops with nothing published.
+
+Every profile has daily ceilings of its own on YouTube: 3 uploads, 10
+comments, 10 replies, 20 likes and 2 Posts-tab posts a day, counted across
+every run that day. An activity past its ceiling waits for the next day.
+A dry run counts its planned rows against those ceilings for the rest of
+the same run, so it holds what the real run would; it does not stamp the
+activity, so the count does not carry into tomorrow.
+
+Without a Data API consent, a [dry fire](/docs/reference/post/) walks Studio's upload
+dialog up to the final button and stops there. Studio keeps the upload as
+private once the file is attached, so delete it in YouTube Studio
+afterward. With a consent, a dry fire goes through the Data API and only
+prints the plan: nothing is sent and no draft is left. A dry run does not
+spend the Data API project's unit budget, because nothing is sent.
+
+Through the Data API, an upload is experimental and has not been
+live-verified. It is a resumable upload under your own OAuth client. The file is sent in chunks (8 MiB by default, in 256 KiB
+units). A dropped connection is resumed on the next run of the same row
+(same file, channel and metadata) from the last byte YouTube confirmed,
+never from a byte it did not. After six failures in a row with no
+progress, with exponential backoff capped at 64 seconds, the row is held
+and the session is kept. Set `BLOWHORN_YOUTUBE_UPLOAD_MAX_ATTEMPTS` and
+`BLOWHORN_YOUTUBE_UPLOAD_MAX_BACKOFF_S` to change those bounds. If the
+last chunk went out and nothing could be read after it, or YouTube
+answers the upload as done with no video id, the activity is recorded as
+sent, outcome not read. Before any byte is sent, the path
+reads the channel the consent was given for and refuses a mismatch with
+`YT_CHANNEL_URL`. This protocol is implemented and has not been
+live-checked.
+
+YouTube may lock uploads from an API project that has not passed
+Google's audit to private. Until `BLOWHORN_YOUTUBE_API_PROJECT_UNVERIFIED`
+is set to `false`, the project is treated as unaudited and a `public` or
+`unlisted` upload says before it starts that it may land private. Every
+upload reads the visibility back from YouTube's answer and reports one
+other than the row asked for; the upload has already happened, so it is
+not undone.
+
+The Data API project's quota is shared by every profile in a run. Google
+changes the quota model, so no unit cost and no daily figure is
+hard-coded. Optionally set `BLOWHORN_YOUTUBE_API_QUOTA_COSTS`
+(`method=units` pairs, comma separated) and
+`BLOWHORN_YOUTUBE_API_DAILY_UNITS`; a call whose configured cost would
+take the run past the configured daily units is not made, and the row is
+held. With nothing configured, nothing is pre-counted and the API's own
+answer decides. `quotaExceeded`, `uploadLimitExceeded`,
+`rateLimitExceeded` and any 429 hold the row and halt the API path for
+the rest of the run, never fail it and never retry it. Uploads also have
+an optional per-run count, `BLOWHORN_YOUTUBE_API_DAILY_UPLOADS`; past
+that count, further uploads in the same run are held.
+
+The engine can also edit a video's title, description or visibility, delete
+a video, and add a video to a playlist through the Data API. Blowhorn does
+not yet expose a command or a queue action for those calls.
+
+Subscribe outreach can open a channel address and click Subscribe once,
+never on a button that already reads Subscribed, and never on the
+profile's own channel. It has no command yet (it belongs beside `follow`).
+A scheduled run would hold it.
+
+## When a Studio walk stops after the file is attached
+
+As soon as the file input takes the video, Studio saves the upload as
+private, including during a dry fire through Chrome. If the Google Chrome session is lost
+after that, or the walk stops on Checks or a channel mismatch, the row
+fails and the report tells you the draft is still in YouTube Studio.
+If attaching the file itself fails after the browser may have sent it,
+the report says Studio may have saved a draft; check YouTube Studio.
+A retry starts a new upload; it does not resume the leftover draft.
 
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 
@@ -17215,7 +18064,12 @@ The limits Blowhorn knows for YouTube.
 
 ## Related
 
+- [Post to YouTube](/docs/how-to/publish/post-to-youtube/) - worked examples for each activity.
 - [All platforms](/docs/reference/platforms/) - every platform, side by side.
+- [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
+- [Content queue columns and activity states](/docs/reference/content-queue/) - every column and setting each platform reads.
+- [Chrome](/docs/reference/chrome/) - `chrome open-profile` and the extension.
+- [Set up your platform accounts](/docs/how-to/set-up/platform-accounts/#youtube) - the sign-in and the Data API consent, step by step.
 - [Why Blowhorn uses your own browser](/docs/explanation/your-own-chrome/) - browser versus API.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
 
@@ -19853,7 +20707,7 @@ description: Blowhorn for agencies and consultants: client profiles in a real br
 --------------------------------------------------------------------------------
 title: "Blowhorn for Social media managers"
 url: /pr-preview/pr-692/for/social-media/index.md
-description: Blowhorn for social media managers: one queue for LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack and YouTube, posted as the company and as you.
+description: Blowhorn for social media managers: one queue for LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, posted as the company and as you.
 --------------------------------------------------------------------------------
 
 
@@ -19867,7 +20721,7 @@ Blowhorn solutions by role, by use case and by the category of tool you are repl
 --------------------------------------------------------------------------------
 title: "Blowhorn for developer distribution"
 url: /pr-preview/pr-692/solutions/developer-distribution/index.md
-description: One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X and Bluesky, posted as you from your own browser.
+description: One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X, Bluesky, YouTube and more, posted as you from your own browser.
 --------------------------------------------------------------------------------
 
 
@@ -19923,7 +20777,7 @@ description: Plan a product launch so the announcement goes out everywhere at th
 --------------------------------------------------------------------------------
 title: "Blowhorn for open source releases"
 url: /pr-preview/pr-692/use-cases/open-source-release/index.md
-description: Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, and rally GitHub reactions, from one queue, as yourself.
+description: Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X, Bluesky, YouTube and more, and rally GitHub reactions, from one queue, as yourself.
 --------------------------------------------------------------------------------
 
 

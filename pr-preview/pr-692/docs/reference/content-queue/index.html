@@ -37,7 +37,7 @@
     <link rel="icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link href="/pr-preview/pr-692/scss/main.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script src="/pr-preview/pr-692/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/pr-preview/pr-692/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -292,6 +292,8 @@
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-youtube-li">
+    <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishreply-to-a-post-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishsend-a-slack-message-li">
@@ -605,7 +607,7 @@ columns beside them are preserved on write.</p>
   <tbody>
     <tr>
       <td>Platform</td>
-      <td>Where the activity goes: <code>linkedin</code>, <code>x</code>, <code>reddit</code>, <code>hn</code>, <code>slack</code>, <code>bluesky</code>, or <code>github</code> (<code>twitter</code> reads as <code>x</code>, <code>bsky</code> as <code>bluesky</code>; <code>Venue</code> is the old spelling)</td>
+      <td>Where the activity goes: <code>linkedin</code>, <code>x</code>, <code>reddit</code>, <code>hn</code>, <code>slack</code>, <code>bluesky</code>, <code>github</code>, or <code>youtube</code> (<code>twitter</code> reads as <code>x</code>, <code>bsky</code> as <code>bluesky</code>; <code>Venue</code> is the old spelling)</td>
       <td>Every run, as the platform gate</td>
     </tr>
     <tr>
@@ -625,8 +627,8 @@ columns beside them are preserved on write.</p>
     </tr>
     <tr>
       <td>Title</td>
-      <td>The title where the platform needs one: Hacker News submissions</td>
-      <td>Hacker News</td>
+      <td>The title where the platform needs one: Hacker News submissions, and YouTube uploads</td>
+      <td>Hacker News, YouTube</td>
     </tr>
     <tr>
       <td>Encoded Post</td>
@@ -689,9 +691,9 @@ columns beside them are preserved on write.</p>
 <p>An activity with &quot;Comment on&quot; set can only ever be a comment. An activity with an
 &quot;Amplify&quot; GitHub target can only ever be reactions. Timestamps in
 content values read <code>%Y-%m-%d %H:%M:%S</code>.</p>
-<h2 id="youtube-settings">YouTube settings</h2><p>A YouTube activity carries three settings beside its columns. YouTube isn't
-available in Blowhorn yet; until it is, an activity can't name YouTube as its
-Platform. Every other platform refuses these settings by name.</p>
+<h2 id="youtube-settings">YouTube settings</h2><p>A YouTube activity carries three settings beside its columns. Every other
+platform refuses these settings by name. What each does on YouTube is on
+the <a href="/pr-preview/pr-692/docs/reference/platforms/youtube/">YouTube page</a>.</p>
 
 <div class="table-scroll" tabindex="0" role="group" aria-label="Table">
 <table>
@@ -710,7 +712,7 @@ Platform. Every other platform refuses these settings by name.</p>
     </tr>
     <tr>
       <td>Short</td>
-      <td><code>yes</code> or <code>no</code> (JSON <code>true</code> and <code>false</code> are written as <code>yes</code> and <code>no</code>)</td>
+      <td><code>yes</code> or <code>no</code> (JSON <code>true</code> and <code>false</code> are written as <code>yes</code> and <code>no</code>; the string <code>&quot;true&quot;</code> is refused)</td>
       <td>Not a Short</td>
     </tr>
     <tr>
@@ -722,7 +724,27 @@ Platform. Every other platform refuses these settings by name.</p>
 </table>
 </div>
 <p>A payload may spell a setting's name in any case. A setting shows in an
-activity's values only once it's set; clearing it to blank removes it.</p>
+activity's values only once it's set; clearing it to blank removes it. A
+value that is not in the table is refused, for example <code>Visibility</code> set
+to <code>members</code>.</p>
+<p>These settings are rejected on a non-YouTube activity. This payload is
+refused:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn content upsert --payload <span class="s1">&#39;{&#34;Platform&#34;:&#34;LinkedIn&#34;,&#34;Profile&#34;:&#34;your-profile&#34;,&#34;Message Text&#34;:&#34;Hello from the launch.&#34;,&#34;Visibility&#34;:&#34;private&#34;,&#34;Approved?&#34;:&#34;yes&#34;}&#39;</span></span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>The refusal names the setting: <code>Visibility is a YouTube setting; a LinkedIn activity does not take it (leave it blank)</code>. The same sentence
+is used for <code>Short</code> and <code>Community</code>, and for any other non-YouTube
+platform.</p>
 <h2 id="approval">Approval</h2><p><code>Approved?</code> is the gate, and <code>draft</code> is what an unapproved activity reads
 as. Who may set it is a policy - approval mode, <code>defaults.approval.mode</code>
 (see <a href="/pr-preview/pr-692/docs/reference/configuration/">Configuration</a>). With <code>agent</code> or <code>all</code> in force, a
@@ -803,7 +825,7 @@ retry nor a drop is a run's to decide: the run records, you decide.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 19, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/content-queue.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

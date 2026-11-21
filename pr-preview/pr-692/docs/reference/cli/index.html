@@ -37,7 +37,7 @@
     <link rel="icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link href="/pr-preview/pr-692/scss/main.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script src="/pr-preview/pr-692/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/pr-preview/pr-692/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -292,6 +292,8 @@
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-youtube-li">
+    <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishreply-to-a-post-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishsend-a-slack-message-li">
@@ -1133,8 +1135,9 @@ their <code>--help</code> says so. A bad platform default can never lock you out
 <li><code>schedule</code> reads it as a filter over scheduled activities, and accepts every
 platform an activity may carry.</li>
 <li><code>profile current/list/switch</code> never read it.</li>
-<li><code>profile auth --all</code> refreshes a fixed list and ignores <code>--platform</code>
-entirely, so an unsupported platform is inert there too.</li>
+<li><code>profile auth --all</code> refreshes a fixed list (LinkedIn, X, Reddit and
+Slack; never the YouTube consent, which is asked for by name) and ignores
+<code>--platform</code> entirely, so an unsupported platform is inert there too.</li>
 </ul>
 <p><code>schedule</code> is the one activity that is not &quot;what this command acts on&quot;. It dispatches
 whatever a schedule activity names, and its <code>--platform</code> filters those activities, so every
@@ -1242,6 +1245,7 @@ says so plainly.</p>
 </span></span><span class="line"><span class="cl">blowhorn profile auth --platform x            # a sign-in records the session as valid, checked now
 </span></span><span class="line"><span class="cl">blowhorn profile auth --platform bluesky --profile your-profile  # prompts for handle + app password; saved only if Bluesky accepts the login
 </span></span><span class="line"><span class="cl">printf &#39;%s\n&#39; &#34;$APP_PASSWORD&#34; | blowhorn profile auth --platform bluesky --profile your-profile --handle you.bsky.social --app-password-stdin --json
+</span></span><span class="line"><span class="cl">blowhorn profile auth --platform youtube --profile your-profile  # the Data API consent in your browser, with your own OAuth client; nothing stored if you refuse
 </span></span><span class="line"><span class="cl">blowhorn profile auth --platform reddit --profile all --exclude &#34;&#34;
 </span></span><span class="line"><span class="cl">blowhorn profile auth --all</span></span></code></pre></div></div>
 </figure>

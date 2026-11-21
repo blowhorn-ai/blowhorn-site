@@ -1,10 +1,10 @@
 # Ship the release. Announce it everywhere, as you.
 
-> LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack and YouTube in one queue, posted from your own browser, signed in as you. Your agent drafts and dry-runs; you hold the switch.
+> LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more in one queue, posted from your own browser, signed in as you. Your agent drafts and dry-runs; you hold the switch.
 
 ## Sound familiar?
 
-- **Seven tabs per post.** Every release means seven composers and seven sign-ins, and the schedulers still skip Hacker News and GitHub.
+- **Seven tabs per post.** Every release means a composer and a sign-in for every network, and the schedulers still skip Hacker News and GitHub.
 - **Tools that want your logins.** Outreach tools ask for your password, your 2FA secret or your session cookie, then log in as you from their servers.
 - **A launch that lands quietly.** The post goes out, and the first hour is gone before the people who would amplify it notice.
 

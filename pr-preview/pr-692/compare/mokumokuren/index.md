@@ -23,7 +23,7 @@ mokumokuren pricing as of Oct 2026: Free; Pro $7 a month ([source](https://docs-
 | | mokumokuren | Blowhorn |
 | --- | --- | --- |
 | Where it acts | Local browser sessions, you send | Your computers, in your own signed-in browser or platform APIs |
-| Networks | X, Bluesky, Threads, mixi2, Substack | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube |
+| Networks | X, Bluesky, Threads, mixi2, Substack | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Scheduling | No, you send | As long as one of your computers is awake. Any computer set up for the profile keeps the schedule |
 | Many computers on one queue | No | Unlimited computers on one queue, coordinated so the same post isn't sent from two computers |
 | Amplify one post | One draft to many accounts | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |

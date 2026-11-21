@@ -37,7 +37,7 @@
     <link rel="icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link href="/pr-preview/pr-692/scss/main.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script src="/pr-preview/pr-692/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/pr-preview/pr-692/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -292,6 +292,8 @@
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-youtube-li">
+    <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishreply-to-a-post-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishsend-a-slack-message-li">
@@ -593,7 +595,8 @@
   <p>One section per platform. LinkedIn, X, and Reddit sign in by hand in your
 Google Chrome; Bluesky takes a handle and an app password; GitHub takes a token;
 Hacker News takes a username and password, or a confirmed Chrome session;
-Slack takes a captured session.</p>
+Slack takes a captured session; YouTube takes a Chrome sign-in, the
+channel's address and, for analytics and the Data API, your own OAuth consent.</p>
 <p>Do the mapping first
 (<a href="/pr-preview/pr-692/docs/how-to/set-up/map-chrome-profiles/">Map Blowhorn profiles to Chrome profiles</a>):
 every browser sign-in below opens in the profile's mapped Chrome.</p>
@@ -815,6 +818,231 @@ Slack app install is needed. To capture a new workspace, name it:</p>
 </figure>
 <p>Omit <code>--workspace</code> to refresh every workspace already listed under
 <code>slack_workspaces</code> in that credential.</p>
+<h2 id="youtube">YouTube</h2><p>Let the extension reach YouTube in the profile's mapped Chrome, and sign in
+to the channel there by hand. In the desktop app, open <strong>Profiles</strong>, open the
+profile, go to its <strong>Browser</strong> tab, pick the Google Chrome profile that has
+<strong>Turn on YouTube</strong>, and choose it. From Terminal:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn chrome open-profile ada --sign-in youtube</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>A Blowhorn page opens in that Chrome profile: choose <strong>Allow YouTube</strong>, then
+<strong>Allow</strong> when Chrome asks, then sign in to YouTube on the page it goes on
+to. If Chrome says the page is blocked, the Blowhorn extension is not in
+that Chrome profile yet: add it there first. <strong>Discover</strong> does not look for
+a YouTube sign-in, so there is nothing to check afterward.</p>
+<p>Only the Google Chrome profile a YouTube run would use has the button. If the
+profile has several Chrome profiles and none is chosen for YouTube, choose one
+first; each Chrome profile shows the command that chooses it, for example:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn chrome map ada <span class="s1">&#39;Profile 2&#39;</span> --for youtube</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>Then give the profile its channel: the channel's address by ID, like
+<code>https://www.youtube.com/channel/UC...</code>. YouTube shows the ID at
+<a href="https://www.youtube.com/account_advanced">youtube.com/account_advanced</a>
+while you are signed in to the channel.</p>
+<p>In the desktop app, paste it into <strong>Channel address</strong> on the same
+<strong>YouTube</strong> row of the profile's <strong>Browser</strong> tab (<strong>Find your channel ID</strong>
+opens that YouTube page). It saves when you leave the field. To change it
+later, choose the profile's <strong>YouTube</strong> row on its <strong>Accounts</strong> tab, which
+opens that field; empty the field to remove the channel. From Terminal:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile <span class="nb">set</span> ada <span class="nv">YT_CHANNEL_URL</span><span class="o">=</span>https://www.youtube.com/channel/UC...</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>A handle address (<code>https://www.youtube.com/@name</code>) is refused with the
+reason, in the app and by <code>profile set</code>, and nothing is saved: it names no
+channel ID, and Blowhorn never guesses which channel a handle means. A
+profile that already holds a handle address reads <strong>Needs channel ID</strong> on its
+<strong>Accounts</strong> tab; choose that row and paste the address by ID. Until the
+profile has a channel, its YouTube activities are not eligible.</p>
+<h3 id="give-the-youtube-data-api-consent">Give the YouTube Data API consent</h3><p>Analytics, and uploads, comments, replies and likes through the Data API
+instead of Google Chrome, need the profile's own OAuth consent. Uploads
+through the Data API are experimental and have not been live-verified;
+Studio in signed-in Google Chrome is the supported default when this
+consent is not given. The consent is given to your own Google Cloud
+OAuth client: Blowhorn ships none.</p>
+<ol>
+<li>
+<p>In the <a href="https://console.cloud.google.com/">Google Cloud console</a>, in a
+project of your own, enable the <strong>YouTube Data API v3</strong> and the
+<strong>YouTube Analytics API</strong>.</p>
+</li>
+<li>
+<p>Set up the project's OAuth consent screen. While its publishing status
+is &quot;Testing&quot;, add the Google account that owns the channel as a test
+user; Google then expires the consent after 7 days, so publish the app
+to keep it.</p>
+</li>
+<li>
+<p>Create an OAuth client ID of type <strong>Desktop app</strong>, and store its ID and
+secret in the profile's credential:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile <span class="nb">set</span> ada <span class="nv">YT_OAUTH_CLIENT_ID</span><span class="o">=</span>1234-abc.apps.googleusercontent.com <span class="nv">YT_OAUTH_CLIENT_SECRET</span><span class="o">=</span>GOCSPX-...</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>Or set <code>BLOWHORN_YOUTUBE_OAUTH_CLIENT_ID</code> and
+<code>BLOWHORN_YOUTUBE_OAUTH_CLIENT_SECRET</code> in the environment for the next
+step; the consent stores them in the credential either way, because a
+consent refreshes only with the client that issued it.</p>
+</li>
+<li>
+<p>Check that the client is found, opening nothing:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile ada --dry-run</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+</li>
+<li>
+<p>Give the consent:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile ada</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>Google's consent page opens in your default browser. Sign in, choose
+the channel and allow access. Blowhorn waits up to five minutes for the
+answer on 127.0.0.1, then stores <code>YT_OAUTH_REFRESH_TOKEN</code> and
+<code>YT_OAUTH_SCOPES</code> in the profile's YouTube credential, with the client
+from step 3 when it came from the environment. If you refuse, close the
+page or let the five minutes pass, nothing is stored; run the command
+again. If your Blowhorn account does not accept YouTube connections yet,
+the summary says so and nothing is stored, and running the command again
+does not help until it does. In the rare case Blowhorn also cannot remove
+the credential it saved for that account, the summary names that
+credential instead; delete it from the Credentials page of your Blowhorn
+account. If Google grants only some of the access
+asked for, the summary names what is missing, and the calls that need it
+are refused.</p>
+</li>
+</ol>
+<p>In the desktop app, the same consent is <strong>Give consent</strong> under <strong>Data API
+consent</strong> on the YouTube row of the profile's <strong>Browser</strong> tab. It runs the
+command above, so Google's page opens in your default browser the same way,
+and the row says what Google granted or why nothing was stored. Once a
+consent is given, <strong>Give again</strong> runs the same consent and replaces the one
+stored, for example to grant the access Google left out; it deletes nothing.</p>
+<p>The consent is given for one profile at a time, and a scheduled run never
+opens it.</p>
+<h3 id="take-the-youtube-data-api-consent-back">Take the YouTube Data API consent back</h3><p>To stop Blowhorn using a profile's YouTube consent and delete what it read
+with it:</p>
+<ol>
+<li>
+<p>Preview what would go, sending and deleting nothing:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile ada --revoke --dry-run</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+</li>
+<li>
+<p>Take the consent back:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile ada --revoke</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>Blowhorn revokes the refresh token at Google, deletes the YouTube channel
+and video figures it kept for that profile, and clears
+<code>YT_OAUTH_REFRESH_TOKEN</code> and <code>YT_OAUTH_SCOPES</code>. The summary counts the
+figures deleted. Other profiles' figures stay, and so does the OAuth
+client, so giving the consent again needs no setup.</p>
+</li>
+</ol>
+<p>In the desktop app, choose <strong>Take back</strong> under <strong>Data API consent</strong> on the
+YouTube row of the profile's <strong>Browser</strong> tab, then <strong>Take back consent</strong>.</p>
+<p>If Google cannot be reached or refuses, nothing is deleted or cleared; run
+the command again. If the profile holds no consent, nothing is sent to
+Google and any figures still kept for it are deleted, so running the command
+twice is harmless. Removing Blowhorn's access at
+<a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>
+also works: the next YouTube run that tries to refresh the token then
+deletes the figures and forgets the consent.</p>
+<p><a href="https://developers.google.com/youtube/terms/developer-policies">YouTube API Services Developer Policies</a>
+set the deadlines (last updated 2026-11-06, read 2026-11-20). When Blowhorn
+revokes the consent itself, III.D requires deletion as soon as possible and
+within 7 calendar days, and the token to be revoked immediately; the command
+above does both at once. When you revoke through Google's security settings
+page, III.E.4 (via III.A.2.i) allows 30 calendar days to delete API data
+accessed or stored pursuant to that consent; Blowhorn does this on the next
+run that sees the revocation.</p>
+<p>If the store is down or refuses the delete, the consent is kept, so the
+command or the next run can try the deletion again. Blowhorn never forgets
+the consent first and leaves readings behind. None of the consent, refresh or
+revocation path has been live-checked against Google.</p>
+<p>The daily deletion of YouTube figures older than 30 days is separate,
+and runs across the organization; see
+<a href="/pr-preview/pr-692/docs/reference/platforms/youtube/#how-long-youtube-figures-are-kept">How long YouTube figures are kept</a>.</p>
 <h2 id="related">Related</h2><ul>
 <li><a href="/pr-preview/pr-692/docs/how-to/set-up/map-chrome-profiles/">Map Blowhorn profiles to Chrome profiles</a> - the
 mapping every browser sign-in opens in.</li>
@@ -830,7 +1058,7 @@ permission.</li>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/set-up/platform-accounts.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -882,6 +1110,12 @@ permission.</li>
     <li><a href="#github">GitHub</a></li>
     <li><a href="#hacker-news">Hacker News</a></li>
     <li><a href="#slack">Slack</a></li>
+    <li><a href="#youtube">YouTube</a>
+      <ul>
+        <li><a href="#give-the-youtube-data-api-consent">Give the YouTube Data API consent</a></li>
+        <li><a href="#take-the-youtube-data-api-consent-back">Take the YouTube Data API consent back</a></li>
+      </ul>
+    </li>
     <li><a href="#related">Related</a></li>
   </ul>
 </nav>

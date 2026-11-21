@@ -14,7 +14,7 @@
 ## Choose Blowhorn if
 
 - You are a small technical team, not an enterprise rollout
-- Your audience is on Hacker News, Reddit, GitHub, LinkedIn, X and Bluesky, and you use Slack messages via API
+- Your audience is on Hacker News, Reddit, GitHub, LinkedIn, X, Bluesky, YouTube and more, and you use Slack messages via API
 - You want to start free during early access, with no sales call in the way, knowing sessions can break, automation can still be blocked, and a computer must be awake because this is not hosted SaaS
 
 ## Side by side

@@ -24,7 +24,7 @@
     <link rel="icon" href="/pr-preview/pr-692/favicon.ico" sizes="32x32">
     <link rel="icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-apple-touch-icon-180.png">
-<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
 
   </head>
@@ -187,6 +187,9 @@
           <p class="label"><a href="/pr-preview/pr-692/field-manual/">Field Manual</a> <span aria-hidden="true">/</span> YouTube</p>
           <h1 class="h1">YouTube: the feed that asks how it went</h1>
           <p class="body-lg muted">YouTube asks its viewers whether a video was worth their time. Make the one they're glad they watched.</p><p class="caption muted">Sources checked 20 November 2026.</p>
+          <figure class="fm-plate">
+            <img src="/pr-preview/pr-692/assets/brand/mascot/field-manual/fm-youtube-open.webp" alt="Open Field Manual with a woodcut of a film projector and a play-button screen" width="1280" height="720" loading="lazy"><figcaption class="caption muted">No YouTube logo in the art.</figcaption>
+          </figure>
         </header>
 
         <div class="prose fm-prose">
@@ -200,14 +203,16 @@
 <li><strong>Comment spam.</strong> &quot;Using high-volume, repetitive, or deceptive comments, live chats, or other messages,&quot; such as &quot;Posting identical or similar 'check out my channel' messages across hundreds of videos&quot; (<a href="https://support.google.com/youtube/answer/2801973">Spam policy</a>).</li>
 <li><strong>Automated access.</strong> You may not &quot;access the Service using any automated means (such as robots, botnets or scrapers)&quot; or &quot;cause or encourage any inaccurate measurements of genuine user engagement with the Service&quot; (<a href="https://www.youtube.com/static?template=terms">YouTube Terms of Service, 15 Dec 2023</a>).</li>
 </ul>
-<p>The last rule is about software, not only behavior. Blowhorn acts in your own signed-in browser, at your pace, and leaves every comment, reply and like to a run you start. It is still software acting on YouTube, so weigh that rule before you run anything there.</p>
+<p>The last rule is about software, not only behavior. Blowhorn acts in your own signed-in browser through the extension, or, once a profile gives YouTube Data API consent, through YouTube's official API. Either way it works at your pace and leaves every comment, reply and like to a run you start. It is still software acting on YouTube, so weigh that rule before you run anything there.</p>
 <h2 id="dos-and-donts">Do's and don'ts</h2><ul>
 <li><strong>Do</strong> write the title and description for the person deciding whether to watch.</li>
 <li><strong>Do</strong> answer comments in your own words, one at a time.</li>
 <li><strong>Don't</strong> like one video from a crowd of your own profiles.</li>
 <li><strong>Don't</strong> paste the same comment under many videos.</li>
 </ul>
-<h2 id="what-blowhorn-does-on-youtube">What Blowhorn does on YouTube</h2><p>In your own signed-in browser, through the extension, once you turn on YouTube for that browser profile: uploads videos (private unless you choose unlisted or public), publishes posts on your channel's Posts tab, and comments, replies and likes. With your own Data API consent it also reads your channel's analytics. A scheduled run never comments, replies, likes or posts on the Posts tab, and each profile has daily ceilings: 3 uploads, 10 comments, 10 replies, 20 likes and 2 Posts tab posts (<a href="/pr-preview/pr-692/docs/reference/platforms/youtube/">YouTube</a>).</p>
+<h2 id="what-blowhorn-does-on-youtube">What Blowhorn does on YouTube</h2><p>Once you turn on YouTube for a browser profile, Blowhorn runs these actions in your own signed-in browser, through the extension: uploads videos (private unless you choose unlisted or public), publishes posts on your channel's Posts tab, and comments, replies and likes. Once that profile gives YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API instead. Posts on the Posts tab have no Data API path and stay in the signed-in browser. Reading your channel's analytics needs that consent.</p>
+<p>A scheduled run never comments, replies, likes or posts on the Posts tab. Each profile has daily ceilings, counted across every run that day: 3 uploads, 10 comments, 10 replies, 20 likes and 2 Posts tab posts. An activity past its ceiling waits for the next day.</p>
+<p>Further reading: <a href="/pr-preview/pr-692/docs/reference/platforms/youtube/">YouTube platform reference</a>.</p>
 
         </div>
         <section class="fm-section" aria-labelledby="fm-more-title">

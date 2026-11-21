@@ -12,7 +12,7 @@
 
 - **Slack as you, no bot to invite.** Sends as you through Slack's API, using your Slack session linked through the Blowhorn extension or a Slack token you add. Either one is kept in your Blowhorn account.
 - **Supporters contribute their profile.** Supporters add their own profiles to your account and join the wave. Nobody acts for them.
-- **Every channel in one queue.** LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack and YouTube from one queue.
+- **Every channel in one queue.** LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more from one queue.
 - **Coordinated, with one pause.** Coordinated so the same post isn't sent from two computers. One command pauses everything.
 
 ## Rally the first hour, without the agent approving itself
@@ -32,5 +32,5 @@ Your assistant can plan and queue your teammates' first-hour engagement. Blowhor
 
 **Does Blowhorn install a Slack app?** No. Blowhorn works on Slack through Slack's API, never the browser, and sends as you with your Slack session, linked through the Blowhorn extension, or a Slack token you add. Either one is kept in your Blowhorn account.
 
-**Discord or Mastodon?** Not today. Blowhorn ships LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack and YouTube.
+**Discord or Mastodon?** Not today. Blowhorn ships LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more.
 

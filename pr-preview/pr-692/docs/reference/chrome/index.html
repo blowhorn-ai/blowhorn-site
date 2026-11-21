@@ -37,7 +37,7 @@
     <link rel="icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link href="/pr-preview/pr-692/scss/main.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script src="/pr-preview/pr-692/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/pr-preview/pr-692/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -292,6 +292,8 @@
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-youtube-li">
+    <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishreply-to-a-post-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishsend-a-slack-message-li">
@@ -1475,7 +1477,8 @@ with one of them is how you connect it: Blowhorn never asks for the
 password. After you sign in, <code>blowhorn chrome discover</code> (the desktop's
 <strong>Discover</strong>) sees the sign-in and records it as the profile's
 account in your Blowhorn account.</p>
-<p><code>--sign-in youtube</code> is also where you turn YouTube on. The Blowhorn
+<p><code>--sign-in youtube</code> (the desktop's <strong>Turn on YouTube</strong>) is also where you
+turn YouTube on. The Blowhorn
 extension works on YouTube only in a Chrome profile that allowed it
 (<a href="/pr-preview/pr-692/docs/reference/extension-permissions/#sites-you-turn-on">sites you turn on</a>), so the
 window opens first on the extension's own page. Choose <strong>Allow YouTube</strong>,
@@ -1598,8 +1601,16 @@ against your account's users, under the same rule as profile creation:
 <code>one</code> (with the user, and their account's social links for display
 only), <code>several</code> (with the candidates), <code>none</code> (with the refusal's
 sentence) or <code>no-email</code> - plus <code>proposed_slug</code> and <code>slug_state</code> (<code>free</code>,
-<code>own</code>, <code>taken</code>, <code>invalid</code>) for the profile a confirm would create.
-Discovery writes nothing to Chrome, and the social links it shows are
+<code>own</code>, <code>taken</code>, <code>invalid</code>) for the profile a confirm would create,
+and <code>mapped_to</code> and <code>mapped_platforms</code>, the profile the Chrome profile
+is mapped to and the platforms that mapping is chosen for. The
+document's <code>mappings</code> lists every mapping on this computer, each with
+its <code>profile</code>, <code>directory</code>, <code>platforms</code>, <code>identity</code> and <code>detail</code> (the
+sentence a run through it would be refused with, or <code>null</code>), including
+one whose Chrome profile is gone (<code>identity</code> <code>missing</code>): <code>profiles</code>
+cannot list that one, but a run still counts it when it picks a Chrome
+profile, so the text form prints its refusal too. Under <code>--local</code>
+<code>mappings</code> is empty. Discovery writes nothing to Chrome, and the social links it shows are
 never treated as permission to post. The discovery card reads
 <code>session_expires_at</code> for each signed-in platform: a session whose
 expiry is ahead reads &quot;Signed in as <code>&lt;identifier&gt;</code>&quot;, and a session that
@@ -1806,7 +1817,7 @@ can run side by side. See <a href="/pr-preview/pr-692/docs/explanation/youre-in-
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 20, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/chrome.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

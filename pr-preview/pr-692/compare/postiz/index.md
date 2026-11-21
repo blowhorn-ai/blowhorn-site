@@ -23,7 +23,7 @@ Postiz pricing as of Oct 2026: Standard $29 (5 channels), Team $39, Pro $49, Ult
 | | Postiz | Blowhorn |
 | --- | --- | --- |
 | Where it acts | Postiz's cloud, or your self-hosted server, through official apps | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
-| Networks | 30+ incl. LinkedIn, X, Reddit, Slack, Discord, Bluesky, Instagram, TikTok, YouTube | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube |
+| Networks | 30+ incl. LinkedIn, X, Reddit, Slack, Discord, Bluesky, Instagram, TikTok, YouTube | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify across your accounts | Internal Plugs: automatic reposts or comments from your other connected accounts | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Hacker News and GitHub | No | Yes |
 | LinkedIn outreach | No | Page invites, connect, accept, withdraw |

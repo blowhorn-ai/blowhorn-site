@@ -11,7 +11,7 @@
 | Bluesky | safe: Spam and repetition are the limits [14] | safe | care: No manipulated social signals [14] | care: Name a target: with --limit 0, follow the target itself; with a positive limit, follow up to that many of the target's followers, never the target. Keep it human-sized [14] | none | none | none |
 | GitHub | none | none | risky: All five reactions from many profiles; GitHub bans inauthentic interactions [15] | risky: Name a target: with --limit 0, follow the target, or several comma-separated; with a positive limit, follow up to that many of the target's followers, never the target itself. GitHub names automated following as rank abuse [15] | none | none | none |
 | Slack | none | none | none | none | none | none | care: Each workspace sets its own rules. Hypothesis: one message per channel |
-| YouTube | safe: Your own video, private unless you choose. Capped at 3 uploads a day [10] | care: No high-volume or repetitive comments; only in a run you start [16] | risky: Likes from many profiles artificially increase a metric [17] | none | none | none | none |
+| YouTube | care: Your own video, private unless you choose, but YouTube bans automated access. Capped at 3 uploads a day [10] | care: No high-volume or repetitive comments; only in a run you start [16] | risky: Likes from many profiles artificially increase a metric [17] | none | none | none | none |
 | Facebook, Instagram, TikTok, Threads, Mastodon | none | none | none | none | none | none | none |
 
 

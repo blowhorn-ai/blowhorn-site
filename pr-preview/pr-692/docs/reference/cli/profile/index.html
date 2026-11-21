@@ -37,7 +37,7 @@
     <link rel="icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link href="/pr-preview/pr-692/scss/main.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script src="/pr-preview/pr-692/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/pr-preview/pr-692/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -292,6 +292,8 @@
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-youtube-li">
+    <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishreply-to-a-post-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishsend-a-slack-message-li">
@@ -717,7 +719,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -760,6 +762,7 @@
 <p>reddit - Persistent browser session. Automated login via <code>RDDT_USERNAME</code> / <code>RDDT_PASSWORD</code> in the store, with fallback to manual browser entry.</p>
 <p>slack - Hybrid: session credentials (xoxc token + d cookie) captured through the run's browser driver (the extension by default), saved to the profile's Slack credential in the store, and reused for direct API calls. No Slack app install required. Use <code>--workspace</code> &lt;host&gt; to capture a new workspace; omit it to refresh every workspace listed under <code>slack_workspaces</code> in that credential. Use <code>--mode</code> paste for the legacy OAuth-token flow.</p>
 <p>bluesky - No browser. Logs in to Bluesky with a handle and app password -- the same login every post makes -- and stores the pair only when Bluesky accepts it, so a refused credential is never saved. For one named profile in a terminal it asks for both (the stored handle is the default; a blank app password keeps the stored one); <code>--handle</code> and <code>--app-password-stdin</code> supply them without a prompt. Otherwise the stored pair is logged in with and nothing is written.</p>
+<p>youtube - No Chrome. Runs the YouTube Data API's OAuth consent that analytics and the experimental API upload, edit, playlist, comment and like paths use, for exactly one named profile. Google's consent page opens in your default browser, where you sign in and choose the channel yourself; Blowhorn waits up to five minutes for Google's answer on 127.0.0.1 and keeps the refresh token and the scopes Google granted in the profile's YouTube credential, with the OAuth client that issued them. The client is your own Google Cloud OAuth client (type Desktop app), read from the credential's <code>YT_OAUTH_CLIENT_ID</code> / <code>YT_OAUTH_CLIENT_SECRET</code> or else from <code>BLOWHORN_YOUTUBE_OAUTH_CLIENT_ID</code> / <code>BLOWHORN_YOUTUBE_OAUTH_CLIENT_SECRET</code>; Blowhorn ships none and never stores a password. A refused or abandoned consent stores nothing, a scheduled run never opens it, and <code>--all</code> does not include it. <code>--revoke</code> takes the consent back at once: it revokes the refresh token at Google, deletes that profile's stored YouTube analytics readings and clears <code>YT_OAUTH_REFRESH_TOKEN</code> / <code>YT_OAUTH_SCOPES</code>, keeping the OAuth client so a new consent needs no setup. Signing in to YouTube in Chrome for browser uploads is <code>blowhorn chrome open-profile &lt;profile&gt; --sign-in youtube</code>.</p>
 <p>Use <code>--profile</code> all to refresh every profile in your organization after applying any <code>--exclude</code> filters. The profiles are read from the store; a store that cannot be reached is the named cause and exit 3.</p>
 <p>With <code>--headless</code> the browser still opens, as a background window (Chrome is never run headless); only automated credential login is attempted and the manual browser fallback is skipped.</p>
 <figure class="term term-output" data-lang="text">
@@ -819,10 +822,16 @@
       <td>Bluesky only, one named profile: read the app password from the first line of stdin, so it never reaches argv, the daily log or a prompt. A blank line is refused and nothing is written</td>
     </tr>
     <tr>
+      <td><code>--revoke</code></td>
+      <td>boolean</td>
+      <td><code>false</code></td>
+      <td>YouTube only, one named profile: take the Data API consent back instead of giving it. Revokes the refresh token at Google, then deletes that profile's stored YouTube readings and clears <code>YT_OAUTH_REFRESH_TOKEN</code> and <code>YT_OAUTH_SCOPES</code>; the OAuth client stays. With no consent held nothing is sent to Google and the readings are still deleted, so running it twice is harmless</td>
+    </tr>
+    <tr>
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -858,7 +867,12 @@
 </span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform linkedin --profile all --headless
 </span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform bluesky --profile personal
 </span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span><span class="nb">printf</span> <span class="s1">&#39;%s\n&#39;</span> <span class="s2">&#34;</span><span class="nv">$APP_PASSWORD</span><span class="s2">&#34;</span> <span class="p">|</span> blowhorn profile auth --platform bluesky --profile personal --handle personal.bsky.social --app-password-stdin --json
-</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform linkedin --profile company --headed --json</span></span></code></pre></div></div>
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform linkedin --profile company --headed --json
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile personal
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile company --json
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile personal --dry-run
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile personal --revoke
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile company --revoke --dry-run --json</span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
 <p>Output: json with <code>--json</code>, text otherwise.</p>
@@ -899,7 +913,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -958,7 +972,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1048,7 +1062,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1133,7 +1147,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1198,7 +1212,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1288,7 +1302,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1380,7 +1394,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1463,7 +1477,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1553,7 +1567,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn profile</code>. One of: bluesky, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1591,7 +1605,7 @@
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/cli/profile.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

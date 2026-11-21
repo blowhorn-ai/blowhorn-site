@@ -25,7 +25,7 @@ Lempod pricing as of Oct 2026: Paid plans; see Lempod's pricing page ([source](h
 | How it works | Pod members' accounts automatically like and comment on each other's posts | Profiles in your account (yours, your teammates', your supporters') amplify your post |
 | Who engages | Other members of the pod or exchange | People who chose to back you |
 | Comments | AI-generated comments offered | Your words; no AI comment generation |
-| Networks | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube |
+| Networks | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Bought engagement | Engagement exchanged or purchased from other members | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per plan | Free during early access |
 

@@ -37,7 +37,7 @@
     <link rel="icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-692/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link href="/pr-preview/pr-692/scss/main.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/pr-preview/pr-692/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script src="/pr-preview/pr-692/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/pr-preview/pr-692/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -292,6 +292,8 @@
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishpost-to-youtube-li">
+    <a href="/pr-preview/pr-692/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishreply-to-a-post-li">
     <a href="/pr-preview/pr-692/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-pr-previewpr-692docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-pr-previewpr-692docshow-topublishsend-a-slack-message-li">
@@ -897,8 +899,8 @@ activity, is locked. Once you are signed in, the account button stays usable. Se
     </tr>
     <tr>
       <td>Profiles</td>
-      <td>Every profile, its accounts and their state, and the Google Chrome profiles on this computer each one uses. Clicking a profile opens its window over the list: the header says what Blowhorn does for the person and what needs you, and three tabs hold the rest. <strong>Accounts</strong> lists each connected account, and an account that needs you reads <strong>Reconnect</strong>. <strong>Browser</strong> lists the Google Chrome profiles on this computer beside the accounts in the one you pick; each is switched on or off for Blowhorn. An account the profile already has reads the same statement here as on <strong>Accounts</strong> (for example <strong>Expired · re-authenticate</strong>, with a <strong>Sign in</strong> button), with what Chrome shows for it on a gray line beneath; <strong>Set up</strong> appears only for an account the profile does not have, and <strong>Discover</strong> finds signed-in sessions again. <strong>About</strong> holds the name, the description, who the profile is for, and delete. Nothing has a Save button: switches and fields save as you change them</td>
-      <td>Add a profile (in its own form); reconnect an account on <strong>Accounts</strong>; on <strong>Browser</strong>, turn a Google Chrome profile on or off, set up an account, or add a token or app password; change the name, description or who it is for, or delete the profile, on <strong>About</strong>; <strong>check all profiles</strong> on the list</td>
+      <td>Every profile, its accounts and their state, and the Google Chrome profiles on this computer each one uses. Clicking a profile opens its window over the list: the header says what Blowhorn does for the person and what needs you, and three tabs hold the rest. <strong>Accounts</strong> lists each connected account, and an account that needs you reads <strong>Reconnect</strong>; YouTube is listed by its channel ID once the profile has a channel, and choosing it opens the channel's field on <strong>Browser</strong>. <strong>Browser</strong> lists the Google Chrome profiles on this computer beside the accounts in the one you pick; each is switched on or off for Blowhorn. An account the profile already has reads the same statement here as on <strong>Accounts</strong> (for example <strong>Expired · re-authenticate</strong>, with a <strong>Sign in</strong> button), with what Chrome shows for it on a gray line beneath; <strong>Set up</strong> appears only for an account the profile does not have, <strong>Turn on YouTube</strong>, on the Google Chrome profile a YouTube run of the profile uses, opens the Blowhorn page that lets the extension reach YouTube there, the same row's <strong>Channel address</strong> takes the channel's address by ID (a handle address is refused with the reason), and its <strong>Data API consent</strong> offers <strong>Give consent</strong> (Google's consent page opens in your default browser) or, once given, <strong>Give again</strong> (the same consent, replacing the stored one and deleting nothing) and <strong>Take back</strong>, which after a confirm revokes the consent at Google and deletes the profile's YouTube figures; <strong>Discover</strong> finds signed-in sessions again. <strong>About</strong> holds the name, the description, who the profile is for, and delete. Nothing has a Save button: switches and fields save as you change them</td>
+      <td>Add a profile (in its own form); reconnect an account on <strong>Accounts</strong>; on <strong>Browser</strong>, turn a Google Chrome profile on or off, set up an account, add a token or app password, set the profile's YouTube channel, or give or take back its YouTube Data API consent; change the name, description or who it is for, or delete the profile, on <strong>About</strong>; <strong>check all profiles</strong> on the list</td>
     </tr>
     <tr>
       <td>Performance</td>
@@ -1115,7 +1117,7 @@ row that opens its details in a window; the failure reports switch is in the sig
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 19, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/use-the-desktop-app.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -172,6 +172,7 @@
 - [Post to Hacker News](/pr-preview/pr-692/docs/how-to/publish/post-to-hacker-news/index.md): Submit links and text posts, comment, and stay within the daily cap.
 - [blowhorn github](/pr-preview/pr-692/docs/reference/cli/github/index.md): blowhorn github: squatters.
 - [blowhorn org](/pr-preview/pr-692/docs/reference/cli/org/index.md): blowhorn org: members.
+- [Post to YouTube](/pr-preview/pr-692/docs/how-to/publish/post-to-youtube/index.md): Upload a video, post on the Posts tab, comment, reply, like, and collect analytics, with the behavior of each activity.
 - [blowhorn platforms](/pr-preview/pr-692/docs/reference/cli/platforms/index.md): blowhorn platforms: capabilities.
 - [blowhorn post](/pr-preview/pr-692/docs/reference/cli/post/index.md): Publish pending posts or amplify existing content across supported platforms.
 - [blowhorn profile](/pr-preview/pr-692/docs/reference/cli/profile/index.md): blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update.
@@ -203,7 +204,7 @@
 - [Pause and resume posting](/pr-preview/pr-692/docs/how-to/schedule/pause/index.md): Stop every scheduled claim on one computer, every computer, or one activity, then resume.
 - [Find out why a job did not run](/pr-preview/pr-692/docs/how-to/schedule/why-not-run/index.md): Ask Blowhorn why one scheduled activity ran or not, in one read-only command.
 - [Keep posting when the app is closed](/pr-preview/pr-692/docs/how-to/schedule/background-service/index.md): Run scheduled passes from the background service, and quit cleanly.
-- [Collect and read your analytics](/pr-preview/pr-692/docs/how-to/measure/analytics/index.md): Collect LinkedIn and X follower numbers, read the history, one activity's result and the HTML report.
+- [Collect and read your analytics](/pr-preview/pr-692/docs/how-to/measure/analytics/index.md): Collect LinkedIn, X and YouTube follower numbers, read the history, one activity's result and the HTML report.
 - [Review what ran](/pr-preview/pr-692/docs/how-to/measure/review-runs/index.md): Read the runs ledger: what each computer did, what failed, and what was a preview.
 - [Change your defaults](/pr-preview/pr-692/docs/how-to/settings/defaults/index.md): Set pace, excluded profiles, dry-run default, notifications and logs, in the app or the config file.
 - [Change how the app looks](/pr-preview/pr-692/docs/how-to/settings/appearance/index.md): Pick the app's theme, make the side rail and the + button solid or tinted glass, choose whether the desktop shows through, and see how times follow your Mac's clock.
@@ -328,13 +329,13 @@
 - [Blowhorn for Open source maintainers](/pr-preview/pr-692/for/open-source/index.md): Blowhorn for open source maintainers: announce releases and milestones on GitHub, Slack, Hacker News and every social network from one queue, as yourself.
 - [Blowhorn for Community managers](/pr-preview/pr-692/for/community/index.md): Blowhorn for community managers: Slack announcements as yourself, and supporters amplifying from their own profiles.
 - [Blowhorn for Agencies and consultants](/pr-preview/pr-692/for/agencies/index.md): Blowhorn for agencies and consultants: client profiles in a real browser on your own computer, with dry-run and pause on every action.
-- [Blowhorn for Social media managers](/pr-preview/pr-692/for/social-media/index.md): Blowhorn for social media managers: one queue for LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack and YouTube, posted as the company and as you.
+- [Blowhorn for Social media managers](/pr-preview/pr-692/for/social-media/index.md): Blowhorn for social media managers: one queue for LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, posted as the company and as you.
 
 ## Blowhorn solutions
 - [Blowhorn solutions](/pr-preview/pr-692/solutions/index.md): Blowhorn solutions by role, by use case and by the category of tool you are replacing. One queue, posted as you.
 
 
-- [Blowhorn for developer distribution](/pr-preview/pr-692/solutions/developer-distribution/index.md): One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X and Bluesky, posted as you from your own browser.
+- [Blowhorn for developer distribution](/pr-preview/pr-692/solutions/developer-distribution/index.md): One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X, Bluesky, YouTube and more, posted as you from your own browser.
 - [Blowhorn for employee advocacy](/pr-preview/pr-692/solutions/employee-advocacy/index.md): Employee advocacy for small teams: real people amplifying one post as themselves, from one coordinated queue, without a 100-seat minimum.
 - [Blowhorn for distributed teams](/pr-preview/pr-692/solutions/distributed-teams/index.md): Blowhorn for distributed teams: one shared queue across your teammates' computers, each posting from its own internet connection and IP address. No proxy to buy or run.
 - [Blowhorn for social scheduling](/pr-preview/pr-692/solutions/social-scheduling/index.md): Schedule posts like any cloud scheduler, but your own computers press Post, as you, and Hacker News, GitHub and Slack join the same queue.
@@ -346,7 +347,7 @@
 
 
 - [Blowhorn for launch day](/pr-preview/pr-692/use-cases/launch-day/index.md): Plan a product launch so the announcement goes out everywhere at the right moment, and every profile you add amplifies it in the first hour.
-- [Blowhorn for open source releases](/pr-preview/pr-692/use-cases/open-source-release/index.md): Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, and rally GitHub reactions, from one queue, as yourself.
+- [Blowhorn for open source releases](/pr-preview/pr-692/use-cases/open-source-release/index.md): Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X, Bluesky, YouTube and more, and rally GitHub reactions, from one queue, as yourself.
 - [Blowhorn for conferences](/pr-preview/pr-692/use-cases/conference/index.md): Promote a talk, booth or meetup before, during and after the event, from one queue, while any awake computer covers the schedule.
 - [Blowhorn for LinkedIn hygiene](/pr-preview/pr-692/use-cases/linkedin-outreach/index.md): Careful LinkedIn hygiene from your own browser: invite to your page, connect mentees, accept invitations and withdraw stale invites, at human pace, with built-in caps.
 - [Blowhorn for team amplification](/pr-preview/pr-692/use-cases/team-amplification/index.md): Get teammates and supporters behind every company post: each posts as themselves, in the first hour, from one coordinated queue, with no 100-seat minimum.

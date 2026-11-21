@@ -27,7 +27,7 @@ Dux-Soup pricing as of Oct 2026: STACKED local $55 per month ($41.25 annually); 
 | Built for | Outbound prospecting at volume | Careful outreach plus publishing and amplification |
 | Where it acts | STACKED local, a desktop app on your computer, or STACKED cloud, which runs in Dux-Soup's cloud without your computer on | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; each platform's API for GitHub, Bluesky and Slack |
 | LinkedIn outreach | Sequences of up to 12 actions: visits, connects, messages, InMails, endorsements, follows | Page invites, connect, accept, withdraw; human-paced with caps |
-| Networks | LinkedIn, including Sales Navigator and Recruiter | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube |
+| Networks | LinkedIn, including Sales Navigator and Recruiter | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per seat | Free during early access |

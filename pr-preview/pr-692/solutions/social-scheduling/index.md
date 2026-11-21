@@ -37,5 +37,5 @@
 
 **Where does the schedule live?** In your Blowhorn account, so every computer you sign in on works from the same queue. Your account coordinates; it never posts.
 
-**What about Instagram, TikTok, Facebook and YouTube?** YouTube is supported: in your own browser, signed in as you, Blowhorn uploads videos, posts on your channel's Posts tab, and comments, replies and likes. The Instagram, TikTok and Facebook platform pages list no actions.
+**What about Instagram, TikTok, Facebook and YouTube?** YouTube is supported. Blowhorn works in your own signed-in browser; with YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API. Instagram, Facebook and TikTok are on the way; Blowhorn doesn't post there yet.
 

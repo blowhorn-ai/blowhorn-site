@@ -28,7 +28,7 @@ Linked Helper pricing as of Oct 2026: Standard from $15 per license per month, l
 | Where it acts | A desktop app on your computer, or on a server you control for round-the-clock runs | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; each platform's API for GitHub, Bluesky and Slack |
 | Many computers on one queue | One license per LinkedIn account; the local version moves work between computers by hand | As many computers as you like on one queue, coordinated so the same post isn't sent from two computers |
 | LinkedIn outreach | 30-plus actions: sequences, messages, follow-ups, endorsements, visits, data export | Page invites, connect, accept, withdraw; human-paced with caps |
-| Networks | LinkedIn, including Sales Navigator, Recruiter and Talent | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube |
+| Networks | LinkedIn, including Sales Navigator, Recruiter and Talent | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per license, per LinkedIn account | Free during early access |

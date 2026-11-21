@@ -6,14 +6,14 @@
 
 - **The schedule is in your bag.** The talk post is queued on the laptop you closed when you left for the venue.
 - **Speakers forget to share.** Everyone meant to post. The session started anyway.
-- **A comment is another tab.** Sending a comment or reply means another composer for LinkedIn, X, Reddit and Hacker News, while you're on the floor.
+- **A comment is another tab.** Sending a comment or reply means another composer for LinkedIn, X, Reddit, Hacker News, YouTube and more, while you're on the floor.
 
 ## How Blowhorn runs it
 
 - **Queue the week once.** Pre-event, day-of and follow-up posts in one queue, on any awake computer set up for the profile.
 - **Your profiles join the wave.** Queue the week from every profile you run, each posting as itself. Team invites are coming soon.
 - **Many profiles, one desk.** Every brand and project profile you run, from one menu bar app.
-- **Reply without seven tabs.** Send comments and replies from the same queue you posted from. LinkedIn, X, Reddit and Hacker News run in your own browser.
+- **Reply without seven tabs.** Send comments and replies from the same queue you posted from. LinkedIn, X, Reddit, Hacker News, YouTube and more run in your own browser.
 
 ## Or tell your agent
 

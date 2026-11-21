@@ -12,9 +12,9 @@
 
 ## Choose Blowhorn if
 
-- You post the same news across LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube
+- You post the same news across LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more
 - You run several profiles and want them to amplify each other
-- You want one place to see LinkedIn, X and Bluesky results
+- You want one place to see LinkedIn, X, Bluesky and YouTube results
 
 ## Side by side
 
@@ -22,7 +22,7 @@ native scheduling pricing as of Oct 2026: Free, built into LinkedIn and X ([sour
 
 | | native scheduling | Blowhorn |
 | --- | --- | --- |
-| Networks | One at a time, inside each app | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube |
+| Networks | One at a time, inside each app | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Profiles | The one you're signed in as | Every profile you run, in one queue |
 | Amplify one post | Ask people by hand | Your profiles repost and comment while the post is fresh |
 | Needs a computer awake | No | Yes, at least one of your computers (macOS 13 or newer) |

@@ -26,7 +26,7 @@ His horn: a dented brass trumpet with a red tassel and one sticky valve, found i
 
 Outranks Major. Reminds him daily.
 
-The old goat who promoted Major after the Blowhard incident, and he has been half deaf ever since. Now he holds a bugle to his ear and trusts only the numbers: real likes, replies and follows from LinkedIn, X and Bluesky, all in one report. He has never smiled. He came close once, at a reply count.
+The old goat who promoted Major after the Blowhard incident, and he has been half deaf ever since. Now he holds a bugle to his ear and trusts only the numbers: real likes, replies and follows from LinkedIn, X, Bluesky and YouTube, all in one report. He has never smiled. He came close once, at a reply count.
 
 - [What the numbers mean](/docs/explanation/analytics/)
 - [Get your analytics report](/docs/how-to/measure/analytics/#read-the-html-report)
