@@ -819,7 +819,8 @@ password. After you sign in, `blowhorn chrome discover` (the desktop's
 **Discover**) sees the sign-in and records it as the profile's
 account in your Blowhorn account.
 
-`--sign-in youtube` is also where you turn YouTube on. The Blowhorn
+`--sign-in youtube` (the desktop's **Turn on YouTube**) is also where you
+turn YouTube on. The Blowhorn
 extension works on YouTube only in a Chrome profile that allowed it
 ([sites you turn on](/docs/reference/extension-permissions/#sites-you-turn-on)), so the
 window opens first on the extension's own page. Choose **Allow YouTube**,
@@ -935,8 +936,16 @@ against your account's users, under the same rule as profile creation:
 `one` (with the user, and their account's social links for display
 only), `several` (with the candidates), `none` (with the refusal's
 sentence) or `no-email` - plus `proposed_slug` and `slug_state` (`free`,
-`own`, `taken`, `invalid`) for the profile a confirm would create.
-Discovery writes nothing to Chrome, and the social links it shows are
+`own`, `taken`, `invalid`) for the profile a confirm would create,
+and `mapped_to` and `mapped_platforms`, the profile the Chrome profile
+is mapped to and the platforms that mapping is chosen for. The
+document's `mappings` lists every mapping on this computer, each with
+its `profile`, `directory`, `platforms`, `identity` and `detail` (the
+sentence a run through it would be refused with, or `null`), including
+one whose Chrome profile is gone (`identity` `missing`): `profiles`
+cannot list that one, but a run still counts it when it picks a Chrome
+profile, so the text form prints its refusal too. Under `--local`
+`mappings` is empty. Discovery writes nothing to Chrome, and the social links it shows are
 never treated as permission to post. The discovery card reads
 `session_expires_at` for each signed-in platform: a session whose
 expiry is ahead reads "Signed in as `<identifier>`", and a session that

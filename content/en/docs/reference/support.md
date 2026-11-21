@@ -16,8 +16,7 @@ your browser.
 
 To report a problem, file an issue on the public site repository,
 `blowhorn-ai/blowhorn-site`, with what you ran, what it printed, and what
-you expected, or send the same details through the form on the
-[support page](/support/). Include the exit code and the first words of the error;
+you expected. Include the exit code and the first words of the error;
 leave out credentials, session files, and anything from your Google Chrome
 profile directories. For a security problem, do not file a public
 issue: email [security@blowhorn.ai](mailto:security@blowhorn.ai)
@@ -28,7 +27,6 @@ early access covers.
 
 ## Related
 
-- [Support page](/support/) - contact the team, or start with the docs.
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - the troubleshooting index.
 - [Messages and exit codes](/docs/reference/messages/) - every refusal sentence, including store outages.
 - [Plans and limits](/docs/reference/plans/) - access and billing questions.

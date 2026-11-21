@@ -24,7 +24,7 @@ blowhorn post [OPTIONS]
 | `--check-queue` | boolean | `false` | Show pending posts from the content queue without publishing anything. Honors `--platform` / `--profile` / `--exclude` for filtering. Read-only - does not open a browser, hit a platform API, or invoke `claude` for blog activities. |
 | `--payload-stdin` | boolean | `false` | Dry fire one order that is not saved: read one content item's values as JSON on stdin (the fields `content upsert` takes, naming one Profile and one Platform) and walk it through the dry run as far as the platform's final click, printing each stage as it is reached. Needs `--dry-run`; `--profile` and `--platform` are not read. Writes nothing - no content item, schedule, ledger entry or run record. Hacker News is refused, because its dry run signs in. |
 | `--json` | boolean | `false` | With `--payload-stdin`, end with the dry fire's result as one JSON object |
-| `--platform` | string |  | Platform scope for `blowhorn post`. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn post`. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--slack-auth` | string |  | Which Slack credential may send, for one run: `session` (your captured signed-in web session; the message is yours, with no app attached), `user-token` (an xoxp- app token for you) or `bot-token` (an xoxb- bot token), or a comma-delimited list of them tried in order (e.g. `session,user-token,bot-token`). One value is directive: that credential or a refusal naming why. A token may show the Slack app's attribution. This flag, then `BLOWHORN_SLACK_AUTH`, then defaults.slack.auth_mode in .blowhorn.yaml, then the built-in, selects it; any other value is refused before anything runs. Dry runs and results name the credential that ran and whether it was a fallback |
 | `--pace` | string |  | Pace of the random delays between `blowhorn post` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
@@ -63,6 +63,9 @@ blowhorn post --platform github --profile all --exclude personal --amplify "http
 blowhorn post --platform github --profile all --amplify "https://github.com/acme/widgets/issues/42" --dry-run
 blowhorn post --platform github --profile personal --amplify "https://github.com/acme/widgets/issues/42" --dry-run -v
 blowhorn post --platform github --profile personal
+blowhorn chrome open-profile personal --sign-in youtube
+blowhorn post --platform youtube --profile personal
+cat youtube-order.json | blowhorn post --dry-run --payload-stdin --json
 ```
 
 Output: json with `--json`, text otherwise.

@@ -38,7 +38,7 @@ blowhorn schedule bootstrap [OPTIONS]
 | --- | --- | --- | --- |
 | `--replace` | boolean | `false` | Replace the current scheduled actions before writing sample ones |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule bootstrap` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule bootstrap` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -70,7 +70,7 @@ blowhorn schedule delete [OPTIONS] activity
 | --- | --- | --- | --- |
 | `--expected-fingerprint` | string |  | Reject the delete if the current activity fingerprint no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule delete` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -96,7 +96,7 @@ blowhorn schedule destinations [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule destinations` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule destinations` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -122,7 +122,7 @@ blowhorn schedule fleet [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule fleet` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule fleet` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -152,7 +152,7 @@ blowhorn schedule get [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule get` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule get` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -179,7 +179,7 @@ blowhorn schedule list [OPTIONS]
 | --- | --- | --- | --- |
 | `--due-only` | boolean | `false` | Show only activities that are currently due |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule list` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule list` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -209,7 +209,7 @@ blowhorn schedule pause [OPTIONS]
 | `--all` | boolean | `false` | Pause every machine sharing this store, not just this one: no machine claims an activity until `blowhorn schedule resume --all`. Recorded in the store with who paused it and why, so every machine reports the same reason. Without this flag the pause is this machine only |
 | `--activity` | integer |  | Pause one scheduled activity instead of a whole machine: that job is claimed by nobody until `blowhorn schedule resume --activity N`, and every other activity keeps running everywhere. Distinct from setting the activity's Enabled to no, which is an editorial state with no reason and no intent to resume |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule pause` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule pause` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -239,7 +239,7 @@ blowhorn schedule resume [OPTIONS]
 | `--all` | boolean | `false` | Lift the pause every machine sharing this store honours, the one `blowhorn schedule pause --all` set. This machine's own pause and any paused action stay as they are |
 | `--activity` | integer |  | Let one held scheduled activity be claimed again, on every machine, the one `blowhorn schedule pause --activity N` held. Every other scope stays as it is |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule resume` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule resume` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -267,7 +267,7 @@ blowhorn schedule status [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule status` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule status` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -296,7 +296,7 @@ blowhorn schedule tick [OPTIONS]
 | `--ignore-pause` | boolean | `false` | Run even while `blowhorn schedule pause` is in effect; without it a paused scheduler claims nothing |
 | `--ignore-quiet-hours` | boolean | `false` | Run even inside the quiet hours (defaults.quiet_hours, or a profile's own Quiet Hours setting); without it a due activity inside the window is held until it ends |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Pace handed to every action `blowhorn schedule tick` runs in-process this pass -- the random delays between that action's browser or API steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -332,7 +332,7 @@ blowhorn schedule trigger-now [OPTIONS] [activity]
 | `--ignore-quiet-hours` | boolean | `false` | Run even inside the quiet hours (defaults.quiet_hours, or a profile's own Quiet Hours setting); without it a due activity inside the window is held until it ends |
 | `--ignore-risk` | boolean | `false` | Run this once even if your Risk Profile would hold it (a daily cap, quiet hours, outreach turned off or a pause after a sign-in challenge). Only this run; your Risk Profile stays as it is. A limit the platform itself publishes still applies |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Pace handed to every action `blowhorn schedule trigger-now` runs in-process this pass -- the random delays between that action's browser or API steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -364,7 +364,7 @@ blowhorn schedule upsert [OPTIONS]
 | `--activity` | integer |  | Activity number to update; omit to create a new activity |
 | `--expected-fingerprint` | string |  | Reject the write if the current activity fingerprint no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule upsert` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule upsert` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -392,7 +392,7 @@ blowhorn schedule validate [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule validate` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule validate` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -422,7 +422,7 @@ blowhorn schedule why [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every scheduled activity is included) |
+| `--platform` | string | `all` | Platform filter for `blowhorn schedule`: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every scheduled activity is included) |
 | `--pace` | string |  | Accepted by `blowhorn schedule why` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn schedule why` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 

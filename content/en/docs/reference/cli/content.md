@@ -33,7 +33,7 @@ blowhorn content approve [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content approve` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content approve` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -66,7 +66,7 @@ blowhorn content delete [OPTIONS] activity
 | `--yes` | boolean | `false` | Confirm the delete; without it the command refuses and exits 1 (use `--dry-run` to preview) |
 | `--expected-fingerprint` | string |  | Refuse the write if the post's fingerprint (from `content get` or `content list`) no longer matches |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content delete` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -97,7 +97,7 @@ blowhorn content get [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content get` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content get` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -126,7 +126,7 @@ blowhorn content list [OPTIONS]
 | --- | --- | --- | --- |
 | `--pending` | boolean | `false` | Only posts some profile would pick up right now: the posts `blowhorn post --check-queue` lists |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content list` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content list` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -156,7 +156,7 @@ blowhorn content posts [OPTIONS]
 | --- | --- | --- | --- |
 | `--pending` | boolean | `false` | Only posts some profile would pick up right now: the posts `blowhorn post --check-queue` lists |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content posts` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content posts` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -176,7 +176,7 @@ Output: json with `--json`, text otherwise.
 
 Create a post, or update one in place, from a JSON object of column: value pairs in the queue's own column names. Without `--activity` a new activity is created and given the next activity number; with `--activity` the payload is merged over that activity, and every column it does not name is left as it was.
 
-Platform must be one `blowhorn post` publishes to (linkedin, x, reddit, slack, bluesky, github); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Visibility (private, unlisted or public), Short and Community (yes or no) are YouTube settings, kept beside the columns: blank leaves one unset, and any other platform refuses them. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the activity changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
+Platform must be one `blowhorn post` publishes to (bluesky, github, hn, linkedin, reddit, slack, x, youtube); Approved? takes yes or no (JSON true/false are written as yes/no); Promote On must parse (YYYY-MM-DD HH:MM:SS); Profile must name a profile the store knows, or `all`. Visibility (private, unlisted or public), Short and Community (yes or no) are YouTube settings, kept beside the columns: blank leaves one unset, and any other platform refuses them. Unknown fields are refused rather than written. `--expected-fingerprint` refuses the write if the activity changed since `content get` or `content list` read it. `--dry-run` prints the payload and touches nothing.
 
 ```text
 blowhorn content upsert [OPTIONS]
@@ -191,7 +191,7 @@ blowhorn content upsert [OPTIONS]
 | `--reply-to-id` | string |  | Item this new activity answers directly, by item id; needs `--thread-id` |
 | `--thread-index` | integer |  | Position of this new activity in its thread, counting from 1 (the root carries no thread fields and counts as 0); needs `--thread-id` |
 | `--json` | boolean | `false` | Emit machine-readable JSON output (the shape the desktop app's Content screen reads) |
-| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (`all` applies no filter, so every activity is listed) |
+| `--platform` | string | `all` | Platform filter for `blowhorn content`: `content list` keeps the activities whose Platform column names this platform, and no other content subcommand reads it. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (`all` applies no filter, so every activity is listed) |
 | `--pace` | string |  | Accepted by `blowhorn content upsert` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn content upsert` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 

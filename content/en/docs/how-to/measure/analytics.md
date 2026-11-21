@@ -1,27 +1,65 @@
 ---
 title: "Collect and read your analytics"
-description: "Collect LinkedIn and X follower numbers, read the history, one activity's result and the HTML report."
+description: "Collect LinkedIn, X and YouTube follower numbers, read the history, one activity's result and the HTML report."
 weight: 160
 aliases: [/docs/how-to/collect-analytics/]
 ---
 
 
-Collect follower numbers from LinkedIn and X, then read them back as dated
-series in the app or the command line.
+Collect follower numbers from LinkedIn, X and YouTube, then read them back as
+dated series in the app or the command line.
 
-Blowhorn collects LinkedIn pages and X profiles. A Bluesky scope is accepted by
-the command but collects nothing today, so scope your runs to `linkedin` and
-`x`.
+Blowhorn collects LinkedIn pages, X profiles and YouTube channels. A Bluesky
+scope is accepted by the command but collects nothing today, so scope your
+runs to `linkedin`, `x` and `youtube`. YouTube analytics are read-only
+metrics: Blowhorn never writes or changes figures on YouTube. They are
+read through each profile's own OAuth consent. Figures are kept for 30
+days, and a daily organization-wide purge deletes YouTube readings older
+than that, under
+[YouTube API Services Developer Policies](https://developers.google.com/youtube/terms/developer-policies)
+III.E.4. Taking one profile's consent back deletes only that profile's
+stored YouTube figures; other profiles' figures stay. See
+[YouTube](/docs/reference/platforms/youtube/#how-long-youtube-figures-are-kept).
+
+## Before you collect YouTube
+
+A YouTube collection skips any profile without its own Data API consent.
+Store your own Google Cloud OAuth client (type Desktop app) in the profile's
+credential, then give the consent in your default browser:
+
+```bash
+blowhorn profile set ada YT_OAUTH_CLIENT_ID=1234-abc.apps.googleusercontent.com YT_OAUTH_CLIENT_SECRET=GOCSPX-...
+blowhorn profile auth --platform youtube --profile ada
+```
+
+Creating the client and what the consent stores are in
+[Give the YouTube Data API consent](/docs/how-to/set-up/platform-accounts/#give-the-youtube-data-api-consent).
+In the desktop app, **Give consent** on the YouTube row of the profile's
+**Browser** tab does the same.
+
+Taking the consent back deletes that profile's YouTube figures at once, as
+YouTube's policies require; other profiles' figures stay:
+
+```bash
+blowhorn profile auth --platform youtube --profile ada --revoke
+```
+
+See
+[Take the YouTube Data API consent back](/docs/how-to/set-up/platform-accounts/#take-the-youtube-data-api-consent-back).
 
 ## Collect
 
 ```bash
 blowhorn analytics --platform linkedin --profile ada --lookback 30
 blowhorn analytics --platform x --profile all
+blowhorn analytics --platform youtube --profile ada
 ```
 
-LinkedIn exports honour `--lookback`; X appends a follower and following trend
-row per profile. Each run prints a receipt of the rows it collected. In the
+LinkedIn exports honor `--lookback`; X appends a follower and following trend
+row per profile; YouTube reads the 30 days ending yesterday, and a run that
+covers every platform leaves out a profile with no YouTube credential. Each
+run prints a receipt of the LinkedIn and X rows it collected, and a summary of the YouTube
+figures it read. In the
 app, the "results" screen collects on demand with "collect now" and draws
 the same series.
 

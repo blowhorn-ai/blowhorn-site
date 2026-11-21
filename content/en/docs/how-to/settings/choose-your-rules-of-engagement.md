@@ -161,7 +161,7 @@ each platform's built-in ceiling.
 - **After a challenge:** the profile on that platform is held for 24
   hours.
 - **Outreach:** on for established platforms, off on platforms still
-  being built (Facebook, Instagram, TikTok, YouTube).
+  marked experimental in the Risk Profile table (Facebook, Instagram, TikTok, and YouTube, which is otherwise a supported platform).
 - **At once:** one profile at a time on a platform, and no preset limit
   on runs overall. Setting `defaults.concurrency.max_runs` adds one.
 - **Retries:** a failed scheduled job is not retried.
@@ -183,7 +183,7 @@ the most throughput and accept the most exposure.
 - **After a challenge:** the profile on that platform is held for 12
   hours - the shortest pause, so a challenge is the place Weapons free costs
   you the most caution.
-- **Outreach:** on everywhere, including platforms still being built.
+- **Outreach:** on everywhere, including platforms marked experimental.
 - **At once:** different profiles may share a platform, and no preset
   limit on runs overall. One profile is still held to one run on a
   platform.

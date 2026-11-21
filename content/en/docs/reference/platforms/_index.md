@@ -36,13 +36,16 @@ in the how-to guides linked under Related.
 
 {{< major >}}Two hundred seventy-four characters before X wants a thread. I don't make the rules. I thread them.{{< /major >}}
 
-Four platforms drive your own signed-in Google Chrome through the extension:
-LinkedIn, X, Reddit, and Hacker News. Three post through their APIs
+Five platforms drive your own signed-in Google Chrome through the extension:
+LinkedIn, X, Reddit, Hacker News, and YouTube. YouTube needs the
+extension's YouTube permission first, granted with **Turn on YouTube** on a
+profile's **Browser** tab in the desktop app, or with
+`blowhorn chrome open-profile <profile> --sign-in youtube`. Three post through their APIs
 above the browser: Slack, Bluesky, and GitHub. A platform is usable the
 moment its credential exists; see [Who can post as whom](/docs/explanation/eligibility/).
 
 `blowhorn post --platform` accepts one of: `linkedin`, `x`, `reddit`,
-`hn`, `slack`, `bluesky`, `github`, or `all`. `twitter` reads as `x`
+`hn`, `slack`, `bluesky`, `github`, `youtube`, or `all`. `twitter` reads as `x`
 and `bsky` as `bluesky`. GitHub is amplify-only under `post`: it needs
 an issue or pull-request URL and refuses without one.
 
@@ -111,6 +114,7 @@ attribute -- but never a higher one. See
 
 - [Preview and publish queued posts](/docs/how-to/publish/post-content/) - the posting run.
 - [Post to Hacker News](/docs/how-to/publish/post-to-hacker-news/) - the strictest platform, worked.
+- [Post to YouTube](/docs/how-to/publish/post-to-youtube/) - uploads, Posts-tab posts, comments, replies, likes and analytics, worked.
 - [Content queue columns and activity states](/docs/reference/content-queue/) - every column each platform reads.
 - [Messages and exit codes](/docs/reference/messages/) - what a refusal means.
 - [Who can post as whom](/docs/explanation/eligibility/) - why a credential is permission.

@@ -41,7 +41,7 @@ blowhorn profile accounts [OPTIONS] name
 | `--unmap` | string |  | Unmap this connection id from the profile; the connection is left intact |
 | `--page` | string |  | Record this account page (x.com/&lt;handle&gt;, linkedin.com/in/&lt;name&gt;, github.com/&lt;login&gt;, reddit.com/user/&lt;name&gt; or bsky.app/profile/&lt;handle&gt;) on the account mapped for its platform |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn profile accounts` browser steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -74,6 +74,8 @@ slack - Hybrid: session credentials (xoxc token + d cookie) captured through the
 
 bluesky - No browser. Logs in to Bluesky with a handle and app password -- the same login every post makes -- and stores the pair only when Bluesky accepts it, so a refused credential is never saved. For one named profile in a terminal it asks for both (the stored handle is the default; a blank app password keeps the stored one); `--handle` and `--app-password-stdin` supply them without a prompt. Otherwise the stored pair is logged in with and nothing is written.
 
+youtube - No Chrome. Runs the YouTube Data API's OAuth consent that analytics and the experimental API upload, edit, playlist, comment and like paths use, for exactly one named profile. Google's consent page opens in your default browser, where you sign in and choose the channel yourself; Blowhorn waits up to five minutes for Google's answer on 127.0.0.1 and keeps the refresh token and the scopes Google granted in the profile's YouTube credential, with the OAuth client that issued them. The client is your own Google Cloud OAuth client (type Desktop app), read from the credential's `YT_OAUTH_CLIENT_ID` / `YT_OAUTH_CLIENT_SECRET` or else from `BLOWHORN_YOUTUBE_OAUTH_CLIENT_ID` / `BLOWHORN_YOUTUBE_OAUTH_CLIENT_SECRET`; Blowhorn ships none and never stores a password. A refused or abandoned consent stores nothing, a scheduled run never opens it, and `--all` does not include it. `--revoke` takes the consent back at once: it revokes the refresh token at Google, deletes that profile's stored YouTube analytics readings and clears `YT_OAUTH_REFRESH_TOKEN` / `YT_OAUTH_SCOPES`, keeping the OAuth client so a new consent needs no setup. Signing in to YouTube in Chrome for browser uploads is `blowhorn chrome open-profile <profile> --sign-in youtube`.
+
 Use `--profile` all to refresh every profile in your organization after applying any `--exclude` filters. The profiles are read from the store; a store that cannot be reached is the named cause and exit 3.
 
 With `--headless` the browser still opens, as a background window (Chrome is never run headless); only automated credential login is attempted and the manual browser fallback is skipped.
@@ -90,7 +92,8 @@ blowhorn profile auth [OPTIONS]
 | `--mode` | string |  | Slack only: `session` (default) captures xoxc/d via browser; `paste` prompts for a User OAuth Token (xoxp-…) - requires app install. |
 | `--handle` | string |  | Bluesky only, one named profile: the handle to log in as (alice.bsky.social; a leading @ is dropped). Stored with the app password only when Bluesky accepts the login; omit it to use the stored handle |
 | `--app-password-stdin` | boolean | `false` | Bluesky only, one named profile: read the app password from the first line of stdin, so it never reaches argv, the daily log or a prompt. A blank line is refused and nothing is written |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--revoke` | boolean | `false` | YouTube only, one named profile: take the Data API consent back instead of giving it. Revokes the refresh token at Google, then deletes that profile's stored YouTube readings and clears `YT_OAUTH_REFRESH_TOKEN` and `YT_OAUTH_SCOPES`; the OAuth client stays. With no consent held nothing is sent to Google and the readings are still deleted, so running it twice is harmless |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn profile auth` browser steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -107,6 +110,11 @@ blowhorn profile auth --platform linkedin --profile all --headless
 blowhorn profile auth --platform bluesky --profile personal
 printf '%s\n' "$APP_PASSWORD" | blowhorn profile auth --platform bluesky --profile personal --handle personal.bsky.social --app-password-stdin --json
 blowhorn profile auth --platform linkedin --profile company --headed --json
+blowhorn profile auth --platform youtube --profile personal
+blowhorn profile auth --platform youtube --profile company --json
+blowhorn profile auth --platform youtube --profile personal --dry-run
+blowhorn profile auth --platform youtube --profile personal --revoke
+blowhorn profile auth --platform youtube --profile company --revoke --dry-run --json
 ```
 
 Output: json with `--json`, text otherwise.
@@ -123,7 +131,7 @@ blowhorn profile create [OPTIONS]
 | --- | --- | --- | --- |
 | `--payload-stdin` | boolean | `false` | Read the profile document (JSON: name, description, userId) from stdin; required |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile create` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile create` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -148,7 +156,7 @@ blowhorn profile current [OPTIONS]
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile current` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile current` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -179,7 +187,7 @@ blowhorn profile delete [OPTIONS] name
 | --- | --- | --- | --- |
 | `--yes` | boolean | `false` | Confirm the delete; without it the command refuses and exits 1 |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile delete` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile delete` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -210,7 +218,7 @@ blowhorn profile get [OPTIONS] name
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile get` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile get` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -236,7 +244,7 @@ blowhorn profile list [OPTIONS]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile list` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile list` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -269,7 +277,7 @@ blowhorn profile set [OPTIONS] name [assignments...]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile set` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile set` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -303,7 +311,7 @@ blowhorn profile status [OPTIONS]
 | `--roster` | boolean | `false` | Also read the profiles roster from the store and report which platforms each profile has a handle for. Needs the store: a store that cannot be reached is the named cause and exit 3; a roster that reads empty or cannot be read is reported on a Roster: line, not fatal |
 | `--chrome` | boolean | `false` | Read this machine's Chrome profile mappings from the store and Chrome's profile list, and add a Chrome column: the mapped directory and whether its recorded name and account still match. Opens no browser; a store that cannot be reached is the named cause and exit 3 |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn profile status` browser steps: a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -337,7 +345,7 @@ blowhorn profile switch [OPTIONS] name
 
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile switch` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile switch` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -368,7 +376,7 @@ blowhorn profile update [OPTIONS] name
 | --- | --- | --- | --- |
 | `--payload-stdin` | boolean | `false` | Read the profile document (JSON: name, description, userId) from stdin; required |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn profile update` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn profile update` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 

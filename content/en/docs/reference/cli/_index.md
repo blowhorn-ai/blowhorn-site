@@ -388,8 +388,9 @@ The commands that never look at `--platform` do not reject anything:
 - `schedule` reads it as a filter over scheduled activities, and accepts every
   platform an activity may carry.
 - `profile current/list/switch` never read it.
-- `profile auth --all` refreshes a fixed list and ignores `--platform`
-  entirely, so an unsupported platform is inert there too.
+- `profile auth --all` refreshes a fixed list (LinkedIn, X, Reddit and
+  Slack; never the YouTube consent, which is asked for by name) and ignores
+  `--platform` entirely, so an unsupported platform is inert there too.
 
 `schedule` is the one activity that is not "what this command acts on". It dispatches
 whatever a schedule activity names, and its `--platform` filters those activities, so every
@@ -501,6 +502,7 @@ blowhorn profile switch your-profile
 blowhorn profile auth --platform x            # a sign-in records the session as valid, checked now
 blowhorn profile auth --platform bluesky --profile your-profile  # prompts for handle + app password; saved only if Bluesky accepts the login
 printf '%s\n' "$APP_PASSWORD" | blowhorn profile auth --platform bluesky --profile your-profile --handle you.bsky.social --app-password-stdin --json
+blowhorn profile auth --platform youtube --profile your-profile  # the Data API consent in your browser, with your own OAuth client; nothing stored if you refuse
 blowhorn profile auth --platform reddit --profile all --exclude ""
 blowhorn profile auth --all
 ```

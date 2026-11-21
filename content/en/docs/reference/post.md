@@ -27,6 +27,12 @@ each stage as it is reached (`Dry fire · signin · signed in to LinkedIn`).
 It writes nothing to your Blowhorn account - no post, routine, ledger entry
 or run record - and `--json` ends with the result. Hacker News is refused,
 because its dry run signs in. The app's New order uses it for **Dry fire**.
+A YouTube upload from a profile without a Data API consent is walked
+through Studio's upload dialog as far as the Visibility page and stops
+before the final button, so nothing is published. Studio saves the upload
+as private as soon as the video is attached, so the dry fire's last line
+says so; delete that private upload in YouTube Studio. With a consent, the
+upload goes through the Data API and the dry fire only prints the plan.
 
 ```bash
 echo '{"Platform": "LinkedIn", "Profile": "company", "Message Text": "Release day."}' \
@@ -40,8 +46,8 @@ nothing, and never retried by the run. See
 
 ## Platform behavior
 
-LinkedIn, X, Reddit, and Hacker News drive your Google Chrome through the
-extension. Slack, Bluesky, and GitHub post through their APIs. Reddit
+LinkedIn, X, Reddit, Hacker News, and YouTube drive your Google Chrome
+through the extension. Slack, Bluesky, and GitHub post through their APIs. Reddit
 activities need their subreddit as `r/<name>` in "Destination" or "Amplify";
 without one the activity is skipped. A "Comment on" activity addressed to a
 LinkedIn or Reddit location becomes a comment under `post` as well as

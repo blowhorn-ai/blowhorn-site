@@ -39,7 +39,8 @@ uses the extension to approve it:
   YouTube Studio)
 
 Chrome asks you, and only when you click **Allow YouTube** on the
-Blowhorn page that `blowhorn chrome open-profile <profile> --sign-in youtube`
+Blowhorn page that the desktop app's **Turn on YouTube** (on a profile's
+**Browser** tab) or `blowhorn chrome open-profile <profile> --sign-in youtube`
 (or `blowhorn chrome create-profile --sign-in youtube`) opens. Until you allow it, the extension cannot open those sites, and a
 YouTube action stops before it opens anything and says how to turn
 YouTube on. Once allowed, the extension treats those sites like the

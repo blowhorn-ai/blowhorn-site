@@ -31,7 +31,7 @@ blowhorn analytics [OPTIONS]
 | --- | --- | --- | --- |
 | `--lookback` | integer |  | Days to look back for export |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Pace of the random delays between `blowhorn analytics` actions (page loads, typing, clicks, API calls): a preset name (fast/normal/slow) or a numeric multiplier (e.g. 0.5, 2.0). Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Risk Profile this run uses: cautious, standard or brisk. For this one run it beats the schedule's value, the profile's choice and configuration. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -44,6 +44,7 @@ blowhorn analytics --profile personal --dry-run -v
 blowhorn analytics --profile personal --lookback 365
 blowhorn analytics --platform x --profile personal,acme
 blowhorn analytics --platform x --profile all --exclude ""
+blowhorn analytics --platform youtube --profile personal
 ```
 
 Output: json with `--json`, text otherwise.
@@ -63,7 +64,7 @@ blowhorn analytics activities [OPTIONS] activities...
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics activities` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics activities` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -93,7 +94,7 @@ blowhorn analytics activity [OPTIONS] activity
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics activity` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics activity` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -121,7 +122,7 @@ blowhorn analytics history [OPTIONS]
 | `--since` | string |  | How far back to read: a number with d, w, m or y (30d, 12m, 1y), or `all` (default: 12m) |
 | `--subject` | string |  | One page or profile name (all by default) |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics history` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics history` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -152,7 +153,7 @@ blowhorn analytics import-exports [OPTIONS] [paths...]
 | Flag | Type | Default | Description |
 | --- | --- | --- | --- |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics import-exports` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics import-exports` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -181,7 +182,7 @@ blowhorn analytics operations [OPTIONS]
 | `--group-by` | string |  | Aggregate per profile, platform, command, day or host -- host is the machine that ran it (default: profile) |
 | `--kind` | string |  | Which ledger records to aggregate: run (action runs, the default) or tick (scheduler passes) |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string |  | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics operations` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics operations` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
@@ -217,7 +218,7 @@ blowhorn analytics pages [OPTIONS] [pages_action] [pages_name] [pages_kind] [pag
 | --- | --- | --- | --- |
 | `--disabled` | boolean | `false` | Add the page disabled: listed, but collection skips it until it is added again without this flag |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
-| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, all (`all` means every platform listed here) |
+| `--platform` | string | `all` | Platform scope for `blowhorn analytics`. One of: bluesky, linkedin, x, youtube, all (`all` means every platform listed here) |
 | `--pace` | string |  | Accepted by `blowhorn analytics pages` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 | `--risk-profile` | string |  | Accepted by `blowhorn analytics pages` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
 
