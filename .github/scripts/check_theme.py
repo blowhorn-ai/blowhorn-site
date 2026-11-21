@@ -461,6 +461,8 @@ OPEN_LIST_END_RE = re.compile(
 )
 OPEN_LIST_START_RE = re.compile(r"\bsuch\s+as\s*$", re.I)
 TAG_RE = re.compile(r"<[^>]*>")
+MD_LINK_RE = re.compile(r"!?\[([^\]]*)\]\([^)]*\)")
+MD_MARK_RE = re.compile(r"\*+|`+|(?<!\w)_+|_+(?!\w)")
 
 # Sentences that name the networks as a record of something fixed, not as
 # Blowhorn's reach: a film's own captions and the logo loop's frames. Each is
@@ -486,11 +488,18 @@ def supported_network_names(root: Path) -> list[str]:
     return names
 
 
+def plain_text(text: str) -> str:
+    """Copy as a reader sees it: HTML tags, Markdown links and emphasis
+    reduced to their text."""
+    return MD_MARK_RE.sub("", MD_LINK_RE.sub(r"\1", TAG_RE.sub(" ", text)))
+
+
 def copy_sentences(path: Path) -> list[str]:
-    """Every sentence of a source file's copy: the strings of its structured
-    data or front matter, its Markdown body, or a layout's text."""
+    """Every sentence of a source file's copy, as plain text: the strings of
+    its structured data or front matter, its Markdown body, or a layout's
+    text."""
     if path.suffix == ".html":
-        strings = [TAG_RE.sub(" ", path.read_text(encoding="utf-8"))]
+        strings = [path.read_text(encoding="utf-8")]
     else:
         documents, body = copy_documents(path)
         strings = [body]
@@ -503,7 +512,7 @@ def copy_sentences(path: Path) -> list[str]:
                 pending.extend(node.values())
             elif isinstance(node, list):
                 pending.extend(node)
-    return [s.strip() for text in strings for s in SENTENCE_SPLIT_RE.split(text) if s.strip()]
+    return [s.strip() for text in strings for s in SENTENCE_SPLIT_RE.split(plain_text(text)) if s.strip()]
 
 
 def check_open_network_lists(root: Path) -> list[str]:

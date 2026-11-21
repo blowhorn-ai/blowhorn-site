@@ -444,6 +444,9 @@ class OpenNetworkListsTest(unittest.TestCase):
             "Your audience is on LinkedIn, X, YouTube and more, and you message Hacker News.",
             "Accounts you configure, such as LinkedIn, X and Hacker News.",
             "Every network: LinkedIn, X, Hacker News, YouTube + many more",
+            "Posts to LinkedIn, X, Hacker News, [YouTube](/field-manual/youtube/) and more.",
+            "Posts to LinkedIn, X, Hacker News, **YouTube** and more.",
+            "Posts to LinkedIn, X, _Hacker News_, <b>YouTube</b> and more.",
         ):
             self.write("content/en/compare/acme.md", text + "\n")
             self.assertEqual(self.found(), [], text)
