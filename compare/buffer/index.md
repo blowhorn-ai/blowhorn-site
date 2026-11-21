@@ -40,7 +40,7 @@ Buffer is honest software and it sells no engagement either, so this one is abou
 
 ## Frequently Asked Questions {#questions}
 
-**Is Buffer better than Blowhorn?** For a broad, always-on calendar across consumer networks, yes. For amplifying one message from many real profiles on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, we think Blowhorn is the better fit.
+**Is Buffer better than Blowhorn?** For a broad, always-on calendar across consumer networks, yes. For amplifying one message from many real profiles on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, we think Blowhorn is the better fit.
 
 **Can I use both?** Yes. Plenty of teams keep a calendar tool for the brand feed and use Blowhorn to rally the people behind a launch.
 

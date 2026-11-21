@@ -10,7 +10,7 @@
 
 ## What Blowhorn does for DevRel
 
-- **One desk for where developers talk.** Hacker News submit and comment, GitHub follow and react, Slack messages as you, plus LinkedIn, X, Reddit and Bluesky, from one queue.
+- **One desk for where developers talk.** Hacker News submit and comment, GitHub follow and react, Slack messages as you, plus LinkedIn, X, Reddit, Bluesky, YouTube and more, from one queue.
 - **Posted as you.** Blowhorn does the typing and clicking in your own browser. No vendor server logs in as you, and nothing is branded "sent via Blowhorn".
 - **Your agent drives, you approve.** Every action is scripted and takes --dry-run first. No model decides what to click, and only approved posts go out.
 - **A sound wave on release day.** Schedule the announcement and have every profile you add amplify it at the moment you pick.

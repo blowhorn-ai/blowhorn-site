@@ -26,7 +26,7 @@ By group, because products within a group differ. Checked against vendor pages i
 - **A fleet behind every post.** Amplify reposts and comments from every profile you run while the post is still fresh. Teammates joining your fleet is coming soon. [Details](https://blowhorn.ai/docs/explanation/distribution/)
 - **Your hand on the switch.** Pause one action, one computer or every computer at once, with the reason recorded. Resume and due times carry forward. [Details](https://blowhorn.ai/docs/explanation/youre-in-control/)
 - **Careful by default.** Human-paced typing, built-in caps, one click per run, one automation per platform per profile at a time. [Details](https://blowhorn.ai/docs/explanation/reliability-and-anti-bot-design/)
-- **Where technical teams talk.** Hacker News, Reddit, GitHub and Slack sit in the same queue as LinkedIn, X and Bluesky. [Details](https://blowhorn.ai/docs/reference/platforms/)
+- **Where technical teams talk.** Hacker News, Reddit, GitHub and Slack sit in the same queue as LinkedIn, X, Bluesky, YouTube and more. [Details](https://blowhorn.ai/docs/reference/platforms/)
 
 ## Credit where due
 

@@ -11,7 +11,7 @@
 ## What Blowhorn does instead
 
 - **Your computers press Post.** Every action runs on one of your computers, in your browser or through the platform's API. Your account keeps them in sync and never posts.
-- **Every developer channel, one queue.** Hacker News, GitHub and Slack join LinkedIn, X, Reddit and Bluesky in one queue.
+- **Every developer channel, one queue.** Hacker News, GitHub and Slack join LinkedIn, X, Reddit, Bluesky, YouTube and more in one queue.
 - **Amplify from your profiles.** Schedule a post, then have every profile you run amplify it at the moment you pick.
 - **Any awake computer covers it.** Close your laptop. Another computer set up for that profile picks it up, as long as one of them is awake.
 

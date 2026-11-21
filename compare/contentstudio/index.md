@@ -1,6 +1,6 @@
 # Blowhorn vs ContentStudio
 
-> ContentStudio is an AI-positioned cloud scheduler with a standout discovery engine and flat per-plan pricing. Blowhorn is for getting real people to amplify you on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube.
+> ContentStudio is an AI-positioned cloud scheduler with a standout discovery engine and flat per-plan pricing. Blowhorn is for getting real people to amplify you on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more.
 
 ## Choose ContentStudio if
 

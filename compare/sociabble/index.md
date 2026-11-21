@@ -13,7 +13,7 @@
 ## Choose Blowhorn if
 
 - You are a founder, a DevRel team, a practice, an agency or a growing company
-- Your people talk on LinkedIn and X, and on Hacker News, Reddit, GitHub, Slack and Bluesky
+- Your people talk on LinkedIn and X, and on Hacker News, Reddit, GitHub, Slack, Bluesky, YouTube and more
 - You want amplification working today, without a sales call or a seat-count quote
 
 ## Side by side

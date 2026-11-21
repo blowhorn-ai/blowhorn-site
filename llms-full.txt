@@ -5,9 +5,9 @@
 --------------------------------------------------------------------------------
 title: "Blowhorn: not a bot, it's you"
 url: https://blowhorn.ai/index.md
-description: Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more profiles, from your own computers, as you.
+description: Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, from your own computers, as you.
 --------------------------------------------------------------------------------
-Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more profiles, from your own computers, as you.
+Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, from your own computers, as you.
 
 --------------------------------------------------------------------------------
 title: "Meet Major Blowhorn"
@@ -413,7 +413,7 @@ None of that makes a behavior allowed. The rules govern what an account does, no
 
 Curious what sites can see about your browser? Run the free check at [Blowhorn Tells](https://tells.blowhorn.ai/). It shows what a page can read, not what a platform will decide.
 
-Blowhorn posts to LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub and YouTube, on your computer ([Platforms](/docs/reference/platforms/), [System requirements](/docs/reference/requirements/)). The page on Facebook, Instagram, TikTok, Threads and Mastodon is general education only: Blowhorn doesn't post to them.
+Blowhorn posts to LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub, YouTube and more, on your computer ([Platforms](/docs/reference/platforms/), [System requirements](/docs/reference/requirements/)). The page on Facebook, Instagram, TikTok, Threads and Mastodon is general education only: Blowhorn doesn't post to them.
 
 
 --------------------------------------------------------------------------------
@@ -1178,7 +1178,7 @@ Every network Blowhorn reaches. LinkedIn, X, Reddit, Hacker News, YouTube and mo
 title: "Action matrix"
 url: https://blowhorn.ai/integrations/actions/index.md
 date: "2026-11-16"
-description: Every Blowhorn action on every platform in one grid. Post, comment, reply, amplify, follow and more on LinkedIn, X, Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube, Instagram, TikTok and Facebook.
+description: Every Blowhorn action on every platform in one grid. Post, comment, reply, amplify, follow and more on LinkedIn, X, Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube and more.
 --------------------------------------------------------------------------------
 
 

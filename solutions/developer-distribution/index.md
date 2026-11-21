@@ -10,7 +10,7 @@
 
 ## What Blowhorn does instead
 
-- **Every developer network, one queue.** Hacker News submit and comment, GitHub follow and react, Slack messages, plus LinkedIn, X, Reddit and Bluesky.
+- **Every developer network, one queue.** Hacker News submit and comment, GitHub follow and react, Slack messages, plus LinkedIn, X, Reddit, Bluesky, YouTube and more.
 - **Never votes on Hacker News.** It submits stories and comments, nothing else, with at most 2 link submissions per profile per day.
 - **No Blowhorn app in your Slack.** Blowhorn works through your own Slack sign-in and posts as you. No app to install, no bot user to invite.
 - **Human-paced by design.** Types key by key in your own browser, caps itself, and hands every CAPTCHA and 2FA prompt to you.

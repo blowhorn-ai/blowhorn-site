@@ -45,7 +45,7 @@ A squad of tin-can chickens who do exactly what the queue says, when it says, an
 
 Writes it once. Posts it everywhere.
 
-A gold rooster with a keyboard for a shield. You write the post one time and he carries it to LinkedIn, X, Reddit, Bluesky, Slack, Hacker News, GitHub and YouTube, no copy-paste marathon required. He will not improve your jokes. He just makes sure your words land where your people are.
+A gold rooster with a keyboard for a shield. You write the post one time and he carries it to LinkedIn, X, Reddit, Bluesky, Slack, Hacker News, GitHub, YouTube and more, no copy-paste marathon required. He will not improve your jokes. He just makes sure your words land where your people are.
 
 - [How posting works](https://blowhorn.ai/docs/how-to/publish/post-content/)
 - [Where you can post](https://blowhorn.ai/docs/reference/platforms/)

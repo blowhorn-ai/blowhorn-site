@@ -3,7 +3,7 @@
 > Blowhorn is a social media console that takes one message and broadcasts, reposts and amplifies it across every profile and platform your community runs, on autopilot. Runs on your computer.
 
 ## Pages
-- [Blowhorn: not a bot, it's you](https://blowhorn.ai/index.md): Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more profiles, from your own computers, as you.
+- [Blowhorn: not a bot, it's you](https://blowhorn.ai/index.md): Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, from your own computers, as you.
 - [Meet Major Blowhorn](https://blowhorn.ai/major/index.md): The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
 - [Try Blowhorn in your browser](https://blowhorn.ai/demo/index.md): The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.
 - [Pricing](https://blowhorn.ai/pricing/index.md): Blowhorn is free during early access, with no limits on voices or platforms. Paid plans aren't set yet. Here's what a voice is and how plans will count them.
@@ -90,7 +90,7 @@
 - [Integrations](https://blowhorn.ai/integrations/index.md): Every network Blowhorn reaches. LinkedIn, X, Reddit, Hacker News, YouTube and more through your own browser, with YouTube uploads, comments, replies and likes going through YouTube's official API after Data API consent. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts.
 
 
-- [Action matrix](https://blowhorn.ai/integrations/actions/index.md): Every Blowhorn action on every platform in one grid. Post, comment, reply, amplify, follow and more on LinkedIn, X, Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube, Instagram, TikTok and Facebook.
+- [Action matrix](https://blowhorn.ai/integrations/actions/index.md): Every Blowhorn action on every platform in one grid. Post, comment, reply, amplify, follow and more on LinkedIn, X, Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube and more.
 
 ## Agentic AI Marketing
 - [Agentic AI Marketing](https://blowhorn.ai/agents/index.md): Run your marketing from the AI agent you already code with. Blowhorn's CLI does everything the desktop app does, so Claude Code, OpenCode, Pi, Codex, Grok and DeepSeek can schedule and amplify for you.

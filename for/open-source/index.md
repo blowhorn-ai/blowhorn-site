@@ -10,7 +10,7 @@
 
 ## What Blowhorn does for Open source maintainers
 
-- **Every developer channel in one queue.** Slack messages and GitHub reactions sit in the same queue as LinkedIn, X, Reddit, Hacker News and Bluesky.
+- **Every developer channel in one queue.** Slack messages and GitHub reactions sit in the same queue as LinkedIn, X, Reddit, Hacker News, Bluesky, YouTube and more.
 - **Maintainers amplify as themselves.** Each maintainer adds their own profile and joins the wave, posting as themselves.
 - **No spam, no votes.** Hacker News submit and comment only, at human pace, with built-in caps.
 - **Scriptable.** Every command has --help with examples, most have --json, and anything that publishes takes --dry-run.

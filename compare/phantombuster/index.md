@@ -14,7 +14,7 @@
 
 - You want careful LinkedIn hygiene, not volume prospecting
 - No vendor server should log in as you; Blowhorn acts from your own signed-in browser
-- You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, and want your people amplifying
+- You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, and want your people amplifying
 
 ## Side by side
 

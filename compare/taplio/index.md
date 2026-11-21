@@ -12,7 +12,7 @@
 
 ## Choose Blowhorn if
 
-- Your voice spans LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube
+- Your voice spans LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more
 - You want your team and supporters to amplify as themselves, in the first hour
 - You want a CLI your agent drives, with --dry-run rehearsal before anything posts
 

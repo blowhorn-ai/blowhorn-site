@@ -1,6 +1,6 @@
 # Facebook, Instagram, TikTok, Threads and Mastodon
 
-> **Blowhorn doesn't post to these platforms.** This page is general education. Blowhorn works with LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub and YouTube, on your computer (see [System requirements](/docs/reference/requirements/)).
+> **Blowhorn doesn't post to these platforms.** This page is general education. Blowhorn works with LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub, YouTube and more, on your computer (see [System requirements](/docs/reference/requirements/)).
 
 > Intelligence from fronts the Major doesn't march on. Useful anywhere you post by hand.
 

@@ -33,7 +33,7 @@ From one recruit to a full squad. Install Blowhorn on one computer, then the nex
 - **A fleet behind every post.** Amplify reposts and comments from every profile you run while the post is still fresh. Teammates joining your fleet is coming soon.
 - **Your hand on the switch.** Pause one action, one computer or every computer at once, with the reason recorded. Resume and due times carry forward.
 - **Careful by default.** Human-paced typing, built-in caps, one click per run, one automation per platform per profile at a time.
-- **Where technical teams talk.** Hacker News, Reddit, GitHub and Slack sit in the same queue as LinkedIn, X and Bluesky.
+- **Where technical teams talk.** Hacker News, Reddit, GitHub and Slack sit in the same queue as LinkedIn, X, Bluesky, YouTube and more.
 
 ## Where it works
 Blowhorn works with LinkedIn, X (Twitter), Reddit, Hacker News, Slack, Bluesky, GitHub, YouTube, Instagram, TikTok, Facebook.

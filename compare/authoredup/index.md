@@ -12,7 +12,7 @@
 
 ## Choose Blowhorn if
 
-- You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube
+- You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more
 - Your team and supporters should amplify your posts, from their own profiles
 - You want one queue across every computer and profile, with one pause switch for all of them
 

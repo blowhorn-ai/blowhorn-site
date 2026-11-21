@@ -14,7 +14,7 @@
 
 - You want people who actually know you to show up in the replies
 - You want a conversation, not a count
-- You want to speak on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, as yourself
+- You want to speak on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, as yourself
 
 ## Side by side
 
