@@ -14,12 +14,12 @@
       })();
     </script>
 <title>Collect and read your analytics: Blowhorn</title>
-    <meta name="description" content="Collect LinkedIn and X follower numbers, read the history, one activity&#39;s result and the HTML report.">
+    <meta name="description" content="Collect LinkedIn, X and YouTube follower numbers, read the history, one activity&#39;s result and the HTML report.">
     <link rel="canonical" href="https://blowhorn.ai/docs/how-to/measure/analytics/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Blowhorn">
     <meta property="og:title" content="Collect and read your analytics: Blowhorn">
-    <meta property="og:description" content="Collect LinkedIn and X follower numbers, read the history, one activity&#39;s result and the HTML report.">
+    <meta property="og:description" content="Collect LinkedIn, X and YouTube follower numbers, read the history, one activity&#39;s result and the HTML report.">
     <meta property="og:url" content="https://blowhorn.ai/docs/how-to/measure/analytics/">
     <meta property="og:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-social-banner-16x9.png">
     <meta property="og:image:width" content="1600">
@@ -27,7 +27,7 @@
     <meta property="og:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline Not a bot. It's you.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Collect and read your analytics: Blowhorn">
-    <meta name="twitter:description" content="Collect LinkedIn and X follower numbers, read the history, one activity&#39;s result and the HTML report.">
+    <meta name="twitter:description" content="Collect LinkedIn, X and YouTube follower numbers, read the history, one activity&#39;s result and the HTML report.">
     <meta name="twitter:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-social-banner-16x9.png">
     <meta name="twitter:image:alt" content="Major Blowhorn, a rooster drill sergeant, crows through a megaphone beside the Blowhorn wordmark and the tagline Not a bot. It's you.">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c8ca8d73b7036256bdd77f87092d4d9a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -297,6 +297,8 @@
     <a href="/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-hacker-news-li">
     <a href="/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-youtube-li">
+    <a href="/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishreply-to-a-post-li">
     <a href="/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishsend-a-slack-message-li">
@@ -590,12 +592,58 @@
   </ol>
 </nav><div class="prose docs-page">
   <h1 class="h1">Collect and read your analytics</h1>
-  <p class="body-lg docs-lead">Collect LinkedIn and X follower numbers, read the history, one activity's result and the HTML report.</p>
-  <p>Collect follower numbers from LinkedIn and X, then read them back as dated
-series in the app or the command line.</p>
-<p>Blowhorn collects LinkedIn pages and X profiles. A Bluesky scope is accepted by
-the command but collects nothing today, so scope your runs to <code>linkedin</code> and
-<code>x</code>.</p>
+  <p class="body-lg docs-lead">Collect LinkedIn, X and YouTube follower numbers, read the history, one activity's result and the HTML report.</p>
+  <p>Collect follower numbers from LinkedIn, X and YouTube, then read them back as
+dated series in the app or the command line.</p>
+<p>Blowhorn collects LinkedIn pages, X profiles and YouTube channels. A Bluesky
+scope is accepted by the command but collects nothing today, so scope your
+runs to <code>linkedin</code>, <code>x</code> and <code>youtube</code>. YouTube analytics are read-only
+metrics: Blowhorn never writes or changes figures on YouTube. They are
+read through each profile's own OAuth consent. Figures are kept for 30
+days, and a daily organization-wide purge deletes YouTube readings older
+than that, under
+<a href="https://developers.google.com/youtube/terms/developer-policies">YouTube API Services Developer Policies</a>
+III.E.4. Taking one profile's consent back deletes only that profile's
+stored YouTube figures; other profiles' figures stay. See
+<a href="/docs/reference/platforms/youtube/#how-long-youtube-figures-are-kept">YouTube</a>.</p>
+<h2 id="before-you-collect-youtube">Before you collect YouTube</h2><p>A YouTube collection skips any profile without its own Data API consent.
+Store your own Google Cloud OAuth client (type Desktop app) in the profile's
+credential, then give the consent in your default browser:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile <span class="nb">set</span> ada <span class="nv">YT_OAUTH_CLIENT_ID</span><span class="o">=</span>1234-abc.apps.googleusercontent.com <span class="nv">YT_OAUTH_CLIENT_SECRET</span><span class="o">=</span>GOCSPX-...
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile ada</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>Creating the client and what the consent stores are in
+<a href="/docs/how-to/set-up/platform-accounts/#give-the-youtube-data-api-consent">Give the YouTube Data API consent</a>.
+In the desktop app, <strong>Give consent</strong> on the YouTube row of the profile's
+<strong>Browser</strong> tab does the same.</p>
+<p>Taking the consent back deletes that profile's YouTube figures at once, as
+YouTube's policies require; other profiles' figures stay:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn profile auth --platform youtube --profile ada --revoke</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>See
+<a href="/docs/how-to/set-up/platform-accounts/#take-the-youtube-data-api-consent-back">Take the YouTube Data API consent back</a>.</p>
 <h2 id="collect">Collect</h2><figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -607,11 +655,15 @@ the command but collects nothing today, so scope your runs to <code>linkedin</co
     </button>
   </figcaption>
   <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --platform linkedin --profile ada --lookback <span class="m">30</span>
-</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --platform x --profile all</span></span></code></pre></div></div>
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --platform x --profile all
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --platform youtube --profile ada</span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
-<p>LinkedIn exports honour <code>--lookback</code>; X appends a follower and following trend
-row per profile. Each run prints a receipt of the rows it collected. In the
+<p>LinkedIn exports honor <code>--lookback</code>; X appends a follower and following trend
+row per profile; YouTube reads the 30 days ending yesterday, and a run that
+covers every platform leaves out a profile with no YouTube credential. Each
+run prints a receipt of the LinkedIn and X rows it collected, and a summary of the YouTube
+figures it read. In the
 app, the &quot;results&quot; screen collects on demand with &quot;collect now&quot; and draws
 the same series.</p>
 <h2 id="choose-the-linkedin-pages">Choose the LinkedIn pages</h2><p>The LinkedIn pages a collection walks belong to your organization, not to a
@@ -798,7 +850,7 @@ reached, or holds nothing yet, the report falls back to the exports on disk.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/measure/analytics.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -841,6 +893,7 @@ reached, or holds nothing yet, the report falls back to the exports on disk.</p>
     </div>
     <nav id="TableOfContents" aria-label="On this page">
   <ul>
+    <li><a href="#before-you-collect-youtube">Before you collect YouTube</a></li>
     <li><a href="#collect">Collect</a></li>
     <li><a href="#choose-the-linkedin-pages">Choose the LinkedIn pages</a></li>
     <li><a href="#read-the-history">Read the history</a></li>

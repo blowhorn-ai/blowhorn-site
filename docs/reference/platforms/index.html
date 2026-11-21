@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c8ca8d73b7036256bdd77f87092d4d9a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -297,6 +297,8 @@
     <a href="/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-hacker-news-li">
     <a href="/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-youtube-li">
+    <a href="/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishreply-to-a-post-li">
     <a href="/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishsend-a-slack-message-li">
@@ -600,12 +602,15 @@ in the how-to guides linked under Related.</p>
   </div>
 </aside>
 
-<p>Four platforms drive your own signed-in Google Chrome through the extension:
-LinkedIn, X, Reddit, and Hacker News. Three post through their APIs
+<p>Five platforms drive your own signed-in Google Chrome through the extension:
+LinkedIn, X, Reddit, Hacker News, and YouTube. YouTube needs the
+extension's YouTube permission first, granted with <strong>Turn on YouTube</strong> on a
+profile's <strong>Browser</strong> tab in the desktop app, or with
+<code>blowhorn chrome open-profile &lt;profile&gt; --sign-in youtube</code>. Three post through their APIs
 above the browser: Slack, Bluesky, and GitHub. A platform is usable the
 moment its credential exists; see <a href="/docs/explanation/eligibility/">Who can post as whom</a>.</p>
 <p><code>blowhorn post --platform</code> accepts one of: <code>linkedin</code>, <code>x</code>, <code>reddit</code>,
-<code>hn</code>, <code>slack</code>, <code>bluesky</code>, <code>github</code>, or <code>all</code>. <code>twitter</code> reads as <code>x</code>
+<code>hn</code>, <code>slack</code>, <code>bluesky</code>, <code>github</code>, <code>youtube</code>, or <code>all</code>. <code>twitter</code> reads as <code>x</code>
 and <code>bsky</code> as <code>bluesky</code>. GitHub is amplify-only under <code>post</code>: it needs
 an issue or pull-request URL and refuses without one.</p>
 <p>Each platform has its own page, listing its supported actions and how each one behaves there:</p>
@@ -666,6 +671,7 @@ attribute -- but never a higher one. See
 <h2 id="related">Related</h2><ul>
 <li><a href="/docs/how-to/publish/post-content/">Preview and publish queued posts</a> - the posting run.</li>
 <li><a href="/docs/how-to/publish/post-to-hacker-news/">Post to Hacker News</a> - the strictest platform, worked.</li>
+<li><a href="/docs/how-to/publish/post-to-youtube/">Post to YouTube</a> - uploads, Posts-tab posts, comments, replies, likes and analytics, worked.</li>
 <li><a href="/docs/reference/content-queue/">Content queue columns and activity states</a> - every column each platform reads.</li>
 <li><a href="/docs/reference/messages/">Messages and exit codes</a> - what a refusal means.</li>
 <li><a href="/docs/explanation/eligibility/">Who can post as whom</a> - why a credential is permission.</li>

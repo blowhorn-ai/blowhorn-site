@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c8ca8d73b7036256bdd77f87092d4d9a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -297,6 +297,8 @@
     <a href="/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-hacker-news-li">
     <a href="/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-youtube-li">
+    <a href="/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishreply-to-a-post-li">
     <a href="/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishsend-a-slack-message-li">
@@ -666,11 +668,14 @@ profile represents is a member you pick, never an email you type.</p>
 the person it represents, the accounts mapped to it, and which fields each
 platform's credential holds. A credential field is shown only as set,
 never with its value. <code>blowhorn profile status</code> reports every profile with
-its sessions.</p>
+its sessions, and its YouTube channel by its address (YouTube has no session
+to check, so it is not a column of the table).</p>
 <p><code>blowhorn profile set &lt;name&gt; KEY=VALUE</code> writes a platform key to that
 platform's credential in your account, and a run setting to the profile's
 settings there. The run settings are <code>Risk Profile</code>, <code>Risk Profile By Platform</code>, <code>Daily Caps</code>, <code>Quiet Hours</code> and <code>Quiet Hours Time Zone</code>; a value
-a run could not read is refused. Any other key is refused by name before
+a run could not read is refused. So is a <code>YT_CHANNEL_URL</code> that is not the
+channel's address by ID, such as a handle address
+(<a href="/docs/reference/platforms/youtube/">YouTube</a>). Any other key is refused by name before
 anything is sent, and a blank value clears a key. If someone else changes the
 profile while you set it, Blowhorn reads it again and applies your keys once
 more, so their change is kept; if it changes a second time, nothing is written
@@ -733,6 +738,10 @@ Chrome, and follower counts grant nothing.</p>
       <td>GitHub</td>
       <td><code>GH_TOKEN</code></td>
     </tr>
+    <tr>
+      <td>YouTube</td>
+      <td><code>YT_CHANNEL_URL</code>, the channel's address by ID (the <code>YT_OAUTH_*</code> keys beside it for analytics and the experimental Data API write path)</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -743,7 +752,11 @@ computer holds a credential, and a key left in a profile's old local
 file is never read. <code>blowhorn profile auth --platform slack</code> captures a
 workspace session through the run's browser driver and lands it in your
 account; no Slack app install is needed. <code>blowhorn profile auth --platform bluesky</code> logs in with a handle and app password and stores them only when
-Bluesky accepts them.</p>
+Bluesky accepts them. <code>blowhorn profile auth --platform youtube</code> runs the
+YouTube Data API consent in your default browser and stores the refresh token it
+returns, with your own OAuth client, and <code>--revoke</code> takes it back: revoked at
+Google, that profile's YouTube figures deleted and the token cleared
+(<a href="/docs/reference/platforms/youtube/#the-data-api-consent">YouTube</a>).</p>
 <p>LinkedIn and Hacker News also accept a <strong>confirmed Chrome session</strong>
 instead of a password: <code>LI_CHROME_SESSION</code> and <code>HN_CHROME_SESSION</code> name
 the Chrome profile directory whose signed-in session the person
@@ -777,7 +790,7 @@ what it may do.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/profiles.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

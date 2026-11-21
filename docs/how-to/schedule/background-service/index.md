@@ -113,9 +113,11 @@ pass; the service itself is fine. Each failed attempt writes one line to that pa
 - `refused` or `reset`: something closed the connection.
 - `other`: none of the above; the line also names the error's type.
 
-The Service log on the Troubleshooting tab shows the end of the launcher's own error file,
-which is never cleared, so lines from an earlier version can sit beside today's.
-Check the **written** time and the version before reading one as current.
+The Service log on the Troubleshooting tab shows what the service has written since it last
+started. Its first line says when that was, which process it is and which version:
+`service run: started at 2026-11-20 09:49:50 (pid 25304, Blowhorn 2.11.1)`. Every line below it
+is from that run. **Open log** opens the whole file, which is never cleared, so it also holds
+earlier runs and versions, each beginning with its own start line.
 
 ## A separate data folder
 

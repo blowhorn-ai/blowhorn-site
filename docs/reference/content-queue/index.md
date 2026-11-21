@@ -14,11 +14,11 @@ columns beside them are preserved on write.
 
 | Column | Means | Read by |
 |---|---|---|
-| Platform | Where the activity goes: `linkedin`, `x`, `reddit`, `hn`, `slack`, `bluesky`, or `github` (`twitter` reads as `x`, `bsky` as `bluesky`; `Venue` is the old spelling) | Every run, as the platform gate |
+| Platform | Where the activity goes: `linkedin`, `x`, `reddit`, `hn`, `slack`, `bluesky`, `github`, or `youtube` (`twitter` reads as `x`, `bsky` as `bluesky`; `Venue` is the old spelling) | Every run, as the platform gate |
 | Profile | Which profile publishes it; blank or naming nothing resolvable is refused, never widened to everybody | The profile match |
 | Destination | Where on the platform: a subreddit as `r/<name>` for Reddit; the channel, person, or thread for Slack's "Amplify" use | Reddit, Slack |
 | Message Text | The message itself | Every platform that publishes |
-| Title | The title where the platform needs one: Hacker News submissions | Hacker News |
+| Title | The title where the platform needs one: Hacker News submissions, and YouTube uploads | Hacker News, YouTube |
 | Encoded Post | The pre-encoded form, when the activity carries one | The post path |
 | Approved? | `yes` or `true` selects the activity; anything else leaves it out | `get_posts_to_process` |
 | Approved by | Who approved the activity and when, as `<who> at <when>`; empty until then. Written by `blowhorn content approve` alone - a payload naming it is refused | The approval record |
@@ -37,18 +37,32 @@ content values read `%Y-%m-%d %H:%M:%S`.
 
 ## YouTube settings
 
-A YouTube activity carries three settings beside its columns. YouTube isn't
-available in Blowhorn yet; until it is, an activity can't name YouTube as its
-Platform. Every other platform refuses these settings by name.
+A YouTube activity carries three settings beside its columns. Every other
+platform refuses these settings by name. What each does on YouTube is on
+the [YouTube page](/docs/reference/platforms/youtube/).
 
 | Setting | Takes | Blank means |
 |---|---|---|
 | Visibility | `private`, `unlisted`, or `public` | `private` |
-| Short | `yes` or `no` (JSON `true` and `false` are written as `yes` and `no`) | Not a Short |
+| Short | `yes` or `no` (JSON `true` and `false` are written as `yes` and `no`; the string `"true"` is refused) | Not a Short |
 | Community | `yes` or `no`: `yes` makes the activity a post on the channel's Posts tab instead of an upload | An upload |
 
 A payload may spell a setting's name in any case. A setting shows in an
-activity's values only once it's set; clearing it to blank removes it.
+activity's values only once it's set; clearing it to blank removes it. A
+value that is not in the table is refused, for example `Visibility` set
+to `members`.
+
+These settings are rejected on a non-YouTube activity. This payload is
+refused:
+
+```bash
+blowhorn content upsert --payload '{"Platform":"LinkedIn","Profile":"your-profile","Message Text":"Hello from the launch.","Visibility":"private","Approved?":"yes"}'
+```
+
+The refusal names the setting: `Visibility is a YouTube setting; a
+LinkedIn activity does not take it (leave it blank)`. The same sentence
+is used for `Short` and `Community`, and for any other non-YouTube
+platform.
 
 ## Approval
 

@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c8ca8d73b7036256bdd77f87092d4d9a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -297,6 +297,8 @@
     <a href="/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-hacker-news-li">
     <a href="/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-youtube-li">
+    <a href="/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishreply-to-a-post-li">
     <a href="/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishsend-a-slack-message-li">
@@ -699,7 +701,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -790,7 +792,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -855,7 +857,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -920,7 +922,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1004,7 +1006,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1075,7 +1077,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1159,7 +1161,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1238,7 +1240,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1305,7 +1307,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1388,7 +1390,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1498,7 +1500,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1584,7 +1586,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1651,7 +1653,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1735,7 +1737,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td><code>all</code></td>
-      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
+      <td>Platform filter for <code>blowhorn schedule</code>: it selects which scheduled activities this command reads or acts on, and is not a platform blowhorn posts to directly. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> applies no filter, so every scheduled activity is included)</td>
     </tr>
     <tr>
       <td><code>--pace</code></td>
@@ -1773,7 +1775,7 @@
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/cli/schedule.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c8ca8d73b7036256bdd77f87092d4d9a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -297,6 +297,8 @@
     <a href="/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-hacker-news-li">
     <a href="/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-youtube-li">
+    <a href="/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishreply-to-a-post-li">
     <a href="/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishsend-a-slack-message-li">
@@ -606,7 +608,13 @@ one Platform) arrive as JSON on stdin and take the same dry run, printing
 each stage as it is reached (<code>Dry fire · signin · signed in to LinkedIn</code>).
 It writes nothing to your Blowhorn account - no post, routine, ledger entry
 or run record - and <code>--json</code> ends with the result. Hacker News is refused,
-because its dry run signs in. The app's New order uses it for <strong>Dry fire</strong>.</p>
+because its dry run signs in. The app's New order uses it for <strong>Dry fire</strong>.
+A YouTube upload from a profile without a Data API consent is walked
+through Studio's upload dialog as far as the Visibility page and stops
+before the final button, so nothing is published. Studio saves the upload
+as private as soon as the video is attached, so the dry fire's last line
+says so; delete that private upload in YouTube Studio. With a consent, the
+upload goes through the Data API and the dry fire only prints the plan.</p>
 <figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -625,8 +633,8 @@ because its dry run signs in. The app's New order uses it for <strong>Dry fire</
 read back is recorded as clicked, outcome not read, counted for
 nothing, and never retried by the run. See
 <a href="/docs/explanation/never-twice/">How Blowhorn avoids repeat posts</a>.</p>
-<h2 id="platform-behavior">Platform behavior</h2><p>LinkedIn, X, Reddit, and Hacker News drive your Google Chrome through the
-extension. Slack, Bluesky, and GitHub post through their APIs. Reddit
+<h2 id="platform-behavior">Platform behavior</h2><p>LinkedIn, X, Reddit, Hacker News, and YouTube drive your Google Chrome
+through the extension. Slack, Bluesky, and GitHub post through their APIs. Reddit
 activities need their subreddit as <code>r/&lt;name&gt;</code> in &quot;Destination&quot; or &quot;Amplify&quot;;
 without one the activity is skipped. A &quot;Comment on&quot; activity addressed to a
 LinkedIn or Reddit location becomes a comment under <code>post</code> as well as
@@ -689,7 +697,7 @@ Text&quot;, and is never placed on a guess:</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/post.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

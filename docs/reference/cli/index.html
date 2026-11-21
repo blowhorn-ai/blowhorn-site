@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c8ca8d73b7036256bdd77f87092d4d9a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -297,6 +297,8 @@
     <a href="/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-hacker-news-li">
     <a href="/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-youtube-li">
+    <a href="/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishreply-to-a-post-li">
     <a href="/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishsend-a-slack-message-li">
@@ -1134,8 +1136,9 @@ their <code>--help</code> says so. A bad platform default can never lock you out
 <li><code>schedule</code> reads it as a filter over scheduled activities, and accepts every
 platform an activity may carry.</li>
 <li><code>profile current/list/switch</code> never read it.</li>
-<li><code>profile auth --all</code> refreshes a fixed list and ignores <code>--platform</code>
-entirely, so an unsupported platform is inert there too.</li>
+<li><code>profile auth --all</code> refreshes a fixed list (LinkedIn, X, Reddit and
+Slack; never the YouTube consent, which is asked for by name) and ignores
+<code>--platform</code> entirely, so an unsupported platform is inert there too.</li>
 </ul>
 <p><code>schedule</code> is the one activity that is not &quot;what this command acts on&quot;. It dispatches
 whatever a schedule activity names, and its <code>--platform</code> filters those activities, so every
@@ -1243,6 +1246,7 @@ says so plainly.</p>
 </span></span><span class="line"><span class="cl">blowhorn profile auth --platform x            # a sign-in records the session as valid, checked now
 </span></span><span class="line"><span class="cl">blowhorn profile auth --platform bluesky --profile your-profile  # prompts for handle + app password; saved only if Bluesky accepts the login
 </span></span><span class="line"><span class="cl">printf &#39;%s\n&#39; &#34;$APP_PASSWORD&#34; | blowhorn profile auth --platform bluesky --profile your-profile --handle you.bsky.social --app-password-stdin --json
+</span></span><span class="line"><span class="cl">blowhorn profile auth --platform youtube --profile your-profile  # the Data API consent in your browser, with your own OAuth client; nothing stored if you refuse
 </span></span><span class="line"><span class="cl">blowhorn profile auth --platform reddit --profile all --exclude &#34;&#34;
 </span></span><span class="line"><span class="cl">blowhorn profile auth --all</span></span></code></pre></div></div>
 </figure>

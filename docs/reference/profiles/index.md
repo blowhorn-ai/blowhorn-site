@@ -77,13 +77,16 @@ profile represents is a member you pick, never an email you type.
 the person it represents, the accounts mapped to it, and which fields each
 platform's credential holds. A credential field is shown only as set,
 never with its value. `blowhorn profile status` reports every profile with
-its sessions.
+its sessions, and its YouTube channel by its address (YouTube has no session
+to check, so it is not a column of the table).
 
 `blowhorn profile set <name> KEY=VALUE` writes a platform key to that
 platform's credential in your account, and a run setting to the profile's
 settings there. The run settings are `Risk Profile`, `Risk Profile By
 Platform`, `Daily Caps`, `Quiet Hours` and `Quiet Hours Time Zone`; a value
-a run could not read is refused. Any other key is refused by name before
+a run could not read is refused. So is a `YT_CHANNEL_URL` that is not the
+channel's address by ID, such as a handle address
+([YouTube](/docs/reference/platforms/youtube/)). Any other key is refused by name before
 anything is sent, and a blank value clears a key. If someone else changes the
 profile while you set it, Blowhorn reads it again and applies your keys once
 more, so their change is kept; if it changes a second time, nothing is written
@@ -113,6 +116,7 @@ Chrome, and follower counts grant nothing.
 | Slack | `SLACK_USER_TOKEN`, `SLACK_BOT_TOKEN`, or a captured workspace session |
 | Bluesky | `BLUESKY_HANDLE`, `BLUESKY_APP_PASSWORD` |
 | GitHub | `GH_TOKEN` |
+| YouTube | `YT_CHANNEL_URL`, the channel's address by ID (the `YT_OAUTH_*` keys beside it for analytics and the experimental Data API write path) |
 
 Every platform reads its credential from your account, and only from
 there: a run takes the secret from the same read that decided the profile
@@ -122,7 +126,11 @@ file is never read. `blowhorn profile auth --platform slack` captures a
 workspace session through the run's browser driver and lands it in your
 account; no Slack app install is needed. `blowhorn profile auth --platform
 bluesky` logs in with a handle and app password and stores them only when
-Bluesky accepts them.
+Bluesky accepts them. `blowhorn profile auth --platform youtube` runs the
+YouTube Data API consent in your default browser and stores the refresh token it
+returns, with your own OAuth client, and `--revoke` takes it back: revoked at
+Google, that profile's YouTube figures deleted and the token cleared
+([YouTube](/docs/reference/platforms/youtube/#the-data-api-consent)).
 
 LinkedIn and Hacker News also accept a **confirmed Chrome session**
 instead of a password: `LI_CHROME_SESSION` and `HN_CHROME_SESSION` name

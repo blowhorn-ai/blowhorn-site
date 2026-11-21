@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c8ca8d73b7036256bdd77f87092d4d9a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -297,6 +297,8 @@
     <a href="/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-hacker-news-li">
     <a href="/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-youtube-li">
+    <a href="/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishreply-to-a-post-li">
     <a href="/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishsend-a-slack-message-li">
@@ -1476,7 +1478,8 @@ with one of them is how you connect it: Blowhorn never asks for the
 password. After you sign in, <code>blowhorn chrome discover</code> (the desktop's
 <strong>Discover</strong>) sees the sign-in and records it as the profile's
 account in your Blowhorn account.</p>
-<p><code>--sign-in youtube</code> is also where you turn YouTube on. The Blowhorn
+<p><code>--sign-in youtube</code> (the desktop's <strong>Turn on YouTube</strong>) is also where you
+turn YouTube on. The Blowhorn
 extension works on YouTube only in a Chrome profile that allowed it
 (<a href="/docs/reference/extension-permissions/#sites-you-turn-on">sites you turn on</a>), so the
 window opens first on the extension's own page. Choose <strong>Allow YouTube</strong>,
@@ -1599,8 +1602,16 @@ against your account's users, under the same rule as profile creation:
 <code>one</code> (with the user, and their account's social links for display
 only), <code>several</code> (with the candidates), <code>none</code> (with the refusal's
 sentence) or <code>no-email</code> - plus <code>proposed_slug</code> and <code>slug_state</code> (<code>free</code>,
-<code>own</code>, <code>taken</code>, <code>invalid</code>) for the profile a confirm would create.
-Discovery writes nothing to Chrome, and the social links it shows are
+<code>own</code>, <code>taken</code>, <code>invalid</code>) for the profile a confirm would create,
+and <code>mapped_to</code> and <code>mapped_platforms</code>, the profile the Chrome profile
+is mapped to and the platforms that mapping is chosen for. The
+document's <code>mappings</code> lists every mapping on this computer, each with
+its <code>profile</code>, <code>directory</code>, <code>platforms</code>, <code>identity</code> and <code>detail</code> (the
+sentence a run through it would be refused with, or <code>null</code>), including
+one whose Chrome profile is gone (<code>identity</code> <code>missing</code>): <code>profiles</code>
+cannot list that one, but a run still counts it when it picks a Chrome
+profile, so the text form prints its refusal too. Under <code>--local</code>
+<code>mappings</code> is empty. Discovery writes nothing to Chrome, and the social links it shows are
 never treated as permission to post. The discovery card reads
 <code>session_expires_at</code> for each signed-in platform: a session whose
 expiry is ahead reads &quot;Signed in as <code>&lt;identifier&gt;</code>&quot;, and a session that
@@ -1807,7 +1818,7 @@ can run side by side. See <a href="/docs/explanation/youre-in-control/">You're i
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 20, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/chrome.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

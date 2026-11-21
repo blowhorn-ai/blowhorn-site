@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c8ca8d73b7036256bdd77f87092d4d9a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -297,6 +297,8 @@
     <a href="/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-hacker-news-li">
     <a href="/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-youtube-li">
+    <a href="/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishreply-to-a-post-li">
     <a href="/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishsend-a-slack-message-li">
@@ -591,8 +593,284 @@
 </nav><div class="prose docs-page">
   <h1 class="h1">YouTube</h1>
   <p class="body-lg docs-lead">What Blowhorn can do on YouTube, and how each action behaves there.</p>
-  <p>Blowhorn works on YouTube in your own signed-in Google Chrome,
-and this page lists what it can do there.</p>
+  <p>Blowhorn works on YouTube in your own signed-in Google Chrome, through the
+extension. The extension reaches YouTube only once you allow it, one Chrome
+profile at a time. To grant that permission and sign in to your channel in
+the desktop app, open <strong>Profiles</strong>, open the profile, go to its <strong>Browser</strong>
+tab, pick the Google Chrome profile that runs YouTube for it, and choose
+<strong>Turn on YouTube</strong>. The guided setup's list of Google Chrome profiles has
+the same button once Blowhorn is added to that profile. From Terminal:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn chrome open-profile &lt;profile&gt; --sign-in youtube</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>Either way, a Blowhorn page opens in that Chrome profile: choose <strong>Allow
+YouTube</strong>, then <strong>Allow</strong> when Chrome asks, then sign in to YouTube on the
+page it goes on to. Until the permission is granted, a YouTube run is
+refused with nothing sent.</p>
+<p>The button is on one Google Chrome profile only: the one a YouTube run of
+that profile uses, which is the Chrome profile mapped for YouTube, else the
+profile's only one, else its default. When a profile has several Chrome
+profiles and none of those picks one, or the one they pick is no longer
+in Google Chrome (a deleted Chrome profile), no Chrome profile has the
+button; each shows the <code>blowhorn chrome map &lt;profile&gt; '&lt;Chrome profile&gt;' --for youtube</code>
+that chooses it instead (see <a href="/docs/reference/chrome/">Google Chrome</a>). When the one
+they pick has been renamed or signed in to another account since it was
+mapped, that Chrome profile shows the <code>blowhorn chrome map &lt;profile&gt; '&lt;Chrome profile&gt;'</code>
+that confirms it instead of the button.</p>
+<p>A profile can post to YouTube once it has <code>YT_CHANNEL_URL</code> in its credential,
+set to the channel's address by ID (<code>https://www.youtube.com/channel/UC...</code>,
+shown at youtube.com/account_advanced). In the desktop app it is the
+<strong>Channel address</strong> field on the same <strong>YouTube</strong> row of the profile's
+<strong>Browser</strong> tab; once it is set, the profile's <strong>Accounts</strong> tab lists
+YouTube by its channel ID, with <strong>Channel set</strong> (nothing checks a YouTube
+sign-in from there), and choosing that row opens the field to change it.
+From Terminal it is
+<code>blowhorn profile set &lt;profile&gt; YT_CHANNEL_URL=https://www.youtube.com/channel/UC...</code>
+(<a href="/docs/how-to/set-up/platform-accounts/">Connect platform accounts</a>).
+A handle address (<code>/@name</code>) is refused by both, with the reason and nothing
+saved, because Blowhorn never guesses which channel a handle means. A handle
+address saved before that refusal reads <strong>Needs channel ID</strong> on <strong>Accounts</strong>,
+and the field shows why until you replace it.
+<code>blowhorn profile status --json</code> reports the channel as YouTube's account
+(its <code>username</code>); YouTube is not a column of the status table and
+<code>--check-sessions</code> does not check it.</p>
+<h2 id="live-checks">Live checks</h2><p>Uploads through YouTube Studio, in signed-in Google Chrome, are the
+supported path and the default. One hand-supervised private Studio upload
+has already been run (2026-11-19): the upload page, the hidden
+file input, overwriting the title Studio fills from the file name, three
+presses of Next, and choosing Private so the final button reads Save.
+Unlisted and Public, the Checks page, the made-for-kids radio, and the
+rest of the dialog selectors have not been live-clicked; they are
+modeled.</p>
+<p>Uploads through the YouTube Data API are experimental and have not been
+live-verified. Giving the Data API consent switches uploads, comments,
+replies and likes onto that path; there is no fallback to Studio.
+Without the consent, uploads use Studio. Analytics, comments, replies
+and likes through the Data API have not had a live check either.</p>
+<p>Worked examples for each activity are in
+<a href="/docs/how-to/publish/post-to-youtube/">Post to YouTube</a>.</p>
+<h2 id="what-blowhorn-does-on-youtube">What Blowhorn does on YouTube</h2><ul>
+<li><strong>Uploads a video</strong> with <code>blowhorn post --platform youtube</code>. Set the
+activity's <code>Video URL</code>, <code>Title</code> and <code>Message Text</code> (the description).
+Blowhorn walks YouTube Studio's upload dialog: Details, Video elements,
+Checks and Visibility. It answers &quot;made for kids&quot; with No, and stops if
+Studio Checks reports a problem, with nothing published. The channel is
+checked when the upload page shows, once Details opens, and again just
+before the final click; a mismatch stops the activity with nothing
+published. Visibility is chosen explicitly and verified before that
+click: Blowhorn selects the row's setting, reads it back, and clicks
+only when the final button reads Save (private or unlisted) or Publish
+(public). If the button does not match, the click is refused. Nothing
+is read after a successful click, so the activity is recorded as
+<em>clicked, outcome not read</em>: check the upload in YouTube Studio.</li>
+<li><strong>Visibility</strong> is the activity's <code>Visibility</code> setting: <code>private</code> (the
+default), <code>unlisted</code> or <code>public</code>. Any other value is refused. Through
+the Data API, the visibility is read back from YouTube's answer after
+the upload and a different one is reported, not undone; see the Data
+API upload below. <strong>Short</strong>
+set to <code>yes</code> marks a Short; the video must be 3 minutes or less and
+vertical or square (not wider than it is tall). That length and shape
+are measured only once the file is on disk, so a plan-only
+<code>--dry-run</code> does not catch a Short that is too long or too wide. A live
+run, or a Google Chrome dry fire that downloads the file, refuses it
+before Studio's dialog proceeds (or, on the Data API path, before any
+byte is sent). See <a href="/docs/reference/content-queue/#youtube-settings">YouTube settings</a>.</li>
+<li><strong>Comments, replies and likes.</strong> <code>Comment on</code> set to a video address is a
+comment, and set to a comment's address (its <code>&amp;lc=</code> link) is a reply.
+<code>Amplify</code> set to a video address with no <code>Message Text</code> is a like.
+A comment or reply with an <code>@name</code> in it is refused before anything is
+typed. A reply to a reply is refused. If the Like button already reads
+as pressed, Blowhorn leaves it alone and records the like as done.
+That differs from Facebook, where an already-reacted post is left
+unclicked and is not recorded as done.</li>
+<li><strong>Posts on the Posts tab.</strong> <code>Community</code> set to <code>yes</code> makes the activity a
+post on your channel's Posts tab instead of an upload. Posts run only in
+signed-in Chrome; there is no Data API call for them. A title, a video,
+<code>Comment on</code>, <code>Amplify</code> or an <code>@</code> tag on a post row is refused by name.
+YouTube states no text length, so none is checked. At most one image
+(<code>Image URL</code>) may be attached.</li>
+<li><strong>Analytics.</strong> <code>blowhorn analytics --platform youtube</code> reads your
+channel's and videos' figures through the YouTube Analytics and Data APIs, using the
+profile's own OAuth consent (its <code>YT_OAUTH_*</code> keys; see
+<a href="#the-data-api-consent">The Data API consent</a>). These are read-only
+metrics: Blowhorn never writes or changes figures on YouTube. A profile
+without a consent is skipped. <code>--platform all</code> reads YouTube for every
+profile with a YouTube credential and leaves the others out; naming
+<code>--platform youtube</code> for a profile with no credential says what is
+missing. How long figures are kept, and what happens when you take the
+consent back, is in <a href="#how-long-youtube-figures-are-kept">How long YouTube figures are kept</a>.
+With that consent in place, uploads, comments, replies and likes go
+through the Data API too, instead of Google Chrome; uploads on that
+path are experimental and have not been live-verified. A failure on
+one path never falls back to the other. Studio remains the supported
+default for uploads when the profile has no Data API consent.</li>
+</ul>
+<h2 id="the-data-api-consent">The Data API consent</h2><p>Analytics, and uploads, comments, replies and likes through the Data API,
+read the profile's own OAuth consent from its YouTube credential.
+Uploads through the Data API are experimental and not live-verified;
+Studio is the supported default when this consent is not given:</p>
+
+<div class="table-scroll" tabindex="0" role="group" aria-label="Table">
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Key</th>
+      <th scope="col">What it holds</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>YT_OAUTH_CLIENT_ID</code>, <code>YT_OAUTH_CLIENT_SECRET</code></td>
+      <td>Your own Google Cloud OAuth client, type Desktop app. Blowhorn ships none. When the credential holds none, the consent reads <code>BLOWHORN_YOUTUBE_OAUTH_CLIENT_ID</code> and <code>BLOWHORN_YOUTUBE_OAUTH_CLIENT_SECRET</code> and stores them here.</td>
+    </tr>
+    <tr>
+      <td><code>YT_OAUTH_REFRESH_TOKEN</code></td>
+      <td>Written by the consent. The access token it refreshes is kept in memory for the run and never stored.</td>
+    </tr>
+    <tr>
+      <td><code>YT_OAUTH_SCOPES</code></td>
+      <td>The access Google granted, written by the consent.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p><code>blowhorn profile auth --platform youtube --profile &lt;profile&gt;</code> gives the
+consent, for exactly one named profile. It opens Google's consent page in
+your default browser and waits up to five minutes for the answer on
+127.0.0.1. It asks for upload (<code>youtube.upload</code>), editing and playlists
+(<code>youtube</code>), comments, replies and likes (<code>youtube.force-ssl</code>), Data API
+reads (<code>youtube.readonly</code>) and analytics (<code>yt-analytics.readonly</code>). A
+refused or abandoned consent stores nothing, and a scheduled run never
+opens one. The steps, including creating the OAuth client, are in
+<a href="/docs/how-to/set-up/platform-accounts/#give-the-youtube-data-api-consent">Give the YouTube Data API consent</a>.</p>
+<p>When Google no longer accepts the consent, the next YouTube run that
+tries to refresh it deletes only that profile's stored YouTube figures,
+forgets the consent, and asks you to give it again. Other profiles'
+figures, read under consents that still hold, stay. Details are in
+<a href="#taking-the-data-api-consent-back">Taking the Data API consent back</a>.</p>
+<h2 id="taking-the-data-api-consent-back">Taking the Data API consent back</h2><p><code>blowhorn profile auth --platform youtube --profile &lt;profile&gt; --revoke</code> takes
+the consent back at once: it revokes the refresh token at Google, deletes the
+YouTube figures Blowhorn kept for that profile and clears
+<code>YT_OAUTH_REFRESH_TOKEN</code> and <code>YT_OAUTH_SCOPES</code>, keeping the OAuth client. A
+revocation Google does not answer, or refuses, deletes and clears nothing.
+With no consent held it sends nothing to Google and still deletes the
+figures, so a second run is harmless. The steps are in
+<a href="/docs/how-to/set-up/platform-accounts/#take-the-youtube-data-api-consent-back">Take the YouTube Data API consent back</a>.
+The desktop app gives and takes back the same consent under <strong>Data API
+consent</strong> on the YouTube row of a profile's <strong>Browser</strong> tab.</p>
+<p>Removing Blowhorn's access at
+<a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>,
+or Google expiring the consent, works too: the next YouTube run that tries
+to refresh the token then deletes the YouTube figures Blowhorn kept for that
+profile, forgets the consent, and asks you to give it again. Other profiles
+in the organization are not touched.</p>
+<p><a href="https://developers.google.com/youtube/terms/developer-policies">YouTube API Services Developer Policies</a>
+set the deadlines (last updated 2026-11-06, read 2026-11-20):</p>
+<ul>
+<li><strong>III.D, revocation in the client.</strong> When Blowhorn revokes the consent
+itself, it must delete Authorized Data accessed or stored pursuant to
+that consent as soon as possible and within 7 calendar days, and it
+must revoke the token immediately. <code>--revoke</code> does both at once.</li>
+<li><strong>III.E.4, revocation through Google's security settings page</strong>
+(III.A.2.i). When you remove access at Google's page, Blowhorn must
+delete API data related to that user accessed or stored pursuant to
+that consent within 30 calendar days. It does this on the next run that
+sees the revocation.</li>
+</ul>
+<p>If the store is down or refuses the delete, the consent is kept, so
+<code>--revoke</code> or the next run can try the deletion again. Blowhorn never
+forgets the consent first and leaves readings behind. None of the consent,
+refresh or revocation path has been live-checked against Google.</p>
+<h2 id="how-long-youtube-figures-are-kept">How long YouTube figures are kept</h2><p>No YouTube reading is kept past 30 days, under
+<a href="https://developers.google.com/youtube/terms/developer-policies">YouTube API Services Developer Policies</a>
+III.E.4. A collection deletes expired YouTube readings first, before it
+reads anything. The scheduler also does this on its first real pass of
+each calendar day, across every profile in the organization, so figures
+do not outlive 30 days when nobody collects. A store refusal is tried
+again on the next pass.</p>
+<p>Revoking one profile's consent is separate: it deletes only that
+profile's stored YouTube figures, as described above. The daily 30-day
+purge stays organization-wide.</p>
+<h2 id="what-blowhorn-does-not-do-on-youtube">What Blowhorn does not do on YouTube</h2><ul>
+<li><strong>A scheduled run never comments, replies, likes or posts on the Posts
+tab.</strong> YouTube treats automated engagement as spam, so those activities
+wait for a run you start yourself.</li>
+<li><strong>No sign-in for you.</strong> You sign in to YouTube by hand. A sign-in page, a
+verification step, a captcha, or YouTube sending the tab off its own site
+(where Blowhorn cannot read the address) stops YouTube for that profile.</li>
+<li><strong>No cards or end screens</strong> on an upload, and no likes on comments.</li>
+<li><strong>One channel per profile</strong>: the one <code>YT_CHANNEL_URL</code> names. If Studio
+shows another channel, the activity stops with nothing published.</li>
+</ul>
+<p>Every profile has daily ceilings of its own on YouTube: 3 uploads, 10
+comments, 10 replies, 20 likes and 2 Posts-tab posts a day, counted across
+every run that day. An activity past its ceiling waits for the next day.
+A dry run counts its planned rows against those ceilings for the rest of
+the same run, so it holds what the real run would; it does not stamp the
+activity, so the count does not carry into tomorrow.</p>
+<p>Without a Data API consent, a <a href="/docs/reference/post/">dry fire</a> walks Studio's upload
+dialog up to the final button and stops there. Studio keeps the upload as
+private once the file is attached, so delete it in YouTube Studio
+afterward. With a consent, a dry fire goes through the Data API and only
+prints the plan: nothing is sent and no draft is left. A dry run does not
+spend the Data API project's unit budget, because nothing is sent.</p>
+<p>Through the Data API, an upload is experimental and has not been
+live-verified. It is a resumable upload under your own OAuth client. The file is sent in chunks (8 MiB by default, in 256 KiB
+units). A dropped connection is resumed on the next run of the same row
+(same file, channel and metadata) from the last byte YouTube confirmed,
+never from a byte it did not. After six failures in a row with no
+progress, with exponential backoff capped at 64 seconds, the row is held
+and the session is kept. Set <code>BLOWHORN_YOUTUBE_UPLOAD_MAX_ATTEMPTS</code> and
+<code>BLOWHORN_YOUTUBE_UPLOAD_MAX_BACKOFF_S</code> to change those bounds. If the
+last chunk went out and nothing could be read after it, or YouTube
+answers the upload as done with no video id, the activity is recorded as
+sent, outcome not read. Before any byte is sent, the path
+reads the channel the consent was given for and refuses a mismatch with
+<code>YT_CHANNEL_URL</code>. This protocol is implemented and has not been
+live-checked.</p>
+<p>YouTube may lock uploads from an API project that has not passed
+Google's audit to private. Until <code>BLOWHORN_YOUTUBE_API_PROJECT_UNVERIFIED</code>
+is set to <code>false</code>, the project is treated as unaudited and a <code>public</code> or
+<code>unlisted</code> upload says before it starts that it may land private. Every
+upload reads the visibility back from YouTube's answer and reports one
+other than the row asked for; the upload has already happened, so it is
+not undone.</p>
+<p>The Data API project's quota is shared by every profile in a run. Google
+changes the quota model, so no unit cost and no daily figure is
+hard-coded. Optionally set <code>BLOWHORN_YOUTUBE_API_QUOTA_COSTS</code>
+(<code>method=units</code> pairs, comma separated) and
+<code>BLOWHORN_YOUTUBE_API_DAILY_UNITS</code>; a call whose configured cost would
+take the run past the configured daily units is not made, and the row is
+held. With nothing configured, nothing is pre-counted and the API's own
+answer decides. <code>quotaExceeded</code>, <code>uploadLimitExceeded</code>,
+<code>rateLimitExceeded</code> and any 429 hold the row and halt the API path for
+the rest of the run, never fail it and never retry it. Uploads also have
+an optional per-run count, <code>BLOWHORN_YOUTUBE_API_DAILY_UPLOADS</code>; past
+that count, further uploads in the same run are held.</p>
+<p>The engine can also edit a video's title, description or visibility, delete
+a video, and add a video to a playlist through the Data API. Blowhorn does
+not yet expose a command or a queue action for those calls.</p>
+<p>Subscribe outreach can open a channel address and click Subscribe once,
+never on a button that already reads Subscribed, and never on the
+profile's own channel. It has no command yet (it belongs beside <code>follow</code>).
+A scheduled run would hold it.</p>
+<h2 id="when-a-studio-walk-stops-after-the-file-is-attached">When a Studio walk stops after the file is attached</h2><p>As soon as the file input takes the video, Studio saves the upload as
+private, including during a dry fire through Chrome. If the Google Chrome session is lost
+after that, or the walk stops on Checks or a channel mismatch, the row
+fails and the report tells you the draft is still in YouTube Studio.
+If attaching the file itself fails after the browser may have sent it,
+the report says Studio may have saved a draft; check YouTube Studio.
+A retry starts a new upload; it does not resume the leftover draft.</p>
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 <h2 id="limits">Limits</h2><p>The limits Blowhorn knows for YouTube.</p>
 
@@ -645,7 +923,12 @@ and this page lists what it can do there.</p>
 </section>
 
 <h2 id="related">Related</h2><ul>
+<li><a href="/docs/how-to/publish/post-to-youtube/">Post to YouTube</a> - worked examples for each activity.</li>
 <li><a href="/docs/reference/platforms/">All platforms</a> - every platform, side by side.</li>
+<li><a href="/docs/how-to/publish/post-content/">Preview and publish queued posts</a> - the posting run.</li>
+<li><a href="/docs/reference/content-queue/">Content queue columns and activity states</a> - every column and setting each platform reads.</li>
+<li><a href="/docs/reference/chrome/">Chrome</a> - <code>chrome open-profile</code> and the extension.</li>
+<li><a href="/docs/how-to/set-up/platform-accounts/#youtube">Set up your platform accounts</a> - the sign-in and the Data API consent, step by step.</li>
 <li><a href="/docs/explanation/your-own-chrome/">Why Blowhorn uses your own browser</a> - browser versus API.</li>
 <li><a href="/docs/explanation/youre-in-control/">You're in control</a> - every safety control in one place.</li>
 </ul>
@@ -653,7 +936,7 @@ and this page lists what it can do there.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 19, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/platforms/youtube.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -696,6 +979,13 @@ and this page lists what it can do there.</p>
     </div>
     <nav id="TableOfContents" aria-label="On this page">
   <ul>
+    <li><a href="#live-checks">Live checks</a></li>
+    <li><a href="#what-blowhorn-does-on-youtube">What Blowhorn does on YouTube</a></li>
+    <li><a href="#the-data-api-consent">The Data API consent</a></li>
+    <li><a href="#taking-the-data-api-consent-back">Taking the Data API consent back</a></li>
+    <li><a href="#how-long-youtube-figures-are-kept">How long YouTube figures are kept</a></li>
+    <li><a href="#what-blowhorn-does-not-do-on-youtube">What Blowhorn does not do on YouTube</a></li>
+    <li><a href="#when-a-studio-walk-stops-after-the-file-is-attached">When a Studio walk stops after the file is attached</a></li>
     <li><a href="#limits">Limits</a></li>
     <li><a href="#supported-actions">Supported actions</a></li>
     <li><a href="#related">Related</a></li>

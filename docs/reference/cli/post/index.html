@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.c8ca8d73b7036256bdd77f87092d4d9a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -297,6 +297,8 @@
     <a href="/docs/how-to/publish/post-to-reddit-and-bluesky/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-reddit-and-bluesky"><span class="">Post to Reddit and Bluesky</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-hacker-news-li">
     <a href="/docs/how-to/publish/post-to-hacker-news/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-hacker-news"><span class="">Post to Hacker News</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishpost-to-youtube-li">
+    <a href="/docs/how-to/publish/post-to-youtube/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishpost-to-youtube"><span class="">Post to YouTube</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishreply-to-a-post-li">
     <a href="/docs/how-to/publish/reply-to-a-post/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-topublishreply-to-a-post"><span class="">Reply to a post</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-topublishsend-a-slack-message-li">
@@ -660,7 +662,7 @@
       <td><code>--platform</code></td>
       <td>string</td>
       <td></td>
-      <td>Platform scope for <code>blowhorn post</code>. One of: bluesky, github, hn, linkedin, reddit, slack, x, all (<code>all</code> means every platform listed here)</td>
+      <td>Platform scope for <code>blowhorn post</code>. One of: bluesky, github, hn, linkedin, reddit, slack, x, youtube, all (<code>all</code> means every platform listed here)</td>
     </tr>
     <tr>
       <td><code>--slack-auth</code></td>
@@ -723,7 +725,10 @@
 </span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn post --platform github --profile all --exclude personal --amplify <span class="s2">&#34;https://github.com/acme/widgets/issues/42&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn post --platform github --profile all --amplify <span class="s2">&#34;https://github.com/acme/widgets/issues/42&#34;</span> --dry-run
 </span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn post --platform github --profile personal --amplify <span class="s2">&#34;https://github.com/acme/widgets/issues/42&#34;</span> --dry-run -v
-</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn post --platform github --profile personal</span></span></code></pre></div></div>
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn post --platform github --profile personal
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn chrome open-profile personal --sign-in youtube
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn post --platform youtube --profile personal
+</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>cat youtube-order.json <span class="p">|</span> blowhorn post --dry-run --payload-stdin --json</span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
 <p>Output: json with <code>--json</code>, text otherwise.</p>
@@ -731,7 +736,7 @@
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/cli/post.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

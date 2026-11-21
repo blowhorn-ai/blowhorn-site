@@ -162,6 +162,7 @@
 - [Post to Hacker News](https://blowhorn.ai/docs/how-to/publish/post-to-hacker-news/index.md): Submit links and text posts, comment, and stay within the daily cap.
 - [blowhorn github](https://blowhorn.ai/docs/reference/cli/github/index.md): blowhorn github: squatters.
 - [blowhorn org](https://blowhorn.ai/docs/reference/cli/org/index.md): blowhorn org: members.
+- [Post to YouTube](https://blowhorn.ai/docs/how-to/publish/post-to-youtube/index.md): Upload a video, post on the Posts tab, comment, reply, like, and collect analytics, with the behavior of each activity.
 - [blowhorn platforms](https://blowhorn.ai/docs/reference/cli/platforms/index.md): blowhorn platforms: capabilities.
 - [blowhorn post](https://blowhorn.ai/docs/reference/cli/post/index.md): Publish pending posts or amplify existing content across supported platforms.
 - [blowhorn profile](https://blowhorn.ai/docs/reference/cli/profile/index.md): blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update.
@@ -193,7 +194,7 @@
 - [Pause and resume posting](https://blowhorn.ai/docs/how-to/schedule/pause/index.md): Stop every scheduled claim on one computer, every computer, or one activity, then resume.
 - [Find out why a job did not run](https://blowhorn.ai/docs/how-to/schedule/why-not-run/index.md): Ask Blowhorn why one scheduled activity ran or not, in one read-only command.
 - [Keep posting when the app is closed](https://blowhorn.ai/docs/how-to/schedule/background-service/index.md): Run scheduled passes from the background service, and quit cleanly.
-- [Collect and read your analytics](https://blowhorn.ai/docs/how-to/measure/analytics/index.md): Collect LinkedIn and X follower numbers, read the history, one activity's result and the HTML report.
+- [Collect and read your analytics](https://blowhorn.ai/docs/how-to/measure/analytics/index.md): Collect LinkedIn, X and YouTube follower numbers, read the history, one activity's result and the HTML report.
 - [Review what ran](https://blowhorn.ai/docs/how-to/measure/review-runs/index.md): Read the runs ledger: what each computer did, what failed, and what was a preview.
 - [Change your defaults](https://blowhorn.ai/docs/how-to/settings/defaults/index.md): Set pace, excluded profiles, dry-run default, notifications and logs, in the app or the config file.
 - [Change how the app looks](https://blowhorn.ai/docs/how-to/settings/appearance/index.md): Pick the app's theme, make the side rail and the + button solid or tinted glass, choose whether the desktop shows through, and see how times follow your Mac's clock.
