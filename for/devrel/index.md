@@ -1,6 +1,6 @@
 # Ship the release. Announce it everywhere, as you.
 
-> LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more in one queue, posted from your own browser, signed in as you. Your agent drafts and dry-runs; you hold the switch.
+> LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more in one queue, posted from your own browser, signed in as you. After YouTube Data API consent, its uploads, comments, replies and likes use YouTube's official API. Your agent drafts and dry-runs; you hold the switch.
 
 ## Sound familiar?
 

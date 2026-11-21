@@ -24,7 +24,7 @@ Expandi pricing as of Oct 2026: $99 a seat a month, or $79 a seat billed annuall
 | | Expandi | Blowhorn |
 | --- | --- | --- |
 | Built for | Outbound prospecting at volume, with branching sequences | Careful outreach plus publishing and amplification |
-| Where it acts | Expandi's cloud, from a dedicated country IP | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Expandi's cloud, from a dedicated country IP | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | IP address each post comes from | A dedicated country IP that Expandi assigns in its cloud | Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run |
 | Email steps | Yes, in the same sequence | No |
 | LinkedIn outreach | Sequences, messages, follow-ups, InMails, Smart Inbox | Page invites, connect, accept, withdraw; human-paced with caps |

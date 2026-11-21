@@ -5,9 +5,9 @@
 --------------------------------------------------------------------------------
 title: "Blowhorn: not a bot, it's you"
 url: https://blowhorn.ai/index.md
-description: Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, and YouTube profiles, from your own browser, as you.
+description: Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more profiles, from your own computers, as you.
 --------------------------------------------------------------------------------
-Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, and YouTube profiles, from your own browser, as you.
+Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more profiles, from your own computers, as you.
 
 --------------------------------------------------------------------------------
 title: "Meet Major Blowhorn"
@@ -1170,9 +1170,9 @@ Telephone: 512-810-8200
 --------------------------------------------------------------------------------
 title: "Integrations"
 url: https://blowhorn.ai/integrations/index.md
-description: Every network Blowhorn reaches. LinkedIn, X, Reddit, Hacker News, YouTube, Instagram, TikTok and Facebook through your own browser. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts.
+description: Every network Blowhorn reaches. LinkedIn, X, Reddit, Hacker News, YouTube and more through your own browser, with YouTube uploads, comments, replies and likes going through YouTube's official API after Data API consent. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts.
 --------------------------------------------------------------------------------
-Every network Blowhorn reaches. LinkedIn, X, Reddit, Hacker News, YouTube, Instagram, TikTok and Facebook through your own browser. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts.
+Every network Blowhorn reaches. LinkedIn, X, Reddit, Hacker News, YouTube and more through your own browser, with YouTube uploads, comments, replies and likes going through YouTube's official API after Data API consent. Slack and Bluesky through their APIs. GitHub reactions on issues, never posts.
 
 --------------------------------------------------------------------------------
 title: "Action matrix"
@@ -20031,7 +20031,7 @@ Blowhorn solutions by role, by use case and by the category of tool you are repl
 --------------------------------------------------------------------------------
 title: "Blowhorn for developer distribution"
 url: https://blowhorn.ai/solutions/developer-distribution/index.md
-description: One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X, Bluesky, YouTube and more, posted as you from your own browser.
+description: One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X, Bluesky, YouTube and more, posted as you from your own computers, in your own browser or through official APIs.
 --------------------------------------------------------------------------------
 
 

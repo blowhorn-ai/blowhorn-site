@@ -23,7 +23,7 @@ Blotato pricing as of Oct 2026: Starter $29, Creator $97, Agency $499 per month 
 | | Blotato | Blowhorn |
 | --- | --- | --- |
 | Best at | Generating and publishing AI content | Amplifying real voices and acting across networks |
-| Where it acts | Blotato's cloud, through official APIs | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Blotato's cloud, through official APIs | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | AI media generation | Yes | No |
 | Free plan | No: a 7-day trial, card required, and the trial excludes the API and MCP server | Free during early access |
 | Team seats and approvals | One user per account, no approval step | Many profiles can amplify: profiles teammates and supporters add join the wave today; team invites are Coming soon |

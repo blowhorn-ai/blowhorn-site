@@ -23,7 +23,7 @@ Later pricing as of Oct 2026: Starter $18.75, Growth $37.50 and Scale $82.50 per
 | | Later | Blowhorn |
 | --- | --- | --- |
 | Built for | Instagram-first creators and brands | Technical company voices |
-| Where it acts | Later's cloud, through official APIs | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Later's cloud, through official APIs | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Visual planning, link in bio | Yes - the heart of the product | No |
 | Many people amplifying one post | No cross-account amplification | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Hacker News, Reddit, GitHub, Slack | No | Yes |

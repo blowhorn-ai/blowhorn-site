@@ -24,7 +24,7 @@ Dripify pricing as of Oct 2026: Pro $59 and Advanced $79 per user per month, bil
 | | Dripify | Blowhorn |
 | --- | --- | --- |
 | Built for | Outbound prospecting at volume, with drip sequences | Careful outreach plus publishing and amplification |
-| Where it acts | Dripify's cloud, no browser extension required | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Dripify's cloud, no browser extension required | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | IP address each post comes from | A dedicated IP on Dripify's servers | Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run |
 | Email steps | Yes, in the same sequence | No |
 | LinkedIn outreach | Sequences, messages, follow-ups, InMails | Page invites, connect, accept, withdraw; human-paced with caps |

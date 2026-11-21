@@ -23,7 +23,7 @@ Sprout Social pricing as of Oct 2026: From $79 per seat per month (Essentials), 
 | | Sprout Social | Blowhorn |
 | --- | --- | --- |
 | Built for | Brand and social teams | Technical company voices |
-| Where it acts | Sprout's cloud, through official APIs | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Sprout's cloud, through official APIs | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Reporting and listening | Excellent - analytics, smart inbox, listening | One picture of runs and analytics for LinkedIn, X, Bluesky and YouTube |
 | Many people amplifying one post | Employee Advocacy add-on (Standard and up) | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Hacker News, Reddit, GitHub, Slack | Reddit yes (posts as a user to subscribed subreddits); no HN, GitHub or Slack posting | Yes |

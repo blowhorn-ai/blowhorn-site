@@ -14,7 +14,7 @@
 
 - You need many real profiles to lift one post
 - Hacker News, Reddit, GitHub and Slack message surfaces matter
-- Your own browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform API for GitHub, Bluesky and Slack
+- Your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more; after YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API (Posts-tab posts stay in the browser). GitHub, Bluesky and Slack use their APIs.
 
 ## Side by side
 
@@ -22,7 +22,7 @@ Metricool pricing as of Oct 2026: Free plan; Starter from $20 per month, Advance
 
 | | Metricool | Blowhorn |
 | --- | --- | --- |
-| Where it acts | Metricool's cloud | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Metricool's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Analytics and ads reporting | Deep: PDF and PPT reports, custom templates on Advanced, ads reporting | LinkedIn, X, Bluesky and YouTube analytics |
 | Replies and inbox | Unified inbox per brand for Facebook, Instagram and YouTube | No unified inbox claimed. Blowhorn amplifies; it does not run a care desk |
 | Many people amplifying one post | One profile per platform per brand, not many real profiles | Sound wave: one scheduled message, amplified by every profile in your account. Team invites coming soon |

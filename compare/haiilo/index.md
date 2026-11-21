@@ -24,7 +24,7 @@ Haiilo pricing as of Oct 2026: Mixed model: quote-only intranet tiers; advocacy 
 | | Haiilo | Blowhorn |
 | --- | --- | --- |
 | Built for | Enterprise programs | Founders, DevRel and small technical teams |
-| Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Content library, approvals, gamification | Yes | Not assessed |
 | Beyond advocacy | Employee app and intranet alongside advocacy | Advocacy amplification only, not an intranet or employee app |
 | Analytics | Dashboards, earned media value, UTM attribution in Scaling | LinkedIn, X, Bluesky and YouTube analytics |

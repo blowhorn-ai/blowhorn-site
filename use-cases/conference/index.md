@@ -13,7 +13,7 @@
 - **Queue the week once.** Pre-event, day-of and follow-up posts in one queue, on any awake computer set up for the profile.
 - **Your profiles join the wave.** Queue the week from every profile you run, each posting as itself. Team invites are coming soon.
 - **Many profiles, one desk.** Every brand and project profile you run, from one menu bar app.
-- **Reply without seven tabs.** Send comments and replies from the same queue you posted from. LinkedIn, X, Reddit, Hacker News, YouTube and more run in your own browser.
+- **Reply without seven tabs.** Send comments and replies from the same queue you posted from. LinkedIn, X, Reddit, Hacker News, YouTube and more run in your own browser; after YouTube Data API consent, YouTube comments and replies go through its official API.
 
 ## Or tell your agent
 

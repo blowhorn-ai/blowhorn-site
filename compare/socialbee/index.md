@@ -22,7 +22,7 @@ SocialBee pricing as of Oct 2026: Bootstrap $29, Accelerate $49, Pro $99 a month
 
 | | SocialBee | Blowhorn |
 | --- | --- | --- |
-| Where it acts | SocialBee's cloud | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | SocialBee's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Evergreen category queues | Yes | No |
 | Many people amplifying one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Hacker News, Reddit, GitHub, Slack | No | Yes |

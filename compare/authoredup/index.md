@@ -23,7 +23,7 @@ AuthoredUp pricing as of Oct 2026: Individual $19.95 per month ($16.63 billed an
 | | AuthoredUp | Blowhorn |
 | --- | --- | --- |
 | Best at | Writing and analyzing LinkedIn posts | Publishing, amplifying and outreach across networks |
-| Where it acts | Your browser, overlaying LinkedIn's editor (Chromium only) | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Your browser, overlaying LinkedIn's editor (Chromium only) | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Networks | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Scheduling | LinkedIn, through the extension | One queue across every computer and profile, for every network |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |

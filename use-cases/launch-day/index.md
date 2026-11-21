@@ -23,7 +23,7 @@
 
 **Does a computer have to be awake?** One set up for the profile does. Install Blowhorn on as many computers as you like; as long as one of them is awake, it covers the schedule. The queue lives in your Blowhorn account.
 
-**How does it post?** LinkedIn, X, Reddit, Hacker News and YouTube: Blowhorn types in your own browser, signed in as you. Slack, Bluesky and GitHub go through their APIs. The desktop app and the Python CLI share the same queue.
+**How does it post?** LinkedIn, X, Reddit, Hacker News, YouTube and more: Blowhorn types in your own browser, signed in as you; after Data API consent, YouTube uploads, comments, replies and likes use its official API. Slack, Bluesky and GitHub use their APIs. The app and the Python CLI share one queue.
 
 **Will the same post go out twice?** Your computers coordinate through one queue, so the same post isn't sent from two of them.
 

@@ -23,7 +23,7 @@ Waalaxy pricing as of Oct 2026: Pro €19, Advanced €49, Business €69 per us
 | | Waalaxy | Blowhorn |
 | --- | --- | --- |
 | Built for | Outbound prospecting at volume | Careful outreach plus publishing and amplification |
-| Where it acts | Waalaxy's cloud | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Waalaxy's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | LinkedIn outreach | Sequences, messages, follow-ups | Page invites, connect, accept, withdraw; human-paced with caps |
 | Networks | LinkedIn (plus email) | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |

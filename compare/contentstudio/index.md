@@ -23,7 +23,7 @@ ContentStudio pricing as of Oct 2026: Standard $19, Advanced $49 and Agency Unli
 | | ContentStudio | Blowhorn |
 | --- | --- | --- |
 | Built for | Agencies, marketing teams and solo creators | Technical company voices |
-| Where it acts | ContentStudio's cloud | Your computers: your own signed-in Chrome for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | ContentStudio's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Content discovery engine | Yes, the standout feature | No |
 | Many people amplifying one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Hacker News, Reddit, GitHub, Slack | No | Yes |

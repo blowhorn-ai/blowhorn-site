@@ -13,7 +13,7 @@
 - **Every developer channel, one queue.** GitHub reactions, Slack as you, Hacker News submit and comment, plus LinkedIn, X, Reddit and Bluesky, from one queue.
 - **Amplify from your profiles.** Queue the release from every profile you run, each posting as itself. Team invites are coming soon.
 - **Slack as you, no bot to invite.** Sends as you through Slack's API, using your Slack session linked through the Blowhorn extension or a Slack token you add. Either one is kept in your Blowhorn account.
-- **Human-paced by design.** Types key by key in your own browser for LinkedIn, X, Reddit, Hacker News, YouTube and more. Caps itself. CAPTCHA and 2FA stay with you.
+- **Human-paced by design.** Types key by key in your own browser for LinkedIn, X, Reddit, Hacker News, YouTube and more (YouTube uploads, comments, replies and likes use its official API after Data API consent). Caps itself. CAPTCHA and 2FA stay with you.
 
 ## Or tell your agent
 

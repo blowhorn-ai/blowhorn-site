@@ -23,7 +23,7 @@ Typefully pricing as of Oct 2026: Free plan; paid plans for more posts, analytic
 | | Typefully | Blowhorn |
 | --- | --- | --- |
 | Best at | Writing and scheduling | Amplifying and acting across networks |
-| Where it acts | Typefully's cloud | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Typefully's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Networks | X, LinkedIn, Threads, Bluesky, Mastodon | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Many people amplifying one post | Not across people | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | AI agents | AI writing, hosted MCP and API | MCP server, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |

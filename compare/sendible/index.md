@@ -22,7 +22,7 @@ Sendible pricing as of Oct 2026: Plans from $35/mo with unlimited users on every
 
 | | Sendible | Blowhorn |
 | --- | --- | --- |
-| Where it acts | Sendible's cloud | Your computers: your own signed-in Chrome for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Sendible's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Networks | 9 incl. Facebook, Instagram, TikTok, YouTube, Threads, Bluesky | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Many people amplifying one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Approval workflows | Yes, from the second tier up | Queue, profiles, approvals and run history |

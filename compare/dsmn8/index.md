@@ -24,7 +24,7 @@ DSMN8 pricing as of Oct 2026: Custom quote only, annual contract ([source](https
 | | DSMN8 | Blowhorn |
 | --- | --- | --- |
 | Built for | Enterprise programs | Founders, DevRel and small technical teams |
-| Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Content library, approvals, gamification | Yes | Not assessed |
 | Governance | Approval workflows, SAML SSO, role controls, audit trails, gamification | Not assessed |
 | Analytics | UTM tracking, earned media value, CRM attribution | LinkedIn, X, Bluesky and YouTube analytics |

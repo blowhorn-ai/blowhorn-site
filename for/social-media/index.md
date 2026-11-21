@@ -1,6 +1,6 @@
 # Every channel the company speaks on, from one desk.
 
-> LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more in one queue, posted as the company and as you, from your own browser. Your agent drafts and dry-runs; you hold the switch.
+> LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more in one queue, posted as the company and as you, from your own browser. After YouTube Data API consent, its uploads, comments, replies and likes use YouTube's official API. Your agent drafts and dry-runs; you hold the switch.
 
 ## Sound familiar?
 
