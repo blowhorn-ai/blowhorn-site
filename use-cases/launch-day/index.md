@@ -13,7 +13,7 @@
 - **Queue the whole wave.** Schedule the launch post and its reposts, quotes and reactions ahead of time.
 - **Every profile joins at once.** Every profile you run joins the same sound wave at the moment you pick, each posting as itself.
 - **One pause, sent once.** Coordinated so the same post isn't sent from two computers. One command pauses the whole wave.
-- **One complete picture.** Run history and analytics from every computer in one place. Analytics cover LinkedIn, X and Bluesky.
+- **One complete picture.** Run history and analytics from every computer in one place. Analytics cover LinkedIn, X, Bluesky and YouTube.
 
 ## Or tell your agent
 
@@ -23,7 +23,7 @@
 
 **Does a computer have to be awake?** One set up for the profile does. Install Blowhorn on as many computers as you like; as long as one of them is awake, it covers the schedule. The queue lives in your Blowhorn account.
 
-**How does it post?** LinkedIn, X, Reddit and Hacker News: Blowhorn types in your own browser, signed in as you. Slack, Bluesky and GitHub go through their APIs. The desktop app and the Python CLI share the same queue.
+**How does it post?** LinkedIn, X, Reddit, Hacker News and YouTube: Blowhorn types in your own browser, signed in as you. Slack, Bluesky and GitHub go through their APIs. The desktop app and the Python CLI share the same queue.
 
 **Will the same post go out twice?** Your computers coordinate through one queue, so the same post isn't sent from two of them.
 

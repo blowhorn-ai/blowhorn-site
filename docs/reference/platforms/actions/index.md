@@ -16,16 +16,20 @@ at-a-glance grid, see the
 | [Post](/docs/reference/platforms/hacker-news/#action-post) | Hacker News | Submits a link or a text post. Titles hold up to 80 characters; a longer title is refused, never cut short, because a submission can't be edited once it's up. At most 2 link submissions per profile per UTC day; only link submissions are recorded, so only they count toward the cap. Preview first with --dry-run, because every submission is permanent. Blowhorn never votes. |
 | [Post](/docs/reference/platforms/slack/#action-post) | Slack | Sends a message as you to a channel or to a person, as #channel, @user, a channel ID, or a channel link. Shows a preview until you confirm. One profile sends per run. A target Blowhorn can't read is refused, never sent somewhere else. |
 | [Post](/docs/reference/platforms/bluesky/#action-post) | Bluesky | Publishes your message. A message longer than 300 characters goes out as a thread. |
+| [Post](/docs/reference/platforms/youtube/#action-post) | YouTube | Uploads a video through YouTube Studio in your signed-in browser by default (after YouTube Data API consent, through YouTube's official API) with its title, description and visibility (private unless you choose unlisted or public), or as a Short. With Community set to yes, it publishes a post on your channel's Posts tab instead, always in the signed-in browser. At most 3 uploads and 2 Posts tab posts per profile a day. A Short longer than 3 minutes or wider than it is tall is refused before anything opens. Check each upload in YouTube Studio. |
 | [Comment](/docs/reference/platforms/linkedin/#action-comment) | LinkedIn | Comments on the LinkedIn post you point it at. Anything that isn't a LinkedIn post address stays a normal post. |
 | [Comment](/docs/reference/platforms/reddit/#action-comment) | Reddit | Comments on the Reddit post or comment you point it at. |
 | [Comment](/docs/reference/platforms/hacker-news/#action-comment) | Hacker News | Comments on the Hacker News item your post is addressed to, under your name. |
+| [Comment](/docs/reference/platforms/youtube/#action-comment) | YouTube | Comments on the YouTube video you point it at. At most 10 a day per profile. A comment with an @name in it is refused. A scheduled run never comments; it waits for a run you start. |
 | [Reply](/docs/reference/platforms/x/#action-reply) | X (Twitter) | Replies in a conversation when your post is addressed to it. X publishes 200 replies a day for an account without a checkmark, and no setting in Blowhorn goes past it. |
 | [Reply](/docs/reference/platforms/slack/#action-reply) | Slack | Replies in a thread when you give it the link to the message. |
 | [Reply](/docs/reference/platforms/bluesky/#action-reply) | Bluesky | Replies to the Bluesky post you point it at. |
+| [Reply](/docs/reference/platforms/youtube/#action-reply) | YouTube | Replies to the YouTube comment you point it at, by the comment's own link. At most 10 a day per profile. A reply to a reply, or one with an @name in it, is refused. A scheduled run never replies. |
 | [Amplify](/docs/reference/platforms/linkedin/#action-amplify) | LinkedIn | Reposts a post from each of your profiles. A post you already reposted is never reposted twice. |
 | [Amplify](/docs/reference/platforms/x/#action-amplify) | X (Twitter) | Retweets or quotes a post from each of your profiles. |
 | [Amplify](/docs/reference/platforms/reddit/#action-amplify) | Reddit | Upvotes a post from each of your profiles. |
 | [Amplify](/docs/reference/platforms/bluesky/#action-amplify) | Bluesky | Reposts a post from each of your profiles. |
+| [Amplify](/docs/reference/platforms/youtube/#action-amplify) | YouTube | Likes a video from each of your profiles. At most 20 likes a day per profile. A scheduled run never likes; it waits for a run you start. |
 | [React](/docs/reference/platforms/slack/#action-react) | Slack | Adds an emoji reaction to a message. A reaction already there is left as-is. Take it back with --remove. |
 | [React](/docs/reference/platforms/github/#action-react) | GitHub | Adds the five upbeat reactions (+1, laugh, hooray, heart, rocket) to an issue or pull request from each of your profiles. Running it again adds none of them twice. GitHub doesn't publish posts; it needs an issue or pull request link. |
 | [Star](/docs/reference/platforms/github/#action-star) | GitHub | Stars each named repository from every selected profile, over the REST API. A repository already starred is counted apart, never starred twice. GitHub only. Repositories are named on the command line; star cannot be scheduled. |
@@ -40,5 +44,6 @@ at-a-glance grid, see the
 | [Analytics](/docs/reference/platforms/linkedin/#action-analytics) | LinkedIn | Reads your Page's analytics for a date range and saves them, so you can watch the trend. Read-only. |
 | [Analytics](/docs/reference/platforms/x/#action-analytics) | X (Twitter) | Records your follower and following counts on each run, so you can watch the trend. Read-only. |
 | [Analytics](/docs/reference/platforms/bluesky/#action-analytics) | Bluesky | Records your follower and following counts on each run, so you can watch the trend. Read-only. |
+| [Analytics](/docs/reference/platforms/youtube/#action-analytics) | YouTube | Reads your channel's and videos' figures through the YouTube Analytics and Data APIs, with the profile's own OAuth consent. Read-only. A profile without the consent is skipped. YouTube figures are kept for 30 days. |
 
 

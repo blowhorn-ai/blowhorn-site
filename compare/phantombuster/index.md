@@ -14,7 +14,7 @@
 
 - You want careful LinkedIn hygiene, not volume prospecting
 - No vendor server should log in as you; Blowhorn acts from your own signed-in browser
-- You also speak on X, Reddit, Hacker News, GitHub, Bluesky and Slack, and want your people amplifying
+- You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, and want your people amplifying
 
 ## Side by side
 
@@ -23,10 +23,10 @@ PhantomBuster pricing as of Oct 2026: Start $56, Grow $128, Scale $352 a month, 
 | | PhantomBuster | Blowhorn |
 | --- | --- | --- |
 | Built for | Outbound prospecting at volume | Careful outreach plus publishing and amplification |
-| Where it acts | PhantomBuster's cloud, through your accounts, with your browser closed | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | PhantomBuster's cloud, through your accounts, with your browser closed | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
 | Data extraction and enrichment | Yes, 15+ platforms | No |
 | LinkedIn outreach | Sequences, messages, follow-ups | Page invites, connect, accept, withdraw; human-paced with caps |
-| Networks | LinkedIn (plus email) | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack. Instagram, TikTok, Facebook and YouTube coming soon |
+| Networks | LinkedIn (plus email) | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per seat or license | Free during early access |

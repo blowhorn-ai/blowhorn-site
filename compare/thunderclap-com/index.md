@@ -14,7 +14,7 @@
 
 - You want people who actually know you to show up in the replies
 - You want a conversation, not a count
-- You want to speak on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky and Slack, as yourself
+- You want to speak on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, as yourself
 
 ## Side by side
 
@@ -25,7 +25,7 @@ Thunderclap.com pricing as of Oct 2026: Packages from $0.99; automatic followers
 | What it sells | Followers, likes, views and comments, one-off or monthly | Software that publishes and amplifies through your own profiles |
 | Where engagement comes from | Accounts it delivers to your posts | Profiles in your account: yours, your teammates' and your supporters' |
 | Guaranteed numbers | Yes, with a 30-day refill guarantee | No. We can't promise anyone will care, and won't pretend to |
-| Networks | Instagram, TikTok, YouTube, X, Facebook, LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack. Instagram, TikTok, Facebook and YouTube coming soon |
+| Networks | Instagram, TikTok, YouTube, X, Facebook, LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Related to the original Thunderclap? | No; its own page says the domain was bought after the original closed | No, but we admire the original idea |
 | Price | Per package or subscription | Free during early access |
 

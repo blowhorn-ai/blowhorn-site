@@ -1,6 +1,6 @@
 # Your release deserves more than a post and a prayer.
 
-> Publish and amplify project milestones across project and maintainer profiles on GitHub, Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, from one queue.
+> Publish and amplify project milestones across project and maintainer profiles on GitHub, Slack, Hacker News, Reddit, LinkedIn, X, Bluesky, YouTube and more, from one queue.
 
 ## Sound familiar?
 

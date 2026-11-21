@@ -23,7 +23,7 @@ Later pricing as of Oct 2026: Starter $18.75, Growth $37.50 and Scale $82.50 per
 | | Later | Blowhorn |
 | --- | --- | --- |
 | Built for | Instagram-first creators and brands | Technical company voices |
-| Where it acts | Later's cloud, through official APIs | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Later's cloud, through official APIs | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
 | Visual planning, link in bio | Yes - the heart of the product | No |
 | Many people amplifying one post | No cross-account amplification | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Hacker News, Reddit, GitHub, Slack | No | Yes |
@@ -41,6 +41,6 @@ Later helps a brand look good. Blowhorn helps a message get answered. On develop
 
 **Is Later better than Blowhorn?** For visual, Instagram-first brands, yes - and we'd tell you to pick it. For technical launches on LinkedIn, X, Reddit, Hacker News and GitHub, we think Blowhorn is the better fit.
 
-**Does Blowhorn support Instagram?** Not yet. Instagram, TikTok, Facebook and YouTube are Coming soon.
+**Does Blowhorn support Instagram?** Not yet. Instagram, Facebook and TikTok are on the way; Blowhorn doesn't post there yet. YouTube is supported: uploads, Posts tab posts, comments, replies and likes, from your own browser, or through YouTube's official API once you give consent.
 
 [Download](https://blowhorn.ai/download/)

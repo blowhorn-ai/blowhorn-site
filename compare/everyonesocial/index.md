@@ -23,7 +23,7 @@ EveryoneSocial pricing as of Oct 2026: By quote, priced by number of registered 
 | | EveryoneSocial | Blowhorn |
 | --- | --- | --- |
 | Built for | Enterprise advocacy programs | Founders, DevRel, practices, agencies and growing companies |
-| Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
 | Content library, approvals, gamification | Yes | No |
 | Many people amplifying one post | Employees share approved content | Every profile you add amplifies, from your own computers. Multi-user team onboarding is Coming soon |
 | Hacker News, Reddit, GitHub, Slack | Slack and Teams only, as integrations - not advocacy networks | Yes |

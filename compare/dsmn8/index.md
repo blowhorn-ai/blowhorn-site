@@ -14,7 +14,7 @@
 ## Choose Blowhorn if
 
 - You are a small technical team, not an enterprise rollout
-- Your audience is on Hacker News, Reddit, GitHub, LinkedIn, X and Bluesky, and you use Slack messages via API
+- Your audience is on Hacker News, Reddit, GitHub, LinkedIn, X, Bluesky, YouTube and more, and you use Slack messages via API
 - You want to start free during early access, with no sales call in the way, knowing sessions can break, automation can still be blocked, and a computer must be awake because this is not hosted SaaS
 
 ## Side by side
@@ -24,10 +24,10 @@ DSMN8 pricing as of Oct 2026: Custom quote only, annual contract ([source](https
 | | DSMN8 | Blowhorn |
 | --- | --- | --- |
 | Built for | Enterprise programs | Founders, DevRel and small technical teams |
-| Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
 | Content library, approvals, gamification | Yes | Not assessed |
 | Governance | Approval workflows, SAML SSO, role controls, audit trails, gamification | Not assessed |
-| Analytics | UTM tracking, earned media value, CRM attribution | LinkedIn, X and Bluesky analytics |
+| Analytics | UTM tracking, earned media value, CRM attribution | LinkedIn, X, Bluesky and YouTube analytics |
 | Many people amplifying one post | Employees share approved content | Sound wave from every profile in your account. Team invites coming soon |
 | Hacker News, Reddit, GitHub, Slack | Hacker News, Reddit, GitHub: Not assessed. Slack: internal distribution and notification only, not public publishing | Yes, with limits: GitHub is amplify-only, automation can still be blocked, sessions can break, and a computer must be awake. Slack is a Slack message via API, not a public feed post |
 | Bought engagement | Not assessed | None. Blowhorn sells no followers, likes or reposts |

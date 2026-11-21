@@ -17,7 +17,7 @@ By group, because products within a group differ. Checked against vendor pages i
 | Human pace, CAPTCHA and 2FA handed to you | Yes | Not applicable | Varies | Not applicable | Varies |
 | Dry-run every action, CLI an AI agent can drive | Yes | A few | Rare | Rare | Some, via API |
 | Posts with every laptop closed | As long as one computer is awake | Yes | Yes | Yes | No |
-| Instagram, TikTok, Facebook and YouTube | Coming soon | Yes | No | Some | Any site, by hand |
+| Instagram, TikTok, Facebook and YouTube | YouTube only | Yes | No | Some | Any site, by hand |
 
 ## Why it matters
 

@@ -5,9 +5,16 @@
 --------------------------------------------------------------------------------
 title: "Blowhorn: not a bot, it's you"
 url: https://blowhorn.ai/index.md
-description: Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.
+description: Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, and YouTube profiles, from your own browser, as you.
 --------------------------------------------------------------------------------
-Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.
+Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, and YouTube profiles, from your own browser, as you.
+
+--------------------------------------------------------------------------------
+title: "Meet Major Blowhorn"
+url: https://blowhorn.ai/major/index.md
+description: The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
+--------------------------------------------------------------------------------
+The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
 
 --------------------------------------------------------------------------------
 title: "Try Blowhorn in your browser"
@@ -36,13 +43,6 @@ url: https://blowhorn.ai/brand/index.md
 description: The Blowhorn logo, wordmark, colors, type, Major Blowhorn and Old Thunderlung, with the rules for using them and two kits to download.
 --------------------------------------------------------------------------------
 The Blowhorn logo, wordmark, colors, type, Major Blowhorn and Old Thunderlung, with the rules for using them and two kits to download.
-
---------------------------------------------------------------------------------
-title: "Meet Major Blowhorn"
-url: https://blowhorn.ai/major/index.md
-description: The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
---------------------------------------------------------------------------------
-The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
 
 --------------------------------------------------------------------------------
 title: "Blowhorn newsletter"
@@ -79,23 +79,298 @@ description: The Blowhorn MCP server lets your AI assistant draft and rehearse y
 
 
 --------------------------------------------------------------------------------
-title: "Support"
-url: https://blowhorn.ai/support/index.md
-description: Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
+title: "How Blowhorn compares"
+url: https://blowhorn.ai/compare/index.md
+description: Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
 --------------------------------------------------------------------------------
-Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
+Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
 
 --------------------------------------------------------------------------------
-title: "Thanks"
-url: https://blowhorn.ai/support/thanks/index.md
-description: Your support message reached the Blowhorn team.
+title: "Blowhorn vs Buffer"
+url: https://blowhorn.ai/compare/buffer/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. Buffer is the friendliest way to keep a steady, approved calendar on many networks, with every computer switched off. Blowhorn is for the moment you need many real voices on the networks developers use.
 --------------------------------------------------------------------------------
 
-A person on the team reads every message and replies by email, usually within
-a day. If you asked about something broken, the
-[troubleshooting index](/docs/how-to/troubleshoot/troubleshooting/) and
-[Messages and exit codes](/docs/reference/messages/) are worth a look while
-you wait.
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Hootsuite"
+url: https://blowhorn.ai/compare/hootsuite/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. Hootsuite is a full social operations suite for larger teams: inbox, listening, approvals, ads. Blowhorn is a lighter, sharper tool for technical voices who need real people amplifying on developer networks.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Sprout Social"
+url: https://blowhorn.ai/compare/sprout-social/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. Sprout Social is superb at reporting, inbox and listening for brand teams. Blowhorn is for getting real people to amplify you.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Later"
+url: https://blowhorn.ai/compare/later/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. Later is the better tool for visual, Instagram-first brands. Blowhorn is for technical launches that need replies from real people.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Publer"
+url: https://blowhorn.ai/compare/publer/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. Publer wins on budget scheduling, recycling and bulk posting across 13 networks. Blowhorn is for real-person amplification on developer networks.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs SocialBee"
+url: https://blowhorn.ai/compare/socialbee/index.md
+date: "2026-11-20"
+description: SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer networks.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Metricool"
+url: https://blowhorn.ai/compare/metricool/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. Metricool wins on analytics, competitor tracking and ads reporting for brands and agencies. Blowhorn is amplification-first, through real people on developer networks.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Typefully"
+url: https://blowhorn.ai/compare/typefully/index.md
+date: "2026-11-20"
+description: Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many networks.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Postiz"
+url: https://blowhorn.ai/compare/postiz/index.md
+date: "2026-11-20"
+description: Postiz is the strongest agent-ready scheduler out there, with 30+ networks, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs ContentStudio"
+url: https://blowhorn.ai/compare/contentstudio/index.md
+date: "2026-11-20"
+description: ContentStudio is an AI-positioned cloud scheduler with a discovery engine and a developer API surface. Blowhorn is made for text-first technical audiences and real-person amplification.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Taplio"
+url: https://blowhorn.ai/compare/taplio/index.md
+date: "2026-11-20"
+description: Taplio is an all-in-one LinkedIn growth kit: AI writing, inspiration, scheduling and lead tools. Blowhorn isn't a bot. It's you: multi-network, with amplification from real people instead of auto-engagement.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Expandi"
+url: https://blowhorn.ai/compare/expandi/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi. Blowhorn is for careful outreach and real-person amplification, from your own browser.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs PhantomBuster"
+url: https://blowhorn.ai/compare/phantombuster/index.md
+date: "2026-11-20"
+description: PhantomBuster is a powerful data and outreach automation platform across 15+ sites. Blowhorn is narrower on purpose: careful actions and real-person amplification, from your own browser.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Waalaxy"
+url: https://blowhorn.ai/compare/waalaxy/index.md
+date: "2026-11-20"
+description: Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own browser and adds publishing and amplification across many networks.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Dripify"
+url: https://blowhorn.ai/compare/dripify/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. Dripify is a capable LinkedIn and email drip campaign tool for sales teams, run from its cloud. If simple, always-on drip sequences are the job, pick Dripify. Blowhorn is for careful outreach and real-person amplification, from your own browser.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs AuthoredUp"
+url: https://blowhorn.ai/compare/authoredup/index.md
+date: "2026-11-20"
+description: AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that your-own-browser belief: it isn't a bot, it's you, and it adds more networks, a fleet of computers and real-person amplification.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Linked Helper"
+url: https://blowhorn.ai/compare/linked-helper/index.md
+date: "2026-11-20"
+description: Linked Helper is a long-running desktop LinkedIn tool, priced per LinkedIn account, with deep campaigns and a built-in CRM. Blowhorn isn't a bot. It's you: careful outreach and real-person amplification across many networks, from a fleet of your computers.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Dux-Soup"
+url: https://blowhorn.ai/compare/dux-soup/index.md
+date: "2026-11-20"
+description: Dux-Soup, now sold as STACKED, is a long-running LinkedIn outreach tool with drip campaigns and CRM sync. Blowhorn isn't a bot. It's you: careful outreach and real-person amplification across many networks.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Sociabble"
+url: https://blowhorn.ai/compare/sociabble/index.md
+date: "2026-11-20"
+description: Sociabble, now the Poppulo Experience Platform, combines advocacy with intranet and internal comms for large companies. Blowhorn is a small, fast way for technical teams to amplify launches.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs EveryoneSocial"
+url: https://blowhorn.ai/compare/everyonesocial/index.md
+date: "2026-11-20"
+description: EveryoneSocial is a leading employee advocacy platform for large organizations. Blowhorn brings the same 'people beat logos' idea to teams amplifying launches on the networks developers read.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs DSMN8"
+url: https://blowhorn.ai/compare/dsmn8/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. DSMN8 is an employee advocacy and executive influence platform for mid-market and enterprise. Blowhorn is a lighter way for small technical teams to amplify through real people.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Haiilo"
+url: https://blowhorn.ai/compare/haiilo/index.md
+date: "2026-11-20"
+description: Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer networks.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs mokumokuren"
+url: https://blowhorn.ai/compare/mokumokuren/index.md
+date: "2026-11-20"
+description: mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your computer, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Social Browser"
+url: https://blowhorn.ai/compare/social-browser/index.md
+date: "2026-10-26"
+description: Social Browser is a multi-profile browser with an automation studio and MCP control. Blowhorn is a social tool: queue, schedule, amplify and outreach, in your real browser.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Multilogin"
+url: https://blowhorn.ai/compare/multilogin/index.md
+date: "2026-10-26"
+description: Multilogin is a professional antidetect browser for multi-accounting, ad ops and automation. Blowhorn is a different thing: real people posting as themselves.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs GoLogin"
+url: https://blowhorn.ai/compare/gologin/index.md
+date: "2026-10-26"
+description: GoLogin is a popular antidetect browser with an API and MCP. Blowhorn is a social tool that acts as you, in your real browser.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs AdsPower"
+url: https://blowhorn.ai/compare/adspower/index.md
+date: "2026-10-26"
+description: AdsPower is an antidetect browser with RPA tools for ad and e-commerce teams. Blowhorn is a social tool for real people speaking as themselves.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Blotato"
+url: https://blowhorn.ai/compare/blotato/index.md
+date: "2026-11-20"
+description: Blotato is an AI content engine with a hosted MCP that publishes to 9 networks through official APIs. Blowhorn is for real-person amplification on developer networks, driven by your agent through a CLI.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Claude in Chrome"
+url: https://blowhorn.ai/compare/claude-in-chrome/index.md
+date: "2026-11-20"
+description: Claude in Chrome is a general browser agent that can do almost anything you can, in your own logins. Blowhorn is a dedicated social tool with a queue, a schedule, amplification and scripted, rehearsable actions, and Claude Code can drive it.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Perplexity Comet"
+url: https://blowhorn.ai/compare/perplexity-comet/index.md
+date: "2026-11-20"
+description: Comet is a free AI browser with an assistant that can act on pages for you. Blowhorn is a dedicated social tool, scripted and scheduled, that works from your own browser across many profiles and computers.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Thunderclap"
+url: https://blowhorn.ai/compare/thunderclap/index.md
+date: "2026-11-20"
+description: Thunderclap (thunderclap.it, 2012 to 2018) proved that a crowd lifting one message works. It closed on 15 Sep 2018. Blowhorn carries the idea forward with real people acting as themselves, at a human pace.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Thunderclap.com"
+url: https://blowhorn.ai/compare/thunderclap-com/index.md
+date: "2026-11-20"
+description: Thunderclap.com sells followers, likes, views and comments, one-off or by subscription. Blowhorn sells none of that. We focus on real people, real replies and real discussion.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Lempod"
+url: https://blowhorn.ai/compare/lempod/index.md
+date: "2026-11-20"
+description: Lempod runs LinkedIn engagement pods where members automatically like and comment on each other's posts, with AI-generated comment options. Blowhorn takes a different path: people who know you, in your own words.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Podawaa"
+url: https://blowhorn.ai/compare/podawaa/index.md
+date: "2026-11-20"
+description: Podawaa is a LinkedIn engagement exchange: members like and comment on each other's posts, with AI comments and paid private options. Blowhorn sells no engagement and focuses on real people who know you.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs native scheduling"
+url: https://blowhorn.ai/compare/native-scheduling/index.md
+date: "2026-11-20"
+description: LinkedIn and X let you schedule posts for free, one network and one profile at a time. Blowhorn puts every network and every profile you run in one queue, and lets your profiles amplify each post.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+title: "Blowhorn vs Sendible"
+url: https://blowhorn.ai/compare/sendible/index.md
+date: "2026-11-20"
+description: Sendible is a polished cloud scheduler for agencies and marketing teams, with unlimited users, white-label client dashboards and reporting. Blowhorn is for real-person amplification on the networks where developers talk.
+--------------------------------------------------------------------------------
 
 
 --------------------------------------------------------------------------------
@@ -138,13 +413,13 @@ None of that makes a behavior allowed. The rules govern what an account does, no
 
 Curious what sites can see about your browser? Run the free check at [Blowhorn Tells](https://tells.blowhorn.ai/). It shows what a page can read, not what a platform will decide.
 
-Blowhorn posts to LinkedIn, X, Reddit, Hacker News, Bluesky, Slack and GitHub, on your computer ([Platforms](/docs/reference/platforms/), [System requirements](/docs/reference/requirements/)). The pages on Facebook, YouTube, Instagram, TikTok, Threads and Mastodon are general education only: Blowhorn doesn't post to them.
+Blowhorn posts to LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub and YouTube, on your computer ([Platforms](/docs/reference/platforms/), [System requirements](/docs/reference/requirements/)). The page on Facebook, Instagram, TikTok, Threads and Mastodon is general education only: Blowhorn doesn't post to them.
 
 
 --------------------------------------------------------------------------------
 title: "Platform action matrix"
 url: https://blowhorn.ai/field-manual/action-matrix/index.md
-date: "2026-10-26"
+date: "2026-11-20"
 description: Every action Blowhorn takes on each platform, and whether that platform's own rules make it safe, a matter of care, or risky.
 --------------------------------------------------------------------------------
 
@@ -160,6 +435,8 @@ Some of these actions have no official API at all. Hacker News has no write API:
 - **Not supported** means Blowhorn doesn't do it there. A blank cell means the same.
 
 A grade describes the action, not the tool. LinkedIn says it doesn't permit "browser extensions that... automate activity on LinkedIn's website" ([LinkedIn Help](https://www.linkedin.com/help/linkedin/answer/a1341387)). Blowhorn types at human pace and hands you every CAPTCHA, but it is a browser extension acting on LinkedIn, so every LinkedIn action carries that rule with it. Weigh that before you run anything there unattended.
+
+YouTube's Terms of Service carry the same kind of rule: you may not "access the Service using any automated means (such as robots, botnets or scrapers)" ([YouTube Terms of Service](https://www.youtube.com/static?template=terms)). Blowhorn never comments, replies or likes on YouTube from a scheduled run, but every YouTube action is still software acting on YouTube.
 
 ## Notes and sources
 
@@ -178,6 +455,8 @@ A grade describes the action, not the tool. LinkedIn says it doesn't permit "bro
 13. Hacker News: "Don't solicit upvotes, comments, or submissions" and "Don't post generated text or AI-edited text" ([HN guidelines](https://news.ycombinator.com/newsguidelines.html)).
 14. Bluesky: "Do not artificially manipulate features or social signals to gain unearned reach" ([Community Guidelines, 19 Sep 2025](https://bsky.social/about/support/community-guidelines)).
 15. GitHub does not allow "inauthentic interactions, such as fake accounts and automated inauthentic activity; rank abuse, such as automated starring or following" ([GitHub Acceptable Use Policies](https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies)).
+16. YouTube's spam policy prohibits "Using high-volume, repetitive, or deceptive comments, live chats, or other messages" ([Spam policy](https://support.google.com/youtube/answer/2801973)).
+17. YouTube: "YouTube doesn't allow anything that artificially increases the number of views, likes, comments, or other metrics either by using automatic systems or serving up videos to unsuspecting viewers" ([Fake engagement policy](https://support.google.com/youtube/answer/3399767)).
 
 
 --------------------------------------------------------------------------------
@@ -471,17 +750,49 @@ Through Bluesky's official API with an app password, never your main password: p
 
 
 --------------------------------------------------------------------------------
-title: "Other feeds"
-url: https://blowhorn.ai/field-manual/other-feeds/index.md
-date: "2026-10-28"
-description: What the other big feeds say they reward and reduce, in their own words. General education only. Blowhorn doesn't post to these platforms.
+title: "YouTube"
+url: https://blowhorn.ai/field-manual/youtube/index.md
+date: "2026-11-20"
+description: What YouTube's recommendations reward (satisfaction, not just watch time) and what it prohibits (fake engagement, repetitive comments, automated access), in YouTube's own words.
 --------------------------------------------------------------------------------
 
-## YouTube
+## How YouTube recommends
 
 - **Rewards satisfaction, not just watch time.** Signals include "clicks, watchtime, survey responses, sharing, likes, and dislikes," and YouTube measures "valued watchtime" through surveys where "Only videos that you rate highly with four or five stars are counted" ([YouTube Blog](https://blog.youtube/inside-youtube/on-youtubes-recommendation-system/)).
 - **Listens to "no."** Dislikes, "Not interested" and "Don't recommend channel" tell the system what to avoid ([YouTube Help](https://support.google.com/youtube/answer/16089387)).
-- **Takeaway:** a video people are glad they watched beats a video that tricked them into staying.
+
+A video people are glad they watched beats a video that tricked them into staying.
+
+## What YouTube prohibits
+
+- **Fake engagement.** "YouTube doesn't allow anything that artificially increases the number of views, likes, comments, or other metrics either by using automatic systems or serving up videos to unsuspecting viewers." That includes "sub4sub" trades ([Fake engagement policy](https://support.google.com/youtube/answer/3399767)).
+- **Comment spam.** "Using high-volume, repetitive, or deceptive comments, live chats, or other messages," such as "Posting identical or similar 'check out my channel' messages across hundreds of videos" ([Spam policy](https://support.google.com/youtube/answer/2801973)).
+- **Automated access.** You may not "access the Service using any automated means (such as robots, botnets or scrapers)" or "cause or encourage any inaccurate measurements of genuine user engagement with the Service" ([YouTube Terms of Service, 15 Dec 2023](https://www.youtube.com/static?template=terms)).
+
+The last rule is about software, not only behavior. Blowhorn acts in your own signed-in browser through the extension, or, once a profile gives YouTube Data API consent, through YouTube's official API. Either way it works at your pace and leaves every comment, reply and like to a run you start. It is still software acting on YouTube, so weigh that rule before you run anything there.
+
+## Do's and don'ts
+
+- **Do** write the title and description for the person deciding whether to watch.
+- **Do** answer comments in your own words, one at a time.
+- **Don't** like one video from a crowd of your own profiles.
+- **Don't** paste the same comment under many videos.
+
+## What Blowhorn does on YouTube
+
+Once you turn on YouTube for a browser profile, Blowhorn runs these actions in your own signed-in browser, through the extension: uploads videos (private unless you choose unlisted or public), publishes posts on your channel's Posts tab, and comments, replies and likes. Once that profile gives YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API instead. Posts on the Posts tab have no Data API path and stay in the signed-in browser. Reading your channel's analytics needs that consent.
+
+A scheduled run never comments, replies, likes or posts on the Posts tab. Each profile has daily ceilings, counted across every run that day: 3 uploads, 10 comments, 10 replies, 20 likes and 2 Posts tab posts. An activity past its ceiling waits for the next day.
+
+Further reading: [YouTube platform reference](/docs/reference/platforms/youtube/).
+
+
+--------------------------------------------------------------------------------
+title: "Other feeds"
+url: https://blowhorn.ai/field-manual/other-feeds/index.md
+date: "2026-11-20"
+description: What the other big feeds say they reward and reduce, in their own words. General education only. Blowhorn doesn't post to these platforms.
+--------------------------------------------------------------------------------
 
 ## TikTok
 
@@ -561,298 +872,23 @@ Risk Profile presets that set these dials together are coming soon ([You're in c
 
 
 --------------------------------------------------------------------------------
-title: "How Blowhorn compares"
-url: https://blowhorn.ai/compare/index.md
-description: Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
+title: "Support"
+url: https://blowhorn.ai/support/index.md
+description: Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
 --------------------------------------------------------------------------------
-Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
+Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
 
 --------------------------------------------------------------------------------
-title: "Blowhorn vs Buffer"
-url: https://blowhorn.ai/compare/buffer/index.md
-date: "2026-11-16"
-description: Blowhorn isn't a bot. It's you. Buffer is the friendliest way to keep a steady, approved calendar on many networks, with every computer switched off. Blowhorn is for the moment you need many real voices on the networks developers use.
+title: "Thanks"
+url: https://blowhorn.ai/support/thanks/index.md
+description: Your support message reached the Blowhorn team.
 --------------------------------------------------------------------------------
 
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Hootsuite"
-url: https://blowhorn.ai/compare/hootsuite/index.md
-date: "2026-11-02"
-description: Blowhorn isn't a bot. It's you. Hootsuite is a full social operations suite for larger teams: inbox, listening, approvals, ads. Blowhorn is a lighter, sharper tool for technical voices who need real people amplifying on developer networks.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Sprout Social"
-url: https://blowhorn.ai/compare/sprout-social/index.md
-date: "2026-11-02"
-description: Blowhorn isn't a bot. It's you. Sprout Social is superb at reporting, inbox and listening for brand teams. Blowhorn is for getting real people to amplify you.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Later"
-url: https://blowhorn.ai/compare/later/index.md
-date: "2026-11-02"
-description: Blowhorn isn't a bot. It's you. Later is the better tool for visual, Instagram-first brands. Blowhorn is for technical launches that need replies from real people.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Publer"
-url: https://blowhorn.ai/compare/publer/index.md
-date: "2026-11-03"
-description: Blowhorn isn't a bot. It's you. Publer wins on budget scheduling, recycling and bulk posting across 13 networks. Blowhorn is for real-person amplification on developer networks.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs SocialBee"
-url: https://blowhorn.ai/compare/socialbee/index.md
-date: "2026-10-13"
-description: SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer networks.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Metricool"
-url: https://blowhorn.ai/compare/metricool/index.md
-date: "2026-11-03"
-description: Blowhorn isn't a bot. It's you. Metricool wins on analytics, competitor tracking and ads reporting for brands and agencies. Blowhorn is amplification-first, through real people on developer networks.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Typefully"
-url: https://blowhorn.ai/compare/typefully/index.md
-date: "2026-10-12"
-description: Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many networks.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Postiz"
-url: https://blowhorn.ai/compare/postiz/index.md
-date: "2026-10-13"
-description: Postiz is the strongest agent-ready scheduler out there, with 30+ networks, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs ContentStudio"
-url: https://blowhorn.ai/compare/contentstudio/index.md
-date: "2026-11-03"
-description: ContentStudio is an AI-positioned cloud scheduler with a discovery engine and a developer API surface. Blowhorn is made for text-first technical audiences and real-person amplification.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Taplio"
-url: https://blowhorn.ai/compare/taplio/index.md
-date: "2026-11-02"
-description: Taplio is an all-in-one LinkedIn growth kit: AI writing, inspiration, scheduling and lead tools. Blowhorn isn't a bot. It's you: multi-network, with amplification from real people instead of auto-engagement.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Expandi"
-url: https://blowhorn.ai/compare/expandi/index.md
-date: "2026-11-03"
-description: Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi. Blowhorn is for careful outreach and real-person amplification, from your own browser.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs PhantomBuster"
-url: https://blowhorn.ai/compare/phantombuster/index.md
-date: "2026-10-13"
-description: PhantomBuster is a powerful data and outreach automation platform across 15+ sites. Blowhorn is narrower on purpose: careful actions and real-person amplification, from your own browser.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Waalaxy"
-url: https://blowhorn.ai/compare/waalaxy/index.md
-date: "2026-10-12"
-description: Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own browser and adds publishing and amplification across many networks.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Dripify"
-url: https://blowhorn.ai/compare/dripify/index.md
-date: "2026-11-03"
-description: Blowhorn isn't a bot. It's you. Dripify is a capable LinkedIn and email drip campaign tool for sales teams, run from its cloud. If simple, always-on drip sequences are the job, pick Dripify. Blowhorn is for careful outreach and real-person amplification, from your own browser.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs AuthoredUp"
-url: https://blowhorn.ai/compare/authoredup/index.md
-date: "2026-11-02"
-description: AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that your-own-browser belief: it isn't a bot, it's you, and it adds more networks, a fleet of computers and real-person amplification.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Linked Helper"
-url: https://blowhorn.ai/compare/linked-helper/index.md
-date: "2026-11-02"
-description: Linked Helper is a long-running desktop LinkedIn tool, priced per LinkedIn account, with deep campaigns and a built-in CRM. Blowhorn isn't a bot. It's you: careful outreach and real-person amplification across many networks, from a fleet of your computers.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Dux-Soup"
-url: https://blowhorn.ai/compare/dux-soup/index.md
-date: "2026-11-02"
-description: Dux-Soup, now sold as STACKED, is a long-running LinkedIn outreach tool with drip campaigns and CRM sync. Blowhorn isn't a bot. It's you: careful outreach and real-person amplification across many networks.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Sociabble"
-url: https://blowhorn.ai/compare/sociabble/index.md
-date: "2026-11-02"
-description: Sociabble, now the Poppulo Experience Platform, combines advocacy with intranet and internal comms for large companies. Blowhorn is a small, fast way for technical teams to amplify launches.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs EveryoneSocial"
-url: https://blowhorn.ai/compare/everyonesocial/index.md
-date: "2026-11-02"
-description: EveryoneSocial is a leading employee advocacy platform for large organizations. Blowhorn brings the same 'people beat logos' idea to teams amplifying launches on the networks developers read.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs DSMN8"
-url: https://blowhorn.ai/compare/dsmn8/index.md
-date: "2026-11-03"
-description: Blowhorn isn't a bot. It's you. DSMN8 is an employee advocacy and executive influence platform for mid-market and enterprise. Blowhorn is a lighter way for small technical teams to amplify through real people.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Haiilo"
-url: https://blowhorn.ai/compare/haiilo/index.md
-date: "2026-11-03"
-description: Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer networks.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs mokumokuren"
-url: https://blowhorn.ai/compare/mokumokuren/index.md
-date: "2026-10-13"
-description: mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your computer, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Social Browser"
-url: https://blowhorn.ai/compare/social-browser/index.md
-date: "2026-10-26"
-description: Social Browser is a multi-profile browser with an automation studio and MCP control. Blowhorn is a social tool: queue, schedule, amplify and outreach, in your real browser.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Multilogin"
-url: https://blowhorn.ai/compare/multilogin/index.md
-date: "2026-10-26"
-description: Multilogin is a professional antidetect browser for multi-accounting, ad ops and automation. Blowhorn is a different thing: real people posting as themselves.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs GoLogin"
-url: https://blowhorn.ai/compare/gologin/index.md
-date: "2026-10-26"
-description: GoLogin is a popular antidetect browser with an API and MCP. Blowhorn is a social tool that acts as you, in your real browser.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs AdsPower"
-url: https://blowhorn.ai/compare/adspower/index.md
-date: "2026-10-26"
-description: AdsPower is an antidetect browser with RPA tools for ad and e-commerce teams. Blowhorn is a social tool for real people speaking as themselves.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Blotato"
-url: https://blowhorn.ai/compare/blotato/index.md
-date: "2026-11-02"
-description: Blotato is an AI content engine with a hosted MCP that publishes to 9 networks through official APIs. Blowhorn is for real-person amplification on developer networks, driven by your agent through a CLI.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Claude in Chrome"
-url: https://blowhorn.ai/compare/claude-in-chrome/index.md
-date: "2026-11-02"
-description: Claude in Chrome is a general browser agent that can do almost anything you can, in your own logins. Blowhorn is a dedicated social tool with a queue, a schedule, amplification and scripted, rehearsable actions, and Claude Code can drive it.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Perplexity Comet"
-url: https://blowhorn.ai/compare/perplexity-comet/index.md
-date: "2026-11-02"
-description: Comet is a free AI browser with an assistant that can act on pages for you. Blowhorn is a dedicated social tool, scripted and scheduled, that works from your own browser across many profiles and computers.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Thunderclap"
-url: https://blowhorn.ai/compare/thunderclap/index.md
-date: "2026-10-12"
-description: Thunderclap (thunderclap.it, 2012 to 2018) proved that a crowd lifting one message works. It closed on 15 Sep 2018. Blowhorn carries the idea forward with real people acting as themselves, at a human pace.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Thunderclap.com"
-url: https://blowhorn.ai/compare/thunderclap-com/index.md
-date: "2026-10-12"
-description: Thunderclap.com sells followers, likes, views and comments, one-off or by subscription. Blowhorn sells none of that. We focus on real people, real replies and real discussion.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Lempod"
-url: https://blowhorn.ai/compare/lempod/index.md
-date: "2026-10-12"
-description: Lempod runs LinkedIn engagement pods where members automatically like and comment on each other's posts, with AI-generated comment options. Blowhorn takes a different path: people who know you, in your own words.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Podawaa"
-url: https://blowhorn.ai/compare/podawaa/index.md
-date: "2026-10-12"
-description: Podawaa is a LinkedIn engagement exchange: members like and comment on each other's posts, with AI comments and paid private options. Blowhorn sells no engagement and focuses on real people who know you.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs native scheduling"
-url: https://blowhorn.ai/compare/native-scheduling/index.md
-date: "2026-10-13"
-description: LinkedIn and X let you schedule posts for free, one network and one profile at a time. Blowhorn puts every network and every profile you run in one queue, and lets your profiles amplify each post.
---------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------
-title: "Blowhorn vs Sendible"
-url: https://blowhorn.ai/compare/sendible/index.md
-date: "2026-11-02"
-description: Sendible is a polished cloud scheduler for agencies and marketing teams, with unlimited users, white-label client dashboards and reporting. Blowhorn is for real-person amplification on the networks where developers talk.
---------------------------------------------------------------------------------
+A person on the team reads every message and replies by email, usually within
+a day. If you asked about something broken, the
+[troubleshooting index](/docs/how-to/troubleshoot/troubleshooting/) and
+[Messages and exit codes](/docs/reference/messages/) are worth a look while
+you wait.
 
 
 --------------------------------------------------------------------------------
@@ -884,7 +920,7 @@ Each policy shows the date it last changed at the top of its page, and every edi
 --------------------------------------------------------------------------------
 title: "Privacy"
 url: https://blowhorn.ai/legal/privacy/index.md
-date: "2026-11-16"
+date: "2026-11-20"
 description: What the Blowhorn website and the Blowhorn app store, where they store it, and what the app sends.
 --------------------------------------------------------------------------------
 
@@ -945,7 +981,7 @@ The form on the [support page](/support/) sends a message to the Blowhorn team. 
 
 ### On your computer {#on-your-machine}
 
-- Every action Blowhorn takes is executed on one of your computers. On LinkedIn, X, Reddit and Hacker News, it acts through your Chrome profile. On Bluesky, GitHub, Slack and X, it calls the platform's API from your computer.
+- Every action Blowhorn takes is executed on one of your computers. On LinkedIn, X, Reddit, Hacker News and YouTube, it acts through your Chrome profile. On Bluesky, GitHub, Slack and X, it calls the platform's API from your computer. On YouTube, a profile you give the YouTube Data API consent also reads its analytics, and uploads, comments, replies and likes, through Google's YouTube Data and Analytics APIs from your computer.
 - Your Blowhorn account keeps the queue and results in sync across your computers and coordinates them. It does not sign in, post or act for you from a server.
 - Configuration lives in `.blowhorn.yaml` inside the installation. The store connection, including its password, lives in `~/.config/blowhorn/store.yaml`, readable only by your user account.
 - For LinkedIn, X, Reddit and Bluesky, the password a run signs in with is read from `profiles/<name>/config.yaml` inside the installation, and `blowhorn profile set` writes it there.
@@ -954,7 +990,7 @@ The form on the [support page](/support/) sends a message to the Blowhorn team. 
 
 ### In Chrome, through the Blowhorn extension
 
-The extension works only for the Blowhorn app on your computer, over Chrome's native messaging. It acts only on the sites Blowhorn supports, only in the Chrome profiles you install it in, and only when the app asks. Everything it reads goes to that app and nowhere else: it reports to no server of its own, and it keeps nothing itself.
+The extension works only for the Blowhorn app on your computer, over Chrome's native messaging. It acts only on the sites Blowhorn supports, only in the Chrome profiles you install it in, and only when the app asks. It reaches YouTube only in a Chrome profile where you allowed it to, and you can take that back in Chrome at any time. Everything it reads goes to that app and nowhere else: it reports to no server of its own, and it keeps nothing itself.
 
 - Sign-in information: a session cookie or token on a supported site, read when the app needs to reuse a sign-in you already have. Today that is your Slack workspace session, which the app keeps in your account (below).
 - Your communications: the posts, comments and messages the app asks it to enter and send as you.
@@ -966,14 +1002,14 @@ The extension works only for the Blowhorn app on your computer, over Chrome's na
 
 Keeping this in your account is what lets you install Blowhorn on any number of computers, your own or your teammates', and run them as one. Every computer works from the same queue, and the computers coordinate through it, so the same post isn't sent from two of them. Your analytics cover every computer. Your content still goes out as long as one of those computers is awake. Your account holds:
 
-- The content queue, schedule, profiles, run history and analytics. Every row is scoped to your organization's id.
-- Platform credentials, in your organization's credentials table: GitHub tokens, Hacker News passwords, and Slack tokens and workspace sessions. For profiles set up before October 2026, it also holds the LinkedIn, X, Reddit and Bluesky passwords copied in when those profiles moved to your account. Blowhorn reads these credentials when it checks which profile may act on which platform. GitHub, Hacker News and Slack runs sign in with the stored value; for Slack that is the workspace session captured from your Chrome, or a Slack app token you enter. LinkedIn, X, Reddit and Bluesky runs sign in with the copy in the local `config.yaml` above.
+- The content queue, schedule, profiles, run history and analytics. Every row is scoped to your organization's id. YouTube figures are kept for 30 days, as YouTube's policies require. When you remove the YouTube Data API consent at [myaccount.google.com/permissions](https://myaccount.google.com/permissions), the next YouTube run deletes every YouTube figure kept.
+- Platform credentials, in your organization's credentials table: GitHub tokens, Hacker News passwords, Slack tokens and workspace sessions, and, for YouTube, the channel's address and the Data API consent you gave Google (your own OAuth client's ID and secret, the refresh token and the access granted). The access token that consent refreshes stays in memory for the run and is never stored. For profiles set up before October 2026, it also holds the LinkedIn, X, Reddit and Bluesky passwords copied in when those profiles moved to your account. Blowhorn reads these credentials when it checks which profile may act on which platform. GitHub, Hacker News and Slack runs sign in with the stored value; for Slack that is the workspace session captured from your Chrome, or a Slack app token you enter. LinkedIn, X, Reddit and Bluesky runs sign in with the copy in the local `config.yaml` above.
 - Which Chrome profile each Blowhorn profile uses on each computer: the computer's name, the Chrome profile's folder and display name, and the Google account signed in to that Chrome profile.
 - The handling of that data is governed by the [account privacy policy](https://layer5.io/company/legal/privacy/).
 
 ### What the app sends
 
-- Posts, comments, reactions and invitations to the platforms a profile is configured for, when an approved row is due or when you run a command. Nothing is published from a dry run.
+- Posts, video uploads, comments, reactions and invitations to the platforms a profile is configured for, when an approved row is due or when you run a command. Nothing is published from a dry run.
 - A version check that lists the releases on the Blowhorn release channel, hosted on GitHub. The check needs GitHub credentials: when a GitHub token is already on your computer (`GH_TOKEN`, `GITHUB_TOKEN` or `gh auth token`), the app sends it with that request, and updating downloads the disk image published with the newest release, installs the Blowhorn app from it into `/Applications` and relaunches. Without a token, the update button opens that release page in your browser and the app downloads nothing itself.
 - A request to your account for your organization's plan features, sent with your account token and your organization's id. The app caches the answer in your Keychain.
 - No usage analytics. The app carries no analytics or crash-reporting library. The failure reports below are sent by the app itself.
@@ -19981,7 +20017,7 @@ description: Blowhorn for agencies and consultants: client profiles in a real br
 --------------------------------------------------------------------------------
 title: "Blowhorn for Social media managers"
 url: https://blowhorn.ai/for/social-media/index.md
-description: Blowhorn for social media managers: one queue for LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub and Slack, posted as the company and as you.
+description: Blowhorn for social media managers: one queue for LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, posted as the company and as you.
 --------------------------------------------------------------------------------
 
 
@@ -19995,7 +20031,7 @@ Blowhorn solutions by role, by use case and by the category of tool you are repl
 --------------------------------------------------------------------------------
 title: "Blowhorn for developer distribution"
 url: https://blowhorn.ai/solutions/developer-distribution/index.md
-description: One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X and Bluesky, posted as you from your own browser.
+description: One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X, Bluesky, YouTube and more, posted as you from your own browser.
 --------------------------------------------------------------------------------
 
 
@@ -20051,7 +20087,7 @@ description: Plan a product launch so the announcement goes out everywhere at th
 --------------------------------------------------------------------------------
 title: "Blowhorn for open source releases"
 url: https://blowhorn.ai/use-cases/open-source-release/index.md
-description: Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, and rally GitHub reactions, from one queue, as yourself.
+description: Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X, Bluesky, YouTube and more, and rally GitHub reactions, from one queue, as yourself.
 --------------------------------------------------------------------------------
 
 

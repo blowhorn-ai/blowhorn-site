@@ -12,7 +12,7 @@
 
 ## Choose Blowhorn if
 
-- Your voice spans LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky and Slack
+- Your voice spans LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube
 - You want your team and supporters to amplify as themselves, in the first hour
 - You want a CLI your agent drives, with --dry-run rehearsal before anything posts
 
@@ -22,8 +22,8 @@ Taplio pricing as of Oct 2026: Starter $39, Growth $69, Pro $199 a month ([sourc
 
 | | Taplio | Blowhorn |
 | --- | --- | --- |
-| Networks | LinkedIn only | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack. Instagram, TikTok, Facebook and YouTube coming soon |
-| Where it acts | Vendor cloud app, plus a Chrome extension that links your LinkedIn session | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
+| Networks | LinkedIn only | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Where it acts | Vendor cloud app, plus a Chrome extension that links your LinkedIn session | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
 | AI writing and inspiration | AI writing, hooks and a 5M+ viral post library | Scripted, not guessed: your agent drives the CLI and rehearses every write with --dry-run |
 | Amplify one post | Auto-engagement features | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | AI agents | AI inside the product, plus an MCP server | AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |

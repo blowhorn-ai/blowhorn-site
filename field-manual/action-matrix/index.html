@@ -23,7 +23,7 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png">
-<link rel="stylesheet" href="/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -198,7 +198,7 @@
         <header class="page-head fm-hero">
           <p class="label"><a href="/field-manual/">Field Manual</a> <span aria-hidden="true">/</span> Action matrix</p>
           <h1 class="h1">Platform action matrix</h1>
-          <p class="body-lg muted">One table, every platform. What Blowhorn can do, and how each platform's own rules grade it. Read the notes before you charge.</p><p class="caption muted">Sources checked 13 October 2026.</p>
+          <p class="body-lg muted">One table, every platform. What Blowhorn can do, and how each platform's own rules grade it. Read the notes before you charge.</p><p class="caption muted">Sources checked 20 November 2026.</p>
           <figure class="fm-plate">
             <img src="/assets/brand/mascot/field-manual/fm-action-matrix-open.webp" alt="Open Field Manual with a woodcut of an operations risk table" width="1280" height="720" loading="lazy"><figcaption class="caption muted">Every action, graded by the platform&#39;s own rules.</figcaption>
           </figure>
@@ -287,7 +287,17 @@
                   <td class="fm-cell fm-care"><span class="fm-risk">Use care</span><span class="fm-note">Each workspace sets its own rules. Hypothesis: one message per channel</span></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="compare-feature"><a href="/field-manual/other-feeds/">Facebook, YouTube, Instagram, TikTok, Threads, Mastodon</a><span class="caption muted fm-via">Not supported by Blowhorn</span></th>
+                  <th scope="row" class="compare-feature"><a href="/field-manual/youtube/">YouTube</a><span class="caption muted fm-via">Your browser, through the extension; after Data API consent, uploads, comments, replies and likes go through YouTube&#39;s official API</span></th>
+                  <td class="fm-cell fm-care"><span class="fm-risk">Use care</span><span class="fm-note">Your own video, private unless you choose, but YouTube bans automated access. Capped at 3 uploads a day [10]</span></td>
+                  <td class="fm-cell fm-care"><span class="fm-risk">Use care</span><span class="fm-note">No high-volume or repetitive comments; only in a run you start [16]</span></td>
+                  <td class="fm-cell fm-risky"><span class="fm-risk">Risky</span><span class="fm-note">Likes from many profiles artificially increase a metric [17]</span></td>
+                  <td class="fm-cell fm-none"><span class="fm-risk">Not supported</span></td>
+                  <td class="fm-cell fm-none"><span class="fm-risk">Not supported</span></td>
+                  <td class="fm-cell fm-none"><span class="fm-risk">Not supported</span></td>
+                  <td class="fm-cell fm-none"><span class="fm-risk">Not supported</span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="compare-feature"><a href="/field-manual/other-feeds/">Facebook, Instagram, TikTok, Threads, Mastodon</a><span class="caption muted fm-via">Not supported by Blowhorn</span></th>
                   <td class="fm-cell fm-none"><span class="fm-risk">Not supported</span></td>
                   <td class="fm-cell fm-none"><span class="fm-risk">Not supported</span></td>
                   <td class="fm-cell fm-none"><span class="fm-risk">Not supported</span></td>
@@ -315,6 +325,7 @@
 <li><strong>Not supported</strong> means Blowhorn doesn't do it there. A blank cell means the same.</li>
 </ul>
 <p>A grade describes the action, not the tool. LinkedIn says it doesn't permit &quot;browser extensions that... automate activity on LinkedIn's website&quot; (<a href="https://www.linkedin.com/help/linkedin/answer/a1341387">LinkedIn Help</a>). Blowhorn types at human pace and hands you every CAPTCHA, but it is a browser extension acting on LinkedIn, so every LinkedIn action carries that rule with it. Weigh that before you run anything there unattended.</p>
+<p>YouTube's Terms of Service carry the same kind of rule: you may not &quot;access the Service using any automated means (such as robots, botnets or scrapers)&quot; (<a href="https://www.youtube.com/static?template=terms">YouTube Terms of Service</a>). Blowhorn never comments, replies or likes on YouTube from a scheduled run, but every YouTube action is still software acting on YouTube.</p>
 <h2 id="notes-and-sources">Notes and sources</h2><ol>
 <li>LinkedIn: &quot;We're improving our systems to reduce repetitive, low-substance posts and engagement bait, such as 'comment to agree' prompts&quot; (<a href="https://news.linkedin.com/2026/ImprovingTheFeed">LinkedIn Pressroom, 12 Mar 2026</a>).</li>
 <li>LinkedIn: &quot;Don't do things to artificially increase engagement with your content&quot; (<a href="https://www.linkedin.com/legal/professional-community-policies">Professional Community Policies</a>).</li>
@@ -331,6 +342,8 @@
 <li>Hacker News: &quot;Don't solicit upvotes, comments, or submissions&quot; and &quot;Don't post generated text or AI-edited text&quot; (<a href="https://news.ycombinator.com/newsguidelines.html">HN guidelines</a>).</li>
 <li>Bluesky: &quot;Do not artificially manipulate features or social signals to gain unearned reach&quot; (<a href="https://bsky.social/about/support/community-guidelines">Community Guidelines, 19 Sep 2025</a>).</li>
 <li>GitHub does not allow &quot;inauthentic interactions, such as fake accounts and automated inauthentic activity; rank abuse, such as automated starring or following&quot; (<a href="https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies">GitHub Acceptable Use Policies</a>).</li>
+<li>YouTube's spam policy prohibits &quot;Using high-volume, repetitive, or deceptive comments, live chats, or other messages&quot; (<a href="https://support.google.com/youtube/answer/2801973">Spam policy</a>).</li>
+<li>YouTube: &quot;YouTube doesn't allow anything that artificially increases the number of views, likes, comments, or other metrics either by using automatic systems or serving up videos to unsuspecting viewers&quot; (<a href="https://support.google.com/youtube/answer/3399767">Fake engagement policy</a>).</li>
 </ol>
 
         </div>
@@ -357,11 +370,15 @@
               <h3 class="h3"><a href="/field-manual/bluesky/">Bluesky</a></h3>
               <p>How Bluesky&#39;s feeds work (your Following feed, Discover, and custom feeds anyone can build) and the one rule that matters most, no manipulated signals.</p>
             </li>
-            <li class="card card-plain"><p class="label">General education</p>
+            <li class="card card-plain"><p class="label">Platform briefing</p>
+              <h3 class="h3"><a href="/field-manual/youtube/">YouTube</a></h3>
+              <p>What YouTube&#39;s recommendations reward (satisfaction, not just watch time) and what it prohibits (fake engagement, repetitive comments, automated access), in YouTube&#39;s own words.</p>
+            </li>
+            <li class="card card-stamp"><p class="label">General education</p>
               <h3 class="h3"><a href="/field-manual/other-feeds/">Other feeds</a></h3>
               <p>What the other big feeds say they reward and reduce, in their own words. General education only. Blowhorn doesn&#39;t post to these platforms.</p>
             </li>
-            <li class="card card-stamp"><p class="label">For CLI and agent users</p>
+            <li class="card card-dispatch"><p class="label">For CLI and agent users</p>
               <h3 class="h3"><a href="/field-manual/tuning/">CLI tuning</a></h3>
               <p>Prescriptive settings for the Blowhorn CLI and blowhorn-axi that map each platform rule in this manual to a flag or default. For operators and the agents they run.</p>
             </li>
@@ -430,6 +447,8 @@
         <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg>
       </button>
     </section>
+
+
 
 
     <script src="/js/code-card.min.681cde1d563b320da97fa3f2c094be9469b193e726a2734eb3eb264d3a5e33e4.js" defer></script>

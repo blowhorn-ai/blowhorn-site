@@ -12,7 +12,7 @@
 
 ## Choose Blowhorn if
 
-- Your audience lives on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky and Slack
+- Your audience lives on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more
 - One post should be amplified by your founders, your team and your supporters, as themselves, not just published once
 - You want posting to happen from your own browser, on your own computers, at a human pace, under rules you set
 - You run one person, a local practice, a whole enterprise, or several client brands from one shared queue
@@ -23,8 +23,8 @@ Buffer pricing as of Oct 2026: Free (10 posts a channel); Essentials $5 a channe
 
 | | Buffer | Blowhorn |
 | --- | --- | --- |
-| Where it acts | Buffer's cloud, through each network's official APIs | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
-| Networks | Many, incl. Instagram, TikTok, Threads, Pinterest, Mastodon, Facebook, YouTube, LinkedIn, X and Bluesky | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky and Slack. More networks: Coming soon |
+| Where it acts | Buffer's cloud, through each network's official APIs | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Networks | Many, incl. Instagram, TikTok, Threads, Pinterest, Mastodon, Facebook, YouTube, LinkedIn, X and Bluesky | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post across many people | No cross-account amplify | Sound wave: one scheduled message, amplified by every profile in your account |
 | Hacker News, Reddit, GitHub, Slack | No | Yes |
 | Works with every computer switched off | Yes | No. As long as one of your computers is awake, the schedule runs |
@@ -40,7 +40,7 @@ Buffer is honest software and it sells no engagement either, so this one is abou
 
 ## Frequently Asked Questions {#questions}
 
-**Is Buffer better than Blowhorn?** For a broad, always-on calendar across consumer networks, yes. For amplifying one message from many real profiles on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky and Slack, we think Blowhorn is the better fit.
+**Is Buffer better than Blowhorn?** For a broad, always-on calendar across consumer networks, yes. For amplifying one message from many real profiles on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, we think Blowhorn is the better fit.
 
 **Can I use both?** Yes. Plenty of teams keep a calendar tool for the brand feed and use Blowhorn to rally the people behind a launch.
 

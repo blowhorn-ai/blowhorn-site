@@ -23,8 +23,8 @@ Typefully pricing as of Oct 2026: Free plan; paid plans for more posts, analytic
 | | Typefully | Blowhorn |
 | --- | --- | --- |
 | Best at | Writing and scheduling | Amplifying and acting across networks |
-| Where it acts | Typefully's cloud | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
-| Networks | X, LinkedIn, Threads, Bluesky, Mastodon | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack. Instagram, TikTok, Facebook and YouTube coming soon |
+| Where it acts | Typefully's cloud | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Networks | X, LinkedIn, Threads, Bluesky, Mastodon | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Many people amplifying one post | Not across people | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | AI agents | AI writing, hosted MCP and API | MCP server, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |

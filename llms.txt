@@ -3,12 +3,12 @@
 > Blowhorn is a social media console that takes one message and broadcasts, reposts and amplifies it across every profile and platform your community runs, on autopilot. Runs on your computer.
 
 ## Pages
-- [Blowhorn: not a bot, it's you](https://blowhorn.ai/index.md): Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, and Slack profiles, from your own browser, as you.
+- [Blowhorn: not a bot, it's you](https://blowhorn.ai/index.md): Blowhorn is a social media console. Write one post, and it posts, reposts, and amplifies it across your LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, and YouTube profiles, from your own browser, as you.
+- [Meet Major Blowhorn](https://blowhorn.ai/major/index.md): The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
 - [Try Blowhorn in your browser](https://blowhorn.ai/demo/index.md): The General walks you through a launch. Pick a formation, load the queue, and sound the call. A simulation: nothing posts, and nothing leaves your browser.
 - [Pricing](https://blowhorn.ai/pricing/index.md): Blowhorn is free during early access, with no limits on voices or platforms. Paid plans aren't set yet. Here's what a voice is and how plans will count them.
 - [Your voice, on every front](https://blowhorn.ai/showcase/index.md): Blowhorn is a social media console that runs on your own computer. See what it does, how the four formations work, and where it posts.
 - [Brand](https://blowhorn.ai/brand/index.md): The Blowhorn logo, wordmark, colors, type, Major Blowhorn and Old Thunderlung, with the rules for using them and two kits to download.
-- [Meet Major Blowhorn](https://blowhorn.ai/major/index.md): The life, legend and loud opinions of Major Blowhorn, Blowhorn's drill sergeant rooster, and his horn, Old Thunderlung. Dispatches from the barracks, updated as his story unfolds.
 - [Blowhorn newsletter](https://blowhorn.ai/newsletter/index.md): Sign up for the Blowhorn newsletter.
 
 ## AI native
@@ -17,25 +17,6 @@
 
 - [blowhorn-axi](https://blowhorn.ai/ai/blowhorn-axi/index.md): blowhorn-axi lets AI agents use Blowhorn. Compact answers built for agents, rehearsal before every action and clear next steps when something goes wrong. Runs on your computer with Node 18 or later.
 - [Blowhorn MCP server](https://blowhorn.ai/ai/mcp/index.md): The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.
-
-## Support
-- [Support](https://blowhorn.ai/support/index.md): Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
-
-
-- [Thanks](https://blowhorn.ai/support/thanks/index.md): Your support message reached the Blowhorn team.
-
-## The Field Manual
-- [The Field Manual](https://blowhorn.ai/field-manual/index.md): What LinkedIn, X, Reddit and other social feeds reward and penalize, in plain language, with a source for every claim. Hard-won lessons from Major Blowhorn so you can claim victory.
-
-
-- [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/index.md): Every action Blowhorn takes on each platform, and whether that platform's own rules make it safe, a matter of care, or risky.
-- [LinkedIn](https://blowhorn.ai/field-manual/linkedin/index.md): What LinkedIn's feed rewards (time spent reading, real conversation, relevance to your field) and what it cuts (pods, automated comments, bait, recycled posts), from LinkedIn's own engineering and policy pages.
-- [X](https://blowhorn.ai/field-manual/x/index.md): What X's For You feed rewards (replies, conversations, time spent, shares) and what sinks a post (mutes, blocks, reports, duplicates, coordinated accounts), straight from the ranking code X published.
-- [Reddit](https://blowhorn.ai/field-manual/reddit/index.md): What Reddit rewards (being a real member of a community, early votes, fresh posts) and what gets you removed or banned (spam, self-promotion overload, repeated comments, vote manipulation), from Reddit's own rules and code.
-- [Hacker News](https://blowhorn.ai/field-manual/hacker-news/index.md): What Hacker News asks of posters (curiosity first, your own words, no solicited votes) and why it's the least forgiving front, from its own guidelines.
-- [Bluesky](https://blowhorn.ai/field-manual/bluesky/index.md): How Bluesky's feeds work (your Following feed, Discover, and custom feeds anyone can build) and the one rule that matters most, no manipulated signals.
-- [Other feeds](https://blowhorn.ai/field-manual/other-feeds/index.md): What the other big feeds say they reward and reduce, in their own words. General education only. Blowhorn doesn't post to these platforms.
-- [Tune the CLI and blowhorn-axi for the feeds](https://blowhorn.ai/field-manual/tuning/index.md): Prescriptive settings for the Blowhorn CLI and blowhorn-axi that map each platform rule in this manual to a flag or default. For operators and the agents they run.
 
 ## How Blowhorn compares
 - [How Blowhorn compares](https://blowhorn.ai/compare/index.md): Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
@@ -77,6 +58,26 @@
 - [Blowhorn vs Podawaa](https://blowhorn.ai/compare/podawaa/index.md): Podawaa is a LinkedIn engagement exchange: members like and comment on each other's posts, with AI comments and paid private options. Blowhorn sells no engagement and focuses on real people who know you.
 - [Blowhorn vs native scheduling](https://blowhorn.ai/compare/native-scheduling/index.md): LinkedIn and X let you schedule posts for free, one network and one profile at a time. Blowhorn puts every network and every profile you run in one queue, and lets your profiles amplify each post.
 - [Blowhorn vs Sendible](https://blowhorn.ai/compare/sendible/index.md): Sendible is a polished cloud scheduler for agencies and marketing teams, with unlimited users, white-label client dashboards and reporting. Blowhorn is for real-person amplification on the networks where developers talk.
+
+## The Field Manual
+- [The Field Manual](https://blowhorn.ai/field-manual/index.md): What LinkedIn, X, Reddit and other social feeds reward and penalize, in plain language, with a source for every claim. Hard-won lessons from Major Blowhorn so you can claim victory.
+
+
+- [Platform action matrix](https://blowhorn.ai/field-manual/action-matrix/index.md): Every action Blowhorn takes on each platform, and whether that platform's own rules make it safe, a matter of care, or risky.
+- [LinkedIn](https://blowhorn.ai/field-manual/linkedin/index.md): What LinkedIn's feed rewards (time spent reading, real conversation, relevance to your field) and what it cuts (pods, automated comments, bait, recycled posts), from LinkedIn's own engineering and policy pages.
+- [X](https://blowhorn.ai/field-manual/x/index.md): What X's For You feed rewards (replies, conversations, time spent, shares) and what sinks a post (mutes, blocks, reports, duplicates, coordinated accounts), straight from the ranking code X published.
+- [Reddit](https://blowhorn.ai/field-manual/reddit/index.md): What Reddit rewards (being a real member of a community, early votes, fresh posts) and what gets you removed or banned (spam, self-promotion overload, repeated comments, vote manipulation), from Reddit's own rules and code.
+- [Hacker News](https://blowhorn.ai/field-manual/hacker-news/index.md): What Hacker News asks of posters (curiosity first, your own words, no solicited votes) and why it's the least forgiving front, from its own guidelines.
+- [Bluesky](https://blowhorn.ai/field-manual/bluesky/index.md): How Bluesky's feeds work (your Following feed, Discover, and custom feeds anyone can build) and the one rule that matters most, no manipulated signals.
+- [YouTube](https://blowhorn.ai/field-manual/youtube/index.md): What YouTube's recommendations reward (satisfaction, not just watch time) and what it prohibits (fake engagement, repetitive comments, automated access), in YouTube's own words.
+- [Other feeds](https://blowhorn.ai/field-manual/other-feeds/index.md): What the other big feeds say they reward and reduce, in their own words. General education only. Blowhorn doesn't post to these platforms.
+- [Tune the CLI and blowhorn-axi for the feeds](https://blowhorn.ai/field-manual/tuning/index.md): Prescriptive settings for the Blowhorn CLI and blowhorn-axi that map each platform rule in this manual to a flag or default. For operators and the agents they run.
+
+## Support
+- [Support](https://blowhorn.ai/support/index.md): Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
+
+
+- [Thanks](https://blowhorn.ai/support/thanks/index.md): Your support message reached the Blowhorn team.
 
 ## Trust Center
 - [Trust Center](https://blowhorn.ai/legal/index.md): How Blowhorn handles your data, sessions and accounts, in plain language, and every policy that covers the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.
@@ -309,13 +310,13 @@
 - [Blowhorn for Open source maintainers](https://blowhorn.ai/for/open-source/index.md): Blowhorn for open source maintainers: announce releases and milestones on GitHub, Slack, Hacker News and every social network from one queue, as yourself.
 - [Blowhorn for Community managers](https://blowhorn.ai/for/community/index.md): Blowhorn for community managers: Slack announcements as yourself, and supporters amplifying from their own profiles.
 - [Blowhorn for Agencies and consultants](https://blowhorn.ai/for/agencies/index.md): Blowhorn for agencies and consultants: client profiles in a real browser on your own computer, with dry-run and pause on every action.
-- [Blowhorn for Social media managers](https://blowhorn.ai/for/social-media/index.md): Blowhorn for social media managers: one queue for LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub and Slack, posted as the company and as you.
+- [Blowhorn for Social media managers](https://blowhorn.ai/for/social-media/index.md): Blowhorn for social media managers: one queue for LinkedIn, X, Reddit, Hacker News, Bluesky, GitHub, Slack, YouTube and more, posted as the company and as you.
 
 ## Blowhorn solutions
 - [Blowhorn solutions](https://blowhorn.ai/solutions/index.md): Blowhorn solutions by role, by use case and by the category of tool you are replacing. One queue, posted as you.
 
 
-- [Blowhorn for developer distribution](https://blowhorn.ai/solutions/developer-distribution/index.md): One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X and Bluesky, posted as you from your own browser.
+- [Blowhorn for developer distribution](https://blowhorn.ai/solutions/developer-distribution/index.md): One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X, Bluesky, YouTube and more, posted as you from your own browser.
 - [Blowhorn for employee advocacy](https://blowhorn.ai/solutions/employee-advocacy/index.md): Employee advocacy for small teams: real people amplifying one post as themselves, from one coordinated queue, without a 100-seat minimum.
 - [Blowhorn for distributed teams](https://blowhorn.ai/solutions/distributed-teams/index.md): Blowhorn for distributed teams: one shared queue across your teammates' computers, each posting from its own internet connection and IP address. No proxy to buy or run.
 - [Blowhorn for social scheduling](https://blowhorn.ai/solutions/social-scheduling/index.md): Schedule posts like any cloud scheduler, but your own computers press Post, as you, and Hacker News, GitHub and Slack join the same queue.
@@ -327,7 +328,7 @@
 
 
 - [Blowhorn for launch day](https://blowhorn.ai/use-cases/launch-day/index.md): Plan a product launch so the announcement goes out everywhere at the right moment, and every profile you add amplifies it in the first hour.
-- [Blowhorn for open source releases](https://blowhorn.ai/use-cases/open-source-release/index.md): Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X and Bluesky, and rally GitHub reactions, from one queue, as yourself.
+- [Blowhorn for open source releases](https://blowhorn.ai/use-cases/open-source-release/index.md): Announce a release or project milestone on Slack, Hacker News, Reddit, LinkedIn, X, Bluesky, YouTube and more, and rally GitHub reactions, from one queue, as yourself.
 - [Blowhorn for conferences](https://blowhorn.ai/use-cases/conference/index.md): Promote a talk, booth or meetup before, during and after the event, from one queue, while any awake computer covers the schedule.
 - [Blowhorn for LinkedIn hygiene](https://blowhorn.ai/use-cases/linkedin-outreach/index.md): Careful LinkedIn hygiene from your own browser: invite to your page, connect mentees, accept invitations and withdraw stale invites, at human pace, with built-in caps.
 - [Blowhorn for team amplification](https://blowhorn.ai/use-cases/team-amplification/index.md): Get teammates and supporters behind every company post: each posts as themselves, in the first hour, from one coordinated queue, with no 100-seat minimum.

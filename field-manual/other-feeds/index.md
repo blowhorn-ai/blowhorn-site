@@ -1,15 +1,9 @@
-# Facebook, YouTube, Instagram, TikTok, Threads and Mastodon
+# Facebook, Instagram, TikTok, Threads and Mastodon
 
-> **Blowhorn doesn't post to these platforms.** This page is general education. Blowhorn works with LinkedIn, X, Reddit, Hacker News, Bluesky, Slack and GitHub, on your computer (see [System requirements](/docs/reference/requirements/)).
+> **Blowhorn doesn't post to these platforms.** This page is general education. Blowhorn works with LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub and YouTube, on your computer (see [System requirements](/docs/reference/requirements/)).
 
 > Intelligence from fronts the Major doesn't march on. Useful anywhere you post by hand.
 
-
-## YouTube
-
-- **Rewards satisfaction, not just watch time.** Signals include "clicks, watchtime, survey responses, sharing, likes, and dislikes," and YouTube measures "valued watchtime" through surveys where "Only videos that you rate highly with four or five stars are counted" ([YouTube Blog](https://blog.youtube/inside-youtube/on-youtubes-recommendation-system/)).
-- **Listens to "no."** Dislikes, "Not interested" and "Don't recommend channel" tell the system what to avoid ([YouTube Help](https://support.google.com/youtube/answer/16089387)).
-- **Takeaway:** a video people are glad they watched beats a video that tricked them into staying.
 
 ## TikTok
 

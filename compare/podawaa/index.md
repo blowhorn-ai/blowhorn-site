@@ -14,7 +14,7 @@
 
 - You want people who actually know you to show up, not a reciprocal exchange with strangers
 - You want to write your own words, not AI-generated comments
-- You also speak on X, Reddit, Hacker News, GitHub, Bluesky and Slack
+- You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube
 
 ## Side by side
 
@@ -25,7 +25,7 @@ Podawaa pricing as of Oct 2026: Free plan; paid plans from €29 per month ([sou
 | How it works | Members like and comment on each other's posts through an extension, or you buy engagement on private plans | Profiles in your account (yours, your teammates', your supporters') amplify your post |
 | Who engages | Other members of the pod or exchange | People who chose to back you |
 | Comments | AI-generated comments offered | Your words; no AI comment generation |
-| Networks | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack. Instagram, TikTok, Facebook and YouTube coming soon |
+| Networks | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Bought engagement | Engagement exchanged or purchased from other members | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per plan | Free during early access |
 

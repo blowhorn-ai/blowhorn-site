@@ -26,7 +26,7 @@ His horn: a dented brass trumpet with a red tassel and one sticky valve, found i
 
 Outranks Major. Reminds him daily.
 
-The old goat who promoted Major after the Blowhard incident, and he has been half deaf ever since. Now he holds a bugle to his ear and trusts only the numbers: real likes, replies and follows from LinkedIn, X and Bluesky, all in one report. He has never smiled. He came close once, at a reply count.
+The old goat who promoted Major after the Blowhard incident, and he has been half deaf ever since. Now he holds a bugle to his ear and trusts only the numbers: real likes, replies and follows from LinkedIn, X, Bluesky and YouTube, all in one report. He has never smiled. He came close once, at a reply count.
 
 - [What the numbers mean](https://blowhorn.ai/docs/explanation/analytics/)
 - [Get your analytics report](https://blowhorn.ai/docs/how-to/measure/analytics/#read-the-html-report)
@@ -45,7 +45,7 @@ A squad of tin-can chickens who do exactly what the queue says, when it says, an
 
 Writes it once. Posts it everywhere.
 
-A gold rooster with a keyboard for a shield. You write the post one time and he carries it to LinkedIn, X, Reddit, Bluesky, Slack, Hacker News and GitHub, no copy-paste marathon required. He will not improve your jokes. He just makes sure your words land where your people are.
+A gold rooster with a keyboard for a shield. You write the post one time and he carries it to LinkedIn, X, Reddit, Bluesky, Slack, Hacker News, GitHub and YouTube, no copy-paste marathon required. He will not improve your jokes. He just makes sure your words land where your people are.
 
 - [How posting works](https://blowhorn.ai/docs/how-to/publish/post-content/)
 - [Where you can post](https://blowhorn.ai/docs/reference/platforms/)

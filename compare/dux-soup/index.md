@@ -15,7 +15,7 @@
 
 - You want careful LinkedIn outreach, not volume prospecting
 - No vendor server logs in as you. Blowhorn acts from your own signed-in browser, on your own computers
-- You also speak on X, Reddit, Hacker News, GitHub, Bluesky and Slack, and you want your people amplifying your posts as themselves
+- You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, and you want your people amplifying your posts as themselves
 - You are a solo founder, a local practice, a big team or an agency, and you want one queue for every profile
 
 ## Side by side
@@ -25,9 +25,9 @@ Dux-Soup pricing as of Oct 2026: STACKED local $55 per month ($41.25 annually); 
 | | Dux-Soup | Blowhorn |
 | --- | --- | --- |
 | Built for | Outbound prospecting at volume | Careful outreach plus publishing and amplification |
-| Where it acts | STACKED local, a desktop app on your computer, or STACKED cloud, which runs in Dux-Soup's cloud without your computer on | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; each platform's API for GitHub, Bluesky and Slack |
+| Where it acts | STACKED local, a desktop app on your computer, or STACKED cloud, which runs in Dux-Soup's cloud without your computer on | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; each platform's API for GitHub, Bluesky and Slack |
 | LinkedIn outreach | Sequences of up to 12 actions: visits, connects, messages, InMails, endorsements, follows | Page invites, connect, accept, withdraw; human-paced with caps |
-| Networks | LinkedIn, including Sales Navigator and Recruiter | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack |
+| Networks | LinkedIn, including Sales Navigator and Recruiter | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per seat | Free during early access |

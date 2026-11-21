@@ -13,7 +13,7 @@
 - **Make a sound wave.** Queue the launch post and its reposts, quotes and reactions ahead of time. Every profile you add joins the same wave.
 - **Their sessions stay theirs.** Each teammate's sessions stay in their own browser; Blowhorn acts as them there.
 - **One pause for the whole wave.** Coordinated so the same post isn't sent from two computers. One command pauses everything.
-- **One complete picture.** Run history and analytics from every computer in one place. Analytics cover LinkedIn, X and Bluesky.
+- **One complete picture.** Run history and analytics from every computer in one place. Analytics cover LinkedIn, X, Bluesky and YouTube.
 
 ## Campaign rows, queued and held for you
 

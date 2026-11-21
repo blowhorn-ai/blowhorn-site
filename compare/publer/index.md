@@ -14,7 +14,7 @@
 
 - One post should be lifted by many real profiles, not recycled
 - Hacker News, Reddit, GitHub and Slack message surfaces are where your audience is
-- Your own browser for LinkedIn, X, Reddit and Hacker News; the platform API for GitHub, Bluesky and Slack
+- Your own browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform API for GitHub, Bluesky and Slack
 
 ## Side by side
 
@@ -22,8 +22,8 @@ Publer pricing as of Oct 2026: Free plan for 3 accounts (X needs a paid plan); p
 
 | | Publer | Blowhorn |
 | --- | --- | --- |
-| Where it acts | Publer's cloud | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
-| Networks | 13 incl. Instagram, TikTok, Telegram, WordPress, LinkedIn, X, Bluesky | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack message via API. Instagram, Facebook and YouTube coming soon. TikTok is in development, not listed as supported |
+| Where it acts | Publer's cloud | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Networks | 13 incl. Instagram, TikTok, Telegram, WordPress, LinkedIn, X, Bluesky | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, YouTube, Slack message via API and more |
 | Recycling and bulk scheduling | Yes, including bulk scheduling and recycling on Business | Schedules |
 | Replies and inbox | No unified inbox; replies in native apps | No unified inbox claimed. Blowhorn amplifies; it does not run a care desk |
 | Many people amplifying one post | One draft scheduled across several networks, not many real profiles | Sound wave: one scheduled message, amplified by every profile in your account. Team invites coming soon |

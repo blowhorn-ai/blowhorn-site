@@ -37,7 +37,7 @@
     <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link rel="preload" href="/scss/main.min.7d804e8cacd6904ddd5bb25ee11f8ca135271b5b264be967465800749c76107f.css" as="style" integrity="sha256-fYBOjKzWkE3dW7Je4R&#43;MoTUnG1smS&#43;lnRlgAdJx2EH8=" crossorigin="anonymous">
 <link href="/scss/main.min.7d804e8cacd6904ddd5bb25ee11f8ca135271b5b264be967465800749c76107f.css" rel="stylesheet" integrity="sha256-fYBOjKzWkE3dW7Je4R&#43;MoTUnG1smS&#43;lnRlgAdJx2EH8=" crossorigin="anonymous">
 
-<link rel="stylesheet" href="/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script src="/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -237,7 +237,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.b28866d7b97a21c5edf66e7c0898fe60.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e33585288a6079d420321deb80ec0a76.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -912,14 +912,249 @@ A retry starts a new upload; it does not resume the leftover draft.</p>
       <th scope="col">Limits / notes</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">None listed</th>
-      <td data-label="What it does">Blowhorn lists no actions for this platform.</td>
-      <td data-label="Limits / notes">None</td>
-    </tr>
+  <tbody><tr>
+        <th scope="row"><a href="#action-post">Post</a></th>
+        <td data-label="What it does">Uploads a video through YouTube Studio in your signed-in browser by default (after YouTube Data API consent, through YouTube&#39;s official API) with its title, description and visibility (private unless you choose unlisted or public), or as a Short. With Community set to yes, it publishes a post on your channel&#39;s Posts tab instead, always in the signed-in browser.</td>
+        <td data-label="Limits / notes">At most 3 uploads and 2 Posts tab posts per profile a day. A Short longer than 3 minutes or wider than it is tall is refused before anything opens. Check each upload in YouTube Studio.</td>
+      </tr><tr>
+        <th scope="row"><a href="#action-comment">Comment</a></th>
+        <td data-label="What it does">Comments on the YouTube video you point it at.</td>
+        <td data-label="Limits / notes">At most 10 a day per profile. A comment with an @name in it is refused. A scheduled run never comments; it waits for a run you start.</td>
+      </tr><tr>
+        <th scope="row"><a href="#action-reply">Reply</a></th>
+        <td data-label="What it does">Replies to the YouTube comment you point it at, by the comment&#39;s own link.</td>
+        <td data-label="Limits / notes">At most 10 a day per profile. A reply to a reply, or one with an @name in it, is refused. A scheduled run never replies.</td>
+      </tr><tr>
+        <th scope="row"><a href="#action-amplify">Amplify</a></th>
+        <td data-label="What it does">Likes a video from each of your profiles.</td>
+        <td data-label="Limits / notes">At most 20 likes a day per profile. A scheduled run never likes; it waits for a run you start.</td>
+      </tr><tr>
+        <th scope="row"><a href="#action-analytics">Analytics</a></th>
+        <td data-label="What it does">Reads your channel&#39;s and videos&#39; figures through the YouTube Analytics and Data APIs, with the profile&#39;s own OAuth consent.</td>
+        <td data-label="Limits / notes">Read-only. A profile without the consent is skipped. YouTube figures are kept for 30 days.</td>
+      </tr>
   </tbody>
 </table>
+</section>
+<h2 id="examples">Examples</h2><section class="action-example" id="action-post" aria-labelledby="action-post-title">
+  <h3 id="action-post-title" class="h3">Post</h3>
+  <div class="tabs" data-tabs data-tabs-group="surface" data-tabs-id="ex-youtube-post">
+  <div class="tabs-list">
+    <a class="tabs-tab" id="ex-youtube-post-tab-app" href="#ex-youtube-post-app" data-tab="app" data-tab-status="placeholder">App</a>
+    <a class="tabs-tab is-on" id="ex-youtube-post-tab-cli" href="#ex-youtube-post-cli" data-tab="cli" data-tab-status="available">CLI</a>
+    <a class="tabs-tab" id="ex-youtube-post-tab-rest" href="#ex-youtube-post-rest" data-tab="rest" data-tab-status="placeholder">REST API</a>
+    <a class="tabs-tab" id="ex-youtube-post-tab-mcp" href="#ex-youtube-post-mcp" data-tab="mcp" data-tab-status="available">MCP</a>
+    <a class="tabs-tab" id="ex-youtube-post-tab-skill" href="#ex-youtube-post-skill" data-tab="skill" data-tab-status="available">Skill</a>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-post-app" data-tab-panel="app" data-tab-index="0">
+    <div class="tabs-soon"><p class="ui">Screenshot coming soon</p><p class="caption muted">Drop a PNG at <code>assets/docs/actions/youtube/post.png</code> to fill this pane.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-post-cli" data-tab-panel="cli" data-tab-index="1">
+    <figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn post --platform youtube --profile personal</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure><p class="caption"><a href="/docs/reference/cli/post/">CLI reference</a></p>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-post-rest" data-tab-panel="rest" data-tab-index="2">
+    <div class="tabs-soon"><p class="ui">Coming soon</p><p class="caption muted">The Blowhorn REST API is coming soon. Until then, use the CLI or MCP.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-post-mcp" data-tab-panel="mcp" data-tab-index="3">
+    <p class="caption muted">Ask an assistant connected to the Blowhorn MCP server. Writes come back as a dry run first; nothing goes out until you say go. <a href="/ai/mcp/">Blowhorn MCP server</a></p><figure class="term" data-lang="text">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">prompt</span>
+    <span class="term-lang" aria-hidden="true">Text</span>
+    <button type="button" class="term-copy" aria-label="Copy prompt to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Dry-run the queued YouTube upload from my personal profile, as private. Show me what would happen and wait for my go before you confirm.</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-post-skill" data-tab-panel="skill" data-tab-index="4">
+    <p class="caption muted">The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires.</p><p class="caption"><a href="/agents/claude-code/">Set up the skill</a></p>
+  </div>
+  <p class="visually-hidden">youtube Post examples</p>
+</div>
+</section><section class="action-example" id="action-comment" aria-labelledby="action-comment-title">
+  <h3 id="action-comment-title" class="h3">Comment</h3>
+  <div class="tabs" data-tabs data-tabs-group="surface" data-tabs-id="ex-youtube-comment">
+  <div class="tabs-list">
+    <a class="tabs-tab" id="ex-youtube-comment-tab-app" href="#ex-youtube-comment-app" data-tab="app" data-tab-status="placeholder">App</a>
+    <a class="tabs-tab" id="ex-youtube-comment-tab-cli" href="#ex-youtube-comment-cli" data-tab="cli" data-tab-status="placeholder">CLI</a>
+    <a class="tabs-tab" id="ex-youtube-comment-tab-rest" href="#ex-youtube-comment-rest" data-tab="rest" data-tab-status="placeholder">REST API</a>
+    <a class="tabs-tab is-on" id="ex-youtube-comment-tab-mcp" href="#ex-youtube-comment-mcp" data-tab="mcp" data-tab-status="available">MCP</a>
+    <a class="tabs-tab" id="ex-youtube-comment-tab-skill" href="#ex-youtube-comment-skill" data-tab="skill" data-tab-status="available">Skill</a>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-comment-app" data-tab-panel="app" data-tab-index="0">
+    <div class="tabs-soon"><p class="ui">Screenshot coming soon</p><p class="caption muted">Drop a PNG at <code>assets/docs/actions/youtube/comment.png</code> to fill this pane.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-comment-cli" data-tab-panel="cli" data-tab-index="1">
+    <div class="tabs-soon"><p class="ui">Not in the CLI yet</p><p class="caption muted">YouTube comments are not a distinct blowhorn command. Put the address in the activity's Comment on, then run blowhorn post --platform youtube.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-comment-rest" data-tab-panel="rest" data-tab-index="2">
+    <div class="tabs-soon"><p class="ui">Coming soon</p><p class="caption muted">The Blowhorn REST API is coming soon. Until then, use the CLI or MCP.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-comment-mcp" data-tab-panel="mcp" data-tab-index="3">
+    <p class="caption muted">Ask an assistant connected to the Blowhorn MCP server. Writes come back as a dry run first; nothing goes out until you say go. <a href="/ai/mcp/">Blowhorn MCP server</a></p><figure class="term" data-lang="text">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">prompt</span>
+    <span class="term-lang" aria-hidden="true">Text</span>
+    <button type="button" class="term-copy" aria-label="Copy prompt to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Dry-run a comment from my personal profile on https://www.youtube.com/watch?v=abc123 thanking them for the walkthrough. Show me what would happen and wait for my go before you confirm.</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-comment-skill" data-tab-panel="skill" data-tab-index="4">
+    <p class="caption muted">The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires.</p><p class="caption"><a href="/agents/claude-code/">Set up the skill</a></p>
+  </div>
+  <p class="visually-hidden">youtube Comment examples</p>
+</div>
+</section><section class="action-example" id="action-reply" aria-labelledby="action-reply-title">
+  <h3 id="action-reply-title" class="h3">Reply</h3>
+  <div class="tabs" data-tabs data-tabs-group="surface" data-tabs-id="ex-youtube-reply">
+  <div class="tabs-list">
+    <a class="tabs-tab" id="ex-youtube-reply-tab-app" href="#ex-youtube-reply-app" data-tab="app" data-tab-status="placeholder">App</a>
+    <a class="tabs-tab" id="ex-youtube-reply-tab-cli" href="#ex-youtube-reply-cli" data-tab="cli" data-tab-status="placeholder">CLI</a>
+    <a class="tabs-tab" id="ex-youtube-reply-tab-rest" href="#ex-youtube-reply-rest" data-tab="rest" data-tab-status="placeholder">REST API</a>
+    <a class="tabs-tab is-on" id="ex-youtube-reply-tab-mcp" href="#ex-youtube-reply-mcp" data-tab="mcp" data-tab-status="available">MCP</a>
+    <a class="tabs-tab" id="ex-youtube-reply-tab-skill" href="#ex-youtube-reply-skill" data-tab="skill" data-tab-status="available">Skill</a>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-reply-app" data-tab-panel="app" data-tab-index="0">
+    <div class="tabs-soon"><p class="ui">Screenshot coming soon</p><p class="caption muted">Drop a PNG at <code>assets/docs/actions/youtube/reply.png</code> to fill this pane.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-reply-cli" data-tab-panel="cli" data-tab-index="1">
+    <div class="tabs-soon"><p class="ui">Not in the CLI yet</p><p class="caption muted">YouTube replies are not a distinct blowhorn command. Put the address in the activity's Comment on, then run blowhorn post --platform youtube.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-reply-rest" data-tab-panel="rest" data-tab-index="2">
+    <div class="tabs-soon"><p class="ui">Coming soon</p><p class="caption muted">The Blowhorn REST API is coming soon. Until then, use the CLI or MCP.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-reply-mcp" data-tab-panel="mcp" data-tab-index="3">
+    <p class="caption muted">Ask an assistant connected to the Blowhorn MCP server. Writes come back as a dry run first; nothing goes out until you say go. <a href="/ai/mcp/">Blowhorn MCP server</a></p><figure class="term" data-lang="text">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">prompt</span>
+    <span class="term-lang" aria-hidden="true">Text</span>
+    <button type="button" class="term-copy" aria-label="Copy prompt to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Dry-run a reply from my personal profile to the comment at https://www.youtube.com/watch?v=abc123&amp;lc=xyz answering their question: the dry run walks every step and sends nothing. Show me what would happen and wait for my go before you confirm.</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-reply-skill" data-tab-panel="skill" data-tab-index="4">
+    <p class="caption muted">The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires.</p><p class="caption"><a href="/agents/claude-code/">Set up the skill</a></p>
+  </div>
+  <p class="visually-hidden">youtube Reply examples</p>
+</div>
+</section><section class="action-example" id="action-amplify" aria-labelledby="action-amplify-title">
+  <h3 id="action-amplify-title" class="h3">Amplify</h3>
+  <div class="tabs" data-tabs data-tabs-group="surface" data-tabs-id="ex-youtube-amplify">
+  <div class="tabs-list">
+    <a class="tabs-tab" id="ex-youtube-amplify-tab-app" href="#ex-youtube-amplify-app" data-tab="app" data-tab-status="placeholder">App</a>
+    <a class="tabs-tab" id="ex-youtube-amplify-tab-cli" href="#ex-youtube-amplify-cli" data-tab="cli" data-tab-status="placeholder">CLI</a>
+    <a class="tabs-tab" id="ex-youtube-amplify-tab-rest" href="#ex-youtube-amplify-rest" data-tab="rest" data-tab-status="placeholder">REST API</a>
+    <a class="tabs-tab is-on" id="ex-youtube-amplify-tab-mcp" href="#ex-youtube-amplify-mcp" data-tab="mcp" data-tab-status="available">MCP</a>
+    <a class="tabs-tab" id="ex-youtube-amplify-tab-skill" href="#ex-youtube-amplify-skill" data-tab="skill" data-tab-status="available">Skill</a>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-amplify-app" data-tab-panel="app" data-tab-index="0">
+    <div class="tabs-soon"><p class="ui">Screenshot coming soon</p><p class="caption muted">Drop a PNG at <code>assets/docs/actions/youtube/amplify.png</code> to fill this pane.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-amplify-cli" data-tab-panel="cli" data-tab-index="1">
+    <div class="tabs-soon"><p class="ui">Not in the CLI yet</p><p class="caption muted">YouTube likes are not a distinct blowhorn command. Put the address in the activity's Amplify, then run blowhorn post --platform youtube.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-amplify-rest" data-tab-panel="rest" data-tab-index="2">
+    <div class="tabs-soon"><p class="ui">Coming soon</p><p class="caption muted">The Blowhorn REST API is coming soon. Until then, use the CLI or MCP.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-amplify-mcp" data-tab-panel="mcp" data-tab-index="3">
+    <p class="caption muted">Ask an assistant connected to the Blowhorn MCP server. Writes come back as a dry run first; nothing goes out until you say go. <a href="/ai/mcp/">Blowhorn MCP server</a></p><figure class="term" data-lang="text">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">prompt</span>
+    <span class="term-lang" aria-hidden="true">Text</span>
+    <button type="button" class="term-copy" aria-label="Copy prompt to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Dry-run a like of https://www.youtube.com/watch?v=abc123 from my personal profile only. Show me what would happen and wait for my go before you confirm.</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-amplify-skill" data-tab-panel="skill" data-tab-index="4">
+    <p class="caption muted">The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires.</p><p class="caption"><a href="/agents/claude-code/">Set up the skill</a></p>
+  </div>
+  <p class="visually-hidden">youtube Amplify examples</p>
+</div>
+</section><section class="action-example" id="action-analytics" aria-labelledby="action-analytics-title">
+  <h3 id="action-analytics-title" class="h3">Analytics</h3>
+  <div class="tabs" data-tabs data-tabs-group="surface" data-tabs-id="ex-youtube-analytics">
+  <div class="tabs-list">
+    <a class="tabs-tab" id="ex-youtube-analytics-tab-app" href="#ex-youtube-analytics-app" data-tab="app" data-tab-status="placeholder">App</a>
+    <a class="tabs-tab is-on" id="ex-youtube-analytics-tab-cli" href="#ex-youtube-analytics-cli" data-tab="cli" data-tab-status="available">CLI</a>
+    <a class="tabs-tab" id="ex-youtube-analytics-tab-rest" href="#ex-youtube-analytics-rest" data-tab="rest" data-tab-status="placeholder">REST API</a>
+    <a class="tabs-tab" id="ex-youtube-analytics-tab-mcp" href="#ex-youtube-analytics-mcp" data-tab="mcp" data-tab-status="available">MCP</a>
+    <a class="tabs-tab" id="ex-youtube-analytics-tab-skill" href="#ex-youtube-analytics-skill" data-tab="skill" data-tab-status="available">Skill</a>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-analytics-app" data-tab-panel="app" data-tab-index="0">
+    <div class="tabs-soon"><p class="ui">Screenshot coming soon</p><p class="caption muted">Drop a PNG at <code>assets/docs/actions/youtube/analytics.png</code> to fill this pane.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-analytics-cli" data-tab-panel="cli" data-tab-index="1">
+    <figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn analytics --platform youtube --profile personal</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure><p class="caption"><a href="/docs/reference/cli/analytics/">CLI reference</a></p>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-analytics-rest" data-tab-panel="rest" data-tab-index="2">
+    <div class="tabs-soon"><p class="ui">Coming soon</p><p class="caption muted">The Blowhorn REST API is coming soon. Until then, use the CLI or MCP.</p></div>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-analytics-mcp" data-tab-panel="mcp" data-tab-index="3">
+    <p class="caption muted">Ask an assistant connected to the Blowhorn MCP server. Writes come back as a dry run first; nothing goes out until you say go. <a href="/ai/mcp/">Blowhorn MCP server</a></p><figure class="term" data-lang="text">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">prompt</span>
+    <span class="term-lang" aria-hidden="true">Text</span>
+    <button type="button" class="term-copy" aria-label="Copy prompt to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Show my YouTube channel&#39;s figures for my personal profile (read only, nothing to confirm).</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+  </div>
+  <div class="tabs-panel" id="ex-youtube-analytics-skill" data-tab-panel="skill" data-tab-index="4">
+    <p class="caption muted">The Blowhorn skill teaches your agent this action: read first, rehearse, then ask before it fires.</p><p class="caption"><a href="/agents/claude-code/">Set up the skill</a></p>
+  </div>
+  <p class="visually-hidden">youtube Analytics examples</p>
+</div>
 </section>
 
 <h2 id="related">Related</h2><ul>

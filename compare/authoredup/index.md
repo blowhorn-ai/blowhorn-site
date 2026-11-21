@@ -12,7 +12,7 @@
 
 ## Choose Blowhorn if
 
-- You also speak on X, Reddit, Hacker News, GitHub, Bluesky and Slack
+- You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube
 - Your team and supporters should amplify your posts, from their own profiles
 - You want one queue across every computer and profile, with one pause switch for all of them
 
@@ -23,8 +23,8 @@ AuthoredUp pricing as of Oct 2026: Individual $19.95 per month ($16.63 billed an
 | | AuthoredUp | Blowhorn |
 | --- | --- | --- |
 | Best at | Writing and analyzing LinkedIn posts | Publishing, amplifying and outreach across networks |
-| Where it acts | Your browser, overlaying LinkedIn's editor (Chromium only) | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
-| Networks | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack. Instagram, TikTok, Facebook and YouTube coming soon |
+| Where it acts | Your browser, overlaying LinkedIn's editor (Chromium only) | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Networks | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Scheduling | LinkedIn, through the extension | One queue across every computer and profile, for every network |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | AI agents | AI writing helpers | MCP server, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |

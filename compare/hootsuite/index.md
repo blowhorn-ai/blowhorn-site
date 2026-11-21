@@ -24,7 +24,7 @@ Hootsuite pricing as of Oct 2026: Standard $99, Professional $199, Advanced $399
 | | Hootsuite | Blowhorn |
 | --- | --- | --- |
 | Built for | Mid-market and enterprise social teams | Technical founders, DevRel, small teams, and agencies running client brands |
-| Where it acts | Hootsuite's cloud, through official apps | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Hootsuite's cloud, through official apps | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
 | Inbox, listening, approvals | Yes, deep. Approvals from Advanced, SSO and compliance on Enterprise | No. Blowhorn doesn't try to be a suite |
 | Many people amplifying one post | Employee advocacy (Parliament) on Enterprise | Sound wave: one scheduled message, amplified by every profile in your account |
 | Hacker News, GitHub, Slack | No | Yes |

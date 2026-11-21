@@ -1,6 +1,6 @@
 # Blowhorn vs Expandi
 
-> Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi, honestly. Blowhorn is for careful outreach and real-person amplification, from your own browser, on seven networks.
+> Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi, honestly. Blowhorn is for careful outreach and real-person amplification, from your own browser, on every network you post on.
 
 ## Choose Expandi if
 
@@ -14,7 +14,7 @@
 
 - You want careful LinkedIn hygiene, not volume prospecting
 - No vendor server should log in as you; Blowhorn acts from your own signed-in browser
-- You also speak on X, Reddit, Hacker News, GitHub, Bluesky and Slack, and want your people amplifying
+- You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, and want your people amplifying
 - You want safety controls, a dry run before anything posts, and one pause switch for the whole fleet
 
 ## Side by side
@@ -24,7 +24,7 @@ Expandi pricing as of Oct 2026: $99 a seat a month, or $79 a seat billed annuall
 | | Expandi | Blowhorn |
 | --- | --- | --- |
 | Built for | Outbound prospecting at volume, with branching sequences | Careful outreach plus publishing and amplification |
-| Where it acts | Expandi's cloud, from a dedicated country IP | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
+| Where it acts | Expandi's cloud, from a dedicated country IP | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
 | IP address each post comes from | A dedicated country IP that Expandi assigns in its cloud | Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run |
 | Email steps | Yes, in the same sequence | No |
 | LinkedIn outreach | Sequences, messages, follow-ups, InMails, Smart Inbox | Page invites, connect, accept, withdraw; human-paced with caps |
@@ -32,7 +32,7 @@ Expandi pricing as of Oct 2026: $99 a seat a month, or $79 a seat billed annuall
 | Agency controls | White label and multi-account management on the Agency tier | One pane of management; teammates and supporters add their profiles today, team invites Coming soon |
 | Personalization | Dynamic placeholders core; image, GIF and video personalization as a paid add-on | You write the words; AI drafts wait for your approval |
 | Runs with every computer closed | Yes, from its cloud | No, at least one of your computers must be awake |
-| Networks | LinkedIn (plus email) | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack. Instagram, TikTok, Facebook and YouTube coming soon |
+| Networks | LinkedIn (plus email) | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No pods, but Post Engagement campaigns target people who engaged with a post | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Bought engagement | None sold, no pods | None. Blowhorn sells no followers, likes or reposts |
 | Safety | Cloud, dedicated IP, warm-up, limit ranges; Expandi itself says no tool guarantees protection | Human-paced with caps, quiet hours and a dry run, built to keep your profile within each platform's limits |

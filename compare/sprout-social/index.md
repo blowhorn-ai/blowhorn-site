@@ -23,8 +23,8 @@ Sprout Social pricing as of Oct 2026: From $79 per seat per month (Essentials), 
 | | Sprout Social | Blowhorn |
 | --- | --- | --- |
 | Built for | Brand and social teams | Technical company voices |
-| Where it acts | Sprout's cloud, through official APIs | Your computers: your own signed-in browser for LinkedIn, X, Reddit and Hacker News; the platform's API for GitHub, Bluesky and Slack |
-| Reporting and listening | Excellent - analytics, smart inbox, listening | One picture of runs and analytics for LinkedIn, X and Bluesky |
+| Where it acts | Sprout's cloud, through official APIs | Your computers: your own signed-in browser for LinkedIn, X, Reddit, Hacker News and YouTube; the platform's API for GitHub, Bluesky and Slack |
+| Reporting and listening | Excellent - analytics, smart inbox, listening | One picture of runs and analytics for LinkedIn, X, Bluesky and YouTube |
 | Many people amplifying one post | Employee Advocacy add-on (Standard and up) | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Hacker News, Reddit, GitHub, Slack | Reddit yes (posts as a user to subscribed subreddits); no HN, GitHub or Slack posting | Yes |
 | AI agents | Trellis AI agent, on credits per seat | MCP server, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |
@@ -41,6 +41,6 @@ Sprout measures conversations beautifully. Blowhorn's job is to start more of th
 
 **Is Sprout Social better than Blowhorn?** For analytics, inbox and listening across a brand's channels, yes. For amplifying technical launches through real people on developer networks, we think Blowhorn is the better tool.
 
-**Can Blowhorn replace Sprout's reporting?** No. Blowhorn's analytics cover LinkedIn, X and Bluesky across all your computers, which is useful but not a reporting suite.
+**Can Blowhorn replace Sprout's reporting?** No. Blowhorn's analytics cover LinkedIn, X, Bluesky and YouTube across all your computers, which is useful but not a reporting suite.
 
 [Download](https://blowhorn.ai/download/)

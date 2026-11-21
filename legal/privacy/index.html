@@ -23,7 +23,7 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png">
-<link rel="stylesheet" href="/css/site.min.b70eb4812d45acfd28fc753b35808488927403e92ea461fe549e9f45812c3790.css">
+<link rel="stylesheet" href="/css/site.min.da4f9f0a08700b1ba9985648b4ffbff19aad1697649d19cb2ca4ccc29de7c2df.css">
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -198,7 +198,7 @@
         <div class="page-head">
           <p class="label"><a href="/legal/">Trust Center</a> <span aria-hidden="true">/</span> Privacy</p>
           <h1 class="h1">What Blowhorn stores, and where</h1>
-          <p class="body-lg muted">Last updated 16 November 2026. This page covers this website, the Blowhorn app and its Chrome extension. Your account is covered by the <a href="https://layer5.io/company/legal/privacy/">account privacy policy</a> of Layer5, Inc., which makes Blowhorn.</p>
+          <p class="body-lg muted">Last updated 20 November 2026. This page covers this website, the Blowhorn app and its Chrome extension. Your account is covered by the <a href="https://layer5.io/company/legal/privacy/">account privacy policy</a> of Layer5, Inc., which makes Blowhorn.</p>
         </div>
 
         <div class="prose">
@@ -243,14 +243,14 @@
 <li>To ask for deletion, write to <a href="mailto:security@blowhorn.ai">security@blowhorn.ai</a>.</li>
 </ul>
 <h2 id="the-blowhorn-app" class="h2">The Blowhorn app</h2><h3 id="on-your-machine" class="h3">On your computer</h3><ul>
-<li>Every action Blowhorn takes is executed on one of your computers. On LinkedIn, X, Reddit and Hacker News, it acts through your Chrome profile. On Bluesky, GitHub, Slack and X, it calls the platform's API from your computer.</li>
+<li>Every action Blowhorn takes is executed on one of your computers. On LinkedIn, X, Reddit, Hacker News and YouTube, it acts through your Chrome profile. On Bluesky, GitHub, Slack and X, it calls the platform's API from your computer. On YouTube, a profile you give the YouTube Data API consent also reads its analytics, and uploads, comments, replies and likes, through Google's YouTube Data and Analytics APIs from your computer.</li>
 <li>Your Blowhorn account keeps the queue and results in sync across your computers and coordinates them. It does not sign in, post or act for you from a server.</li>
 <li>Configuration lives in <code>.blowhorn.yaml</code> inside the installation. The store connection, including its password, lives in <code>~/.config/blowhorn/store.yaml</code>, readable only by your user account.</li>
 <li>For LinkedIn, X, Reddit and Bluesky, the password a run signs in with is read from <code>profiles/&lt;name&gt;/config.yaml</code> inside the installation, and <code>blowhorn profile set</code> writes it there.</li>
 <li>The app keeps its cached copy of your organization's plan features in your macOS Keychain.</li>
 <li>Run logs are written to the <code>logs/</code> directory of the installation. The menu-bar app keeps its preferences and state under <code>~/Library/Application Support/Blowhorn/</code>.</li>
 </ul>
-<h3 id="in-chrome-through-the-blowhorn-extension" class="h3">In Chrome, through the Blowhorn extension</h3><p>The extension works only for the Blowhorn app on your computer, over Chrome's native messaging. It acts only on the sites Blowhorn supports, only in the Chrome profiles you install it in, and only when the app asks. Everything it reads goes to that app and nowhere else: it reports to no server of its own, and it keeps nothing itself.</p>
+<h3 id="in-chrome-through-the-blowhorn-extension" class="h3">In Chrome, through the Blowhorn extension</h3><p>The extension works only for the Blowhorn app on your computer, over Chrome's native messaging. It acts only on the sites Blowhorn supports, only in the Chrome profiles you install it in, and only when the app asks. It reaches YouTube only in a Chrome profile where you allowed it to, and you can take that back in Chrome at any time. Everything it reads goes to that app and nowhere else: it reports to no server of its own, and it keeps nothing itself.</p>
 <ul>
 <li>Sign-in information: a session cookie or token on a supported site, read when the app needs to reuse a sign-in you already have. Today that is your Slack workspace session, which the app keeps in your account (below).</li>
 <li>Your communications: the posts, comments and messages the app asks it to enter and send as you.</li>
@@ -259,13 +259,13 @@
 <div id="in-your-organizations-store-on-layer5-cloud"></div>
 <h3 id="in-your-blowhorn-account" class="h3">In your Blowhorn account</h3><p>Keeping this in your account is what lets you install Blowhorn on any number of computers, your own or your teammates', and run them as one. Every computer works from the same queue, and the computers coordinate through it, so the same post isn't sent from two of them. Your analytics cover every computer. Your content still goes out as long as one of those computers is awake. Your account holds:</p>
 <ul>
-<li>The content queue, schedule, profiles, run history and analytics. Every row is scoped to your organization's id.</li>
-<li>Platform credentials, in your organization's credentials table: GitHub tokens, Hacker News passwords, and Slack tokens and workspace sessions. For profiles set up before October 2026, it also holds the LinkedIn, X, Reddit and Bluesky passwords copied in when those profiles moved to your account. Blowhorn reads these credentials when it checks which profile may act on which platform. GitHub, Hacker News and Slack runs sign in with the stored value; for Slack that is the workspace session captured from your Chrome, or a Slack app token you enter. LinkedIn, X, Reddit and Bluesky runs sign in with the copy in the local <code>config.yaml</code> above.</li>
+<li>The content queue, schedule, profiles, run history and analytics. Every row is scoped to your organization's id. YouTube figures are kept for 30 days, as YouTube's policies require. When you remove the YouTube Data API consent at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, the next YouTube run deletes every YouTube figure kept.</li>
+<li>Platform credentials, in your organization's credentials table: GitHub tokens, Hacker News passwords, Slack tokens and workspace sessions, and, for YouTube, the channel's address and the Data API consent you gave Google (your own OAuth client's ID and secret, the refresh token and the access granted). The access token that consent refreshes stays in memory for the run and is never stored. For profiles set up before October 2026, it also holds the LinkedIn, X, Reddit and Bluesky passwords copied in when those profiles moved to your account. Blowhorn reads these credentials when it checks which profile may act on which platform. GitHub, Hacker News and Slack runs sign in with the stored value; for Slack that is the workspace session captured from your Chrome, or a Slack app token you enter. LinkedIn, X, Reddit and Bluesky runs sign in with the copy in the local <code>config.yaml</code> above.</li>
 <li>Which Chrome profile each Blowhorn profile uses on each computer: the computer's name, the Chrome profile's folder and display name, and the Google account signed in to that Chrome profile.</li>
 <li>The handling of that data is governed by the <a href="https://layer5.io/company/legal/privacy/">account privacy policy</a>.</li>
 </ul>
 <h3 id="what-the-app-sends" class="h3">What the app sends</h3><ul>
-<li>Posts, comments, reactions and invitations to the platforms a profile is configured for, when an approved row is due or when you run a command. Nothing is published from a dry run.</li>
+<li>Posts, video uploads, comments, reactions and invitations to the platforms a profile is configured for, when an approved row is due or when you run a command. Nothing is published from a dry run.</li>
 <li>A version check that lists the releases on the Blowhorn release channel, hosted on GitHub. The check needs GitHub credentials: when a GitHub token is already on your computer (<code>GH_TOKEN</code>, <code>GITHUB_TOKEN</code> or <code>gh auth token</code>), the app sends it with that request, and updating downloads the disk image published with the newest release, installs the Blowhorn app from it into <code>/Applications</code> and relaunches. Without a token, the update button opens that release page in your browser and the app downloads nothing itself.</li>
 <li>A request to your account for your organization's plan features, sent with your account token and your organization's id. The app caches the answer in your Keychain.</li>
 <li>No usage analytics. The app carries no analytics or crash-reporting library. The failure reports below are sent by the app itself.</li>
