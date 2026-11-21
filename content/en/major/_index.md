@@ -99,7 +99,7 @@ troops:
     id: 'keyboard-warrior'
     img: 'assets/brand/cast/keyboard-warrior-base.webp'
     alt: 'Keyboard Warrior, a gold rooster in a teal helmet holding a keyboard with green keys like a shield'
-    v: 'A gold rooster with a keyboard for a shield. You write the post one time and he carries it to LinkedIn, X, Reddit, Bluesky, Slack, Hacker News, GitHub and YouTube, no copy-paste marathon required. He will not improve your jokes. He just makes sure your words land where your people are.'
+    v: 'A gold rooster with a keyboard for a shield. You write the post one time and he carries it to LinkedIn, X, Reddit, Bluesky, Slack, Hacker News, GitHub, YouTube and more, no copy-paste marathon required. He will not improve your jokes. He just makes sure your words land where your people are.'
     links:
       - t: "How posting works"
         u: '/docs/how-to/publish/post-content/'

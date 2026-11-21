@@ -19,7 +19,7 @@
   "us": [
     "You want careful LinkedIn hygiene, not volume prospecting",
     "No vendor server should log in as you; Blowhorn acts from your own signed-in browser",
-    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, and want your people amplifying"
+    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, and want your people amplifying"
   ],
   "price_them": "Pro €19, Advanced €49, Business €69 per user per month",
   "price_src": "https://www.waalaxy.com/pricing",

@@ -39,7 +39,7 @@
       "gets": [
         {
           "t": "One desk for where developers talk",
-          "b": "Hacker News submit and comment, GitHub follow and react, Slack messages as you, plus LinkedIn, X, Reddit and Bluesky, from one queue."
+          "b": "Hacker News submit and comment, GitHub follow and react, Slack messages as you, plus LinkedIn, X, Reddit, Bluesky, YouTube and more, from one queue."
         },
         {
           "t": "Posted as you",
@@ -379,7 +379,7 @@
       "gets": [
         {
           "t": "Every developer channel in one queue",
-          "b": "Slack messages and GitHub reactions sit in the same queue as LinkedIn, X, Reddit, Hacker News and Bluesky."
+          "b": "Slack messages and GitHub reactions sit in the same queue as LinkedIn, X, Reddit, Hacker News, Bluesky, YouTube and more."
         },
         {
           "t": "Maintainers amplify as themselves",

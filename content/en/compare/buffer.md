@@ -70,7 +70,7 @@
   "faq": [
     {
       "q": "Is Buffer better than Blowhorn?",
-      "a": "For a broad, always-on calendar across consumer networks, yes. For amplifying one message from many real profiles on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, we think Blowhorn is the better fit."
+      "a": "For a broad, always-on calendar across consumer networks, yes. For amplifying one message from many real profiles on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, we think Blowhorn is the better fit."
     },
     {
       "q": "Can I use both?",

@@ -26,6 +26,6 @@ features:
     body: Human-paced typing, built-in caps, one click per run, one automation per platform per profile at a time.
     link: /docs/explanation/reliability-and-anti-bot-design/
   - title: Where technical teams talk
-    body: Hacker News, Reddit, GitHub and Slack sit in the same queue as LinkedIn, X and Bluesky.
+    body: Hacker News, Reddit, GitHub and Slack sit in the same queue as LinkedIn, X, Bluesky, YouTube and more.
     link: /docs/reference/platforms/
 ---

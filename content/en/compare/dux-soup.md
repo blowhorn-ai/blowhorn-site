@@ -20,7 +20,7 @@
   "us": [
     "You want careful LinkedIn outreach, not volume prospecting",
     "No vendor server logs in as you. Blowhorn acts from your own signed-in browser, on your own computers",
-    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, and you want your people amplifying your posts as themselves",
+    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, and you want your people amplifying your posts as themselves",
     "You are a solo founder, a local practice, a big team or an agency, and you want one queue for every profile"
   ],
   "price_them": "STACKED local $55 per month ($41.25 annually); STACKED cloud $99 ($74.17 annually)",

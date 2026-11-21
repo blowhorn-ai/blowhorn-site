@@ -100,7 +100,9 @@ lists actions), YouTube's change is the model:
    "and more". The compare logo strips (`logos`, `network_logos`, platform
    ids) gain its id and keep their "+ many more" item, and the home fan keeps
    its cut-off logos. Curated lists, such as the developer networks, stay as
-   they are. `check_theme.py` fails a countable network phrase.
+   they are. `check_theme.py` fails a countable network phrase, and a
+   sentence that lists every network, or every network but one, without
+   "and more" (`check_open_network_lists`).
 4. The Field Manual: a platform briefing (`content/en/field-manual/<id>.md`)
    quoting the platform's own rules, a row in the action matrix with
    sourced grades, and its section out of `other-feeds.md` (keep the old

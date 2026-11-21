@@ -19,7 +19,7 @@
   "us": [
     "You want people who actually know you to show up, not a reciprocal exchange with strangers",
     "You want to write your own words, not AI-generated comments",
-    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube"
+    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more"
   ],
   "price_them": "Free plan; paid plans from €29 per month",
   "price_src": "https://www.podawaa.com/",

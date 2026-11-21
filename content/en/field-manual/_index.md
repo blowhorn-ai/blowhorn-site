@@ -53,4 +53,4 @@ None of that makes a behavior allowed. The rules govern what an account does, no
 
 Curious what sites can see about your browser? Run the free check at [Blowhorn Tells](https://tells.blowhorn.ai/). It shows what a page can read, not what a platform will decide.
 
-Blowhorn posts to LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub and YouTube, on your computer ([Platforms](/docs/reference/platforms/), [System requirements](/docs/reference/requirements/)). The page on Facebook, Instagram, TikTok, Threads and Mastodon is general education only: Blowhorn doesn't post to them.
+Blowhorn posts to LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub, YouTube and more, on your computer ([Platforms](/docs/reference/platforms/), [System requirements](/docs/reference/requirements/)). The page on Facebook, Instagram, TikTok, Threads and Mastodon is general education only: Blowhorn doesn't post to them.

@@ -30,7 +30,7 @@
       "gets": [
         {
           "t": "Every developer network, one queue",
-          "b": "Hacker News submit and comment, GitHub follow and react, Slack messages, plus LinkedIn, X, Reddit and Bluesky."
+          "b": "Hacker News submit and comment, GitHub follow and react, Slack messages, plus LinkedIn, X, Reddit, Bluesky, YouTube and more."
         },
         {
           "t": "Never votes on Hacker News",
@@ -315,7 +315,7 @@
         },
         {
           "t": "Every developer channel, one queue",
-          "b": "Hacker News, GitHub and Slack join LinkedIn, X, Reddit and Bluesky in one queue."
+          "b": "Hacker News, GitHub and Slack join LinkedIn, X, Reddit, Bluesky, YouTube and more in one queue."
         },
         {
           "t": "Amplify from your profiles",

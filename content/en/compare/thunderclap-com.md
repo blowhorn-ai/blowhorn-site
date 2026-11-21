@@ -19,7 +19,7 @@
   "us": [
     "You want people who actually know you to show up in the replies",
     "You want a conversation, not a count",
-    "You want to speak on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, as yourself"
+    "You want to speak on LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, as yourself"
   ],
   "price_them": "Packages from $0.99; automatic followers from $2.99 per month; automatic likes on every new post from $26.99 per month",
   "price_src": "https://thunderclap.com/",

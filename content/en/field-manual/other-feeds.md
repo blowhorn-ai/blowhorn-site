@@ -5,7 +5,7 @@ heading: "Facebook, Instagram, TikTok, Threads and Mastodon"
 tag: General education
 description: What the other big feeds say they reward and reduce, in their own words. General education only. Blowhorn doesn't post to these platforms.
 lead: "Intelligence from fronts the Major doesn't march on. Useful anywhere you post by hand."
-notice: "**Blowhorn doesn't post to these platforms.** This page is general education. Blowhorn works with LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub and YouTube, on your computer (see [System requirements](/docs/reference/requirements/))."
+notice: "**Blowhorn doesn't post to these platforms.** This page is general education. Blowhorn works with LinkedIn, X, Reddit, Hacker News, Bluesky, Slack, GitHub, YouTube and more, on your computer (see [System requirements](/docs/reference/requirements/))."
 layout: field-manual
 weight: 60
 checked: 28 October 2026

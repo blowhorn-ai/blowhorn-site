@@ -19,7 +19,7 @@
   "us": [
     "You want careful LinkedIn hygiene, not volume prospecting",
     "No vendor server should log in as you; Blowhorn acts from your own signed-in browser",
-    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, and want your people amplifying"
+    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, and want your people amplifying"
   ],
   "price_them": "Start $56, Grow $128, Scale $352 a month, billed annually",
   "price_src": "https://phantombuster.com/pricing",

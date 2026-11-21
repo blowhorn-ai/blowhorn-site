@@ -139,7 +139,7 @@
   "us": [
     "You want careful LinkedIn hygiene, not volume prospecting",
     "No vendor server should log in as you; Blowhorn acts from your own signed-in browser",
-    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack and YouTube, and want your people amplifying",
+    "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, and want your people amplifying",
     "You want safety controls, a dry run before anything posts, and one pause switch for the whole fleet"
   ],
   "verdict": "Blowhorn isn't a bot. It's you. Dripify is a capable LinkedIn and email drip campaign tool for sales teams, run from its cloud with a Smart Inbox for replies. If simple, always-on drip sequences are the job, pick Dripify, honestly. Blowhorn is for careful outreach and real-person amplification, from your own browser, on every network you post on.",
