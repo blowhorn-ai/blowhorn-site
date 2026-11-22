@@ -40,27 +40,24 @@ HyperFrames global promo (storyboard + script for HeyGen) lives at
 
 ## Rebuild the listing graphics
 
-Rebuild them after the brand kit, the console or its platform marks change:
+The promo tile and the marquee come from one make target. Rebuild them after the
+brand kit changes:
 
 ```bash
-make desktop-install          # once: the desktop dependencies the capture launches
-make extension-assets-build   # rewrites every image in marketing/store/chrome-web-store/
+make extension-assets-build   # the promo tile and the marquee
 ```
 
-`make extension-assets-build` runs `tools/scripts/brand/build-store-assets.py`. It
-rebuilds the desktop app, launches it against a showcase engine - a stand-in
-checkout that answers the console's reads from the desktop's own contract
-fixtures, so no account, profile, Chrome or real person is involved - and
-captures four console screens at the default 1104 x 900 window, scaled to
-1280 x 800. It then draws the platform gallery, the promo tile and the marquee
-from `marketing/brand/` with your installed Google Chrome. The app window opens on your screen
-for about a minute while it captures; leave it alone until the command
-finishes. To recompose after a brand change without launching the app again,
-pass the script `--skip-capture`:
+`make extension-assets-build` runs `tools/scripts/brand/build-store-assets.py`,
+which draws the promo tile and the marquee from `marketing/brand/` with your
+installed Google Chrome. It builds no screenshots.
 
-```bash
-./venv/bin/python tools/scripts/brand/build-store-assets.py --skip-capture
-```
+The screenshots come from the v3 set's own build:
+`marketing/store/chrome-web-store/screenshots-v3/src/build.py`, then `render.sh`
+beside it, writes the v3 set, whose platform image (`screenshot-5-where`) is the
+wall of platform logos. When Blowhorn supports a new platform, add its logo to the
+`WALL` list in `screenshots-v3/src/build.py` (its file to `LOGOS` there), then run
+`render.sh`. The live v2 set's files stay as they are until v3 is approved and v2
+is removed.
 
 Open each image at full size before you upload it, then upload them on the
 dashboard's **Store listing** tab and use **Save draft**; the listing goes to

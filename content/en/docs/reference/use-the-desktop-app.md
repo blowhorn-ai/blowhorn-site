@@ -62,7 +62,8 @@ switching it on again restores it.
 The console is the full window, reached from the popover. The Blowhorn logo
 at the top of its rail is Home; there is no separate Home item. Below it are
 four places: **Activity**, **Profiles**, **Performance** and **Posture**. The
-labelled **New order** button in the rail's footer, Caribbean Green (⌘N, or New order in the File menu), or **New activity** when Major Blowhorn is off. It opens a field order you fill in
+round **+** button in the lower right of every screen, teal glass unless you
+change the material, is **New order** (⌘N, or New order in the File menu), or **New activity** when Major Blowhorn is off. It opens a field order you fill in
 one step at a time. Only the open step shows its fields; a
 finished step folds to a one-line summary (press it to change it), and the
 steps ahead wait as dim rows. A step that holds what it asks for takes a teal

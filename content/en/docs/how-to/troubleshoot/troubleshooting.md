@@ -64,6 +64,11 @@ Start from what you saw. Each symptom names its fix page.
   <activity>`. See [Find out why a job did not run](/docs/how-to/schedule/why-not-run/).
 - **Nothing is claimed on this computer.** You may be paused. See [Pause and
   resume posting](/docs/how-to/schedule/pause/).
+- **The Dashboard Fleet card says it can't tell whether the fleet is off
+  duty.** The list read behind it failed; the card shows the error, with
+  Retry to re-read it and Report to send it to support. The last errors are
+  also saved on this computer. See [Run a diagnostics check with
+  Tells](/docs/how-to/troubleshoot/diagnostics/#the-fleets-last-read-errors).
 - **Every account-backed command exits 3 saying your account is unavailable.**
   Nothing was claimed and nothing is lost. Run `blowhorn store`, find the
   sentence it prints in [Fix cannot reach your account](/docs/how-to/troubleshoot/store-unavailable/),

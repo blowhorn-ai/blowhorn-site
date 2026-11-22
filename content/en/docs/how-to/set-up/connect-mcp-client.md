@@ -6,8 +6,9 @@ weight: 70
 
 Connect an MCP client to Blowhorn's hosted MCP server at
 `https://mcp.blowhorn.ai/mcp`. The server is Streamable HTTP. It serves
-six read-only tools: `listContentItems`, `getContentItem`, `getEvents`,
-`getConnections`, `listSchedules` and `getScheduleById`. It does not
+seven read-only tools: `listContentItems`, `getContentItem`, `getEvents`,
+`getConnections`, `listSchedules`, `getScheduleById` and
+`getPlatformSessions`. It does not
 post, schedule, or change anything, and it serves tools only: no
 prompts, resources, or sampling. Where a tool needs an organization,
 pass it as the `organizationId` argument.
@@ -209,9 +210,10 @@ Blowhorn's local server on your Mac. It connects to the hosted server
 at `https://mcp.blowhorn.ai/mcp`. No token or header is needed for the
 add step: you sign in with OAuth.
 
-The hosted server is read-only. It has the six tools named at the top
+The hosted server is read-only. It has the seven tools named at the top
 of this page, so your bot can read your queue, a post, your activity,
-your connections and your schedules. It cannot post, schedule or
+your connections, where your social accounts are signed in and your
+schedules. It cannot post, schedule or
 change anything. To post, use the [CLI](/docs/how-to/publish/post-content/) or
 [blowhorn-axi](/docs/reference/cli/blowhorn-axi/) on the Mac where
 Blowhorn runs, or the desktop app's own process described in the
@@ -233,7 +235,7 @@ Blowhorn runs, or the desktop app's own process described in the
    > Which Blowhorn tools do you have? Then list my Blowhorn
    > connections.
 
-   The bot should list the six read-only tools above and answer from
+   The bot should list the seven read-only tools above and answer from
    `getConnections`. Where a tool needs an organization, it is passed
    as the `organizationId` argument.
 
@@ -268,7 +270,7 @@ MCP.
 5. Save, then complete the Blowhorn OAuth sign-in.
 6. Pick the tools in an MCP Gateway.
 
-The tools are the six read-only tools named at the top of this page.
+The tools are the seven read-only tools named at the top of this page.
 This is a connection in your Arcade account. Blowhorn is not listed in
 Arcade's public catalog.
 
@@ -374,7 +376,7 @@ server. The assistant should say so.
 - **A tool call returns 401 after the client connected.** The sign-in
   expired, or the token was revoked. Sign in again, or create a new
   token and update the header.
-- **The tool list is not the six read tools.** The client is pointed
+- **The tool list is not the seven read tools.** The client is pointed
   at a different server. Set the URL to `https://mcp.blowhorn.ai/mcp`
   and remove any command that starts a local process.
 - **A browser shows a JSON error at `/mcp`.** That is expected. See

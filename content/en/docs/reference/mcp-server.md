@@ -589,13 +589,43 @@ Blowhorn desktop app has no screen for creating one.
 as a Remote MCP and leaves the OAuth client fields empty so dynamic
 client registration can run.
 
-The gateway is read-only today. Cloud serves six tools through it,
+The gateway is read-only today. Cloud serves seven tools through it,
 `listContentItems`, `getContentItem`, `getEvents`, `getConnections`,
-`listSchedules` and `getScheduleById`, so a client can read your queue,
-a post, your activity, your connections and your schedules, but cannot
-post, schedule or change anything. Writes with approval come with the
+`listSchedules`, `getScheduleById` and `getPlatformSessions`, so a client
+can read your queue, a post, your activity, your connections, where your
+social accounts are signed in and your schedules, but cannot post,
+schedule or change anything. Writes with approval come with the
 hosted Blowhorn MCP server. Where a tool needs an organization, pass
 it as the `organizationId` argument.
+
+### Where an account is signed in
+
+`getPlatformSessions` answers "where is X @blowhorn_ai signed in?". The tool
+is read-only and needs the `connections:read` scope. When a Blowhorn desktop
+app reports the browser sign-ins it holds, the tool lists the matching ones:
+the computer (connection id, install id, host name, status and last heartbeat)
+and the session (platform, handle, `signed_in`, `signed_out` or `unknown`,
+when it was last verified, the Blowhorn profile and the Google Chrome profile
+that hold it).
+
+Name the organization with `organizationId` (otherwise your selected one),
+and narrow the answer with `platform`, `handle`, `installationId` and
+`state`, which is one of `signed_in`, `signed_out` or `unknown`. Results come
+back in pages: ask for one with `page` and `pageSize` (`page` starts at 0).
+The answer carries `locations`, each one account signed in on one computer (a
+`desktop` and a `session`), the `page` and `pageSize` it used, and
+`totalCount`, the number of matches across all pages. It never returns
+cookies, tokens, credentials or the Google account email of a Google Chrome
+profile.
+
+Your Blowhorn account decides who sees what, with the same organization membership and
+permission checks as `getConnections`: you get only your own computers, or
+every computer in the organization if you administer it; an organization you do
+not belong to answers as not found. The gateway and the tool filter nothing.
+
+An empty answer means no computer has reported that account yet, not that it is
+signed out. A session is only as fresh as its `lastVerifiedAt`, and a computer
+that is offline still shows its last report.
 
 The gateway is stateless: every MCP message is its own JSON-RPC `POST` to
 `/mcp`. Opening `/mcp` in a browser sends a `GET` without a token, so it
