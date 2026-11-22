@@ -343,7 +343,7 @@ directory is the parent. Each signed-in account keeps its own logs under
 `accounts/<user id>` inside it (the account id, never a name or an email).
 Before you are signed in, Blowhorn writes under `machine/`. History and
 failure reports show only the account that is signed in; failure reports and
-support requests are queued in that same account or machine folder. A
+support requests are queued in that same account or computer folder. A
 `blowhorn diagnostics` command given `--log-dir <dir>` queues and reads them
 in `<dir>/failure-diagnostics` and `<dir>/support-requests` instead. The first run
 after an upgrade moves logs it can attribute into that account and keeps
