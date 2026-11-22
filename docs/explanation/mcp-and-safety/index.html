@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.9b30fb7827960932c1567e1676b1887a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -391,6 +391,8 @@
     <a href="/docs/how-to/troubleshoot/bounces-in-dock/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-totroubleshootbounces-in-dock"><span class="">The Blowhorn desktop app bounces in my dock and won&#39;t start. Why?</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-totroubleshootdamaged-cant-be-opened-li">
     <a href="/docs/how-to/troubleshoot/damaged-cant-be-opened/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-totroubleshootdamaged-cant-be-opened"><span class="">Fix &#34;Blowhorn is damaged and can&#39;t be opened&#34;</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-totroubleshootrun-tells-li">
+    <a href="/docs/how-to/troubleshoot/run-tells/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-totroubleshootrun-tells"><span class="">Run Blowhorn Tells</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshow-tomanage-li">
@@ -602,7 +604,7 @@ in the <a href="/docs/reference/mcp-server/">MCP server reference</a>.</p>
 <h2 id="a-thin-layer-over-the-cli">A thin layer over the CLI</h2><p>The desktop app's process holds no Blowhorn logic of its own. When it
 runs a tool, it runs the matching <code>blowhorn</code> command on your computer
 and hands back what it printed. The hosted server does not do that:
-its six tools are reads served by Cloud. There is one tool per command, built
+its seven tools are reads served by Cloud. There is one tool per command, built
 from the same command descriptions the CLI reference is built from,
 except a few that are hidden by default (see below). A new command
 becomes a new tool the next time the server starts.</p>
@@ -677,7 +679,8 @@ an argument can itself be a secret.</p>
 MCP</a>. Sign-in is OAuth 2.1 with
 dynamic client registration and PKCE, or a Bearer Cloud API token. The
 tools today are read-only: <code>listContentItems</code>, <code>getContentItem</code>,
-<code>getEvents</code>, <code>getConnections</code>, <code>listSchedules</code> and <code>getScheduleById</code>.
+<code>getEvents</code>, <code>getConnections</code>, <code>listSchedules</code>, <code>getScheduleById</code> and
+<code>getPlatformSessions</code>.
 A request to post or change anything has no tool there.</p>
 <p>The desktop app also ships a process that runs on your computer over
 stdio. That process is not the way to connect a client. Approvals for
@@ -696,7 +699,7 @@ end to end</li>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 20, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/explanation/mcp-and-safety.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

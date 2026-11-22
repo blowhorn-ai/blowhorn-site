@@ -97,7 +97,9 @@ same from the command line. Off means nothing is queued or sent.
 The contact support dialog, at a failure line, sends a separate
 message only when you submit it: a category, your message, and your
 email only if you typed one in, plus the report id only if you left
-"include the failure report" checked.
+"include the failure report" checked. Your message is cleaned the way a
+report's is before it is queued: tokens, passwords, emails, paths, quoted
+names and host names are removed, and it is kept to 2000 characters.
 
 ## Anonymous usage data
 

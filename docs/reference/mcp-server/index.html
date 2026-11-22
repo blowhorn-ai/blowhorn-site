@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.9b30fb7827960932c1567e1676b1887a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -391,6 +391,8 @@
     <a href="/docs/how-to/troubleshoot/bounces-in-dock/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-totroubleshootbounces-in-dock"><span class="">The Blowhorn desktop app bounces in my dock and won&#39;t start. Why?</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-totroubleshootdamaged-cant-be-opened-li">
     <a href="/docs/how-to/troubleshoot/damaged-cant-be-opened/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-totroubleshootdamaged-cant-be-opened"><span class="">Fix &#34;Blowhorn is damaged and can&#39;t be opened&#34;</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-totroubleshootrun-tells-li">
+    <a href="/docs/how-to/troubleshoot/run-tells/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-totroubleshootrun-tells"><span class="">Run Blowhorn Tells</span></a>
   </li>
     </ul>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshow-tomanage-li">
@@ -1339,13 +1341,37 @@ Blowhorn desktop app has no screen for creating one.
 <a href="/docs/how-to/set-up/connect-mcp-client/#arcade">Arcade</a> registers this URL
 as a Remote MCP and leaves the OAuth client fields empty so dynamic
 client registration can run.</p>
-<p>The gateway is read-only today. Cloud serves six tools through it,
+<p>The gateway is read-only today. Cloud serves seven tools through it,
 <code>listContentItems</code>, <code>getContentItem</code>, <code>getEvents</code>, <code>getConnections</code>,
-<code>listSchedules</code> and <code>getScheduleById</code>, so a client can read your queue,
-a post, your activity, your connections and your schedules, but cannot
-post, schedule or change anything. Writes with approval come with the
+<code>listSchedules</code>, <code>getScheduleById</code> and <code>getPlatformSessions</code>, so a client
+can read your queue, a post, your activity, your connections, where your
+social accounts are signed in and your schedules, but cannot post,
+schedule or change anything. Writes with approval come with the
 hosted Blowhorn MCP server. Where a tool needs an organization, pass
 it as the <code>organizationId</code> argument.</p>
+<h3 id="where-an-account-is-signed-in">Where an account is signed in</h3><p><code>getPlatformSessions</code> answers &quot;where is X @blowhorn_ai signed in?&quot;. The tool
+is read-only and needs the <code>connections:read</code> scope. When a Blowhorn desktop
+app reports the browser sign-ins it holds, the tool lists the matching ones:
+the computer (connection id, install id, host name, status and last heartbeat)
+and the session (platform, handle, <code>signed_in</code>, <code>signed_out</code> or <code>unknown</code>,
+when it was last verified, the Blowhorn profile and the Google Chrome profile
+that hold it).</p>
+<p>Name the organization with <code>organizationId</code> (otherwise your selected one),
+and narrow the answer with <code>platform</code>, <code>handle</code>, <code>installationId</code> and
+<code>state</code>, which is one of <code>signed_in</code>, <code>signed_out</code> or <code>unknown</code>. Results come
+back in pages: ask for one with <code>page</code> and <code>pageSize</code> (<code>page</code> starts at 0).
+The answer carries <code>locations</code>, each one account signed in on one computer (a
+<code>desktop</code> and a <code>session</code>), the <code>page</code> and <code>pageSize</code> it used, and
+<code>totalCount</code>, the number of matches across all pages. It never returns
+cookies, tokens, credentials or the Google account email of a Google Chrome
+profile.</p>
+<p>Your Blowhorn account decides who sees what, with the same organization membership and
+permission checks as <code>getConnections</code>: you get only your own computers, or
+every computer in the organization if you administer it; an organization you do
+not belong to answers as not found. The gateway and the tool filter nothing.</p>
+<p>An empty answer means no computer has reported that account yet, not that it is
+signed out. A session is only as fresh as its <code>lastVerifiedAt</code>, and a computer
+that is offline still shows its last report.</p>
 <p>The gateway is stateless: every MCP message is its own JSON-RPC <code>POST</code> to
 <code>/mcp</code>. Opening <code>/mcp</code> in a browser sends a <code>GET</code> without a token, so it
 answers with a JSON error, such as <code>Bearer token required</code> or
@@ -1441,7 +1467,7 @@ environment the server's subprocesses inherit.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 20, 2026
+  Last modified November 21, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/mcp-server.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -1511,6 +1537,7 @@ environment the server's subprocesses inherit.</p>
     <li><a href="#what-it-does-not-do">What it does not do</a>
       <ul>
         <li><a href="#the-interim-hosted-gateway">The interim hosted gateway</a></li>
+        <li><a href="#where-an-account-is-signed-in">Where an account is signed in</a></li>
       </ul>
     </li>
     <li><a href="#checking-it">Checking it</a></li>

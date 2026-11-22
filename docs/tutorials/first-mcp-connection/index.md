@@ -53,7 +53,8 @@ In a new chat, ask:
 > Which Blowhorn tools do you have?
 
 You should see six: `listContentItems`, `getContentItem`,
-`getEvents`, `getConnections`, `listSchedules` and `getScheduleById`.
+`getEvents`, `getConnections`, `listSchedules`, `getScheduleById` and
+`getPlatformSessions`.
 If the list is empty, or the client says it cannot connect, check the
 URL and the token, then restart Claude Desktop. A `401` means the
 header is missing, the token is no longer valid, or you need to sign

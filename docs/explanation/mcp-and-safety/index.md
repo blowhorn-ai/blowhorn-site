@@ -17,7 +17,7 @@ in the [MCP server reference](/docs/reference/mcp-server/).
 The desktop app's process holds no Blowhorn logic of its own. When it
 runs a tool, it runs the matching `blowhorn` command on your computer
 and hands back what it printed. The hosted server does not do that:
-its six tools are reads served by Cloud. There is one tool per command, built
+its seven tools are reads served by Cloud. There is one tool per command, built
 from the same command descriptions the CLI reference is built from,
 except a few that are hidden by default (see below). A new command
 becomes a new tool the next time the server starts.
@@ -117,7 +117,8 @@ Clients connect to the hosted server at `https://mcp.blowhorn.ai/mcp`
 MCP](/docs/how-to/set-up/connect-mcp-client/). Sign-in is OAuth 2.1 with
 dynamic client registration and PKCE, or a Bearer Cloud API token. The
 tools today are read-only: `listContentItems`, `getContentItem`,
-`getEvents`, `getConnections`, `listSchedules` and `getScheduleById`.
+`getEvents`, `getConnections`, `listSchedules`, `getScheduleById` and
+`getPlatformSessions`.
 A request to post or change anything has no tool there.
 
 The desktop app also ships a process that runs on your computer over

@@ -2510,7 +2510,8 @@ In a new chat, ask:
 > Which Blowhorn tools do you have?
 
 You should see six: `listContentItems`, `getContentItem`,
-`getEvents`, `getConnections`, `listSchedules` and `getScheduleById`.
+`getEvents`, `getConnections`, `listSchedules`, `getScheduleById` and
+`getPlatformSessions`.
 If the list is empty, or the client says it cannot connect, check the
 URL and the token, then restart Claude Desktop. A `401` means the
 header is missing, the token is no longer valid, or you need to sign
@@ -4053,8 +4054,9 @@ description: Point Claude, ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI
 
 Connect an MCP client to Blowhorn's hosted MCP server at
 `https://mcp.blowhorn.ai/mcp`. The server is Streamable HTTP. It serves
-six read-only tools: `listContentItems`, `getContentItem`, `getEvents`,
-`getConnections`, `listSchedules` and `getScheduleById`. It does not
+seven read-only tools: `listContentItems`, `getContentItem`, `getEvents`,
+`getConnections`, `listSchedules`, `getScheduleById` and
+`getPlatformSessions`. It does not
 post, schedule, or change anything, and it serves tools only: no
 prompts, resources, or sampling. Where a tool needs an organization,
 pass it as the `organizationId` argument.
@@ -4256,9 +4258,10 @@ Blowhorn's local server on your Mac. It connects to the hosted server
 at `https://mcp.blowhorn.ai/mcp`. No token or header is needed for the
 add step: you sign in with OAuth.
 
-The hosted server is read-only. It has the six tools named at the top
+The hosted server is read-only. It has the seven tools named at the top
 of this page, so your bot can read your queue, a post, your activity,
-your connections and your schedules. It cannot post, schedule or
+your connections, where your social accounts are signed in and your
+schedules. It cannot post, schedule or
 change anything. To post, use the [CLI](/docs/how-to/publish/post-content/) or
 [blowhorn-axi](/docs/reference/cli/blowhorn-axi/) on the Mac where
 Blowhorn runs, or the desktop app's own process described in the
@@ -4280,7 +4283,7 @@ Blowhorn runs, or the desktop app's own process described in the
    > Which Blowhorn tools do you have? Then list my Blowhorn
    > connections.
 
-   The bot should list the six read-only tools above and answer from
+   The bot should list the seven read-only tools above and answer from
    `getConnections`. Where a tool needs an organization, it is passed
    as the `organizationId` argument.
 
@@ -4315,7 +4318,7 @@ MCP.
 5. Save, then complete the Blowhorn OAuth sign-in.
 6. Pick the tools in an MCP Gateway.
 
-The tools are the six read-only tools named at the top of this page.
+The tools are the seven read-only tools named at the top of this page.
 This is a connection in your Arcade account. Blowhorn is not listed in
 Arcade's public catalog.
 
@@ -4421,7 +4424,7 @@ server. The assistant should say so.
 - **A tool call returns 401 after the client connected.** The sign-in
   expired, or the token was revoked. Sign in again, or create a new
   token and update the header.
-- **The tool list is not the six read tools.** The client is pointed
+- **The tool list is not the seven read tools.** The client is pointed
   at a different server. Set the URL to `https://mcp.blowhorn.ai/mcp`
   and remove any command that starts a local process.
 - **A browser shows a JSON error at `/mcp`.** That is expected. See
@@ -11716,6 +11719,11 @@ Start from what you saw. Each symptom names its fix page.
   <activity>`. See [Find out why a job did not run](/docs/how-to/schedule/why-not-run/).
 - **Nothing is claimed on this computer.** You may be paused. See [Pause and
   resume posting](/docs/how-to/schedule/pause/).
+- **The Dashboard Fleet card says it can't tell whether the fleet is off
+  duty.** The list read behind it failed; the card shows the error, with
+  Retry to re-read it and Report to send it to support. The last errors are
+  also saved on this computer. See [Run a diagnostics check with
+  Tells](/docs/how-to/troubleshoot/diagnostics/#the-fleets-last-read-errors).
 - **Every account-backed command exits 3 saying your account is unavailable.**
   Nothing was claimed and nothing is lost. Run `blowhorn store`, find the
   sentence it prints in [Fix cannot reach your account](/docs/how-to/troubleshoot/store-unavailable/),
@@ -12798,6 +12806,24 @@ In the desktop app, the Debug area's logs section lists the run logs and
 the service logs on this computer, newest first. Pick one to read its
 tail, and refresh to re-read it. Nothing here is uploaded.
 
+## The fleet's last read errors
+
+When the Dashboard's Fleet card says it can't tell whether the fleet is
+off duty, the list read behind it failed. The card shows the error itself,
+with Retry and Report: Retry re-reads the list, and Report opens support
+with the error pre-filled.
+
+The app also keeps the last errors on this computer, so a failing read is
+diagnosable without the app running:
+
+`<log-dir>/desktop/scheduler-read-errors.json`
+
+`<log-dir>` is the folder the Service tab's Logs row names — your account's
+folder under the log directory, or `machine/` before anyone is signed in.
+The file holds the last list error and the last status error, each with
+when it was first read, or null once a read has answered since. The Debug
+area's logs section lists it beside the service logs.
+
 ## The audit trail
 
 Each run, sweep and opening of the Debug area is recorded to
@@ -13075,6 +13101,78 @@ Never delete `/Applications/Blowhorn.app` itself this way.
 
 
 --------------------------------------------------------------------------------
+title: "Run Blowhorn Tells"
+url: https://blowhorn.ai/docs/how-to/troubleshoot/run-tells/index.md
+description: Check what sites can see about your browser, in Chrome or from a terminal.
+--------------------------------------------------------------------------------
+
+
+[Blowhorn Tells](https://tells.blowhorn.ai/) is a free check of what sites can
+see about the browser you open it in: the bot-detection and fingerprinting
+signals a page can read, explained in plain words. No sign-up, and it keeps no
+copy of the report.
+
+Open that page in the Google Chrome profile you want to check.
+
+You can also run the same check from a terminal with the `tells` command.
+
+## Install
+
+With npm:
+
+```bash
+npm i -g blowhorn-tells
+```
+
+Or with Homebrew, which also installs Node:
+
+```bash
+brew install blowhorn-ai/tap/tells
+```
+
+The npm package is
+[`blowhorn-tells`](https://www.npmjs.com/package/blowhorn-tells). The command
+it puts on your PATH is `tells`.
+
+## Run
+
+```bash
+tells
+tells --server-only
+```
+
+`tells` opens the check in a headless browser, then prints the JSON report and
+a one-line verdict. It does not save the report. `--server-only` checks the
+server-side signals and needs no browser.
+
+To run it once without a global install:
+
+```bash
+npx github:blowhorn-ai/tells
+npx github:blowhorn-ai/tells --server-only
+```
+
+The default run needs Playwright and its Chromium, which neither install adds.
+Without them, `tells` exits with code 2 and prints the install step. After the
+npm install, add them:
+
+```bash
+npm i -g playwright
+npx playwright install chromium
+```
+
+A Homebrew install keeps `tells` in its own prefix, where Node cannot find
+Playwright, so use the npm install for browser runs.
+
+## Related
+
+- [Blowhorn Tells](https://tells.blowhorn.ai/) - the check in Google Chrome.
+- [Fix a sign-in that stopped working](/docs/how-to/troubleshoot/sign-in-problems/) - when a platform
+  keeps challenging you.
+- [Get help](/docs/reference/support/) - where to look first.
+
+
+--------------------------------------------------------------------------------
 title: "System requirements"
 url: https://blowhorn.ai/docs/reference/requirements/index.md
 description: What your computer needs to run Blowhorn: macOS version, Google Chrome, and a Blowhorn account.
@@ -13183,7 +13281,8 @@ switching it on again restores it.
 The console is the full window, reached from the popover. The Blowhorn logo
 at the top of its rail is Home; there is no separate Home item. Below it are
 four places: **Activity**, **Profiles**, **Performance** and **Posture**. The
-labelled **New order** button in the rail's footer, Caribbean Green (⌘N, or New order in the File menu), or **New activity** when Major Blowhorn is off. It opens a field order you fill in
+round **+** button in the lower right of every screen, teal glass unless you
+change the material, is **New order** (⌘N, or New order in the File menu), or **New activity** when Major Blowhorn is off. It opens a field order you fill in
 one step at a time. Only the open step shows its fields; a
 finished step folds to a one-line summary (press it to change it), and the
 steps ahead wait as dim rows. A step that holds what it asks for takes a teal
@@ -14187,7 +14286,10 @@ show` prints them as `true` and `false`; in a text option a hand-written
 `off` or `yes` is read as that word.
 
 A merge key (`<<: *base`) brings its keys in as YAML defines it, the
-mapping's own keys winning. `config set` changes only the key you name:
+mapping's own keys winning. A number with a leading zero is read in base
+eight (`retention_days: 010` is 8 days) and `0o7` is a word, not a
+number, as they always have been; quote a number (`'010'`) to have it
+read as written. Every command reads the file the same way. `config set` changes only the key you name:
 a key under an alias (`defaults: *base`), or under a mapping an anchor
 or a merge shares with another key, is refused by name and the file is
 left as it was, because the change would reach the other key too; write
@@ -14504,7 +14606,10 @@ then `defaults.logs.directory`, then the checkout's `data/logs/`. That
 directory is the parent. Each signed-in account keeps its own logs under
 `accounts/<user id>` inside it (the account id, never a name or an email).
 Before you are signed in, Blowhorn writes under `machine/`. History and
-failure reports show only the account that is signed in. The first run
+failure reports show only the account that is signed in; failure reports and
+support requests are queued in that same account or computer folder. A
+`blowhorn diagnostics` command given `--log-dir <dir>` queues and reads them
+in `<dir>/failure-diagnostics` and `<dir>/support-requests` instead. The first run
 after an upgrade moves logs it can attribute into that account and keeps
 the rest under `_unattributed/`. It does not delete them. A default
 that cannot be used fails silently; a directory you named reports why.
@@ -14818,7 +14923,8 @@ sentence a run printed. Most failures are a drifted mapping, an
 expired session, or an unreachable store, and each page names its fix.
 If a platform keeps challenging you, the free check at
 [Blowhorn Tells](https://tells.blowhorn.ai/) shows what sites can see about
-your browser.
+your browser. You can also run the `tells` command from a terminal; see
+[Run Blowhorn Tells](/docs/how-to/troubleshoot/run-tells/).
 
 To report a problem, file an issue on the public site repository,
 `blowhorn-ai/blowhorn-site`, with what you ran, what it printed, and what
@@ -14833,6 +14939,7 @@ early access covers.
 
 ## Related
 
+- [Run Blowhorn Tells](/docs/how-to/troubleshoot/run-tells/) - the same check from a terminal, via npm or Homebrew.
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - the troubleshooting index.
 - [Messages and exit codes](/docs/reference/messages/) - every refusal sentence, including store outages.
 - [Plans and limits](/docs/reference/plans/) - access and billing questions.
@@ -16595,13 +16702,43 @@ Blowhorn desktop app has no screen for creating one.
 as a Remote MCP and leaves the OAuth client fields empty so dynamic
 client registration can run.
 
-The gateway is read-only today. Cloud serves six tools through it,
+The gateway is read-only today. Cloud serves seven tools through it,
 `listContentItems`, `getContentItem`, `getEvents`, `getConnections`,
-`listSchedules` and `getScheduleById`, so a client can read your queue,
-a post, your activity, your connections and your schedules, but cannot
-post, schedule or change anything. Writes with approval come with the
+`listSchedules`, `getScheduleById` and `getPlatformSessions`, so a client
+can read your queue, a post, your activity, your connections, where your
+social accounts are signed in and your schedules, but cannot post,
+schedule or change anything. Writes with approval come with the
 hosted Blowhorn MCP server. Where a tool needs an organization, pass
 it as the `organizationId` argument.
+
+### Where an account is signed in
+
+`getPlatformSessions` answers "where is X @blowhorn_ai signed in?". The tool
+is read-only and needs the `connections:read` scope. When a Blowhorn desktop
+app reports the browser sign-ins it holds, the tool lists the matching ones:
+the computer (connection id, install id, host name, status and last heartbeat)
+and the session (platform, handle, `signed_in`, `signed_out` or `unknown`,
+when it was last verified, the Blowhorn profile and the Google Chrome profile
+that hold it).
+
+Name the organization with `organizationId` (otherwise your selected one),
+and narrow the answer with `platform`, `handle`, `installationId` and
+`state`, which is one of `signed_in`, `signed_out` or `unknown`. Results come
+back in pages: ask for one with `page` and `pageSize` (`page` starts at 0).
+The answer carries `locations`, each one account signed in on one computer (a
+`desktop` and a `session`), the `page` and `pageSize` it used, and
+`totalCount`, the number of matches across all pages. It never returns
+cookies, tokens, credentials or the Google account email of a Google Chrome
+profile.
+
+Your Blowhorn account decides who sees what, with the same organization membership and
+permission checks as `getConnections`: you get only your own computers, or
+every computer in the organization if you administer it; an organization you do
+not belong to answers as not found. The gateway and the tool filter nothing.
+
+An empty answer means no computer has reported that account yet, not that it is
+signed out. A session is only as fresh as its `lastVerifiedAt`, and a computer
+that is offline still shows its last report.
 
 The gateway is stateless: every MCP message is its own JSON-RPC `POST` to
 `/mcp`. Opening `/mcp` in a browser sends a `GET` without a token, so it
@@ -17672,7 +17809,9 @@ same from the command line. Off means nothing is queued or sent.
 The contact support dialog, at a failure line, sends a separate
 message only when you submit it: a category, your message, and your
 email only if you typed one in, plus the report id only if you left
-"include the failure report" checked.
+"include the failure report" checked. Your message is cleaned the way a
+report's is before it is queued: tokens, passwords, emails, paths, quoted
+names and host names are removed, and it is kept to 2000 characters.
 
 ## Anonymous usage data
 
@@ -18330,8 +18469,9 @@ Read more in [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-
 and [Why flagged invitations are skipped](/docs/explanation/invitation-safety/).
 
 Curious what sites can see about your browser? Run the free check at
-[Blowhorn Tells](https://tells.blowhorn.ai/). It shows what a page can read,
-not what a platform will decide.
+[Blowhorn Tells](https://tells.blowhorn.ai/), or from a terminal with the
+`tells` command ([Run Blowhorn Tells](/docs/how-to/troubleshoot/run-tells/)).
+It shows what a page can read, not what a platform will decide.
 
 <!-- Video placeholder: "Will I get banned?" Typing at slow and normal pace side by side, a rate cap stopping a run, and a CAPTCHA left for the user. -->
 
@@ -18524,7 +18664,7 @@ in the [MCP server reference](/docs/reference/mcp-server/).
 The desktop app's process holds no Blowhorn logic of its own. When it
 runs a tool, it runs the matching `blowhorn` command on your computer
 and hands back what it printed. The hosted server does not do that:
-its six tools are reads served by Cloud. There is one tool per command, built
+its seven tools are reads served by Cloud. There is one tool per command, built
 from the same command descriptions the CLI reference is built from,
 except a few that are hidden by default (see below). A new command
 becomes a new tool the next time the server starts.
@@ -18624,7 +18764,8 @@ Clients connect to the hosted server at `https://mcp.blowhorn.ai/mcp`
 MCP](/docs/how-to/set-up/connect-mcp-client/). Sign-in is OAuth 2.1 with
 dynamic client registration and PKCE, or a Bearer Cloud API token. The
 tools today are read-only: `listContentItems`, `getContentItem`,
-`getEvents`, `getConnections`, `listSchedules` and `getScheduleById`.
+`getEvents`, `getConnections`, `listSchedules`, `getScheduleById` and
+`getPlatformSessions`.
 A request to post or change anything has no tool there.
 
 The desktop app also ships a process that runs on your computer over

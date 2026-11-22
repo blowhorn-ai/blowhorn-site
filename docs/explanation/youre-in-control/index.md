@@ -95,8 +95,9 @@ Read more in [How Blowhorn paces itself](/docs/explanation/reliability-and-anti-
 and [Why flagged invitations are skipped](/docs/explanation/invitation-safety/).
 
 Curious what sites can see about your browser? Run the free check at
-[Blowhorn Tells](https://tells.blowhorn.ai/). It shows what a page can read,
-not what a platform will decide.
+[Blowhorn Tells](https://tells.blowhorn.ai/), or from a terminal with the
+`tells` command ([Run Blowhorn Tells](/docs/how-to/troubleshoot/run-tells/)).
+It shows what a page can read, not what a platform will decide.
 
 <!-- Video placeholder: "Will I get banned?" Typing at slow and normal pace side by side, a rate cap stopping a run, and a CAPTCHA left for the user. -->
 

@@ -12,7 +12,8 @@ sentence a run printed. Most failures are a drifted mapping, an
 expired session, or an unreachable store, and each page names its fix.
 If a platform keeps challenging you, the free check at
 [Blowhorn Tells](https://tells.blowhorn.ai/) shows what sites can see about
-your browser.
+your browser. You can also run the `tells` command from a terminal; see
+[Run Blowhorn Tells](/docs/how-to/troubleshoot/run-tells/).
 
 To report a problem, file an issue on the public site repository,
 `blowhorn-ai/blowhorn-site`, with what you ran, what it printed, and what
@@ -27,6 +28,7 @@ early access covers.
 
 ## Related
 
+- [Run Blowhorn Tells](/docs/how-to/troubleshoot/run-tells/) - the same check from a terminal, via npm or Homebrew.
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - the troubleshooting index.
 - [Messages and exit codes](/docs/reference/messages/) - every refusal sentence, including store outages.
 - [Plans and limits](/docs/reference/plans/) - access and billing questions.

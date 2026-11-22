@@ -216,6 +216,7 @@
 - [Run a diagnostics check with Tells](https://blowhorn.ai/docs/how-to/troubleshoot/diagnostics/index.md): Drive one profile to tells.blowhorn.ai under each operating mode, save the reports on this computer, and compare what each mode leaks.
 - [The Blowhorn desktop app bounces in my dock and won't start. Why?](https://blowhorn.ai/docs/how-to/troubleshoot/bounces-in-dock/index.md): What a bouncing dock icon means, and how to get the app open again without a terminal.
 - [Fix "Blowhorn is damaged and can't be opened"](https://blowhorn.ai/docs/how-to/troubleshoot/damaged-cant-be-opened/index.md): What to do when macOS says Blowhorn is damaged after you download it from blowhorn.ai or GitHub.
+- [Run Blowhorn Tells](https://blowhorn.ai/docs/how-to/troubleshoot/run-tells/index.md): Check what sites can see about your browser, in Chrome or from a terminal.
 - [System requirements](https://blowhorn.ai/docs/reference/requirements/index.md): What your computer needs to run Blowhorn: macOS version, Google Chrome, and a Blowhorn account.
 - [The Blowhorn app, screen by screen](https://blowhorn.ai/docs/reference/use-the-desktop-app/index.md): The menu-bar popover, the console screens, Setup, Settings, and what each one does.
 - [Content queue columns and activity states](https://blowhorn.ai/docs/reference/content-queue/index.md): Every content column, what each platform reads from an activity, and what each activity state means.

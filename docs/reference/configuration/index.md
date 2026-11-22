@@ -22,7 +22,10 @@ show` prints them as `true` and `false`; in a text option a hand-written
 `off` or `yes` is read as that word.
 
 A merge key (`<<: *base`) brings its keys in as YAML defines it, the
-mapping's own keys winning. `config set` changes only the key you name:
+mapping's own keys winning. A number with a leading zero is read in base
+eight (`retention_days: 010` is 8 days) and `0o7` is a word, not a
+number, as they always have been; quote a number (`'010'`) to have it
+read as written. Every command reads the file the same way. `config set` changes only the key you name:
 a key under an alias (`defaults: *base`), or under a mapping an anchor
 or a merge shares with another key, is refused by name and the file is
 left as it was, because the change would reach the other key too; write
@@ -339,7 +342,10 @@ then `defaults.logs.directory`, then the checkout's `data/logs/`. That
 directory is the parent. Each signed-in account keeps its own logs under
 `accounts/<user id>` inside it (the account id, never a name or an email).
 Before you are signed in, Blowhorn writes under `machine/`. History and
-failure reports show only the account that is signed in. The first run
+failure reports show only the account that is signed in; failure reports and
+support requests are queued in that same account or computer folder. A
+`blowhorn diagnostics` command given `--log-dir <dir>` queues and reads them
+in `<dir>/failure-diagnostics` and `<dir>/support-requests` instead. The first run
 after an upgrade moves logs it can attribute into that account and keeps
 the rest under `_unattributed/`. It does not delete them. A default
 that cannot be used fails silently; a directory you named reports why.
