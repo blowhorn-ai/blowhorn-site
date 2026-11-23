@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e2b69f9b98b88ab0bb200f6f9e2f1fa4.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -625,11 +625,16 @@ that profile uses, which is the Chrome profile mapped for YouTube, else the
 profile's only one, else its default. When a profile has several Chrome
 profiles and none of those picks one, or the one they pick is no longer
 in Google Chrome (a deleted Chrome profile), no Chrome profile has the
-button; each shows the <code>blowhorn chrome map &lt;profile&gt; '&lt;Chrome profile&gt;' --for youtube</code>
-that chooses it instead (see <a href="/docs/reference/chrome/">Google Chrome</a>). When the one
-they pick has been renamed or signed in to another account since it was
-mapped, that Chrome profile shows the <code>blowhorn chrome map &lt;profile&gt; '&lt;Chrome profile&gt;'</code>
-that confirms it instead of the button.</p>
+button. Each says so in plain words (&quot;Choose which Chrome profile to use for
+YouTube&quot;, or &quot;The Chrome profile this person used for YouTube is no longer in
+Chrome. Pick another.&quot;) and offers <strong>Use this Chrome profile</strong>, which chooses it
+for YouTube (see <a href="/docs/reference/chrome/">Google Chrome</a>). A profile with no Chrome profile
+on this computer at all reads &quot;This person isn't set up to use a Chrome profile
+on this computer yet.&quot; and offers <strong>Choose a Chrome profile</strong>, which takes you to
+the list of Chrome profiles on the same tab. When the one they pick has been
+renamed or signed in to another account since it was linked, that Chrome profile
+reads &quot;This Chrome profile changed since it was linked.&quot; and offers <strong>Confirm</strong>
+instead of the button. The desktop app never asks you to run a command.</p>
 <p>A profile can post to YouTube once it has <code>YT_CHANNEL_URL</code> in its credential,
 set to the channel's address by ID (<code>https://www.youtube.com/channel/UC...</code>,
 shown at youtube.com/account_advanced). In the desktop app it is the
@@ -1174,7 +1179,7 @@ A retry starts a new upload; it does not resume the leftover draft.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 21, 2026
+  Last modified November 23, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/platforms/youtube.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

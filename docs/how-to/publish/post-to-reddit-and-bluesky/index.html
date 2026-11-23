@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e2b69f9b98b88ab0bb200f6f9e2f1fa4.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -656,6 +656,10 @@ retried: re-running it would post the landed part twice. Read the run's
   <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn content upsert --payload <span class="s1">&#39;{&#34;Platform&#34;:&#34;bluesky&#34;,&#34;Profile&#34;:&#34;company&#34;,&#34;Amplify&#34;:&#34;https://bsky.app/profile/yourproject.bsky.social/post/abc&#34;,&#34;Approved?&#34;:&#34;yes&#34;}&#39;</span></span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
+<p>Paste the link exactly as Bluesky's <strong>Copy link to post</strong> gives it. A link
+with anything stuck to the end of the post's key, such as a full stop or
+a bracket copied along with it, is refused as a link that could not be
+read, and nothing is sent.</p>
 <p>Unlike LinkedIn reposts, a Bluesky repost is not guarded against a second
 run: once the activity is done, leave <code>Date Promoted</code> alone.</p>
 <h2 id="related">Related</h2><ul>
@@ -669,7 +673,7 @@ the Reddit session and the Bluesky login each run needs.</li>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 23, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/publish/post-to-reddit-and-bluesky.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

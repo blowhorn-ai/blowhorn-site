@@ -52,6 +52,11 @@ Put the post's Bluesky URL in `Amplify` and leave `Message Text` empty:
 blowhorn content upsert --payload '{"Platform":"bluesky","Profile":"company","Amplify":"https://bsky.app/profile/yourproject.bsky.social/post/abc","Approved?":"yes"}'
 ```
 
+Paste the link exactly as Bluesky's **Copy link to post** gives it. A link
+with anything stuck to the end of the post's key, such as a full stop or
+a bracket copied along with it, is refused as a link that could not be
+read, and nothing is sent.
+
 Unlike LinkedIn reposts, a Bluesky repost is not guarded against a second
 run: once the activity is done, leave `Date Promoted` alone.
 

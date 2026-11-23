@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e2b69f9b98b88ab0bb200f6f9e2f1fa4.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -648,7 +648,8 @@ schedules it again on the same activity: <code>Status</code> becomes <code>sched
 and last error are kept. Raising <code>Max Retries</code> alone does not (see
 <a href="/docs/how-to/schedule/schedule-a-job/">Schedule a job</a>). <code>blowhorn schedule delete</code>
 removes an activity by number. <code>blowhorn schedule validate</code> checks every activity
-against the schema. <code>blowhorn schedule bootstrap</code> previews or writes a
+against the schema and names every reason one fails; an activity whose command
+cannot be scheduled is named once, for its command. <code>blowhorn schedule bootstrap</code> previews or writes a
 starter set. <code>blowhorn schedule trigger-now</code> forces one activity to run
 immediately instead of waiting for the pass. A Risk Profile hold, including
 while a profile is warming up, keeps that run from starting until you confirm
@@ -787,7 +788,7 @@ exactly what they said.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 23, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/jobs.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

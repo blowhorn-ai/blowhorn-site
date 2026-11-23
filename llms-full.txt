@@ -1693,7 +1693,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn org`](/docs/reference/cli/org/) | blowhorn org: members. |
 | [`blowhorn platforms`](/docs/reference/cli/platforms/) | blowhorn platforms: capabilities. |
 | [`blowhorn post`](/docs/reference/cli/post/) | Publish pending posts or amplify existing content across supported platforms. |
-| [`blowhorn profile`](/docs/reference/cli/profile/) | blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update. |
+| [`blowhorn profile`](/docs/reference/cli/profile/) | blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update, verify. |
 | [`blowhorn report`](/docs/reference/cli/report/) | Generate a consolidated report summary from the exports already sitting in the repository-root data/analytics/ directory. |
 | [`blowhorn risk`](/docs/reference/cli/risk/) | blowhorn risk: grid, set, show. |
 | [`blowhorn schedule`](/docs/reference/cli/schedule/) | blowhorn schedule: bootstrap, delete, destinations, fleet, get, list, pause, resume, status, tick, trigger-now, upsert, validate, why. |
@@ -2163,7 +2163,7 @@ Writing a chain:
 
 Reading a chain:
 
-- `content list`, `content get`, and `content posts` JSON carry a `thread` key beside `values` (`item_id`, `thread_id`, `reply_to_id`, `thread_index`; the last three are null on an item that carries no thread). A payload from a backend that does not project the fields yet omits the `thread` key, and the item then reads as a standalone item. A job names no post, so `schedule list` is unchanged.
+- `content list`, `content get`, and `content posts` JSON carry a `thread` key beside `values` (`item_id`, `thread_id`, `reply_to_id`, `thread_index`; the last three are null on an item that carries no thread). The key is always there: an item stored without thread fields reads as a standalone item, `item_id` empty and the other three null. A job names no post, so `schedule list` is unchanged.
 - When the desktop reads items back, it checks only `id`, `profile`, `rowNumber`, `fingerprint`, and `data`, and allows every other field.
 - The desktop Activity screen groups each thread under its root: an indented chain with a `thread · N` line, expand and collapse, and the whole chain in the open post's editor. A standalone item with no id keys its group by activity number, so empty ids never collapse rows into one group.
 
@@ -2690,9 +2690,10 @@ description: What each step of the desktop app's first-muster setup does, and wh
 The guided setup opens by itself the first time you open Blowhorn, and every
 time after that until you finish it. If you quit partway, or come back with
 Home's **Finish setting up**, it checks what is already done and opens
-straight on the first step that isn't, with one line saying so. You can also
-leave it on any step with **Skip Setup** at the bottom: that finishes setup,
-and it won't open again. It never asks
+straight on the first step that isn't, with one line saying so. Once you are
+signed in, you can also leave it with **Skip Setup** at the bottom: that
+finishes setup, and it won't open again. The sign-in screens don't offer it,
+since you still need to sign in. It never asks
 whether to pick up first. If your sign-in ended, it asks you to sign in once,
 then picks up the same way. If you are signed out when you open Blowhorn, it
 starts at Sign in. Uninstalling removes that progress with the sign-in, so
@@ -2768,8 +2769,8 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   no **Check again** on that screen. You can add the rest later, any time.
   Rather add a profile yourself? The steps are under **What's a Google
   Chrome profile?** on that screen. On **Confirm**, Blowhorn creates the profiles you marked in use,
-  saves the handles (and a GitHub token or Bluesky app password you type
-  on the activity), and maps each of those Chrome profiles. A profile you mark
+  saves the handles (and a GitHub token or Bluesky app password once
+  **Check** has signed in with it), and maps each of those Chrome profiles. A profile you mark
   not in use is recorded that way: its mapping on this computer is
   removed, and a run of every profile skips it. A profile you had already
   excluded stays excluded. Marking it in use again removes that skip only
@@ -3508,6 +3509,20 @@ skip for the Blowhorn profile, including a refusal recorded on another
 Chrome profile. The credential stays.
 The next time you open Confirm troops, those activities start unchecked.
 
+Bluesky and GitHub start off, because Blowhorn can't post there with a
+saved login alone. Turn one on and its row asks for an app password
+(Bluesky) or a token (GitHub). Paste it and choose **Check**: Blowhorn
+signs in with it, stores nothing yet, and the row reads "Signed in as
+@handle." once the platform accepts it. If it signs in as a different
+account, choose **Use @handle** to keep the account it signs in as, or
+try another one. Confirm waits until every account you turned on is
+checked; if Bluesky or GitHub can't be reached, choose **Check again**
+later, or turn that account off and add it from Profiles afterwards.
+**Cancel** closes the row without changing a token or app password already
+saved. In Profiles, the same Check runs before a token or app password is
+saved, and one the profile already has for the same account counts with
+no retyping.
+
 The survey behind the step is `blowhorn chrome discover`, and the apply is
 `blowhorn chrome confirm`, which reads the confirmed assignments as JSON
 on stdin - so a GitHub token or Bluesky app password typed on the step
@@ -3559,16 +3574,16 @@ blowhorn chrome suggest
 
 ```
 chrome mapping proposal for studio (3 profiles); nothing is applied
-  profile  directory  name   account             note
-  ada      Profile 2  Ada    ada@example.com     name match
-  grace    Profile 5  Grace  grace@example.com   name match
-  personal   -          -      -                   none
-to apply an activity you agree with:
-  blowhorn chrome map ada 'Profile 2'
-  blowhorn chrome map grace 'Profile 5'
+  profile   directory  name   account            note
+  ada       Profile 2  Ada    ada@example.com    name match
+  grace     Profile 5  Grace  grace@example.com  name match
+  personal  -          -      -                  none
+to apply a row you agree with:
+  blowhorn chrome map 'ada' 'Profile 2'
+  blowhorn chrome map 'grace' 'Profile 5'
 ```
 
-An activity is proposed when exactly one Chrome profile's display name matches
+A row is proposed when exactly one Chrome profile's display name matches
 the Blowhorn profile's name (case and punctuation ignored). Two matches are
 named as ambiguous and nothing is proposed; no match is `none`; a profile
 that already has a mapping keeps it and says so. The command applies
@@ -3889,7 +3904,8 @@ a YouTube sign-in, so there is nothing to check afterward.
 
 Only the Google Chrome profile a YouTube run would use has the button. If the
 profile has several Chrome profiles and none is chosen for YouTube, choose one
-first; each Chrome profile shows the command that chooses it, for example:
+first: in the desktop app, choose **Use this Chrome profile** on the one you
+want. From Terminal:
 
 ```bash
 blowhorn chrome map ada 'Profile 2' --for youtube
@@ -5715,7 +5731,7 @@ Apply the confirm screen's confirmed choices: turn Chrome profiles into Blowhorn
 
 \{"assignments": \[\{"directory": "Profile 3", "profile": "ada-example", "create": true, "userId": "&lt;the member's uuid, as `org members` lists them; omit it for a brand&gt;", "platforms": \{"linkedin": \{"attach": true, "session": true\}, "x": \{"attach": true\}, "github": \{"attach": true, "token": "..."\}, "bluesky": \{"attach": true, "app_password": "..."\}, "slack": \{"attach": true\}\}\}\]\}
 
-Per assignment, in order: the Blowhorn profile (an existing one the payload names by `profileId` or by `profile`, the one the directory is already mapped to, or, with "create": true, a new one created in your Blowhorn account representing the member `userId` names, or nobody for a brand; a name the payload omits is proposed from the Google name, and a profile the organization does not have is never created without "create"); then the attached platforms' credentials, stored in your Blowhorn account and nowhere on this computer; then the mapping, exactly as `chrome map` records it and, when the extension is already on in that Chrome profile, paired the same way, opening the extension's pairing page there, since a run refuses a mapping the extension cannot prove; a profile without the extension on yet is paired once it is (the desktop's setup does this, or `chrome map`); then each attached platform's username as the profile's account there: a connection registered and linked to the profile, named for the username and pointing at its account page when the username is a handle, which is where the profile's handles are read from. A platform row the payload marks with "session": true (LinkedIn, Hacker News) stores a confirmed-session credential naming this Chrome profile directory instead of a password: it satisfies eligibility the way a session-capture platform's identity key does, because the run checks that Chrome session before it reaches for a password. GitHub stores `GH_USERNAME` and still waits for `GH_TOKEN`; Bluesky stores the handle and still waits for the app password; both may ride in the same payload. Slack stores nothing: its session is captured afterwards by 'profile auth `--platform` slack', and the result says so.
+Per assignment, in order: the Blowhorn profile (an existing one the payload names by `profileId` or by `profile`, the one the directory is already mapped to, or, with "create": true, a new one created in your Blowhorn account representing the member `userId` names, or nobody for a brand; a name the payload omits is proposed from the Google name, and a profile the organization does not have is never created without "create"); then the attached platforms' credentials, stored in your Blowhorn account and nowhere on this computer; then the mapping, exactly as `chrome map` records it and, when the extension is already on in that Chrome profile, paired the same way, opening the extension's pairing page there, since a run refuses a mapping the extension cannot prove; a profile without the extension on yet is paired once it is (the desktop's setup does this, or `chrome map`); then each attached platform's username as the profile's account there: a connection registered and linked to the profile, named for the username and pointing at its account page when the username is a handle, which is where the profile's handles are read from. A platform row the payload marks with "session": true (LinkedIn, Hacker News) stores a confirmed-session credential naming this Chrome profile directory instead of a password: it satisfies eligibility the way a session-capture platform's identity key does, because the run checks that Chrome session before it reaches for a password. GitHub attaches only with its token and Bluesky only with its app password, each riding in the same payload or already stored for the profile for the same account (the assignment's username blank, or the stored handle or login): an assignment that turns either on with neither is refused by name (code blowhorn-engine-1022) before anything is written, so a handle alone is never kept as a connected account. Slack stores nothing: its session is captured afterwards by 'profile auth `--platform` slack', and the result says so.
 
 A profile the document marks with "in_use": false is recorded not in use: this computer's mapping for that directory is removed, the Blowhorn profile is added to defaults.exclude when that name is not already there, and the profile and its credentials are kept. A platform row with "attach": false is recorded not in use for that profile in .blowhorn.chrome-not-in-use.json beside the config file; a platform left out of the assignment is left as it was recorded. The credential is kept, and a later run on this computer skips a platform still recorded not in use. Marking a platform in use clears that skip for the Blowhorn profile on every Chrome directory in the record, so a later choice in the same document wins. Marking the profile in use again removes it from defaults.exclude only when this screen added that name; a name already in the list is left as written, spelling and notes included. Omitting "in_use" applies only the attached rows, as before.
 
@@ -6080,7 +6096,7 @@ Remember the confirm screen's choices as they stand, before Confirm: write one C
 
 \{"assignments": \[\{"directory": "Profile 3", "profile": "ada-example", "in_use": true, "platforms": \{"linkedin": \{"attach": true\}, "x": \{"attach": false\}\}\}\]\}
 
-Per assignment: the Blowhorn profile the card is for (`profile`, the proposed slug when the profile does not exist yet; omitted when the screen proposes none), whether the Chrome profile is in use (`in_use`, omitted means in use), and each account shown a switch (`platforms`, `attach` false records that account not in use, true clears a recorded refusal for it on every Chrome directory of that profile). A platform left out is left as it was recorded. Nothing is created, mapped or written to your Blowhorn account: this only records what the screen shows, so the next `chrome discover` starts a turned-off account off and an account it has never seen on. It never touches defaults.exclude: adding or removing a name there is Confirm's, when the choice is confirmed. A directory Chrome no longer lists is dropped from the record. No store is read, so it works before sign-in. Each assignment answers for itself in the result, so a partial remember is a successful remember. The exit code is 0 when at least one assignment landed and 1 when none did. With `--dry-run` every check runs and nothing is written.
+Per assignment: the Blowhorn profile the card is for (`profile`, the proposed slug when the profile does not exist yet; omitted when the screen proposes none), whether the Chrome profile is in use (`in_use`, omitted means in use), and each account shown a switch (`platforms`, `attach` false records that account not in use, true clears a recorded refusal for it on every Chrome directory of that profile). A platform left out is left as it was recorded. Nothing is created, mapped or written to your Blowhorn account: this only records what the screen shows, so the next `chrome discover` starts a turned-off account off and an account it has never seen on. It never adds a name to defaults.exclude: that is Confirm's, when the choice is confirmed. A directory Chrome no longer lists is dropped from the record, and when the last of them was the one Confirm excluded a profile for, that name comes off defaults.exclude. No store is read, so it works before sign-in. Each assignment answers for itself in the result, so a partial remember is a successful remember. The exit code is 0 when at least one assignment landed and 1 when none did. With `--dry-run` every check runs and nothing is written.
 
 ```text
 blowhorn chrome remember [OPTIONS]
@@ -6194,7 +6210,7 @@ Output: json with `--json`, text otherwise.
 
 ## blowhorn chrome unmap
 
-Remove one of a Blowhorn profile's Chrome profile mappings on this machine. Name the Chrome profile directory when the profile has more than one mapped here; with one, it may be left out. Chrome is not read and nothing under its directory is touched: only the store's row goes, so a mapping can be removed when `Local State` is missing or unreadable. A profile with no mapping on this machine, or several and no directory named, is a one-sentence refusal and exit 1; with `--dry-run` the command says what would be removed and removes nothing.
+Remove one of a Blowhorn profile's Chrome profile mappings on this machine. Name the Chrome profile directory when the profile has more than one mapped here; with one, it may be left out. Chrome is not read and nothing under its directory is touched: only the row in this machine's mapping file goes, so a mapping can be removed when `Local State` is missing or unreadable. A profile with no mapping on this machine, or several and no directory named, is a one-sentence refusal and exit 1; with `--dry-run` the command says what would be removed and removes nothing.
 
 ```text
 blowhorn chrome unmap [OPTIONS] name [directory]
@@ -6357,6 +6373,11 @@ Put the post's Bluesky URL in `Amplify` and leave `Message Text` empty:
 ```bash
 blowhorn content upsert --payload '{"Platform":"bluesky","Profile":"company","Amplify":"https://bsky.app/profile/yourproject.bsky.social/post/abc","Approved?":"yes"}'
 ```
+
+Paste the link exactly as Bluesky's **Copy link to post** gives it. A link
+with anything stuck to the end of the post's key, such as a full stop or
+a bracket copied along with it, is refused as a link that could not be
+read, and nothing is sent.
 
 Unlike LinkedIn reposts, a Bluesky repost is not guarded against a second
 run: once the activity is done, leave `Date Promoted` alone.
@@ -7625,7 +7646,7 @@ Output: json with `--json`, text otherwise.
 --------------------------------------------------------------------------------
 title: "blowhorn profile"
 url: https://blowhorn.ai/docs/reference/cli/profile/index.md
-description: blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update.
+description: blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update, verify.
 --------------------------------------------------------------------------------
 
 <!-- Generated by release/scripts/cli_reference/build.py from schemas/dist/openapi.yaml. Do not edit; run `make cli-reference`. -->
@@ -7645,6 +7666,7 @@ The `blowhorn profile` commands. Each one's `--help` prints the same text.
 | [`profile status`](#blowhorn-profile-status) | Report what each profile in your organization is set up for: the platforms it holds |
 | [`profile switch`](#blowhorn-profile-switch) | Set a profile as the default profile in global config. |
 | [`profile update`](#blowhorn-profile-update) | Replace the fields a person sets on one profile. |
+| [`profile verify`](#blowhorn-profile-verify) | Check a Bluesky app password or a GitHub token without storing it. |
 
 ## blowhorn profile accounts
 
@@ -8010,6 +8032,39 @@ Examples:
 ```bash
 cat company.json | blowhorn profile update company --payload-stdin --json
 cat brand.json | blowhorn profile update 3f9c2a1e-0000-4000-8000-000000000001 --payload-stdin --dry-run
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn profile verify
+
+Check a Bluesky app password or a GitHub token without storing it.
+
+This does not write to a profile. Bluesky is checked by logging in the same way a post does; GitHub is checked by asking GitHub who the token is for. The document reports the outcome (ok, wrong_account, rejected, or unreachable) and, when the platform accepted the secret, the handle it signed in as. Use `--expected-handle` to compare that handle to one you already have.
+
+```text
+blowhorn profile verify [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--handle` | string |  | Bluesky only: the handle or email to log in as (alice.bsky.social; a leading @ is dropped). Required for a Bluesky check |
+| `--app-password-stdin` | boolean | `false` | Bluesky only: read the app password from the first line of stdin, so it never reaches argv, the daily log or a prompt. Required for a Bluesky check. A blank line is refused and nothing is written |
+| `--token-stdin` | boolean | `false` | GitHub only: read the token from the first line of stdin, so it never reaches argv, the daily log or a prompt. Required for a GitHub check. A blank line is refused and nothing is written |
+| `--expected-handle` | string |  | Handle or login you expect this secret to sign in as (a leading @ is dropped). When the platform signs in as someone else, the outcome is wrong_account |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
+| `--pace` | string |  | Accepted by `blowhorn profile verify` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn profile verify` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+printf '%s\n' "$APP_PASSWORD" | blowhorn profile verify --platform bluesky --handle alice.bsky.social --app-password-stdin --json
+printf '%s\n' "$GH_TOKEN" | blowhorn profile verify --platform github --token-stdin --json
+printf '%s\n' "$APP_PASSWORD" | blowhorn profile verify --platform bluesky --handle alice.bsky.social --app-password-stdin --expected-handle alice.bsky.social --json
 ```
 
 Output: json with `--json`, text otherwise.
@@ -10907,7 +10962,8 @@ blowhorn analytics history --subject ada --json
 `history` renders every LinkedIn page and every X profile as one dated series
 from your account, whichever computer collected it. `--since` takes days, weeks,
 months, years or `all`, and filters which points print, never what the 30-day
-figures compute from.
+figures compute from. When the history cannot be read (no organization is
+selected, say), the table says why instead of showing an empty history.
 
 Treat the 30-day net, growth rate and unfollowed figures as derived, not
 measured: the output labels them so. LinkedIn measures new followers, so only
@@ -12818,7 +12874,7 @@ diagnosable without the app running:
 
 `<log-dir>/desktop/scheduler-read-errors.json`
 
-`<log-dir>` is the folder the Service tab's Logs row names — your account's
+`<log-dir>` is the folder the Service tab's Logs row names - your account's
 folder under the log directory, or `machine/` before anyone is signed in.
 The file holds the last list error and the last status error, each with
 when it was first read, or null once a read has answered since. The Debug
@@ -13899,7 +13955,8 @@ schedules it again on the same activity: `Status` becomes `scheduled` and
 and last error are kept. Raising `Max Retries` alone does not (see
 [Schedule a job](/docs/how-to/schedule/schedule-a-job/)). `blowhorn schedule delete`
 removes an activity by number. `blowhorn schedule validate` checks every activity
-against the schema. `blowhorn schedule bootstrap` previews or writes a
+against the schema and names every reason one fails; an activity whose command
+cannot be scheduled is named once, for its command. `blowhorn schedule bootstrap` previews or writes a
 starter set. `blowhorn schedule trigger-now` forces one activity to run
 immediately instead of waiting for the pass. A Risk Profile hold, including
 while a profile is warming up, keeps that run from starting until you confirm
@@ -15202,6 +15259,22 @@ and given as `code` beside `error` in a `--json` answer:
 | `blowhorn-engine-1004` | The Blowhorn extension is turned off or was removed in the mapped Chrome profile. Nothing is opened: turn it on at `chrome://extensions` in that profile, then run again. |
 | `blowhorn-engine-1005` | Chrome opened, but the extension did not connect within the last-resort limit. |
 | `blowhorn-engine-1006` | The native host's announcement does not validate, or arrives cut short or damaged. |
+| `blowhorn-engine-1011` | The person has no Chrome profile mapped on this computer. `chrome open-profile` refuses before it opens anything. |
+| `blowhorn-engine-1012` | The Chrome profile mapped to the person is no longer in Chrome. |
+| `blowhorn-engine-1013` | The mapped Chrome profile's name or signed-in account changed since it was mapped. |
+| `blowhorn-engine-1014` | Chrome's list of profiles could not be read, so the mapping could not be checked. |
+| `blowhorn-engine-1017` | The Blowhorn extension in the mapped Chrome profile did not answer. |
+| `blowhorn-engine-1018` | Several Chrome profiles are mapped to the person and none is chosen for the site. |
+
+Codes 1011 to 1014 and 1018 come with the same sentence a terminal has always shown
+(it names the `blowhorn chrome` command that mends the mapping), and the
+desktop app shows its own words instead of that sentence: for 1011 to 1013
+and 1018, with a button (**Choose a Chrome profile**, **Use this Chrome profile**
+or **Confirm**); for 1014, asking you to open Google Chrome once and try again.
+Codes 1015 and 1016 (you are signed out of Blowhorn; Blowhorn cannot reach its
+store) are given as `code` beside `error` in the `--json` answer of any command
+that needs your Blowhorn account and cannot reach it. For 1015 the desktop app
+offers **Sign in**.
 
 The last-resort limit is 90 seconds. It is a safety net for a Chrome
 that opens but never brings the extension up, not how the run learns it
@@ -15886,8 +15959,12 @@ only), `several` (with the candidates), `none` (with the refusal's
 sentence) or `no-email` - plus `proposed_slug` and `slug_state` (`free`,
 `own`, `taken`, `invalid`) for the profile a confirm would create,
 and `mapped_to` and `mapped_platforms`, the profile the Chrome profile
-is mapped to and the platforms that mapping is chosen for. The
-document's `mappings` lists every mapping on this computer, each with
+is mapped to and the platforms that mapping is chosen for. On a mapped
+Chrome profile, GitHub carries `token_saved` and Bluesky carries
+`app_password_saved`: whether that Blowhorn profile already stores what
+a run needs there (a token; a handle with its app password) for the
+account Chrome shows, the same handle or login in any case. Neither
+secret is ever included. The document's `mappings` lists every mapping on this computer, each with
 its `profile`, `directory`, `platforms`, `identity` and `detail` (the
 sentence a run through it would be refused with, or `null`), including
 one whose Chrome profile is gone (`identity` `missing`): `profiles`
@@ -15958,6 +16035,14 @@ username still becomes the account, and `session` alone writes
 with neither a username nor a session is skipped by name in the notes.
 Slack writes no key - its note says to capture the session with
 `blowhorn profile auth --platform slack <profile>`.
+Bluesky attaches only with its app password and GitHub only with its
+token, each sent in the document or already stored for the profile under
+the same handle or login the assignment writes (in any case, a leading
+`@` ignored). An
+assignment that turns either on with neither is refused before anything
+is written: its result carries `"code": "blowhorn-engine-1022"` and an
+`error` naming the platform, so a handle alone is never kept as a
+connected account. Check the secret first with `blowhorn profile verify`.
 A username omitted from the document is re-read from discovery.
 
 An account is a connection in your Blowhorn account linked to the profile with
@@ -16037,8 +16122,12 @@ written to your Blowhorn account: this only records what the screen
 shows, in `.blowhorn.chrome-not-in-use.json` beside the config file, so
 the next `chrome discover` starts a turned-off account off and an
 account it has never seen on, and the choice survives an app restart.
-It never touches `defaults.exclude`: adding or removing a name there is
-Confirm's, when the choice is confirmed. No store is read, so it works
+It never adds a name to `defaults.exclude`: that is Confirm's, when the
+choice is confirmed. The one change it makes there is tidying: before
+recording, it drops remembered Chrome profiles that Chrome no longer
+lists, and when the last of them was the one Confirm excluded a profile
+for, that name comes off the list; every other name, and its comment,
+stays as you wrote it. No store is read, so it works
 before sign-in. Each assignment answers for itself in `results`, so a
 partial remember is a successful remember: the exit code is 0 when at
 least one assignment landed and 1 when none did. `--dry-run` runs every
@@ -16445,13 +16534,15 @@ of their flags removes something, such as `schedule_bootstrap`
 
 ### Hidden tools
 
-Seven tools are hidden from MCP clients by default, because each
-removes or replaces your Blowhorn install, removes a background
-service or a LaunchAgent, or signs you out: `uninstall`,
+Eight tools are hidden from MCP clients by default. Seven of them
+remove or replace your Blowhorn install, remove a background
+service or a LaunchAgent, or sign you out: `uninstall`,
 `service_uninstall`, `service_adopt`, `auth_logout`, `desktop_build`,
 `desktop_install`, and `chrome_attach_chrome_uninstall_agent`, which is
 the `uninstall-agent` action of `blowhorn chrome attach-chrome` split
-out of that command. They are not in `tools/list`, and a call to one
+out of that command. The eighth, `profile_verify`, reads the app
+password or token it checks on stdin, and an MCP call never has one
+to give it. They are not in `tools/list`, and a call to one
 answers that the tool is labeled experimental and is not available for
 use. The answer never says how to enable it: that is the operator's
 choice, below. Their `x-mcp` (or the `x-mcp` variant that
@@ -16854,7 +16945,7 @@ response = ConfigShowResponse.from_dict(json.loads(stdout))
 
 ## What it covers
 
-Every operation in the OpenAPI bundle: 123 commands, each as one
+Every operation in the OpenAPI bundle: 124 commands, each as one
 function under `blowhorn_schemas.api.<group>.<command>`, with the
 request and response models under `blowhorn_schemas.models`. The
 operations are shaped like the CLI, not like an HTTP service: each
@@ -17256,11 +17347,16 @@ that profile uses, which is the Chrome profile mapped for YouTube, else the
 profile's only one, else its default. When a profile has several Chrome
 profiles and none of those picks one, or the one they pick is no longer
 in Google Chrome (a deleted Chrome profile), no Chrome profile has the
-button; each shows the `blowhorn chrome map <profile> '<Chrome profile>' --for youtube`
-that chooses it instead (see [Google Chrome](/docs/reference/chrome/)). When the one
-they pick has been renamed or signed in to another account since it was
-mapped, that Chrome profile shows the `blowhorn chrome map <profile> '<Chrome profile>'`
-that confirms it instead of the button.
+button. Each says so in plain words ("Choose which Chrome profile to use for
+YouTube", or "The Chrome profile this person used for YouTube is no longer in
+Chrome. Pick another.") and offers **Use this Chrome profile**, which chooses it
+for YouTube (see [Google Chrome](/docs/reference/chrome/)). A profile with no Chrome profile
+on this computer at all reads "This person isn't set up to use a Chrome profile
+on this computer yet." and offers **Choose a Chrome profile**, which takes you to
+the list of Chrome profiles on the same tab. When the one they pick has been
+renamed or signed in to another account since it was linked, that Chrome profile
+reads "This Chrome profile changed since it was linked." and offers **Confirm**
+instead of the button. The desktop app never asks you to run a command.
 
 A profile can post to YouTube once it has `YT_CHANNEL_URL` in its credential,
 set to the channel's address by ID (`https://www.youtube.com/channel/UC...`,

@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e2b69f9b98b88ab0bb200f6f9e2f1fa4.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -990,13 +990,15 @@ argument its base tool takes. The command line does not change; the
 split is only in the MCP tools. Other commands are destructive when one
 of their flags removes something, such as <code>schedule_bootstrap</code>
 (<code>--replace</code>).</p>
-<h3 id="hidden-tools">Hidden tools</h3><p>Seven tools are hidden from MCP clients by default, because each
-removes or replaces your Blowhorn install, removes a background
-service or a LaunchAgent, or signs you out: <code>uninstall</code>,
+<h3 id="hidden-tools">Hidden tools</h3><p>Eight tools are hidden from MCP clients by default. Seven of them
+remove or replace your Blowhorn install, remove a background
+service or a LaunchAgent, or sign you out: <code>uninstall</code>,
 <code>service_uninstall</code>, <code>service_adopt</code>, <code>auth_logout</code>, <code>desktop_build</code>,
 <code>desktop_install</code>, and <code>chrome_attach_chrome_uninstall_agent</code>, which is
 the <code>uninstall-agent</code> action of <code>blowhorn chrome attach-chrome</code> split
-out of that command. They are not in <code>tools/list</code>, and a call to one
+out of that command. The eighth, <code>profile_verify</code>, reads the app
+password or token it checks on stdin, and an MCP call never has one
+to give it. They are not in <code>tools/list</code>, and a call to one
 answers that the tool is labeled experimental and is not available for
 use. The answer never says how to enable it: that is the operator's
 choice, below. Their <code>x-mcp</code> (or the <code>x-mcp</code> variant that
@@ -1467,7 +1469,7 @@ environment the server's subprocesses inherit.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 21, 2026
+  Last modified November 23, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/mcp-server.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

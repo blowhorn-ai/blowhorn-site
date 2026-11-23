@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e2b69f9b98b88ab0bb200f6f9e2f1fa4.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -599,9 +599,10 @@
   <p>The guided setup opens by itself the first time you open Blowhorn, and every
 time after that until you finish it. If you quit partway, or come back with
 Home's <strong>Finish setting up</strong>, it checks what is already done and opens
-straight on the first step that isn't, with one line saying so. You can also
-leave it on any step with <strong>Skip Setup</strong> at the bottom: that finishes setup,
-and it won't open again. It never asks
+straight on the first step that isn't, with one line saying so. Once you are
+signed in, you can also leave it with <strong>Skip Setup</strong> at the bottom: that
+finishes setup, and it won't open again. The sign-in screens don't offer it,
+since you still need to sign in. It never asks
 whether to pick up first. If your sign-in ended, it asks you to sign in once,
 then picks up the same way. If you are signed out when you open Blowhorn, it
 starts at Sign in. Uninstalling removes that progress with the sign-in, so
@@ -677,8 +678,8 @@ there. There is no <strong>Continue</strong> and
 no <strong>Check again</strong> on that screen. You can add the rest later, any time.
 Rather add a profile yourself? The steps are under <strong>What's a Google
 Chrome profile?</strong> on that screen. On <strong>Confirm</strong>, Blowhorn creates the profiles you marked in use,
-saves the handles (and a GitHub token or Bluesky app password you type
-on the activity), and maps each of those Chrome profiles. A profile you mark
+saves the handles (and a GitHub token or Bluesky app password once
+<strong>Check</strong> has signed in with it), and maps each of those Chrome profiles. A profile you mark
 not in use is recorded that way: its mapping on this computer is
 removed, and a run of every profile skips it. A profile you had already
 excluded stays excluded. Marking it in use again removes that skip only
@@ -780,7 +781,7 @@ including when your progress couldn't be saved.</li>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 19, 2026
+  Last modified November 23, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/set-up/first-muster-setup.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e2b69f9b98b88ab0bb200f6f9e2f1fa4.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -680,6 +680,19 @@ computer skips that account. Marking that account in use later clears the
 skip for the Blowhorn profile, including a refusal recorded on another
 Chrome profile. The credential stays.
 The next time you open Confirm troops, those activities start unchecked.</p>
+<p>Bluesky and GitHub start off, because Blowhorn can't post there with a
+saved login alone. Turn one on and its row asks for an app password
+(Bluesky) or a token (GitHub). Paste it and choose <strong>Check</strong>: Blowhorn
+signs in with it, stores nothing yet, and the row reads &quot;Signed in as
+@handle.&quot; once the platform accepts it. If it signs in as a different
+account, choose <strong>Use @handle</strong> to keep the account it signs in as, or
+try another one. Confirm waits until every account you turned on is
+checked; if Bluesky or GitHub can't be reached, choose <strong>Check again</strong>
+later, or turn that account off and add it from Profiles afterwards.
+<strong>Cancel</strong> closes the row without changing a token or app password already
+saved. In Profiles, the same Check runs before a token or app password is
+saved, and one the profile already has for the same account counts with
+no retyping.</p>
 <p>The survey behind the step is <code>blowhorn chrome discover</code>, and the apply is
 <code>blowhorn chrome confirm</code>, which reads the confirmed assignments as JSON
 on stdin - so a GitHub token or Bluesky app password typed on the step
@@ -750,15 +763,15 @@ list rather than recording it.</p>
     <span class="term-lang" aria-hidden="true">Text</span>
   </figcaption>
   <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">chrome mapping proposal for studio (3 profiles); nothing is applied
-</span></span><span class="line"><span class="cl">  profile  directory  name   account             note
-</span></span><span class="line"><span class="cl">  ada      Profile 2  Ada    ada@example.com     name match
-</span></span><span class="line"><span class="cl">  grace    Profile 5  Grace  grace@example.com   name match
-</span></span><span class="line"><span class="cl">  personal   -          -      -                   none
-</span></span><span class="line"><span class="cl">to apply an activity you agree with:
-</span></span><span class="line"><span class="cl">  blowhorn chrome map ada &#39;Profile 2&#39;
-</span></span><span class="line"><span class="cl">  blowhorn chrome map grace &#39;Profile 5&#39;</span></span></code></pre></div></div>
+</span></span><span class="line"><span class="cl">  profile   directory  name   account            note
+</span></span><span class="line"><span class="cl">  ada       Profile 2  Ada    ada@example.com    name match
+</span></span><span class="line"><span class="cl">  grace     Profile 5  Grace  grace@example.com  name match
+</span></span><span class="line"><span class="cl">  personal  -          -      -                  none
+</span></span><span class="line"><span class="cl">to apply a row you agree with:
+</span></span><span class="line"><span class="cl">  blowhorn chrome map &#39;ada&#39; &#39;Profile 2&#39;
+</span></span><span class="line"><span class="cl">  blowhorn chrome map &#39;grace&#39; &#39;Profile 5&#39;</span></span></code></pre></div></div>
 </figure>
-<p>An activity is proposed when exactly one Chrome profile's display name matches
+<p>A row is proposed when exactly one Chrome profile's display name matches
 the Blowhorn profile's name (case and punctuation ignored). Two matches are
 named as ambiguous and nothing is proposed; no match is <code>none</code>; a profile
 that already has a mapping keeps it and says so. The command applies
@@ -941,7 +954,7 @@ lets a profile post nowhere.</li>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 23, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/set-up/map-chrome-profiles.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

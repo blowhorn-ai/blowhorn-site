@@ -332,13 +332,15 @@ of their flags removes something, such as `schedule_bootstrap`
 
 ### Hidden tools
 
-Seven tools are hidden from MCP clients by default, because each
-removes or replaces your Blowhorn install, removes a background
-service or a LaunchAgent, or signs you out: `uninstall`,
+Eight tools are hidden from MCP clients by default. Seven of them
+remove or replace your Blowhorn install, remove a background
+service or a LaunchAgent, or sign you out: `uninstall`,
 `service_uninstall`, `service_adopt`, `auth_logout`, `desktop_build`,
 `desktop_install`, and `chrome_attach_chrome_uninstall_agent`, which is
 the `uninstall-agent` action of `blowhorn chrome attach-chrome` split
-out of that command. They are not in `tools/list`, and a call to one
+out of that command. The eighth, `profile_verify`, reads the app
+password or token it checks on stdin, and an MCP call never has one
+to give it. They are not in `tools/list`, and a call to one
 answers that the tool is labeled experimental and is not available for
 use. The answer never says how to enable it: that is the operator's
 choice, below. Their `x-mcp` (or the `x-mcp` variant that

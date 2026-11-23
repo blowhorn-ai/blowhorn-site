@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e2b69f9b98b88ab0bb200f6f9e2f1fa4.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -613,7 +613,7 @@
 </ul>
 <p>Reading a chain:</p>
 <ul>
-<li><code>content list</code>, <code>content get</code>, and <code>content posts</code> JSON carry a <code>thread</code> key beside <code>values</code> (<code>item_id</code>, <code>thread_id</code>, <code>reply_to_id</code>, <code>thread_index</code>; the last three are null on an item that carries no thread). A payload from a backend that does not project the fields yet omits the <code>thread</code> key, and the item then reads as a standalone item. A job names no post, so <code>schedule list</code> is unchanged.</li>
+<li><code>content list</code>, <code>content get</code>, and <code>content posts</code> JSON carry a <code>thread</code> key beside <code>values</code> (<code>item_id</code>, <code>thread_id</code>, <code>reply_to_id</code>, <code>thread_index</code>; the last three are null on an item that carries no thread). The key is always there: an item stored without thread fields reads as a standalone item, <code>item_id</code> empty and the other three null. A job names no post, so <code>schedule list</code> is unchanged.</li>
 <li>When the desktop reads items back, it checks only <code>id</code>, <code>profile</code>, <code>rowNumber</code>, <code>fingerprint</code>, and <code>data</code>, and allows every other field.</li>
 <li>The desktop Activity screen groups each thread under its root: an indented chain with a <code>thread · N</code> line, expand and collapse, and the whole chain in the open post's editor. A standalone item with no id keys its group by activity number, so empty ids never collapse rows into one group.</li>
 </ul>
@@ -627,7 +627,7 @@
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 23, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/content-item-contract.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

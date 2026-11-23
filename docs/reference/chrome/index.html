@@ -238,7 +238,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.fa5ea1b9e6905020c4fdb52c2b1a1b47.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e2b69f9b98b88ab0bb200f6f9e2f1fa4.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -836,9 +836,42 @@ and given as <code>code</code> beside <code>error</code> in a <code>--json</code
       <td><code>blowhorn-engine-1006</code></td>
       <td>The native host's announcement does not validate, or arrives cut short or damaged.</td>
     </tr>
+    <tr>
+      <td><code>blowhorn-engine-1011</code></td>
+      <td>The person has no Chrome profile mapped on this computer. <code>chrome open-profile</code> refuses before it opens anything.</td>
+    </tr>
+    <tr>
+      <td><code>blowhorn-engine-1012</code></td>
+      <td>The Chrome profile mapped to the person is no longer in Chrome.</td>
+    </tr>
+    <tr>
+      <td><code>blowhorn-engine-1013</code></td>
+      <td>The mapped Chrome profile's name or signed-in account changed since it was mapped.</td>
+    </tr>
+    <tr>
+      <td><code>blowhorn-engine-1014</code></td>
+      <td>Chrome's list of profiles could not be read, so the mapping could not be checked.</td>
+    </tr>
+    <tr>
+      <td><code>blowhorn-engine-1017</code></td>
+      <td>The Blowhorn extension in the mapped Chrome profile did not answer.</td>
+    </tr>
+    <tr>
+      <td><code>blowhorn-engine-1018</code></td>
+      <td>Several Chrome profiles are mapped to the person and none is chosen for the site.</td>
+    </tr>
   </tbody>
 </table>
 </div>
+<p>Codes 1011 to 1014 and 1018 come with the same sentence a terminal has always shown
+(it names the <code>blowhorn chrome</code> command that mends the mapping), and the
+desktop app shows its own words instead of that sentence: for 1011 to 1013
+and 1018, with a button (<strong>Choose a Chrome profile</strong>, <strong>Use this Chrome profile</strong>
+or <strong>Confirm</strong>); for 1014, asking you to open Google Chrome once and try again.
+Codes 1015 and 1016 (you are signed out of Blowhorn; Blowhorn cannot reach its
+store) are given as <code>code</code> beside <code>error</code> in the <code>--json</code> answer of any command
+that needs your Blowhorn account and cannot reach it. For 1015 the desktop app
+offers <strong>Sign in</strong>.</p>
 <p>The last-resort limit is 90 seconds. It is a safety net for a Chrome
 that opens but never brings the extension up, not how the run learns it
 is ready. When it ends the wait, Blowhorn tries the extension once more;
@@ -1607,8 +1640,12 @@ only), <code>several</code> (with the candidates), <code>none</code> (with the r
 sentence) or <code>no-email</code> - plus <code>proposed_slug</code> and <code>slug_state</code> (<code>free</code>,
 <code>own</code>, <code>taken</code>, <code>invalid</code>) for the profile a confirm would create,
 and <code>mapped_to</code> and <code>mapped_platforms</code>, the profile the Chrome profile
-is mapped to and the platforms that mapping is chosen for. The
-document's <code>mappings</code> lists every mapping on this computer, each with
+is mapped to and the platforms that mapping is chosen for. On a mapped
+Chrome profile, GitHub carries <code>token_saved</code> and Bluesky carries
+<code>app_password_saved</code>: whether that Blowhorn profile already stores what
+a run needs there (a token; a handle with its app password) for the
+account Chrome shows, the same handle or login in any case. Neither
+secret is ever included. The document's <code>mappings</code> lists every mapping on this computer, each with
 its <code>profile</code>, <code>directory</code>, <code>platforms</code>, <code>identity</code> and <code>detail</code> (the
 sentence a run through it would be refused with, or <code>null</code>), including
 one whose Chrome profile is gone (<code>identity</code> <code>missing</code>): <code>profiles</code>
@@ -1691,6 +1728,14 @@ username still becomes the account, and <code>session</code> alone writes
 with neither a username nor a session is skipped by name in the notes.
 Slack writes no key - its note says to capture the session with
 <code>blowhorn profile auth --platform slack &lt;profile&gt;</code>.
+Bluesky attaches only with its app password and GitHub only with its
+token, each sent in the document or already stored for the profile under
+the same handle or login the assignment writes (in any case, a leading
+<code>@</code> ignored). An
+assignment that turns either on with neither is refused before anything
+is written: its result carries <code>&quot;code&quot;: &quot;blowhorn-engine-1022&quot;</code> and an
+<code>error</code> naming the platform, so a handle alone is never kept as a
+connected account. Check the secret first with <code>blowhorn profile verify</code>.
 A username omitted from the document is re-read from discovery.</p>
 <p>An account is a connection in your Blowhorn account linked to the profile with
 <code>addConnectionToProfile</code>, the only way an account becomes a profile's. Its
@@ -1779,8 +1824,12 @@ written to your Blowhorn account: this only records what the screen
 shows, in <code>.blowhorn.chrome-not-in-use.json</code> beside the config file, so
 the next <code>chrome discover</code> starts a turned-off account off and an
 account it has never seen on, and the choice survives an app restart.
-It never touches <code>defaults.exclude</code>: adding or removing a name there is
-Confirm's, when the choice is confirmed. No store is read, so it works
+It never adds a name to <code>defaults.exclude</code>: that is Confirm's, when the
+choice is confirmed. The one change it makes there is tidying: before
+recording, it drops remembered Chrome profiles that Chrome no longer
+lists, and when the last of them was the one Confirm excluded a profile
+for, that name comes off the list; every other name, and its comment,
+stays as you wrote it. No store is read, so it works
 before sign-in. Each assignment answers for itself in <code>results</code>, so a
 partial remember is a successful remember: the exit code is 0 when at
 least one assignment landed and 1 when none did. <code>--dry-run</code> runs every
@@ -1821,7 +1870,7 @@ can run side by side. See <a href="/docs/explanation/youre-in-control/">You're i
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 21, 2026
+  Last modified November 23, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/chrome.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
