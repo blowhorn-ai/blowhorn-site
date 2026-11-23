@@ -194,7 +194,8 @@ a YouTube sign-in, so there is nothing to check afterward.
 
 Only the Google Chrome profile a YouTube run would use has the button. If the
 profile has several Chrome profiles and none is chosen for YouTube, choose one
-first; each Chrome profile shows the command that chooses it, for example:
+first: in the desktop app, choose **Use this Chrome profile** on the one you
+want. From Terminal:
 
 ```bash
 blowhorn chrome map ada 'Profile 2' --for youtube

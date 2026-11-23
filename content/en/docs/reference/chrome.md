@@ -254,6 +254,22 @@ and given as `code` beside `error` in a `--json` answer:
 | `blowhorn-engine-1004` | The Blowhorn extension is turned off or was removed in the mapped Chrome profile. Nothing is opened: turn it on at `chrome://extensions` in that profile, then run again. |
 | `blowhorn-engine-1005` | Chrome opened, but the extension did not connect within the last-resort limit. |
 | `blowhorn-engine-1006` | The native host's announcement does not validate, or arrives cut short or damaged. |
+| `blowhorn-engine-1011` | The person has no Chrome profile mapped on this computer. `chrome open-profile` refuses before it opens anything. |
+| `blowhorn-engine-1012` | The Chrome profile mapped to the person is no longer in Chrome. |
+| `blowhorn-engine-1013` | The mapped Chrome profile's name or signed-in account changed since it was mapped. |
+| `blowhorn-engine-1014` | Chrome's list of profiles could not be read, so the mapping could not be checked. |
+| `blowhorn-engine-1017` | The Blowhorn extension in the mapped Chrome profile did not answer. |
+| `blowhorn-engine-1018` | Several Chrome profiles are mapped to the person and none is chosen for the site. |
+
+Codes 1011 to 1014 and 1018 come with the same sentence a terminal has always shown
+(it names the `blowhorn chrome` command that mends the mapping), and the
+desktop app shows its own words instead of that sentence: for 1011 to 1013
+and 1018, with a button (**Choose a Chrome profile**, **Use this Chrome profile**
+or **Confirm**); for 1014, asking you to open Google Chrome once and try again.
+Codes 1015 and 1016 (you are signed out of Blowhorn; Blowhorn cannot reach its
+store) are given as `code` beside `error` in the `--json` answer of any command
+that needs your Blowhorn account and cannot reach it. For 1015 the desktop app
+offers **Sign in**.
 
 The last-resort limit is 90 seconds. It is a safety net for a Chrome
 that opens but never brings the extension up, not how the run learns it
@@ -938,8 +954,12 @@ only), `several` (with the candidates), `none` (with the refusal's
 sentence) or `no-email` - plus `proposed_slug` and `slug_state` (`free`,
 `own`, `taken`, `invalid`) for the profile a confirm would create,
 and `mapped_to` and `mapped_platforms`, the profile the Chrome profile
-is mapped to and the platforms that mapping is chosen for. The
-document's `mappings` lists every mapping on this computer, each with
+is mapped to and the platforms that mapping is chosen for. On a mapped
+Chrome profile, GitHub carries `token_saved` and Bluesky carries
+`app_password_saved`: whether that Blowhorn profile already stores what
+a run needs there (a token; a handle with its app password) for the
+account Chrome shows, the same handle or login in any case. Neither
+secret is ever included. The document's `mappings` lists every mapping on this computer, each with
 its `profile`, `directory`, `platforms`, `identity` and `detail` (the
 sentence a run through it would be refused with, or `null`), including
 one whose Chrome profile is gone (`identity` `missing`): `profiles`
@@ -1010,6 +1030,14 @@ username still becomes the account, and `session` alone writes
 with neither a username nor a session is skipped by name in the notes.
 Slack writes no key - its note says to capture the session with
 `blowhorn profile auth --platform slack <profile>`.
+Bluesky attaches only with its app password and GitHub only with its
+token, each sent in the document or already stored for the profile under
+the same handle or login the assignment writes (in any case, a leading
+`@` ignored). An
+assignment that turns either on with neither is refused before anything
+is written: its result carries `"code": "blowhorn-engine-1022"` and an
+`error` naming the platform, so a handle alone is never kept as a
+connected account. Check the secret first with `blowhorn profile verify`.
 A username omitted from the document is re-read from discovery.
 
 An account is a connection in your Blowhorn account linked to the profile with
@@ -1089,8 +1117,12 @@ written to your Blowhorn account: this only records what the screen
 shows, in `.blowhorn.chrome-not-in-use.json` beside the config file, so
 the next `chrome discover` starts a turned-off account off and an
 account it has never seen on, and the choice survives an app restart.
-It never touches `defaults.exclude`: adding or removing a name there is
-Confirm's, when the choice is confirmed. No store is read, so it works
+It never adds a name to `defaults.exclude`: that is Confirm's, when the
+choice is confirmed. The one change it makes there is tidying: before
+recording, it drops remembered Chrome profiles that Chrome no longer
+lists, and when the last of them was the one Confirm excluded a profile
+for, that name comes off the list; every other name, and its comment,
+stays as you wrote it. No store is read, so it works
 before sign-in. Each assignment answers for itself in `results`, so a
 partial remember is a successful remember: the exit code is 0 when at
 least one assignment landed and 1 when none did. `--dry-run` runs every

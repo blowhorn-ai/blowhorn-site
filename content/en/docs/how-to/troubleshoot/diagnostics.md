@@ -99,7 +99,7 @@ diagnosable without the app running:
 
 `<log-dir>/desktop/scheduler-read-errors.json`
 
-`<log-dir>` is the folder the Service tab's Logs row names — your account's
+`<log-dir>` is the folder the Service tab's Logs row names - your account's
 folder under the log directory, or `machine/` before anyone is signed in.
 The file holds the last list error and the last status error, each with
 when it was first read, or null once a read has answered since. The Debug
