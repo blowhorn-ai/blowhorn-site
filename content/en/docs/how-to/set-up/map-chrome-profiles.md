@@ -96,6 +96,22 @@ skip for the Blowhorn profile, including a refusal recorded on another
 Chrome profile. The credential stays.
 The next time you open Confirm troops, those activities start unchecked.
 
+## Troubleshooting validation errors
+
+If you encounter a validation error during Chrome profile discovery that mentions "missing lastName" or other missing fields, it means the system is having trouble matching your Chrome profile's account information with your organization's member data. This can happen intermittently due to:
+
+- Cached or incomplete member data in your local store
+- Temporary synchronization issues between your account and the organization
+- Chrome profile account information that doesn't exactly match your member record
+
+**To resolve this:**
+
+1. Click **Discover** again in the Confirm troops step to refresh the member data
+2. If the error persists, try logging out of Blowhorn and signing back in to refresh your local data
+3. Ensure your Chrome profile's account information (name, email) exactly matches your organization member record
+
+The error should not prevent you from completing the setup process - these steps will help the system successfully match your Chrome profiles with your organization members.
+
 The survey behind the step is `blowhorn chrome discover`, and the apply is
 `blowhorn chrome confirm`, which reads the confirmed assignments as JSON
 on stdin - so a GitHub token or Bluesky app password typed on the step
