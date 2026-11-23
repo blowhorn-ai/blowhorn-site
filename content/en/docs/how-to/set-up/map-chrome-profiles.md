@@ -96,6 +96,20 @@ skip for the Blowhorn profile, including a refusal recorded on another
 Chrome profile. The credential stays.
 The next time you open Confirm troops, those activities start unchecked.
 
+Bluesky and GitHub start off, because Blowhorn can't post there with a
+saved login alone. Turn one on and its row asks for an app password
+(Bluesky) or a token (GitHub). Paste it and choose **Check**: Blowhorn
+signs in with it, stores nothing yet, and the row reads "Signed in as
+@handle." once the platform accepts it. If it signs in as a different
+account, choose **Use @handle** to keep the account it signs in as, or
+try another one. Confirm waits until every account you turned on is
+checked; if Bluesky or GitHub can't be reached, choose **Check again**
+later, or turn that account off and add it from Profiles afterwards.
+**Cancel** closes the row without changing a token or app password already
+saved. In Profiles, the same Check runs before a token or app password is
+saved, and one the profile already has for the same account counts with
+no retyping.
+
 The survey behind the step is `blowhorn chrome discover`, and the apply is
 `blowhorn chrome confirm`, which reads the confirmed assignments as JSON
 on stdin - so a GitHub token or Bluesky app password typed on the step
@@ -147,16 +161,16 @@ blowhorn chrome suggest
 
 ```
 chrome mapping proposal for studio (3 profiles); nothing is applied
-  profile  directory  name   account             note
-  ada      Profile 2  Ada    ada@example.com     name match
-  grace    Profile 5  Grace  grace@example.com   name match
-  personal   -          -      -                   none
-to apply an activity you agree with:
-  blowhorn chrome map ada 'Profile 2'
-  blowhorn chrome map grace 'Profile 5'
+  profile   directory  name   account            note
+  ada       Profile 2  Ada    ada@example.com    name match
+  grace     Profile 5  Grace  grace@example.com  name match
+  personal  -          -      -                  none
+to apply a row you agree with:
+  blowhorn chrome map 'ada' 'Profile 2'
+  blowhorn chrome map 'grace' 'Profile 5'
 ```
 
-An activity is proposed when exactly one Chrome profile's display name matches
+A row is proposed when exactly one Chrome profile's display name matches
 the Blowhorn profile's name (case and punctuation ignored). Two matches are
 named as ambiguous and nothing is proposed; no match is `none`; a profile
 that already has a mapping keeps it and says so. The command applies

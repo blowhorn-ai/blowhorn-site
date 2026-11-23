@@ -33,7 +33,7 @@ Writing a chain:
 
 Reading a chain:
 
-- `content list`, `content get`, and `content posts` JSON carry a `thread` key beside `values` (`item_id`, `thread_id`, `reply_to_id`, `thread_index`; the last three are null on an item that carries no thread). A payload from a backend that does not project the fields yet omits the `thread` key, and the item then reads as a standalone item. A job names no post, so `schedule list` is unchanged.
+- `content list`, `content get`, and `content posts` JSON carry a `thread` key beside `values` (`item_id`, `thread_id`, `reply_to_id`, `thread_index`; the last three are null on an item that carries no thread). The key is always there: an item stored without thread fields reads as a standalone item, `item_id` empty and the other three null. A job names no post, so `schedule list` is unchanged.
 - When the desktop reads items back, it checks only `id`, `profile`, `rowNumber`, `fingerprint`, and `data`, and allows every other field.
 - The desktop Activity screen groups each thread under its root: an indented chain with a `thread · N` line, expand and collapse, and the whole chain in the open post's editor. A standalone item with no id keys its group by activity number, so empty ids never collapse rows into one group.
 

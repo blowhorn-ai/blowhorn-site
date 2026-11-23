@@ -93,7 +93,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn org`](/docs/reference/cli/org/) | blowhorn org: members. |
 | [`blowhorn platforms`](/docs/reference/cli/platforms/) | blowhorn platforms: capabilities. |
 | [`blowhorn post`](/docs/reference/cli/post/) | Publish pending posts or amplify existing content across supported platforms. |
-| [`blowhorn profile`](/docs/reference/cli/profile/) | blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update. |
+| [`blowhorn profile`](/docs/reference/cli/profile/) | blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update, verify. |
 | [`blowhorn report`](/docs/reference/cli/report/) | Generate a consolidated report summary from the exports already sitting in the repository-root data/analytics/ directory. |
 | [`blowhorn risk`](/docs/reference/cli/risk/) | blowhorn risk: grid, set, show. |
 | [`blowhorn schedule`](/docs/reference/cli/schedule/) | blowhorn schedule: bootstrap, delete, destinations, fleet, get, list, pause, resume, status, tick, trigger-now, upsert, validate, why. |

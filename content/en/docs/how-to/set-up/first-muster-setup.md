@@ -9,9 +9,10 @@ weight: 33
 The guided setup opens by itself the first time you open Blowhorn, and every
 time after that until you finish it. If you quit partway, or come back with
 Home's **Finish setting up**, it checks what is already done and opens
-straight on the first step that isn't, with one line saying so. You can also
-leave it on any step with **Skip Setup** at the bottom: that finishes setup,
-and it won't open again. It never asks
+straight on the first step that isn't, with one line saying so. Once you are
+signed in, you can also leave it with **Skip Setup** at the bottom: that
+finishes setup, and it won't open again. The sign-in screens don't offer it,
+since you still need to sign in. It never asks
 whether to pick up first. If your sign-in ended, it asks you to sign in once,
 then picks up the same way. If you are signed out when you open Blowhorn, it
 starts at Sign in. Uninstalling removes that progress with the sign-in, so
@@ -87,8 +88,8 @@ when a new version of Blowhorn needs something your earlier setup did not do.
   no **Check again** on that screen. You can add the rest later, any time.
   Rather add a profile yourself? The steps are under **What's a Google
   Chrome profile?** on that screen. On **Confirm**, Blowhorn creates the profiles you marked in use,
-  saves the handles (and a GitHub token or Bluesky app password you type
-  on the activity), and maps each of those Chrome profiles. A profile you mark
+  saves the handles (and a GitHub token or Bluesky app password once
+  **Check** has signed in with it), and maps each of those Chrome profiles. A profile you mark
   not in use is recorded that way: its mapping on this computer is
   removed, and a run of every profile skips it. A profile you had already
   excluded stays excluded. Marking it in use again removes that skip only

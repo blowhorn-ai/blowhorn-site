@@ -27,11 +27,16 @@ that profile uses, which is the Chrome profile mapped for YouTube, else the
 profile's only one, else its default. When a profile has several Chrome
 profiles and none of those picks one, or the one they pick is no longer
 in Google Chrome (a deleted Chrome profile), no Chrome profile has the
-button; each shows the `blowhorn chrome map <profile> '<Chrome profile>' --for youtube`
-that chooses it instead (see [Google Chrome](/docs/reference/chrome/)). When the one
-they pick has been renamed or signed in to another account since it was
-mapped, that Chrome profile shows the `blowhorn chrome map <profile> '<Chrome profile>'`
-that confirms it instead of the button.
+button. Each says so in plain words ("Choose which Chrome profile to use for
+YouTube", or "The Chrome profile this person used for YouTube is no longer in
+Chrome. Pick another.") and offers **Use this Chrome profile**, which chooses it
+for YouTube (see [Google Chrome](/docs/reference/chrome/)). A profile with no Chrome profile
+on this computer at all reads "This person isn't set up to use a Chrome profile
+on this computer yet." and offers **Choose a Chrome profile**, which takes you to
+the list of Chrome profiles on the same tab. When the one they pick has been
+renamed or signed in to another account since it was linked, that Chrome profile
+reads "This Chrome profile changed since it was linked." and offers **Confirm**
+instead of the button. The desktop app never asks you to run a command.
 
 A profile can post to YouTube once it has `YT_CHANNEL_URL` in its credential,
 set to the channel's address by ID (`https://www.youtube.com/channel/UC...`,

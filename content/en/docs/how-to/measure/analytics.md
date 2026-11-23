@@ -103,7 +103,8 @@ blowhorn analytics history --subject ada --json
 `history` renders every LinkedIn page and every X profile as one dated series
 from your account, whichever computer collected it. `--since` takes days, weeks,
 months, years or `all`, and filters which points print, never what the 30-day
-figures compute from.
+figures compute from. When the history cannot be read (no organization is
+selected, say), the table says why instead of showing an empty history.
 
 Treat the 30-day net, growth rate and unfollowed figures as derived, not
 measured: the output labels them so. LinkedIn measures new followers, so only

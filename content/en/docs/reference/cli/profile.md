@@ -1,7 +1,7 @@
 ---
 title: "blowhorn profile"
 linkTitle: "profile"
-description: "blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update."
+description: "blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update, verify."
 weight: 115
 ---
 
@@ -22,6 +22,7 @@ The `blowhorn profile` commands. Each one's `--help` prints the same text.
 | [`profile status`](#blowhorn-profile-status) | Report what each profile in your organization is set up for: the platforms it holds |
 | [`profile switch`](#blowhorn-profile-switch) | Set a profile as the default profile in global config. |
 | [`profile update`](#blowhorn-profile-update) | Replace the fields a person sets on one profile. |
+| [`profile verify`](#blowhorn-profile-verify) | Check a Bluesky app password or a GitHub token without storing it. |
 
 ## blowhorn profile accounts
 
@@ -387,6 +388,39 @@ Examples:
 ```bash
 cat company.json | blowhorn profile update company --payload-stdin --json
 cat brand.json | blowhorn profile update 3f9c2a1e-0000-4000-8000-000000000001 --payload-stdin --dry-run
+```
+
+Output: json with `--json`, text otherwise.
+
+## blowhorn profile verify
+
+Check a Bluesky app password or a GitHub token without storing it.
+
+This does not write to a profile. Bluesky is checked by logging in the same way a post does; GitHub is checked by asking GitHub who the token is for. The document reports the outcome (ok, wrong_account, rejected, or unreachable) and, when the platform accepted the secret, the handle it signed in as. Use `--expected-handle` to compare that handle to one you already have.
+
+```text
+blowhorn profile verify [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+| --- | --- | --- | --- |
+| `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--handle` | string |  | Bluesky only: the handle or email to log in as (alice.bsky.social; a leading @ is dropped). Required for a Bluesky check |
+| `--app-password-stdin` | boolean | `false` | Bluesky only: read the app password from the first line of stdin, so it never reaches argv, the daily log or a prompt. Required for a Bluesky check. A blank line is refused and nothing is written |
+| `--token-stdin` | boolean | `false` | GitHub only: read the token from the first line of stdin, so it never reaches argv, the daily log or a prompt. Required for a GitHub check. A blank line is refused and nothing is written |
+| `--expected-handle` | string |  | Handle or login you expect this secret to sign in as (a leading @ is dropped). When the platform signs in as someone else, the outcome is wrong_account |
+| `--platform` | string |  | Platform scope for `blowhorn profile`. One of: bluesky, linkedin, reddit, slack, x, youtube, all (`all` means every platform listed here) |
+| `--pace` | string |  | Accepted by `blowhorn profile verify` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
+| `--risk-profile` | string |  | Accepted by `blowhorn profile verify` because `--risk-profile` is a global flag, but this command does no gated work -- no Risk Profile hold, cap or pace applies to it -- so the value changes nothing about how it runs. A value after the command word wins over one before it; an unrecognized value is rejected before anything runs |
+
+Also takes the [shared flags](/docs/reference/cli/shared-flags/): `--config`, `--log-dir`, `--profile`, `--exclude`, `--headless`, `--chrome-launch`, `--headed`, `--dry-run`, `--verbose`.
+
+Examples:
+
+```bash
+printf '%s\n' "$APP_PASSWORD" | blowhorn profile verify --platform bluesky --handle alice.bsky.social --app-password-stdin --json
+printf '%s\n' "$GH_TOKEN" | blowhorn profile verify --platform github --token-stdin --json
+printf '%s\n' "$APP_PASSWORD" | blowhorn profile verify --platform bluesky --handle alice.bsky.social --app-password-stdin --expected-handle alice.bsky.social --json
 ```
 
 Output: json with `--json`, text otherwise.
