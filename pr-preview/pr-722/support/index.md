@@ -9,11 +9,11 @@ the exit code and the first words of the error; leave out credentials,
 session files and anything from your Google Chrome profile directories. A
 security problem goes to security@blowhorn.ai, never a public issue.
 
-The contact form stores your reason and response preference in the support queue. A fix-update preference is a request to the team, not an automatic notification.
+The contact form stores your reason and response preference in the support queue.
 
 ## Let your AI help with the details
 
-Help me prepare a Blowhorn support inquiry. Ask what I expected, what happened, and whether I want no response, a reply or a fix update. Name is optional; do not infer my identity.
+Help me prepare a Blowhorn support inquiry. Ask what I expected, what happened, and whether I want an anonymous submission or an email response. Name is optional; do not infer my identity.
 
 For a technical problem, inspect the installed CLI help first. Gather Blowhorn version, OS/version, architecture, exit code and a short error summary. If supported, preview queued failure reports locally with `blowhorn diagnostics show --json`. Do not send them. Inspect only a relevant report I approve.
 

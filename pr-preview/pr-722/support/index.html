@@ -24,7 +24,7 @@
     <link rel="icon" href="/pr-preview/pr-722/favicon.ico" sizes="32x32">
     <link rel="icon" href="/pr-preview/pr-722/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/pr-preview/pr-722/assets/brand/logo/blowhorn-apple-touch-icon-180.png">
-<link rel="stylesheet" href="/pr-preview/pr-722/css/site.min.1e7327e6d31c2427d1c85f8d2e6537cf76ffe3cf3245248f542bce165d55203d.css">
+<link rel="stylesheet" href="/pr-preview/pr-722/css/site.min.8fcbd64008fd220c3a0d9ac017f719ff1e3777c96940bd47753ba3f0b9b875ba.css">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Blowhorn">
@@ -213,13 +213,13 @@
               <form class="support-form" name="support" method="post" action="https://api.blowhorn.ai/api/support">
   <p class="support-form-field">
     <label for="support-reason">What brings you here?</label>
-    <select id="support-reason" name="reason">
+    <span class="support-select"><select id="support-reason" name="reason">
       <option value="feedback" selected>Share feedback</option>
       <option value="issue">Report a problem</option>
       <option value="product">Ask about the product</option>
       <option value="pricing">Pricing or licensing</option>
       <option value="connect">Get in touch</option>
-    </select>
+    </select></span>
   </p>
   <p class="support-form-field">
     <label for="support-message">Your message</label>
@@ -227,11 +227,10 @@
   </p>
   <p class="support-form-field">
     <label for="support-contact">Would you like a response?</label>
-    <select id="support-contact" name="contact_preference" aria-describedby="support-contact-note">
-      <option value="anonymous" selected>Send anonymously</option>
-      <option value="reply">Yes, reply to me</option>
-      <option value="fix-update">Fix update by email</option>
-    </select>
+    <span class="support-select"><select id="support-contact" name="contact_preference" aria-describedby="support-contact-note">
+      <option value="anonymous" selected>No, send anonymously</option>
+      <option value="reply">Yes, respond to me</option>
+    </select></span>
     <span id="support-contact-note" class="caption muted">Anonymous means no name or email is saved. The service still receives your IP address. Leave identifying details out of your message.</span>
   </p>
   <div class="support-form-pair" data-support-contact-fields>
@@ -246,12 +245,8 @@
     </p>
   </div>
   <details class="support-extra">
-    <summary>Add a subject or diagnostics <span class="muted">(optional)</span></summary>
+    <summary>Add diagnostics <span class="muted">(optional)</span></summary>
     <div class="support-extra-fields">
-      <p class="support-form-field">
-        <label for="support-subject">Subject</label>
-        <input type="text" id="support-subject" name="subject" maxlength="199" placeholder="Defaults to your reason for reaching out">
-      </p>
       <p class="support-form-field">
         <label for="support-details">Error or diagnostic summary</label>
         <textarea id="support-details" name="details" rows="3" maxlength="5000" placeholder="Blowhorn version, operating system, exit code and the error's first words. No passwords, tokens, cookies or Chrome profile files."></textarea>
@@ -296,7 +291,7 @@
       <span class="term-copy-text">Copy</span>
     </button>
   </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">Help me prepare a Blowhorn support inquiry. Ask what I expected, what happened, and whether I want no response, a reply or a fix update. Name is optional; do not infer my identity.
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">Help me prepare a Blowhorn support inquiry. Ask what I expected, what happened, and whether I want an anonymous submission or an email response. Name is optional; do not infer my identity.
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">For a technical problem, inspect the installed CLI help first. Gather Blowhorn version, OS/version, architecture, exit code and a short error summary. If supported, preview queued failure reports locally with <span class="sb">`blowhorn diagnostics show --json`</span>. Do not send them. Inspect only a relevant report I approve.
 </span></span><span class="line"><span class="cl">
