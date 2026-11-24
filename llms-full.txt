@@ -1493,7 +1493,7 @@ url: https://blowhorn.ai/docs/reference/index.md
 description: Look it up: the app, the platforms, the commands, and every message.
 --------------------------------------------------------------------------------
 
-Reference pages describe the machinery as it is: system requirements, the app screen by screen, what Blowhorn does on each platform, the content queue, jobs, the command reference, the MCP server, profiles, settings, messages and exit codes, extension permissions, plans and limits, release notes, and where to get help.
+Reference pages describe the machinery as it is: system requirements, the app and the Chrome extension at a glance, what Blowhorn does on each platform, the content queue, jobs, the command reference, the MCP server, profiles, settings, messages and exit codes, extension permissions, plans and limits, release notes, and where to get help.
 
 The [command reference](/docs/reference/cli/) is generated from the app itself, so it always matches the build you run.
 
@@ -3408,6 +3408,7 @@ and do not change.
 
 ## Related
 
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel and its layout.
 - [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/) - which
   Chrome profile each Blowhorn profile belongs to.
 - [Chrome reference](/docs/reference/chrome/) - the flags, the files, and
@@ -11818,6 +11819,7 @@ so.
 
 ## Related
 
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel layout when nothing is running.
 - [Chrome extension permissions](/docs/reference/extension-permissions/) - what
   the side panel permission allows.
 - [Fix the Chrome extension connection](/docs/how-to/troubleshoot/extension-connection/)
@@ -12456,6 +12458,7 @@ skipped and its activities stay queued.
 
 ## Related
 
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel and its layout.
 - [Choose how Blowhorn reaches Chrome](/docs/how-to/settings/launch-mode/) - run under another mode instead
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - start from a symptom instead
 - [Keep posting when the app is closed](/docs/how-to/schedule/background-service/) - stop a pass cleanly before retrying
@@ -13418,19 +13421,19 @@ console's main areas.
   <figcaption>The console layout, from the Blowhorn design file. The app may differ in small details.</figcaption>
 </figure>
 
-1. **Window controls.** Close, hide and resize, as in any Mac app.
-2. **The rail.** The column on the left: the places you can go, this computer's
-   duty switch and your account button.
-3. **The screen toolbar.** The screen's tabs, filters and search.
-4. **The main area.** The screen's list, table, calendar or cards.
-5. **Details window.** Clicking a row opens its details over the screen.
-6. **The footer.** A status line at the bottom of some screens.
-7. **The New order button.** The round **+** in the lower right of every
-   screen.
-8. **The dimmed layer.** The screen dims behind an open window, such as New
-   order. It is not drawn in the sketch.
-9. **The notice line.** Appears under the toolbar only when something needs
-   you, such as an outage.
+- **1. Window controls.** Close, hide and resize, as in any Mac app.
+- **2. The rail.** The column on the left: the places you can go, this computer's
+  duty switch and your account button.
+- **3. The screen toolbar.** The screen's tabs, filters and search.
+- **4. The main area.** The screen's list, table, calendar or cards.
+- **5. Details window.** Clicking a row opens its details over the screen.
+- **6. The footer.** A status line at the bottom of some screens.
+- **7. The New order button.** The round **+** in the lower right of every
+  screen.
+- **8. The dimmed layer.** The screen dims behind an open window, such as New
+  order. It is not drawn in the sketch.
+- **9. The notice line.** Appears under the toolbar only when something needs
+  you, such as an outage.
 
 ## The menu bar and the popover
 
@@ -13750,6 +13753,64 @@ again** resumes the same case. See
 - [Reviewed support packages](/docs/reference/support-packages/) - what a support package holds.
 - [How Blowhorn works](/docs/explanation/how-it-works/) - app, engine, extension and store.
 - [Install the app](/docs/how-to/set-up/install-the-app/) - get the app onto a Mac.
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel, its layout, and the toolbar button.
+
+
+--------------------------------------------------------------------------------
+title: "The Chrome extension, at a glance"
+url: https://blowhorn.ai/docs/reference/use-the-chrome-extension/index.md
+description: What the Blowhorn side panel is for, how its layout is arranged, and links to install, permissions, and troubleshooting.
+--------------------------------------------------------------------------------
+
+
+The Blowhorn extension is how Blowhorn works in your Google Chrome. It opens as
+a side panel on the right of the window. It shows what Blowhorn is doing in this
+Chrome and gives you the controls to pause, stop, or take over. It does not add
+anything to the pages themselves.
+
+Install and setup are in [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/).
+What the extension may do is in [Chrome extension permissions](/docs/reference/extension-permissions/).
+If the panel cannot reach the app, see [Fix the Chrome extension connection](/docs/how-to/troubleshoot/extension-connection/).
+
+## At a glance
+
+Click the Blowhorn button in Chrome's toolbar to open the side panel. If you do
+not see the button, open the Extensions menu (the puzzle piece) and pin Blowhorn.
+
+<figure class="docs-figure">
+  <a href="/assets/docs/chrome-extension/extension-layout-annotated.webp"><img src="/assets/docs/chrome-extension/extension-layout-annotated.webp" alt="A Google Chrome window with the Blowhorn side panel open on the right. Numbered callouts mark 1 the Blowhorn toolbar button, 2 the Idle status pill, 3 the run area, and 5 the This Chrome profile section. The tab is empty." width="1600" height="1156" loading="lazy" decoding="async"></a>
+  <figcaption>The side panel, docked on the right of a Chrome window. Numbers match the list below. Shown with the Blowhorn app not connected yet, so the toolbar button is grey and the profile section asks you to install the app.</figcaption>
+</figure>
+
+- **1. The toolbar button.** Opens and closes the side panel. When Blowhorn needs you, the button shows **!**.
+- **2. The status pill.** **Idle** when nothing is running. During a run it reads **Working**, **Paused**, **Needs you**, **You have control**, **Stopped**, or **Ended**.
+- **3. The run area.** When Blowhorn is idle, it says "Blowhorn's work in this Chrome shows here." During a run it lists the task, the site, and each step. It never shows what was typed.
+- **4. Run controls.** These appear during a run, so they are not in this figure: **Pause** and **Resume**, **Stop**, **Take over** and **Give back**, and **Show me**. How to use them is in [Watch, pause or take over a run in Chrome](/docs/how-to/manage/watch-and-take-over-a-run/).
+- **5. This Chrome profile.** Whether this Chrome profile is linked and ready. Here it reads "Blowhorn needs its app on your Mac," with a setup guide link and **Download the Blowhorn app**. When the app is connected, this section tells you whether the profile is ready, or asks you to map it.
+
+## The toolbar button
+
+<figure class="docs-figure">
+  <a href="/assets/docs/chrome-extension/toolbar-button.webp"><img src="/assets/docs/chrome-extension/toolbar-button.webp" alt="The right side of Chrome's toolbar, showing the star, the grey Blowhorn button, the Extensions puzzle piece, a separator, the profile button, and the Chrome menu." width="700" height="113" loading="lazy" decoding="async"></a>
+  <figcaption>The Blowhorn button in Chrome's toolbar, to the left of the Extensions puzzle piece. It is grey while the app is not connected.</figcaption>
+</figure>
+
+## The side panel when idle
+
+<figure class="docs-figure docs-figure--narrow">
+  <a href="/assets/docs/chrome-extension/sidepanel-idle.webp"><img src="/assets/docs/chrome-extension/sidepanel-idle.webp" alt="The Blowhorn side panel in the Idle state. The run area says Blowhorn's work in this Chrome shows here. The This Chrome profile section says Blowhorn needs its app on your Mac, with a setup guide link and a Download the Blowhorn app button." width="720" height="993" loading="lazy" decoding="async"></a>
+  <figcaption>The side panel when nothing is running, and the Blowhorn app is not connected yet.</figcaption>
+</figure>
+
+## Related
+
+- [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/) - add it in each Chrome profile you post from.
+- [Watch, pause or take over a run in Chrome](/docs/how-to/manage/watch-and-take-over-a-run/) - the controls that appear during a run.
+- [Chrome extension permissions](/docs/reference/extension-permissions/) - what the extension may do.
+- [Fix the Chrome extension connection](/docs/how-to/troubleshoot/extension-connection/) - when the panel cannot reach the app.
+- [Map Blowhorn profiles to Chrome profiles](/docs/how-to/set-up/map-chrome-profiles/) - link a Chrome profile in the app.
+- [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - the desktop app that the extension talks to.
+- [Chrome reference](/docs/reference/chrome/) - launch modes and the extension default.
 
 
 --------------------------------------------------------------------------------
@@ -14893,6 +14954,7 @@ only the tab that asked.
 
 ## Related
 
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel and its layout.
 - [Chrome reference](/docs/reference/chrome/) - install, status, and connection checks.
 - [Platforms](/docs/reference/platforms/) - the sites above, per platform.
 - [Where your data lives](/docs/explanation/your-data/) - what the extension reads and where it goes.
@@ -16124,6 +16186,7 @@ can run side by side. See [You're in control](/docs/explanation/youre-in-control
 
 ## Related
 
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel and its layout.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
 - [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/) - install it.
 

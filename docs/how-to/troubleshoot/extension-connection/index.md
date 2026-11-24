@@ -110,6 +110,7 @@ skipped and its activities stay queued.
 
 ## Related
 
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel and its layout.
 - [Choose how Blowhorn reaches Chrome](/docs/how-to/settings/launch-mode/) - run under another mode instead
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - start from a symptom instead
 - [Keep posting when the app is closed](/docs/how-to/schedule/background-service/) - stop a pass cleanly before retrying

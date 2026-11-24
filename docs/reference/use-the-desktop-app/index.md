@@ -18,19 +18,19 @@ console's main areas.
   <figcaption>The console layout, from the Blowhorn design file. The app may differ in small details.</figcaption>
 </figure>
 
-1. **Window controls.** Close, hide and resize, as in any Mac app.
-2. **The rail.** The column on the left: the places you can go, this computer's
-   duty switch and your account button.
-3. **The screen toolbar.** The screen's tabs, filters and search.
-4. **The main area.** The screen's list, table, calendar or cards.
-5. **Details window.** Clicking a row opens its details over the screen.
-6. **The footer.** A status line at the bottom of some screens.
-7. **The New order button.** The round **+** in the lower right of every
-   screen.
-8. **The dimmed layer.** The screen dims behind an open window, such as New
-   order. It is not drawn in the sketch.
-9. **The notice line.** Appears under the toolbar only when something needs
-   you, such as an outage.
+- **1. Window controls.** Close, hide and resize, as in any Mac app.
+- **2. The rail.** The column on the left: the places you can go, this computer's
+  duty switch and your account button.
+- **3. The screen toolbar.** The screen's tabs, filters and search.
+- **4. The main area.** The screen's list, table, calendar or cards.
+- **5. Details window.** Clicking a row opens its details over the screen.
+- **6. The footer.** A status line at the bottom of some screens.
+- **7. The New order button.** The round **+** in the lower right of every
+  screen.
+- **8. The dimmed layer.** The screen dims behind an open window, such as New
+  order. It is not drawn in the sketch.
+- **9. The notice line.** Appears under the toolbar only when something needs
+  you, such as an outage.
 
 ## The menu bar and the popover
 
@@ -350,4 +350,5 @@ again** resumes the same case. See
 - [Reviewed support packages](/docs/reference/support-packages/) - what a support package holds.
 - [How Blowhorn works](/docs/explanation/how-it-works/) - app, engine, extension and store.
 - [Install the app](/docs/how-to/set-up/install-the-app/) - get the app onto a Mac.
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel, its layout, and the toolbar button.
 

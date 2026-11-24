@@ -86,6 +86,7 @@ only the tab that asked.
 
 ## Related
 
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel and its layout.
 - [Chrome reference](/docs/reference/chrome/) - install, status, and connection checks.
 - [Platforms](/docs/reference/platforms/) - the sites above, per platform.
 - [Where your data lives](/docs/explanation/your-data/) - what the extension reads and where it goes.
