@@ -1697,6 +1697,13 @@ body { background: var(--surface); }
 /* Docs: the sidebar search field and code blocks get the same quiet glass. */
 .td-search__input { background: var(--glass-field); border-color: var(--line-strong); color: var(--ink); }
 .docs-main pre, .card pre { background: var(--glass-field); box-shadow: inset 0 0 0 1px var(--glass-edge); }
+/* Docs figures: screenshots and design exports on reference pages (#746).
+   The image keeps its own aspect ratio and shrinks to the column; the caption
+   reads as a quiet note under it. */
+.docs-main .docs-figure { margin: var(--space-6) 0; }
+.docs-main .docs-figure img { width: 100%; height: auto; border-radius: var(--radius-md); box-shadow: 0 0 0 1px var(--line); }
+.docs-main .docs-figure--narrow { max-width: 380px; }
+.docs-main .docs-figure figcaption { margin-top: var(--space-2); font-size: 0.875rem; line-height: 1.45; color: var(--ink-muted); }
 
 /* Search results overlay text, so they sit on the strong fill. */
 .td-offline-search-results { background: var(--glass-fill-strong); -webkit-backdrop-filter: blur(28px) saturate(var(--glass-saturate)); backdrop-filter: blur(28px) saturate(var(--glass-saturate)); }

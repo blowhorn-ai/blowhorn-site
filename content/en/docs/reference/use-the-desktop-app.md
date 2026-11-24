@@ -8,7 +8,34 @@ weight: 211
 What each part of the Blowhorn desktop app shows and does. This page
 describes; the steps live in the how-to guides linked under Related.
 
+## The app at a glance
+
+The Blowhorn app has two parts: a small popover that opens from its icon in the
+menu bar, and a full window called the console. The sketch below is the
+console's layout from Blowhorn's design file. Each number marks one area, and the
+list under it says what that area is for.
+
+<figure class="docs-figure">
+  <a href="/assets/docs/desktop-app/desktop-app-layout-annotated.webp"><img src="/assets/docs/desktop-app/desktop-app-layout-annotated.webp" alt="Layout sketch of the Blowhorn console window with numbered callouts: 1 window controls, 2 the rail on the left, 3 the screen toolbar, 4 the main area, 5 a details window, 6 the footer, 7 the New order button, 9 the notice line." width="1600" height="1095" loading="lazy" decoding="async"></a>
+  <figcaption>The console layout, from the Blowhorn design file. Labels in the sketch are design notes; the list below explains each numbered area.</figcaption>
+</figure>
+
+- **1. Window controls.** The red, yellow and green buttons close, hide and resize the window, as in any Mac app.
+- **2. The rail.** The column on the left. It holds the Blowhorn logo, the places you can go, the duty switch for this computer and your account button at the bottom.
+- **3. The screen toolbar.** The row across the top of each screen, with that screen's tabs, filters and search.
+- **4. The main area.** Where the screen's list, table, calendar or cards appear. It scrolls on its own.
+- **5. Details window.** Clicking a row opens its details in a window over the screen, so the list keeps its full width.
+- **6. The footer.** A single line at the bottom of some screens, such as how often sessions are checked.
+- **7. The New order button.** The round **+** in the lower right of every screen. It starts a new post or other order.
+- **8. The dimmed layer.** When a window such as New order opens, the screen behind it dims. It is not drawn in this sketch.
+- **9. The notice line.** One line under the toolbar that appears only when something needs you, such as an outage.
+
 ## The menu bar and the popover
+
+<figure class="docs-figure docs-figure--narrow">
+  <a href="/assets/docs/desktop-app/popover.webp"><img src="/assets/docs/desktop-app/popover.webp" alt="The Blowhorn menu bar popover showing the header with help, settings and quit icons, three stats, the New order button, NEXT UP with three items, RECENTLY DONE with three posts, the This computer and Fleet duty switches, and the Open console button." width="760" height="876" loading="lazy" decoding="async"></a>
+  <figcaption>The popover, opened from the Blowhorn icon in the menu bar. From the top: the header, three stats, <strong>New order</strong>, <strong>NEXT UP</strong>, <strong>RECENTLY DONE</strong>, the duty switches and <strong>Open console</strong>. Shown with demo data.</figcaption>
+</figure>
 
 Blowhorn lives in the menu bar. Opening it shows the popover, top to bottom:
 
@@ -21,6 +48,11 @@ Blowhorn lives in the menu bar. Opening it shows the popover, top to bottom:
 - **RECENTLY DONE:** the three newest posts that went out in the last seven days, newest first, from the Content queue (its **Sent** tab). **↗** opens the item's proof link in Google Chrome. An item with no proof link opens in Content. Until the popover has read the queue it shows a placeholder line, and if the read fails it says it can't read what went out, never that nothing went out. Home's **Recent activity** lists every run Blowhorn recorded, so it can show runs that have no post in the queue behind them.
 - **Duty:** **This computer ›** and **Fleet ›**, each with its switch. A switch shows its state by its knob alone. The name opens that screen.
 - **Open console**, and, when there is one, an update card.
+
+<figure class="docs-figure docs-figure--narrow">
+  <a href="/assets/docs/desktop-app/popover-off-duty-design.webp"><img src="/assets/docs/desktop-app/popover-off-duty-design.webp" alt="Design of the popover while this computer is off duty: an OFF DUTY board says what holds this computer and lists four waiting items, above RECENTLY DONE and the duty switches." width="760" height="1098" loading="lazy" decoding="async"></a>
+  <figcaption>The popover while this computer is off duty, from the Blowhorn design file. The <strong>OFF DUTY</strong> board takes the place of <strong>NEXT UP</strong> and says what is holding this computer and what is waiting. Small details in the app may differ from the design.</figcaption>
+</figure>
 
 A notice line sits under the header when something needs you: a store outage, a fleet state that cannot be read, or a refused pause. The popover never offers Check now, a countdown or a timer. Its stats and lists refresh when the popover opens and when main pushes a change.
 
@@ -59,9 +91,14 @@ switching it on again restores it.
 
 ## The console
 
-The console is the full window, reached from the popover. The Blowhorn logo
-at the top of its rail is Home; there is no separate Home item. Below it are
-four places: **Activity**, **Profiles**, **Performance** and **Posture**. The
+<figure class="docs-figure">
+  <a href="/assets/docs/desktop-app/console-home.webp"><img src="/assets/docs/desktop-app/console-home.webp" alt="The Blowhorn console on Home: the rail on the left with Dashboard, Activity, Profiles, Performance and Posture, a duty switch and the account button; in the main area a note from Major Blowhorn, the Fleet card with three computers on duty, and a Your results card; the round plus button in the lower right." width="1400" height="1141" loading="lazy" decoding="async"></a>
+  <figcaption>The console on Home. The rail on the left lists the places, with this computer&#39;s duty switch and your account at the bottom. The <strong>Fleet</strong> card shows every computer and its duty switch. The round <strong>+</strong> button in the lower right starts a new order. Shown with demo data.</figcaption>
+</figure>
+
+The console is the full window, reached from the popover. Its rail lists five
+places: **Dashboard**, which opens Home, then **Activity**, **Profiles**,
+**Performance** and **Posture**. The
 round **+** button in the lower right of every screen, teal glass unless you
 change the material, is **New order** (⌘N, or New order in the File menu), or **New activity** when Major Blowhorn is off. It opens a field order you fill in
 one step at a time. Only the open step shows its fields; a
@@ -69,6 +106,11 @@ finished step folds to a one-line summary (press it to change it), and the
 steps ahead wait as dim rows. A step that holds what it asks for takes a teal
 check; one you passed empty, such as a skipped landing zone, takes a dashed
 "-". Each step's **Next** moves on.
+
+<figure class="docs-figure">
+  <a href="/assets/docs/desktop-app/console-new-order.webp"><img src="/assets/docs/desktop-app/console-new-order.webp" alt="The New order window over the dimmed console, open on step 1 Dispatch to with platform tiles for LinkedIn, X, Reddit, Bluesky, Slack and GitHub, and the later steps From the desk of, The message, Landing zone and When to march waiting below." width="1400" height="1141" loading="lazy" decoding="async"></a>
+  <figcaption>New order is a field order you fill in one step at a time. Here it is open on <strong>Dispatch to</strong>, where you pick the platforms. The steps after it wait as dim rows until you get there.</figcaption>
+</figure>
 
 Press and hold the **+** button for about a third of a second (or press Up arrow
 while it has focus) to fan out shortcuts above it. A click, Enter or Space
@@ -172,6 +214,11 @@ the first time there is something to show: the platforms and desks stacked
 like cards, the message's length (never its words), what landed, and when it
 goes: a field watch shows a set time, and a jump light stands for **On my mark**. When a picked platform has a character limit on record, the message's length carries a meter with a tick at the tightest such limit, and says by how much it runs over. On a narrow window the folded summaries say the same. The line above the
 buttons says what is still missing, or when the order goes out.
+
+<figure class="docs-figure">
+  <a href="/assets/docs/desktop-app/console-activity.webp"><img src="/assets/docs/desktop-app/console-activity.webp" alt="The Activity screen in List view: a toolbar with Filters, List and Calendar, and a table of posts and routines with columns for number, platform, profile, status, when it goes out and a preview." width="1400" height="1141" loading="lazy" decoding="async"></a>
+  <figcaption>Activity in <strong>List</strong> view: every post and routine with its platform, profile, status, when it goes out and a preview. <strong>Calendar</strong> shows the same items by date. Shown with demo data.</figcaption>
+</figure>
 
 The primary button, **Post now** for **On my mark** or **Schedule** for a set
 time (its tooltip gives the platforms x desks count), adds one post to the queue
@@ -381,6 +428,11 @@ changed that item since you loaded it. A finished item (it happened once, or
 gave up after its retries) shows its last time and no next one; giving it a
 new "when" in its editor schedules it again, with its full set of retries.
 
+<figure class="docs-figure">
+  <a href="/assets/docs/desktop-app/console-performance.webp"><img src="/assets/docs/desktop-app/console-performance.webp" alt="The Performance screen: filters for time, profiles and platforms, a bar chart of activity by platform over 30 days, and a table of what each profile did over the last 30 days." width="1400" height="1141" loading="lazy" decoding="async"></a>
+  <figcaption>Performance shows how much went out on each platform and what each profile did over the last 30 days. Shown with demo data.</figcaption>
+</figure>
+
 The Performance screen states how fresh its numbers are behind the `?` in its
 header and has no refresh control of its own: it polls every 60 seconds, the debrief's
 rows included. Its activity heatmap has one row per
@@ -390,6 +442,11 @@ as a row. The History view reaches each item's detailed log through the
 log directory listing, which includes each capture file and its rollover.
 The this computer screen is the visible face of `blowhorn service`: it reports the
 service the app registered and never installs, updates or uninstalls one.
+
+<figure class="docs-figure">
+  <a href="/assets/docs/desktop-app/console-profiles.webp"><img src="/assets/docs/desktop-app/console-profiles.webp" alt="The Profiles screen: tabs for All, Needs you and Excluded, buttons to check and re-authenticate all profiles, and one row per profile with dots for its Chrome profile and each platform, plus when it was last checked." width="1400" height="1141" loading="lazy" decoding="async"></a>
+  <figcaption>Profiles lists one row per profile, with a dot for its Chrome profile and for each platform, and when it was last checked. A gold dot marks something that needs you. Shown with demo data.</figcaption>
+</figure>
 
 The app lists each profile by the name your account holds and reads and
 saves it as the lowercase name every command resolves it to.
@@ -503,6 +560,11 @@ posting to the background service and the keep-running setting; see
 
 Posture opens on its tabs, with **Take leave for the fleet** and **Stop everything**
 beside them; the rail names the screen, so it has no visible title.
+
+<figure class="docs-figure">
+  <a href="/assets/docs/desktop-app/console-posture.webp"><img src="/assets/docs/desktop-app/console-posture.webp" alt="The Posture screen on its Rules tab: a slider with Major Blowhorn at three positions set to Weapons tight, and below it a grid of profiles and platforms showing each one&#39;s preset, such as Safety on, Weapons tight, Weapons free or Warming." width="1400" height="1141" loading="lazy" decoding="async"></a>
+  <figcaption>Posture on its <strong>Rules</strong> tab. The slider sets how carefully Blowhorn works for everyone, and the grid lets you choose a different setting for a platform, a profile, or one profile on one platform. Shown with demo data.</figcaption>
+</figure>
 
 - **Who runs how carefully.** The slider sets the rules of engagement for
   everyone: **Safety on** (slow and careful, in teal blue), **Weapons tight**
