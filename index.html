@@ -23,7 +23,7 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png">
-<link rel="stylesheet" href="/css/site.min.8fcbd64008fd220c3a0d9ac017f719ff1e3777c96940bd47753ba3f0b9b875ba.css">
+<link rel="stylesheet" href="/css/site.min.12f67134349f04687e910ce682bd9f47474c7311b589fa439a0af42f897b1f53.css">
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -1374,17 +1374,17 @@
       <section id="trust" class="section" aria-labelledby="trust-title">
         <div class="wrap">
           <div class="section-head">
-            <p class="label">Trust</p>
-            <h2 id="trust-title" class="display">Yours to keep. Yours to control.</h2>
-            <p class="body-lg muted">Many public voices, one coordinated queue, every action on your own computer.</p>
+            <p class="label">Trust &middot; Risk Profile</p>
+            <h2 id="trust-title" class="display">Your pace, your risk, your call.</h2>
+            <p class="body-lg muted">Many public voices, one coordinated queue, full control over pace and risk on your own computer.</p>
           </div><div class="posture card card-paper section-body" data-posture>
   <fieldset class="posture-control">
-    <legend class="label">Rules of engagement</legend>
+    <legend class="label">Risk Profile</legend>
     <div class="posture-figures">
       <input class="posture-radio visually-hidden" type="radio" name="posture-stop" id="posture-cautious" value="cautious">
       <label class="posture-figure" for="posture-cautious" data-tone="safe">
         <img src="/assets/brand/cast/major-roe-safety-on.webp" alt="" width="320" height="320" loading="lazy">
-        <span class="visually-hidden">Safety on, slow and careful</span>
+        <span class="visually-hidden">Safety on, slow and careful · turtle pace</span>
       </label>
       <input class="posture-radio visually-hidden" type="radio" name="posture-stop" id="posture-standard" value="standard" checked>
       <label class="posture-figure" for="posture-standard" data-tone="live">
@@ -1394,7 +1394,7 @@
       <input class="posture-radio visually-hidden" type="radio" name="posture-stop" id="posture-brisk" value="brisk">
       <label class="posture-figure" for="posture-brisk" data-tone="warn">
         <img src="/assets/brand/cast/major-roe-weapons-free.webp" alt="" width="320" height="320" loading="lazy">
-        <span class="visually-hidden">Weapons free, fast, and more noticeable to the platform</span>
+        <span class="visually-hidden">Weapons free, fast and assertive · rabbit pace</span>
       </label>
     </div>
     <div class="posture-track" aria-hidden="true">
@@ -1406,59 +1406,61 @@
   </fieldset>
   <div class="posture-readouts" aria-live="polite">
     <div class="posture-readout" data-stop="cautious" data-tone="safe">
-      <p class="posture-name"><strong>Safety on</strong><br><span class="muted">slow and careful</span></p>
+      <p class="posture-name"><strong>Safety on</strong><br><span class="muted">slow and careful · turtle pace</span></p>
       <p class="posture-summary">A quarter of each cap, long gaps between actions, quiet nights and no outreach.</p>
-      <details class="posture-dials">
+      <details class="posture-dials" open>
         <summary class="ui">Every dial at Safety on</summary>
         <dl>
+          <div><dt>Wait between actions</dt><dd>15 to 30 minutes, per profile on each platform</dd></div>
+          <div><dt>Daily volume</dt><dd>25% of platform cap</dd></div>
+          <div><dt>Quiet hours</dt><dd>22:00 to 07:00 (local)</dd></div>
+          <div><dt>Challenge pause</dt><dd>Holds that platform for 72 hours</dd></div>
+          <div><dt>Warmup</dt><dd>14 days, caps ramping from day one</dd></div>
           <div><dt>Pace</dt><dd>Slow</dd></div>
-          <div><dt>Share of each cap</dt><dd>25%</dd></div>
-          <div><dt>Between public actions</dt><dd>15 to 30 minutes, per profile on each platform</dd></div>
-          <div><dt>Quiet hours</dt><dd>22:00 to 07:00</dd></div>
           <div><dt>Outreach (follows and invitations)</dt><dd>Off</dd></div>
-          <div><dt>After a CAPTCHA or checkpoint</dt><dd>Holds that platform for 72 hours</dd></div>
-          <div><dt>Retries</dt><dd>None</dd></div>
-          <div><dt>Runs at once</dt><dd>One at a time</dd></div>
+          <div><dt>Retries of scheduled jobs</dt><dd>None</dd></div>
         </dl>
       </details>
     </div>
     <div class="posture-readout" data-stop="standard" data-tone="live">
       <p class="posture-name"><strong>Weapons tight</strong> <span class="posture-default">Default</span><br><span class="muted">normal pace, within the platform&#39;s own limits</span></p>
       <p class="posture-summary">The default. Normal pace and half of each cap, with outreach only where it is established.</p>
-      <details class="posture-dials">
+      <details class="posture-dials" open>
         <summary class="ui">Every dial at Weapons tight</summary>
         <dl>
-          <div><dt>Pace</dt><dd>Normal</dd></div>
-          <div><dt>Share of each cap</dt><dd>50%</dd></div>
+          <div><dt>Wait between actions</dt><dd>Platform default cadence</dd></div>
+          <div><dt>Daily volume</dt><dd>50% of platform cap</dd></div>
           <div><dt>Quiet hours</dt><dd>None</dd></div>
+          <div><dt>Challenge pause</dt><dd>Holds that platform for 24 hours</dd></div>
+          <div><dt>Warmup</dt><dd>7-day ramp (new profiles run Safety on for 14 days)</dd></div>
+          <div><dt>Pace</dt><dd>Normal</dd></div>
           <div><dt>Outreach (follows and invitations)</dt><dd>Only on established platforms</dd></div>
-          <div><dt>After a CAPTCHA or checkpoint</dt><dd>Holds that platform for 24 hours</dd></div>
-          <div><dt>Retries</dt><dd>None</dd></div>
-          <div><dt>Runs at once</dt><dd>Profiles on one platform take turns</dd></div>
+          <div><dt>Retries of scheduled jobs</dt><dd>None</dd></div>
         </dl>
       </details>
     </div>
     <div class="posture-readout" data-stop="brisk" data-tone="warn">
-      <p class="posture-name"><strong>Weapons free</strong><br><span class="muted">fast, and more noticeable to the platform</span></p>
+      <p class="posture-name"><strong>Weapons free</strong><br><span class="muted">fast and assertive · rabbit pace</span></p>
       <p class="posture-summary">The full cap, outreach on and a shorter pause after a challenge. Still never past a platform&#39;s published limit.</p>
-      <details class="posture-dials">
+      <details class="posture-dials" open>
         <summary class="ui">Every dial at Weapons free</summary>
         <dl>
-          <div><dt>Pace</dt><dd>Fast</dd></div>
-          <div><dt>Share of each cap</dt><dd>100%</dd></div>
+          <div><dt>Wait between actions</dt><dd>Immediate (no added delay)</dd></div>
+          <div><dt>Daily volume</dt><dd>100% of platform cap</dd></div>
           <div><dt>Quiet hours</dt><dd>None</dd></div>
+          <div><dt>Challenge pause</dt><dd>Holds that platform for 12 hours</dd></div>
+          <div><dt>Warmup</dt><dd>3-day ramp (new profiles run Safety on for 14 days)</dd></div>
+          <div><dt>Pace</dt><dd>Fast</dd></div>
           <div><dt>Outreach (follows and invitations)</dt><dd>On</dd></div>
-          <div><dt>After a CAPTCHA or checkpoint</dt><dd>Holds that platform for 12 hours</dd></div>
-          <div><dt>Retries</dt><dd>One, never for a sign-in</dd></div>
-          <div><dt>Runs at once</dt><dd>Profiles on one platform may run together</dd></div>
+          <div><dt>Retries of scheduled jobs</dt><dd>One, never for a sign-in</dd></div>
         </dl>
       </details>
     </div>
     <p class="posture-warmup caption muted">New profiles and new computers run Safety on for their first 14 days, caps ramping up, whatever you choose.</p>
   </div>
   <div class="posture-promise">
-    <p class="h4">A hard cap above every stop</p>
-    <p>Blowhorn follows its Field Manual and each platform&#39;s best practices. Every cap sits under Blowhorn&#39;s own ceiling for that platform, and above everything stands a hard cap from the limits the platform itself publishes. No stop, not even Weapons free, pushes past them and puts your accounts at risk. Your own caps can only lower them, never raise them.</p>
+    <p class="h4">Your pace, your risk, your call</p>
+    <p>Blowhorn behaves exactly as you set it; nothing about the setting is ours. Every cap sits under Blowhorn&#39;s own ceiling for that platform, and above everything stands a hard cap from the limits the platform itself publishes. No stop, not even Weapons free, pushes past them and puts your accounts at risk. Your own caps can only lower them, never raise them.</p>
     <p class="posture-links"><a href="/field-manual/">Read the Field Manual</a><a href="/docs/how-to/settings/choose-your-rules-of-engagement/">Choose your rules of engagement</a></p>
     <p class="caption muted">A preview: moving it here changes nothing. Choose yours on the Posture screen in the app.</p>
   </div>
@@ -1466,8 +1468,8 @@
 
           <ul class="grid grid-2 section-body">
             <li class="card card-field">
-              <h3 class="h3">Human pace, always</h3>
-              <p>Blowhorn works at a pace you choose and never solves a CAPTCHA for you. <a href="/docs/explanation/reliability-and-anti-bot-design/">Will I get banned?</a></p>
+              <h3 class="h3">Will I get banned?</h3>
+              <p>Your Risk Profile sets the pace, caps and quiet hours, and Blowhorn never solves a CAPTCHA for you. <a href="/docs/explanation/youre-in-control/#will-i-get-banned">You're in control</a> &middot; <a href="/docs/reference/configuration/#risk-profile-presets">Risk Profile presets</a></p>
             </li>
             <li class="card card-plain">
               <h3 class="h3">Never twice</h3>

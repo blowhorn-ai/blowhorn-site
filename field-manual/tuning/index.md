@@ -41,5 +41,5 @@ blowhorn config set defaults.pace slow      # human typing, longer random pauses
 3. On a CAPTCHA, a checkpoint or a restriction page, stop and hand control to the human. Don't retry.
 4. Treat a drop in reach after an amplify as a warning. Pause that platform and tell the human.
 
-Risk Profile presets that set these dials together are coming soon ([You're in control](/docs/explanation/youre-in-control/)).
+Risk Profile presets set these dials together ([You're in control](/docs/explanation/youre-in-control/), [Configuration](/docs/reference/configuration/#risk-profile-presets)).
 
