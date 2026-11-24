@@ -2,18 +2,21 @@
 
 Build and tool output goes to a log under RUNNER_TEMP that is never printed,
 uploaded or cached. The only stdout is fixed labels, the exit status, the
-duration, and (on success) the manifest sha256 and size. Commands run without
-the runner's file-command variables.
+duration, phase and notarization progress lines that timed_run.progress_line
+allows, and (on success) the manifest sha256 and size. Commands run without
+the runner's file-command variables. The build is killed after
+--timeout-minutes so a hang fails with a clear message before the job times out.
 """
 
 from __future__ import annotations
 
 import argparse
 import os
-import subprocess
 import sys
-import time
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import timed_run  # noqa: E402
 
 FILE_COMMANDS = frozenset({"GITHUB_ENV", "GITHUB_OUTPUT", "GITHUB_PATH", "GITHUB_STATE", "GITHUB_STEP_SUMMARY"})
 MAKE_STATE = frozenset({"MAKEFLAGS", "MAKELEVEL", "MFLAGS", "MAKEOVERRIDES"})
@@ -44,6 +47,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--log", required=True, type=Path)
     parser.add_argument("--version", required=True)
     parser.add_argument("--mode", required=True, choices=("adhoc", "developer-id"))
+    parser.add_argument("--timeout-minutes", type=float, default=100.0)
     args = parser.parse_args(argv)
 
     product = args.product.resolve()
@@ -64,19 +68,25 @@ def main(argv: list[str] | None = None) -> int:
         "--skip-checks",
     ]
     print(f"build-dmg: starting ({args.mode})", flush=True)
-    started = time.monotonic()
-    with log.open("wb") as sink:
-        result = subprocess.run(cmd, cwd=product / "desktop", env=child_env(), stdout=sink, stderr=subprocess.STDOUT)
-    elapsed = int(time.monotonic() - started)
-    if result.returncode != 0:
-        print(f"build-dmg: failed (exit {result.returncode}, {elapsed}s). Run the same --build-dmg-only command in a local checkout to see why.", flush=True)
-        return result.returncode
+    status, elapsed, timed_out = timed_run.run_logged(
+        cmd,
+        label="build",
+        log=log,
+        timeout_s=args.timeout_minutes * 60,
+        cwd=product / "desktop",
+        env=child_env(),
+    )
+    if timed_out:
+        print(f"build-dmg: failed (timed out after {elapsed}s; the last phase line above shows where). Run the same --build-dmg-only command in a local checkout to see why.", flush=True)
+        return status
+    if status != 0:
+        print(f"build-dmg: failed (exit {status}, {elapsed}s). Run the same --build-dmg-only command in a local checkout to see why.", flush=True)
+        return status
 
     manifest_path = product / "desktop" / "release-prod" / "build-dmg-manifest.json"
     if not manifest_path.is_file():
         print("build-dmg: succeeded but the result manifest is missing", flush=True)
         return 1
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
     from manifest import parse_manifest
 
     manifest = parse_manifest(manifest_path.read_text())

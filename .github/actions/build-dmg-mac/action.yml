@@ -37,6 +37,7 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
+        echo "build-dmg: [$(date -u +%Y-%m-%dT%H:%M:%SZ)] toolchain: start"
         if ! command -v rustup >/dev/null 2>&1; then
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none
         fi
@@ -48,6 +49,25 @@ runs:
         # target add runs in that directory so rustup attaches the macOS
         # targets to the pin, not to whatever default toolchain the runner has.
         (cd product/engine/rust && rustup toolchain install && rustup target add aarch64-apple-darwin x86_64-apple-darwin)
+        toolchain="$(cd product/engine/rust && rustc --version)"
+        echo "RUST_TOOLCHAIN_ID=${toolchain// /-}" >> "$GITHUB_ENV"
+        echo "build-dmg: [$(date -u +%Y-%m-%dT%H:%M:%SZ)] toolchain: end ($toolchain)"
+
+    # Registry and git sources only, keyed on the lockfile and the exact
+    # toolchain. The target directory is not cached: with
+    # BLOWHORN_BUILD_CLEANUP=1 the product deletes engine/rust/target after the
+    # engine phase to fit the 14 GB macos-latest disk, so a target cache would
+    # save nothing and restoring it would eat that disk.
+    - name: Cache cargo registry and git sources
+      uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+      with:
+        path: |
+          ~/.cargo/registry/index
+          ~/.cargo/registry/cache
+          ~/.cargo/git/db
+        key: build-dmg-cargo-${{ runner.os }}-${{ runner.arch }}-${{ env.RUST_TOOLCHAIN_ID }}-${{ hashFiles('product/engine/rust/Cargo.lock') }}
+        restore-keys: |
+          build-dmg-cargo-${{ runner.os }}-${{ runner.arch }}-${{ env.RUST_TOOLCHAIN_ID }}-
 
     - name: Import the temporary signing keychain
       if: inputs.mode == 'developer-id'
@@ -66,13 +86,19 @@ runs:
         # shellcheck disable=SC1091
         source "$RUNNER_TEMP/blowhorn-signing/env.sh"
         mkdir -p "$RUNNER_TEMP/build-dmg"
-        if ! product/desktop/scripts/ci-import-signing-keychain.sh \
+        # A healthy import takes seconds. The limit turns a hang (as in run
+        # 45483241102, which sat here for its whole 120-minute job) into a
+        # clear failure within minutes.
+        if ! python3 .github/scripts/build-dmg/timed_run.py \
+          --label "keychain import" \
+          --timeout-minutes 5 \
+          --log "$RUNNER_TEMP/build-dmg/import.log" \
+          -- product/desktop/scripts/ci-import-signing-keychain.sh \
           --p12 "$SIGNING_P12" \
           --passphrase-file "$SIGNING_PASSPHRASE_FILE" \
           --p8 "$SIGNING_P8" \
           --keychain "$SIGNING_KEYCHAIN" \
-          --password-file "$SIGNING_KEYCHAIN_PASSWORD_FILE" \
-          >"$RUNNER_TEMP/build-dmg/import.log" 2>&1; then
+          --password-file "$SIGNING_KEYCHAIN_PASSWORD_FILE"; then
           echo "signing keychain import failed. Run ci-import-signing-keychain.sh in a local checkout to see why."
           exit 1
         fi
@@ -95,11 +121,15 @@ runs:
           # shellcheck disable=SC1091
           source "$RUNNER_TEMP/blowhorn-signing/env.sh"
         fi
+        # 100 minutes leaves the 120-minute job room for setup, staging and
+        # keychain teardown, so a hung build reports its last phase instead of
+        # being cut off by the job timeout.
         python3 .github/scripts/build-dmg/run_build.py \
           --product product \
           --log "$RUNNER_TEMP/build-dmg/build.log" \
           --version "$BUILD_VERSION" \
-          --mode "$BUILD_MODE"
+          --mode "$BUILD_MODE" \
+          --timeout-minutes 100
 
     - name: Stage the DMG and the manifest
       shell: bash
