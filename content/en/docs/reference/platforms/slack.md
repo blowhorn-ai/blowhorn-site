@@ -30,6 +30,10 @@ with `--target` sends one message you type, with no activity read or marked
 done, and `--target` redirects the run's queued Slack activities. The target
 is a `#channel`, `@user`, channel id, channel link, or message link for
 a thread reply; anything else is refused, never sent somewhere else.
+A link counts only when it opens on your workspace's own `slack.com`
+address, exactly as Slack's **Copy link** gives it
+(`https://acme.slack.com/archives/C0123/p1776000000000100`). A link to
+another site that only mentions `slack.com` is not a Slack link.
 One profile sends a `post` run, named with `--profile`; the profile from
 the defaults file does not count as named. `blowhorn slack send` can send
 as several profiles (`--profile work,personal`); see the [CLI reference](/docs/reference/cli/).

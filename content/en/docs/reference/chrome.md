@@ -381,7 +381,7 @@ unsupported-flag infobar off.
 | `status` (default) | reads the tree's `Local State`, `DevToolsActivePort` and `SingletonLock`; opens nothing |
 | `signin` | opens the tree with no debugging switch, for the one-time sign-in; quit it after |
 | `start --allow-other-users` | launches Chrome detached with `--remote-debugging-port=0 --remote-debugging-address=127.0.0.1 --disable-blink-features=AutomationControlled --test-type`, then prints the setup steps |
-| `stop` | DevTools `Browser.close`, waits, then `SIGTERM`; signals only the tree's own Chrome, never `SIGKILL` |
+| `stop` | DevTools `Browser.close` (only when the recorded port is proven that Chrome's own loopback port), waits, then `SIGTERM`; signals only a Chrome started on this tree, never `SIGKILL`, and refuses a tree that is a real Chrome's own folder |
 | `install-agent --allow-other-users` | writes and loads `~/Library/LaunchAgents/ai.blowhorn.attach-chrome.plist`, which runs `start` at each login and logs to `data/logs/attach-chrome-agent.*.log` (or `--log-dir`) |
 | `uninstall-agent` | unloads and removes that LaunchAgent; Chrome keeps running |
 

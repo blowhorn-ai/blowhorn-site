@@ -75,7 +75,6 @@ their rules, and automation can still be blocked or sessions broken,
 especially on X. What Blowhorn does is behave like a careful person and
 stop instead of guessing:
 
-- **It follows your Risk Profile.** Your Risk Profile (cautious, standard, or brisk) governs your pace, caps, quiet hours and challenge pauses (see [Risk Profile presets](/docs/reference/configuration/#risk-profile-presets)).
 - **It types and clicks like a person.** Typing arrives key by key with a
   computed delay between keys, actions are separated by random pauses,
   and clicks land at slightly varied points with natural hover and press

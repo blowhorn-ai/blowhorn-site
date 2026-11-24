@@ -87,6 +87,7 @@ and checked against it, so a page says what `--help` says.
 | [`blowhorn config`](/docs/reference/cli/config/) | blowhorn config: get, path, set, show. |
 | [`blowhorn content`](/docs/reference/cli/content/) | blowhorn content: approve, delete, get, list, posts, upsert. |
 | [`blowhorn desktop`](/docs/reference/cli/desktop/) | blowhorn desktop: activity-kinds, build, install, start, status. |
+| [`blowhorn diagnostics`](/docs/reference/cli/diagnostics/) | blowhorn diagnostics: bundle, bundle-preview, case-prepare, case-send. |
 | [`blowhorn find`](/docs/reference/cli/find/) | Search Bluesky and GitHub for posts, issues, and pull requests matching a query, with optional date, author, and relevancy filters. |
 | [`blowhorn follow`](/docs/reference/cli/follow/) | Follow accounts on X, Bluesky, or GitHub. |
 | [`blowhorn github`](/docs/reference/cli/github/) | blowhorn github: squatters. |
@@ -295,7 +296,7 @@ profiles as `send` does), and share `send`'s exit codes.
 See [Slack](/docs/reference/platforms/slack/).
 
 `blowhorn-axi` is the agent interface to those writes, installed next to
-`blowhorn` by `tools/install.sh` ([its reference](/docs/reference/cli/blowhorn-axi/)). It runs `blowhorn slack … --json` and prints TOON
+`blowhorn` by `tools/install.sh` ([its reference](/docs/reference/cli/blowhorn-axi/)). The installed launcher runs the engine binary (`blowhorn axi`); `BLOWHORN_FRONT_DOOR=python`, or no binary, runs the Python module. It runs `blowhorn slack … --json` and prints TOON
 with a `help[]` of next commands: `blowhorn-axi` (home: `count`,
 `session_ready` and each profile's `slack_auth`), `profile list` and
 `profile status` (with `auth.test` session state unless `--offline`),
@@ -461,7 +462,7 @@ blowhorn chrome attach-chrome stop
 blowhorn profile status --chrome
 ```
 
-`service install`, `service update` and `service stop` wait for the label to leave launchd after a bootout - `launchctl bootout` returns before the resident service has exited, and a bootstrap inside that window fails. The wait is bounded (a fixed poll interval times a maximum number of attempts covering a full drain); `stop` prints what it is waiting on and carries `stopped`, `waited_s` and the pass's pid in `--json`, and every one of the three exits 1 rather than bootstrapping over a label that has not gone. Each `launchctl` call is itself bounded at 60 s.
+`service install`, `service update` and `service stop` wait for the label to leave launchd after a bootout - `launchctl bootout` returns before the resident service has exited, and a bootstrap inside that window fails. The wait is bounded (a fixed poll interval times a maximum number of attempts covering a full drain); `stop` prints what it is waiting on and carries `stopped`, `waited_s` and the pass's pid in `--json`, and every one of the three exits 1 rather than bootstrapping over a label that has not gone. `service install` that cannot write its definition file prints one sentence naming the file and exits 1, loading nothing. Each `launchctl` call is itself bounded at 60 s.
 
 For `follow --profile all`, if any `--target` handle matches one of your configured profile handles **on the platform being run**, that profile is auto-excluded to prevent self-targeting. The match is per platform: owning the X handle `yourhandle` says nothing about a GitHub run, which compares against the roster's `GitHub` handle instead. In `--limit 0` target-only mode, `--target` also accepts a comma-delimited list such as `example-handle,another-handle`.
 

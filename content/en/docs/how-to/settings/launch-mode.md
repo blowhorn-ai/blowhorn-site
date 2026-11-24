@@ -149,9 +149,11 @@ too.
   prints what it would do and does nothing.
 - `blowhorn chrome attach-chrome stop` quits that Chrome the way Cmd-Q does
   (DevTools `Browser.close`, so a sign-in it just refreshed is saved), waits,
-  then sends `SIGTERM`. It never force-kills. Use it before `signin` when a
-  site needs signing in again.
-- Starting is refused when the tree is Chrome's own default data directory,
+  then sends `SIGTERM`. It never force-kills, signals only a Chrome started on
+  this tree, and skips `Browser.close` when the recorded port is not that
+  Chrome's own. Use it before `signin` when a site needs signing in again.
+- Starting, signing in and stopping are refused when the tree is Chrome's own
+  data directory (any channel's, or a link to one). Starting is also refused
   when a Chrome with a port is already up there, and while the tree is open
   without debugging (the `signin` window). A `DevToolsActivePort` left by a
   crashed Chrome is cleared, not refused.

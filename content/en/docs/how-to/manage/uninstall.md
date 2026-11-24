@@ -64,7 +64,8 @@ present`, `not unregistered` or `failed`:
    Pass `--bin-dir` if you installed elsewhere. The marked block the
    installer or the app added to your shell startup file (`.zshrc`,
    `.bashrc`, or the fish config) is removed with them, exactly the marked
-   lines and nothing else in the file.
+   lines and nothing else in the file. When that file is a link (into a
+   dotfiles folder, say), the file it points to is edited and the link stays.
 5. **The desktop app.** `Blowhorn.app` first unregisters its own Login Items
    entries, then is removed. A bundle too old to unregister itself is reported
    `not unregistered`, naming the step left to you under System Settings >

@@ -99,7 +99,8 @@ message only when you submit it: a category, your message, and your
 email only if you typed one in, plus the report id only if you left
 "include the failure report" checked. Your message is cleaned the way a
 report's is before it is queued: tokens, passwords, emails, paths, quoted
-names and host names are removed, and it is kept to 2000 characters.
+names and host names are removed. Every sentence you wrote stays, up to
+2000 characters; only a failure report's message is cut to one sentence.
 
 ## Anonymous usage data
 

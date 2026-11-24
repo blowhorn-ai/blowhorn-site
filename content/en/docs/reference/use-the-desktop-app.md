@@ -426,6 +426,34 @@ picture on the Chrome side panel's idle screen; the line under it stays. The
 side panel follows the setting within a few seconds: no reload, and you do not
 need to close and open it again.
 
+## Debug area and support
+
+The account menu's **Debug** item opens the Debug area, open to anyone who
+can reach the console: tells checks, the packages saved on this computer,
+the run and service logs, and the doctor's checks. See [Run a diagnostics
+check with Tells](/docs/how-to/troubleshoot/diagnostics/).
+
+Its **Support** card (from the desktop 2.16.x releases) sends the team a
+diagnostics package without a terminal. **Send diagnostics to support**
+opens a dialog that walks four explicit steps, the same ones the CLI
+commands take:
+
+1. **Build the package** on this computer. Nothing is uploaded.
+2. **Review the exact contents**: every included file and the whole
+   archive's checksum, byte for byte.
+3. **Write the one feedback point**: what brings you here, what happened,
+   and whether the team may respond. **No, send anonymously** sends with
+   no contact identity; **Yes, respond to me** asks for an email
+   (prefilled from the signed-in account) and an optional name.
+4. **Send the case**: one last look at the frozen request, its destination
+   and the package checksum, then the explicit send.
+
+A failed send keeps the private retry state on this computer, so **Try
+again** resumes the same case rather than making a duplicate. Sent, the
+dialog names your case reference; keep it if you write in about the case.
+What the package holds and the matching CLI flow are under [Reviewed
+support packages](/docs/reference/support-packages/).
+
 ## Setup
 
 Setup is the engine checklist the app opens on while its engine is not
@@ -518,6 +546,7 @@ Info buttons stay hidden until you point at their row or tab to them.
 - [Choose your rules of engagement](/docs/how-to/settings/choose-your-rules-of-engagement/) - the Posture screen in practice.
 - [Change your defaults](/docs/how-to/settings/defaults/) - exclusions, logs.
 - [Settings and configuration](/docs/reference/configuration/) - every option the app edits.
+- [Reviewed support packages](/docs/reference/support-packages/) - the Support card's CLI twin and what the package holds.
 - [How Blowhorn works](/docs/explanation/how-it-works/) - app, engine, extension, and store.
 - [You're in control](/docs/explanation/youre-in-control/) - the controls behind pause and Settings.
 - [Install the app](/docs/how-to/set-up/install-the-app/) - get the app onto a Mac.

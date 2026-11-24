@@ -81,6 +81,16 @@ versions, the mode and its driver, the profile and whether it was
 anonymous, and the report exactly as the page produced it -- or why the
 run failed.
 
+## Send a package to the team
+
+A tells package stays on this computer. To hand the team evidence, build a
+support package instead: the desktop app's Debug area has a Support card
+that walks you through it (see [Use the desktop
+app](/docs/reference/use-the-desktop-app/#debug-area-and-support)), and
+`blowhorn diagnostics bundle` does the same from a terminal. You review
+the exact archive before anything is sent. See [Reviewed support
+packages](/docs/reference/support-packages/).
+
 ## Read the logs
 
 In the desktop app, the Debug area's logs section lists the run logs and

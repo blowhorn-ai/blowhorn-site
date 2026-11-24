@@ -281,7 +281,7 @@ tool is marked destructive. A client may use the hint to ask you
 before a destructive call; an additive call still reaches the outside
 world, so it is still a dry run until `confirm` is true.
 
-The additive tools are `accept`, `analytics`,
+The additive tools are `accept`, `analytics`, `diagnostics_bundle`, `diagnostics_case_prepare`, `diagnostics_case_send`,
 `chrome_create_profile`,
 `chrome_extension_enable`, `chrome_open`, `chrome_open_profile`,
 `chrome_remember`,
