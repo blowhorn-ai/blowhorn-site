@@ -3,6 +3,8 @@
 Product intelligence, tips and field notes from the Blowhorn team: how to read your results, schedule well and stay inside every platform's rules.
 
 
+- [What fingerprint and bot-detection checkers measure](https://blowhorn.ai/resources/articles/bot-detection-checkers-compared/) - Free fingerprint pages and commercial bot detectors publish different signals, and their popularity counts do not share one measure. This article lists the signal groups, two dated rankings, a coverage matrix that includes Blowhorn Tells, and the Tells gaps on the public backlog.
+
 - [Getting the most from your Blowhorn subscription](https://blowhorn.ai/resources/articles/getting-the-most-from-your-subscription/) - One thing is metered: voices. Everything else is not. Nineteen ways to lean on that shape, from the General and the rest of the cast.
 
 - [Amazon blocked Meta's Muse. Here is how it knew.](https://blowhorn.ai/resources/articles/how-amazon-detects-muse/) - Twelve days after Meta launched Muse, Amazon cut it off. Amazon never said how it spots the agent, but the evidence points to datacenter traffic, identical browser fingerprints, and behavior, and the Chrome extension changes which signals are left.
