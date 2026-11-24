@@ -37,6 +37,11 @@ not see the button, open the Extensions menu (the puzzle piece) and pin Blowhorn
   <figcaption>The Blowhorn button in Chrome's toolbar, to the left of the Extensions puzzle piece. It is grey while the app is not connected.</figcaption>
 </figure>
 
+<figure class="docs-figure">
+  <a href="/assets/docs/chrome-extension/toolbar-button-connected.webp"><img src="/assets/docs/chrome-extension/toolbar-button-connected.webp" alt="The right side of Chrome's toolbar, showing the star, the full-color Blowhorn button (a teal square with an orange crest and a yellow-and-black horn), the Extensions puzzle piece, a separator, the profile button, and the Chrome menu." width="700" height="113" loading="lazy" decoding="async"></a>
+  <figcaption>The Blowhorn button in Chrome's toolbar, to the left of the Extensions puzzle piece. While the app is connected, it shows the full-color icon: a rounded teal square with an orange crest and a yellow-and-black horn.</figcaption>
+</figure>
+
 ## The side panel when idle
 
 <figure class="docs-figure docs-figure--narrow">
