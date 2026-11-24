@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e237b95ebf4c4e22f6cd155ff10c3423.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.bae397616a5c8ec5af061af69adfe6cb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -477,6 +477,8 @@
     <a href="/docs/reference/cli/content/" title="blowhorn content" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclicontent"><span class="">content</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidesktop-li">
     <a href="/docs/reference/cli/desktop/" title="blowhorn desktop" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidesktop"><span class="">desktop</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidiagnostics-li">
+    <a href="/docs/reference/cli/diagnostics/" title="blowhorn diagnostics" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidiagnostics"><span class="">diagnostics</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifind-li">
     <a href="/docs/reference/cli/find/" title="blowhorn find" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclifind"><span class="">find</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifollow-li">
@@ -541,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
+    <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
     <a href="/docs/reference/api/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreferenceapi"><span class="">API reference</span></a>
   </li>
@@ -664,7 +668,8 @@ not write is kept and says so.
 Pass <code>--bin-dir</code> if you installed elsewhere. The marked block the
 installer or the app added to your shell startup file (<code>.zshrc</code>,
 <code>.bashrc</code>, or the fish config) is removed with them, exactly the marked
-lines and nothing else in the file.</li>
+lines and nothing else in the file. When that file is a link (into a
+dotfiles folder, say), the file it points to is edited and the link stays.</li>
 <li><strong>The desktop app.</strong> <code>Blowhorn.app</code> first unregisters its own Login Items
 entries, then is removed. A bundle too old to unregister itself is reported
 <code>not unregistered</code>, naming the step left to you under System Settings &gt;
@@ -884,7 +889,7 @@ keeps the sign-in you already have.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 24, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/manage/uninstall.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

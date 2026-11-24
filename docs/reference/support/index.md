@@ -15,19 +15,28 @@ If a platform keeps challenging you, the free check at
 your browser. You can also run the `tells` command from a terminal; see
 [Run Blowhorn Tells](/docs/how-to/troubleshoot/run-tells/).
 
-To report a problem, file an issue on the public site repository,
-`blowhorn-ai/blowhorn-site`, with what you ran, what it printed, and what
-you expected. Include the exit code and the first words of the error;
-leave out credentials, session files, and anything from your Google Chrome
-profile directories. For a security problem, do not file a public
-issue: email [security@blowhorn.ai](mailto:security@blowhorn.ai)
-instead, as the site repository's security policy describes.
+To report a problem or share feedback, start with the form at
+[blowhorn.ai/support](https://blowhorn.ai/support/). When the team needs
+evidence from your computer, send a reviewed support package instead: the
+desktop app's Debug area has a Support card that walks you through
+building, reviewing and sending one (see [Use the desktop
+app](/docs/reference/use-the-desktop-app/#debug-area-and-support)), and `blowhorn
+diagnostics bundle` does the same from a terminal. Either way you review
+every byte before anything leaves this computer, and a sent case gets a
+reference you can quote when you write in. See [Reviewed support
+packages](/docs/reference/support-packages/) for the whole flow and what the package
+holds.
+
+For a security problem, do not use the form or a case: email
+[security@blowhorn.ai](mailto:security@blowhorn.ai) instead, as the site
+repository's security policy describes.
 
 Questions about access, organizations, and billing go through your account. See [Plans and limits](/docs/reference/plans/) for what
 early access covers.
 
 ## Related
 
+- [Reviewed support packages](/docs/reference/support-packages/) - collect, review and send a private support package.
 - [Run Blowhorn Tells](/docs/how-to/troubleshoot/run-tells/) - the same check from a terminal, via npm or Homebrew.
 - [Troubleshooting](/docs/how-to/troubleshoot/troubleshooting/) - the troubleshooting index.
 - [Messages and exit codes](/docs/reference/messages/) - every refusal sentence, including store outages.

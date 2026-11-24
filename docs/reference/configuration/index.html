@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e237b95ebf4c4e22f6cd155ff10c3423.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.bae397616a5c8ec5af061af69adfe6cb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -477,6 +477,8 @@
     <a href="/docs/reference/cli/content/" title="blowhorn content" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclicontent"><span class="">content</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidesktop-li">
     <a href="/docs/reference/cli/desktop/" title="blowhorn desktop" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidesktop"><span class="">desktop</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidiagnostics-li">
+    <a href="/docs/reference/cli/diagnostics/" title="blowhorn diagnostics" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidiagnostics"><span class="">diagnostics</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifind-li">
     <a href="/docs/reference/cli/find/" title="blowhorn find" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclifind"><span class="">find</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifollow-li">
@@ -541,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
+    <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
     <a href="/docs/reference/api/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreferenceapi"><span class="">API reference</span></a>
   </li>
@@ -609,6 +613,17 @@ makes the file unreadable, and the warning names it
 which of the two you meant. In a yes/no option, <code>yes</code>, <code>no</code>, <code>on</code> and
 <code>off</code> (in any case) mean yes and no, as they always have, and <code>config show</code> prints them as <code>true</code> and <code>false</code>; in a text option a hand-written
 <code>off</code> or <code>yes</code> is read as that word.</p>
+<p>One list of words reads as on, in every yes/no option and every yes/no
+environment variable, whichever engine reads it: <code>1</code>, <code>true</code>, <code>yes</code>, <code>y</code> and
+<code>on</code>, in any case. Everything else - <code>0</code>, <code>false</code>, <code>no</code>, <code>off</code>, an
+empty value, a number such as <code>2</code>, a word it does not know - reads as off.
+A stored <code>null</code> is no value: <code>config show</code> reports the option's built-in,
+while the failure-report opt-out reads it as off. A variable that is on
+until you set it (<code>BLOWHORN_KEYCHAIN</code>, <code>BLOWHORN_ACCOUNT_PREFERENCES</code>) is
+turned off by any value that is not one of those words; leave it unset or
+empty to keep it on. A few places refuse a word they cannot read rather than
+read it as off (a humanisation dial, a schedule param, the YouTube upload
+flag), and they accept the same on words.</p>
 <p>A merge key (<code>&lt;&lt;: *base</code>) brings its keys in as YAML defines it, the
 mapping's own keys winning. A number with a leading zero is read in base
 eight (<code>retention_days: 010</code> is 8 days) and <code>0o7</code> is a word, not a
@@ -788,7 +803,7 @@ environment variables.</p>
       <td><code>defaults.diagnostics.enabled</code></td>
       <td><code>BLOWHORN_DIAGNOSTICS_ENABLED</code></td>
       <td>on</td>
-      <td>Queue and send anonymous failure reports (see <a href="/docs/explanation/your-data/#failure-reports">Failure reports</a>); off means nothing is queued or sent, and the Send failure reports switch in Posture is the same choice</td>
+      <td>Queue and send anonymous failure reports (see <a href="/docs/explanation/your-data/#failure-reports">Failure reports</a>); off means nothing is queued or sent, and the Send failure reports switch in Posture is the same choice. Only an on word (<code>1</code>, <code>true</code>, <code>yes</code>, <code>y</code> or <code>on</code>, in any case) turns them on; anything else written there (<code>false</code>, <code>0</code>, an empty value) turns them off</td>
     </tr>
     <tr>
       <td><code>defaults.chrome.launch_mode</code></td>
@@ -1210,7 +1225,9 @@ for that platform, or for that profile when it is the <code>Daily Caps</code> at
 are held with the entry named until it is fixed, and <code>config show</code> lists the
 caps as <code>invalid</code> with the reason.</p>
 <h2 id="output-logging">Output logging</h2><p>The daily log is a copy; the terminal streams are never dropped, piped
-or not. The directory resolves as <code>--log-dir</code>, then <code>BLOWHORN_LOG_DIR</code>,
+or not. A line holding text that cannot be written as UTF-8 (a byte that
+was not UTF-8 in an argument, say) is written with that part escaped
+(<code>\udcff</code>), never left out. The directory resolves as <code>--log-dir</code>, then <code>BLOWHORN_LOG_DIR</code>,
 then <code>defaults.logs.directory</code>, then the checkout's <code>data/logs/</code>. That
 directory is the parent. Each signed-in account keeps its own logs under
 <code>accounts/&lt;user id&gt;</code> inside it (the account id, never a name or an email).
@@ -1244,7 +1261,7 @@ per-command flag.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 21, 2026
+  Last modified November 24, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/configuration.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

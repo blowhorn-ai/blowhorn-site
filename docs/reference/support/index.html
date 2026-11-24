@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e237b95ebf4c4e22f6cd155ff10c3423.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.bae397616a5c8ec5af061af69adfe6cb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -477,6 +477,8 @@
     <a href="/docs/reference/cli/content/" title="blowhorn content" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclicontent"><span class="">content</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidesktop-li">
     <a href="/docs/reference/cli/desktop/" title="blowhorn desktop" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidesktop"><span class="">desktop</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidiagnostics-li">
+    <a href="/docs/reference/cli/diagnostics/" title="blowhorn diagnostics" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidiagnostics"><span class="">diagnostics</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifind-li">
     <a href="/docs/reference/cli/find/" title="blowhorn find" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclifind"><span class="">find</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifollow-li">
@@ -541,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
+    <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
     <a href="/docs/reference/api/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreferenceapi"><span class="">API reference</span></a>
   </li>
@@ -605,16 +609,23 @@ If a platform keeps challenging you, the free check at
 <a href="https://tells.blowhorn.ai/">Blowhorn Tells</a> shows what sites can see about
 your browser. You can also run the <code>tells</code> command from a terminal; see
 <a href="/docs/how-to/troubleshoot/run-tells/">Run Blowhorn Tells</a>.</p>
-<p>To report a problem, file an issue on the public site repository,
-<code>blowhorn-ai/blowhorn-site</code>, with what you ran, what it printed, and what
-you expected. Include the exit code and the first words of the error;
-leave out credentials, session files, and anything from your Google Chrome
-profile directories. For a security problem, do not file a public
-issue: email <a href="mailto:security@blowhorn.ai">security@blowhorn.ai</a>
-instead, as the site repository's security policy describes.</p>
+<p>To report a problem or share feedback, start with the form at
+<a href="https://blowhorn.ai/support/">blowhorn.ai/support</a>. When the team needs
+evidence from your computer, send a reviewed support package instead: the
+desktop app's Debug area has a Support card that walks you through
+building, reviewing and sending one (see <a href="/docs/reference/use-the-desktop-app/#debug-area-and-support">Use the desktop
+app</a>), and <code>blowhorn diagnostics bundle</code> does the same from a terminal. Either way you review
+every byte before anything leaves this computer, and a sent case gets a
+reference you can quote when you write in. See <a href="/docs/reference/support-packages/">Reviewed support
+packages</a> for the whole flow and what the package
+holds.</p>
+<p>For a security problem, do not use the form or a case: email
+<a href="mailto:security@blowhorn.ai">security@blowhorn.ai</a> instead, as the site
+repository's security policy describes.</p>
 <p>Questions about access, organizations, and billing go through your account. See <a href="/docs/reference/plans/">Plans and limits</a> for what
 early access covers.</p>
 <h2 id="related">Related</h2><ul>
+<li><a href="/docs/reference/support-packages/">Reviewed support packages</a> - collect, review and send a private support package.</li>
 <li><a href="/docs/how-to/troubleshoot/run-tells/">Run Blowhorn Tells</a> - the same check from a terminal, via npm or Homebrew.</li>
 <li><a href="/docs/how-to/troubleshoot/troubleshooting/">Troubleshooting</a> - the troubleshooting index.</li>
 <li><a href="/docs/reference/messages/">Messages and exit codes</a> - every refusal sentence, including store outages.</li>
@@ -625,7 +636,7 @@ early access covers.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 21, 2026
+  Last modified November 24, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/support.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

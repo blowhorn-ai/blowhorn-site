@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e237b95ebf4c4e22f6cd155ff10c3423.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.bae397616a5c8ec5af061af69adfe6cb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -477,6 +477,8 @@
     <a href="/docs/reference/cli/content/" title="blowhorn content" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclicontent"><span class="">content</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidesktop-li">
     <a href="/docs/reference/cli/desktop/" title="blowhorn desktop" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidesktop"><span class="">desktop</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidiagnostics-li">
+    <a href="/docs/reference/cli/diagnostics/" title="blowhorn diagnostics" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidiagnostics"><span class="">diagnostics</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifind-li">
     <a href="/docs/reference/cli/find/" title="blowhorn find" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclifind"><span class="">find</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifollow-li">
@@ -541,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
+    <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
     <a href="/docs/reference/api/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreferenceapi"><span class="">API reference</span></a>
   </li>
@@ -1034,6 +1038,30 @@ accessibility settings he holds still. The same setting hides the periscope
 picture on the Chrome side panel's idle screen; the line under it stays. The
 side panel follows the setting within a few seconds: no reload, and you do not
 need to close and open it again.</p>
+<h2 id="debug-area-and-support">Debug area and support</h2><p>The account menu's <strong>Debug</strong> item opens the Debug area, open to anyone who
+can reach the console: tells checks, the packages saved on this computer,
+the run and service logs, and the doctor's checks. See <a href="/docs/how-to/troubleshoot/diagnostics/">Run a diagnostics
+check with Tells</a>.</p>
+<p>Its <strong>Support</strong> card (from the desktop 2.16.x releases) sends the team a
+diagnostics package without a terminal. <strong>Send diagnostics to support</strong>
+opens a dialog that walks four explicit steps, the same ones the CLI
+commands take:</p>
+<ol>
+<li><strong>Build the package</strong> on this computer. Nothing is uploaded.</li>
+<li><strong>Review the exact contents</strong>: every included file and the whole
+archive's checksum, byte for byte.</li>
+<li><strong>Write the one feedback point</strong>: what brings you here, what happened,
+and whether the team may respond. <strong>No, send anonymously</strong> sends with
+no contact identity; <strong>Yes, respond to me</strong> asks for an email
+(prefilled from the signed-in account) and an optional name.</li>
+<li><strong>Send the case</strong>: one last look at the frozen request, its destination
+and the package checksum, then the explicit send.</li>
+</ol>
+<p>A failed send keeps the private retry state on this computer, so <strong>Try
+again</strong> resumes the same case rather than making a duplicate. Sent, the
+dialog names your case reference; keep it if you write in about the case.
+What the package holds and the matching CLI flow are under <a href="/docs/reference/support-packages/">Reviewed
+support packages</a>.</p>
 <h2 id="setup">Setup</h2><p>Setup is the engine checklist the app opens on while its engine is not
 ready (otherwise the first muster is the guided setup; see
 <a href="/docs/how-to/set-up/first-muster-setup/">Set up Blowhorn at first muster</a>),
@@ -1116,6 +1144,7 @@ row that opens its details in a window; the failure reports switch is in the sig
 <li><a href="/docs/how-to/settings/choose-your-rules-of-engagement/">Choose your rules of engagement</a> - the Posture screen in practice.</li>
 <li><a href="/docs/how-to/settings/defaults/">Change your defaults</a> - exclusions, logs.</li>
 <li><a href="/docs/reference/configuration/">Settings and configuration</a> - every option the app edits.</li>
+<li><a href="/docs/reference/support-packages/">Reviewed support packages</a> - the Support card's CLI twin and what the package holds.</li>
 <li><a href="/docs/explanation/how-it-works/">How Blowhorn works</a> - app, engine, extension, and store.</li>
 <li><a href="/docs/explanation/youre-in-control/">You're in control</a> - the controls behind pause and Settings.</li>
 <li><a href="/docs/how-to/set-up/install-the-app/">Install the app</a> - get the app onto a Mac.</li>
@@ -1124,7 +1153,7 @@ row that opens its details in a window; the failure reports switch is in the sig
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 21, 2026
+  Last modified November 24, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/use-the-desktop-app.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -1173,6 +1202,7 @@ row that opens its details in a window; the failure reports switch is in the sig
       </ul>
     </li>
     <li><a href="#the-console">The console</a></li>
+    <li><a href="#debug-area-and-support">Debug area and support</a></li>
     <li><a href="#setup">Setup</a></li>
     <li><a href="#settings">Settings</a></li>
     <li><a href="#posture">Posture</a></li>

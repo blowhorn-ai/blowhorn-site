@@ -158,37 +158,38 @@
 - [blowhorn config](https://blowhorn.ai/docs/reference/cli/config/index.md): blowhorn config: get, path, set, show.
 - [blowhorn content](https://blowhorn.ai/docs/reference/cli/content/index.md): blowhorn content: approve, delete, get, list, posts, upsert.
 - [blowhorn desktop](https://blowhorn.ai/docs/reference/cli/desktop/index.md): blowhorn desktop: activity-kinds, build, install, start, status.
+- [blowhorn diagnostics](https://blowhorn.ai/docs/reference/cli/diagnostics/index.md): blowhorn diagnostics: bundle, bundle-preview, case-prepare, case-send.
 - [blowhorn find](https://blowhorn.ai/docs/reference/cli/find/index.md): Search Bluesky and GitHub for posts, issues, and pull requests matching a query, with optional date, author, and relevancy filters.
-- [blowhorn follow](https://blowhorn.ai/docs/reference/cli/follow/index.md): Follow accounts on X, Bluesky, or GitHub.
 - [Post to Hacker News](https://blowhorn.ai/docs/how-to/publish/post-to-hacker-news/index.md): Submit links and text posts, comment, and stay within the daily cap.
+- [blowhorn follow](https://blowhorn.ai/docs/reference/cli/follow/index.md): Follow accounts on X, Bluesky, or GitHub.
 - [blowhorn github](https://blowhorn.ai/docs/reference/cli/github/index.md): blowhorn github: squatters.
-- [blowhorn org](https://blowhorn.ai/docs/reference/cli/org/index.md): blowhorn org: members.
 - [Post to YouTube](https://blowhorn.ai/docs/how-to/publish/post-to-youtube/index.md): Upload a video, post on the Posts tab, comment, reply, like, and collect analytics, with the behavior of each activity.
+- [blowhorn org](https://blowhorn.ai/docs/reference/cli/org/index.md): blowhorn org: members.
 - [blowhorn platforms](https://blowhorn.ai/docs/reference/cli/platforms/index.md): blowhorn platforms: capabilities.
 - [blowhorn post](https://blowhorn.ai/docs/reference/cli/post/index.md): Publish pending posts or amplify existing content across supported platforms.
-- [blowhorn profile](https://blowhorn.ai/docs/reference/cli/profile/index.md): blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update, verify.
 - [Reply to a post](https://blowhorn.ai/docs/how-to/publish/reply-to-a-post/index.md): Comment on LinkedIn, Reddit, and Bluesky activities, and reply on X.
-- [blowhorn report](https://blowhorn.ai/docs/reference/cli/report/index.md): Generate a consolidated report summary from the exports already sitting in the repository-root data/analytics/ directory.
+- [blowhorn profile](https://blowhorn.ai/docs/reference/cli/profile/index.md): blowhorn profile: accounts, auth, create, current, delete, get, list, set, status, switch, update, verify.
 - [Send a Slack message](https://blowhorn.ai/docs/how-to/publish/send-a-slack-message/index.md): Queue Slack activities or send one message typed on the command line.
+- [blowhorn report](https://blowhorn.ai/docs/reference/cli/report/index.md): Generate a consolidated report summary from the exports already sitting in the repository-root data/analytics/ directory.
 - [blowhorn risk](https://blowhorn.ai/docs/reference/cli/risk/index.md): blowhorn risk: grid, set, show.
 - [blowhorn schedule](https://blowhorn.ai/docs/reference/cli/schedule/index.md): blowhorn schedule: bootstrap, delete, destinations, fleet, get, list, pause, resume, status, tick, trigger-now, upsert, validate, why.
-- [blowhorn service](https://blowhorn.ai/docs/reference/cli/service/index.md): blowhorn service: adopt, cancel, install, restart, run, start, status, stop, test, uninstall, update.
 - [Follow accounts](https://blowhorn.ai/docs/how-to/grow/follow-on-github/index.md): Follow accounts on X, Bluesky, and GitHub, and unfollow on Bluesky.
+- [blowhorn service](https://blowhorn.ai/docs/reference/cli/service/index.md): blowhorn service: adopt, cancel, install, restart, run, start, status, stop, test, uninstall, update.
 - [blowhorn setup](https://blowhorn.ai/docs/reference/cli/setup/index.md): Set up Blowhorn on this computer, safely and repeatably.
 - [blowhorn slack](https://blowhorn.ai/docs/reference/cli/slack/index.md): blowhorn slack: delete, edit, profiles, react, send, whoami.
-- [blowhorn source](https://blowhorn.ai/docs/reference/cli/source/index.md): GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login.
 - [Star repositories on GitHub](https://blowhorn.ai/docs/how-to/grow/star-on-github/index.md): Star GitHub repositories from every selected profile, over the REST API.
+- [blowhorn source](https://blowhorn.ai/docs/reference/cli/source/index.md): GitHub lists one audience of one or more repositories (stargazers unless you name another) and stores one row per login.
 - [blowhorn star](https://blowhorn.ai/docs/reference/cli/star/index.md): Star GitHub repositories.
-- [blowhorn stop](https://blowhorn.ai/docs/reference/cli/stop/index.md): Stop everything, right now: on this machine, or on every machine sharing the store with `--all`.
 - [Find conversations on Bluesky](https://blowhorn.ai/docs/how-to/grow/find-on-bluesky/index.md): Search Bluesky posts by query, date, author, and other filters.
-- [blowhorn store](https://blowhorn.ai/docs/reference/cli/store/index.md): Report whether this computer can use Blowhorn, and say why not when it cannot: signed in, a client the server still accepts, and a member of the organization.
+- [blowhorn stop](https://blowhorn.ai/docs/reference/cli/stop/index.md): Stop everything, right now: on this machine, or on every machine sharing the store with `--all`.
 - [Build a GitHub audience](https://blowhorn.ai/docs/how-to/grow/build-a-github-audience/index.md): List a repository's stargazers, contributors, or watchers into your account.
-- [blowhorn unfollow](https://blowhorn.ai/docs/reference/cli/unfollow/index.md): Unfollow one Bluesky account (`--platform` bluesky `--target` &lt;handle&gt;) through the Bluesky API.
+- [blowhorn store](https://blowhorn.ai/docs/reference/cli/store/index.md): Report whether this computer can use Blowhorn, and say why not when it cannot: signed in, a client the server still accepts, and a member of the organization.
 - [Find issues and pull requests on GitHub](https://blowhorn.ai/docs/how-to/grow/find-on-github/index.md): Search GitHub issues and pull requests by query, repository, type, and state.
+- [blowhorn unfollow](https://blowhorn.ai/docs/reference/cli/unfollow/index.md): Unfollow one Bluesky account (`--platform` bluesky `--target` &lt;handle&gt;) through the Bluesky API.
 - [blowhorn uninstall](https://blowhorn.ai/docs/reference/cli/uninstall/index.md): Remove Blowhorn from this machine.
 - [blowhorn upgrade](https://blowhorn.ai/docs/reference/cli/upgrade/index.md): Carry this Mac's local data from an earlier home into this one.
-- [blowhorn withdraw](https://blowhorn.ai/docs/reference/cli/withdraw/index.md): Withdraw LinkedIn invitations that have been pending longer than `--older-than` days, freeing headroom under LinkedIn's cap on unaccepted invitations.
 - [Accept incoming invitations](https://blowhorn.ai/docs/how-to/grow/accept-invitations/index.md): Answer received LinkedIn invitations; flagged ones are skipped.
+- [blowhorn withdraw](https://blowhorn.ai/docs/reference/cli/withdraw/index.md): Withdraw LinkedIn invitations that have been pending longer than `--older-than` days, freeing headroom under LinkedIn's cap on unaccepted invitations.
 - [Sweep stalled GitHub assignments](https://blowhorn.ai/docs/how-to/grow/squatter-sweep/index.md): Find assigned-but-stalled issues, nudge the assignee, warn them, and release the assignment on a fixed grace-period progression.
 - [Withdraw stale invitations](https://blowhorn.ai/docs/how-to/grow/withdraw-invitations/index.md): Preview and withdraw old sent invitations to reclaim headroom.
 - [Schedule a job](https://blowhorn.ai/docs/how-to/schedule/schedule-a-job/index.md): Run posts and other commands on a schedule, from Activity › Routines or the command line.
@@ -238,6 +239,7 @@
 - [Slack](https://blowhorn.ai/docs/reference/platforms/slack/index.md): What Blowhorn can do on Slack, and how each action behaves there.
 - [Bluesky](https://blowhorn.ai/docs/reference/platforms/bluesky/index.md): What Blowhorn can do on Bluesky, and how each action behaves there.
 - [GitHub](https://blowhorn.ai/docs/reference/platforms/github/index.md): What Blowhorn can do on GitHub, and how each action behaves there.
+- [Reviewed support packages](https://blowhorn.ai/docs/reference/support-packages/index.md): Collect a private support package on this computer, review it, and send it as a case.
 - [YouTube](https://blowhorn.ai/docs/reference/platforms/youtube/index.md): What Blowhorn can do on YouTube, and how each action behaves there.
 - [Instagram](https://blowhorn.ai/docs/reference/platforms/instagram/index.md): What Blowhorn can do on Instagram, and how each action behaves there.
 - [TikTok](https://blowhorn.ai/docs/reference/platforms/tiktok/index.md): What Blowhorn can do on TikTok, and how each action behaves there.

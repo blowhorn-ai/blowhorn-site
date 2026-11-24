@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e237b95ebf4c4e22f6cd155ff10c3423.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.bae397616a5c8ec5af061af69adfe6cb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -477,6 +477,8 @@
     <a href="/docs/reference/cli/content/" title="blowhorn content" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclicontent"><span class="">content</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidesktop-li">
     <a href="/docs/reference/cli/desktop/" title="blowhorn desktop" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidesktop"><span class="">desktop</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidiagnostics-li">
+    <a href="/docs/reference/cli/diagnostics/" title="blowhorn diagnostics" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidiagnostics"><span class="">diagnostics</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifind-li">
     <a href="/docs/reference/cli/find/" title="blowhorn find" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclifind"><span class="">find</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifollow-li">
@@ -541,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
+    <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
     <a href="/docs/reference/api/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreferenceapi"><span class="">API reference</span></a>
   </li>
@@ -753,9 +757,11 @@ it, its recorded port, and the next step. Any action with <code>--dry-run</code>
 prints what it would do and does nothing.</li>
 <li><code>blowhorn chrome attach-chrome stop</code> quits that Chrome the way Cmd-Q does
 (DevTools <code>Browser.close</code>, so a sign-in it just refreshed is saved), waits,
-then sends <code>SIGTERM</code>. It never force-kills. Use it before <code>signin</code> when a
-site needs signing in again.</li>
-<li>Starting is refused when the tree is Chrome's own default data directory,
+then sends <code>SIGTERM</code>. It never force-kills, signals only a Chrome started on
+this tree, and skips <code>Browser.close</code> when the recorded port is not that
+Chrome's own. Use it before <code>signin</code> when a site needs signing in again.</li>
+<li>Starting, signing in and stopping are refused when the tree is Chrome's own
+data directory (any channel's, or a link to one). Starting is also refused
 when a Chrome with a port is already up there, and while the tree is open
 without debugging (the <code>signin</code> window). A <code>DevToolsActivePort</code> left by a
 crashed Chrome is cleared, not refused.</li>
@@ -874,7 +880,7 @@ argv, each job resolves its own driver.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 24, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/settings/launch-mode.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

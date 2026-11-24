@@ -21,6 +21,18 @@ which of the two you meant. In a yes/no option, `yes`, `no`, `on` and
 show` prints them as `true` and `false`; in a text option a hand-written
 `off` or `yes` is read as that word.
 
+One list of words reads as on, in every yes/no option and every yes/no
+environment variable, whichever engine reads it: `1`, `true`, `yes`, `y` and
+`on`, in any case. Everything else - `0`, `false`, `no`, `off`, an
+empty value, a number such as `2`, a word it does not know - reads as off.
+A stored `null` is no value: `config show` reports the option's built-in,
+while the failure-report opt-out reads it as off. A variable that is on
+until you set it (`BLOWHORN_KEYCHAIN`, `BLOWHORN_ACCOUNT_PREFERENCES`) is
+turned off by any value that is not one of those words; leave it unset or
+empty to keep it on. A few places refuse a word they cannot read rather than
+read it as off (a humanisation dial, a schedule param, the YouTube upload
+flag), and they accept the same on words.
+
 A merge key (`<<: *base`) brings its keys in as YAML defines it, the
 mapping's own keys winning. A number with a leading zero is read in base
 eight (`retention_days: 010` is 8 days) and `0o7` is a word, not a
@@ -71,7 +83,7 @@ environment variables.
 | `defaults.pointer_click_hold_min_ms`, `defaults.pointer_click_hold_max_ms`, `defaults.pointer_key_dwell_min_ms`, `defaults.pointer_key_dwell_max_ms`, `defaults.pointer_hover_pause_min_ms`, `defaults.pointer_hover_pause_max_ms` | `BLOWHORN_POINTER_CLICK_HOLD_MIN_MS`, `BLOWHORN_POINTER_CLICK_HOLD_MAX_MS`, `BLOWHORN_POINTER_KEY_DWELL_MIN_MS`, `BLOWHORN_POINTER_KEY_DWELL_MAX_MS`, `BLOWHORN_POINTER_HOVER_PAUSE_MIN_MS`, `BLOWHORN_POINTER_HOVER_PAUSE_MAX_MS` | 40, 140, 25, 90, 50, 250 | How long a click stays held, how long a key stays pressed, and the pause after the pointer arrives before a click, all in milliseconds (see below) |
 | `defaults.logs.directory` | `BLOWHORN_LOG_DIR` | `data/logs/` in the checkout | Where daily logs go |
 | `defaults.logs.retention_days` | `BLOWHORN_LOG_RETENTION_DAYS` | 30 | Days of daily logs kept; 0 keeps all |
-| `defaults.diagnostics.enabled` | `BLOWHORN_DIAGNOSTICS_ENABLED` | on | Queue and send anonymous failure reports (see [Failure reports](/docs/explanation/your-data/#failure-reports)); off means nothing is queued or sent, and the Send failure reports switch in Posture is the same choice |
+| `defaults.diagnostics.enabled` | `BLOWHORN_DIAGNOSTICS_ENABLED` | on | Queue and send anonymous failure reports (see [Failure reports](/docs/explanation/your-data/#failure-reports)); off means nothing is queued or sent, and the Send failure reports switch in Posture is the same choice. Only an on word (`1`, `true`, `yes`, `y` or `on`, in any case) turns them on; anything else written there (`false`, `0`, an empty value) turns them off |
 | `defaults.chrome.launch_mode` | `BLOWHORN_CHROME_LAUNCH` | `extension` | How a run reaches Google Chrome |
 | `defaults.chrome.automation_data_dir` | `BLOWHORN_CHROME_AUTOMATION_DATA_DIR` | Blowhorn's own directory | Where a launched Chrome keeps its session |
 | `defaults.chrome.data_dir` | `BLOWHORN_CHROME_DATA_DIR` | Your real Chrome directory | Where the installed Chrome is read from |
@@ -337,7 +349,9 @@ caps as `invalid` with the reason.
 ## Output logging
 
 The daily log is a copy; the terminal streams are never dropped, piped
-or not. The directory resolves as `--log-dir`, then `BLOWHORN_LOG_DIR`,
+or not. A line holding text that cannot be written as UTF-8 (a byte that
+was not UTF-8 in an argument, say) is written with that part escaped
+(`\udcff`), never left out. The directory resolves as `--log-dir`, then `BLOWHORN_LOG_DIR`,
 then `defaults.logs.directory`, then the checkout's `data/logs/`. That
 directory is the parent. Each signed-in account keeps its own logs under
 `accounts/<user id>` inside it (the account id, never a name or an email).

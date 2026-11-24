@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.e237b95ebf4c4e22f6cd155ff10c3423.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.bae397616a5c8ec5af061af69adfe6cb.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -477,6 +477,8 @@
     <a href="/docs/reference/cli/content/" title="blowhorn content" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclicontent"><span class="">content</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidesktop-li">
     <a href="/docs/reference/cli/desktop/" title="blowhorn desktop" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidesktop"><span class="">desktop</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclidiagnostics-li">
+    <a href="/docs/reference/cli/diagnostics/" title="blowhorn diagnostics" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclidiagnostics"><span class="">diagnostics</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifind-li">
     <a href="/docs/reference/cli/find/" title="blowhorn find" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceclifind"><span class="">find</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceclifollow-li">
@@ -541,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
+    <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
     <a href="/docs/reference/api/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id="m-docsreferenceapi"><span class="">API reference</span></a>
   </li>
@@ -704,6 +708,10 @@ and checked against it, so a page says what <code>--help</code> says.</p>
     <tr>
       <td><a href="/docs/reference/cli/desktop/"><code>blowhorn desktop</code></a></td>
       <td>blowhorn desktop: activity-kinds, build, install, start, status.</td>
+    </tr>
+    <tr>
+      <td><a href="/docs/reference/cli/diagnostics/"><code>blowhorn diagnostics</code></a></td>
+      <td>blowhorn diagnostics: bundle, bundle-preview, case-prepare, case-send.</td>
     </tr>
     <tr>
       <td><a href="/docs/reference/cli/find/"><code>blowhorn find</code></a></td>
@@ -976,7 +984,7 @@ All three take a message link, or a bare <code>ts</code> with <code>--channel</c
 profiles as <code>send</code> does), and share <code>send</code>'s exit codes.
 See <a href="/docs/reference/platforms/slack/">Slack</a>.</p>
 <p><code>blowhorn-axi</code> is the agent interface to those writes, installed next to
-<code>blowhorn</code> by <code>tools/install.sh</code> (<a href="/docs/reference/cli/blowhorn-axi/">its reference</a>). It runs <code>blowhorn slack … --json</code> and prints TOON
+<code>blowhorn</code> by <code>tools/install.sh</code> (<a href="/docs/reference/cli/blowhorn-axi/">its reference</a>). The installed launcher runs the engine binary (<code>blowhorn axi</code>); <code>BLOWHORN_FRONT_DOOR=python</code>, or no binary, runs the Python module. It runs <code>blowhorn slack … --json</code> and prints TOON
 with a <code>help[]</code> of next commands: <code>blowhorn-axi</code> (home: <code>count</code>,
 <code>session_ready</code> and each profile's <code>slack_auth</code>), <code>profile list</code> and
 <code>profile status</code> (with <code>auth.test</code> session state unless <code>--offline</code>),
@@ -1214,7 +1222,7 @@ own command's activity of the table, so a <code>github</code> schedule activity 
 </span></span><span class="line"><span class="cl">blowhorn chrome attach-chrome stop
 </span></span><span class="line"><span class="cl">blowhorn profile status --chrome</span></span></code></pre></div></div>
 </figure>
-<p><code>service install</code>, <code>service update</code> and <code>service stop</code> wait for the label to leave launchd after a bootout - <code>launchctl bootout</code> returns before the resident service has exited, and a bootstrap inside that window fails. The wait is bounded (a fixed poll interval times a maximum number of attempts covering a full drain); <code>stop</code> prints what it is waiting on and carries <code>stopped</code>, <code>waited_s</code> and the pass's pid in <code>--json</code>, and every one of the three exits 1 rather than bootstrapping over a label that has not gone. Each <code>launchctl</code> call is itself bounded at 60 s.</p>
+<p><code>service install</code>, <code>service update</code> and <code>service stop</code> wait for the label to leave launchd after a bootout - <code>launchctl bootout</code> returns before the resident service has exited, and a bootstrap inside that window fails. The wait is bounded (a fixed poll interval times a maximum number of attempts covering a full drain); <code>stop</code> prints what it is waiting on and carries <code>stopped</code>, <code>waited_s</code> and the pass's pid in <code>--json</code>, and every one of the three exits 1 rather than bootstrapping over a label that has not gone. <code>service install</code> that cannot write its definition file prints one sentence naming the file and exits 1, loading nothing. Each <code>launchctl</code> call is itself bounded at 60 s.</p>
 <p>For <code>follow --profile all</code>, if any <code>--target</code> handle matches one of your configured profile handles <strong>on the platform being run</strong>, that profile is auto-excluded to prevent self-targeting. The match is per platform: owning the X handle <code>yourhandle</code> says nothing about a GitHub run, which compares against the roster's <code>GitHub</code> handle instead. In <code>--limit 0</code> target-only mode, <code>--target</code> also accepts a comma-delimited list such as <code>example-handle,another-handle</code>.</p>
 <h3 id="section-profile-and---exclude"><code>--profile</code> and <code>--exclude</code></h3><p>A profile name resolves against your organization's profile list, read once
 per run: <code>--profile all</code> is every profile on it minus the excluded list, and
@@ -1289,6 +1297,9 @@ says so plainly.</p>
   </div><div class="entry">
     <h5><a href="/docs/reference/cli/desktop/">blowhorn desktop</a></h5>
     <p>blowhorn desktop: activity-kinds, build, install, start, status.</p>
+  </div><div class="entry">
+    <h5><a href="/docs/reference/cli/diagnostics/">blowhorn diagnostics</a></h5>
+    <p>blowhorn diagnostics: bundle, bundle-preview, case-prepare, case-send.</p>
   </div><div class="entry">
     <h5><a href="/docs/reference/cli/find/">blowhorn find</a></h5>
     <p>Search Bluesky and GitHub for posts, issues, and pull requests matching a query, with optional date, author, and relevancy filters.</p>
