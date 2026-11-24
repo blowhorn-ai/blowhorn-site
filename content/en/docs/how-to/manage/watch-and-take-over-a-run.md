@@ -93,6 +93,7 @@ so.
 
 ## Related
 
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel layout when nothing is running.
 - [Chrome extension permissions](/docs/reference/extension-permissions/) - what
   the side panel permission allows.
 - [Fix the Chrome extension connection](/docs/how-to/troubleshoot/extension-connection/)

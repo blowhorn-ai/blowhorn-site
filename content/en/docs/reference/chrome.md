@@ -1142,6 +1142,7 @@ can run side by side. See [You're in control](/docs/explanation/youre-in-control
 
 ## Related
 
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel and its layout.
 - [You're in control](/docs/explanation/youre-in-control/) - every safety control in one place.
 - [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/) - install it.
 

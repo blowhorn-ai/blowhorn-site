@@ -612,3 +612,4 @@ Info buttons stay hidden until you point at their row or tab to them.
 - [How Blowhorn works](/docs/explanation/how-it-works/) - app, engine, extension, and store.
 - [You're in control](/docs/explanation/youre-in-control/) - the controls behind pause and Settings.
 - [Install the app](/docs/how-to/set-up/install-the-app/) - get the app onto a Mac.
+- [The Chrome extension, at a glance](/docs/reference/use-the-chrome-extension/) - the side panel, its layout, and the toolbar button.
