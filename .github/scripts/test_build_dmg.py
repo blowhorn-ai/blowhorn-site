@@ -5,11 +5,15 @@ import importlib.util
 import io
 import json
 import os
+import re
+import shlex
 import sys
 import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
+
+import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
@@ -254,6 +258,41 @@ class SchemaSyncTest(unittest.TestCase):
         self.assertEqual(set(result["required"]), {"version", "ref", "signing_mode", "sha256", "size_bytes", "dmg_name"})
 
 
+def _shell_statements(script):
+    statements = []
+    pending = ""
+    for line in script.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.endswith("\\"):
+            pending += stripped[:-1] + " "
+            continue
+        pending += stripped
+        statements.append(pending)
+        pending = ""
+    if pending:
+        statements.append(pending)
+    return statements
+
+
+def _python_argv(script, program):
+    found = []
+    for statement in _shell_statements(script):
+        words = shlex.split(statement, posix=True)
+        for index, word in enumerate(words):
+            if word == "python3" and index + 1 < len(words) and words[index + 1] == program:
+                found.append(words[index + 1:])
+    if len(found) != 1:
+        raise AssertionError(f"{program} invoked {len(found)} times")
+    return found[0]
+
+
+def _flag(argv, name):
+    index = argv.index(name)
+    return argv[index + 1]
+
+
 class PublicLogAuditTest(unittest.TestCase):
     def test_build_dmg_mac_does_not_take_a_product_token(self):
         action = (ROOT / ".github" / "actions" / "build-dmg-mac" / "action.yml").read_text()
@@ -272,10 +311,39 @@ class PublicLogAuditTest(unittest.TestCase):
         self.assertNotRegex(action, r"default-toolchain [0-9]")
 
     def test_the_keychain_import_and_the_build_run_under_a_time_limit(self):
-        action = (ROOT / ".github" / "actions" / "build-dmg-mac" / "action.yml").read_text()
-        self.assertRegex(action, r"timed_run.py \\\n\s+--label \"keychain import\" \\\n\s+--timeout-minutes 5")
-        self.assertIn("--timeout-minutes 100", action)
-        self.assertIn("hashFiles('product/engine/rust/Cargo.lock')", action)
+        # Oracle: intent requires a 5-minute keychain import, a 100-minute
+        # build, and a cargo cache of registry index, registry cache, and git
+        # db keyed on runner OS, arch, the installed toolchain, and Cargo.lock.
+        # A 100-minute import, or a target-dir cache path, must fail.
+        action = yaml.safe_load((ROOT / ".github" / "actions" / "build-dmg-mac" / "action.yml").read_text())
+        steps = action["runs"]["steps"]
+
+        import_step = next(step for step in steps if step.get("name") == "Import the temporary signing keychain")
+        self.assertEqual(import_step["if"], "inputs.mode == 'developer-id'")
+        import_argv = _python_argv(import_step["run"], ".github/scripts/build-dmg/timed_run.py")
+        self.assertEqual(_flag(import_argv, "--timeout-minutes"), "5")
+        self.assertEqual(_flag(import_argv, "--label"), "keychain import")
+        self.assertNotIn("100", import_argv)
+
+        build_step = next(step for step in steps if step.get("name") == "Build, sign, notarize and verify (output withheld)")
+        self.assertNotIn("if", build_step)
+        build_argv = _python_argv(build_step["run"], ".github/scripts/build-dmg/run_build.py")
+        self.assertEqual(_flag(build_argv, "--timeout-minutes"), "100")
+
+        cache = next(step for step in steps if str(step.get("uses", "")).startswith("actions/cache@"))
+        paths = [line.strip() for line in cache["with"]["path"].splitlines() if line.strip()]
+        self.assertEqual(paths, [
+            "~/.cargo/registry/index",
+            "~/.cargo/registry/cache",
+            "~/.cargo/git/db",
+        ])
+        expressions = re.findall(r"\$\{\{\s*(.*?)\s*\}\}", cache["with"]["key"])
+        self.assertEqual(expressions, [
+            "runner.os",
+            "runner.arch",
+            "env.RUST_TOOLCHAIN_ID",
+            "hashFiles('product/engine/rust/Cargo.lock')",
+        ])
 
     def test_progress_line_lets_through_only_fixed_vocabulary(self):
         self.assertEqual(timed_run.progress_line("==> remote-dmg"), "phase remote-dmg")
