@@ -205,7 +205,7 @@ them, so a step can be rehearsed locally:
 | `dmg-download` | `DMG_URL`, optional `DMG_SOURCE_TOKEN` | downloads to `dist/source.dmg` over HTTPS only; the token goes only to GitHub hosts |
 | `dmg-package` | `VERSION`, `ARCH`, and the `notes.md` that `dmg-resolve` wrote | runs `check-dmg.sh`, names the versioned and `Blowhorn-mac.dmg` assets, writes `SHA256SUMS.txt`, moves `notes.md` into `dist/` |
 | `dmg-verify` | (macOS only) | `hdiutil verify`, `codesign`, `spctl` and `stapler validate` on each DMG in `dist/` |
-| `dmg-release` | `GH_TOKEN`, `GH_REPO`, `VERSION`, `PRERELEASE`, `DRAFT`, `GITHUB_SHA`, optional `GITHUB_STEP_SUMMARY` | creates the release; refuses an existing tag |
+| `dmg-release` | `GH_TOKEN`, `GH_REPO`, `VERSION`, `PRERELEASE`, `DRAFT`, `GITHUB_SHA`, optional `GITHUB_STEP_SUMMARY`, optional `CLI_TARBALL_WAIT`, optional `CLI_TARBALL_POLL` | creates a draft with the DMG and SHA256SUMS; when not staying a draft, a stable release waits for the CLI tarball and its .sha256, then publishes; refuses an existing tag |
 
 ```bash
 GITHUB_OUTPUT=/tmp/out IN_VERSION=v1.2.3 IN_URL=https://example.com/Blowhorn.dmg \

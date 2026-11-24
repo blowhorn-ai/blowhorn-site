@@ -554,7 +554,7 @@ dmg-package:
 dmg-verify:
 	.github/scripts/publish-dmg/verify-macos.sh
 
-## publish-dmg step 5: create the GitHub Release VERSION from dist/ (never overwrites).
+## publish-dmg step 5: create a draft GitHub Release VERSION from dist/ (never overwrites); when not staying a draft, wait for the CLI tarball then publish.
 dmg-release:
 	.github/scripts/publish-dmg/release.sh
 
