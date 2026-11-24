@@ -22,7 +22,7 @@ desktop app's Debug area has a Support card that walks you through
 building, reviewing and sending one (see [Use the desktop
 app](/docs/reference/use-the-desktop-app/#debug-area-and-support)), and `blowhorn
 diagnostics bundle` does the same from a terminal. Either way you review
-every byte before anything leaves the machine, and a sent case gets a
+every byte before anything leaves this computer, and a sent case gets a
 reference you can quote when you write in. See [Reviewed support
 packages](/docs/reference/support-packages/) for the whole flow and what the package
 holds.
