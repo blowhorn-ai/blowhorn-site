@@ -114,9 +114,14 @@ keys were moved unrotated to those org secrets.
 
 **Artifacts:** the only uploads are the DMG and its sha256 manifest, retained for
 1 day, and, when a Linux gate fails, that suite's log as `age` ciphertext
-(below), retained for 3 days. Build logs stay under `RUNNER_TEMP` and are never
-printed, cached or uploaded as plaintext. Private source is checked out
-sparsely, with internal paths excluded.
+(below), retained for 3 days. The Mac build's full log stays under
+`RUNNER_TEMP` and is never uploaded or cached. The public log shows only
+fixed phase labels with UTC start and end times (keychain import is limited
+to 5 minutes, the build to 100 minutes, inside the 120-minute job), release
+phase names, and the notarization submission id and status. Private source
+is checked out sparsely, with internal paths excluded. The Mac job caches
+the Cargo registry and git sources, keyed on `Cargo.lock` and the exact
+`rustc` version, and does not cache `engine/rust/target`.
 
 ### Reading a failed Product CI log
 
