@@ -18,6 +18,12 @@
 - [blowhorn-axi](https://blowhorn.ai/ai/blowhorn-axi/index.md): blowhorn-axi lets AI agents use Blowhorn. Compact answers built for agents, rehearsal before every action and clear next steps when something goes wrong. Runs on your computer with Node 18 or later.
 - [Blowhorn MCP server](https://blowhorn.ai/ai/mcp/index.md): The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.
 
+## Support
+- [Support](https://blowhorn.ai/support/index.md): Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
+
+
+- [Thanks](https://blowhorn.ai/support/thanks/index.md): Your support message reached the Blowhorn team.
+
 ## How Blowhorn compares
 - [How Blowhorn compares](https://blowhorn.ai/compare/index.md): Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
 
@@ -72,12 +78,6 @@
 - [YouTube](https://blowhorn.ai/field-manual/youtube/index.md): What YouTube's recommendations reward (satisfaction, not just watch time) and what it prohibits (fake engagement, repetitive comments, automated access), in YouTube's own words.
 - [Other feeds](https://blowhorn.ai/field-manual/other-feeds/index.md): What the other big feeds say they reward and reduce, in their own words. General education only. Blowhorn doesn't post to these platforms.
 - [Tune the CLI and blowhorn-axi for the feeds](https://blowhorn.ai/field-manual/tuning/index.md): Prescriptive settings for the Blowhorn CLI and blowhorn-axi that map each platform rule in this manual to a flag or default. For operators and the agents they run.
-
-## Support
-- [Support](https://blowhorn.ai/support/index.md): Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
-
-
-- [Thanks](https://blowhorn.ai/support/thanks/index.md): Your support message reached the Blowhorn team.
 
 ## Trust Center
 - [Trust Center](https://blowhorn.ai/legal/index.md): How Blowhorn handles your data, sessions and accounts, in plain language, and every policy that covers the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.

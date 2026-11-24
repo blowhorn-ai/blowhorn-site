@@ -48,9 +48,9 @@ The coming-soon pages and the newsletter page use the same signup service as the
 
 ### Support form
 
-The form on the [support page](/support/) sends a message to the Blowhorn team. It is a plain HTML form with no script, and nothing leaves your browser until you press Send message.
+The form on the [support page](/support/) sends a message to the Blowhorn team. Nothing leaves your browser through this form until you press Send message. A local script shows the contact fields only when you request a response; the form also works without it.
 
-- What is sent: the name, email address, subject and message you type, the optional "what you ran and what it printed" field, the page you sent it from, and an empty bot-trap field. Like any site your browser contacts, the service also receives your IP address and the usual request headers.
+- What is sent: your reason for reaching out, message, response preference, generated subject and case number, optional diagnostic summary and reference, the page you sent it from, and an empty bot-trap field. If you request a response, your email and optional name are sent too. Choosing anonymous discards the name and email fields before storage and forwarding; do not put identifying information in the message or diagnostics if you want to remain anonymous. Like any site your browser contacts, the service also receives your IP address and the usual request headers.
 - Who receives it: Layer5, which runs the signup service at `api.blowhorn.ai` (a Cloudflare Worker, not a third-party form service), which stores the message in a Cloudflare D1 database and forwards a copy to the Blowhorn support queue. No other company receives the message.
 - What it is for: answering your message. Sending the form does not create a Blowhorn account and never adds you to a list.
 - Where you go: submitting takes you to a thanks page on blowhorn.ai.

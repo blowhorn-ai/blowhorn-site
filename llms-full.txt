@@ -79,6 +79,28 @@ description: The Blowhorn MCP server lets your AI assistant draft and rehearse y
 
 
 --------------------------------------------------------------------------------
+title: "Support"
+url: https://blowhorn.ai/support/index.md
+description: Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
+--------------------------------------------------------------------------------
+Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
+
+--------------------------------------------------------------------------------
+title: "Thanks"
+url: https://blowhorn.ai/support/thanks/index.md
+description: Your support message reached the Blowhorn team.
+--------------------------------------------------------------------------------
+
+Thanks for getting in touch. If you left an email and asked for a response,
+the team can follow up there. Anonymous messages cannot receive a reply.
+
+If you reported a problem, the
+[troubleshooting index](/docs/how-to/troubleshoot/troubleshooting/) and
+[Messages and exit codes](/docs/reference/messages/) may help while the team
+looks into it.
+
+
+--------------------------------------------------------------------------------
 title: "How Blowhorn compares"
 url: https://blowhorn.ai/compare/index.md
 description: Blowhorn next to cloud schedulers, LinkedIn growth tools, employee advocacy suites and local multi-profile browsers. What each does well, and what only Blowhorn does.
@@ -872,26 +894,6 @@ Risk Profile presets that set these dials together are coming soon ([You're in c
 
 
 --------------------------------------------------------------------------------
-title: "Support"
-url: https://blowhorn.ai/support/index.md
-description: Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
---------------------------------------------------------------------------------
-Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.
-
---------------------------------------------------------------------------------
-title: "Thanks"
-url: https://blowhorn.ai/support/thanks/index.md
-description: Your support message reached the Blowhorn team.
---------------------------------------------------------------------------------
-
-A person on the team reads every message and replies by email, usually within
-a day. If you asked about something broken, the
-[troubleshooting index](/docs/how-to/troubleshoot/troubleshooting/) and
-[Messages and exit codes](/docs/reference/messages/) are worth a look while
-you wait.
-
-
---------------------------------------------------------------------------------
 title: "Trust Center"
 url: https://blowhorn.ai/legal/index.md
 description: How Blowhorn handles your data, sessions and accounts, in plain language, and every policy that covers the Blowhorn website, the Blowhorn app for macOS and the Blowhorn Chrome extension.
@@ -969,9 +971,9 @@ The coming-soon pages and the newsletter page use the same signup service as the
 
 ### Support form
 
-The form on the [support page](/support/) sends a message to the Blowhorn team. It is a plain HTML form with no script, and nothing leaves your browser until you press Send message.
+The form on the [support page](/support/) sends a message to the Blowhorn team. Nothing leaves your browser through this form until you press Send message. A local script shows the contact fields only when you request a response; the form also works without it.
 
-- What is sent: the name, email address, subject and message you type, the optional "what you ran and what it printed" field, the page you sent it from, and an empty bot-trap field. Like any site your browser contacts, the service also receives your IP address and the usual request headers.
+- What is sent: your reason for reaching out, message, response preference, generated subject and case number, optional diagnostic summary and reference, the page you sent it from, and an empty bot-trap field. If you request a response, your email and optional name are sent too. Choosing anonymous discards the name and email fields before storage and forwarding; do not put identifying information in the message or diagnostics if you want to remain anonymous. Like any site your browser contacts, the service also receives your IP address and the usual request headers.
 - Who receives it: Layer5, which runs the signup service at `api.blowhorn.ai` (a Cloudflare Worker, not a third-party form service), which stores the message in a Cloudflare D1 database and forwards a copy to the Blowhorn support queue. No other company receives the message.
 - What it is for: answering your message. Sending the form does not create a Blowhorn account and never adds you to a list.
 - Where you go: submitting takes you to a thanks page on blowhorn.ai.
