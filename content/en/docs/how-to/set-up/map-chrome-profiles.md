@@ -98,11 +98,7 @@ The next time you open Confirm troops, those activities start unchecked.
 
 ## Troubleshooting validation errors
 
-If you encounter a validation error during Chrome profile discovery that mentions "missing lastName" or other missing fields, it means the system is having trouble matching your Chrome profile's account information with your organization's member data. This can happen intermittently due to:
-
-- Cached or incomplete member data in your local store
-- Temporary synchronization issues between your account and the organization
-- Chrome profile account information that doesn't exactly match your member record
+If you encounter a validation error during Chrome profile discovery that mentions "missing lastName" or other missing fields, it means the system could not match your Chrome profile's account information with your organization's member data. The exact cause is still under investigation, and the error can appear intermittently.
 
 **To resolve this:**
 
@@ -110,7 +106,7 @@ If you encounter a validation error during Chrome profile discovery that mention
 2. If the error persists, try logging out of Blowhorn and signing back in to refresh your local data
 3. Ensure your Chrome profile's account information (name, email) exactly matches your organization member record
 
-The error should not prevent you from completing the setup process - these steps will help the system successfully match your Chrome profiles with your organization members.
+If the error appears, these steps usually let you continue setup. If it keeps appearing, please report it with the steps you tried.
 
 The survey behind the step is `blowhorn chrome discover`, and the apply is
 `blowhorn chrome confirm`, which reads the confirmed assignments as JSON
