@@ -24,7 +24,7 @@
   "definitions": {
     "id": {
       "type": "string",
-      "enum": ["signal", "reveille"]
+      "enum": ["signal", "reveille", "refresh"]
     },
     "theme": {
       "type": "object",
