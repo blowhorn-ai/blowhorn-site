@@ -75,6 +75,13 @@ down to set your own; the thumb stops at the safe limit, and a thumb left at the
 top means no cap of your own, so the ceiling applies. Double-click a slider, or
 choose **Reset to safe limits**, to put it back. A cap saves when you let go of
 the thumb. A cap of your own can only lower the ceiling, never raise it.
+YouTube is on that row of logos. Daily Caps offers only its new-activity
+slider. The list under the slider is Blowhorn's own per-activity ceilings,
+read from `platforms capabilities`, and the slider does not change that list.
+Comment, reaction and outreach sliders stay off that screen until each action
+is enforced on its own. There is no subscribe command yet. The counts and the
+pages checked are on the
+[YouTube reference](/docs/reference/platforms/youtube/#per-profile-daily-ceilings).
 
 The same window draws how runs overlap under the rules in force, with one
 sentence that says it in words: Safety on runs one activity at a time across every

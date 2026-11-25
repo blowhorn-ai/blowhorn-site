@@ -148,7 +148,10 @@ upload says so before it starts. Set
 passed the audit to stop that warning.
 
 Each profile may upload 3 videos a day, counted across every run that
-day. An activity past that ceiling waits for the next day. A dry run
+day. That ceiling is Blowhorn's own. YouTube publishes no daily upload
+count (read 2026-11-24; the pages are on the
+[YouTube reference](/docs/reference/platforms/youtube/#per-profile-daily-ceilings)).
+An activity past that ceiling waits for the next day. A dry run
 counts its planned rows against that ceiling for the rest of the same
 run, so it holds what the real run would; it does not stamp the
 activity, so the count does not carry into tomorrow.
@@ -232,14 +235,26 @@ Blowhorn leaves it alone and records the like as done. That differs from
 Facebook, where an already-reacted post is left unclicked and is not
 recorded as done.
 
-Each profile may send 10 comments, 10 replies and 20 likes a day. A dry
-run counts its planned rows against those ceilings for the rest of the
-same run, so it holds what the real run would; it does not stamp the
-activity. With a Data API consent these go through the API; without one
-they go through the signed-in watch page. A Data API quota, rate-limit
-or 429 answer holds the row and stops further API work for the rest of
-the run. The project's quota budget is shared by every profile in the
-run, because the quota belongs to your API project, not to one profile.
+Each profile may send 10 comments, 10 replies and 20 likes a day, and
+may publish 2 Posts-tab posts and make 5 subscribes. Those ceilings are
+Blowhorn's own. YouTube publishes no daily count for any of them (read
+2026-11-24; the pages are on the
+[YouTube reference](/docs/reference/platforms/youtube/#per-profile-daily-ceilings)).
+They are not the Risk Profile ceilings Posture uses, and they are not
+the Data API project quota. A dry run counts its planned rows against
+those ceilings for the rest of the same run, so it holds what the real
+run would; it does not stamp the activity. With a Data API consent
+these go through the API; without one they go through the signed-in
+watch page. A Data API quota, rate-limit or 429 answer holds the row
+and stops further API work for the rest of the run. The project's quota
+budget is shared by every profile in the run, because the quota belongs
+to your API project, not to one profile. Posture does not set that
+budget. Set `BLOWHORN_YOUTUBE_API_QUOTA_COSTS` and
+`BLOWHORN_YOUTUBE_API_DAILY_UNITS` if you want a count before the API
+answers. Google gives `videos.insert` its own bucket of 100 calls a
+day, separate from the 10,000 units for other methods (quota calculator,
+read 2026-11-24). Blowhorn's configured unit pool does not split that
+bucket out, and it does not hard-code either number.
 
 ## Collect analytics
 

@@ -1,7 +1,7 @@
 ---
 title: "The Chrome extension, at a glance"
 description: "What the Blowhorn side panel is for, how its layout is arranged, and links to install, permissions, and troubleshooting."
-weight: 212
+weight: 227
 ---
 
 

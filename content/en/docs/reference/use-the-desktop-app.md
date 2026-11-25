@@ -274,7 +274,7 @@ service's log. See
 ## Posture
 
 <figure class="docs-figure">
-  <a href="/assets/docs/desktop-app/console-posture.webp"><img src="/assets/docs/desktop-app/console-posture.webp" alt="The Posture screen on its Rules tab: a slider with Major Blowhorn at three positions set to Weapons tight, and below it a grid of profiles and platforms showing each one&#39;s preset, such as Safety on, Weapons tight, Weapons free or Warming." width="1400" height="1141" loading="lazy" decoding="async"></a>
+  <a href="/assets/docs/desktop-app/console-posture.webp"><img src="/assets/docs/desktop-app/console-posture.webp" alt="The Posture screen on its Rules tab: a slider with Major Blowhorn at three positions set to Weapons tight, and below it a grid of profiles and platforms showing each one's preset, such as Safety on, Weapons tight, Weapons free or Warming." width="1400" height="1141" loading="lazy" decoding="async"></a>
   <figcaption>Posture on its <strong>Rules</strong> tab. Shown with demo data.</figcaption>
 </figure>
 

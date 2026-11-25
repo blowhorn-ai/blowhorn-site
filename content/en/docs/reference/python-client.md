@@ -48,16 +48,7 @@ argv; this client does not replace it.
 ## For contributors
 
 `make schemas-bundle`, which you run after changing a command, a flag
-or a schema, regenerates the client as its last step. Install the
-pinned tools once, or regenerate the client alone:
-
-```bash
-pip install openapi-python-client==0.29.1 ruff==0.17.0
-make python-generate
-make python-test
-```
-
-Never edit a file under `python/generated/src/` by hand. The full
-account, including the OpenAPI 3.2 to 3.1 generator-input gap, is in
-`schemas/README.md` (Python client library) and
-`python/generated/README.md`.
+or a schema, regenerates the client as its last step. How to install
+the pinned tools, regenerate the client alone and check it is in
+[`python/generated/README.md`](https://github.com/blowhorn-ai/blowhorn/blob/master/python/generated/README.md#regenerate).
+Never edit a file under `python/generated/src/` by hand.

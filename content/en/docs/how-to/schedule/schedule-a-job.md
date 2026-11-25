@@ -22,7 +22,7 @@ routine editor on the profiles you picked, and runs on one platform, so pick onl
 one under Dispatch to. (The rest of that
 window, New order, queues a one-off post or runs an action such as an invite
 once; see
-[Use the desktop app](/docs/reference/use-the-desktop-app/#the-console).) The routine editor has the
+[Use the desktop app](/docs/reference/use-the-desktop-app/#new-order).) The routine editor has the
 command, the browser route, and the exact call, for a case those choices do not
 cover. A command that only runs in one place, such as accept on LinkedIn, can
 only be saved for that place. One you saved on "all" before keeps running there.

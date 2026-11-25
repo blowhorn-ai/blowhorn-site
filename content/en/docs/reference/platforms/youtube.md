@@ -226,12 +226,15 @@ purge stays organization-wide.
 - **One channel per profile**: the one `YT_CHANNEL_URL` names. If Studio
   shows another channel, the activity stops with nothing published.
 
-Every profile has daily ceilings of its own on YouTube: 3 uploads, 10
-comments, 10 replies, 20 likes and 2 Posts-tab posts a day, counted across
-every run that day. An activity past its ceiling waits for the next day.
-A dry run counts its planned rows against those ceilings for the rest of
-the same run, so it holds what the real run would; it does not stamp the
-activity, so the count does not carry into tomorrow.
+Every profile has daily ceilings of its own on YouTube: 3 uploads, 2
+Posts-tab posts, 10 comments, 10 replies, 20 likes and 5 subscribes a
+day, counted across every run that day. They are Blowhorn's own. The
+table, the pages checked, and how they differ from Posture are under
+[Per-profile daily ceilings](#per-profile-daily-ceilings). An activity
+past its ceiling waits for the next day. A dry run counts its planned
+rows against those ceilings for the rest of the same run, so it holds
+what the real run would; it does not stamp the activity, so the count
+does not carry into tomorrow.
 
 Without a Data API consent, a [dry fire](/docs/reference/post/) walks Studio's upload
 dialog up to the final button and stops there. Studio keeps the upload as
@@ -263,18 +266,35 @@ upload reads the visibility back from YouTube's answer and reports one
 other than the row asked for; the upload has already happened, so it is
 not undone.
 
-The Data API project's quota is shared by every profile in a run. Google
-changes the quota model, so no unit cost and no daily figure is
-hard-coded. Optionally set `BLOWHORN_YOUTUBE_API_QUOTA_COSTS`
-(`method=units` pairs, comma separated) and
-`BLOWHORN_YOUTUBE_API_DAILY_UNITS`; a call whose configured cost would
-take the run past the configured daily units is not made, and the row is
-held. With nothing configured, nothing is pre-counted and the API's own
-answer decides. `quotaExceeded`, `uploadLimitExceeded`,
-`rateLimitExceeded` and any 429 hold the row and halt the API path for
-the rest of the run, never fail it and never retry it. Uploads also have
-an optional per-run count, `BLOWHORN_YOUTUBE_API_DAILY_UPLOADS`; past
-that count, further uploads in the same run are held.
+## Data API project quota
+
+The Data API project's quota is a separate budget from the
+[per-profile daily ceilings](#per-profile-daily-ceilings) and from
+Posture. It is shared by every profile in a run.
+Google changes the quota model, so no unit cost and no daily figure is
+hard-coded. Read on 2026-11-24, the
+[quota calculator](https://developers.google.com/youtube/v3/determine_quota_cost)
+and the [getting started](https://developers.google.com/youtube/v3/getting-started)
+quota section say a project gets a default of 100 `search.list` calls,
+100 `videos.insert` calls, and 10,000 units a day for every other
+endpoint. The two methods have their own buckets, at 1 unit per call.
+The other costs named there include `comments.insert` 50,
+`commentThreads.insert` 50, `videos.rate` 50, `subscriptions.insert` 50
+and `thumbnails.set` 50. Daily quotas reset at midnight Pacific Time.
+
+Optionally set `BLOWHORN_YOUTUBE_API_QUOTA_COSTS` (`method=units` pairs,
+comma separated) and `BLOWHORN_YOUTUBE_API_DAILY_UNITS`. A call whose
+configured cost would take the run past the configured daily units is
+not made, and the row is held. That is one pool. A cost you set for
+`videos.insert` is counted in it, which mixes Google's separate upload
+bucket into the shared units. Blowhorn does not split the buckets and
+does not hard-code 100 or 10,000. `search.list` is not called.
+`BLOWHORN_YOUTUBE_API_DAILY_UPLOADS` is an optional per-run upload count
+you set, not Google's 100-call `videos.insert` bucket. With nothing
+configured, nothing is pre-counted and the API's own answer decides.
+`quotaExceeded`, `uploadLimitExceeded`, `rateLimitExceeded` and any 429
+hold the row and halt the API path for the rest of the run, never fail
+it and never retry it.
 
 The engine can also edit a video's title, description or visibility, delete
 a video, and add a video to a playlist through the Data API. Blowhorn does
@@ -294,6 +314,54 @@ fails and the report tells you the draft is still in YouTube Studio.
 If attaching the file itself fails after the browser may have sent it,
 the report says Studio may have saved a draft; check YouTube Studio.
 A retry starts a new upload; it does not resume the leftover draft.
+
+## Per-profile daily ceilings
+
+These are the ceilings the YouTube activities hold at, per profile, per
+day. Each one is Blowhorn's own, and unverified. YouTube publishes no
+per-account daily integer for any of them. The pages checked on
+2026-11-24 are the [Spam Policy](https://support.google.com/youtube/answer/2801973),
+[fake engagement](https://support.google.com/youtube/answer/3399767),
+[feature access](https://support.google.com/youtube/answer/9890437) and
+[upload errors](https://support.google.com/youtube/answer/10383400).
+Feature access says only "limited daily limit" or "higher daily limit".
+The upload-error page says a channel can upload only so many videos in
+24 hours and that the limit may vary. Neither page states a number.
+Review these by 2027-02-22.
+
+| Activity | Ceiling a day |
+|---|---|
+| Upload | 3 |
+| Posts-tab post | 2 |
+| Comment | 10 |
+| Reply | 10 |
+| Like | 20 |
+| Subscribe | 5 |
+
+Posture reads a different table, the Risk Profile ceilings: 3 posts a
+day and 1 an hour, 60 reactions a day and 15 an hour, 20 comments a day
+and 5 an hour, 20 outreach a day and 5 an hour. A preset takes a
+quarter, a half, or all of those, and a daily cap you set can only
+lower them. YouTube stays experimental there, so outreach stays off
+under Safety on and Weapons tight and is on under Weapons free. There
+is no subscribe command yet, so a subscribe does not run. Uploads are
+the only activity whose daily ceiling matches that gate. Likes,
+comments, replies, Posts-tab posts and subscribes do not.
+The YouTube activities hold at the table above. A scheduled YouTube
+activity is also counted as a post on the Risk Profile gate (3 a day,
+1 an hour).
+
+YouTube does publish a few numbers that are not these ceilings. Custom
+thumbnails have a daily limit with no integer
+([Add custom thumbnails](https://support.google.com/youtube/answer/72431),
+read 2026-11-24). Live streaming allows 10 active streams per channel
+and 3 active streams per stream key at the same time
+([Get started with live streaming](https://support.google.com/youtube/answer/2474026),
+read 2026-11-24). A daily limit on creating live streams exists and has
+no integer
+([Avoid live-streaming restrictions](https://support.google.com/youtube/answer/2853834),
+read 2026-11-24). Blowhorn does not upload custom thumbnails or live
+streams as these activities.
 
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 

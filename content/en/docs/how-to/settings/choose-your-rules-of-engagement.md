@@ -161,7 +161,10 @@ each platform's built-in ceiling.
 - **After a challenge:** the profile on that platform is held for 24
   hours.
 - **Outreach:** on for established platforms, off on platforms still
-  marked experimental in the Risk Profile table (Facebook, Instagram, TikTok, and YouTube, which is otherwise a supported platform).
+  marked experimental in the Risk Profile table. Facebook, Instagram
+  and TikTok are still being built. YouTube is a supported platform
+  and stays experimental: there is no subscribe command yet. See
+  [YouTube stays experimental](#youtube-stays-experimental).
 - **At once:** one profile at a time on a platform, and no preset limit
   on runs overall. Setting `defaults.concurrency.max_runs` adds one.
 - **Retries:** a failed scheduled job is not retried.
@@ -189,6 +192,34 @@ the most throughput and accept the most exposure.
   platform.
 - **Retries:** a failed scheduled job gets one retry. A login is never
   retried, and a retry is never granted for an unknown outcome.
+
+## YouTube stays experimental
+
+YouTube is a supported platform, and it is still marked experimental.
+That is not the same as a platform that is still being built.
+
+- **Outreach.** A subscribe stays off under Safety on and Weapons tight.
+  Weapons free turns outreach on, including on YouTube. There is no
+  subscribe command yet.
+- **Cap shares.** A preset still takes a quarter, a half, or all of the
+  Risk Profile ceilings. On YouTube those ceilings are 3 posts a day
+  (1 an hour), 60 reactions a day (15 an hour), 20 comments a day (5 an
+  hour) and 20 outreach a day (5 an hour). They are Blowhorn's
+  estimates. YouTube publishes no per-account daily count for uploads,
+  Posts-tab posts, comments, replies, likes or subscribes (read
+  2026-11-24; the pages are on the
+  [YouTube reference](/docs/reference/platforms/youtube/#per-profile-daily-ceilings)).
+- **What actually holds an activity.** Each profile is also held to 3
+  uploads, 2 Posts-tab posts, 10 comments, 10 replies, 20 likes and 5
+  subscribes a day. Those are Blowhorn's own ceilings. Only the upload
+  count matches the Risk Profile post ceiling. Daily Caps on Posture
+  can lower the Risk Profile gate. A scheduled YouTube activity counts
+  as new activity on that gate. The per-activity ceilings still hold.
+- **Not the Data API quota.** The project's quota is a separate budget
+  you configure with `BLOWHORN_YOUTUBE_API_QUOTA_COSTS` and
+  `BLOWHORN_YOUTUBE_API_DAILY_UNITS`. Posture does not spend it. The
+  [YouTube reference](/docs/reference/platforms/youtube/#data-api-project-quota)
+  has the model Google published, read 2026-11-24.
 
 ## A new profile warms up under Safety on, whatever you chose
 

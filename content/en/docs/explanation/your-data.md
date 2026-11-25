@@ -132,6 +132,6 @@ every computer you use Blowhorn on follows it. To change it, see
 ## Related
 
 - [Get help](/docs/reference/support/) - report a problem without secrets.
-- [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - the log directory listing.
+- [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/#activity) - run logs in Activity's History.
 - [Profile reference](/docs/reference/profiles/) - which secrets live where.
 - [Chrome extension permissions](/docs/reference/extension-permissions/) - what the extension may read.

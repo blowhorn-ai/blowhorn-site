@@ -29,6 +29,7 @@ blowhorn diagnostics bundle [OPTIONS]
 | `--output` | string |  | New private directory to create; must not exist. |
 | `--log-dir` | string |  | The single scoped log directory to inspect. |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--pace` | string |  | Accepted by `blowhorn diagnostics bundle` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Examples:
 
@@ -50,6 +51,7 @@ blowhorn diagnostics bundle-preview [OPTIONS]
 | --- | --- | --- | --- |
 | `--file` | string |  | Local support.tgz to inspect. |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--pace` | string |  | Accepted by `blowhorn diagnostics bundle-preview` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Examples:
 
@@ -75,6 +77,7 @@ blowhorn diagnostics case-prepare [OPTIONS]
 | `--approve-sha256` | string |  | Exact SHA256 shown by bundle-preview. |
 | `--api-base` | string |  | Approved HTTPS Cloud origin, without path. |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--pace` | string |  | Accepted by `blowhorn diagnostics case-prepare` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Examples:
 
@@ -98,6 +101,7 @@ blowhorn diagnostics case-send [OPTIONS]
 | `--approve-sha256` | string |  | Approved archive digest. |
 | `--approve-feedback-sha256` | string |  | Exact request digest from case-prepare. |
 | `--json` | boolean | `false` | Emit machine-readable JSON output |
+| `--pace` | string |  | Accepted by `blowhorn diagnostics case-send` because `--pace` is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then `BLOWHORN_PACE`, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs |
 
 Examples:
 

@@ -151,7 +151,12 @@ blowhorn config set defaults.quiet_hours_tz America/New_York
 ```
 
 The window may wrap midnight, as `22:00-07:00` does, and is read in
-`defaults.quiet_hours_tz` - unset, this computer's own zone. In the app, the
+`defaults.quiet_hours_tz` - unset, this computer's own zone. That zone is
+`TZ` when the time-zone database knows it (a miscased name is read under
+the database's spelling, so `TZ=america/new_york` is `America/New_York`),
+otherwise the zone `/etc/localtime` links to, and otherwise the current
+offset labeled `local time (ABBR)`. A zone you set yourself still has to
+be the database's exact spelling. In the app, the
 same two fields sit under Settings, in the defaults card's quiet hours
 group; clearing the window there turns quiet hours off. While a window is
 in force and this computer is off duty, the menu-bar popover's Off duty
