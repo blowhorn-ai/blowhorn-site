@@ -154,6 +154,19 @@ decrypts it there, deletes the ciphertext and prints the plaintext file's path,
 never its contents. The log holds private product code: read it locally, never
 paste it into an issue, pull request or chat, and delete the directory when done.
 
+## Building the Windows preview installer
+
+`build-windows.yml` builds an early-tester Windows installer (per-user, x64, Rust engine only) on the free `windows-latest` runner. It is manual only:
+
+```sh
+gh workflow run build-windows.yml -f ref=<product commit sha> -f version=<X.Y.Z>
+```
+
+- It runs the same Linux gates as the DMG build first, then checks the private product out sparsely with the read-only `DMG_SOURCE_TOKEN`, as the DMG build does.
+- The installer is signed with one self-signed development certificate. Its private key and password are the `WINDOWS_PREVIEW_PFX_BASE64` and `WINDOWS_PREVIEW_PFX_PASSWORD` secrets of the `windows-preview-signing` environment, passed to the build step alone. Only the public `.cer` is ever published. Testers see SmartScreen once and choose "More info", then "Run anyway".
+- Build output goes to a log under `RUNNER_TEMP` that is never printed, uploaded or cached. The only artifact is the installer and its `.sha256`, kept 1 day.
+- A published preview is a GitHub pre-release named "Blowhorn for Windows (preview)" with short install notes. It never moves the site's download pin.
+
 ## Publishing a DMG
 
 The DMG must already be built, signed with a Developer ID certificate, notarized,
