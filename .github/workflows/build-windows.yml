@@ -130,8 +130,8 @@ jobs:
 
       - name: Build and sign the installer (output withheld)
         env:
-          CSC_LINK: ${{ secrets.WINDOWS_PREVIEW_PFX_BASE64 }}
-          CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_PREVIEW_PFX_PASSWORD }}
+          CSC_LINK: ${{ secrets.WINDOWS_PREVIEW_CERT_PFX_BASE64 }}
+          CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_PREVIEW_CERT_PASSWORD }}
           BUILD_VERSION: ${{ needs.validate.outputs.version }}
         run: |
           set +x
