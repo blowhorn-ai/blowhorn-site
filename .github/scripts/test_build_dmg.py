@@ -345,6 +345,20 @@ class PublicLogAuditTest(unittest.TestCase):
             "hashFiles('product/engine/rust/Cargo.lock')",
         ])
 
+    def test_the_desktop_package_is_installed_before_the_build(self):
+        # Oracle: release-mac.mjs cannot start without desktop/node_modules
+        # (ajv), so the install must come before the build, without lifecycle
+        # scripts, under a time limit.
+        action = yaml.safe_load((ROOT / ".github" / "actions" / "build-dmg-mac" / "action.yml").read_text())
+        names = [step.get("name") for step in action["runs"]["steps"]]
+        install = names.index("Install the desktop package")
+        self.assertLess(install, names.index("Import the temporary signing keychain"))
+        self.assertLess(install, names.index("Build, sign, notarize and verify (output withheld)"))
+        argv = _python_argv(action["runs"]["steps"][install]["run"], "../../.github/scripts/build-dmg/timed_run.py")
+        self.assertEqual(_flag(argv, "--timeout-minutes"), "10")
+        # The statement ends "...; then", so compare the command words only.
+        self.assertEqual(argv[argv.index("--") + 1:][:4], ["pnpm", "install", "--frozen-lockfile", "--ignore-scripts;"])
+
     def test_progress_line_lets_through_only_fixed_vocabulary(self):
         self.assertEqual(timed_run.progress_line("==> remote-dmg"), "phase remote-dmg")
         self.assertEqual(timed_run.progress_line("  status: Invalid"), "notarization: status Invalid")

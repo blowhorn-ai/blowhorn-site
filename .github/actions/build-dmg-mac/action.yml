@@ -69,6 +69,26 @@ runs:
         restore-keys: |
           build-dmg-cargo-${{ runner.os }}-${{ runner.arch }}-${{ env.RUST_TOOLCHAIN_ID }}-
 
+    # release-mac.mjs imports ./e2e/schemas.mjs, which needs ajv from
+    # desktop/node_modules before it can start, so the build exited 1 at
+    # once without this (run 45528604331). Same install as the Chrome Web
+    # Store workflow: the checked-out ref's own lockfile, lifecycle scripts
+    # skipped, and before any signing material is in the environment.
+    - name: Install the desktop package
+      shell: bash
+      run: |
+        set -euo pipefail
+        mkdir -p "$RUNNER_TEMP/build-dmg"
+        cd product/desktop
+        if ! python3 ../../.github/scripts/build-dmg/timed_run.py \
+          --label "desktop install" \
+          --timeout-minutes 10 \
+          --log "$RUNNER_TEMP/build-dmg/install.log" \
+          -- pnpm install --frozen-lockfile --ignore-scripts; then
+          echo "pnpm install in product/desktop failed. Run it in a local checkout of the same ref to see why."
+          exit 1
+        fi
+
     - name: Import the temporary signing keychain
       if: inputs.mode == 'developer-id'
       shell: bash
