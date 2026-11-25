@@ -142,6 +142,8 @@ class RunBuildTest(unittest.TestCase):
         desktop = self.product / "desktop" / "scripts"
         desktop.mkdir(parents=True)
         (desktop / "release-mac.mjs").write_text("// stub\n")
+        (self.product / "desktop" / "tests").mkdir()
+        (self.product / "desktop" / "tests" / "child-teardown.test.ts").write_text("// stub\n")
         self.log = Path(self.tmp.name) / "private" / "build.log"
 
     def tearDown(self):
@@ -195,6 +197,7 @@ class RunBuildTest(unittest.TestCase):
             "print('\\x1b[41m FAIL \\x1b[49m tests/child-teardown.test.ts > childTeardown > a SIGINT stops every child');"
             "print(' FAIL  tests/child-teardown.test.ts > childTeardown > another');"
             "print(' FAIL  tests/../../etc/passwd.ts > x');"
+            "print(' FAIL  tests/ghp_secretvalue.test.ts > x');"
             "print('AssertionError: /Users/runner/work/product/desktop/x.ts token=abc');"
             "print('    --- end of pnpm test (failed) ---');"
             "print('    --- end of build the checkout' + chr(39) + 's Rust binaries (passed) ---');"
@@ -211,7 +214,7 @@ class RunBuildTest(unittest.TestCase):
         self.assertIn("build: step failed: pnpm test", out)
         self.assertIn("build: failed step: pnpm test (exit 1)", out)
         self.assertEqual(out.count("failing test file: tests/child-teardown.test.ts"), 1)
-        for private in ("passwd", "/Users/runner", "token=abc", "hunter2", "SIGINT", "electron-builder", "passed"):
+        for private in ("passwd", "ghp_", "/Users/runner", "token=abc", "hunter2", "SIGINT", "electron-builder", "passed"):
             self.assertNotIn(private, out)
 
     def test_a_hung_build_is_killed_at_its_limit_with_a_clear_message(self):
@@ -404,13 +407,29 @@ class PublicLogAuditTest(unittest.TestCase):
             "release-mac: signing the DMG failed (exit 1)": "failed step: codesign (exit 1)",
             "release-mac: xcrun notarytool submit /private/x.dmg --key /private/key.p8 --wait failed (exit 69)": "failed step: notarytool (exit 69)",
             "release-mac: /Users/runner/pnpm build failed (exit 2)": "failed step: pnpm build (exit 2)",
+            "release-mac: '/Users/runner/pnpm' 'build' failed (exit 2)": "failed step: pnpm build (exit 2)",
+            "release-mac: 'pnpm' 'test' failed (exit 1)": "failed step: pnpm test (exit 1)",
+            "release-mac: pnpm typecheck failed (exit 2)": "failed step: typecheck (exit 2)",
             "release-mac: something new failed (spawn ENOENT)": "failed step: unrecognized step (no exit code)",
             " FAIL  tests/a/b.test.ts > suite > name": "failing test file: tests/a/b.test.ts",
         }
+        known = frozenset({"tests/a/b.test.ts"})
         for line, public in cases.items():
-            self.assertEqual(timed_run.progress_line(line), public, line)
-        for private in ("    --- end of pnpm test (passed) ---", " FAIL  /abs/x.test.ts", " FAIL  tests/../x.test.ts", "release-mac: the build produced no /private/x.dmg."):
-            self.assertIsNone(timed_run.progress_line(private), private)
+            self.assertEqual(timed_run.progress_line(line, known), public, line)
+        for private in ("    --- end of pnpm test (passed) ---", " FAIL  /abs/x.test.ts", " FAIL  tests/../x.test.ts", " FAIL  tests/ghp_secret.test.ts > x", "release-mac: the build produced no /private/x.dmg."):
+            self.assertIsNone(timed_run.progress_line(private, known), private)
+        # Without the product's inventory no test file name is ever echoed.
+        self.assertIsNone(timed_run.progress_line(" FAIL  tests/a/b.test.ts > suite > name"))
+
+    def test_test_files_lists_only_the_products_own_test_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            desktop = Path(tmp)
+            (desktop / "tests" / "sub").mkdir(parents=True)
+            (desktop / "tests" / "a.test.ts").write_text("")
+            (desktop / "tests" / "sub" / "b.test.tsx").write_text("")
+            (desktop / "tests" / "fixture.json").write_text("")
+            self.assertEqual(timed_run.test_files(desktop), frozenset({"tests/a.test.ts", "tests/sub/b.test.tsx"}))
+            self.assertEqual(timed_run.test_files(desktop / "missing"), frozenset())
 
     def test_materialize_does_not_write_github_env(self):
         script = (ROOT / ".github" / "scripts" / "build-dmg" / "materialize_signing.sh").read_text()

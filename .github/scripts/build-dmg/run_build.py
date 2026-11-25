@@ -76,6 +76,7 @@ def main(argv: list[str] | None = None) -> int:
         timeout_s=args.timeout_minutes * 60,
         cwd=product / "desktop",
         env=child_env(),
+        known_tests=timed_run.test_files(product / "desktop"),
     )
     if timed_out:
         print(f"build-dmg: failed (timed out after {elapsed}s; the last phase line above shows where). Run the same --build-dmg-only command in a local checkout to see why.", flush=True)
