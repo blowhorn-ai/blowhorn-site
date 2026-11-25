@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.62ecc7864d8b0bbd7719561ce41af96a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.4add3665f58efa1a2cbb1d10fcbc51ec.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -448,8 +448,6 @@
     <a href="/docs/reference/platforms/facebook/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceplatformsfacebook"><span class="">Facebook</span></a>
   </li>
     </ul>
-  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
-    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-queue-li">
     <a href="/docs/reference/content-queue/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-queue"><span class="">Content queue columns and activity states</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencejobs-li">
@@ -545,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
+    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
     <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
@@ -782,7 +782,10 @@ upload says so before it starts. Set
 <code>BLOWHORN_YOUTUBE_API_PROJECT_UNVERIFIED=false</code> once your project has
 passed the audit to stop that warning.</p>
 <p>Each profile may upload 3 videos a day, counted across every run that
-day. An activity past that ceiling waits for the next day. A dry run
+day. That ceiling is Blowhorn's own. YouTube publishes no daily upload
+count (read 2026-11-24; the pages are on the
+<a href="/docs/reference/platforms/youtube/#per-profile-daily-ceilings">YouTube reference</a>).
+An activity past that ceiling waits for the next day. A dry run
 counts its planned rows against that ceiling for the rest of the same
 run, so it holds what the real run would; it does not stamp the
 activity, so the count does not carry into tomorrow.</p>
@@ -902,14 +905,26 @@ yourself: YouTube treats automated engagement as spam.</p>
 Blowhorn leaves it alone and records the like as done. That differs from
 Facebook, where an already-reacted post is left unclicked and is not
 recorded as done.</p>
-<p>Each profile may send 10 comments, 10 replies and 20 likes a day. A dry
-run counts its planned rows against those ceilings for the rest of the
-same run, so it holds what the real run would; it does not stamp the
-activity. With a Data API consent these go through the API; without one
-they go through the signed-in watch page. A Data API quota, rate-limit
-or 429 answer holds the row and stops further API work for the rest of
-the run. The project's quota budget is shared by every profile in the
-run, because the quota belongs to your API project, not to one profile.</p>
+<p>Each profile may send 10 comments, 10 replies and 20 likes a day, and
+may publish 2 Posts-tab posts and make 5 subscribes. Those ceilings are
+Blowhorn's own. YouTube publishes no daily count for any of them (read
+2026-11-24; the pages are on the
+<a href="/docs/reference/platforms/youtube/#per-profile-daily-ceilings">YouTube reference</a>).
+They are not the Risk Profile ceilings Posture uses, and they are not
+the Data API project quota. A dry run counts its planned rows against
+those ceilings for the rest of the same run, so it holds what the real
+run would; it does not stamp the activity. With a Data API consent
+these go through the API; without one they go through the signed-in
+watch page. A Data API quota, rate-limit or 429 answer holds the row
+and stops further API work for the rest of the run. The project's quota
+budget is shared by every profile in the run, because the quota belongs
+to your API project, not to one profile. Posture does not set that
+budget. Set <code>BLOWHORN_YOUTUBE_API_QUOTA_COSTS</code> and
+<code>BLOWHORN_YOUTUBE_API_DAILY_UNITS</code> if you want a count before the API
+answers. Google gives <code>videos.insert</code> its own bucket of 100 calls a
+day, separate from the 10,000 units for other methods (quota calculator,
+read 2026-11-24). Blowhorn's configured unit pool does not split that
+bucket out, and it does not hard-code either number.</p>
 <h2 id="collect-analytics">Collect analytics</h2><figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -991,7 +1006,7 @@ the HTML report.</li>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 21, 2026
+  Last modified November 25, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/publish/post-to-youtube.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -220,7 +220,6 @@
 - [Run Blowhorn Tells](https://blowhorn.ai/docs/how-to/troubleshoot/run-tells/index.md): Check what sites can see about your browser, in Chrome or from a terminal.
 - [System requirements](https://blowhorn.ai/docs/reference/requirements/index.md): What your computer needs to run Blowhorn: macOS version, Google Chrome, and a Blowhorn account.
 - [The Blowhorn app, screen by screen](https://blowhorn.ai/docs/reference/use-the-desktop-app/index.md): The menu-bar popover, the console screens, Setup, Settings, and what each one does.
-- [The Chrome extension, at a glance](https://blowhorn.ai/docs/reference/use-the-chrome-extension/index.md): What the Blowhorn side panel is for, how its layout is arranged, and links to install, permissions, and troubleshooting.
 - [Content queue columns and activity states](https://blowhorn.ai/docs/reference/content-queue/index.md): Every content column, what each platform reads from an activity, and what each activity state means.
 - [Job options and schedules](https://blowhorn.ai/docs/reference/jobs/index.md): Schedule activities, recurrence words, driver mode, and the three pause scopes.
 - [Posting: pending activities and platform behavior](https://blowhorn.ai/docs/reference/post/index.md): What 'pending' means for a queue activity, the one-click rule, and how posting behaves on each platform. Every flag and example is in the CLI reference.
@@ -236,6 +235,7 @@
 - [Python client library](https://blowhorn.ai/docs/reference/python-client/index.md): The generated Python client for the CLI's OpenAPI document: one API function per command, one model per JSON payload.
 - [X (Twitter)](https://blowhorn.ai/docs/reference/platforms/x/index.md): What Blowhorn can do on X (Twitter), and how each action behaves there.
 - [Reddit](https://blowhorn.ai/docs/reference/platforms/reddit/index.md): What Blowhorn can do on Reddit, and how each action behaves there.
+- [The Chrome extension, at a glance](https://blowhorn.ai/docs/reference/use-the-chrome-extension/index.md): What the Blowhorn side panel is for, how its layout is arranged, and links to install, permissions, and troubleshooting.
 - [Hacker News](https://blowhorn.ai/docs/reference/platforms/hacker-news/index.md): What Blowhorn can do on Hacker News, and how each action behaves there.
 - [Slack](https://blowhorn.ai/docs/reference/platforms/slack/index.md): What Blowhorn can do on Slack, and how each action behaves there.
 - [Bluesky](https://blowhorn.ai/docs/reference/platforms/bluesky/index.md): What Blowhorn can do on Bluesky, and how each action behaves there.

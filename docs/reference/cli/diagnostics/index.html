@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.62ecc7864d8b0bbd7719561ce41af96a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.4add3665f58efa1a2cbb1d10fcbc51ec.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -448,8 +448,6 @@
     <a href="/docs/reference/platforms/facebook/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceplatformsfacebook"><span class="">Facebook</span></a>
   </li>
     </ul>
-  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
-    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-queue-li">
     <a href="/docs/reference/content-queue/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-queue"><span class="">Content queue columns and activity states</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencejobs-li">
@@ -545,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
+    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
     <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
@@ -674,6 +674,12 @@
       <td><code>false</code></td>
       <td>Emit machine-readable JSON output</td>
     </tr>
+    <tr>
+      <td><code>--pace</code></td>
+      <td>string</td>
+      <td></td>
+      <td>Accepted by <code>blowhorn diagnostics bundle</code> because <code>--pace</code> is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then <code>BLOWHORN_PACE</code>, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -724,6 +730,12 @@
       <td>boolean</td>
       <td><code>false</code></td>
       <td>Emit machine-readable JSON output</td>
+    </tr>
+    <tr>
+      <td><code>--pace</code></td>
+      <td>string</td>
+      <td></td>
+      <td>Accepted by <code>blowhorn diagnostics bundle-preview</code> because <code>--pace</code> is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then <code>BLOWHORN_PACE</code>, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs</td>
     </tr>
   </tbody>
 </table>
@@ -800,6 +812,12 @@
       <td><code>false</code></td>
       <td>Emit machine-readable JSON output</td>
     </tr>
+    <tr>
+      <td><code>--pace</code></td>
+      <td>string</td>
+      <td></td>
+      <td>Accepted by <code>blowhorn diagnostics case-prepare</code> because <code>--pace</code> is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then <code>BLOWHORN_PACE</code>, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -863,6 +881,12 @@
       <td><code>false</code></td>
       <td>Emit machine-readable JSON output</td>
     </tr>
+    <tr>
+      <td><code>--pace</code></td>
+      <td>string</td>
+      <td></td>
+      <td>Accepted by <code>blowhorn diagnostics case-send</code> because <code>--pace</code> is a global flag, but this command does no paced work -- it sleeps between nothing -- so the value changes nothing about how it runs and appears only in the Pace column of the -v summary. Resolved as CLI flag, then <code>BLOWHORN_PACE</code>, then defaults.pace in .blowhorn.yaml (normal when none is set); an unrecognized value is rejected before anything runs</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -885,7 +909,7 @@
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 24, 2026
+  Last modified November 25, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/cli/diagnostics.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.62ecc7864d8b0bbd7719561ce41af96a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.4add3665f58efa1a2cbb1d10fcbc51ec.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -448,8 +448,6 @@
     <a href="/docs/reference/platforms/facebook/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceplatformsfacebook"><span class="">Facebook</span></a>
   </li>
     </ul>
-  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
-    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-queue-li">
     <a href="/docs/reference/content-queue/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-queue"><span class="">Content queue columns and activity states</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencejobs-li">
@@ -545,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
+    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
     <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
@@ -611,12 +611,13 @@ anything: not Chromium, not Chrome for Testing, not a headless build. Blowhorn
 drives the Chrome profiles you already use, so without Chrome every browser run
 refuses before it acts.</p>
 <p>Blowhorn looks for <code>/Applications/Google Chrome.app</code> or
-<code>~/Applications/Google Chrome.app</code> on macOS, and for <code>google-chrome</code> or
-<code>google-chrome-stable</code> on <code>PATH</code> or <code>/opt/google/chrome/chrome</code> on Linux
-(<a href="#linux">Linux</a>). A path that resolves to Chromium or Chrome for Testing, such
-as a <code>google-chrome</code> symlink onto Chromium, does not count as installed; when
-Chrome is missing, every browser-backed command refuses with one sentence
-instead of starting a bundled browser.</p>
+<code>~/Applications/Google Chrome.app</code> on macOS, and on Linux for <code>google-chrome</code>,
+then <code>google-chrome-stable</code>, in every <code>PATH</code> directory, then
+<code>/opt/google/chrome/chrome</code> (<a href="#linux">Linux</a>). A candidate that resolves to
+Chromium or Chrome for Testing, such as a <code>google-chrome</code> symlink onto
+Chromium, is skipped and the search continues; when no branded Chrome remains,
+every browser-backed command refuses with one sentence instead of starting a
+bundled browser.</p>
 <p>The CLI runs on macOS and Linux: the <code>extension</code> and <code>persistent</code> drivers run on
 both, the <code>cdp</code> attach driver is macOS only. The desktop app needs macOS 13 or
 newer.</p>
@@ -960,15 +961,15 @@ signing in, then confirms the session once.</p>
 <h2 id="blowhorn-chrome-status"><code>blowhorn chrome status</code></h2><p>Whether Google Chrome is installed, whether it is running, and whether
 its debugging switch is on. On macOS the installed path is
 <code>/Applications/Google Chrome.app</code>, then <code>~/Applications/Google Chrome.app</code>
-(the first one there wins); on Linux the <code>PATH</code> names and
-<code>/opt/google/chrome/chrome</code>. A missing Chrome stops the run with
+(the first one there wins); on Linux it is the lookup in
+<a href="#requirements">Requirements</a>. A missing Chrome stops the run with
 <code>ChromeNotInstalled</code> before any driver starts.</p>
 <h2 id="flags">Flags</h2><p><code>--profile</code> and <code>--chrome-profile</code> pin one Chrome profile for one run.
 <code>--chrome-launch</code> pins the launch mode for one run. <code>--pace</code>,
 <code>--headless</code>, and <code>--dry-run</code> behave as they do everywhere.</p>
 <h2 id="linux">Linux</h2><p>The <code>extension</code> and <code>persistent</code> drivers run on Linux as on macOS; the
-<code>cdp</code> attach driver is macOS only. Chrome is found by its <code>PATH</code> names
-and <code>/opt/google/chrome/chrome</code>. Everything else on this page reads
+<code>cdp</code> attach driver is macOS only. Chrome is found as in
+<a href="#requirements">Requirements</a>. Everything else on this page reads
 the same.</p>
 <h2 id="a-dedicated-attach-chrome-no-allow-dialog">A dedicated attach Chrome (no Allow dialog)</h2><p><code>blowhorn chrome attach-chrome</code> starts a second Chrome on a tree of
 its own (<code>~/.blowhorn/attach-chrome</code>), open to remote debugging, so
@@ -1881,7 +1882,7 @@ can run side by side. See <a href="/docs/explanation/youre-in-control/">You're i
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 24, 2026
+  Last modified November 25, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/chrome.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

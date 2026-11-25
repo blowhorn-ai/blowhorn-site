@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.62ecc7864d8b0bbd7719561ce41af96a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.4add3665f58efa1a2cbb1d10fcbc51ec.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -448,8 +448,6 @@
     <a href="/docs/reference/platforms/facebook/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceplatformsfacebook"><span class="">Facebook</span></a>
   </li>
     </ul>
-  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
-    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-queue-li">
     <a href="/docs/reference/content-queue/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-queue"><span class="">Content queue columns and activity states</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencejobs-li">
@@ -545,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
+    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
     <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
@@ -772,7 +772,10 @@ with <code>defaults.quiet_hours</code> still holds scheduled claims.</li>
 <li><strong>After a challenge:</strong> the profile on that platform is held for 24
 hours.</li>
 <li><strong>Outreach:</strong> on for established platforms, off on platforms still
-marked experimental in the Risk Profile table (Facebook, Instagram, TikTok, and YouTube, which is otherwise a supported platform).</li>
+marked experimental in the Risk Profile table. Facebook, Instagram
+and TikTok are still being built. YouTube is a supported platform
+and stays experimental: there is no subscribe command yet. See
+<a href="#youtube-stays-experimental">YouTube stays experimental</a>.</li>
 <li><strong>At once:</strong> one profile at a time on a platform, and no preset limit
 on runs overall. Setting <code>defaults.concurrency.max_runs</code> adds one.</li>
 <li><strong>Retries:</strong> a failed scheduled job is not retried.</li>
@@ -798,6 +801,32 @@ limit on runs overall. One profile is still held to one run on a
 platform.</li>
 <li><strong>Retries:</strong> a failed scheduled job gets one retry. A login is never
 retried, and a retry is never granted for an unknown outcome.</li>
+</ul>
+<h2 id="youtube-stays-experimental">YouTube stays experimental</h2><p>YouTube is a supported platform, and it is still marked experimental.
+That is not the same as a platform that is still being built.</p>
+<ul>
+<li><strong>Outreach.</strong> A subscribe stays off under Safety on and Weapons tight.
+Weapons free turns outreach on, including on YouTube. There is no
+subscribe command yet.</li>
+<li><strong>Cap shares.</strong> A preset still takes a quarter, a half, or all of the
+Risk Profile ceilings. On YouTube those ceilings are 3 posts a day
+(1 an hour), 60 reactions a day (15 an hour), 20 comments a day (5 an
+hour) and 20 outreach a day (5 an hour). They are Blowhorn's
+estimates. YouTube publishes no per-account daily count for uploads,
+Posts-tab posts, comments, replies, likes or subscribes (read
+2026-11-24; the pages are on the
+<a href="/docs/reference/platforms/youtube/#per-profile-daily-ceilings">YouTube reference</a>).</li>
+<li><strong>What actually holds an activity.</strong> Each profile is also held to 3
+uploads, 2 Posts-tab posts, 10 comments, 10 replies, 20 likes and 5
+subscribes a day. Those are Blowhorn's own ceilings. Only the upload
+count matches the Risk Profile post ceiling. Daily Caps on Posture
+can lower the Risk Profile gate. A scheduled YouTube activity counts
+as new activity on that gate. The per-activity ceilings still hold.</li>
+<li><strong>Not the Data API quota.</strong> The project's quota is a separate budget
+you configure with <code>BLOWHORN_YOUTUBE_API_QUOTA_COSTS</code> and
+<code>BLOWHORN_YOUTUBE_API_DAILY_UNITS</code>. Posture does not spend it. The
+<a href="/docs/reference/platforms/youtube/#data-api-project-quota">YouTube reference</a>
+has the model Google published, read 2026-11-24.</li>
 </ul>
 <h2 id="a-new-profile-warms-up-under-safety-on-whatever-you-chose">A new profile warms up under Safety on, whatever you chose</h2><p>A new profile or a new Mac runs under Safety on for scheduled jobs until it
 has history - 14 days, whatever preset you picked. Its caps ramp over
@@ -896,7 +925,7 @@ Blowhorn reads them again on a schedule.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 21, 2026
+  Last modified November 25, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/settings/choose-your-rules-of-engagement.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -946,6 +975,7 @@ Blowhorn reads them again on a schedule.</p>
     <li><a href="#safety-on-cautious-one-thing-at-a-time-nights-off">Safety on (cautious): one thing at a time, nights off</a></li>
     <li><a href="#weapons-tight-standard-half-the-ceiling-with-the-guardrails-on">Weapons tight (standard): half the ceiling, with the guardrails on</a></li>
     <li><a href="#weapons-free-brisk-fast-while-you-watch">Weapons free (brisk): fast, while you watch</a></li>
+    <li><a href="#youtube-stays-experimental">YouTube stays experimental</a></li>
     <li><a href="#a-new-profile-warms-up-under-safety-on-whatever-you-chose">A new profile warms up under Safety on, whatever you chose</a></li>
     <li><a href="#if-you-are-still-unsure">If you are still unsure</a></li>
     <li><a href="#one-activity-on-its-own-rules-of-engagement">One activity on its own rules of engagement</a></li>

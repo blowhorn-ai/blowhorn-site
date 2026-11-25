@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.62ecc7864d8b0bbd7719561ce41af96a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.4add3665f58efa1a2cbb1d10fcbc51ec.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -448,8 +448,6 @@
     <a href="/docs/reference/platforms/facebook/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceplatformsfacebook"><span class="">Facebook</span></a>
   </li>
     </ul>
-  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
-    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-queue-li">
     <a href="/docs/reference/content-queue/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-queue"><span class="">Content queue columns and activity states</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencejobs-li">
@@ -545,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
+    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
     <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
@@ -828,12 +828,15 @@ verification step, a captcha, or YouTube sending the tab off its own site
 <li><strong>One channel per profile</strong>: the one <code>YT_CHANNEL_URL</code> names. If Studio
 shows another channel, the activity stops with nothing published.</li>
 </ul>
-<p>Every profile has daily ceilings of its own on YouTube: 3 uploads, 10
-comments, 10 replies, 20 likes and 2 Posts-tab posts a day, counted across
-every run that day. An activity past its ceiling waits for the next day.
-A dry run counts its planned rows against those ceilings for the rest of
-the same run, so it holds what the real run would; it does not stamp the
-activity, so the count does not carry into tomorrow.</p>
+<p>Every profile has daily ceilings of its own on YouTube: 3 uploads, 2
+Posts-tab posts, 10 comments, 10 replies, 20 likes and 5 subscribes a
+day, counted across every run that day. They are Blowhorn's own. The
+table, the pages checked, and how they differ from Posture are under
+<a href="#per-profile-daily-ceilings">Per-profile daily ceilings</a>. An activity
+past its ceiling waits for the next day. A dry run counts its planned
+rows against those ceilings for the rest of the same run, so it holds
+what the real run would; it does not stamp the activity, so the count
+does not carry into tomorrow.</p>
 <p>Without a Data API consent, a <a href="/docs/reference/post/">dry fire</a> walks Studio's upload
 dialog up to the final button and stops there. Studio keeps the upload as
 private once the file is attached, so delete it in YouTube Studio
@@ -861,18 +864,32 @@ is set to <code>false</code>, the project is treated as unaudited and a <code>pu
 upload reads the visibility back from YouTube's answer and reports one
 other than the row asked for; the upload has already happened, so it is
 not undone.</p>
-<p>The Data API project's quota is shared by every profile in a run. Google
-changes the quota model, so no unit cost and no daily figure is
-hard-coded. Optionally set <code>BLOWHORN_YOUTUBE_API_QUOTA_COSTS</code>
-(<code>method=units</code> pairs, comma separated) and
-<code>BLOWHORN_YOUTUBE_API_DAILY_UNITS</code>; a call whose configured cost would
-take the run past the configured daily units is not made, and the row is
-held. With nothing configured, nothing is pre-counted and the API's own
-answer decides. <code>quotaExceeded</code>, <code>uploadLimitExceeded</code>,
-<code>rateLimitExceeded</code> and any 429 hold the row and halt the API path for
-the rest of the run, never fail it and never retry it. Uploads also have
-an optional per-run count, <code>BLOWHORN_YOUTUBE_API_DAILY_UPLOADS</code>; past
-that count, further uploads in the same run are held.</p>
+<h2 id="data-api-project-quota">Data API project quota</h2><p>The Data API project's quota is a separate budget from the
+<a href="#per-profile-daily-ceilings">per-profile daily ceilings</a> and from
+Posture. It is shared by every profile in a run.
+Google changes the quota model, so no unit cost and no daily figure is
+hard-coded. Read on 2026-11-24, the
+<a href="https://developers.google.com/youtube/v3/determine_quota_cost">quota calculator</a>
+and the <a href="https://developers.google.com/youtube/v3/getting-started">getting started</a>
+quota section say a project gets a default of 100 <code>search.list</code> calls,
+100 <code>videos.insert</code> calls, and 10,000 units a day for every other
+endpoint. The two methods have their own buckets, at 1 unit per call.
+The other costs named there include <code>comments.insert</code> 50,
+<code>commentThreads.insert</code> 50, <code>videos.rate</code> 50, <code>subscriptions.insert</code> 50
+and <code>thumbnails.set</code> 50. Daily quotas reset at midnight Pacific Time.</p>
+<p>Optionally set <code>BLOWHORN_YOUTUBE_API_QUOTA_COSTS</code> (<code>method=units</code> pairs,
+comma separated) and <code>BLOWHORN_YOUTUBE_API_DAILY_UNITS</code>. A call whose
+configured cost would take the run past the configured daily units is
+not made, and the row is held. That is one pool. A cost you set for
+<code>videos.insert</code> is counted in it, which mixes Google's separate upload
+bucket into the shared units. Blowhorn does not split the buckets and
+does not hard-code 100 or 10,000. <code>search.list</code> is not called.
+<code>BLOWHORN_YOUTUBE_API_DAILY_UPLOADS</code> is an optional per-run upload count
+you set, not Google's 100-call <code>videos.insert</code> bucket. With nothing
+configured, nothing is pre-counted and the API's own answer decides.
+<code>quotaExceeded</code>, <code>uploadLimitExceeded</code>, <code>rateLimitExceeded</code> and any 429
+hold the row and halt the API path for the rest of the run, never fail
+it and never retry it.</p>
 <p>The engine can also edit a video's title, description or visibility, delete
 a video, and add a video to a playlist through the Data API. Blowhorn does
 not yet expose a command or a queue action for those calls.</p>
@@ -887,6 +904,77 @@ fails and the report tells you the draft is still in YouTube Studio.
 If attaching the file itself fails after the browser may have sent it,
 the report says Studio may have saved a draft; check YouTube Studio.
 A retry starts a new upload; it does not resume the leftover draft.</p>
+<h2 id="per-profile-daily-ceilings">Per-profile daily ceilings</h2><p>These are the ceilings the YouTube activities hold at, per profile, per
+day. Each one is Blowhorn's own, and unverified. YouTube publishes no
+per-account daily integer for any of them. The pages checked on
+2026-11-24 are the <a href="https://support.google.com/youtube/answer/2801973">Spam Policy</a>,
+<a href="https://support.google.com/youtube/answer/3399767">fake engagement</a>,
+<a href="https://support.google.com/youtube/answer/9890437">feature access</a> and
+<a href="https://support.google.com/youtube/answer/10383400">upload errors</a>.
+Feature access says only &quot;limited daily limit&quot; or &quot;higher daily limit&quot;.
+The upload-error page says a channel can upload only so many videos in
+24 hours and that the limit may vary. Neither page states a number.
+Review these by 2027-02-22.</p>
+
+<div class="table-scroll" tabindex="0" role="group" aria-label="Table">
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Activity</th>
+      <th scope="col">Ceiling a day</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upload</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Posts-tab post</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Comment</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Reply</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Like</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>Subscribe</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>Posture reads a different table, the Risk Profile ceilings: 3 posts a
+day and 1 an hour, 60 reactions a day and 15 an hour, 20 comments a day
+and 5 an hour, 20 outreach a day and 5 an hour. A preset takes a
+quarter, a half, or all of those, and a daily cap you set can only
+lower them. YouTube stays experimental there, so outreach stays off
+under Safety on and Weapons tight and is on under Weapons free. There
+is no subscribe command yet, so a subscribe does not run. Uploads are
+the only activity whose daily ceiling matches that gate. Likes,
+comments, replies, Posts-tab posts and subscribes do not.
+The YouTube activities hold at the table above. A scheduled YouTube
+activity is also counted as a post on the Risk Profile gate (3 a day,
+1 an hour).</p>
+<p>YouTube does publish a few numbers that are not these ceilings. Custom
+thumbnails have a daily limit with no integer
+(<a href="https://support.google.com/youtube/answer/72431">Add custom thumbnails</a>,
+read 2026-11-24). Live streaming allows 10 active streams per channel
+and 3 active streams per stream key at the same time
+(<a href="https://support.google.com/youtube/answer/2474026">Get started with live streaming</a>,
+read 2026-11-24). A daily limit on creating live streams exists and has
+no integer
+(<a href="https://support.google.com/youtube/answer/2853834">Avoid live-streaming restrictions</a>,
+read 2026-11-24). Blowhorn does not upload custom thumbnails or live
+streams as these activities.</p>
 <!-- BEGIN generated limits: release/scripts/capabilities_docs/build.py; do not edit -->
 <h2 id="limits">Limits</h2><p>The limits Blowhorn knows for YouTube.</p>
 
@@ -1187,7 +1275,7 @@ A retry starts a new upload; it does not resume the leftover draft.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 23, 2026
+  Last modified November 25, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/platforms/youtube.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -1236,7 +1324,9 @@ A retry starts a new upload; it does not resume the leftover draft.</p>
     <li><a href="#taking-the-data-api-consent-back">Taking the Data API consent back</a></li>
     <li><a href="#how-long-youtube-figures-are-kept">How long YouTube figures are kept</a></li>
     <li><a href="#what-blowhorn-does-not-do-on-youtube">What Blowhorn does not do on YouTube</a></li>
+    <li><a href="#data-api-project-quota">Data API project quota</a></li>
     <li><a href="#when-a-studio-walk-stops-after-the-file-is-attached">When a Studio walk stops after the file is attached</a></li>
+    <li><a href="#per-profile-daily-ceilings">Per-profile daily ceilings</a></li>
     <li><a href="#limits">Limits</a></li>
     <li><a href="#supported-actions">Supported actions</a></li>
     <li><a href="#related">Related</a></li>

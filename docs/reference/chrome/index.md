@@ -18,12 +18,13 @@ drives the Chrome profiles you already use, so without Chrome every browser run
 refuses before it acts.
 
 Blowhorn looks for `/Applications/Google Chrome.app` or
-`~/Applications/Google Chrome.app` on macOS, and for `google-chrome` or
-`google-chrome-stable` on `PATH` or `/opt/google/chrome/chrome` on Linux
-([Linux](#linux)). A path that resolves to Chromium or Chrome for Testing, such
-as a `google-chrome` symlink onto Chromium, does not count as installed; when
-Chrome is missing, every browser-backed command refuses with one sentence
-instead of starting a bundled browser.
+`~/Applications/Google Chrome.app` on macOS, and on Linux for `google-chrome`,
+then `google-chrome-stable`, in every `PATH` directory, then
+`/opt/google/chrome/chrome` ([Linux](#linux)). A candidate that resolves to
+Chromium or Chrome for Testing, such as a `google-chrome` symlink onto
+Chromium, is skipped and the search continues; when no branded Chrome remains,
+every browser-backed command refuses with one sentence instead of starting a
+bundled browser.
 
 The CLI runs on macOS and Linux: the `extension` and `persistent` drivers run on
 both, the `cdp` attach driver is macOS only. The desktop app needs macOS 13 or
@@ -336,8 +337,8 @@ signing in, then confirms the session once.
 Whether Google Chrome is installed, whether it is running, and whether
 its debugging switch is on. On macOS the installed path is
 `/Applications/Google Chrome.app`, then `~/Applications/Google Chrome.app`
-(the first one there wins); on Linux the `PATH` names and
-`/opt/google/chrome/chrome`. A missing Chrome stops the run with
+(the first one there wins); on Linux it is the lookup in
+[Requirements](#requirements). A missing Chrome stops the run with
 `ChromeNotInstalled` before any driver starts.
 
 ## Flags
@@ -349,8 +350,8 @@ its debugging switch is on. On macOS the installed path is
 ## Linux
 
 The `extension` and `persistent` drivers run on Linux as on macOS; the
-`cdp` attach driver is macOS only. Chrome is found by its `PATH` names
-and `/opt/google/chrome/chrome`. Everything else on this page reads
+`cdp` attach driver is macOS only. Chrome is found as in
+[Requirements](#requirements). Everything else on this page reads
 the same.
 
 ## A dedicated attach Chrome (no Allow dialog)

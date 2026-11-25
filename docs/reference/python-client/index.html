@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.62ecc7864d8b0bbd7719561ce41af96a.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.4add3665f58efa1a2cbb1d10fcbc51ec.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -448,8 +448,6 @@
     <a href="/docs/reference/platforms/facebook/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceplatformsfacebook"><span class="">Facebook</span></a>
   </li>
     </ul>
-  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
-    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecontent-queue-li">
     <a href="/docs/reference/content-queue/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencecontent-queue"><span class="">Content queue columns and activity states</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencejobs-li">
@@ -545,6 +543,8 @@
     <a href="/docs/reference/mcp-server/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencemcp-server"><span class="">MCP server</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsreferencepython-client-li">
     <a href="/docs/reference/python-client/" class="align-left ps-0 active td-sidebar-link td-sidebar-link__page" id="m-docsreferencepython-client"><span class="td-sidebar-nav-active-item">Python client library</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceuse-the-chrome-extension-li">
+    <a href="/docs/reference/use-the-chrome-extension/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferenceuse-the-chrome-extension"><span class="">The Chrome extension, at a glance</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencesupport-packages-li">
     <a href="/docs/reference/support-packages/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docsreferencesupport-packages"><span class="">Reviewed support packages</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceapi-li">
@@ -654,32 +654,15 @@ canonical type is object-or-array-or-null, which the generator
 cannot represent, so the client carries it as <code>Any</code>.</li>
 </ul>
 <h2 id="for-contributors">For contributors</h2><p><code>make schemas-bundle</code>, which you run after changing a command, a flag
-or a schema, regenerates the client as its last step. Install the
-pinned tools once, or regenerate the client alone:</p>
-<figure class="term term-prompt" data-lang="bash">
-  <figcaption class="term-bar">
-    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="term-title">terminal</span>
-    <span class="term-lang" aria-hidden="true">Shell</span>
-    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
-      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
-      <span class="term-copy-text">Copy</span>
-    </button>
-  </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>pip install openapi-python-client<span class="o">==</span>0.29.1 <span class="nv">ruff</span><span class="o">==</span>0.17.0
-</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>make python-generate
-</span></span><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>make python-test</span></span></code></pre></div></div>
-  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
-</figure>
-<p>Never edit a file under <code>python/generated/src/</code> by hand. The full
-account, including the OpenAPI 3.2 to 3.1 generator-input gap, is in
-<code>schemas/README.md</code> (Python client library) and
-<code>python/generated/README.md</code>.</p>
+or a schema, regenerates the client as its last step. How to install
+the pinned tools, regenerate the client alone and check it is in
+<a href="https://github.com/blowhorn-ai/blowhorn/blob/master/python/generated/README.md#regenerate"><code>python/generated/README.md</code></a>.
+Never edit a file under <code>python/generated/src/</code> by hand.</p>
 
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 24, 2026
+  Last modified November 25, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/python-client.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -696,7 +679,7 @@ account, including the OpenAPI 3.2 to 3.1 generator-input gap, is in
 </footer>
 </div><ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li><a href="/docs/reference/mcp-server/" aria-label="Previous - MCP server" class="btn btn-primary"><span class="me-1">←</span>Previous</a></li>
-  <li><a href="/docs/reference/support-packages/" aria-label="Next - Reviewed support packages" class="btn btn-primary">Next<span class="ms-1">→</span></a></li>
+  <li><a href="/docs/reference/use-the-chrome-extension/" aria-label="Next - The Chrome extension, at a glance" class="btn btn-primary">Next<span class="ms-1">→</span></a></li>
 </ul>
 
 <div class="tells-docs-card docs-rail-card docs-rail-card-end">
