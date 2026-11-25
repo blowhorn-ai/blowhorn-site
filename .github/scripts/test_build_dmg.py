@@ -188,6 +188,32 @@ class RunBuildTest(unittest.TestCase):
         self.assertNotIn("private.dmg", out)
         self.assertNotIn("hunter2", out)
 
+    def test_a_failure_names_the_sub_step_its_exit_and_failing_test_files_only(self):
+        script = (
+            "print('==> build');"
+            "print('    --- pnpm test ---');"
+            "print('\\x1b[41m FAIL \\x1b[49m tests/child-teardown.test.ts > childTeardown > a SIGINT stops every child');"
+            "print(' FAIL  tests/child-teardown.test.ts > childTeardown > another');"
+            "print(' FAIL  tests/../../etc/passwd.ts > x');"
+            "print('AssertionError: /Users/runner/work/product/desktop/x.ts token=abc');"
+            "print('    --- end of pnpm test (failed) ---');"
+            "print('    --- end of build the checkout' + chr(39) + 's Rust binaries (passed) ---');"
+            "print(\"    $ /Users/runner/setup-pnpm/pnpm exec electron-builder --mac -c.directories.output=/Users/runner/private\");"
+            "print('release-mac: pnpm test failed (exit 1)');"
+            f"print({SECRET!r}); raise SystemExit(1)"
+        )
+
+        def popen(cmd, cwd, env, stdout, stderr, start_new_session):
+            return real_popen([sys.executable, "-c", script], stdout=stdout, stderr=stderr, start_new_session=start_new_session)
+
+        status, out = self._main(popen)
+        self.assertEqual(status, 1)
+        self.assertIn("build: step failed: pnpm test", out)
+        self.assertIn("build: failed step: pnpm test (exit 1)", out)
+        self.assertEqual(out.count("failing test file: tests/child-teardown.test.ts"), 1)
+        for private in ("passwd", "/Users/runner", "token=abc", "hunter2", "SIGINT", "electron-builder", "passed"):
+            self.assertNotIn(private, out)
+
     def test_a_hung_build_is_killed_at_its_limit_with_a_clear_message(self):
         def popen(cmd, cwd, env, stdout, stderr, start_new_session):
             return real_popen([sys.executable, "-c", "import time; print('==> engine', flush=True); time.sleep(60)"], stdout=stdout, stderr=stderr, start_new_session=start_new_session)
@@ -366,6 +392,25 @@ class PublicLogAuditTest(unittest.TestCase):
         self.assertEqual(timed_run.progress_line("  status: Invalid"), "notarization: status Invalid")
         for private in ("  path: /tmp/x.dmg", "==> " + "x" * 60, "  id: not-a-uuid", "status: Accepted token=abc", SECRET):
             self.assertIsNone(timed_run.progress_line(private))
+
+    def test_progress_line_names_each_failed_sub_step_and_nothing_of_its_output(self):
+        cases = {
+            "    --- end of pnpm typecheck (failed) ---": "step failed: typecheck",
+            "    --- end of pnpm lint (stopped) ---": "step stopped: lint",
+            "    --- end of build the checkout's Rust binaries (failed) ---": "step failed: checkout rust build",
+            "    --- end of verify reconcile (fixture) (failed) ---": "step failed: fixture check reconcile",
+            "release-mac: building the bundled engine failed (exit 1)": "failed step: bundled engine build (exit 1)",
+            "release-mac: /Users/runner/pnpm exec electron-builder --mac dir -c.directories.output=/private failed (exit 1)": "failed step: electron-builder (exit 1)",
+            "release-mac: signing the DMG failed (exit 1)": "failed step: codesign (exit 1)",
+            "release-mac: xcrun notarytool submit /private/x.dmg --key /private/key.p8 --wait failed (exit 69)": "failed step: notarytool (exit 69)",
+            "release-mac: /Users/runner/pnpm build failed (exit 2)": "failed step: pnpm build (exit 2)",
+            "release-mac: something new failed (spawn ENOENT)": "failed step: unrecognized step (no exit code)",
+            " FAIL  tests/a/b.test.ts > suite > name": "failing test file: tests/a/b.test.ts",
+        }
+        for line, public in cases.items():
+            self.assertEqual(timed_run.progress_line(line), public, line)
+        for private in ("    --- end of pnpm test (passed) ---", " FAIL  /abs/x.test.ts", " FAIL  tests/../x.test.ts", "release-mac: the build produced no /private/x.dmg."):
+            self.assertIsNone(timed_run.progress_line(private), private)
 
     def test_materialize_does_not_write_github_env(self):
         script = (ROOT / ".github" / "scripts" / "build-dmg" / "materialize_signing.sh").read_text()

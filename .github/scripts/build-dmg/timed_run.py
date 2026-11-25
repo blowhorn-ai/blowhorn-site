@@ -3,7 +3,9 @@
 The child's output goes only to the log, which is never printed, uploaded or
 cached. Stdout gets fixed labels: the phase start and end with UTC timestamps
 and the elapsed time, and the few progress lines that `progress_line` lets
-through (release phase headers and notarization submission id and status).
+through (release phase headers, notarization submission id and status, and on
+a failure which build sub-step failed, its exit code and the failing test file
+names; never the tool output, a path or a value).
 On timeout the whole process group is killed and the phase fails with a clear
 message instead of running into the job's timeout.
 
@@ -40,17 +42,79 @@ _PROGRESS = (
 )
 
 
+ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
+
+#: The build phase's sub-steps: a fixed fragment of the step's own label or
+#: command in the private log, and the public name it gets. First match wins.
+#: Only the public name is echoed, never the matched text, so a quoted command
+#: line with paths or flags cannot leak through.
+SUBSTEPS = (
+    ("pnpm typecheck", "typecheck"),
+    ("pnpm lint", "lint"),
+    ("checkout's Rust binaries", "checkout rust build"),
+    ("pnpm test", "pnpm test"),
+    ("verify linkedin-accept", "fixture check linkedin-accept"),
+    ("verify reconcile", "fixture check reconcile"),
+    ("(fixture)", "fixture check"),
+    ("bundled engine", "bundled engine build"),
+    ("electron-builder", "electron-builder"),
+    ("adhoc-sign-mac-app", "ad-hoc signing"),
+    ("signing the DMG", "codesign"),
+    ("codesign", "codesign"),
+    ("notarytool", "notarytool"),
+    ("stapler", "stapler"),
+    ("create-dmg", "create-dmg"),
+    ("verify-mac-dmg", "DMG verify"),
+    ("install --frozen-lockfile", "pnpm install"),
+)
+_PNPM_BUILD = re.compile(r"(?:^|[\s/'\"])pnpm['\"]?\s+build(?:['\"]?\s|['\"]?$)")
+#: A check beside packaging ends with "--- end of <label> (failed|stopped) ---".
+_STEP_END = re.compile(r"\s*--- end of (.{1,300}) \((failed|stopped)\) ---")
+#: release-mac's headline on exit: "release-mac: <step> failed (exit N)".
+_HEADLINE = re.compile(r"release-mac: (.{1,2000}?) failed(?: \((?:exit (\d{1,3})|[^)]*)\))?(?:[:.].*)?")
+#: Vitest's failing-test line; only a plain test file path under tests/ is kept.
+_VITEST_FAIL = re.compile(r"\s*FAIL\s+(tests/(?:[A-Za-z0-9_-][A-Za-z0-9._-]*/)*[A-Za-z0-9_-][A-Za-z0-9._-]*\.(?:ts|tsx|js|jsx|mts|cts|mjs|cjs))(?:\s.*)?")
+FAILING_FILE = "failing test file: "
+MAX_FAILING_FILES = 20
+
+
+def substep(text: str) -> str:
+    """The public name of the sub-step *text* names; 'unrecognized step' when none matches."""
+    for fragment, name in SUBSTEPS:
+        if fragment in text:
+            return name
+    if _PNPM_BUILD.search(text):
+        return "pnpm build"
+    return "unrecognized step"
+
+
+def failure_line(line: str) -> str | None:
+    """The public form of a failure marker in *line*, or None."""
+    match = _STEP_END.fullmatch(line)
+    if match:
+        return f"step {match.group(2)}: {substep(match.group(1))}"
+    match = _HEADLINE.fullmatch(line)
+    if match:
+        code = f"exit {match.group(2)}" if match.group(2) else "no exit code"
+        return f"failed step: {substep(match.group(1))} ({code})"
+    match = _VITEST_FAIL.fullmatch(line)
+    if match and ".." not in match.group(1):
+        return FAILING_FILE + match.group(1)
+    return None
+
+
 def stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def progress_line(line: str) -> str | None:
     """The public form of *line*, or None when it must stay in the log."""
+    line = ANSI.sub("", line).rstrip()
     for pattern, template in _PROGRESS:
-        match = pattern.fullmatch(line.rstrip())
+        match = pattern.fullmatch(line)
         if match:
             return template.format(*match.groups())
-    return None
+    return failure_line(line)
 
 
 def say(label: str, message: str) -> None:
@@ -73,6 +137,7 @@ def run_logged(
     started = time.monotonic()
     timed_out = threading.Event()
     last = None
+    failing_files: set[str] = set()
     with log.open("wb") as sink:
         proc = (popen or subprocess.Popen)(cmd, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, start_new_session=True)
 
@@ -93,6 +158,10 @@ def run_logged(
                 # notarytool redraws its status line with carriage returns.
                 for part in raw.decode("utf-8", "replace").replace("\r", "\n").split("\n"):
                     public = progress_line(part)
+                    if public and public.startswith(FAILING_FILE):
+                        if public in failing_files or len(failing_files) >= MAX_FAILING_FILES:
+                            continue
+                        failing_files.add(public)
                     if public and public != last:
                         last = public
                         say(label, public)

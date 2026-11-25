@@ -3,7 +3,8 @@
 Build and tool output goes to a log under RUNNER_TEMP that is never printed,
 uploaded or cached. The only stdout is fixed labels, the exit status, the
 duration, phase and notarization progress lines that timed_run.progress_line
-allows, and (on success) the manifest sha256 and size. Commands run without
+allows, on a failure the sub-step that failed with its exit code and the
+failing test file names, and (on success) the manifest sha256 and size. Commands run without
 the runner's file-command variables. The build is killed after
 --timeout-minutes so a hang fails with a clear message before the job times out.
 """
