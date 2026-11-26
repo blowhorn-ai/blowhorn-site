@@ -1,6 +1,6 @@
 # Blowhorn vs Expandi
 
-> Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi, honestly. Blowhorn is for careful outreach and real-person amplification, from your own browser, on every network you post on.
+> Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi, honestly. Blowhorn is for careful outreach and real-person amplification, from your own browser, on every platform you post on.
 
 ## Choose Expandi if
 
@@ -32,7 +32,7 @@ Expandi pricing as of Oct 2026: $99 a seat a month, or $79 a seat billed annuall
 | Agency controls | White label and multi-account management on the Agency tier | One pane of management; teammates and supporters add their profiles today, team invites Coming soon |
 | Personalization | Dynamic placeholders core; image, GIF and video personalization as a paid add-on | You write the words; AI drafts wait for your approval |
 | Runs with every computer closed | Yes, from its cloud | No, at least one of your computers must be awake |
-| Networks | LinkedIn (plus email) | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | LinkedIn (plus email) | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No pods, but Post Engagement campaigns target people who engaged with a post | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Bought engagement | None sold, no pods | None. Blowhorn sells no followers, likes or reposts |
 | Safety | Cloud, dedicated IP, warm-up, limit ranges; Expandi itself says no tool guarantees protection | Human-paced with caps, quiet hours and a dry run, built to keep your profile within each platform's limits |
@@ -46,7 +46,7 @@ Outbound volume fills a pipeline. Discussion builds a reputation. Platforms are 
 
 ## Frequently Asked Questions {#questions}
 
-**Is Expandi better than Blowhorn?** For outbound sequences at volume, yes, and Blowhorn won't pretend otherwise. For careful outreach from your own browser plus publishing and amplification across many networks, we think Blowhorn is the better fit.
+**Is Expandi better than Blowhorn?** For outbound sequences at volume, yes, and Blowhorn won't pretend otherwise. For careful outreach from your own browser plus publishing and amplification across many platforms, we think Blowhorn is the better fit.
 
 **Is Expandi safe, or approved by LinkedIn?** Expandi itself says LinkedIn's rules strictly prohibit unauthorized automation and no tool or setting guarantees complete protection. Blowhorn makes no stronger claim: it is built to keep your profile within each platform's limits, with human pacing, caps and a dry run first.
 

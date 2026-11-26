@@ -3,6 +3,8 @@
 Product intelligence, tips and field notes from the Blowhorn team: how to read your results, schedule well and stay inside every platform's rules.
 
 
+- [Start a post from the page you are reading](https://blowhorn.ai/resources/articles/tip-capture-from-any-page/) - Drag Blowhorn: capture to your bookmarks bar once. Then select a line on any page and click it. Blowhorn opens a new post with your text, the link and the page title already filled in.
+
 - [What fingerprint and bot-detection checkers measure](https://blowhorn.ai/resources/articles/bot-detection-checkers-compared/) - Free fingerprint pages and commercial bot detectors publish different signals, and their popularity counts do not share one measure. This article lists the signal groups, two dated rankings, a coverage matrix that includes Blowhorn Tells, and the Tells gaps on the public backlog.
 
 - [Getting the most from your Blowhorn subscription](https://blowhorn.ai/resources/articles/getting-the-most-from-your-subscription/) - One thing is metered: voices. Everything else is not. Nineteen ways to lean on that shape, from the General and the rest of the cast.
@@ -15,7 +17,7 @@ Product intelligence, tips and field notes from the Blowhorn team: how to read y
 
 - [The open web is closing. Show up where your audience is.](https://blowhorn.ai/resources/articles/the-open-web-is-closing/) - AI answers now reuse Reddit's posts without sending the click, and Reddit is answering with logins and its app. Here is what that shift means for anyone who builds an audience in public, and how to keep showing up in your own voice.
 
-- [Your release, drafted by your assistant, fired by you](https://blowhorn.ai/resources/articles/your-release-drafted-by-your-assistant/) - Your changelog already says what shipped. Here is how to have an assistant turn it into release posts for the networks your buyers read, queue them for a good hour, and still keep the decision to send in your own hands.
+- [Your release, drafted by your assistant, fired by you](https://blowhorn.ai/resources/articles/your-release-drafted-by-your-assistant/) - Your changelog already says what shipped. Here is how to have an assistant turn it into release posts for the platforms your buyers read, queue them for a good hour, and still keep the decision to send in your own hands.
 
 - [Why your assistant rehearses first](https://blowhorn.ai/resources/articles/why-your-assistant-rehearses-first/) - Every write through the Blowhorn MCP server is a dry run until you confirm. What a rehearsal shows, what to check before you say go, why an agent can never approve its own content, and what approval mode and secrets handling add.
 

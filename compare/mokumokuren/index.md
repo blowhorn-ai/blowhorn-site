@@ -23,7 +23,7 @@ mokumokuren pricing as of Oct 2026: Free; Pro $7 a month ([source](https://docs-
 | | mokumokuren | Blowhorn |
 | --- | --- | --- |
 | Where it acts | Local browser sessions, you send | Your computers, in your own signed-in browser or platform APIs |
-| Networks | X, Bluesky, Threads, mixi2, Substack | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | X, Bluesky, Threads, mixi2, Substack | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Scheduling | No, you send | As long as one of your computers is awake. Any computer set up for the profile keeps the schedule |
 | Many computers on one queue | No | Unlimited computers on one queue, coordinated so the same post isn't sent from two computers |
 | Amplify one post | One draft to many accounts | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
@@ -34,10 +34,10 @@ mokumokuren pricing as of Oct 2026: Free; Pro $7 a month ([source](https://docs-
 
 Blowhorn doesn't sell followers, likes or repost packages, and it never will. A like from someone paid to click is weak signal: it moves a number and nothing else. Strong signal is a reply, a question, a repost with a real take from someone who knows your work, a thread that turns into a discussion. Blowhorn exists to get your message in front of the people who would answer it, through the profiles of real people who chose to back you.
 
-mokumokuren and Blowhorn come from the same place: no vendor posting as you, no bought numbers. Blowhorn goes further on reach, so a post gets real replies from your people across many networks.
+mokumokuren and Blowhorn come from the same place: no vendor posting as you, no bought numbers. Blowhorn goes further on reach, so a post gets real replies from your people across many platforms.
 
 ## Frequently Asked Questions {#questions}
 
-**Is mokumokuren better than Blowhorn?** If you want to press send yourself every time, or post to Threads, mixi2 or Substack, yes. For scheduling and amplification on developer networks, we think Blowhorn is the better fit.
+**Is mokumokuren better than Blowhorn?** If you want to press send yourself every time, or post to Threads, mixi2 or Substack, yes. For scheduling and amplification on developer platforms, we think Blowhorn is the better fit.
 
 [Download](https://blowhorn.ai/download/)

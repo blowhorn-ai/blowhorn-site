@@ -1,6 +1,6 @@
 # Blowhorn vs Blotato
 
-> Blotato is an AI content engine with a hosted MCP that publishes to 9 networks through official APIs, and if you generate AI media at volume it earns its keep. Blowhorn isn't a bot. It's you: real-person amplification on developer networks, driven by your agent through a CLI.
+> Blotato is an AI content engine with a hosted MCP that publishes to 9 platforms through official APIs, and if you generate AI media at volume it earns its keep. Blowhorn isn't a bot. It's you: real-person amplification on developer platforms, driven by your agent through a CLI.
 
 ## Choose Blotato if
 
@@ -22,7 +22,7 @@ Blotato pricing as of Oct 2026: Starter $29, Creator $97, Agency $499 per month 
 
 | | Blotato | Blowhorn |
 | --- | --- | --- |
-| Best at | Generating and publishing AI content | Amplifying real voices and acting across networks |
+| Best at | Generating and publishing AI content | Amplifying real voices and acting across platforms |
 | Where it acts | Blotato's cloud, through official APIs | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | AI media generation | Yes | No |
 | Free plan | No: a 7-day trial, card required, and the trial excludes the API and MCP server | Free during early access |
@@ -40,6 +40,6 @@ Platforms are cracking down on bots while feeds fill with generated content nobo
 
 ## Frequently Asked Questions {#questions}
 
-**Is Blotato better than Blowhorn?** For AI content generation and API publishing at volume, yes. For amplification through real people on developer networks, we think Blowhorn is the better fit.
+**Is Blotato better than Blowhorn?** For AI content generation and API publishing at volume, yes. For amplification through real people on developer platforms, we think Blowhorn is the better fit.
 
 [Download](https://blowhorn.ai/download/)

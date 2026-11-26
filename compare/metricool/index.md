@@ -1,6 +1,6 @@
 # Blowhorn vs Metricool
 
-> Blowhorn isn't a bot. It's you. Metricool wins on analytics, competitor tracking and ads reporting for brands and agencies. Blowhorn is amplification-first, through real people on developer networks.
+> Blowhorn isn't a bot. It's you. Metricool wins on analytics, competitor tracking and ads reporting for brands and agencies. Blowhorn is amplification-first, through real people on developer platforms.
 
 ## Choose Metricool if
 
@@ -39,7 +39,7 @@ Metricool tells you which post landed. Blowhorn is built for the post before tha
 
 ## Frequently Asked Questions {#questions}
 
-**Is Metricool better than Blowhorn?** For analytics and multi-brand reporting, yes. For amplification through real people on developer networks, we think Blowhorn is the better fit.
+**Is Metricool better than Blowhorn?** For analytics and multi-brand reporting, yes. For amplification through real people on developer platforms, we think Blowhorn is the better fit.
 
 **Does Metricool have an inbox Blowhorn lacks?** Yes. Metricool has a unified inbox per brand for Facebook, Instagram and YouTube. Blowhorn does not claim a care desk: it amplifies one message through many real profiles.
 

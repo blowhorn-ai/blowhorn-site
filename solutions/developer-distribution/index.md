@@ -10,7 +10,7 @@
 
 ## What Blowhorn does instead
 
-- **Every developer network, one queue.** Hacker News submit and comment, GitHub follow and react, Slack messages, plus LinkedIn, X, Reddit, Bluesky, YouTube and more.
+- **Every developer platform, one queue.** Hacker News submit and comment, GitHub follow and react, Slack messages, plus LinkedIn, X, Reddit, Bluesky, YouTube and more.
 - **Never votes on Hacker News.** It submits stories and comments, nothing else, with at most 2 link submissions per profile per day.
 - **No Blowhorn app in your Slack.** Blowhorn works through your own Slack sign-in and posts as you. No app to install, no bot user to invite.
 - **Human-paced by design.** Types key by key in your own browser, caps itself, and hands every CAPTCHA and 2FA prompt to you.
@@ -32,7 +32,7 @@
 
 **Does Blowhorn install a Slack app?** No. Blowhorn works on Slack through Slack's API and sends as you, with your Slack session linked through the Blowhorn extension or a Slack token you add.
 
-**How does it post to each network?** LinkedIn, X, Reddit, Hacker News and YouTube: Blowhorn works in your own browser, signed in as you; once a profile gives YouTube Data API consent, YouTube uploads, comments, replies and likes go through YouTube's official API. Slack, Bluesky and GitHub go through their APIs.
+**How does it post to each platform?** LinkedIn, X, Reddit, Hacker News and YouTube: Blowhorn works in your own browser, signed in as you; once a profile gives YouTube Data API consent, YouTube uploads, comments, replies and likes go through YouTube's official API. Slack, Bluesky and GitHub go through their APIs.
 
 **What about Instagram, TikTok, Facebook and YouTube?** YouTube is supported. Blowhorn works in your own signed-in browser; with YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API. Instagram, Facebook and TikTok are on the way; Blowhorn doesn't post there yet.
 

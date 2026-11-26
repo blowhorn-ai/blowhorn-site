@@ -5,7 +5,7 @@
 ## Sound familiar?
 
 - **The first hour is gone.** The announcement goes out, then you chase people in Slack while the moment passes.
-- **A tab per profile.** Personal, company and project profiles, each in its own composer, for every network.
+- **A tab per profile.** Personal, company and project profiles, each in its own composer, for every platform.
 - **The schedule lives on one laptop.** Close that lid and the wave waits. A meeting or a flight should not kill the launch.
 
 ## How Blowhorn runs it

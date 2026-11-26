@@ -24,7 +24,7 @@ Thunderclap pricing as of Oct 2026: Closed 15 Sep 2018. In 2017 it had a free ti
 | Status | Closed in 2018 | Live, free during early access |
 | How it worked | Supporters pledged an account; one identical message posted from all of them at once | Every profile in your account amplifies your post: reposts, quotes, comments and replies, at a human pace |
 | Where it acted | Thunderclap's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
-| Networks | Twitter, Facebook, Tumblr | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | Twitter, Facebook, Tumblr | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 
 ## Strong signal, not bought numbers

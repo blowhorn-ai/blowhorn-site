@@ -1,6 +1,6 @@
 # Blowhorn vs EveryoneSocial
 
-> Blowhorn isn't a bot. It's you. EveryoneSocial is the leading employee advocacy platform for large organizations. Blowhorn brings the same 'people beat logos' idea to teams amplifying launches on the networks developers read.
+> Blowhorn isn't a bot. It's you. EveryoneSocial is the leading employee advocacy platform for large organizations. Blowhorn brings the same 'people beat logos' idea to teams amplifying launches on the platforms developers read.
 
 ## Choose EveryoneSocial if
 
@@ -26,7 +26,7 @@ EveryoneSocial pricing as of Oct 2026: By quote, priced by number of registered 
 | Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Content library, approvals, gamification | Yes | No |
 | Many people amplifying one post | Employees share approved content | Every profile you add amplifies, from your own computers. Multi-user team onboarding is Coming soon |
-| Hacker News, Reddit, GitHub, Slack | Slack and Teams only, as integrations - not advocacy networks | Yes |
+| Hacker News, Reddit, GitHub, Slack | Slack and Teams only, as integrations - not advocacy platforms | Yes |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 | Price | Quote or per seat | Free during early access |
 
@@ -38,7 +38,7 @@ EveryoneSocial and Blowhorn agree on the big thing: people are the signal. The d
 
 ## Frequently Asked Questions {#questions}
 
-**Is EveryoneSocial better than Blowhorn?** For enterprise advocacy with governance, yes - go use it. For a smaller team amplifying launches on the networks developers read, we think Blowhorn is the better fit.
+**Is EveryoneSocial better than Blowhorn?** For enterprise advocacy with governance, yes - go use it. For a smaller team amplifying launches on the platforms developers read, we think Blowhorn is the better fit.
 
 **Can Blowhorn replace an advocacy program?** Not a thousand-seat program with compliance needs. For a team whose launch lives or dies in the first hour on LinkedIn, X, Reddit and Hacker News, Blowhorn is the lighter tool.
 

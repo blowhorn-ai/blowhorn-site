@@ -26,7 +26,7 @@ PhantomBuster pricing as of Oct 2026: Start $56, Grow $128, Scale $352 a month, 
 | Where it acts | PhantomBuster's cloud, through your accounts, with your browser closed | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Data extraction and enrichment | Yes, 15+ platforms | No |
 | LinkedIn outreach | Sequences, messages, follow-ups | Page invites, connect, accept, withdraw; human-paced with caps |
-| Networks | LinkedIn (plus email) | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | LinkedIn (plus email) | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per seat or license | Free during early access |

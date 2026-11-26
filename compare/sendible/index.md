@@ -1,12 +1,12 @@
 # Blowhorn vs Sendible
 
-> Sendible is a polished cloud scheduler for agencies and marketing teams, with unlimited users, white-label client dashboards and reporting. Blowhorn is for real-person amplification on the networks where developers talk.
+> Sendible is a polished cloud scheduler for agencies and marketing teams, with unlimited users, white-label client dashboards and reporting. Blowhorn is for real-person amplification on the platforms where developers talk.
 
 ## Choose Sendible if
 
 - You run an agency and need white-label dashboards and client reporting
 - You want unlimited team members without per-seat fees
-- You need scheduled publishing across the mainstream social networks
+- You need scheduled publishing across the mainstream social platforms
 
 [Sendible](https://www.sendible.com/)
 
@@ -23,7 +23,7 @@ Sendible pricing as of Oct 2026: Plans from $35/mo with unlimited users on every
 | | Sendible | Blowhorn |
 | --- | --- | --- |
 | Where it acts | Sendible's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
-| Networks | 9 incl. Facebook, Instagram, TikTok, YouTube, Threads, Bluesky | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | 9 incl. Facebook, Instagram, TikTok, YouTube, Threads, Bluesky | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Many people amplifying one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Approval workflows | Yes, from the second tier up | Queue, profiles, approvals and run history |
 | White-label client dashboards | Yes, on the top two plans | No |
@@ -40,6 +40,6 @@ Sendible proves the work got done: scheduled, approved, reported, all under the 
 
 ## Frequently Asked Questions {#questions}
 
-**Is Sendible better than Blowhorn?** For agencies that need white-label client dashboards and reporting across the mainstream networks, yes. For amplifying a few posts that really matter through real people on the networks where developers talk, we think Blowhorn is the better fit.
+**Is Sendible better than Blowhorn?** For agencies that need white-label client dashboards and reporting across the mainstream platforms, yes. For amplifying a few posts that really matter through real people on the platforms where developers talk, we think Blowhorn is the better fit.
 
 [Download](https://blowhorn.ai/download/)

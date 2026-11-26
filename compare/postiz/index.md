@@ -1,10 +1,10 @@
 # Blowhorn vs Postiz
 
-> Postiz is the strongest agent-ready scheduler out there, with 30+ networks, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.
+> Postiz is the strongest agent-ready scheduler out there, with 30+ platforms, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.
 
 ## Choose Postiz if
 
-- You want 30+ networks, including Discord, Instagram and TikTok
+- You want 30+ platforms, including Discord, Instagram and TikTok
 - You want to self-host open source software
 - Posts must go out with every laptop closed
 
@@ -23,7 +23,7 @@ Postiz pricing as of Oct 2026: Standard $29 (5 channels), Team $39, Pro $49, Ult
 | | Postiz | Blowhorn |
 | --- | --- | --- |
 | Where it acts | Postiz's cloud, or your self-hosted server, through official apps | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
-| Networks | 30+ incl. LinkedIn, X, Reddit, Slack, Discord, Bluesky, Instagram, TikTok, YouTube | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | 30+ incl. LinkedIn, X, Reddit, Slack, Discord, Bluesky, Instagram, TikTok, YouTube | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify across your accounts | Internal Plugs: automatic reposts or comments from your other connected accounts | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Hacker News and GitHub | No | Yes |
 | LinkedIn outreach | No | Page invites, connect, accept, withdraw |

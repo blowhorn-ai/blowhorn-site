@@ -1,6 +1,6 @@
 # Blowhorn vs Dux-Soup
 
-> Blowhorn isn't a bot. It's you. Dux-Soup, now sold as STACKED, wins at LinkedIn drip campaigns with CRM sync, so if volume prospecting on LinkedIn is the job, pick it. Blowhorn is for careful outreach and posts that earn real replies, across many networks, from your own computers.
+> Blowhorn isn't a bot. It's you. Dux-Soup, now sold as STACKED, wins at LinkedIn drip campaigns with CRM sync, so if volume prospecting on LinkedIn is the job, pick it. Blowhorn is for careful outreach and posts that earn real replies, across many platforms, from your own computers.
 
 ## Choose Dux-Soup if
 
@@ -27,7 +27,7 @@ Dux-Soup pricing as of Oct 2026: STACKED local $55 per month ($41.25 annually); 
 | Built for | Outbound prospecting at volume | Careful outreach plus publishing and amplification |
 | Where it acts | STACKED local, a desktop app on your computer, or STACKED cloud, which runs in Dux-Soup's cloud without your computer on | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | LinkedIn outreach | Sequences of up to 12 actions: visits, connects, messages, InMails, endorsements, follows | Page invites, connect, accept, withdraw; human-paced with caps |
-| Networks | LinkedIn, including Sales Navigator and Recruiter | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | LinkedIn, including Sales Navigator and Recruiter | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per seat | Free during early access |
@@ -40,7 +40,7 @@ Visits and connects start a relationship, they are not the whole of one. Blowhor
 
 ## Frequently Asked Questions {#questions}
 
-**Is Dux-Soup better than Blowhorn?** For LinkedIn drip campaigns with CRM sync, yes, and its long track record shows it. For publishing and amplifying across many networks, we think Blowhorn is the better fit.
+**Is Dux-Soup better than Blowhorn?** For LinkedIn drip campaigns with CRM sync, yes, and its long track record shows it. For publishing and amplifying across many platforms, we think Blowhorn is the better fit.
 
 **What changed at Dux-Soup?** Dux-Soup now sells its LinkedIn tool as STACKED, a desktop app or a cloud tier. The old browser-extension plans are no longer sold. [STACKED pricing](https://www.dux-soup.com/pricing/plans)
 

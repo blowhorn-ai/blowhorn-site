@@ -1,6 +1,6 @@
 # Blowhorn vs Hootsuite
 
-> Blowhorn isn't a bot. It's you. Hootsuite is a full social operations suite for larger teams: inbox, listening, approvals, ads. Blowhorn is a lighter, sharper tool for technical voices who need real people amplifying, as themselves, on developer networks.
+> Blowhorn isn't a bot. It's you. Hootsuite is a full social operations suite for larger teams: inbox, listening, approvals, ads. Blowhorn is a lighter, sharper tool for technical voices who need real people amplifying, as themselves, on developer platforms.
 
 ## Choose Hootsuite if
 
@@ -40,7 +40,7 @@ Hootsuite's boost is paid advertising, and ads are a fair, labeled trade. What B
 
 ## Frequently Asked Questions {#questions}
 
-**Is Hootsuite better than Blowhorn?** For a social team that needs one suite for inbox, listening, approvals and ads, yes. For a technical team amplifying launches on developer networks, we think Blowhorn fits better and costs far less.
+**Is Hootsuite better than Blowhorn?** For a social team that needs one suite for inbox, listening, approvals and ads, yes. For a technical team amplifying launches on developer platforms, we think Blowhorn fits better and costs far less.
 
 **Does Blowhorn have a social inbox or listening?** No. It publishes, replies, amplifies and does careful LinkedIn outreach from your own computers.
 

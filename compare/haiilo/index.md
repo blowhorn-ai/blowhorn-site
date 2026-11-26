@@ -1,6 +1,6 @@
 # Blowhorn vs Haiilo
 
-> Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer networks, free during early access.
+> Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer platforms, free during early access.
 
 ## Choose Haiilo if
 
@@ -37,7 +37,7 @@ Haiilo pricing as of Oct 2026: Mixed model: quote-only intranet tiers; advocacy 
 
 Blowhorn doesn't sell followers, likes or repost packages, and it never will. A like from someone paid to click is weak signal: it moves a number and nothing else. Strong signal is a reply, a question, a repost with a real take from someone who knows your work, a thread that turns into a discussion. Blowhorn exists to get your message in front of the people who would answer it, through the profiles of real people who chose to back you.
 
-Haiilo is right that employees carry more trust than a brand page. Blowhorn brings that trust to small teams on the networks technical people use, free during early access, with no tiers.
+Haiilo is right that employees carry more trust than a brand page. Blowhorn brings that trust to small teams on the platforms technical people use, free during early access, with no tiers.
 
 ## Frequently Asked Questions {#questions}
 

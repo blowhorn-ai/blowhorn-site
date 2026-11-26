@@ -25,7 +25,7 @@ Lempod pricing as of Oct 2026: Paid plans; see Lempod's pricing page ([source](h
 | How it works | Pod members' accounts automatically like and comment on each other's posts | Profiles in your account (yours, your teammates', your supporters') amplify your post |
 | Who engages | Other members of the pod or exchange | People who chose to back you |
 | Comments | AI-generated comments offered | Your words; no AI comment generation |
-| Networks | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Bought engagement | Engagement exchanged or purchased from other members | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per plan | Free during early access |
 
@@ -37,7 +37,7 @@ A pod trades likes with strangers. LinkedIn calls engagement pods inauthentic an
 
 ## Frequently Asked Questions {#questions}
 
-**Is Lempod better than Blowhorn?** If you want guaranteed early likes and comments on LinkedIn and accept the trade-offs, it does that. If you want real people and real conversation across many networks, we think Blowhorn is the better fit.
+**Is Lempod better than Blowhorn?** If you want guaranteed early likes and comments on LinkedIn and accept the trade-offs, it does that. If you want real people and real conversation across many platforms, we think Blowhorn is the better fit.
 
 **What does LinkedIn say about pods?** On 13 Mar 2026 LinkedIn wrote that engagement pods are not allowed and that it limits the reach of automated comments. Every platform has rules about automation and coordinated activity; read them, whichever tool you use.
 

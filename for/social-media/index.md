@@ -4,7 +4,7 @@
 
 ## Sound familiar?
 
-- **A composer for every network before breakfast.** Every day starts with a sign-in and a composer for every network, and the schedulers still skip Hacker News and GitHub.
+- **A composer for every platform before breakfast.** Every day starts with a sign-in and a composer for every platform, and the schedulers still skip Hacker News and GitHub.
 - **The company voice, split across tools.** LinkedIn tools cover LinkedIn. The advocacy suite wants a 100-seat minimum. Nothing holds the company voice and your own in one place.
 - **Launch day, alone.** The post goes out, and the first hour passes before the people who would amplify it even see it.
 

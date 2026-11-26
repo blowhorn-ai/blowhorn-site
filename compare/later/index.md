@@ -35,7 +35,7 @@ Later pricing as of Oct 2026: Starter $18.75, Growth $37.50 and Scale $82.50 per
 
 Blowhorn doesn't sell followers, likes or repost packages, and it never will. A like from someone paid to click is weak signal: it moves a number and nothing else. Strong signal is a reply, a question, a repost with a real take from someone who knows your work, a thread that turns into a discussion. Blowhorn exists to get your message in front of the people who would answer it, through the profiles of real people who chose to back you.
 
-Later helps a brand look good. Blowhorn helps a message get answered. On developer networks, a single reply from someone who builds with you outweighs a pile of passive likes.
+Later helps a brand look good. Blowhorn helps a message get answered. On developer platforms, a single reply from someone who builds with you outweighs a pile of passive likes.
 
 ## Frequently Asked Questions {#questions}
 

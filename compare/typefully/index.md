@@ -1,6 +1,6 @@
 # Blowhorn vs Typefully
 
-> Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many networks.
+> Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many platforms.
 
 ## Choose Typefully if
 
@@ -22,9 +22,9 @@ Typefully pricing as of Oct 2026: Free plan; paid plans for more posts, analytic
 
 | | Typefully | Blowhorn |
 | --- | --- | --- |
-| Best at | Writing and scheduling | Amplifying and acting across networks |
+| Best at | Writing and scheduling | Amplifying and acting across platforms |
 | Where it acts | Typefully's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
-| Networks | X, LinkedIn, Threads, Bluesky, Mastodon | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | X, LinkedIn, Threads, Bluesky, Mastodon | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Many people amplifying one post | Not across people | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | AI agents | AI writing, hosted MCP and API | MCP server, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
@@ -38,7 +38,7 @@ Great writing earns attention. It earns a lot more when the people who know you 
 
 ## Frequently Asked Questions {#questions}
 
-**Is Typefully better than Blowhorn?** As an editor, yes, and we'd happily recommend it. For amplifying a post through many real profiles across many networks, we think Blowhorn is the better fit.
+**Is Typefully better than Blowhorn?** As an editor, yes, and we'd happily recommend it. For amplifying a post through many real profiles across many platforms, we think Blowhorn is the better fit.
 
 **Can I write in Typefully and amplify with Blowhorn?** Yes. Publish where you like, then point Blowhorn's amplify at the post.
 

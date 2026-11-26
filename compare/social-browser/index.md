@@ -25,7 +25,7 @@ Social Browser pricing as of Oct 2026: Free; Professional $10 per month; Premium
 | What it is | A multi-profile browser for many separate identities | A social tool that acts as you, from your own browser |
 | Browser fingerprints and proxies | Yes, that's the product | No. Real browser, real you |
 | IP address each post comes from | A proxy for each profile | Each computer's own internet connection, so each teammate posts from their own IP address. No proxy to buy or run |
-| Queue, schedule, amplify | Generic automation you build | Built in, on every network |
+| Queue, schedule, amplify | Generic automation you build | Built in, on every platform |
 | Many computers on one queue | Profile sync | Unlimited computers on one queue, coordinated so the same post isn't sent from two computers |
 | AI agents | API | MCP server, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
@@ -38,7 +38,7 @@ Separate identities are a legitimate need for ad ops, testing and e-commerce. Bl
 
 ## Frequently Asked Questions {#questions}
 
-**Is Social Browser better than Blowhorn?** For managing many isolated browser profiles, yes, that's what it's for. For publishing and amplifying as yourself on developer networks, we think Blowhorn is the better fit.
+**Is Social Browser better than Blowhorn?** For managing many isolated browser profiles, yes, that's what it's for. For publishing and amplifying as yourself on developer platforms, we think Blowhorn is the better fit.
 
 **Is Blowhorn an antidetect browser?** No. Blowhorn uses your real browser, signed in as you, and hands CAPTCHAs and 2FA back to you. Curious what sites can see about your browser? [Run the free check at Blowhorn Tells](https://tells.blowhorn.ai/)
 

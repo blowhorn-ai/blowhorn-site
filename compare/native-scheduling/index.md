@@ -1,10 +1,10 @@
 # Blowhorn vs native scheduling
 
-> LinkedIn and X let you schedule posts for free, one network and one profile at a time. Blowhorn puts every network and every profile you run in one queue, and lets your profiles amplify each post.
+> LinkedIn and X let you schedule posts for free, one platform and one profile at a time. Blowhorn puts every platform and every profile you run in one queue, and lets your profiles amplify each post.
 
 ## Choose native scheduling if
 
-- You post on one network from one profile
+- You post on one platform from one profile
 - Free, official and zero setup matter most
 - You don't need anyone to amplify your posts
 
@@ -22,7 +22,7 @@ native scheduling pricing as of Oct 2026: Free, built into LinkedIn and X ([sour
 
 | | native scheduling | Blowhorn |
 | --- | --- | --- |
-| Networks | One at a time, inside each app | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | One at a time, inside each app | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Profiles | The one you're signed in as | Every profile you run, in one queue |
 | Amplify one post | Ask people by hand | Your profiles repost and comment while the post is fresh |
 | Needs a computer awake | No | Yes, at least one of your computers (macOS 13 or newer) |
@@ -36,6 +36,6 @@ A post tends to do best when real people react early. Blowhorn helps the profile
 
 ## Frequently Asked Questions {#questions}
 
-**Why not just use LinkedIn's scheduler?** If you only post on LinkedIn from one profile, it's free and it works. Blowhorn helps when one announcement has to land on many networks and profiles at once.
+**Why not just use LinkedIn's scheduler?** If you only post on LinkedIn from one profile, it's free and it works. Blowhorn helps when one announcement has to land on many platforms and profiles at once.
 
 [Download](https://blowhorn.ai/download/)

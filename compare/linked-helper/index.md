@@ -1,6 +1,6 @@
 # Blowhorn vs Linked Helper
 
-> Blowhorn isn't a bot. It's you. Linked Helper wins at deep, desktop LinkedIn prospecting, so if LinkedIn is the whole job and you like its depth, pick it. Blowhorn is for careful outreach and posts that earn real replies, across many networks, from a fleet of your computers.
+> Blowhorn isn't a bot. It's you. Linked Helper wins at deep, desktop LinkedIn prospecting, so if LinkedIn is the whole job and you like its depth, pick it. Blowhorn is for careful outreach and posts that earn real replies, across many platforms, from a fleet of your computers.
 
 ## Choose Linked Helper if
 
@@ -28,7 +28,7 @@ Linked Helper pricing as of Oct 2026: Standard from $15 per license per month, l
 | Where it acts | A desktop app on your computer, or on a server you control for round-the-clock runs | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Many computers on one queue | One license per LinkedIn account; the local version moves work between computers by hand | As many computers as you like on one queue, coordinated so the same post isn't sent from two computers |
 | LinkedIn outreach | 30-plus actions: sequences, messages, follow-ups, endorsements, visits, data export | Page invites, connect, accept, withdraw; human-paced with caps |
-| Networks | LinkedIn, including Sales Navigator, Recruiter and Talent | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Platforms | LinkedIn, including Sales Navigator, Recruiter and Talent | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 | Price | Per license, per LinkedIn account | Free during early access |
@@ -41,7 +41,7 @@ Automating more invites and visits gets more numbers. Blowhorn caps itself and s
 
 ## Frequently Asked Questions {#questions}
 
-**Is Linked Helper better than Blowhorn?** For deep, desktop LinkedIn prospecting, yes. For careful outreach plus multi-network publishing and amplification, we think Blowhorn is the better fit.
+**Is Linked Helper better than Blowhorn?** For deep, desktop LinkedIn prospecting, yes. For careful outreach plus multi-platform publishing and amplification, we think Blowhorn is the better fit.
 
 **Does Linked Helper keep working when my computer sleeps?** On its local version, no: the vendor says the computer has to be on and running the app, unless you run it on a server you control. Blowhorn has the same rule in another shape: it needs at least one of your computers awake.
 

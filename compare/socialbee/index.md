@@ -1,6 +1,6 @@
 # Blowhorn vs SocialBee
 
-> SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer networks.
+> SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer platforms.
 
 ## Choose SocialBee if
 

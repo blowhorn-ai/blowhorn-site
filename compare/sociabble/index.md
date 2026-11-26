@@ -26,7 +26,7 @@ Sociabble pricing as of Oct 2026: By quote ([source](https://www.sociabble.com/p
 | Where it acts | The vendor's cloud; employees connect their accounts | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
 | Content library, approvals, gamification | Yes | No |
 | Many people amplifying one post | Employees share approved content | Every profile you add amplifies, from your own computers. Multi-user team onboarding is Coming soon |
-| Hacker News, Reddit, GitHub, Slack | Slack and Teams only, as internal comms channels - not advocacy networks | Yes |
+| Hacker News, Reddit, GitHub, Slack | Slack and Teams only, as internal comms channels - not advocacy platforms | Yes |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
 | Price | By quote | Free during early access |
 
@@ -34,7 +34,7 @@ Sociabble pricing as of Oct 2026: By quote ([source](https://www.sociabble.com/p
 
 Blowhorn doesn't sell followers, likes or repost packages, and it never will. A like from someone paid to click is weak signal: it moves a number and nothing else. Strong signal is a reply, a question, a repost with a real take from someone who knows your work, a thread that turns into a discussion. Blowhorn exists to get your message in front of the people who would answer it, through the profiles of real people who chose to back you.
 
-Advocacy suites are right that people outperform brand accounts. Blowhorn takes that idea to smaller technical teams: real people, acting as themselves, from their own computers, on the networks developers use.
+Advocacy suites are right that people outperform brand accounts. Blowhorn takes that idea to smaller technical teams: real people, acting as themselves, from their own computers, on the platforms developers use.
 
 ## Frequently Asked Questions {#questions}
 

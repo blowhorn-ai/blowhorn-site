@@ -1,12 +1,12 @@
 # Blowhorn vs Publer
 
-> Blowhorn isn't a bot. It's you. Publer wins on budget scheduling, recycling and bulk posting across 13 networks. Blowhorn is for real-person amplification on the networks where developers talk.
+> Blowhorn isn't a bot. It's you. Publer wins on budget scheduling, recycling and bulk posting across 13 platforms. Blowhorn is for real-person amplification on the platforms where developers talk.
 
 ## Choose Publer if
 
-- You want budget-friendly scheduling across many networks, including Telegram and WordPress
+- You want budget-friendly scheduling across many platforms, including Telegram and WordPress
 - Bulk scheduling, recycling and RSS automation save you hours
-- You need a cloud publishing pipeline across many networks
+- You need a cloud publishing pipeline across many platforms
 
 [Publer](https://publer.com/)
 
@@ -23,10 +23,10 @@ Publer pricing as of Oct 2026: Free plan for 3 accounts (X needs a paid plan); p
 | | Publer | Blowhorn |
 | --- | --- | --- |
 | Where it acts | Publer's cloud | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
-| Networks | 13 incl. Instagram, TikTok, Telegram, WordPress, LinkedIn, X, Bluesky | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack message via API, YouTube and more |
+| Platforms | 13 incl. Instagram, TikTok, Telegram, WordPress, LinkedIn, X, Bluesky | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack message via API, YouTube and more |
 | Recycling and bulk scheduling | Yes, including bulk scheduling and recycling on Business | Schedules |
 | Replies and inbox | No unified inbox; replies in native apps | No unified inbox claimed. Blowhorn amplifies; it does not run a care desk |
-| Many people amplifying one post | One draft scheduled across several networks, not many real profiles | Sound wave: one scheduled message, amplified by every profile in your account. Team invites coming soon |
+| Many people amplifying one post | One draft scheduled across several platforms, not many real profiles | Sound wave: one scheduled message, amplified by every profile in your account. Team invites coming soon |
 | Hacker News, Reddit, GitHub, Slack | Not listed | Yes, with limits: GitHub is amplify-only, Slack is a message via API, and automation can still be blocked; sessions can break, especially X |
 | AI agents | API and MCP on Business and Enterprise only | Local MCP server with dry run as the default for state changes, and a CLI with dry-run on writes. Your agent drives, you hold pause |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
@@ -40,7 +40,7 @@ Recycling evergreen posts keeps a feed alive. It doesn't start a discussion. Blo
 
 ## Frequently Asked Questions {#questions}
 
-**Is Publer better than Blowhorn?** For affordable, high-volume scheduling across many networks, yes. For amplifying a few posts that really matter through real people, we think Blowhorn is the better fit.
+**Is Publer better than Blowhorn?** For affordable, high-volume scheduling across many platforms, yes. For amplifying a few posts that really matter through real people, we think Blowhorn is the better fit.
 
 **Does Publer have a unified inbox?** No unified inbox; replies happen in native apps. Blowhorn does not claim a care desk either: it amplifies one message through many real profiles.
 

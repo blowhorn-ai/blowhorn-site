@@ -1,6 +1,6 @@
 # Blowhorn vs AuthoredUp
 
-> AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that your-own-browser belief: it isn't a bot, it's you, and it adds more networks, a fleet of computers and real-person amplification.
+> AuthoredUp is a lovely LinkedIn writing and analytics companion that stays in your browser. Blowhorn shares that your-own-browser belief: it isn't a bot, it's you, and it adds more platforms, a fleet of computers and real-person amplification.
 
 ## Choose AuthoredUp if
 
@@ -22,10 +22,10 @@ AuthoredUp pricing as of Oct 2026: Individual $19.95 per month ($16.63 billed an
 
 | | AuthoredUp | Blowhorn |
 | --- | --- | --- |
-| Best at | Writing and analyzing LinkedIn posts | Publishing, amplifying and outreach across networks |
+| Best at | Writing and analyzing LinkedIn posts | Publishing, amplifying and outreach across platforms |
 | Where it acts | Your browser, overlaying LinkedIn's editor (Chromium only) | Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs. |
-| Networks | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
-| Scheduling | LinkedIn, through the extension | One queue across every computer and profile, for every network |
+| Platforms | LinkedIn | LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more |
+| Scheduling | LinkedIn, through the extension | One queue across every computer and profile, for every platform |
 | Amplify one post | No | Sound wave: one scheduled message, amplified by every profile in your account, including profiles teammates and supporters add |
 | AI agents | AI writing helpers | MCP server, AI skills and a full CLI with --json and --dry-run on writes. Your agent drives, you hold pause |
 | Bought engagement | None | None. Blowhorn sells no followers, likes or reposts |
@@ -39,8 +39,8 @@ AuthoredUp helps you write a post worth discussing. Blowhorn helps the discussio
 
 ## Frequently Asked Questions {#questions}
 
-**Is AuthoredUp better than Blowhorn?** For crafting LinkedIn posts, yes, and it pairs nicely with Blowhorn. For multi-network publishing and amplification, we think Blowhorn is the better fit.
+**Is AuthoredUp better than Blowhorn?** For crafting LinkedIn posts, yes, and it pairs nicely with Blowhorn. For multi-platform publishing and amplification, we think Blowhorn is the better fit.
 
-**Can I use AuthoredUp and Blowhorn together?** Yes. Write and polish the post in AuthoredUp, then let Blowhorn publish it across your networks and sound the wave across your profiles.
+**Can I use AuthoredUp and Blowhorn together?** Yes. Write and polish the post in AuthoredUp, then let Blowhorn publish it across your platforms and sound the wave across your profiles.
 
 [Download](https://blowhorn.ai/download/)
