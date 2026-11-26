@@ -1,5 +1,5 @@
 name: build-dmg-mac
-description: Build the DMG from an already-sparse product checkout and stage the artifact. Private output stays under RUNNER_TEMP.
+description: Build the DMG from an already-sparse product checkout and stage the artifact. Private output stays under RUNNER_TEMP; a failure uploads it only as redacted age ciphertext.
 inputs:
   ref:
     required: true
@@ -19,6 +19,28 @@ runs:
           exit 1
         fi
         python3 .github/scripts/build-dmg/checkout_guard.py product
+
+    # actool compiles the product's Icon Composer icon (desktop/assets/AppIcon.icon)
+    # in its electron-builder after-pack hook. The macos-26 image's default
+    # Xcode, 26.6, fails on that icon ("Could not open Icon.icon", run
+    # 45577422514), and so do 26.4.1 and 26.5; 26.0.1 through 26.3 compile it,
+    # as do 27.0 to 27.2, which so far run only on the preview xcode-27 image.
+    # DEVELOPER_DIR rather than `sudo xcode-select -s`: scoped to this job, and
+    # the product's release script and hook take it before anything else.
+    - name: Select the Xcode that compiles the app icon
+      shell: bash
+      env:
+        XCODE_APP: /Applications/Xcode_26.3.app
+      run: |
+        set -euo pipefail
+        developer_dir="$XCODE_APP/Contents/Developer"
+        if [[ ! -d "$developer_dir" ]]; then
+          echo "build-dmg: $XCODE_APP is not on this runner image. Choose an installed Xcode that compiles the app icon (26.0.1 to 26.3, or 27) for XCODE_APP in .github/actions/build-dmg-mac/action.yml."
+          exit 1
+        fi
+        version="$(DEVELOPER_DIR="$developer_dir" xcodebuild -version)"
+        echo "DEVELOPER_DIR=$developer_dir" >> "$GITHUB_ENV"
+        echo "build-dmg: ${version%%$'\n'*} selected"
 
     - name: Set up Python 3.14
       uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -56,7 +78,7 @@ runs:
     # Registry and git sources only, keyed on the lockfile and the exact
     # toolchain. The target directory is not cached: with
     # BLOWHORN_BUILD_CLEANUP=1 the product deletes engine/rust/target after the
-    # engine phase to fit the 14 GB macos-latest disk, so a target cache would
+    # engine phase to fit the 14 GB macos-26 disk, so a target cache would
     # save nothing and restoring it would eat that disk.
     - name: Cache cargo registry and git sources
       uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
@@ -208,6 +230,30 @@ runs:
           dist/build-dmg-manifest.json
         if-no-files-found: error
         retention-days: 1
+        compression-level: 0
+
+    # On any failure above (install, keychain import, preflight, build,
+    # package, verify, staging): join the private logs under
+    # RUNNER_TEMP/build-dmg, drop every line holding a staged secret's value,
+    # and encrypt the rest with age into RUNNER_TEMP/build-dmg-encrypted, which
+    # then holds age ciphertext or nothing (encrypt_logs.py). Runs before the
+    # teardown below deletes the staged secrets the redaction matches against.
+    - name: Encrypt the failed build's log (ciphertext only)
+      if: failure()
+      shell: bash
+      env:
+        BUILD_DMG_JOB: ${{ inputs.mode == 'developer-id' && 'signed' || 'adhoc' }}
+      run: make build-dmg-encrypt-log JOB="$BUILD_DMG_JOB"
+
+    # The age ciphertext of the failed build's log, nothing else.
+    - name: Upload the encrypted log (failed build only)
+      if: failure()
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      with:
+        name: build-dmg-${{ inputs.mode == 'developer-id' && 'signed' || 'adhoc' }}-log-attempt${{ github.run_attempt }}
+        path: ${{ runner.temp }}/build-dmg-encrypted/*.age
+        retention-days: 3
+        if-no-files-found: ignore
         compression-level: 0
 
     - name: Delete the temporary signing keychain

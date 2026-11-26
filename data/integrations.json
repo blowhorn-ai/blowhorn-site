@@ -1,7 +1,7 @@
 {
   "$schema": "../schemas/integrations.schema.json",
-  "headline": "One queue. Every network that matters.",
-  "lede": "One queue for every network your audience reads. LinkedIn, X, Reddit, Hacker News, YouTube and more go through your own browser with the Blowhorn extension. After YouTube Data API consent, its uploads, comments, replies and likes use YouTube's official API. Slack and Bluesky use their APIs. On GitHub, Blowhorn stars repositories and rallies reactions on issues and pull requests, it does not post.",
+  "headline": "One queue. Every platform that matters.",
+  "lede": "One queue for every platform your audience reads. LinkedIn, X, Reddit, Hacker News, YouTube and more go through your own browser with the Blowhorn extension. After YouTube Data API consent, its uploads, comments, replies and likes use YouTube's official API. Slack and Bluesky use their APIs. On GitHub, Blowhorn stars repositories and rallies reactions on issues and pull requests, it does not post.",
   "clip": {
     "label": "Every platform Blowhorn supports",
     "description": "A 10-second loop. A row of platform logos slides by: LinkedIn, X, Reddit, Hacker News, Slack, Bluesky and GitHub, then YouTube, Instagram, TikTok and Facebook. A cursor picks each supported platform in turn, and its card shows how Blowhorn reaches it and the actions it takes there.",

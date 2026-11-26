@@ -42,7 +42,7 @@
     {
       "f": "Queue, schedule, amplify",
       "t": "Generic automation you build",
-      "b": "Built in, on every network"
+      "b": "Built in, on every platform"
     },
     {
       "f": "Many computers on one queue",
@@ -64,7 +64,7 @@
   "faq": [
     {
       "q": "Is Multilogin better than Blowhorn?",
-      "a": "For managing many isolated browser profiles, yes, that's what it's for. For publishing and amplifying as yourself on developer networks, we think Blowhorn is the better fit."
+      "a": "For managing many isolated browser profiles, yes, that's what it's for. For publishing and amplifying as yourself on developer platforms, we think Blowhorn is the better fit."
     },
     {
       "q": "Is Blowhorn an antidetect browser?",

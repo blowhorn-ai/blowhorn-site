@@ -17,7 +17,7 @@
   "description": "Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi. Blowhorn is for careful outreach and real-person amplification, from your own browser.",
   "faq": [
     {
-      "a": "For outbound sequences at volume, yes, and Blowhorn won't pretend otherwise. For careful outreach from your own browser plus publishing and amplification across many networks, we think Blowhorn is the better fit.",
+      "a": "For outbound sequences at volume, yes, and Blowhorn won't pretend otherwise. For careful outreach from your own browser plus publishing and amplification across many platforms, we think Blowhorn is the better fit.",
       "q": "Is Expandi better than Blowhorn?"
     },
     {
@@ -101,7 +101,7 @@
     },
     {
       "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more",
-      "f": "Networks",
+      "f": "Platforms",
       "t": "LinkedIn (plus email)"
     },
     {
@@ -144,12 +144,12 @@
     "You also speak on X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more, and want your people amplifying",
     "You want safety controls, a dry run before anything posts, and one pause switch for the whole fleet"
   ],
-  "verdict": "Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi, honestly. Blowhorn is for careful outreach and real-person amplification, from your own browser, on every network you post on.",
+  "verdict": "Blowhorn isn't a bot. It's you. Expandi is a serious outbound machine: LinkedIn and email sequences, branching Smart Sequences, InMails and personalization at volume, run from its cloud. If that volume is the job, pick Expandi, honestly. Blowhorn is for careful outreach and real-person amplification, from your own browser, on every platform you post on.",
   "weight": 21,
   "wins": [
     "You never hand over your LinkedIn password or cookie to a vendor server",
     "Careful LinkedIn outreach: invite to a page, accept invites, withdraw stale ones, with a dry run first",
-    "Posts and amplifies on other networks too, not just LinkedIn",
+    "Posts and amplifies on other platforms too, not just LinkedIn",
     "Safety controls and one pause switch for the whole fleet"
   ]
 }

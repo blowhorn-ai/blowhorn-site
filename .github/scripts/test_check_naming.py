@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Users see Blowhorn: never Layer5 Cloud or Blowhorn Cloud, and Layer5 only
 in the footer and on the legal pages. Every page says computers, never
-machines; marketing copy never says Macs or your Mac. The Google Chrome
-requirement is stated with versions, never "for now", and the docs say
-Chrome profile and Chrome extension.
+machines; marketing copy never says Macs or your Mac, and says platforms,
+never networks. The Google Chrome requirement is stated with versions,
+never "for now", and the docs say Chrome profile and Chrome extension.
 
 Run with `make test-scripts` (CI runs it too).
 """
@@ -141,6 +141,27 @@ class TheServiceIsBlowhorn(unittest.TestCase):
     def test_the_generated_cli_reference_passes(self):
         failures = self.build({"docs/reference/cli/store/index.html": page(
             "<p>Report whether this machine can reach the Blowhorn database.</p>")})
+        self.assertEqual(failures, [])
+
+    def test_networks_for_platforms_fail_outside_the_docs(self):
+        failures = self.build({
+            "integrations/index.html": page("<h1>Every network on the map</h1>"),
+            "compare/x/index.html": page("<td>Networks</td><p>A multi-network voice.</p>"),
+            "index.html": page('<legend>Pick a NETWORK</legend>', head='<meta name="description" content="Every network Blowhorn reaches.">'),
+        })
+        self.assertEqual(len(failures), 5)
+        self.assertTrue(all("say platform" in f for f in failures))
+
+    def test_other_networks_code_and_the_docs_pass(self):
+        failures = self.build({
+            "field-manual/x/index.html": page(
+                '<img src="a.png" alt="A handshake in a professional network">'
+                "<p>His reach outside his own network shrank. LinkedIn hides them outside the commenter's network."
+                " Posts from accounts near your network. Expandi has no pod network.</p>"),
+            "resources/x/index.html": page("<p><strong>Network.</strong> Network plus fingerprint both matter. Network leaks.</p>"),
+            "agents/x/index.html": page("<p>Blowhorn needs the network and your browser.</p><pre><code>--network host</code></pre>"),
+            "docs/x/index.html": page("<p>Check this computer's network. No network request is made.</p>"),
+        })
         self.assertEqual(failures, [])
 
     def test_a_vague_chrome_requirement_fails_on_every_page(self):

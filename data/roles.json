@@ -17,7 +17,7 @@
         "github",
         "youtube"
       ],
-      "description": "Blowhorn for developer relations: one queue for the networks developers use, including Hacker News and GitHub, posted as you from your own browser.",
+      "description": "Blowhorn for developer relations: one queue for the platforms developers use, including Hacker News and GitHub, posted as you from your own browser.",
       "art": {
         "src": "assets/brand/cast/keyboard-warrior-base.webp",
         "alt": "Keyboard Warrior, a gold rooster in a teal helmet holding a keyboard with green keys like a shield"
@@ -25,7 +25,7 @@
       "pains": [
         {
           "t": "Seven tabs per post",
-          "b": "Every release means a composer and a sign-in for every network, and the schedulers still skip Hacker News and GitHub."
+          "b": "Every release means a composer and a sign-in for every platform, and the schedulers still skip Hacker News and GitHub."
         },
         {
           "t": "Tools that want your logins",
@@ -357,7 +357,7 @@
         "github",
         "youtube"
       ],
-      "description": "Blowhorn for open source maintainers: announce releases and milestones on GitHub, Slack, Hacker News and every social network from one queue, as yourself.",
+      "description": "Blowhorn for open source maintainers: announce releases and milestones on GitHub, Slack, Hacker News and every social platform from one queue, as yourself.",
       "art": {
         "src": "assets/brand/cast/trench-trooper-periscope.webp",
         "alt": "Trench Trooper, a muddy pig in a helmet, watching through a gold periscope from behind sandbags, tab bayonet at the ready"
@@ -697,8 +697,8 @@
       },
       "pains": [
         {
-          "t": "A composer for every network before breakfast",
-          "b": "Every day starts with a sign-in and a composer for every network, and the schedulers still skip Hacker News and GitHub."
+          "t": "A composer for every platform before breakfast",
+          "b": "Every day starts with a sign-in and a composer for every platform, and the schedulers still skip Hacker News and GitHub."
         },
         {
           "t": "The company voice, split across tools",
@@ -743,7 +743,7 @@
         ]
       },
       "prompt": "",
-      "major": "A front on every network, one desk, and the words stay yours, soldier.",
+      "major": "A front on every platform, one desk, and the words stay yours, soldier.",
       "faq": [
         {
           "q": "Do I post as the company or as myself?",

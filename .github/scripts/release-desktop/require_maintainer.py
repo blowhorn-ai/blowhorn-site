@@ -45,8 +45,11 @@ def read_permission(repo: str, login: str, token: str, opener=None) -> str:
         with open_url(request, timeout=30) as response:
             data = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as error:
-        # Do not include the request or headers: the token is in the Authorization header.
-        raise MaintainerError(f"could not read collaborator permission (HTTP {error.code})") from None
+        # Close the error's response body (it is a file), then drop the error: do
+        # not include the request or headers, the token is in the Authorization header.
+        code = error.code
+        error.close()
+        raise MaintainerError(f"could not read collaborator permission (HTTP {code})") from None
     except urllib.error.URLError:
         raise MaintainerError("could not read collaborator permission") from None
     permission = data.get("permission") if isinstance(data, dict) else None

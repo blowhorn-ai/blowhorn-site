@@ -1,6 +1,6 @@
 ---
 title: "Your release, drafted by your assistant, fired by you"
-summary: "Your changelog already says what shipped. Here is how to have an assistant turn it into release posts for the networks your buyers read, queue them for a good hour, and still keep the decision to send in your own hands."
+summary: "Your changelog already says what shipped. Here is how to have an assistant turn it into release posts for the platforms your buyers read, queue them for a good hour, and still keep the decision to send in your own hands."
 date: 2026-10-30
 author: "Blowhorn team"
 layout: article
@@ -8,17 +8,17 @@ tags: ["in-product-intelligence", "agents"]
 column: "boot-camp"
 ---
 
-If you are the one person who is the company's public voice, a release has two jobs: ship the code, then tell the people who care. The second job is where launch week goes to die. The changelog is finished, but the posts are not, and every network wants its own wording. An assistant is good at the first draft. It should not be the one who presses send.
+If you are the one person who is the company's public voice, a release has two jobs: ship the code, then tell the people who care. The second job is where launch week goes to die. The changelog is finished, but the posts are not, and every platform wants its own wording. An assistant is good at the first draft. It should not be the one who presses send.
 
 ## Start from the changelog, not a blank page
 
 Your changelog or release notes file is the best source you have: it is accurate, it is yours, and it already sits in the repository your assistant can read. Ask for drafts that lead with what changed for the reader, not with the version number.
 
-Give the assistant three things: the file, the profile each post goes out from, and who reads each network. A buyer scanning LinkedIn wants the outcome. Someone on Hacker News wants the technical choice and what you gave up. Write that into the prompt, and the drafts stop sounding like the same paragraph three times.
+Give the assistant three things: the file, the profile each post goes out from, and who reads each platform. A buyer scanning LinkedIn wants the outcome. Someone on Hacker News wants the technical choice and what you gave up. Write that into the prompt, and the drafts stop sounding like the same paragraph three times.
 
 ## Pick the hour before you queue anything
 
-Queued posts land when you say they land, so decide the time first. Hypothesis: a post does better when its first readers are awake and you can answer replies yourself. [Won or lost in the first hour](/resources/articles/won-or-lost-in-the-first-hour/) covers what each platform has and hasn't said, and [the scheduling craft](/resources/articles/the-scheduling-craft/) covers spacing. A simple rule: choose a time you will be at your desk, and leave a gap between networks so your own posts do not compete for the same first readers.
+Queued posts land when you say they land, so decide the time first. Hypothesis: a post does better when its first readers are awake and you can answer replies yourself. [Won or lost in the first hour](/resources/articles/won-or-lost-in-the-first-hour/) covers what each platform has and hasn't said, and [the scheduling craft](/resources/articles/the-scheduling-craft/) covers spacing. A simple rule: choose a time you will be at your desk, and leave a gap between platforms so your own posts do not compete for the same first readers.
 
 ## Draft, rehearse, review, go
 
@@ -54,7 +54,7 @@ A dry run is not a formality. Read it for:
 - **The profile.** Is each post going out from the profile you meant, personal or company?
 - **The time, in your time zone.** Off-by-one-day mistakes hide here.
 - **The link.** Does it point at the release, not the repository root?
-- **The wording per network.** If two drafts share a sentence, rewrite one.
+- **The wording per platform.** If two drafts share a sentence, rewrite one.
 - **Hacker News.** A submission is public and cannot be quietly taken back. Read the [Hacker News briefing](/field-manual/hacker-news/) before you send, and do not ask anyone to upvote.
 
 If something is wrong, say so in plain words and ask for a new dry run. Nothing has been sent, so there is nothing to undo.

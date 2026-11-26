@@ -30,7 +30,7 @@
       "b": "Your computers, in your own signed-in browser or platform APIs"
     },
     {
-      "f": "Networks",
+      "f": "Platforms",
       "t": "X, Bluesky, Threads, mixi2, Substack",
       "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more"
     },
@@ -60,11 +60,11 @@
       "b": "None. Blowhorn sells no followers, likes or reposts"
     }
   ],
-  "signal": "mokumokuren and Blowhorn come from the same place: no vendor posting as you, no bought numbers. Blowhorn goes further on reach, so a post gets real replies from your people across many networks.",
+  "signal": "mokumokuren and Blowhorn come from the same place: no vendor posting as you, no bought numbers. Blowhorn goes further on reach, so a post gets real replies from your people across many platforms.",
   "faq": [
     {
       "q": "Is mokumokuren better than Blowhorn?",
-      "a": "If you want to press send yourself every time, or post to Threads, mixi2 or Substack, yes. For scheduling and amplification on developer networks, we think Blowhorn is the better fit."
+      "a": "If you want to press send yourself every time, or post to Threads, mixi2 or Substack, yes. For scheduling and amplification on developer platforms, we think Blowhorn is the better fit."
     }
   ],
   "major": "A kindred spirit. Different bugle call.",

@@ -108,6 +108,12 @@ include .github/build/Makefile.show-help.mk
 #   product-ci-log     Download and decrypt a failed suite's encrypted log:
 #                      make product-ci-log RUN=<run id> SUITE=<suite>
 #                      (see docs/distribution.md).
+#   build-dmg-encrypt-log
+#                      Encrypt a failed Mac build's redacted logs for upload
+#                      (build-dmg-mac runs it): make build-dmg-encrypt-log JOB=<job>.
+#   build-dmg-log      Download and decrypt a failed Mac build's encrypted log:
+#                      make build-dmg-log RUN=<run id> JOB=signed|adhoc
+#                      (see docs/distribution.md).
 #   docs-sync          Sync the user docs from a blowhorn checkout
 #                      into content/en/docs/: make docs-sync REF=<tag|branch|sha>
 #                      (see docs/deploy.md).
@@ -125,10 +131,12 @@ include .github/build/Makefile.show-help.mk
 override BUILD_DIR := public
 HTML_VALIDATE_VERSION ?= 9.5.5
 AJV_CLI_VERSION ?= 5.0.0
-ACTIONLINT_VERSION ?= 1.7.7
+ACTIONLINT_VERSION ?= 1.7.12
 BIN_DIR ?= .bin
-# actionlint from PATH when installed; otherwise a pinned copy is downloaded into $(BIN_DIR).
+# actionlint from PATH when installed; otherwise a pinned copy is downloaded into $(BIN_DIR),
+# in a directory named for its version so a version bump never reuses the old binary.
 ACTIONLINT ?= $(shell command -v actionlint 2>/dev/null)
+ACTIONLINT_DIR = $(BIN_DIR)/actionlint-$(ACTIONLINT_VERSION)
 # Every workflow file in this repo. A glob, so adding or deleting a workflow cannot make workflow-check fail with "no such file".
 WORKFLOWS ?= $(sort $(wildcard .github/workflows/*.yml) $(wildcard .github/workflows/*.yaml))
 # A blowhorn checkout for `make docs-sync` (the sync-docs.yml
@@ -467,10 +475,10 @@ copilot-pr-handle:
 ## Lint this repo's GitHub Actions workflows with actionlint.
 workflow-check:
 ifeq ($(ACTIONLINT),)
-	@test -x $(BIN_DIR)/actionlint || (mkdir -p $(BIN_DIR) && cd $(BIN_DIR) && \
+	@test -x $(ACTIONLINT_DIR)/actionlint || (mkdir -p $(ACTIONLINT_DIR) && cd $(ACTIONLINT_DIR) && \
 		curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/v$(ACTIONLINT_VERSION)/scripts/download-actionlint.bash | \
 		TAR_OPTIONS="--no-same-owner" bash -s -- $(ACTIONLINT_VERSION) .)
-	$(BIN_DIR)/actionlint -color $(WORKFLOWS)
+	$(ACTIONLINT_DIR)/actionlint -color $(WORKFLOWS)
 else
 	$(ACTIONLINT) -color $(WORKFLOWS)
 endif
@@ -528,11 +536,30 @@ product-ci:
 ## Download a failed Product CI suite's encrypted log and decrypt it into a new temporary directory
 ## outside the repository; prints the file's path, never its contents. Needs gh, age and the private key:
 ## make product-ci-log RUN=<run id> SUITE=python|desktop|rust [KEY=<age identity file>] [ATTEMPT=<n>]
-PRODUCT_CI_LOG_KEY ?= $(HOME)/.config/blowhorn/ci-log.agekey
+CI_LOG_KEY ?= $(HOME)/.config/blowhorn/ci-log.agekey
 product-ci-log:
 	@test -n "$(RUN)" -a -n "$(SUITE)" || (echo "usage: make product-ci-log RUN=<run id> SUITE=python|desktop|rust [KEY=<age identity file>] [ATTEMPT=<n>]"; exit 1)
-	@python3 .github/scripts/product-ci/fetch_log.py --run "$(RUN)" --suite "$(SUITE)" \
-		--key "$(or $(KEY),$(PRODUCT_CI_LOG_KEY))" $(if $(ATTEMPT),--attempt "$(ATTEMPT)")
+	@python3 .github/scripts/encrypted-log/fetch_log.py --kind product-ci --name "$(SUITE)" --run "$(RUN)" \
+		--key "$(or $(KEY),$(CI_LOG_KEY))" $(if $(ATTEMPT),--attempt "$(ATTEMPT)")
+
+## Encrypt a failed Mac build's private logs (RUNNER_TEMP/build-dmg/*.log) with age for build-dmg-mac's upload
+## step, after removing every line that holds a staged signing or diagnostics secret; writes only ciphertext to
+## BUILD_DMG_ENCRYPTED_DIR and prints one fixed line: make build-dmg-encrypt-log JOB=signed|adhoc
+BUILD_DMG_LOG_DIR ?= $(or $(RUNNER_TEMP),/tmp)/build-dmg
+BUILD_DMG_ENCRYPTED_DIR ?= $(or $(RUNNER_TEMP),/tmp)/build-dmg-encrypted
+BUILD_DMG_SECRETS_ROOT ?= $(or $(RUNNER_TEMP),/tmp)
+build-dmg-encrypt-log:
+	@test -n "$(JOB)" || (echo "usage: make build-dmg-encrypt-log JOB=signed|adhoc"; exit 1)
+	@python3 .github/scripts/build-dmg/encrypt_logs.py --job "$(JOB)" --log-dir "$(BUILD_DMG_LOG_DIR)" \
+		--encrypted-dir "$(BUILD_DMG_ENCRYPTED_DIR)" --secrets-root "$(BUILD_DMG_SECRETS_ROOT)"
+
+## Download a failed Build DMG Mac job's encrypted log and decrypt it into a new temporary directory outside the
+## repository; prints the file's path, never its contents. Needs gh, age and the private key:
+## make build-dmg-log RUN=<run id> JOB=signed|adhoc [KEY=<age identity file>] [ATTEMPT=<n>]
+build-dmg-log:
+	@test -n "$(RUN)" -a -n "$(JOB)" || (echo "usage: make build-dmg-log RUN=<run id> JOB=signed|adhoc [KEY=<age identity file>] [ATTEMPT=<n>]"; exit 1)
+	@python3 .github/scripts/encrypted-log/fetch_log.py --kind build-dmg --name "$(JOB)" --run "$(RUN)" \
+		--key "$(or $(KEY),$(CI_LOG_KEY))" $(if $(ATTEMPT),--attempt "$(ATTEMPT)")
 
 ## Sync the user docs from a blowhorn checkout at $(SOURCE_DIR) into $(DOCS_DIR): make docs-sync REF=<tag|branch|sha> (see docs/deploy.md).
 docs-sync:
@@ -671,6 +698,8 @@ clean:
 	cloud-auth-smoke-mount \
 	product-ci \
 	product-ci-log \
+	build-dmg-encrypt-log \
+	build-dmg-log \
 	dmg-resolve \
 	dmg-download \
 	dmg-package \

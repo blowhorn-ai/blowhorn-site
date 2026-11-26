@@ -40,7 +40,7 @@
       "b": "No. We can't promise anyone will care, and won't pretend to"
     },
     {
-      "f": "Networks",
+      "f": "Platforms",
       "t": "Instagram, TikTok, YouTube, X, Facebook, LinkedIn",
       "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more"
     },

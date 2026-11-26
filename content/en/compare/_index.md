@@ -121,7 +121,7 @@ why:
     body: Hacker News, Reddit, GitHub and Slack sit in the same queue as LinkedIn, X, Bluesky, YouTube and more.
     link: /docs/reference/platforms/
 fair:
-  - Cloud schedulers post with every laptop closed and cover more networks today, with calendars, approvals and inboxes Blowhorn doesn't try to match.
+  - Cloud schedulers post with every laptop closed and cover more platforms today, with calendars, approvals and inboxes Blowhorn doesn't try to match.
   - LinkedIn growth tools run high-volume outbound sequences. Blowhorn does careful LinkedIn outreach, not a sequencer.
   - Employee advocacy suites bring approvals, content libraries and compliance archiving for large programs.
   - Local multi-profile browsers run on more operating systems. Blowhorn runs on your computer ([System requirements](/docs/reference/requirements/)).

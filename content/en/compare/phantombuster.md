@@ -45,7 +45,7 @@
       "b": "Page invites, connect, accept, withdraw; human-paced with caps"
     },
     {
-      "f": "Networks",
+      "f": "Platforms",
       "t": "LinkedIn (plus email)",
       "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more"
     },

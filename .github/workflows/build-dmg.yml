@@ -1,7 +1,9 @@
 name: Build DMG
 
 # Builds, signs, notarizes and verifies the private product's desktop DMG on
-# this public repository's free macos-latest runner (#2558, #2624).
+# this public repository's free macos-26 runner (#2558, #2624). The image
+# is pinned rather than macos-latest so a label migration cannot change the
+# OS or its Xcodes under a release; build-dmg-mac selects the Xcode.
 #
 # Triggers: workflow_dispatch, repository_dispatch (event type build-dmg),
 # and workflow_call from cut-desktop-release.yml (which is itself started
@@ -41,8 +43,14 @@ name: Build DMG
 # or refs/releases/desktop-vVERSION (the refs make release pushes first).
 #
 # Private source is checked out sparsely (release/signing/ and other internal
-# paths excluded). Logs never print, upload or cache private output. The only
-# artifact is the DMG plus its sha256 manifest, retained for 1 day.
+# paths excluded). Logs never print or cache private output, and never upload
+# it as plaintext. The artifacts are the DMG plus its sha256 manifest, retained
+# for 1 day, and, only when a Mac job fails, its private build logs as age
+# ciphertext to the public recipient in encrypted-log/encrypted_log.py, with
+# every line holding a staged secret removed first (build-dmg/encrypt_logs.py),
+# retained for 3 days as build-dmg-<signed|adhoc>-log-attempt<n>. The private
+# key is in no repository, secret or runner; `make build-dmg-log RUN=<run id>
+# JOB=<job>` reads it for a key holder.
 
 on:
   workflow_dispatch:
@@ -163,12 +171,24 @@ jobs:
     name: Mac adhoc build
     needs: [validate, linux-green]
     if: needs.validate.outputs.mode == 'adhoc'
-    runs-on: macos-latest
+    runs-on: macos-26
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+
+      # Encrypts a failed build's log for build-dmg-mac's upload step. Optional:
+      # without it the action says so and uploads nothing. Runs before any
+      # secret is staged, so Homebrew never sees one.
+      - name: Install age
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+          HOMEBREW_NO_INSTALL_CLEANUP: "1"
+          HOMEBREW_NO_ENV_HINTS: "1"
+        run: brew install --quiet age >/dev/null
 
       - uses: ./.github/actions/checkout-product
         with:
@@ -185,13 +205,25 @@ jobs:
     name: Mac signed build
     needs: [validate, linux-green]
     if: needs.validate.outputs.mode == 'developer-id'
-    runs-on: macos-latest
+    runs-on: macos-26
     timeout-minutes: 120
     environment: macos-dmg-signing
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+
+      # Encrypts a failed build's log for build-dmg-mac's upload step. Optional:
+      # without it the action says so and uploads nothing. Runs before any
+      # secret is staged, so Homebrew never sees one.
+      - name: Install age
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+          HOMEBREW_NO_INSTALL_CLEANUP: "1"
+          HOMEBREW_NO_ENV_HINTS: "1"
+        run: brew install --quiet age >/dev/null
 
       - name: Materialize signing files
         env:

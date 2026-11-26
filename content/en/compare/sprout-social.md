@@ -12,7 +12,7 @@
  "description": "Blowhorn isn't a bot. It's you. Sprout Social is superb at reporting, inbox and listening for brand teams. Blowhorn is for getting real people to amplify you.",
  "faq": [
   {
-   "a": "For analytics, inbox and listening across a brand's channels, yes. For amplifying technical launches through real people on developer networks, we think Blowhorn is the better tool.",
+   "a": "For analytics, inbox and listening across a brand's channels, yes. For amplifying technical launches through real people on developer platforms, we think Blowhorn is the better tool.",
    "q": "Is Sprout Social better than Blowhorn?"
   },
   {
@@ -85,18 +85,18 @@
  "them": [
   "Reporting, a smart inbox and social listening are the heart of your job",
   "You need enterprise roles, approvals and support",
-  "Your channels are the big consumer networks"
+  "Your channels are the big consumer platforms"
  ],
  "title": "Blowhorn vs Sprout Social",
  "us": [
   "You need launches amplified, not just reported on",
-  "Your community is on developer networks Sprout doesn't post to",
+  "Your community is on developer platforms Sprout doesn't post to",
   "You want your whole team helping, without per-seat billing math"
  ],
- "verdict": "Blowhorn isn't a bot. It's you. Sprout Social is superb at reporting, inbox and listening for brand teams. If measuring the conversation is your job, pick Sprout - it wins there, honestly. Blowhorn is for the other pain: starting more conversations, by getting real people to amplify your launch on the developer networks a brand suite doesn't reach (Hacker News, GitHub, Slack), acting as you from your own computers instead of a vendor's cloud.",
+ "verdict": "Blowhorn isn't a bot. It's you. Sprout Social is superb at reporting, inbox and listening for brand teams. If measuring the conversation is your job, pick Sprout - it wins there, honestly. Blowhorn is for the other pain: starting more conversations, by getting real people to amplify your launch on the developer platforms a brand suite doesn't reach (Hacker News, GitHub, Slack), acting as you from your own computers instead of a vendor's cloud.",
  "weight": 12,
  "wins": [
-  "Real-person amplification: every profile in your account carries the message, on networks Sprout doesn't reach",
+  "Real-person amplification: every profile in your account carries the message, on platforms Sprout doesn't reach",
   "It's really you: your own browser on your own computers, on your own connection. No vendor cloud logs in as you, no proxy to buy",
   "You stay in command: one switch pauses one activity, one computer or the whole fleet; AI drafts, you decide"
  ]

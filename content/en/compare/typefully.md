@@ -2,7 +2,7 @@
   "title": "Blowhorn vs Typefully",
   "linkTitle": "Typefully",
   "seo_title": "Blowhorn vs Typefully: honest comparison",
-  "description": "Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many networks.",
+  "description": "Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many platforms.",
   "layout": "versus",
   "weight": 17,
   "lastmod": "2026-11-20",
@@ -10,7 +10,7 @@
   "mark": "Tf",
   "site_url": "https://typefully.com/",
   "group": "Cloud schedulers",
-  "verdict": "Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many networks.",
+  "verdict": "Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many platforms.",
   "them": [
     "Writing is the hard part, and you want a beautiful, distraction-free editor",
     "You mostly post as yourself on X and LinkedIn",
@@ -27,7 +27,7 @@
     {
       "f": "Best at",
       "t": "Writing and scheduling",
-      "b": "Amplifying and acting across networks"
+      "b": "Amplifying and acting across platforms"
     },
     {
       "f": "Where it acts",
@@ -35,7 +35,7 @@
       "b": "Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs."
     },
     {
-      "f": "Networks",
+      "f": "Platforms",
       "t": "X, LinkedIn, Threads, Bluesky, Mastodon",
       "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more"
     },
@@ -64,7 +64,7 @@
   "faq": [
     {
       "q": "Is Typefully better than Blowhorn?",
-      "a": "As an editor, yes, and we'd happily recommend it. For amplifying a post through many real profiles across many networks, we think Blowhorn is the better fit."
+      "a": "As an editor, yes, and we'd happily recommend it. For amplifying a post through many real profiles across many platforms, we think Blowhorn is the better fit."
     },
     {
       "q": "Can I write in Typefully and amplify with Blowhorn?",

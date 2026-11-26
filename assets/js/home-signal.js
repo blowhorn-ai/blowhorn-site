@@ -30,7 +30,7 @@
     var summary = root.querySelector("[data-demo-summary]");
     var i;
     if (!cards.length) {
-      setPill(summary, null, "Pick a network");
+      setPill(summary, null, "Pick a platform");
       return;
     }
     if (reduce) {
@@ -81,7 +81,7 @@
         if (box.checked) any = true;
       });
       if (send) send.disabled = !any;
-      if (!any) setPill(summary, null, "Pick a network");
+      if (!any) setPill(summary, null, "Pick a platform");
       return any;
     }
 

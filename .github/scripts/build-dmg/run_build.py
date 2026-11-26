@@ -1,9 +1,11 @@
 """Run the product's --build-dmg-only entry and print only a public summary.
 
-Build and tool output goes to a log under RUNNER_TEMP that is never printed,
-uploaded or cached. The only stdout is fixed labels, the exit status, the
+Build and tool output goes to a log under RUNNER_TEMP that is never printed or
+cached; when the build fails it leaves the runner only as age ciphertext with
+staged secrets removed (encrypt_logs.py). The only stdout is fixed labels, the exit status, the
 duration, phase and notarization progress lines that timed_run.progress_line
-allows, and (on success) the manifest sha256 and size. Commands run without
+allows, on a failure the sub-step that failed with its exit code and the
+failing test file names, and (on success) the manifest sha256 and size. Commands run without
 the runner's file-command variables. The build is killed after
 --timeout-minutes so a hang fails with a clear message before the job times out.
 """
@@ -75,6 +77,7 @@ def main(argv: list[str] | None = None) -> int:
         timeout_s=args.timeout_minutes * 60,
         cwd=product / "desktop",
         env=child_env(),
+        known_tests=timed_run.test_files(product / "desktop"),
     )
     if timed_out:
         print(f"build-dmg: failed (timed out after {elapsed}s; the last phase line above shows where). Run the same --build-dmg-only command in a local checkout to see why.", flush=True)

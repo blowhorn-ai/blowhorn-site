@@ -58,8 +58,16 @@ Pages hosts only the marketing site and small static files.
 
 ## Building the desktop DMG
 
-The signed disk image is built on this repository's free `macos-latest` runner
-by `.github/workflows/build-dmg.yml`, not on a maintainer's Mac.
+The signed disk image is built on this repository's free `macos-26` runner
+by `.github/workflows/build-dmg.yml`, not on a maintainer's Mac. The image is
+pinned, not `macos-latest`, so a label migration cannot change the OS or its
+Xcodes under a release. `.github/actions/build-dmg-mac` sets `DEVELOPER_DIR`
+to `/Applications/Xcode_26.3.app`: actool compiles the app's Icon Composer icon
+during packaging, and the image's default Xcode 26.6 (like 26.4.1 and 26.5)
+fails on it with "Could not open Icon.icon", while 26.0.1 through 26.3 and
+27.0 through 27.2 compile it (27 so far runs only on the preview `xcode-27`
+image). If an image update drops Xcode 26.3, the step fails naming the setting
+to change; move it to another Xcode from that list.
 
 **Preferred entry:** publish a public GitHub release on this repository whose
 tag is `vX.Y.Z` (optional prerelease suffix, schema:
@@ -120,9 +128,9 @@ A signed release fails if the key is missing, because the app could not
 send support cases or failure reports.
 
 **Artifacts:** the only uploads are the DMG and its sha256 manifest, retained for
-1 day, and, when a Linux gate fails, that suite's log as `age` ciphertext
-(below), retained for 3 days. The Mac build's full log stays under
-`RUNNER_TEMP` and is never uploaded or cached. The public log shows only
+1 day, and, when a Linux gate or a Mac job fails, that job's log as `age`
+ciphertext (below), retained for 3 days. The Mac build's full log stays under
+`RUNNER_TEMP` and is never printed, cached or uploaded as plaintext. The public log shows only
 fixed phase labels with UTC start and end times (keychain import is limited
 to 5 minutes, the build to 100 minutes, inside the 120-minute job), release
 phase names, and the notarization submission id and status. Private source
@@ -136,7 +144,7 @@ The Linux gates (`product-ci.yml`, run on its own or by `build-dmg.yml`) print
 only step results, counts and failing test ids, because this repository's logs
 are public. When a suite fails, `.github/scripts/product-ci/run.py` encrypts
 its full log with [age](https://age-encryption.org) to the public recipient
-`LOG_RECIPIENT` in that script, and the job uploads only the ciphertext as the
+`LOG_RECIPIENT` in `.github/scripts/encrypted-log/encrypted_log.py`, and the job uploads only the ciphertext as the
 artifact `product-ci-<suite>-log-attempt<n>`, kept 3 days. The public log says
 so in one line (`Encrypted log: available as artifact ...`). A passing suite
 uploads nothing, and a runner without `age` says so and uploads nothing.
@@ -153,6 +161,45 @@ The target downloads the artifact (the latest attempt, or `ATTEMPT=<n>`) with
 decrypts it there, deletes the ciphertext and prints the plaintext file's path,
 never its contents. The log holds private product code: read it locally, never
 paste it into an issue, pull request or chat, and delete the directory when done.
+
+### Reading a failed Build DMG log
+
+The Mac jobs (`Mac signed build`, `Mac adhoc build`) print only fixed phase
+labels and the failed sub-step's public name, such as `build: failed step:
+electron-builder (exit 1)`. Each phase that runs product code writes its whole
+output to a private log under `RUNNER_TEMP/build-dmg/`: `install.log` (the
+desktop package install), `import.log` (the signing keychain import, signed
+job only) and `build.log` (preflight, the build, packaging, signing,
+notarization and the DMG verify). When any step of the job fails,
+`make build-dmg-encrypt-log` (`.github/scripts/build-dmg/encrypt_logs.py`)
+joins the logs that exist, each under a `===== <name> =====` header, and
+encrypts them to the same `LOG_RECIPIENT`. The job uploads only that ciphertext
+as `build-dmg-<signed|adhoc>-log-attempt<n>`, kept 3 days. A passing job
+uploads nothing, and without `age` (installed with Homebrew at the start of
+each Mac job, optional) or when encryption fails, the job prints
+`Encrypted log: none (<reason>).` and uploads nothing.
+
+What the log can contain: the product's build output (source paths, test
+names and failures, compiler, pnpm, electron-builder, codesign, notarytool and
+`hdiutil` output), the commands the build runs with their arguments, file
+paths under `RUNNER_TEMP`, and Apple's public identifiers (team id, App Store
+Connect key id and issuer), which signed binaries and notarization logs carry
+anyway. It never holds key material. The build does not print any: the
+keychain import passes the p12 passphrase only as an argument to `security`,
+`release-mac.mjs` logs the notarytool command with the `.p8` key's path, never
+its contents, and the diagnostics key hook says only that it wrote the key. As
+a second guard, before encrypting, every line holding the value of a secret the
+signed job staged (the p12 passphrase, the `.p8` key, the temporary keychain's
+password, the diagnostics key, and the p12 in its base64 forms) is replaced
+with a fixed marker, and the public log says how many lines were removed. A
+staged secret shorter than 8 characters cannot be matched safely, so the job
+uploads nothing rather than guess.
+
+A key holder reads it the same way:
+
+```bash
+make build-dmg-log RUN=<run id> JOB=adhoc   # or JOB=signed; KEY=<identity file>, ATTEMPT=<n>
+```
 
 ## Building the Windows preview installer
 

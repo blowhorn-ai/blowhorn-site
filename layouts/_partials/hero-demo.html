@@ -24,7 +24,7 @@
             <label class="visually-hidden" for="demo-message">{{ $demo.composeLabel }}</label>
             <textarea id="demo-message" name="message" rows="3" data-demo-input>{{ $demo.message }}</textarea>
             <fieldset class="demo-nets">
-              <legend class="visually-hidden">Networks to send to</legend>
+              <legend class="visually-hidden">Platforms to send to</legend>
               {{- range $dest }}
               <label class="demo-chip">
                 <input type="checkbox" name="net-{{ .id }}" value="{{ .id }}" checked data-demo-net="{{ .id }}">
@@ -62,7 +62,7 @@
               <div class="app-tabs"><span>Upcoming <small>12</small></span><span>Drafts <small>3</small></span><span>Routines <small>4</small></span><span class="is-on">History</span></div>
               <p class="app-day">Today</p>
               {{- range $demo.activityRows }}
-              <div class="arow{{ if .on }} is-on{{ end }}"><span class="tag">{{ .tag }}</span><b>{{ .title }}</b><span class="arow-time">{{ .time }}</span><span class="arow-sub">{{ if .on }}{{ len $dest }} networks, as you{{ else }}{{ .sub }}{{ end }}</span><span class="pill pill-sm">{{ .status }}</span></div>
+              <div class="arow{{ if .on }} is-on{{ end }}"><span class="tag">{{ .tag }}</span><b>{{ .title }}</b><span class="arow-time">{{ .time }}</span><span class="arow-sub">{{ if .on }}{{ len $dest }} platforms, as you{{ else }}{{ .sub }}{{ end }}</span><span class="pill pill-sm">{{ .status }}</span></div>
               {{- end }}
             </div>
             <div class="app-detail">

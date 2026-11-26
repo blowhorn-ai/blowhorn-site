@@ -410,8 +410,9 @@ class RunStepsTest(unittest.TestCase):
 
 
 def _fake_age(directory: Path, behaviour: str) -> Path:
-    """An `age` on PATH that records its argv and then behaves as asked.
+    """An `age` on PATH that records its argv and its stdin, then behaves as asked.
 
+    The plaintext arrives on stdin (encrypted_log.encrypt never names a file).
     encrypt: writes the age header and opaque bytes to --output (as real age does)
     copy:    writes the plaintext input to --output (a broken or hostile age)
     prefix:  writes the age header without its newline, then the plaintext
@@ -425,14 +426,15 @@ from pathlib import Path
 args = sys.argv[1:]
 Path({str(directory / "age-argv.json")!r}).write_text(json.dumps(args))
 output = Path(args[args.index("--output") + 1])
-source = Path(args[-1])
+plain = sys.stdin.buffer.read()
+Path({str(directory / "age-stdin")!r}).write_bytes(plain)
 behaviour = {behaviour!r}
 if behaviour == "encrypt":
-    output.write_bytes(b"age-encryption.org/v1\\n-> X25519 opaque\\n" + bytes(reversed(source.read_bytes())))
+    output.write_bytes(b"age-encryption.org/v1\\n-> X25519 opaque\\n" + bytes(reversed(plain)))
 elif behaviour == "copy":
-    output.write_bytes(source.read_bytes())
+    output.write_bytes(plain)
 elif behaviour == "prefix":
-    plain = source.read_bytes().lstrip(b"\\n")
+    plain = plain.lstrip(b"\\n")
     output.write_bytes(b"age-encryption.org/v1" + plain)
 else:
     output.write_bytes(b"age-encryption.org/v1\\n")
@@ -489,7 +491,8 @@ class EncryptedLogTest(unittest.TestCase):
         argv = json.loads((self.bin / "age-argv.json").read_text())
         self.assertEqual(argv[argv.index("--recipient") + 1],
                          "age14zuswrahtrqh7ksyjjv7u0vxqsrxzykhymfavt6x9yvuram67p9se6ngeq")
-        self.assertEqual(Path(argv[-1]), self.log.resolve())
+        self.assertEqual(argv[-2:], ["--output", str(self.upload.resolve() / ".python.log.age.partial")])
+        self.assertEqual((self.bin / "age-stdin").read_bytes(), self.log.read_bytes())
         self.assertNotIn("--armor", argv)
         self.assertEqual([p.name for p in _every_file(self.upload)], ["python.log.age"])
         self.assertTrue((self.upload / "python.log.age").read_bytes().startswith(b"age-encryption.org/v1\n"))
@@ -530,8 +533,8 @@ class EncryptedLogTest(unittest.TestCase):
             with self.subTest(upload=upload.name):
                 _status, out = self._run(self.FAIL, upload=upload)
                 self.assertEqual([p for p in _every_file(self.log.parent) if p != self.log], [])
-                self.assertIn("Encrypted log: none (the upload directory must not hold or sit beside "
-                              "the plaintext log).\n", out)
+                self.assertIn("Encrypted log: none (the upload directory must not hold or sit inside a "
+                              "directory with the plaintext log or a secret).\n", out)
         self.assertFalse((self.bin / "age-argv.json").exists())
 
 
@@ -574,7 +577,7 @@ class FetchLogTest(unittest.TestCase):
     """make product-ci-log decrypts into a temp directory outside the repo and prints only a path."""
 
     def setUp(self):
-        spec = importlib.util.spec_from_file_location("product_ci_fetch_log", HERE / "product-ci" / "fetch_log.py")
+        spec = importlib.util.spec_from_file_location("encrypted_log_fetch_log", HERE / "encrypted-log" / "fetch_log.py")
         self.fetch_log = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.fetch_log)
         self.tmp = tempfile.TemporaryDirectory()
@@ -616,7 +619,8 @@ Path(args[args.index("--output") + 1]).write_text(Path(args[-1]).read_text().rep
     def test_a_missing_key_is_refused_before_anything_is_downloaded(self):
         err = io.StringIO()
         with mock.patch("sys.stderr", err):
-            status = self.fetch_log.main(["--run", "42", "--suite", "python", "--key", str(self.key)])
+            status = self.fetch_log.main(["--kind", "product-ci", "--name", "python", "--run", "42",
+                                          "--key", str(self.key)])
         self.assertEqual(status, 2)
         self.assertIn("No private key at", err.getvalue())
         self.assertFalse((Path(self.tmp.name) / "gh-argv").exists())
@@ -626,12 +630,13 @@ Path(args[args.index("--output") + 1]).write_text(Path(args[-1]).read_text().rep
         with mock.patch.object(self.fetch_log.tempfile, "tempdir", str(self.workdir)):
             out = io.StringIO()
             with mock.patch("sys.stdout", out):
-                status = self.fetch_log.main(["--run", "42", "--suite", "python", "--key", str(self.key)])
+                status = self.fetch_log.main(["--kind", "product-ci", "--name", "python", "--run", "42",
+                                              "--key", str(self.key)])
         self.assertEqual(status, 0)
         self.assertIn("-p product-ci-python-log-attempt* ", (Path(self.tmp.name) / "gh-argv").read_text())
         files = _every_file(self.workdir)
         self.assertEqual(len(files), 1, files)
-        self.assertEqual(files[0].name, "python-run42-attempt2.log")
+        self.assertEqual(files[0].name, "product-ci-python-run42-attempt2.log")
         self.assertEqual(files[0].read_text(), "PLAIN attempt 2 hunter2")
         self.assertFalse(files[0].resolve().is_relative_to(ROOT))
         self.assertIn(f"Decrypted log: {files[0].resolve()}\n", out.getvalue())

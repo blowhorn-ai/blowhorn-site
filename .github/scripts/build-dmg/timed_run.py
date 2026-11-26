@@ -1,9 +1,12 @@
 """Run one build-dmg phase with a hard time limit and a private log.
 
-The child's output goes only to the log, which is never printed, uploaded or
-cached. Stdout gets fixed labels: the phase start and end with UTC timestamps
+The child's output goes only to the log, which is never printed or cached; a
+failed job uploads it only as age ciphertext with staged secrets removed
+(encrypt_logs.py). Stdout gets fixed labels: the phase start and end with UTC timestamps
 and the elapsed time, and the few progress lines that `progress_line` lets
-through (release phase headers and notarization submission id and status).
+through (release phase headers, notarization submission id and status, and on
+a failure which build sub-step failed, its exit code and the failing test file
+names; never the tool output, a path or a value).
 On timeout the whole process group is killed and the phase fails with a clear
 message instead of running into the job's timeout.
 
@@ -40,17 +43,99 @@ _PROGRESS = (
 )
 
 
+ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
+
+#: The build phase's sub-steps: a fixed fragment of the step's own label or
+#: command in the private log, and the public name it gets. First match wins.
+#: Only the public name is echoed, never the matched text, so a quoted command
+#: line with paths or flags cannot leak through.
+SUBSTEPS = (
+    ("checkout's Rust binaries", "checkout rust build"),
+    ("verify linkedin-accept", "fixture check linkedin-accept"),
+    ("verify reconcile", "fixture check reconcile"),
+    ("(fixture)", "fixture check"),
+    ("bundled engine", "bundled engine build"),
+    ("electron-builder", "electron-builder"),
+    ("adhoc-sign-mac-app", "ad-hoc signing"),
+    ("signing the DMG", "codesign"),
+    ("codesign", "codesign"),
+    ("notarytool", "notarytool"),
+    ("stapler", "stapler"),
+    ("create-dmg", "create-dmg"),
+    ("verify-mac-dmg", "DMG verify"),
+    ("install --frozen-lockfile", "pnpm install"),
+)
+#: A pnpm script, as a label ("pnpm test") or a quoted argv ('/x/pnpm' 'test').
+_PNPM_SCRIPT = re.compile(r"(?:^|[\s/'\"])pnpm['\"]?\s+['\"]?(typecheck|lint|test|build)(?=['\"]?(?:\s|$))")
+PNPM_SCRIPTS = {"typecheck": "typecheck", "lint": "lint", "test": "pnpm test", "build": "pnpm build"}
+#: A check beside packaging ends with "--- end of <label> (failed|stopped) ---".
+_STEP_END = re.compile(r"\s*--- end of (.{1,300}) \((failed|stopped)\) ---")
+#: release-mac's headline on exit: "release-mac: <step> failed (exit N)".
+_HEADLINE = re.compile(r"release-mac: (.{1,2000}?) failed(?: \((?:exit (\d{1,3})|[^)]*)\))?(?:[:.].*)?")
+#: Vitest's failing-test line. The path is echoed only when it is one of the
+#: product's own test files (see test_files), so the line cannot carry
+#: anything else out of the private log.
+_VITEST_FAIL = re.compile(r"\s*FAIL\s+(tests/\S{1,160})(?:\s.*)?")
+TEST_FILE_SUFFIXES = (".ts", ".tsx", ".js", ".jsx", ".mts", ".cts", ".mjs", ".cjs")
+MAX_TEST_PATH = 160
+FAILING_FILE = "failing test file: "
+MAX_FAILING_FILES = 20
+
+
+def test_files(desktop: Path) -> frozenset[str]:
+    """The product's vitest files as vitest prints them ("tests/x.test.ts"), the only names a FAIL line may echo."""
+    root = desktop / "tests"
+    if not root.is_dir():
+        return frozenset()
+    found = set()
+    for path in root.rglob("*"):
+        rel = "tests/" + path.relative_to(root).as_posix()
+        if path.is_file() and rel.endswith(TEST_FILE_SUFFIXES) and len(rel) <= MAX_TEST_PATH:
+            found.add(rel)
+    return frozenset(found)
+
+
+def substep(text: str) -> str:
+    """The public name of the sub-step *text* names; 'unrecognized step' when none matches."""
+    script = _PNPM_SCRIPT.search(text)
+    if script and "electron-builder" not in text:
+        return PNPM_SCRIPTS[script.group(1)]
+    for fragment, name in SUBSTEPS:
+        if fragment in text:
+            return name
+    return "unrecognized step"
+
+
+def failure_line(line: str, known_tests: frozenset[str] = frozenset()) -> str | None:
+    """The public form of a failure marker in *line*, or None.
+
+    A failing test file is named only when it is in *known_tests*.
+    """
+    match = _STEP_END.fullmatch(line)
+    if match:
+        return f"step {match.group(2)}: {substep(match.group(1))}"
+    match = _HEADLINE.fullmatch(line)
+    if match:
+        code = f"exit {match.group(2)}" if match.group(2) else "no exit code"
+        return f"failed step: {substep(match.group(1))} ({code})"
+    match = _VITEST_FAIL.fullmatch(line)
+    if match and match.group(1) in known_tests:
+        return FAILING_FILE + match.group(1)
+    return None
+
+
 def stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def progress_line(line: str) -> str | None:
+def progress_line(line: str, known_tests: frozenset[str] = frozenset()) -> str | None:
     """The public form of *line*, or None when it must stay in the log."""
+    line = ANSI.sub("", line).rstrip()
     for pattern, template in _PROGRESS:
-        match = pattern.fullmatch(line.rstrip())
+        match = pattern.fullmatch(line)
         if match:
             return template.format(*match.groups())
-    return None
+    return failure_line(line, known_tests)
 
 
 def say(label: str, message: str) -> None:
@@ -66,6 +151,7 @@ def run_logged(
     cwd: Path | None = None,
     env: dict[str, str] | None = None,
     popen: Callable[..., subprocess.Popen] | None = None,
+    known_tests: frozenset[str] = frozenset(),
 ) -> tuple[int, int, bool]:
     """Run *cmd* with output to *log*; return (exit status, seconds, timed out)."""
     log.parent.mkdir(parents=True, exist_ok=True)
@@ -73,6 +159,7 @@ def run_logged(
     started = time.monotonic()
     timed_out = threading.Event()
     last = None
+    failing_files: set[str] = set()
     with log.open("wb") as sink:
         proc = (popen or subprocess.Popen)(cmd, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, start_new_session=True)
 
@@ -92,13 +179,18 @@ def run_logged(
                 sink.flush()
                 # notarytool redraws its status line with carriage returns.
                 for part in raw.decode("utf-8", "replace").replace("\r", "\n").split("\n"):
-                    public = progress_line(part)
+                    public = progress_line(part, known_tests)
+                    if public and public.startswith(FAILING_FILE):
+                        if public in failing_files or len(failing_files) >= MAX_FAILING_FILES:
+                            continue
+                        failing_files.add(public)
                     if public and public != last:
                         last = public
                         say(label, public)
             status = proc.wait()
         finally:
             timer.cancel()
+            proc.stdout.close()
     elapsed = int(time.monotonic() - started)
     if timed_out.is_set():
         say(label, f"timed out after {elapsed}s (limit {timeout_s / 60:g} min); the process group was killed. The private log has the output.")

@@ -2,7 +2,7 @@
   "title": "Blowhorn vs Haiilo",
   "linkTitle": "Haiilo",
   "seo_title": "Blowhorn vs Haiilo: honest comparison",
-  "description": "Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer networks.",
+  "description": "Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer platforms.",
   "layout": "versus",
   "weight": 33,
   "lastmod": "2026-11-20",
@@ -10,7 +10,7 @@
   "mark": "Hi",
   "site_url": "https://haiilo.com/",
   "group": "Employee advocacy",
-  "verdict": "Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer networks, free during early access.",
+  "verdict": "Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer platforms, free during early access.",
   "them": [
     "You need advocacy plus an employee app and intranet",
     "You are a large, distributed organization, including frontline staff",
@@ -33,7 +33,7 @@
     "youtube"
   ],
   "wins": [
-    "Developer networks: Hacker News, Reddit and GitHub are not listed in Haiilo's vendor knowledge-base list, and Slack is internal distribution, not public publishing",
+    "Developer platforms: Hacker News, Reddit and GitHub are not listed in Haiilo's vendor knowledge-base list, and Slack is internal distribution, not public publishing",
     "Your own computers and signed-in browser, plus API where noted, not a vendor cloud in the middle",
     "Start free during early access, with no quote-led purchase in the way"
   ],
@@ -91,7 +91,7 @@
       "b": "Free during early access"
     }
   ],
-  "signal": "Haiilo is right that employees carry more trust than a brand page. Blowhorn brings that trust to small teams on the networks technical people use, free during early access, with no tiers.",
+  "signal": "Haiilo is right that employees carry more trust than a brand page. Blowhorn brings that trust to small teams on the platforms technical people use, free during early access, with no tiers.",
   "faq": [
     {
       "q": "Is Haiilo better than Blowhorn?",

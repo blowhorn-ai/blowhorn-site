@@ -8,7 +8,7 @@
       "weight": 10,
       "headline": "Post where developers actually talk.",
       "lead": "Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X, Bluesky, YouTube and more, from one queue. Posted as you, at a human pace.",
-      "description": "One queue for the networks technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X, Bluesky, YouTube and more, posted as you from your own computers, in your own browser or through official APIs.",
+      "description": "One queue for the platforms technical companies use: Hacker News, GitHub, Reddit and Slack, plus LinkedIn, X, Bluesky, YouTube and more, posted as you from your own computers, in your own browser or through official APIs.",
       "art": {
         "src": "assets/brand/cast/major-6-hat-left-horn.webp",
         "alt": "Major Blowhorn, a teal rooster drill sergeant in a campaign hat, pointing and shouting through his gold bullhorn, Caribbean Green sound waves pouring out of it"
@@ -29,7 +29,7 @@
       ],
       "gets": [
         {
-          "t": "Every developer network, one queue",
+          "t": "Every developer platform, one queue",
           "b": "Hacker News submit and comment, GitHub follow and react, Slack messages, plus LinkedIn, X, Reddit, Bluesky, YouTube and more."
         },
         {
@@ -63,7 +63,7 @@
           "a": "No. Blowhorn works on Slack through Slack's API and sends as you, with your Slack session linked through the Blowhorn extension or a Slack token you add."
         },
         {
-          "q": "How does it post to each network?",
+          "q": "How does it post to each platform?",
           "a": "LinkedIn, X, Reddit, Hacker News and YouTube: Blowhorn works in your own browser, signed in as you; once a profile gives YouTube Data API consent, YouTube uploads, comments, replies and likes go through YouTube's official API. Slack, Bluesky and GitHub go through their APIs."
         },
         {

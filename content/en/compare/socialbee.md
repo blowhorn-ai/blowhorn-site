@@ -2,7 +2,7 @@
   "title": "Blowhorn vs SocialBee",
   "linkTitle": "SocialBee",
   "seo_title": "Blowhorn vs SocialBee: honest comparison",
-  "description": "SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer networks.",
+  "description": "SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer platforms.",
   "layout": "versus",
   "weight": 15,
   "lastmod": "2026-11-20",
@@ -10,7 +10,7 @@
   "mark": "SB",
   "site_url": "https://socialbee.com/",
   "group": "Cloud schedulers",
-  "verdict": "SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer networks.",
+  "verdict": "SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer platforms.",
   "them": [
     "You run a small business or agency with evergreen content categories",
     "You want queues that refill themselves and an AI copilot",
@@ -74,7 +74,7 @@
   },
   "wins": [
     "Amplify one post across many profiles",
-    "Developer networks: Hacker News, Reddit, GitHub and Slack",
+    "Developer platforms: Hacker News, Reddit, GitHub and Slack",
     "Posts from your own signed-in sessions"
   ],
   "loses": [

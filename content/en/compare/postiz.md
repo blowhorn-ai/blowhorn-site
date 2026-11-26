@@ -2,7 +2,7 @@
   "title": "Blowhorn vs Postiz",
   "linkTitle": "Postiz",
   "seo_title": "Blowhorn vs Postiz: honest comparison",
-  "description": "Postiz is the strongest agent-ready scheduler out there, with 30+ networks, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.",
+  "description": "Postiz is the strongest agent-ready scheduler out there, with 30+ platforms, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.",
   "layout": "versus",
   "weight": 18,
   "lastmod": "2026-11-20",
@@ -10,9 +10,9 @@
   "mark": "Pz",
   "site_url": "https://postiz.com/",
   "group": "Cloud schedulers",
-  "verdict": "Postiz is the strongest agent-ready scheduler out there, with 30+ networks, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.",
+  "verdict": "Postiz is the strongest agent-ready scheduler out there, with 30+ platforms, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.",
   "them": [
-    "You want 30+ networks, including Discord, Instagram and TikTok",
+    "You want 30+ platforms, including Discord, Instagram and TikTok",
     "You want to self-host open source software",
     "Posts must go out with every laptop closed"
   ],
@@ -30,7 +30,7 @@
       "b": "Your computers: your own signed-in browser, through the extension, for LinkedIn, X, Reddit, Hacker News, YouTube and more. After YouTube Data API consent, uploads, comments, replies and likes go through YouTube's official API; Posts-tab posts stay in the browser. GitHub, Bluesky and Slack use their APIs."
     },
     {
-      "f": "Networks",
+      "f": "Platforms",
       "t": "30+ incl. LinkedIn, X, Reddit, Slack, Discord, Bluesky, Instagram, TikTok, YouTube",
       "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more"
     },
@@ -88,7 +88,7 @@
   ],
   "loses": [
     "Postiz runs in the cloud, always on",
-    "Postiz covers far more networks",
+    "Postiz covers far more platforms",
     "Postiz already amplifies from accounts you own in its cloud"
   ],
   "aliases": [

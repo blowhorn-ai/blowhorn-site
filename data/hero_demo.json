@@ -2,7 +2,7 @@
   "$schema": "../schemas/hero_demo.schema.json",
   "label": "Demo",
   "exampleLabel": "Example data",
-  "ariaLabel": "Interactive demo of the Blowhorn desktop app. Example data. Edit the post, pick networks, press Send, and watch each one go Queued, Posting as you, then Went out.",
+  "ariaLabel": "Interactive demo of the Blowhorn desktop app. Example data. Edit the post, pick platforms, press Send, and watch each one go Queued, Posting as you, then Went out.",
   "composeLabel": "Your announcement",
   "sendLabel": "Send",
   "title": "v2.0 ships today",

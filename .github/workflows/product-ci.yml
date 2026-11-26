@@ -16,7 +16,7 @@ name: Product CI
 #     GITHUB_STEP_SUMMARY and the other file-command variables); the checkout
 #     keeps no credential
 #   - one artifact, and only when a suite fails: run.py encrypts that suite's
-#     full log with age to the public recipient in run.py (LOG_RECIPIENT) into
+#     full log with age to the public recipient LOG_RECIPIENT (encrypted-log/encrypted_log.py) into
 #     RUNNER_TEMP/product-ci-encrypted/, and the upload step takes only the
 #     *.age ciphertext there, kept 3 days. The private key is in no repository
 #     and never on a runner. Without age the run uploads nothing.

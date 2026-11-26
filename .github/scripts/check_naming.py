@@ -38,6 +38,13 @@ layer5io/... repository links and file names pass.
   requirement with versions ("Requires macOS 13 or newer and Google
   Chrome 142 or newer"); marketing pages link to System requirements
   (Lee, 2026-10-28, replacing #288's "for now" note).
+- "network" or "networks" (any case) fails outside the docs. The places
+  Blowhorn posts to (LinkedIn, X, Reddit, Hacker News and the like) are
+  platforms (#745). Other meanings pass: a person's network ("professional
+  network", "his own network", "the commenter's network", "near your
+  network", a "pod network") and the computer network a few articles and
+  agent pages name ("network leaks", "needs the network"). The docs talk
+  about computer networks, so they pass.
 - "browser profile" or "browser extension" fails in the docs. Docs about
   using the app or the CLI name Google Chrome and Chrome profiles, as the
   app's own labels do, because the reader must use Chrome there. The CLI
@@ -62,6 +69,12 @@ MACHINE_RE = re.compile(r"\bmachines?\b", re.I)
 MACHINE_IDIOM_RE = re.compile(
     r"\bmachines?(?:\s+learning|-readable|\s+readable)\b|\bstate\s+machines?\b"
     r"|\b(?:posting|outbound)\s+machines?\b", re.I)
+NETWORK_RE = re.compile(r"\bnetworks?\b", re.I)
+# "network" that is not a platform: a person's network or a computer network.
+NETWORK_IDIOM_RE = re.compile(
+    r"\b(?:professional|pod|his|her|their|own|near\s+your)\s+networks?\b|\w['’]s\s+networks?\b"
+    r"|\bnetworks?\s+(?:leaks?|requests?|connections?|access|errors?|plus\b)"
+    r"|\b(?:needs|reaches|check)\s+the\s+network\b|^network\.$", re.I)
 MACS_RE = re.compile(r"\bMacs\b|\b(?:your|my|this|every)\s+(?:own\s+)?Mac\b|\bown\s+Mac\b", re.I)
 VAGUE_BROWSER_RE = re.compile(
     r"\bChrome(?: is required)?,? for now\b|\bsupport for more browsers\b|\bmore browsers (?:is|are) planned\b", re.I)
@@ -170,6 +183,12 @@ def page_problems(rel: str, html: str) -> list[str]:
                 if any(a <= m.start() < b for a, b in idioms):
                     continue
                 found.append(f'{rel}: says "{m.group(0)}" (say computer): ...{snippet(text, m)}...')
+        if not rel.startswith("docs/") and not in_code:
+            idioms = [i.span() for i in NETWORK_IDIOM_RE.finditer(text)]
+            for m in NETWORK_RE.finditer(text):
+                if any(a <= m.start() < b for a, b in idioms):
+                    continue
+                found.append(f'{rel}: says "{m.group(0)}" (say platform): ...{snippet(text, m)}...')
         if not macs_ok and not in_code:
             for m in MACS_RE.finditer(text):
                 found.append(f'{rel}: says "{m.group(0)}" (say computers): ...{snippet(text, m)}...')
@@ -211,7 +230,7 @@ def main(argv: list[str]) -> int:
     for line in failures:
         print(f"check_naming: {line}", file=sys.stderr)
     if failures:
-        print(f"check_naming: {len(failures)} naming problem(s). Users see Blowhorn (sign in at cloud.blowhorn.ai); Layer5 only in the footer and legal pages; computers, never machines or Macs; the Google Chrome requirement stated with versions.", file=sys.stderr)
+        print(f"check_naming: {len(failures)} naming problem(s). Users see Blowhorn (sign in at cloud.blowhorn.ai); Layer5 only in the footer and legal pages; computers, never machines or Macs; platforms, never networks; the Google Chrome requirement stated with versions.", file=sys.stderr)
         return 1
     print("check_naming: ok")
     return 0

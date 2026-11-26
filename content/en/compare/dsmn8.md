@@ -10,7 +10,7 @@
   "mark": "D8",
   "site_url": "https://dsmn8.com/",
   "group": "Employee advocacy",
-  "verdict": "Blowhorn isn't a bot. It's you. DSMN8 is an employee advocacy and executive influence platform for mid-market and enterprise, with governed programs, approvals and analytics. Blowhorn is a lighter way for small technical teams to amplify through real people on developer networks, free during early access.",
+  "verdict": "Blowhorn isn't a bot. It's you. DSMN8 is an employee advocacy and executive influence platform for mid-market and enterprise, with governed programs, approvals and analytics. Blowhorn is a lighter way for small technical teams to amplify through real people on developer platforms, free during early access.",
   "them": [
     "You want a governed advocacy program: approvals, SSO, audit trails and gamification",
     "Executive influence and newsletters are part of the program",
@@ -33,7 +33,7 @@
     "youtube"
   ],
   "wins": [
-    "Developer networks: Hacker News, Reddit and GitHub, plus Slack messages via API; DSMN8's Slack surface is internal distribution and notification only, not public publishing",
+    "Developer platforms: Hacker News, Reddit and GitHub, plus Slack messages via API; DSMN8's Slack surface is internal distribution and notification only, not public publishing",
     "Your own computers and signed-in browser, plus API where noted, not a vendor cloud in the middle",
     "Start free during early access, with no demo, quote or annual contract in the way"
   ],
@@ -95,7 +95,7 @@
   "faq": [
     {
       "q": "Is DSMN8 better than Blowhorn?",
-      "a": "For a structured, governed advocacy program, yes. Approvals, SSO, audit trails and gamification are DSMN8 strengths Blowhorn does not claim here. For small technical teams who want to start on developer networks, we think Blowhorn is the better fit."
+      "a": "For a structured, governed advocacy program, yes. Approvals, SSO, audit trails and gamification are DSMN8 strengths Blowhorn does not claim here. For small technical teams who want to start on developer platforms, we think Blowhorn is the better fit."
     },
     {
       "q": "Does DSMN8 publish to Hacker News, Reddit or GitHub?",

@@ -2,7 +2,7 @@
   "title": "Blowhorn vs Waalaxy",
   "linkTitle": "Waalaxy",
   "seo_title": "Blowhorn vs Waalaxy: honest comparison",
-  "description": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own browser and adds publishing and amplification across many networks.",
+  "description": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own browser and adds publishing and amplification across many platforms.",
   "layout": "versus",
   "weight": 23,
   "lastmod": "2026-11-20",
@@ -10,7 +10,7 @@
   "mark": "Wx",
   "site_url": "https://www.waalaxy.com/",
   "group": "LinkedIn growth tools",
-  "verdict": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own browser and adds publishing and amplification across many networks.",
+  "verdict": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own browser and adds publishing and amplification across many platforms.",
   "them": [
     "You want simple LinkedIn plus email prospecting campaigns",
     "Running in the cloud, with nothing on your computer, suits you",
@@ -40,7 +40,7 @@
       "b": "Page invites, connect, accept, withdraw; human-paced with caps"
     },
     {
-      "f": "Networks",
+      "f": "Platforms",
       "t": "LinkedIn (plus email)",
       "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more"
     },
@@ -64,7 +64,7 @@
   "faq": [
     {
       "q": "Is Waalaxy better than Blowhorn?",
-      "a": "For straightforward prospecting campaigns, yes. For careful outreach from your own browser plus multi-network publishing and amplification, we think Blowhorn is the better fit."
+      "a": "For straightforward prospecting campaigns, yes. For careful outreach from your own browser plus multi-platform publishing and amplification, we think Blowhorn is the better fit."
     }
   ],
   "major": "Launching invites into orbit is fun. Getting a reply back to base is the mission.",

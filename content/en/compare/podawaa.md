@@ -40,7 +40,7 @@
       "b": "Your words; no AI comment generation"
     },
     {
-      "f": "Networks",
+      "f": "Platforms",
       "t": "LinkedIn",
       "b": "LinkedIn, X, Reddit, Hacker News, GitHub, Bluesky, Slack, YouTube and more"
     },
@@ -59,7 +59,7 @@
   "faq": [
     {
       "q": "Is Podawaa better than Blowhorn?",
-      "a": "If you want guaranteed early likes and comments on LinkedIn and accept the trade-offs, it does that. If you want real people and real conversation across many networks, we think Blowhorn is the better fit."
+      "a": "If you want guaranteed early likes and comments on LinkedIn and accept the trade-offs, it does that. If you want real people and real conversation across many platforms, we think Blowhorn is the better fit."
     },
     {
       "q": "What does LinkedIn say about pods?",
