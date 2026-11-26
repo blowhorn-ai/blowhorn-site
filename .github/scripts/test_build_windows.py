@@ -37,6 +37,21 @@ class BuildWindowsWorkflowTest(unittest.TestCase):
         self.assertEqual(uploads[0]["with"]["retention-days"], 1)
         self.assertEqual(uploads[0]["with"]["path"], "dist/")
 
+    def test_the_smoke_job_holds_no_secret_and_no_product_checkout(self):
+        smoke = self.doc["jobs"]["smoke-windows"]
+        self.assertEqual(smoke["needs"], "build-windows")
+        self.assertNotIn("environment", smoke)
+        self.assertNotIn("env", smoke)
+        text = str(smoke)
+        for forbidden in ("secrets.", "checkout-product", "DMG_SOURCE_TOKEN", "WINDOWS_PREVIEW"):
+            self.assertNotIn(forbidden, text)
+
+    def test_the_smoke_script_prints_labels_never_program_output(self):
+        script = (WORKFLOW.parents[1] / "scripts" / "build-windows" / "smoke.py").read_text()
+        self.assertIn("capture_output=True", script)
+        self.assertNotIn("done.stdout)", script.replace("json.loads(done.stdout)", ""))
+        self.assertNotIn("done.stderr", script)
+
     def test_build_output_goes_to_a_log_never_printed(self):
         text = WORKFLOW.read_text()
         self.assertIn("timed_run.py", text)
