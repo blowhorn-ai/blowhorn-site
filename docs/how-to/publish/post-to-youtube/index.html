@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0015e95ca8904712e523c49dc2287b00.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.d018d5d64067386c0f702467e9be88e1.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -789,6 +789,43 @@ An activity past that ceiling waits for the next day. A dry run
 counts its planned rows against that ceiling for the rest of the same
 run, so it holds what the real run would; it does not stamp the
 activity, so the count does not carry into tomorrow.</p>
+<h2 id="set-a-custom-thumbnail">Set a custom thumbnail</h2><p>On a video upload, set <code>Image URL</code> to a picture as well as <code>Video URL</code>
+to the video. Through the Data API, Blowhorn uploads that picture as the
+video's custom thumbnail after the upload answers with a video id. The
+video itself still comes from <code>Video URL</code>.</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>blowhorn content upsert --payload <span class="s1">&#39;{&#34;Platform&#34;:&#34;YouTube&#34;,&#34;Profile&#34;:&#34;your-profile&#34;,&#34;Title&#34;:&#34;Launch day&#34;,&#34;Message Text&#34;:&#34;What we shipped and why it matters.&#34;,&#34;Video URL&#34;:&#34;https://example.com/launch.mp4&#34;,&#34;Image URL&#34;:&#34;https://example.com/launch-thumb.jpg&#34;,&#34;Approved?&#34;:&#34;yes&#34;}&#39;</span></span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>YouTube Help asks for a JPG, GIF, or PNG under 2 MB for a video
+(<a href="https://support.google.com/youtube/answer/72431">Add a custom thumbnail</a>).
+Blowhorn sends the picture only when the file is one of those and under
+2,000,000 bytes. The Data API call is
+<a href="https://developers.google.com/youtube/v3/docs/thumbnails/set"><code>thumbnails.set</code></a>.
+That page also allows a larger JPEG or PNG, up to 50 MB, and says the
+call costs about 50 quota units. Blowhorn keeps the Help page's stricter
+limit. The 50 units are counted only when you set <code>thumbnails.set=50</code> in
+<code>BLOWHORN_YOUTUBE_API_QUOTA_COSTS</code>.</p>
+<p>If the thumbnail cannot be set, the video upload still stands. The report
+says the thumbnail was not set and that the video stays. Set the
+thumbnail in YouTube Studio. Blowhorn does not delete the video and does
+not upload it again.</p>
+<p>Through Google Chrome, Studio's upload walk does not set a custom
+thumbnail yet. The report says so. Set it in YouTube Studio after the
+upload.</p>
+<p><code>Image URL</code> on a Posts-tab post is the post's image, not a video
+thumbnail. A comment, a reply, or a like does not get one either. A
+picture Blowhorn builds from a YouTube link in the text, for the desktop
+preview, is never uploaded.</p>
 <h2 id="choose-visibility">Choose visibility</h2><p>Set <code>Visibility</code> to <code>private</code> (the default), <code>unlisted</code> or <code>public</code>. Any
 other value is refused. These settings belong only to YouTube: a
 LinkedIn, X or other activity that sets <code>Visibility</code>, <code>Short</code> or
@@ -835,7 +872,8 @@ length or shape and will not catch a Short that is too long or too wide.</p>
 <code>true</code> or <code>false</code> is stored as <code>yes</code> or <code>no</code>. The string <code>&quot;true&quot;</code> is
 refused.</p>
 <h2 id="post-on-the-posts-tab">Post on the Posts tab</h2><p>Set <code>Community</code> to <code>yes</code> and put the text in <code>Message Text</code>. Optionally
-set <code>Image URL</code> to one image. Leave <code>Title</code>, <code>Video URL</code>, <code>Comment on</code>
+set <code>Image URL</code> to one image. That image is the post's picture. It is not
+a custom thumbnail for a video. Leave <code>Title</code>, <code>Video URL</code>, <code>Comment on</code>
 and <code>Amplify</code> blank: any of those, or an <code>@</code> tag in the text, is refused
 by name. YouTube states no text length, so Blowhorn does not check one.</p>
 <figure class="term term-prompt" data-lang="bash">
@@ -1006,7 +1044,7 @@ the HTML report.</li>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 25, 2026
+  Last modified November 26, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/publish/post-to-youtube.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
@@ -1051,6 +1089,7 @@ the HTML report.</li>
   <ul>
     <li><a href="#before-the-first-run">Before the first run</a></li>
     <li><a href="#upload-a-video">Upload a video</a></li>
+    <li><a href="#set-a-custom-thumbnail">Set a custom thumbnail</a></li>
     <li><a href="#choose-visibility">Choose visibility</a></li>
     <li><a href="#upload-a-short">Upload a Short</a></li>
     <li><a href="#post-on-the-posts-tab">Post on the Posts tab</a></li>

@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0015e95ca8904712e523c49dc2287b00.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.d018d5d64067386c0f702467e9be88e1.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -688,7 +688,10 @@ click: Blowhorn selects the row's setting, reads it back, and clicks
 only when the final button reads Save (private or unlisted) or Publish
 (public). If the button does not match, the click is refused. Nothing
 is read after a successful click, so the activity is recorded as
-<em>clicked, outcome not read</em>: check the upload in YouTube Studio.</li>
+<em>clicked, outcome not read</em>: check the upload in YouTube Studio.
+Studio's walk does not set a custom thumbnail. When the activity also
+has an <code>Image URL</code>, the report says a custom thumbnail is not yet in
+the Studio walk. Set it in YouTube Studio.</li>
 <li><strong>Visibility</strong> is the activity's <code>Visibility</code> setting: <code>private</code> (the
 default), <code>unlisted</code> or <code>public</code>. Any other value is refused. Through
 the Data API, the visibility is read back from YouTube's answer after
@@ -714,7 +717,9 @@ post on your channel's Posts tab instead of an upload. Posts run only in
 signed-in Chrome; there is no Data API call for them. A title, a video,
 <code>Comment on</code>, <code>Amplify</code> or an <code>@</code> tag on a post row is refused by name.
 YouTube states no text length, so none is checked. At most one image
-(<code>Image URL</code>) may be attached.</li>
+(<code>Image URL</code>) may be attached. That image is the post's picture. It is
+not a custom thumbnail for a video, and Blowhorn does not call
+<code>thumbnails.set</code> for a Posts-tab post.</li>
 <li><strong>Analytics.</strong> <code>blowhorn analytics --platform youtube</code> reads your
 channel's and videos' figures through the YouTube Analytics and Data APIs, using the
 profile's own OAuth consent (its <code>YT_OAUTH_*</code> keys; see
@@ -890,6 +895,31 @@ configured, nothing is pre-counted and the API's own answer decides.
 <code>quotaExceeded</code>, <code>uploadLimitExceeded</code>, <code>rateLimitExceeded</code> and any 429
 hold the row and halt the API path for the rest of the run, never fail
 it and never retry it.</p>
+<p>After a video upload answers with a video id, Blowhorn can set a custom
+thumbnail from the activity's <code>Image URL</code>. This runs only for a video
+upload: <code>Video URL</code> holds the video, and <code>Image URL</code> holds a different
+attached picture. A Posts-tab post, a comment, a reply, a like, and every
+other platform are left alone. A picture built from a YouTube link in the
+text (the desktop preview's <code>i.ytimg.com</code> thumbnail) is never uploaded.</p>
+<p>YouTube Help asks for a JPG, GIF, or PNG that stays under 2 MB for a video
+(<a href="https://support.google.com/youtube/answer/72431">Add a custom thumbnail</a>).
+Blowhorn sends the file only when its contents are one of those and it is
+under 2,000,000 bytes. The call is
+<a href="https://developers.google.com/youtube/v3/docs/thumbnails/set"><code>thumbnails.set</code></a>.
+That page, read 2026-11-24, also allows JPEG and PNG up to 50 MB and says
+the quota impact is approximately 50 units. Blowhorn keeps the Help page's
+stricter size. The 50 units are not a built-in number: set
+<code>thumbnails.set=50</code> in <code>BLOWHORN_YOUTUBE_API_QUOTA_COSTS</code> when the run
+should count them. A GIF is sent as a GIF. If YouTube refuses it, the
+video stays and the report says the thumbnail was not set.</p>
+<p>If the thumbnail cannot be set (the file, the type, the size, the quota
+skip, or YouTube's answer), the video upload still stands. The report
+names the miss and says the video stays. Set the thumbnail in YouTube
+Studio. The video is not deleted and is not uploaded again. A quota or
+rate answer from the thumbnail call still stops further Data API work for
+the rest of the run. A thumbnail whose configured cost would take the
+run past the daily units is skipped without that halt, and the video
+stays recorded as uploaded. This call has not been live-checked.</p>
 <p>The engine can also edit a video's title, description or visibility, delete
 a video, and add a video to a playlist through the Data API. Blowhorn does
 not yet expose a command or a queue action for those calls.</p>
@@ -1002,6 +1032,10 @@ streams as these activities.</p>
     <tr>
       <td>Short length</td>
       <td>180 s</td>
+    </tr>
+    <tr>
+      <td>Custom thumbnail</td>
+      <td>2000000 bytes</td>
     </tr>
   </tbody>
 </table>
@@ -1275,7 +1309,7 @@ streams as these activities.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 25, 2026
+  Last modified November 26, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/platforms/youtube.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0015e95ca8904712e523c49dc2287b00.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.d018d5d64067386c0f702467e9be88e1.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -685,6 +685,12 @@ only the app's interpreter link.</li>
 <p>A failed item does not stop the run: everything else is still removed, and
 the command exits 1. A real run that cannot read the sign-in in the Keychain
 exits 1 as well, and leaves that item in place.</p>
+<p>When the Keychain is turned off for Blowhorn (<code>BLOWHORN_KEYCHAIN=0</code>), the two
+Keychain items are <em>skipped</em>, not failed: the run exits 0 if everything else
+succeeded, and each skipped item says that the Keychain was not checked because it
+is turned off, that an item saved before it was turned off may remain, and the
+command that removes it (<code>security delete-generic-password -s ai.blowhorn.cloud-token -a default</code>
+for the sign-in). A real Keychain error is still a failure.</p>
 <p>The sign-in on this computer is removed on every run, with or without <code>--purge</code>:
 the Keychain item, <code>cloud.yaml</code>, the <code>cloud-token</code> file beside it, and the
 guided setup progress (<code>onboarding-progress.json</code>). The next time you open
@@ -891,7 +897,7 @@ keeps the sign-in you already have.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 24, 2026
+  Last modified November 26, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/manage/uninstall.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">
