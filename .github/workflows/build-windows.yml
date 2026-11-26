@@ -201,5 +201,7 @@ jobs:
       - name: Install, run the engine, uninstall
         run: |
           set -euo pipefail
-          installer=$(ls dist/*.exe | head -n 1)
-          python3 .github/scripts/build-windows/smoke.py "$installer"
+          shopt -s nullglob
+          installers=(dist/*.exe)
+          [[ ${#installers[@]} -eq 1 ]] || { echo "expected one installer, found ${#installers[@]}"; exit 1; }
+          python3 .github/scripts/build-windows/smoke.py "${installers[0]}"
