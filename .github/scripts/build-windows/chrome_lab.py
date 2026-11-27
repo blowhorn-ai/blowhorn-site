@@ -200,7 +200,8 @@ def main(installer):
         run(["powershell", "-NoProfile", "-Command", "Get-Process -Name Blowhorn -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 } | ForEach-Object { [void]$_.CloseMainWindow() }"])
         time.sleep(6)
         still = run(["powershell", "-NoProfile", "-Command", "(Get-Process -Name Blowhorn -ErrorAction SilentlyContinue | Measure-Object).Count"])
-        print(f"lab: Blowhorn processes left after its window is closed: {(still.stdout.strip() if still else '?')[:6]}", flush=True)
+        left = (still.stdout.strip() if still else "?")[:6]
+        ok &= say("the app keeps running after its window is closed", left.isdigit() and int(left) >= 1, f"{left} processes left")
         icons = notify_icon_registered()
         ok &= say("the shell recorded a notification-area icon for the app", icons.isdigit() and int(icons) >= 1, f"count {icons}")
         shots = os.environ.get("LAB_SCREENSHOT_DIR")
