@@ -26,6 +26,7 @@
     }
   ],
   "wire_title": "Plug it into your assistant",
+  "mcp_generator": true,
   "wire_body": "Open Blowhorn once so the app writes the command, then point your client at it. For Claude Code, one line does it. Cursor reads the same command from its mcp.json.",
   "wire_file": "terminal",
   "wire_lang": "bash",

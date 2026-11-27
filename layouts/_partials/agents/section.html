@@ -30,12 +30,16 @@
             <h2 id="setup-title" class="h2">{{ $p.wire_title }}</h2>
             <p class="muted">{{ $p.wire_body }}</p>
           </div>
+          {{- if $p.mcp_generator }}
+          {{ partial "mcp-config-generator.html" . }}
+          {{- else }}
           <div class="grid {{ if $p.extra_file }}grid-2{{ end }}">
             {{ partial "code-card.html" (dict "code" $p.wire_code "title" $p.wire_file "lang" $p.wire_lang "prompt" (eq $p.wire_lang "bash")) }}
             {{- with $p.extra_file }}
             {{ partial "code-card.html" (dict "code" $p.extra_code "title" . "lang" $p.extra_lang "prompt" (eq $p.extra_lang "bash")) }}
             {{- end }}
           </div>
+          {{- end }}
           {{- with $p.wire_note }}
           <p class="muted">{{ . | markdownify }}</p>
           {{- end }}

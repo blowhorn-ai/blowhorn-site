@@ -1,0 +1,165 @@
+{{- /* Interactive MCP Client Configuration Generator
+  Allows selecting an AI assistant client (Cursor, Claude Code, VS Code, Claude Desktop, Windsurf, Zed, Gemini CLI)
+  and a server mode (Hosted Server via HTTP vs Local Binary via stdio).
+  Progressive enhancement: without JavaScript, displays client configurations in clean, labeled cards.
+  With JavaScript (assets/js/mcp-generator.js), renders an interactive switch and live preview with instant copy.
+*/ -}}
+{{- $clients := slice
+  (dict
+    "id" "claude-code"
+    "name" "Claude Code"
+    "hosted" (dict
+      "code" "claude mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp"
+      "lang" "bash"
+      "title" "terminal"
+      "note" "Run this in your terminal. Check the connection with <code>claude mcp list</code>."
+    )
+    "local" (dict
+      "code" "claude mcp add blowhorn -- ~/.local/bin/blowhorn-mcp"
+      "lang" "bash"
+      "title" "terminal"
+      "note" "Requires Blowhorn Desktop. Starts the local server over stdio on your Mac."
+    )
+  )
+  (dict
+    "id" "cursor"
+    "name" "Cursor"
+    "hosted" (dict
+      "code" "{\n  \"mcpServers\": {\n    \"blowhorn\": {\n      \"url\": \"https://mcp.blowhorn.ai/mcp\"\n    }\n  }\n}"
+      "lang" "json"
+      "title" ".cursor/mcp.json"
+      "note" "In Cursor, open Settings > Features > MCP to add the URL, or save to <code>.cursor/mcp.json</code> in your project root."
+    )
+    "local" (dict
+      "code" "{\n  \"mcpServers\": {\n    \"blowhorn\": {\n      \"command\": \"blowhorn-mcp\"\n    }\n  }\n}"
+      "lang" "json"
+      "title" ".cursor/mcp.json"
+      "note" "Requires Blowhorn Desktop. Launches the local <code>blowhorn-mcp</code> command over stdio."
+    )
+  )
+  (dict
+    "id" "vscode"
+    "name" "VS Code"
+    "hosted" (dict
+      "code" "{\n  \"servers\": {\n    \"blowhorn\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp.blowhorn.ai/mcp\"\n    }\n  }\n}"
+      "lang" "json"
+      "title" ".vscode/mcp.json"
+      "note" "Add to <code>.vscode/mcp.json</code> in your workspace for GitHub Copilot MCP."
+    )
+    "local" (dict
+      "code" "{\n  \"servers\": {\n    \"blowhorn\": {\n      \"command\": \"blowhorn-mcp\"\n    }\n  }\n}"
+      "lang" "json"
+      "title" ".vscode/mcp.json"
+      "note" "Requires Blowhorn Desktop. Runs the local <code>blowhorn-mcp</code> CLI over stdio."
+    )
+  )
+  (dict
+    "id" "claude-desktop"
+    "name" "Claude Desktop"
+    "hosted" (dict
+      "code" "{\n  \"mcpServers\": {\n    \"blowhorn\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp.blowhorn.ai/mcp\"\n    }\n  }\n}"
+      "lang" "json"
+      "title" "claude_desktop_config.json"
+      "note" "Open Settings > Developer > Edit Config in Claude Desktop, and paste into <code>claude_desktop_config.json</code>."
+    )
+    "local" (dict
+      "code" "{\n  \"mcpServers\": {\n    \"blowhorn\": {\n      \"command\": \"/Users/you/.local/bin/blowhorn-mcp\"\n    }\n  }\n}"
+      "lang" "json"
+      "title" "claude_desktop_config.json"
+      "note" "Replace <code>/Users/you</code> with your actual home directory, then restart Claude Desktop."
+    )
+  )
+  (dict
+    "id" "windsurf"
+    "name" "Windsurf"
+    "hosted" (dict
+      "code" "{\n  \"mcpServers\": {\n    \"blowhorn\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp.blowhorn.ai/mcp\"\n    }\n  }\n}"
+      "lang" "json"
+      "title" "mcp_config.json"
+      "note" "Add in Windsurf Settings > Cascade > MCP, or save to <code>~/.codeium/windsurf/mcp_config.json</code>."
+    )
+    "local" (dict
+      "code" "{\n  \"mcpServers\": {\n    \"blowhorn\": {\n      \"command\": \"blowhorn-mcp\"\n    }\n  }\n}"
+      "lang" "json"
+      "title" "mcp_config.json"
+      "note" "Runs <code>blowhorn-mcp</code> locally over stdio. Restart Windsurf after saving."
+    )
+  )
+  (dict
+    "id" "zed"
+    "name" "Zed"
+    "hosted" (dict
+      "code" "{\n  \"context_servers\": {\n    \"blowhorn\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp.blowhorn.ai/mcp\"\n    }\n  }\n}"
+      "lang" "json"
+      "title" "settings.json"
+      "note" "Add to <code>settings.json</code> under <code>context_servers</code> in Zed."
+    )
+    "local" (dict
+      "code" "{\n  \"context_servers\": {\n    \"blowhorn\": {\n      \"command\": {\n        \"path\": \"blowhorn-mcp\"\n      }\n    }\n  }\n}"
+      "lang" "json"
+      "title" "settings.json"
+      "note" "Requires <code>~/.local/bin</code> in your PATH so Zed can locate <code>blowhorn-mcp</code>."
+    )
+  )
+  (dict
+    "id" "gemini-cli"
+    "name" "Gemini CLI"
+    "hosted" (dict
+      "code" "gemini mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp"
+      "lang" "bash"
+      "title" "terminal"
+      "note" "Run this command in your terminal to connect Gemini CLI to Blowhorn's hosted server."
+    )
+    "local" (dict
+      "code" "gemini mcp add blowhorn -- ~/.local/bin/blowhorn-mcp"
+      "lang" "bash"
+      "title" "terminal"
+      "note" "Connects Gemini CLI directly to the local Blowhorn engine via stdio."
+    )
+  )
+-}}
+<div class="mcp-generator card-plain" data-mcp-generator>
+  <div class="mcp-gen-head">
+    <div class="mcp-mode-selector" role="radiogroup" aria-label="MCP Server Mode">
+      <span class="mcp-selector-label caption">Server mode:</span>
+      <div class="mcp-mode-pills">
+        <label class="mcp-mode-label">
+          <input type="radio" name="mcp-mode" value="hosted" checked>
+          <span class="mcp-pill-btn">Hosted (Cloud HTTP)</span>
+        </label>
+        <label class="mcp-mode-label">
+          <input type="radio" name="mcp-mode" value="local">
+          <span class="mcp-pill-btn">Local (Desktop stdio)</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcp-clients-strip">
+    <span class="mcp-selector-label caption">Choose client:</span>
+    <div class="mcp-clients-tabs" role="tablist" aria-label="AI Assistant Clients">
+      {{- range $i, $c := $clients }}
+      <button type="button" class="mcp-client-tab{{ if eq $i 0 }} is-on{{ end }}" role="tab" id="mcp-tab-{{ $c.id }}" data-mcp-client="{{ $c.id }}" aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}" aria-controls="mcp-panel-{{ $c.id }}">
+        {{ $c.name }}
+      </button>
+      {{- end }}
+    </div>
+  </div>
+
+  <div class="mcp-panels">
+    {{- range $i, $c := $clients }}
+    <div class="mcp-panel" id="mcp-panel-{{ $c.id }}" role="tabpanel" aria-labelledby="mcp-tab-{{ $c.id }}" data-panel-client="{{ $c.id }}"{{ if ne $i 0 }} hidden{{ end }}>
+      <div class="mcp-mode-pane" data-pane-mode="hosted">
+        <p class="mcp-panel-instruction caption">{{ $c.hosted.note | safeHTML }}</p>
+        {{ partial "code-card.html" (dict "code" $c.hosted.code "title" $c.hosted.title "lang" $c.hosted.lang "prompt" (eq $c.hosted.lang "bash")) }}
+      </div>
+      <div class="mcp-mode-pane" data-pane-mode="local" hidden>
+        <p class="mcp-panel-instruction caption">{{ $c.local.note | safeHTML }}</p>
+        {{ partial "code-card.html" (dict "code" $c.local.code "title" $c.local.title "lang" $c.local.lang "prompt" (eq $c.local.lang "bash")) }}
+      </div>
+    </div>
+    {{- end }}
+  </div>
+</div>
+{{- $js := resources.Get "js/mcp-generator.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" defer></script>
