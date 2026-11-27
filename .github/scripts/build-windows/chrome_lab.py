@@ -141,6 +141,14 @@ def main(installer):
             if not task_seen:
                 time.sleep(4)
         say("the app set the background service task by itself", task_seen)
+        if not task_seen:
+            # Where is it, if anywhere? Names of tasks that mention blowhorn, and the engine's own state word.
+            listed = run(["schtasks", "/Query", "/FO", "CSV", "/NH"])
+            names = sorted({line.split(",")[0].strip('"') for line in (listed.stdout.splitlines() if listed else []) if "blowhorn" in line.lower()})
+            print("lab: tasks mentioning blowhorn:", [re.sub(r"[^A-Za-z0-9 ._\\-]", "", n)[:80] for n in names][:5], flush=True)
+            state = run([str(engine), "service", "status", "--json"])
+            words = re.findall(r'"state":\s*"([a-z-]{1,24})"', state.stdout) if state else []
+            print("lab: engine service state:", words[:1], flush=True)
         run(["taskkill", "/F", "/T", "/PID", str(launched.pid)])
         run(["taskkill", "/F", "/IM", "Blowhorn.exe", "/T"])
         run(["reg", "delete", HOST_KEY, "/f"])
