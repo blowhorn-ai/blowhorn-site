@@ -134,6 +134,7 @@
 - [Choose your rules of engagement](https://blowhorn.ai/docs/how-to/settings/choose-your-rules-of-engagement/index.md): Your pace. Your risk. Your call. What Safety on, Weapons tight and Weapons free change in your day, and which one to pick.
 - [Connect an assistant and read your queue](https://blowhorn.ai/docs/tutorials/first-mcp-connection/index.md): Add Blowhorn's hosted MCP server to Claude Desktop and ask it to read your content items.
 - [Install the app](https://blowhorn.ai/docs/how-to/set-up/install-the-app/index.md): Download the signed Mac app from blowhorn.ai and verify it.
+- [Install the Windows preview](https://blowhorn.ai/docs/how-to/set-up/install-on-windows-preview/index.md): Install, update and remove the early Blowhorn build for Windows, and what it does and does not do yet.
 - [Set up Blowhorn at first muster](https://blowhorn.ai/docs/how-to/set-up/first-muster-setup/index.md): What each step of the desktop app's first-muster setup does, and what it never does.
 - [Create a Blowhorn account](https://blowhorn.ai/docs/how-to/set-up/create-an-account/index.md): Create your Blowhorn account, or sign in, from the desktop app's setup.
 - [Finish setup on this computer](https://blowhorn.ai/docs/how-to/set-up/finish-setup/index.md): Run blowhorn setup to check this computer, write the Chrome native host, and see what is left.
@@ -141,7 +142,7 @@
 - [Install the Chrome extension](https://blowhorn.ai/docs/how-to/set-up/install-the-chrome-extension/index.md): Add the Blowhorn extension in the Blowhorn app or from the Chrome Web Store, or load it unpacked in one profile.
 - [Map Blowhorn profiles to Chrome profiles](https://blowhorn.ai/docs/how-to/set-up/map-chrome-profiles/index.md): Say which real Chrome profile each Blowhorn profile belongs to on this computer.
 - [Sign a profile in to each platform](https://blowhorn.ai/docs/how-to/set-up/platform-accounts/index.md): Browser sign-ins, tokens, and app passwords each profile needs before it can post.
-- [Connect an AI assistant over MCP](https://blowhorn.ai/docs/how-to/set-up/connect-mcp-client/index.md): Point Claude, ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, Grok, Grok Bot, or Arcade at https://mcp.blowhorn.ai/mcp.
+- [Connect an AI assistant over MCP](https://blowhorn.ai/docs/how-to/set-up/connect-mcp-client/index.md): Point Claude, ChatGPT, Codex, Cursor, VS Code, GitHub Copilot CLI, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, Grok, Grok Bot, or Arcade at https://mcp.blowhorn.ai/mcp.
 - [Post content](https://blowhorn.ai/docs/how-to/publish/post-content/index.md): Preview and publish queued posts across profiles and platforms.
 - [Manage the content queue](https://blowhorn.ai/docs/how-to/publish/manage-the-content-worksheet/index.md): Add, edit, and track queued posts under Activity › Upcoming and from the command line.
 - [Amplify an existing post](https://blowhorn.ai/docs/how-to/publish/amplify-a-post/index.md): Repost, retweet, quote, upvote, or react to a post from every profile.
@@ -218,7 +219,7 @@
 - [The Blowhorn desktop app bounces in my dock and won't start. Why?](https://blowhorn.ai/docs/how-to/troubleshoot/bounces-in-dock/index.md): What a bouncing dock icon means, and how to get the app open again without a terminal.
 - [Fix "Blowhorn is damaged and can't be opened"](https://blowhorn.ai/docs/how-to/troubleshoot/damaged-cant-be-opened/index.md): What to do when macOS says Blowhorn is damaged after you download it from blowhorn.ai or GitHub.
 - [Run Blowhorn Tells](https://blowhorn.ai/docs/how-to/troubleshoot/run-tells/index.md): Check what sites can see about your browser, in Chrome or from a terminal.
-- [System requirements](https://blowhorn.ai/docs/reference/requirements/index.md): What your computer needs to run Blowhorn: macOS version, Google Chrome, and a Blowhorn account.
+- [System requirements](https://blowhorn.ai/docs/reference/requirements/index.md): What your computer needs to run Blowhorn: macOS, Google Chrome, the compatibility matrix, and a Blowhorn account.
 - [The Blowhorn app, screen by screen](https://blowhorn.ai/docs/reference/use-the-desktop-app/index.md): The menu-bar popover, the console screens, Setup, Settings, and what each one does.
 - [Content queue columns and activity states](https://blowhorn.ai/docs/reference/content-queue/index.md): Every content column, what each platform reads from an activity, and what each activity state means.
 - [Job options and schedules](https://blowhorn.ai/docs/reference/jobs/index.md): Schedule activities, recurrence words, driver mode, and the three pause scopes.

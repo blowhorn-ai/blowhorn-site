@@ -62,6 +62,10 @@ figures it read. In the
 app, the "results" screen collects on demand with "collect now" and draws
 the same series.
 
+If the profile is not signed in to LinkedIn and the sign-in does not take, no
+page is read and nothing is recorded; the run says so. See
+[Recover a session](/docs/how-to/troubleshoot/sign-in-problems/#linkedin).
+
 ## Choose the LinkedIn pages
 
 The LinkedIn pages a collection walks belong to your organization, not to a
@@ -184,11 +188,20 @@ daily new followers and their location, job function, seniority, industry
 and company-size breakdowns, and the content exports' daily impressions,
 clicks, reactions, comments, reposts and engagement rate. The backfill for
 exports already on disk is an operator step (`make store-ingest-linkedin-exports`);
-it reads the same files and is safe to re-run.
+it reads the same files and is safe to re-run. If your Blowhorn account
+cannot take the readings during a collection, the collection says so in one
+line with the reason; some readings may have landed, and the backfill run
+later stores the rest without doubling any.
 
-Three rules govern those daily figures. A figure is never negative: the
-store refuses one on every backend, the way the Cloud constructs bound
-figures at zero. A blank cell in a later export leaves the stored figure
+Three rules govern those daily figures. A day's organic and total new
+followers, and its organic and total reactions, comments, reposts and
+engagement rate, can be negative: LinkedIn subtracts an unfollow, a
+withdrawn reaction, a deleted comment or an undone repost on the day it
+happens, and Blowhorn stores each figure as LinkedIn reports it, never
+rounded up to zero or dropped. Every other figure (impressions, unique
+impressions, clicks, the sponsored and auto-invited figures, and the
+follower breakdowns) only ever counts up, so a negative one is refused.
+A blank cell in a later export leaves the stored figure
 alone -- an export that did not report a figure did not report a zero,
 and did not report that the figure became unknown -- while a blank on a
 day no export has reported reads back as no figure. And two rows for one

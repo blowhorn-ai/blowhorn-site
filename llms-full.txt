@@ -1983,7 +1983,7 @@ refresh. It now gives the honest error
 naming `github` and listing what `profile` supports, whether you typed the
 platform or inherited it from `BLOWHORN_PLATFORM` or `defaults.platform`.
 
-Under `--json` the refusal also prints one document, the same shape other `--json`
+Under `--json` the refusal - a platform no command knows included - also prints one document, the same shape other `--json`
 refusals use, and exits 1 as before: `{"ok": false, "error": "platform 'github' unsupported"}`.
 
 The commands that never look at `--platform` do not reject anything:
@@ -2615,7 +2615,8 @@ The line for `Blowhorn-mac.dmg` must read `OK`.
 
 Requires macOS 13 or newer, on Apple silicon or Intel, and Google Chrome
 142 or newer.
-See [System requirements](/docs/reference/requirements/) for the full list.
+See [System requirements](/docs/reference/requirements/) for the full list
+and the compatibility matrix.
 Chrome is not bundled: Blowhorn
 drives the Chrome profiles you already sign in to, through its Chrome
 extension, which you add to each Chrome profile you post from
@@ -2715,6 +2716,83 @@ takes and what to do if it stalls.
 - [Install the Chrome extension](/docs/how-to/set-up/install-the-chrome-extension/) - the
   extension each mapped Chrome profile needs.
 - [Uninstall Blowhorn](/docs/how-to/manage/uninstall/) - remove it cleanly
+
+
+--------------------------------------------------------------------------------
+title: "Install the Windows preview"
+url: https://blowhorn.ai/docs/how-to/set-up/install-on-windows-preview/index.md
+description: Install, update and remove the early Blowhorn build for Windows, and what it does and does not do yet.
+--------------------------------------------------------------------------------
+
+Install the early preview of Blowhorn for Windows. It is a test build for a
+few people: the parts listed below work, and a good deal is not there yet. If
+you want the full app today, use a Mac ([Install the app](/docs/how-to/set-up/install-the-app/)).
+
+## Download
+
+Download the preview from the release named **Blowhorn for Windows
+(preview)** on the
+[blowhorn-site releases](https://github.com/blowhorn-ai/blowhorn-site/releases)
+page: the installer (`Blowhorn-<version>-x64-setup.exe`) and its `.sha256`
+file. In PowerShell, in the folder you saved them to, check the installer:
+
+```powershell
+Get-FileHash .\Blowhorn-<version>-x64-setup.exe -Algorithm SHA256
+```
+
+The hash must match the one in the `.sha256` file.
+
+## Install
+
+1. Run the installer. It installs for your user only and asks for no
+   administrator password.
+2. Windows SmartScreen warns that it does not recognize the app, because the
+   preview is signed with our own preview certificate, not yet with a
+   publisher certificate. Choose **More info**, then **Run anyway**. You do
+   this once per download.
+3. Open **Blowhorn** from the Start menu.
+
+The release also carries `Blowhorn-Preview.cer`, the public half of the
+preview certificate, if you want to compare its fingerprint with the one in
+the release notes. You do not need to import it to install.
+
+Requires 64-bit Windows 10 or 11 and Google Chrome 142 or newer.
+
+## What works in the preview
+
+- Installing and removing the app with no administrator rights.
+- The app opening to its welcome screen with its account buttons, and the menu
+  bar hidden until you press Alt.
+- The app registering its Chrome connection and its start-at-sign-in task for
+  your user when it starts, with no extra step from you, and the uninstaller
+  removing both.
+- The engine's own commands, with no Python on your computer: its version, its
+  settings, and what each platform can do.
+- Account, profile, schedule and content reads, as the native engine answers
+  them. These are built and tested elsewhere and not yet tried against a real
+  account on Windows.
+
+## What does not work yet
+
+- Posting to X, LinkedIn, Reddit, Hacker News and Bluesky. A command the
+  Windows engine does not answer says so plainly, and changes nothing.
+- The background service that runs your schedule when you sign in to Windows:
+  the app sets it up the first time it starts, but the passes it runs are not
+  on Windows yet, so it does not run your schedule.
+- The Chrome extension doing anything with the app. The app registers the
+  connection for your user when it starts, and Chrome starts it, but pairing it
+  with the app and acting on a page have not been tried on Windows yet.
+- The tray icon, notifications and every screen after sign-in: nobody has yet
+  checked them on a real Windows computer. Tell us what you see.
+- Windows Store packaging and a publisher-signed installer.
+
+## Update and remove
+
+To update, run the newer preview's installer over the old one; your data stays
+in your Blowhorn account. To remove Blowhorn, open **Settings, Apps,
+Installed apps**, choose **Blowhorn** and **Uninstall**. The uninstaller
+removes the app, its Chrome connection and its start-at-sign-in task, and
+leaves your data folder alone.
 
 
 --------------------------------------------------------------------------------
@@ -3212,7 +3290,8 @@ description: Add the Blowhorn extension in the Blowhorn app or from the Chrome W
 
 
 Requires macOS 13 or newer and Google Chrome 142 or newer. See
-[System requirements](/docs/reference/requirements/).
+[System requirements](/docs/reference/requirements/) for the compatibility
+matrix.
 
 Blowhorn drives Google Chrome through its Chrome extension. Chrome keeps an
 extension inside each Chrome profile, and the extension drives only the
@@ -4103,7 +4182,7 @@ and runs across the organization; see
 --------------------------------------------------------------------------------
 title: "Connect an AI assistant over MCP"
 url: https://blowhorn.ai/docs/how-to/set-up/connect-mcp-client/index.md
-description: Point Claude, ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, Grok, Grok Bot, or Arcade at https://mcp.blowhorn.ai/mcp.
+description: Point Claude, ChatGPT, Codex, Cursor, VS Code, GitHub Copilot CLI, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, Grok, Grok Bot, or Arcade at https://mcp.blowhorn.ai/mcp.
 --------------------------------------------------------------------------------
 
 Connect an MCP client to Blowhorn's hosted MCP server at
@@ -4239,7 +4318,39 @@ In `.vscode/mcp.json`:
 ```
 
 Add `"headers": { "Authorization": "Bearer <token>" }` when sign-in
-does not complete.
+does not complete. For GitHub Copilot in the terminal, see
+[GitHub Copilot CLI](#github-copilot-cli).
+
+### GitHub Copilot CLI
+
+```bash
+copilot mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp
+```
+
+Check it with `copilot mcp list`, and see its details with
+`copilot mcp get blowhorn --json`. Remove it with
+`copilot mcp remove blowhorn`.
+
+If sign-in does not complete, add the header:
+
+```bash
+copilot mcp add --transport http --header "Authorization: Bearer <token>" blowhorn https://mcp.blowhorn.ai/mcp
+```
+
+The add command writes the user config at `~/.copilot/mcp-config.json`.
+For one workspace instead, write `.mcp.json` or `.github/mcp.json` in
+the workspace:
+
+```json
+{
+  "mcpServers": {
+    "blowhorn": {
+      "type": "http",
+      "url": "https://mcp.blowhorn.ai/mcp"
+    }
+  }
+}
+```
 
 ### Windsurf (Devin Desktop)
 
@@ -9056,8 +9167,11 @@ blowhorn follow --platform github --profile personal --target layer5io --limit 0
 blowhorn follow --platform github --profile personal --target layer5io,octocat --limit 0
 
 # Every eligible profile follows from the same target.
-blowhorn follow --platform bluesky --profile all --target somehandle.bsky.social --limit 10 --exclude personal
+blowhorn follow --platform bluesky --profile all --target somehandle.bsky.social --limit 0 --exclude personal
 ```
+
+Bluesky cannot follow an account's followers: with `--limit 0`, or no `--limit`, it
+follows the named account itself, and a positive `--limit` is refused.
 
 Already-followed accounts are skipped, not re-followed, and counted
 apart: the summary's `Followed` column counts only accounts this run
@@ -9066,6 +9180,14 @@ either: the limit bounds follows, not candidates examined. A live X run
 is the exception: it reads nothing after clicking Follow, so it counts
 none of its follows as followed and reports them as `clicked, outcome
 not read (N)`. Those handles are still logged, so later runs skip them.
+
+On X, a named account is followed only through its own Follow button, and follower
+traversal reads only the list itself: "Who to follow" suggestions are never clicked.
+
+On X, a live run needs its follow log: if the log is there and cannot be read, that
+profile follows nobody, no browser opens for it and the run exits 1, naming the file.
+Repair it, or move it aside knowing the accounts it records are no longer skipped or
+counted toward X's limit.
 
 Under `--profile all`, a profile whose own handle matches a target is
 left out of the run. Naming profiles explicitly makes `--exclude`, and
@@ -11132,6 +11254,10 @@ figures it read. In the
 app, the "results" screen collects on demand with "collect now" and draws
 the same series.
 
+If the profile is not signed in to LinkedIn and the sign-in does not take, no
+page is read and nothing is recorded; the run says so. See
+[Recover a session](/docs/how-to/troubleshoot/sign-in-problems/#linkedin).
+
 ## Choose the LinkedIn pages
 
 The LinkedIn pages a collection walks belong to your organization, not to a
@@ -11254,11 +11380,20 @@ daily new followers and their location, job function, seniority, industry
 and company-size breakdowns, and the content exports' daily impressions,
 clicks, reactions, comments, reposts and engagement rate. The backfill for
 exports already on disk is an operator step (`make store-ingest-linkedin-exports`);
-it reads the same files and is safe to re-run.
+it reads the same files and is safe to re-run. If your Blowhorn account
+cannot take the readings during a collection, the collection says so in one
+line with the reason; some readings may have landed, and the backfill run
+later stores the rest without doubling any.
 
-Three rules govern those daily figures. A figure is never negative: the
-store refuses one on every backend, the way the Cloud constructs bound
-figures at zero. A blank cell in a later export leaves the stored figure
+Three rules govern those daily figures. A day's organic and total new
+followers, and its organic and total reactions, comments, reposts and
+engagement rate, can be negative: LinkedIn subtracts an unfollow, a
+withdrawn reaction, a deleted comment or an undone repost on the day it
+happens, and Blowhorn stores each figure as LinkedIn reports it, never
+rounded up to zero or dropped. Every other figure (impressions, unique
+impressions, clicks, the sponsored and auto-invited figures, and the
+follower breakdowns) only ever counts up, so a negative one is refused.
+A blank cell in a later export leaves the stored figure
 alone -- an export that did not report a figure did not report a zero,
 and did not report that the figure became unknown -- while a blank on a
 day no export has reported reads back as no figure. And two rows for one
@@ -12353,6 +12488,10 @@ When LinkedIn challenges the session or signs it out, the run stops and names
 the step. Sign in again in the mapped Chrome profile's window, complete any
 challenge LinkedIn shows, then run again. If the challenge keeps returning,
 pause the schedule until it clears so no pass spends itself against it.
+
+If a sign-in does not take, a command that works on LinkedIn stops there:
+nothing is read or clicked, the run says it could not confirm a LinkedIn
+session, and it exits non-zero. `analytics` reads no page and records nothing.
 
 ## X
 
@@ -13474,7 +13613,7 @@ Playwright, so use the npm install for browser runs.
 --------------------------------------------------------------------------------
 title: "System requirements"
 url: https://blowhorn.ai/docs/reference/requirements/index.md
-description: What your computer needs to run Blowhorn: macOS version, Google Chrome, and a Blowhorn account.
+description: What your computer needs to run Blowhorn: macOS, Google Chrome, the compatibility matrix, and a Blowhorn account.
 --------------------------------------------------------------------------------
 
 
@@ -13484,7 +13623,7 @@ or newer and Google Chrome 142 or newer.
 | Need | Requirement | Checked by |
 |---|---|---|
 | macOS | 13 or newer, Apple silicon or Intel (one universal build) | The desktop build declares the floor (`minimumSystemVersion` 13.0). Guided setup does not check the macOS version |
-| Google Chrome | 142 or newer, the real Google Chrome (not Chromium), installed, opened once, and signed in | Guided setup, before the welcome; `blowhorn chrome status` |
+| Google Chrome | 142 or newer, the real Google Chrome (not Chromium, not Chrome for Testing), installed, opened once, and signed in | Guided setup, before the welcome; `blowhorn chrome status` |
 | Engine | Bundled in the app, with its own Python; nothing to install | Setup, "Blowhorn folder" and "helper tools" rows |
 | Account | A Blowhorn account your profile belongs to | Setup, "organization connection" row; `blowhorn store` |
 | Background runs | The background service, registered from the app | Setup, "this computer on duty" row |
@@ -13493,11 +13632,90 @@ macOS 13 is the floor the desktop build declares
 (`minimumSystemVersion: 13.0`), and every release is one universal DMG
 (`Blowhorn-<version>-universal.dmg`) for Apple silicon and Intel Macs.
 The engine underneath also runs on Linux; the desktop app needs a Mac.
-Windows is not supported.
+The supported desktop is the Mac app. Windows is a preview for 64-bit
+Windows 10 or 11, described in the matrix below.
+
+## Compatibility matrix
+
+Floors, recorded Chrome versions, per-feature Chrome minimums, the DevTools
+protocol pin, and the Windows preview.
+
+### Floors
+
+| Floor | Requirement |
+|---|---|
+| macOS | 13 or newer, Apple silicon or Intel, one universal DMG. Declared as `minimumSystemVersion` 13.0 |
+| Google Chrome | 142 or newer. Real branded Google Chrome only: not Chromium, not Chrome for Testing |
+
+Chrome 142 is the product floor, not an extra feature row. Trusted input
+into a Blowhorn tab that is not selected needs
+`Emulation.setFocusEmulationEnabled`. From Chrome 142 the page reports
+visible and focused. The floor was measured on 2026-10-21 on signed Google
+Chrome 142.0.7444.176, and the same day on signed Google Chrome
+145.0.7632.160. Chrome for Testing builds used below the floor are not
+product quality evidence. One check failed on every build in that
+measurement, including installed Chrome 155: the dedicated attach Chrome's
+`webdriver` reading. The same check failed in the Chrome 158 run below.
+
+### Tested Chrome
+
+The quality lane is pinned to Google Chrome 155. Recorded branded Google
+Chrome quality runs cover 155 through 158, most recently 158.0.8127.36 for
+the combined quality suite. They do not cover every release from 155
+through 158.
+
+| Chrome | When | Blowhorn | What ran |
+|---|---|---|---|
+| 155.0.8059.80 | 2026-10-17 to 2026-10-18, macOS | 1.22.0, 1.23.1 | live suites |
+| 155.0.8059.84 | 2026-10-30 to 2026-10-31, Linux | 1.64.0 | smaller suites |
+| 156.0.8078.48 | 2026-10-28 | 1.41.0, 1.42.0 | narrow live suites |
+| 156.0.8078.74 | 2026-11-02 | 1.85.0, 1.87.0 | pair-tab-close |
+| 157.0.8103.52 | 2026-11-23 | 2.13.0, 2.14.0, 2.14.1 | attach-chrome |
+| 158.0.8127.36 | 2026-11-20 | 2.11.0 | combined quality suite: 34 passed, 1 failed |
+
+The Chrome 158 row is the most recent combined quality suite. Its one
+failure is the dedicated attach Chrome's `webdriver` reading, the same
+check that failed on every build in the 2026-10-21 floor measurement,
+including installed Chrome 155. The Chrome 157 row is a later, narrower
+attach-chrome run. No newer quality record than these rows is in this set.
+
+### Per-feature Chrome minimums
+
+Only Chrome minimums Blowhorn enforces or relies on, above the 142 floor.
+
+| Feature | Chrome | What it means |
+|---|---|---|
+| Split view (`split_view`, `--window split-view`) | 155 | Uses `chrome.tabs.create` with `splitWithTabId`. On older Chrome, or when the split cannot be made, Blowhorn uses its own window (`own_window`) |
+| `Target.createTarget` parameter `focus` | 146 | Chromium added this experimental parameter at commit position r1573508 (2026-01-23). It shipped in Chrome 146, stable on 2026-03-10. Blowhorn sends `focus: false` with `background: false` so a foreground tab can open without raising the Chrome window. Product code does not gate on Chrome 146. Chrome 142 to 145 lack the parameter. An unknown parameter may be ignored by older Chrome. That has not been confirmed on a live Chrome 142 to 145 |
+
+`Extensions.loadUnpacked` needs Chrome 137 or newer, already below the
+floor, so it is not a row here. No other command Blowhorn sends has a
+Chrome minimum above 142.
+
+### DevTools protocol pin
+
+The Chrome DevTools protocol vocabulary is pinned to
+[ChromeDevTools/devtools-protocol](https://github.com/ChromeDevTools/devtools-protocol)
+revision r1756183 (commit `ce722882bee61612660eb40f513fca67585890da`),
+protocol version 1.3, from `browser_protocol.json` and `js_protocol.json`,
+read 2026-11-27.
+
+That revision is Chromium trunk, around Chrome 160, not a shipped Chrome
+release. On 2026-11-27 trunk builds were about 160.0.8188 (r17563xx) and
+Chrome stable was 158 (revision r1727472). The product minimum stays
+Google Chrome 142.
+
+### Windows preview
+
+The supported desktop is the Mac app. A Windows preview exists for 64-bit
+Windows 10 or 11. It is a test build for a few people. Install steps are
+in [Install the Windows preview](/docs/how-to/set-up/install-on-windows-preview/).
+The engine also runs on Linux. The desktop app needs a Mac.
 
 Install the real Google Chrome the normal way and sign in before you map
-anything; the requirement in full is in the
-[Chrome reference](/docs/reference/chrome/#requirements).
+anything; how Blowhorn finds Chrome is in the
+[Chrome reference](/docs/reference/chrome/#requirements). Tested versions and the
+protocol pin are in the matrix above.
 
 The app carries its engine and Python, so your computer needs no git and no
 Python. A contributor running the engine from a checkout instead needs
@@ -13514,6 +13732,8 @@ Offline behavior is a plans question, not a requirements one: see
 - [The Blowhorn app, screen by screen](/docs/reference/use-the-desktop-app/) - what the Setup screen checks.
 - [Plans and limits](/docs/reference/plans/) - what "free during early access" covers.
 - [How Blowhorn works](/docs/explanation/how-it-works/) - why your account and the app are separate.
+- [Install the Windows preview](/docs/how-to/set-up/install-on-windows-preview/) - the test build for 64-bit Windows 10 or 11.
+- [Chrome reference](/docs/reference/chrome/) - how Blowhorn finds Google Chrome.
 
 
 --------------------------------------------------------------------------------
@@ -14408,13 +14628,13 @@ it: comments, order, and quoting survive, and a `null` stays `null`.
 A file that cannot be read as YAML is reported once on stderr and read as
 empty, so `--json` output stays one JSON document; `config set` on such
 a file changes nothing and says so. A stored number written in words is
-refused by name (`config show --json` included). A key written twice
-makes the file unreadable, and the warning names it
-(`defaults.profile is written twice; keep one`): Blowhorn does not guess
-which of the two you meant. In a yes/no option, `yes`, `no`, `on` and
-`off` (in any case) mean yes and no, as they always have, and `config
-show` prints them as `true` and `false`; in a text option a hand-written
-`off` or `yes` is read as that word.
+refused by name (`config show --json` included). A key written twice keeps
+its last value, as it always has; `config set` refuses such a file (it says
+it is not valid YAML) so the edit never guesses which of the two you meant.
+The file reads as YAML 1.1 does, in both engines: `yes`, `no`, `on` and
+`off` (in any case) are yes and no, so a text option written `off` or `yes`
+is read as that yes or no rather than as the word (quote it, `'off'`, to
+keep the word); `010` is eight, and `1e3` is text.
 
 One list of words reads as on, in every yes/no option and every yes/no
 environment variable, whichever engine reads it: `1`, `true`, `yes`, `y` and
@@ -15084,9 +15304,10 @@ reference you can quote when you write in. See [Reviewed support
 packages](/docs/reference/support-packages/) for the whole flow and what the package
 holds.
 
-For a security problem, do not use the form or a case: email
-[security@blowhorn.ai](mailto:security@blowhorn.ai) instead, as the site
-repository's security policy describes.
+For a security problem, do not use the form or a case: report it through
+the private vulnerability report form linked from the repository security
+policy, or email [security@blowhorn.ai](mailto:security@blowhorn.ai) if
+that is unavailable.
 
 Questions about access, organizations, and billing go through your account. See [Plans and limits](/docs/reference/plans/) for what
 early access covers.
@@ -15118,7 +15339,10 @@ how-to guides under Related.
 Install the real Google Chrome, 142 or newer, and sign in before you map
 anything: not Chromium, not Chrome for Testing, not a headless build. Blowhorn
 drives the Chrome profiles you already use, so without Chrome every browser run
-refuses before it acts.
+refuses before it acts. Tested Chrome versions, per-feature Chrome minimums
+and the DevTools protocol pin are in the
+[compatibility matrix](/docs/reference/requirements/#compatibility-matrix) on System
+requirements.
 
 Blowhorn looks for `/Applications/Google Chrome.app` or
 `~/Applications/Google Chrome.app` on macOS, and on Linux for `google-chrome`,
@@ -16312,19 +16536,22 @@ MCP](/docs/how-to/set-up/connect-mcp-client/). That server is read-only
 today. The rest of this page describes the process the desktop app
 ships, which speaks stdio and is not a client configuration.
 
-That process is generated, not hand-written: at
-startup it reads `schemas/dist/openapi.yaml` and builds one tool per
-operation in that bundle, except the few
-[hidden by default](#hidden-tools), named by the operation id
+That process is generated, not hand-written. The app's
+`blowhorn mcp-server` binary carries the bundle compiled in from
+`schemas/dist/openapi.yaml` and builds one tool per operation, except
+the few [hidden by default](#hidden-tools), named by the operation id
 (`post`, `schedule_trigger_now`, `profile_list`, and so on). A few
 commands are split into two tools, so a distinct form gets its own
 tool: a read-only check, a fleet-wide scope, or a sign-up form. The
 base tool refuses the split-out argument and names the tool that owns
-it. A command
-added to the CLI appears as a tool the next time the server starts,
-and `make mcp-generate` fails if the tool list ever stops matching the
-bundle. The tool inputs are the command's flags and arguments, taken
-from the same schemas the CLI reference is built from.
+it. A command added to the CLI appears as a tool once that binary is
+rebuilt, and `make mcp-generate` fails if the tool list ever stops
+matching the bundle. `--schema` or `BLOWHORN_MCP_OPENAPI` can name
+another bundle. The Python server, used when
+`BLOWHORN_FRONT_DOOR=python` or when no Rust binary is built, reads
+the YAML file at startup instead. The tool inputs are the command's
+flags and arguments, taken from the same schemas the CLI reference is
+built from.
 
 ## How it relates to the CLI and to blowhorn-axi
 
@@ -16386,7 +16613,18 @@ prints the tool list and exits. The npm package
 [`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp) is the
 same launcher the app uses. It is not a server to point a client at.
 
-From a checkout, the process starts with the checkout's Python
+From a checkout with the Rust engine built (`make engine-rust-build`),
+the checkout's `blowhorn-mcp` launcher runs that binary's `mcp-server`
+subcommand:
+
+```bash
+engine/rust/target/release/blowhorn mcp-server
+```
+
+It takes the same options and environment as below. The tool list is the
+bundle compiled into the binary, unless `--schema` or `BLOWHORN_MCP_OPENAPI`
+names another. Set `BLOWHORN_FRONT_DOOR=python` to run the Python server
+instead. Without a built binary, a checkout starts with its Python
 environment:
 
 ```bash
@@ -16397,12 +16635,15 @@ The `-P` flag keeps the working directory off Python's import
 path, so a file there can never stand in for one of the server's own
 modules.
 
-The server reads the bundle from `--schema`, then `BLOWHORN_MCP_OPENAPI`,
-then `schemas/dist/openapi.yaml` under the root it runs from (the
-directory that holds `engine/`). It runs the first `blowhorn`
-executable it finds in this order: `--cli`, then `BLOWHORN_MCP_CLI`,
-then `blowhorn` on your PATH, then `tools/bin/blowhorn.sh` under the
-same root. It prints nothing but protocol frames to stdout;
+The Python server reads the bundle from `--schema`, then
+`BLOWHORN_MCP_OPENAPI`, then `schemas/dist/openapi.yaml` under the root
+it runs from (the directory that holds `engine/`). The Rust server
+reads the same two overrides, and otherwise the bundle compiled into
+the binary. Either runs the `blowhorn` named by `--cli`, then
+`BLOWHORN_MCP_CLI`, then its own default: the Python server uses
+`blowhorn` on your PATH, then `tools/bin/blowhorn.sh` under the same
+root, and the Rust server uses the `blowhorn` binary that is serving.
+It prints nothing but protocol frames to stdout;
 diagnostics go to stderr, and tool arguments are never logged,
 because an argument can itself be a secret.
 
@@ -16412,7 +16653,10 @@ The app carries everything the server needs inside
 `Blowhorn.app/Contents/Resources/engine`: its own Python
 (`bin/python`), the engine with the server (`engine/blowhorn/`,
 `mcp_server` included), and the command bundle
-(`schemas/dist/openapi.yaml`). Each time it opens, the app also writes
+(`schemas/dist/openapi.yaml`). When that engine also includes
+`bin/blowhorn`, `blowhorn-mcp` runs `bin/blowhorn mcp-server`;
+`BLOWHORN_FRONT_DOOR=python` runs the Python module instead. Each time
+it opens, the app also writes
 its commands (`blowhorn`, `blowhorn-axi` and `blowhorn-mcp`) to
 `~/.local/bin`, but only where the path is free or already holds the
 app's own command, which contains the line
@@ -16437,10 +16681,12 @@ prints nothing to stdout before the server starts. With the app in the
 Trash, or no app found at all, it starts nothing: it prints one line
 to stderr and exits 1, and it never runs the uninstall or the cleanup
 that the `blowhorn` command runs in those cases. A checkout install
-(`tools/install.sh`) also writes `~/.local/bin/blowhorn-mcp`, which runs
-the checkout's venv the way the command above does and sets
-`BLOWHORN_MCP_CLI` to the `blowhorn` launcher beside it unless the
-client already set one.
+(`tools/install.sh`) also writes `~/.local/bin/blowhorn-mcp`, which
+runs `tools/bin/blowhorn-mcp.sh`. That script runs
+`engine/rust/target/release/blowhorn mcp-server` when the binary is
+executable and `BLOWHORN_FRONT_DOOR` is not `python`, and otherwise
+the checkout venv. It sets `BLOWHORN_MCP_CLI` to the `blowhorn`
+launcher beside it unless the client already set one.
 
 #### The app's own Python
 
@@ -16972,6 +17218,15 @@ them with `curl -s http://127.0.0.1:9465/metrics`. A tool
 call may run at most 600 seconds by default
 (`BLOWHORN_MCP_TIMEOUT`, or `--timeout`, changes that); see
 [Options and environment](#options-and-environment).
+
+The process is also checked under a real third-party client: GitHub
+Copilot CLI 1.0.116 opened a stdio session with it on 2026-11-26,
+negotiated protocol 2025-11-25 and listed its tools. The live check
+is `tests/test_copilot_cli_mcp_live.py`, and its hermetic half is in
+`tests/test_mcp_server.py`: a read call answers, a state-changing
+call dry-runs, and one with no dry-run path refuses without
+confirmation. That check exercises the process. Clients still
+connect to the hosted server.
 
 ## Catalog listings
 
@@ -19153,7 +19408,10 @@ and hands back what it printed. The hosted server does not do that:
 its seven tools are reads served by Cloud. There is one tool per command, built
 from the same command descriptions the CLI reference is built from,
 except a few that are hidden by default (see below). A new command
-becomes a new tool the next time the server starts.
+becomes a new tool once the app's `blowhorn mcp-server` binary is
+rebuilt. The Python server, used when that binary is absent or
+`BLOWHORN_FRONT_DOOR=python`, picks the command up the next time it
+starts.
 
 That design is deliberate. Every limit Blowhorn already enforces
 lives in the command, not in the door you came through. Pacing, risk

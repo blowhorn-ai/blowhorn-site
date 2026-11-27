@@ -37,8 +37,8 @@
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E2117">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link rel="preload" href="/scss/main.min.7d804e8cacd6904ddd5bb25ee11f8ca135271b5b264be967465800749c76107f.css" as="style" integrity="sha256-fYBOjKzWkE3dW7Je4R&#43;MoTUnG1smS&#43;lnRlgAdJx2EH8=" crossorigin="anonymous">
-<link href="/scss/main.min.7d804e8cacd6904ddd5bb25ee11f8ca135271b5b264be967465800749c76107f.css" rel="stylesheet" integrity="sha256-fYBOjKzWkE3dW7Je4R&#43;MoTUnG1smS&#43;lnRlgAdJx2EH8=" crossorigin="anonymous">
+    <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link rel="preload" href="/scss/main.min.380c4c868a4175e5d3ef6d450fc82d3b70faa54f12fed07476064eb8e5cb8a91.css" as="style" integrity="sha256-OAxMhopBdeXT721FD8gtO3D6pU8S/tB0dgZOuOXLipE=" crossorigin="anonymous">
+<link href="/scss/main.min.380c4c868a4175e5d3ef6d450fc82d3b70faa54f12fed07476064eb8e5cb8a91.css" rel="stylesheet" integrity="sha256-OAxMhopBdeXT721FD8gtO3D6pU8S/tB0dgZOuOXLipE=" crossorigin="anonymous">
 
 <link rel="stylesheet" href="/css/site.min.654c287476b6fc6826d41405468d3e38d1c30bee950af7aa22102c55bf87d2b5.css">
 
@@ -240,7 +240,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.d018d5d64067386c0f702467e9be88e1.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0fbaa74ea66d267bee25a0949886ac4d.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
@@ -267,6 +267,8 @@
     <ul class="ul-3 foldable" id="m-docshow-toset-up-ul" hidden>
       <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-toset-upinstall-the-app-li">
     <a href="/docs/how-to/set-up/install-the-app/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-toset-upinstall-the-app"><span class="">Install the app</span></a>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-toset-upinstall-on-windows-preview-li">
+    <a href="/docs/how-to/set-up/install-on-windows-preview/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-toset-upinstall-on-windows-preview"><span class="">Install the Windows preview</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-toset-upfirst-muster-setup-li">
     <a href="/docs/how-to/set-up/first-muster-setup/" class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id="m-docshow-toset-upfirst-muster-setup"><span class="">Set up Blowhorn at first muster</span></a>
   </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshow-toset-upcreate-an-account-li">
@@ -607,19 +609,22 @@ The steps are in <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI
 MCP</a>. That server is read-only
 today. The rest of this page describes the process the desktop app
 ships, which speaks stdio and is not a client configuration.</p>
-<p>That process is generated, not hand-written: at
-startup it reads <code>schemas/dist/openapi.yaml</code> and builds one tool per
-operation in that bundle, except the few
-<a href="#hidden-tools">hidden by default</a>, named by the operation id
+<p>That process is generated, not hand-written. The app's
+<code>blowhorn mcp-server</code> binary carries the bundle compiled in from
+<code>schemas/dist/openapi.yaml</code> and builds one tool per operation, except
+the few <a href="#hidden-tools">hidden by default</a>, named by the operation id
 (<code>post</code>, <code>schedule_trigger_now</code>, <code>profile_list</code>, and so on). A few
 commands are split into two tools, so a distinct form gets its own
 tool: a read-only check, a fleet-wide scope, or a sign-up form. The
 base tool refuses the split-out argument and names the tool that owns
-it. A command
-added to the CLI appears as a tool the next time the server starts,
-and <code>make mcp-generate</code> fails if the tool list ever stops matching the
-bundle. The tool inputs are the command's flags and arguments, taken
-from the same schemas the CLI reference is built from.</p>
+it. A command added to the CLI appears as a tool once that binary is
+rebuilt, and <code>make mcp-generate</code> fails if the tool list ever stops
+matching the bundle. <code>--schema</code> or <code>BLOWHORN_MCP_OPENAPI</code> can name
+another bundle. The Python server, used when
+<code>BLOWHORN_FRONT_DOOR=python</code> or when no Rust binary is built, reads
+the YAML file at startup instead. The tool inputs are the command's
+flags and arguments, taken from the same schemas the CLI reference is
+built from.</p>
 <h2 id="how-it-relates-to-the-cli-and-to-blowhorn-axi">How it relates to the CLI and to blowhorn-axi</h2><p>There are two agent doors into the same commands, and they differ in
 how the agent talks, not in what it can do, apart from the few
 tools the MCP server <a href="#hidden-tools">hides by default</a>. The MCP server
@@ -670,7 +675,26 @@ go to the server unchanged, so <code>~/.local/bin/blowhorn-mcp --list-tools</cod
 prints the tool list and exits. The npm package
 <a href="https://www.npmjs.com/package/blowhorn-mcp"><code>blowhorn-mcp</code></a> is the
 same launcher the app uses. It is not a server to point a client at.</p>
-<p>From a checkout, the process starts with the checkout's Python
+<p>From a checkout with the Rust engine built (<code>make engine-rust-build</code>),
+the checkout's <code>blowhorn-mcp</code> launcher runs that binary's <code>mcp-server</code>
+subcommand:</p>
+<figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>engine/rust/target/release/blowhorn mcp-server</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure>
+<p>It takes the same options and environment as below. The tool list is the
+bundle compiled into the binary, unless <code>--schema</code> or <code>BLOWHORN_MCP_OPENAPI</code>
+names another. Set <code>BLOWHORN_FRONT_DOOR=python</code> to run the Python server
+instead. Without a built binary, a checkout starts with its Python
 environment:</p>
 <figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
@@ -688,19 +712,25 @@ environment:</p>
 <p>The <code>-P</code> flag keeps the working directory off Python's import
 path, so a file there can never stand in for one of the server's own
 modules.</p>
-<p>The server reads the bundle from <code>--schema</code>, then <code>BLOWHORN_MCP_OPENAPI</code>,
-then <code>schemas/dist/openapi.yaml</code> under the root it runs from (the
-directory that holds <code>engine/</code>). It runs the first <code>blowhorn</code>
-executable it finds in this order: <code>--cli</code>, then <code>BLOWHORN_MCP_CLI</code>,
-then <code>blowhorn</code> on your PATH, then <code>tools/bin/blowhorn.sh</code> under the
-same root. It prints nothing but protocol frames to stdout;
+<p>The Python server reads the bundle from <code>--schema</code>, then
+<code>BLOWHORN_MCP_OPENAPI</code>, then <code>schemas/dist/openapi.yaml</code> under the root
+it runs from (the directory that holds <code>engine/</code>). The Rust server
+reads the same two overrides, and otherwise the bundle compiled into
+the binary. Either runs the <code>blowhorn</code> named by <code>--cli</code>, then
+<code>BLOWHORN_MCP_CLI</code>, then its own default: the Python server uses
+<code>blowhorn</code> on your PATH, then <code>tools/bin/blowhorn.sh</code> under the same
+root, and the Rust server uses the <code>blowhorn</code> binary that is serving.
+It prints nothing but protocol frames to stdout;
 diagnostics go to stderr, and tool arguments are never logged,
 because an argument can itself be a secret.</p>
 <h3 id="from-the-installed-app">From the installed app</h3><p>The app carries everything the server needs inside
 <code>Blowhorn.app/Contents/Resources/engine</code>: its own Python
 (<code>bin/python</code>), the engine with the server (<code>engine/blowhorn/</code>,
 <code>mcp_server</code> included), and the command bundle
-(<code>schemas/dist/openapi.yaml</code>). Each time it opens, the app also writes
+(<code>schemas/dist/openapi.yaml</code>). When that engine also includes
+<code>bin/blowhorn</code>, <code>blowhorn-mcp</code> runs <code>bin/blowhorn mcp-server</code>;
+<code>BLOWHORN_FRONT_DOOR=python</code> runs the Python module instead. Each time
+it opens, the app also writes
 its commands (<code>blowhorn</code>, <code>blowhorn-axi</code> and <code>blowhorn-mcp</code>) to
 <code>~/.local/bin</code>, but only where the path is free or already holds the
 app's own command, which contains the line
@@ -721,10 +751,12 @@ prints nothing to stdout before the server starts. With the app in the
 Trash, or no app found at all, it starts nothing: it prints one line
 to stderr and exits 1, and it never runs the uninstall or the cleanup
 that the <code>blowhorn</code> command runs in those cases. A checkout install
-(<code>tools/install.sh</code>) also writes <code>~/.local/bin/blowhorn-mcp</code>, which runs
-the checkout's venv the way the command above does and sets
-<code>BLOWHORN_MCP_CLI</code> to the <code>blowhorn</code> launcher beside it unless the
-client already set one.</p>
+(<code>tools/install.sh</code>) also writes <code>~/.local/bin/blowhorn-mcp</code>, which
+runs <code>tools/bin/blowhorn-mcp.sh</code>. That script runs
+<code>engine/rust/target/release/blowhorn mcp-server</code> when the binary is
+executable and <code>BLOWHORN_FRONT_DOOR</code> is not <code>python</code>, and otherwise
+the checkout venv. It sets <code>BLOWHORN_MCP_CLI</code> to the <code>blowhorn</code>
+launcher beside it unless the client already set one.</p>
 <h4 id="the-apps-own-python">The app's own Python</h4><p>An app older than 1.61.0 has no <code>blowhorn-mcp</code> command. The process
 then starts from the app's interpreter. With the app in
 <code>/Applications</code>, that interpreter is
@@ -1427,6 +1459,14 @@ them with <code>curl -s http://127.0.0.1:9465/metrics</code>. A tool
 call may run at most 600 seconds by default
 (<code>BLOWHORN_MCP_TIMEOUT</code>, or <code>--timeout</code>, changes that); see
 <a href="#options-and-environment">Options and environment</a>.</p>
+<p>The process is also checked under a real third-party client: GitHub
+Copilot CLI 1.0.116 opened a stdio session with it on 2026-11-26,
+negotiated protocol 2025-11-25 and listed its tools. The live check
+is <code>tests/test_copilot_cli_mcp_live.py</code>, and its hermetic half is in
+<code>tests/test_mcp_server.py</code>: a read call answers, a state-changing
+call dry-runs, and one with no dry-run path refuses without
+confirmation. That check exercises the process. Clients still
+connect to the hosted server.</p>
 <h2 id="catalog-listings">Catalog listings</h2><p>The server is listed in the
 <a href="https://registry.modelcontextprotocol.io/">official MCP Registry</a> as
 <code>io.github.blowhorn-ai/blowhorn</code>, status <code>active</code>, and its launcher is on
@@ -1477,7 +1517,7 @@ environment the server's subprocesses inherit.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 24, 2026
+  Last modified November 27, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/mcp-server.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

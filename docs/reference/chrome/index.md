@@ -15,7 +15,10 @@ how-to guides under Related.
 Install the real Google Chrome, 142 or newer, and sign in before you map
 anything: not Chromium, not Chrome for Testing, not a headless build. Blowhorn
 drives the Chrome profiles you already use, so without Chrome every browser run
-refuses before it acts.
+refuses before it acts. Tested Chrome versions, per-feature Chrome minimums
+and the DevTools protocol pin are in the
+[compatibility matrix](/docs/reference/requirements/#compatibility-matrix) on System
+requirements.
 
 Blowhorn looks for `/Applications/Google Chrome.app` or
 `~/Applications/Google Chrome.app` on macOS, and on Linux for `google-chrome`,

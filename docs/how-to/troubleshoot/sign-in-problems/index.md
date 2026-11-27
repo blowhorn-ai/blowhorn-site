@@ -17,6 +17,10 @@ the step. Sign in again in the mapped Chrome profile's window, complete any
 challenge LinkedIn shows, then run again. If the challenge keeps returning,
 pause the schedule until it clears so no pass spends itself against it.
 
+If a sign-in does not take, a command that works on LinkedIn stops there:
+nothing is read or clicked, the run says it could not confirm a LinkedIn
+session, and it exits non-zero. `analytics` reads no page and records nothing.
+
 ## X
 
 Check the session first without posting anything:

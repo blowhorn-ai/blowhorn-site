@@ -13,13 +13,13 @@ it: comments, order, and quoting survive, and a `null` stays `null`.
 A file that cannot be read as YAML is reported once on stderr and read as
 empty, so `--json` output stays one JSON document; `config set` on such
 a file changes nothing and says so. A stored number written in words is
-refused by name (`config show --json` included). A key written twice
-makes the file unreadable, and the warning names it
-(`defaults.profile is written twice; keep one`): Blowhorn does not guess
-which of the two you meant. In a yes/no option, `yes`, `no`, `on` and
-`off` (in any case) mean yes and no, as they always have, and `config
-show` prints them as `true` and `false`; in a text option a hand-written
-`off` or `yes` is read as that word.
+refused by name (`config show --json` included). A key written twice keeps
+its last value, as it always has; `config set` refuses such a file (it says
+it is not valid YAML) so the edit never guesses which of the two you meant.
+The file reads as YAML 1.1 does, in both engines: `yes`, `no`, `on` and
+`off` (in any case) are yes and no, so a text option written `off` or `yes`
+is read as that yes or no rather than as the word (quote it, `'off'`, to
+keep the word); `010` is eight, and `1e3` is text.
 
 One list of words reads as on, in every yes/no option and every yes/no
 environment variable, whichever engine reads it: `1`, `true`, `yes`, `y` and

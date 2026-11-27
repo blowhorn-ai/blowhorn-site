@@ -6,7 +6,8 @@
 
 
 Requires macOS 13 or newer and Google Chrome 142 or newer. See
-[System requirements](/docs/reference/requirements/).
+[System requirements](/docs/reference/requirements/) for the compatibility
+matrix.
 
 Blowhorn drives Google Chrome through its Chrome extension. Chrome keeps an
 extension inside each Chrome profile, and the extension drives only the
