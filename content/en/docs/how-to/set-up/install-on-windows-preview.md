@@ -41,7 +41,12 @@ Requires 64-bit Windows 10 or 11 and Google Chrome 142 or newer.
 ## What works in the preview
 
 - Installing and removing the app with no administrator rights.
-- The engine's own commands, with no Python on your machine: its version, its
+- The app opening to its welcome screen with its account buttons, and the menu
+  bar hidden until you press Alt.
+- The app registering its Chrome connection and its start-at-sign-in task for
+  your user when it starts, with no extra step from you, and the uninstaller
+  removing both.
+- The engine's own commands, with no Python on your computer: its version, its
   settings, and what each platform can do.
 - Account, profile, schedule and content reads, as the native engine answers
   them. These are built and tested elsewhere and not yet tried against a real
@@ -52,11 +57,13 @@ Requires 64-bit Windows 10 or 11 and Google Chrome 142 or newer.
 - Posting to X, LinkedIn, Reddit, Hacker News and Bluesky. A command the
   Windows engine does not answer says so plainly, and changes nothing.
 - The background service that runs your schedule when you sign in to Windows:
-  it is set up, but the passes it runs are not on Windows yet.
-- Connecting the Chrome extension to the app. The connection is registered for
-  your user, and has not been tried against Chrome on Windows yet.
-- Anything about the app window itself (tray, notifications, screens) that
-  nobody has yet checked on a real Windows machine. Tell us what you see.
+  the app sets it up the first time it starts, but the passes it runs are not
+  on Windows yet, so it does not run your schedule.
+- The Chrome extension doing anything with the app. The app registers the
+  connection for your user when it starts, and Chrome starts it, but pairing it
+  with the app and acting on a page have not been tried on Windows yet.
+- The tray icon, notifications and every screen after sign-in: nobody has yet
+  checked them on a real Windows computer. Tell us what you see.
 - Windows Store packaging and a publisher-signed installer.
 
 ## Update and remove
@@ -64,4 +71,5 @@ Requires 64-bit Windows 10 or 11 and Google Chrome 142 or newer.
 To update, run the newer preview's installer over the old one; your data stays
 in your Blowhorn account. To remove Blowhorn, open **Settings, Apps,
 Installed apps**, choose **Blowhorn** and **Uninstall**. The uninstaller
-removes the app and leaves your data folder alone.
+removes the app, its Chrome connection and its start-at-sign-in task, and
+leaves your data folder alone.
