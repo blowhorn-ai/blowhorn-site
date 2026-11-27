@@ -8,8 +8,9 @@ each check reports only a fixed label and ok or failed, and its output is discar
 
 What it proves: the installer installs with no prompt, the engine answers `--version`,
 `config show` and `platforms capabilities --json` (parsable JSON), and the uninstaller runs.
-Not yet here (tracked in the product's Windows gaps list): the native host registration in
-HKCU and Chrome connecting to the extension over a throwaway profile.
+It also registers the native host as the app does and reads the HKCU value back, and runs the
+commands a tester meets first. Chrome loading the extension, the app's own registrations, its
+window and the uninstall cleanup are `chrome_lab.py`, which the workflow runs after this.
 
 Usage: smoke.py <installer.exe>
 """
@@ -86,6 +87,13 @@ def main(installer):
         results.append(run("engine --version", [str(engine), "--version"], env))
         results.append(run("config show", [str(engine), "config", "show"], env))
         results.append(run("platforms capabilities", [str(engine), "platforms", "capabilities", "--json"], env, True))
+        # What a tester runs first, with no account: each answers on the Windows engine with no sign-in
+        # and no network, and fails the build if it stops doing so.
+        results.append(run("config path", [str(engine), "config", "path"], env))
+        results.append(run("auth status (offline)", [str(engine), "auth", "status", "--offline", "--json"], env, True))
+        results.append(run("desktop activity kinds", [str(engine), "desktop", "activity-kinds", "--json"], env, True))
+        results.append(run("risk grid", [str(engine), "risk", "grid", "--json"], env, True))
+        results.append(run("service status", [str(engine), "service", "status", "--json"], env, True))
         # The native host registration: write it, read the registry value back, and remove it so the
         # runner's profile is left as found. The key names a throwaway manifest under the smoke's own folder.
         # Called as the desktop app calls it: with the runner's own --json --tee-stdout and --log-dir.

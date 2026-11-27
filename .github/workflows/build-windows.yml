@@ -242,3 +242,22 @@ jobs:
           installers=(dist/*.exe)
           [[ ${#installers[@]} -eq 1 ]] || { echo "expected one installer, found ${#installers[@]}"; exit 1; }
           python3 .github/scripts/build-windows/smoke.py "${installers[0]}"
+
+      # Installed Google Chrome on a throwaway profile with the unpacked extension: the host registration
+      # by the app itself, the service task, the window, Chrome starting the host, and the uninstaller's
+      # cleanup. Fixed labels only, never a website or a sign-in.
+      - name: Chrome, the app and the uninstaller
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          installers=(dist/*.exe)
+          LAB_SCREENSHOT_DIR="$RUNNER_TEMP/shots" python .github/scripts/build-windows/chrome_lab.py "${installers[0]}"
+
+      - name: Keep the app screenshot
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: blowhorn-app-screenshot
+          path: ${{ runner.temp }}/shots/app.png
+          if-no-files-found: ignore
+          retention-days: 3
