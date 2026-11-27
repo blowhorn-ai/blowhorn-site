@@ -35,6 +35,22 @@ HANDOVER = re.compile(
 )
 
 
+# A Rust panic's own location and message, the one thing a crash (exit 101) may say, kept to a narrow
+# alphabet so nothing else the program printed leaves here ("panicked at <file>:<line>:<col>:" and the line after).
+PANIC_AT = re.compile(r"^(thread '[A-Za-z0-9_ <>:-]{1,40}'( \(\d+\))? )?panicked at [A-Za-z0-9_./\\:-]{1,160}:\d+:\d+:$")
+PANIC_WHY = re.compile(r"^[A-Za-z0-9 ,.'`()_:\\/<>=-]{1,200}$")
+
+
+def panic_lines(text):
+    """The panic's location line and the message line after it, when the program crashed; else nothing."""
+    lines = [line.strip() for line in text.splitlines()]
+    for at, line in enumerate(lines):
+        if PANIC_AT.match(line):
+            why = lines[at + 1] if at + 1 < len(lines) and PANIC_WHY.match(lines[at + 1]) else ""
+            return line, why
+    return None
+
+
 def handover_line(text):
     """The program's one fixed handover sentence, when it printed one; nothing else of `text` leaves here."""
     return next((line.strip() for line in text.splitlines() if HANDOVER.match(line.strip())), None)
@@ -51,6 +67,9 @@ def run(label, argv, env=None, want_json=False, ok_codes=(0,), cwd=None):
         handover = handover_line(done.stderr) or handover_line(done.stdout)
         if handover and not ok:
             why += f"; {handover}"
+        panic = panic_lines(done.stderr) if done.returncode == 101 else None
+        if panic and not ok:
+            print(f"smoke: {label}: panic: {panic[0]} {panic[1]}".rstrip())
         if ok and want_json:
             json.loads(done.stdout)
     except (OSError, subprocess.TimeoutExpired, ValueError) as error:
