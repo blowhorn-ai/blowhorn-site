@@ -2,80 +2,80 @@
   "title": "Blowhorn MCP server",
   "linkTitle": "MCP server",
   "seo_title": "The Blowhorn MCP server - Blowhorn for any AI assistant",
-  "description": "The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.",
+  "description": "The Blowhorn MCP server lets your AI assistant inspect your posts, schedule, queue, and connections over Streamable HTTP. Seven read-only tools, standard OAuth 2.1, zero setup on your computer.",
   "tool": "MCP",
   "who": "your assistant",
   "mark": "MCP",
   "weight": 20,
-  "lead": "Your assistant drafts and rehearses. You give the order. The Blowhorn MCP server gives any MCP assistant a tool for each Blowhorn command, keeps the risky ones hidden until you opt in, and every write comes back as a dry run until you say go.",
-  "hook": "One local command, one tool per command",
+  "lead": "Connect any AI assistant to your Blowhorn workspace. The hosted Blowhorn MCP server serves seven read-only tools over Streamable HTTP, backed by OAuth 2.1 or Bearer authentication.",
+  "hook": "One endpoint, seven read-only tools",
   "crumb_label": "AI native",
   "crumb_url": "/ai/",
   "steps": [
     {
-      "t": "Open Blowhorn once",
-      "b": "Blowhorn desktop 1.61.0 or later writes the blowhorn-mcp command to ~/.local/bin each time the app opens."
+      "t": "Get your endpoint",
+      "b": "Blowhorn's hosted MCP server runs at https://mcp.blowhorn.ai/mcp over Streamable HTTP."
     },
     {
-      "t": "Add it to your assistant",
-      "b": "One line, or one config entry, points your MCP client at that command. It starts the local server over stdio, on your computer."
+      "t": "Connect your assistant",
+      "b": "One command or a JSON config block points your MCP client at the server. Sign in with OAuth 2.1 or a Bearer token."
     },
     {
       "t": "Say what you want",
-      "b": "Your assistant calls the tools. Reads run as asked, every write is a dry run first, and you give the order that makes it real."
+      "b": "Your assistant inspects your scheduled posts, queue, events, and platform sessions without changing any live data."
     }
   ],
   "wire_title": "Plug it into your assistant",
   "mcp_generator": true,
-  "wire_body": "Open Blowhorn once so the app writes the command, then point your client at it. For Claude Code, one line does it. Cursor reads the same command from its mcp.json.",
+  "wire_body": "Point your MCP client at Blowhorn's hosted server at https://mcp.blowhorn.ai/mcp. Streamable HTTP with OAuth 2.1 or Bearer token fallback. For Claude Code, one command connects it. Cursor, VS Code, and Claude Desktop configure in JSON.",
   "wire_file": "terminal",
   "wire_lang": "bash",
-  "wire_code": "claude mcp add blowhorn -- ~/.local/bin/blowhorn-mcp",
+  "wire_code": "claude mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp",
   "extra_file": ".cursor/mcp.json",
   "extra_lang": "json",
-  "extra_code": "{\n  \"mcpServers\": {\n    \"blowhorn\": {\n      \"command\": \"/Users/you/.local/bin/blowhorn-mcp\"\n    }\n  }\n}",
-  "wire_note": "Claude Desktop takes the same command in its config file. New to this? [Connect an assistant and send your first post](/docs/tutorials/first-mcp-connection/) walks through it. [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/) has the steps for every client, including [Claude Code](/docs/how-to/set-up/connect-mcp-client/#claude-code), [Claude Desktop](/docs/how-to/set-up/connect-mcp-client/#claude-desktop), [Cursor](/docs/how-to/set-up/connect-mcp-client/#cursor), [VS Code](/docs/how-to/set-up/connect-mcp-client/#vs-code-with-github-copilot), [Grok](/docs/how-to/set-up/connect-mcp-client/#grok) and [Grok Bot](/docs/how-to/set-up/connect-mcp-client/#grok-bot). Grok Bot also has a [product page](/agents/grok-bot/). [Source and listings](https://github.com/blowhorn-ai/blowhorn-mcp): the launcher, plugin manifests and listing files live in the public blowhorn-mcp repo. Risky tools, the ones that uninstall Blowhorn, rebuild or reinstall the app, remove or take over a background service, or sign you out, are [hidden by default](/docs/how-to/set-up/connect-mcp-client/#hidden-tools); that section shows how to serve one by name.",
+  "extra_code": "{\n  \"mcpServers\": {\n    \"blowhorn\": {\n      \"url\": \"https://mcp.blowhorn.ai/mcp\"\n    }\n  }\n}",
+  "wire_note": "New to this? [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/) has the steps for every client, including [Claude Code](/docs/how-to/set-up/connect-mcp-client/#claude-code), [Cursor](/docs/how-to/set-up/connect-mcp-client/#cursor), [VS Code](/docs/how-to/set-up/connect-mcp-client/#vs-code-with-github-copilot), [Claude Desktop](/docs/how-to/set-up/connect-mcp-client/#claude-desktop), [Windsurf](/docs/how-to/set-up/connect-mcp-client/#windsurf-devin-desktop), [Zed](/docs/how-to/set-up/connect-mcp-client/#zed), [Gemini CLI](/docs/how-to/set-up/connect-mcp-client/#gemini-cli), [Grok](/docs/how-to/set-up/connect-mcp-client/#grok) and [Grok Bot](/docs/how-to/set-up/connect-mcp-client/#grok-bot). Grok Bot also has a [product page](/agents/grok-bot/). [Source and listings](https://github.com/blowhorn-ai/blowhorn-mcp): the launcher, plugin manifests and listing files live in the public blowhorn-mcp repo.",
   "prompts": [
-    "Draft a release post from my personal profile for Tuesday at 9:00 and queue it. Dry run first, show me what would be queued, and wait for my go before you confirm.",
-    "Someone asked whether the new release works offline. Draft a reply from my company profile that answers that one question. Show me the dry run and wait for my go.",
-    "Read last week's numbers across my profiles and tell me which post did best. Read only, nothing gets written.",
-    "Pause everything, with the reason \"waiting on legal review\". Show me the dry run first, then confirm once I say go."
+    "What posts are currently scheduled across all my connected social accounts for this week?",
+    "Show me recent publish events and delivery status for yesterday's release announcement.",
+    "List all active platform connections and verify which accounts are currently authenticated.",
+    "Read the upcoming queued items across my channels and check if anything needs attention."
   ],
   "commands_title": "What your assistant sees",
   "commands_file": "assistant",
   "commands_lang": "text",
   "commands_prompt": false,
-  "commands": "# claude mcp list\nblowhorn: /Users/you/.local/bin/blowhorn-mcp - Connected\n\n# the tools it calls, one per Blowhorn command\npost                dry_run: true     (confirm: true after your go)\ncontent_upsert      dry_run: true     (confirm: true after your go)\nanalytics_history   read only, runs as asked\nschedule_pause      dry_run: true     (confirm: true after your go)\n\n# hidden until you opt in by name with --allow-hidden-tool\nuninstall  service_uninstall  service_adopt  auth_logout\ndesktop_build  desktop_install  chrome_attach_chrome_uninstall_agent",
+  "commands": "# claude mcp list\nblowhorn: https://mcp.blowhorn.ai/mcp (HTTP) - Connected\n\n# the seven read-only tools served by the hosted MCP server\nlistContentItems       read only, inspects queued and draft content\ngetContentItem         read only, retrieves item details and assets\ngetEvents              read only, views recent publish events and delivery logs\ngetConnections         read only, lists active platform channels and credentials\nlistSchedules          read only, retrieves posting schedules\ngetScheduleById        read only, inspects timing and recurrence rules\ngetPlatformSessions    read only, checks active session status across platforms",
   "uses": [
     {
       "t": "Release day",
-      "b": "Have your assistant turn the changelog into queued posts, dry-run each one, and wait for your go. Nothing is queued until you say so."
+      "b": "Have your assistant inspect what is scheduled, what is queued and what needs your attention across channels without opening the app."
     },
     {
       "t": "The first hour",
-      "b": "Ask what is due, what is queued and what needs your attention. Reads run as asked, so the answer comes straight back."
+      "b": "Ask what published, check event logs, and verify delivery status. Reads run as asked, so the answer comes straight back."
     },
     {
       "t": "The weekly read-out",
-      "b": "Let it read last week's numbers and write Friday's summary. Nothing is written, so there is nothing to confirm."
+      "b": "Let it review scheduled queues and connection health for Friday's summary. Nothing is changed or written."
     }
   ],
   "faq": [
     {
       "q": "Does it run in the cloud?",
-      "a": "The local server runs on your own computer, through the blowhorn-mcp command the app writes. Grok Bot connects to the hosted server at https://mcp.blowhorn.ai/mcp as a custom connector, and signs in with OAuth. [Set up Grok Bot](/docs/how-to/set-up/connect-mcp-client/#grok-bot)."
+      "a": "Yes. The hosted server runs at https://mcp.blowhorn.ai/mcp over Streamable HTTP with OAuth 2.1. See [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/)."
     },
     {
       "q": "Can I npx it?",
-      "a": "Coming soon. Today, use ~/.local/bin/blowhorn-mcp, which the Blowhorn app writes each time it opens."
+      "a": "Coming soon. Today, connect directly to the hosted server URL at https://mcp.blowhorn.ai/mcp."
     },
     {
       "q": "Can the agent approve or publish on its own?",
-      "a": "No. Every write is a dry run until the assistant re-runs it confirmed, and an agent can never approve its own content. With approval mode on, the work it queues waits for you in the app. [How the MCP server keeps you in control](/docs/explanation/mcp-and-safety/) has the whole picture."
+      "a": "No. The hosted server is read-only and serves seven inspection tools. It does not post, schedule, or change anything. [How the MCP server keeps you in control](/docs/explanation/mcp-and-safety/) has the whole picture."
     },
     {
       "q": "Where is the MCP server source?",
-      "a": "The public [blowhorn-mcp repo](https://github.com/blowhorn-ai/blowhorn-mcp) on GitHub holds the launcher, the Claude Code and Cursor plugin manifests, the Gemini CLI extension, the agent skill and the listing files. The server itself ships inside the Blowhorn desktop app. The npx launcher and catalog listings are coming soon."
+      "a": "The public [blowhorn-mcp repo](https://github.com/blowhorn-ai/blowhorn-mcp) on GitHub holds the launcher, the Claude Code and Cursor plugin manifests, the Gemini CLI extension, the agent skill and the listing files."
     },
     {
       "q": "Is it listed in MCP catalogs?",
@@ -87,16 +87,16 @@
     },
     {
       "q": "Which assistants can use it?",
-      "a": "Any MCP client that can start a local command: Claude Code, Claude Desktop, Cursor and VS Code, for example. [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/) has the steps for each, and the [first-connection tutorial](/docs/tutorials/first-mcp-connection/) takes you through your first post. Grok Bot connects to the [hosted server](/docs/how-to/set-up/connect-mcp-client/#grok-bot)."
+      "a": "Any MCP client that supports Streamable HTTP: Claude Code, Cursor, VS Code, Claude Desktop, Windsurf, Zed, Gemini CLI, Grok, and Grok Bot. [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/) has the steps for each."
     }
   ],
-  "cta_title": "Rehearse first, then give the order",
+  "cta_title": "Inspect your marketing with any assistant",
   "more_title": "Other ways to bring your assistant",
-  "major": "Any assistant can report for duty. None of them fires without your orders.",
+  "major": "Any assistant can report for duty. Connect to the hosted server in seconds.",
   "status": "Available now",
   "label": "AI native",
   "layout": "agent",
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-27",
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5

@@ -66,10 +66,6 @@ server on restart.
 
 ## Connect your client
 
-Use the configuration generator below to get the exact setup for your client, or follow the per-client sections that follow:
-
-{{< mcp-config-generator >}}
-
 ### Claude Desktop
 
 Open **Settings**, then **Developer**, then **Edit Config**, and add the
