@@ -110,6 +110,26 @@ def service_task():
     return None
 
 
+def screenshot(name):
+    """The whole screen to `name` (PNG), by PowerShell and System.Drawing; the lab shows only Blowhorn's own window."""
+    script = (
+        "Add-Type -AssemblyName System.Windows.Forms,System.Drawing;"
+        "$b=[System.Windows.Forms.SystemInformation]::VirtualScreen;"
+        "$bmp=New-Object System.Drawing.Bitmap $b.Width,$b.Height;"
+        "$g=[System.Drawing.Graphics]::FromImage($bmp);"
+        "$g.CopyFromScreen($b.Left,$b.Top,0,0,$bmp.Size);"
+        f"$bmp.Save('{name}');"
+    )
+    done = run(["powershell", "-NoProfile", "-Command", script])
+    return bool(done and done.returncode == 0 and Path(name).is_file())
+
+
+def app_windows():
+    """Titles of the visible top-level windows of the app (a bare count and the titles it shows)."""
+    done = run(["powershell", "-NoProfile", "-Command", "Get-Process -Name Blowhorn -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle } | ForEach-Object { $_.MainWindowTitle }"])
+    return [line.strip() for line in (done.stdout.splitlines() if done else []) if line.strip()]
+
+
 def host_running():
     done = run(["tasklist", "/FI", f"IMAGENAME eq {HOST_PROGRAM}", "/NH"])
     return bool(done and HOST_PROGRAM.lower() in done.stdout.lower())
@@ -150,6 +170,13 @@ def main(installer):
             if task_name is None:
                 time.sleep(4)
         say("the app set the background service task by itself", task_name is not None)
+        titles = app_windows()
+        say("the app shows a window", bool(titles))
+        print("lab: window titles:", [re.sub(r"[^A-Za-z0-9 .,:'()_-]", "", t)[:60] for t in titles][:3], flush=True)
+        shots = os.environ.get("LAB_SCREENSHOT_DIR")
+        if shots:
+            Path(shots).mkdir(parents=True, exist_ok=True)
+            say("screenshot taken", screenshot(str(Path(shots) / "app.png")))
         run(["taskkill", "/F", "/T", "/PID", str(launched.pid)])
         run(["taskkill", "/F", "/IM", "Blowhorn.exe", "/T"])
         run(["reg", "delete", HOST_KEY, "/f"])
