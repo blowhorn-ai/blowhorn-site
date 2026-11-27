@@ -125,17 +125,17 @@ def screenshot(name):
 
 
 def tray_entries():
-    """How many taskbar or notification-area items name Blowhorn, by UI Automation (a count only leaves here)."""
+    """What the desktop's UI Automation tree lists under the name Blowhorn: each item's class name (letters only), so a taskbar
+    button, a window and a notification-area icon tell apart. Class names only leave here."""
     script = (
         "Add-Type -AssemblyName UIAutomationClient,UIAutomationTypes;"
         "$root=[System.Windows.Automation.AutomationElement]::RootElement;"
         "$all=$root.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition);"
-        "$n=0; foreach($e in $all){ try{ if($e.Current.Name -like '*Blowhorn*' -and $e.Current.ClassName -notlike '*Chrome*'){$n++} }catch{} };"
-        "Write-Output $n"
+        "foreach($e in $all){ try{ if($e.Current.Name -like '*Blowhorn*' -and $e.Current.ClassName -notlike '*Chrome*'){ Write-Output ($e.Current.ClassName + '|' + $e.Current.ControlType.ProgrammaticName) } }catch{} }"
     )
     done = run(["powershell", "-NoProfile", "-Command", script])
-    text = (done.stdout.strip().splitlines() or ["0"])[-1] if done else "0"
-    return int(text) if text.isdigit() else 0
+    lines = [re.sub(r"[^A-Za-z0-9_.|]", "", line)[:80] for line in (done.stdout.splitlines() if done else []) if line.strip()]
+    return sorted(set(lines))
 
 
 def app_windows():
