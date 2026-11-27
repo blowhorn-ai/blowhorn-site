@@ -124,6 +124,20 @@ def screenshot(name):
     return bool(done and done.returncode == 0 and Path(name).is_file())
 
 
+def tray_entries():
+    """How many taskbar or notification-area items name Blowhorn, by UI Automation (a count only leaves here)."""
+    script = (
+        "Add-Type -AssemblyName UIAutomationClient,UIAutomationTypes;"
+        "$root=[System.Windows.Automation.AutomationElement]::RootElement;"
+        "$all=$root.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition);"
+        "$n=0; foreach($e in $all){ try{ if($e.Current.Name -like '*Blowhorn*' -and $e.Current.ClassName -notlike '*Chrome*'){$n++} }catch{} };"
+        "Write-Output $n"
+    )
+    done = run(["powershell", "-NoProfile", "-Command", script])
+    text = (done.stdout.strip().splitlines() or ["0"])[-1] if done else "0"
+    return int(text) if text.isdigit() else 0
+
+
 def app_windows():
     """Titles of the visible top-level windows of the app (a bare count and the titles it shows)."""
     done = run(["powershell", "-NoProfile", "-Command", "Get-Process -Name Blowhorn -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle } | ForEach-Object { $_.MainWindowTitle }"])
@@ -183,6 +197,7 @@ def main(installer):
         titles = app_windows()
         ok &= say("the app shows a window", bool(titles))
         print("lab: window titles:", [re.sub(r"[^A-Za-z0-9 .,:'()_-]", "", t)[:60] for t in titles][:3], flush=True)
+        print(f"lab: items named Blowhorn in the desktop's automation tree: {tray_entries()}", flush=True)
         shots = os.environ.get("LAB_SCREENSHOT_DIR")
         if shots:
             Path(shots).mkdir(parents=True, exist_ok=True)
