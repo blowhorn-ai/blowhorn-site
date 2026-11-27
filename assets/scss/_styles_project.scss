@@ -388,7 +388,7 @@ div.docs-quadrants {
   display: block;
   flex: 1 1 auto;
   min-width: 0;
-  padding: var(--space-1) var(--space-2);
+  padding: var(--space-1) var(--space-2) !important;
   border-left: 2px solid transparent;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   color: var(--ink);
