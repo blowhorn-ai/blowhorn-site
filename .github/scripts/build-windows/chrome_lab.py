@@ -161,7 +161,7 @@ def main(installer):
             time.sleep(4)
             done = run(["reg", "query", HOST_KEY, "/ve"])
             key_seen = bool(done and done.returncode == 0)
-        say("the app registered the native host by itself", key_seen)
+        ok &= say("the app registered the native host by itself", key_seen)
         # The app also sets the background service's per-user task (start at sign-in); give it a minute more.
         task_name = None
         deadline = time.monotonic() + 60
@@ -169,9 +169,9 @@ def main(installer):
             task_name = service_task()
             if task_name is None:
                 time.sleep(4)
-        say("the app set the background service task by itself", task_name is not None)
+        ok &= say("the app set the background service task by itself", task_name is not None)
         titles = app_windows()
-        say("the app shows a window", bool(titles))
+        ok &= say("the app shows a window", bool(titles))
         print("lab: window titles:", [re.sub(r"[^A-Za-z0-9 .,:'()_-]", "", t)[:60] for t in titles][:3], flush=True)
         shots = os.environ.get("LAB_SCREENSHOT_DIR")
         if shots:
@@ -217,8 +217,8 @@ def main(installer):
             run([str(uninstaller), "/S", f"_?={app}"])
             # What the app and the explicit registration left for the uninstaller to remove.
             key_left = run(["reg", "query", HOST_KEY, "/ve"])
-            say("uninstall removed the native host registration", not (key_left and key_left.returncode == 0))
-            say("uninstall removed the service task", service_task() is None)
+            ok &= say("uninstall removed the native host registration", not (key_left and key_left.returncode == 0))
+            ok &= say("uninstall removed the service task", service_task() is None)
         run(["reg", "delete", HOST_KEY, "/f"])
         leftover = service_task()
         if leftover:
