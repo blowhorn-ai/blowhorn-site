@@ -124,6 +124,19 @@ def screenshot(name):
     return bool(done and done.returncode == 0 and Path(name).is_file())
 
 
+def notify_icon_registered():
+    """Whether Windows 11 lists a notification-area icon for the installed app: the shell records every app that has
+    created one under HKCU\\Control Panel\\NotifyIconSettings with its executable path. A count only leaves here."""
+    script = (
+        "$k='HKCU:\\Control Panel\\NotifyIconSettings'; if(Test-Path $k){"
+        "(Get-ChildItem $k | Get-ItemProperty | Where-Object { $_.ExecutablePath -like '*Blowhorn*' } | Measure-Object).Count"
+        "}else{ 'none' }"
+    )
+    done = run(["powershell", "-NoProfile", "-Command", script])
+    text = (done.stdout.strip().splitlines() or ["none"])[-1] if done else "none"
+    return text if text == "none" or text.isdigit() else "unreadable"
+
+
 def app_windows():
     """Titles of the visible top-level windows of the app (a bare count and the titles it shows)."""
     done = run(["powershell", "-NoProfile", "-Command", "Get-Process -Name Blowhorn -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle } | ForEach-Object { $_.MainWindowTitle }"])
@@ -183,6 +196,8 @@ def main(installer):
         titles = app_windows()
         ok &= say("the app shows a window", bool(titles))
         print("lab: window titles:", [re.sub(r"[^A-Za-z0-9 .,:'()_-]", "", t)[:60] for t in titles][:3], flush=True)
+        icons = notify_icon_registered()
+        ok &= say("the shell recorded a notification-area icon for the app", icons.isdigit() and int(icons) >= 1, f"count {icons}")
         shots = os.environ.get("LAB_SCREENSHOT_DIR")
         if shots:
             Path(shots).mkdir(parents=True, exist_ok=True)
