@@ -51,7 +51,10 @@ class BuildWindowsWorkflowTest(unittest.TestCase):
         self.assertIn("capture_output=True", script)
         self.assertNotIn("done.stdout)", script.replace("json.loads(done.stdout)", "").replace("handover_line(done.stdout)", ""))
         # The program's stderr is read only through the strict handover filter, and never printed whole.
-        self.assertEqual(script.count("done.stderr"), script.count("handover_line(done.stderr)"))
+        # The one other reader is a crash's panic location and message, kept to PANIC_AT and PANIC_WHY's narrow alphabets.
+        self.assertEqual(script.count("done.stderr"), script.count("handover_line(done.stderr)") + script.count("panic_lines(done.stderr)"))
+        self.assertIn("PANIC_AT", script)
+        self.assertIn("PANIC_WHY", script)
         self.assertEqual(script.count("done.stdout"), script.count("handover_line(done.stdout)") + script.count("json.loads(done.stdout)"))
         self.assertNotIn("print(done", script)
 
