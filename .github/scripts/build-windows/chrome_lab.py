@@ -124,6 +124,18 @@ def screenshot(name):
     return bool(done and done.returncode == 0 and Path(name).is_file())
 
 
+def start_menu_shortcut():
+    """The Start menu entry the installer makes (what the how-to's step 'Open Blowhorn from the Start menu' needs)."""
+    folder = Path(os.environ.get("APPDATA", "")) / "Microsoft" / "Windows" / "Start Menu" / "Programs"
+    return any(path.name.lower() in ("blowhorn.lnk",) for path in folder.rglob("*.lnk")) if folder.is_dir() else False
+
+
+def apps_list_entry():
+    """Whether Settings, Apps, Installed apps would list Blowhorn: a per-user uninstall entry with its name."""
+    done = run(["reg", "query", r"HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall", "/s", "/f", "Blowhorn", "/d"])
+    return bool(done and done.returncode == 0 and "DisplayName" in done.stdout)
+
+
 def notify_icon_registered():
     """Whether Windows 11 lists a notification-area icon for the installed app: the shell records every app that has
     created one under HKCU\\Control Panel\\NotifyIconSettings with its executable path. A count only leaves here."""
@@ -160,6 +172,8 @@ def main(installer):
     engine = app / "resources" / "engine" / "bin" / "blowhorn.exe"
     extension = app / "resources" / "engine" / "extension"
     ok &= say("extension folder shipped", (extension / "manifest.json").is_file())
+    ok &= say("the installer made a Start menu entry", start_menu_shortcut())
+    ok &= say("Settings lists the app under Installed apps", apps_list_entry())
     if not (ok and engine.is_file()):
         return 1
     # A crash probe for `schedule status` on Windows (exit 101 is a Rust panic): which line, which message.
@@ -254,6 +268,7 @@ def main(installer):
             key_left = run(["reg", "query", HOST_KEY, "/ve"])
             ok &= say("uninstall removed the native host registration", not (key_left and key_left.returncode == 0))
             ok &= say("uninstall removed the service task", service_task() is None)
+            ok &= say("uninstall removed the Start menu entry and the Installed apps entry", not start_menu_shortcut() and not apps_list_entry())
         run(["reg", "delete", HOST_KEY, "/f"])
         leftover = service_task()
         if leftover:
