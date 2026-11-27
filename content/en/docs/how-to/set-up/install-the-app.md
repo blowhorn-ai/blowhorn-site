@@ -42,7 +42,8 @@ The line for `Blowhorn-mac.dmg` must read `OK`.
 
 Requires macOS 13 or newer, on Apple silicon or Intel, and Google Chrome
 142 or newer.
-See [System requirements](/docs/reference/requirements/) for the full list.
+See [System requirements](/docs/reference/requirements/) for the full list
+and the compatibility matrix.
 Chrome is not bundled: Blowhorn
 drives the Chrome profiles you already sign in to, through its Chrome
 extension, which you add to each Chrome profile you post from
