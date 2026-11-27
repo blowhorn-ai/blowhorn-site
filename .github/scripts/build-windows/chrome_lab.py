@@ -111,7 +111,8 @@ def main(installer):
     app.mkdir()
     profile.mkdir()
     ok = say("chrome installed", CHROME.is_file())
-    ok &= say("install", (run([installer, "/S", f"/D={app}"]) or type("r", (), {"returncode": 1})).returncode == 0)
+    installed = run([installer, "/S", f"/D={app}"])
+    ok &= say("install", installed is not None and installed.returncode == 0, "no result" if installed is None else f"exit {installed.returncode}")
     engine = app / "resources" / "engine" / "bin" / "blowhorn.exe"
     extension = app / "resources" / "engine" / "extension"
     ok &= say("extension folder shipped", (extension / "manifest.json").is_file())
