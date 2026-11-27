@@ -124,20 +124,6 @@ def screenshot(name):
     return bool(done and done.returncode == 0 and Path(name).is_file())
 
 
-def tray_entries():
-    """What the desktop's UI Automation tree lists under the name Blowhorn: each item's class name (letters only), so a taskbar
-    button, a window and a notification-area icon tell apart. Class names only leave here."""
-    script = (
-        "Add-Type -AssemblyName UIAutomationClient,UIAutomationTypes;"
-        "$root=[System.Windows.Automation.AutomationElement]::RootElement;"
-        "$all=$root.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition);"
-        "foreach($e in $all){ try{ if($e.Current.Name -like '*Blowhorn*' -and $e.Current.ClassName -notlike '*Chrome*'){ Write-Output ($e.Current.ClassName + '|' + $e.Current.ControlType.ProgrammaticName) } }catch{} }"
-    )
-    done = run(["powershell", "-NoProfile", "-Command", script])
-    lines = [re.sub(r"[^A-Za-z0-9_.|]", "", line)[:80] for line in (done.stdout.splitlines() if done else []) if line.strip()]
-    return sorted(set(lines))
-
-
 def notify_icon_registered():
     """Whether Windows 11 lists a notification-area icon for the installed app: the shell records every app that has
     created one under HKCU\\Control Panel\\NotifyIconSettings with its executable path. A count only leaves here."""
@@ -210,8 +196,8 @@ def main(installer):
         titles = app_windows()
         ok &= say("the app shows a window", bool(titles))
         print("lab: window titles:", [re.sub(r"[^A-Za-z0-9 .,:'()_-]", "", t)[:60] for t in titles][:3], flush=True)
-        print(f"lab: items named Blowhorn in the desktop's automation tree: {tray_entries()}", flush=True)
-        print(f"lab: notification-area icons the shell recorded for the app: {notify_icon_registered()}", flush=True)
+        icons = notify_icon_registered()
+        ok &= say("the shell recorded a notification-area icon for the app", icons.isdigit() and int(icons) >= 1, f"count {icons}")
         shots = os.environ.get("LAB_SCREENSHOT_DIR")
         if shots:
             Path(shots).mkdir(parents=True, exist_ok=True)
