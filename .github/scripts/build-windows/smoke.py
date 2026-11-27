@@ -40,11 +40,11 @@ def handover_line(text):
     return next((line.strip() for line in text.splitlines() if HANDOVER.match(line.strip())), None)
 
 
-def run(label, argv, env=None, want_json=False, ok_codes=(0,)):
+def run(label, argv, env=None, want_json=False, ok_codes=(0,), cwd=None):
     """Run one check; print its label and ok/failed; never print what the program said."""
     try:
         done = subprocess.run(
-            argv, env=env, capture_output=True, text=True, timeout=TIMEOUT, check=False, stdin=subprocess.DEVNULL
+            argv, env=env, cwd=cwd, capture_output=True, text=True, timeout=TIMEOUT, check=False, stdin=subprocess.DEVNULL
         )
         ok = done.returncode in ok_codes
         why = f"exit {done.returncode & 0xFFFFFFFF:#x}"
@@ -59,6 +59,17 @@ def run(label, argv, env=None, want_json=False, ok_codes=(0,)):
     # Only the exit status or the exception's class: never what the program printed.
     print(f"smoke: {label}: {'ok' if ok else f'failed ({why})'}")
     return ok
+
+
+def pause_stands(engine, env, cwd):
+    """Whether `schedule status --json` reports this computer paused (a fixed true or false is all that leaves here)."""
+    try:
+        done = subprocess.run(
+            [str(engine), "schedule", "status", "--json"], env=env, cwd=cwd, capture_output=True, text=True, timeout=TIMEOUT, check=False, stdin=subprocess.DEVNULL
+        )
+        return json.loads(done.stdout).get("pause", {}).get("paused") is True
+    except (OSError, subprocess.TimeoutExpired, ValueError):
+        return False
 
 
 def main(installer):
@@ -95,6 +106,13 @@ def main(installer):
         results.append(run("desktop activity kinds", [str(engine), "desktop", "activity-kinds", "--json"], env, True))
         results.append(run("risk grid (signed out)", [str(engine), "risk", "grid", "--json"], env, True, (3,)))
         results.append(run("service status", [str(engine), "service", "status", "--json"], env, True))
+        # This computer's own pause - the file the On duty switch writes, in a throwaway working folder: pause,
+        # see it paused in `schedule status`, resume. No sign-in is needed for any of the three.
+        work = root / "work"
+        work.mkdir(exist_ok=True)
+        results.append(run("schedule pause", [str(engine), "schedule", "pause", "--json"], env, True, cwd=work))
+        results.append(run("schedule status sees the pause", [str(engine), "schedule", "status", "--json"], env, True, cwd=work) and pause_stands(engine, env, work))
+        results.append(run("schedule resume", [str(engine), "schedule", "resume", "--json"], env, True, cwd=work))
         # The native host registration: write it, read the registry value back, and remove it so the
         # runner's profile is left as found. The key names a throwaway manifest under the smoke's own folder.
         # Called as the desktop app calls it: with the runner's own --json --tee-stdout and --log-dir.
