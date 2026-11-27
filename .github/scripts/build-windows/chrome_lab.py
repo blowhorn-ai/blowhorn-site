@@ -196,6 +196,11 @@ def main(installer):
         titles = app_windows()
         ok &= say("the app shows a window", bool(titles))
         print("lab: window titles:", [re.sub(r"[^A-Za-z0-9 .,:'()_-]", "", t)[:60] for t in titles][:3], flush=True)
+        # Closing the window is what a person does first: does the app stay in the tray, or quit?
+        run(["powershell", "-NoProfile", "-Command", "Get-Process -Name Blowhorn -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 } | ForEach-Object { [void]$_.CloseMainWindow() }"])
+        time.sleep(6)
+        still = run(["powershell", "-NoProfile", "-Command", "(Get-Process -Name Blowhorn -ErrorAction SilentlyContinue | Measure-Object).Count"])
+        print(f"lab: Blowhorn processes left after its window is closed: {(still.stdout.strip() if still else '?')[:6]}", flush=True)
         icons = notify_icon_registered()
         ok &= say("the shell recorded a notification-area icon for the app", icons.isdigit() and int(icons) >= 1, f"count {icons}")
         shots = os.environ.get("LAB_SCREENSHOT_DIR")
