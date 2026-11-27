@@ -20,7 +20,10 @@ and hands back what it printed. The hosted server does not do that:
 its seven tools are reads served by Cloud. There is one tool per command, built
 from the same command descriptions the CLI reference is built from,
 except a few that are hidden by default (see below). A new command
-becomes a new tool the next time the server starts.
+becomes a new tool once the app's `blowhorn mcp-server` binary is
+rebuilt. The Python server, used when that binary is absent or
+`BLOWHORN_FRONT_DOOR=python`, picks the command up the next time it
+starts.
 
 That design is deliberate. Every limit Blowhorn already enforces
 lives in the command, not in the door you came through. Pacing, risk

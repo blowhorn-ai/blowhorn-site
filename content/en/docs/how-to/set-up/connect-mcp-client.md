@@ -1,6 +1,6 @@
 ---
 title: "Connect an AI assistant over MCP"
-description: "Point Claude, ChatGPT, Codex, Cursor, VS Code, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, Grok, Grok Bot, or Arcade at https://mcp.blowhorn.ai/mcp."
+description: "Point Claude, ChatGPT, Codex, Cursor, VS Code, GitHub Copilot CLI, Windsurf, Gemini CLI, Zed, Cline, Goose, Muse, Grok, Grok Bot, or Arcade at https://mcp.blowhorn.ai/mcp."
 weight: 70
 ---
 
@@ -137,7 +137,39 @@ In `.vscode/mcp.json`:
 ```
 
 Add `"headers": { "Authorization": "Bearer <token>" }` when sign-in
-does not complete.
+does not complete. For GitHub Copilot in the terminal, see
+[GitHub Copilot CLI](#github-copilot-cli).
+
+### GitHub Copilot CLI
+
+```bash
+copilot mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp
+```
+
+Check it with `copilot mcp list`, and see its details with
+`copilot mcp get blowhorn --json`. Remove it with
+`copilot mcp remove blowhorn`.
+
+If sign-in does not complete, add the header:
+
+```bash
+copilot mcp add --transport http --header "Authorization: Bearer <token>" blowhorn https://mcp.blowhorn.ai/mcp
+```
+
+The add command writes the user config at `~/.copilot/mcp-config.json`.
+For one workspace instead, write `.mcp.json` or `.github/mcp.json` in
+the workspace:
+
+```json
+{
+  "mcpServers": {
+    "blowhorn": {
+      "type": "http",
+      "url": "https://mcp.blowhorn.ai/mcp"
+    }
+  }
+}
+```
 
 ### Windsurf (Devin Desktop)
 
