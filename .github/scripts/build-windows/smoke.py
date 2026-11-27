@@ -40,13 +40,13 @@ def handover_line(text):
     return next((line.strip() for line in text.splitlines() if HANDOVER.match(line.strip())), None)
 
 
-def run(label, argv, env=None, want_json=False):
+def run(label, argv, env=None, want_json=False, ok_codes=(0,)):
     """Run one check; print its label and ok/failed; never print what the program said."""
     try:
         done = subprocess.run(
             argv, env=env, capture_output=True, text=True, timeout=TIMEOUT, check=False, stdin=subprocess.DEVNULL
         )
-        ok = done.returncode == 0
+        ok = done.returncode in ok_codes
         why = f"exit {done.returncode & 0xFFFFFFFF:#x}"
         handover = handover_line(done.stderr) or handover_line(done.stdout)
         if handover and not ok:
@@ -90,9 +90,10 @@ def main(installer):
         # What a tester runs first, with no account: each answers on the Windows engine with no sign-in
         # and no network, and fails the build if it stops doing so.
         results.append(run("config path", [str(engine), "config", "path"], env))
-        results.append(run("auth status (offline)", [str(engine), "auth", "status", "--offline", "--json"], env, True))
+        # Signed out, the engine answers `ok: false` as JSON and exits 3 (a named cause): that is the answer.
+        results.append(run("auth status (offline, signed out)", [str(engine), "auth", "status", "--offline", "--json"], env, True, (3,)))
         results.append(run("desktop activity kinds", [str(engine), "desktop", "activity-kinds", "--json"], env, True))
-        results.append(run("risk grid", [str(engine), "risk", "grid", "--json"], env, True))
+        results.append(run("risk grid (signed out)", [str(engine), "risk", "grid", "--json"], env, True, (3,)))
         results.append(run("service status", [str(engine), "service", "status", "--json"], env, True))
         # The native host registration: write it, read the registry value back, and remove it so the
         # runner's profile is left as found. The key names a throwaway manifest under the smoke's own folder.
