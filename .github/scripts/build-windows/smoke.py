@@ -80,6 +80,31 @@ def run(label, argv, env=None, want_json=False, ok_codes=(0,), cwd=None):
     return ok
 
 
+# Words only (no secrets, no ids of anything real): commands the Windows engine answers natively.
+SWEEP = [
+    ["config", "get", "defaults"],
+    ["profile", "list"],
+    ["profile", "current"],
+    ["profile", "get", "nobody"],
+    ["content", "list"],
+    ["content", "get", "1"],
+    ["content", "posts"],
+    ["schedule", "list"],
+    ["schedule", "get", "1"],
+    ["schedule", "why", "1"],
+    ["schedule", "destinations"],
+    ["schedule", "fleet"],
+    ["org", "members"],
+    ["store"],
+    ["risk", "show"],
+    ["analytics", "activity", "1"],
+    ["analytics", "activities", "1"],
+    ["analytics", "operations"],
+    ["analytics", "history"],
+    ["analytics", "pages", "list"],
+]
+
+
 def pause_stands(engine, env, cwd):
     """Whether `schedule status --json` reports this computer paused (a fixed true or false is all that leaves here)."""
     try:
@@ -125,6 +150,26 @@ def main(installer):
         results.append(run("desktop activity kinds", [str(engine), "desktop", "activity-kinds", "--json"], env, True))
         results.append(run("risk grid (signed out)", [str(engine), "risk", "grid", "--json"], env, True, (3,)))
         results.append(run("service status", [str(engine), "service", "status", "--json"], env, True))
+        # A no-crash sweep over the rest of the commands the Windows engine answers natively: each is run
+        # signed out, in a throwaway folder, and may answer or refuse (exit 0 to 3) but must never crash
+        # (a Rust panic is exit 101, a fault 0xC0000005). `schedule status` once panicked here for want of a handler.
+        sweep = root / "sweep"
+        sweep.mkdir(exist_ok=True)
+        crashed = []
+        for words in SWEEP:
+            done = None
+            try:
+                done = subprocess.run([str(engine), *words, "--json"], env=env, cwd=sweep, capture_output=True, text=True, timeout=TIMEOUT, check=False, stdin=subprocess.DEVNULL)
+            except (OSError, subprocess.TimeoutExpired):
+                pass
+            if done is None or done.returncode not in (0, 1, 2, 3):
+                code = "no answer" if done is None else f"exit {done.returncode & 0xFFFFFFFF:#x}"
+                crashed.append(f"{' '.join(words)} ({code})")
+                panic = panic_lines(done.stderr) if done is not None and done.returncode == 101 else None
+                if panic:
+                    print(f"smoke: sweep {' '.join(words)}: panic: {panic[0]} {panic[1]}".rstrip())
+        print(f"smoke: no-crash sweep of {len(SWEEP)} commands: {'ok' if not crashed else 'failed (' + '; '.join(crashed) + ')'}")
+        results.append(not crashed)
         # This computer's own pause - the file the On duty switch writes, in a throwaway working folder: pause,
         # see it paused in `schedule status`, resume. No sign-in is needed for any of the three.
         work = root / "work"
