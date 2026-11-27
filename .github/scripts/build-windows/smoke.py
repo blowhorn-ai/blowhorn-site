@@ -29,6 +29,11 @@ TIMEOUT = 300
 HANDOVER = re.compile(r"^blowhorn: [a-z ]{1,40} goes to Python: [A-Za-z0-9 ,.'()=_-]{1,160}$")
 
 
+def handover_line(text):
+    """The program's one fixed handover sentence, when it printed one; nothing else of `text` leaves here."""
+    return next((line.strip() for line in text.splitlines() if HANDOVER.match(line.strip())), None)
+
+
 def run(label, argv, env=None, want_json=False):
     """Run one check; print its label and ok/failed; never print what the program said."""
     try:
@@ -37,9 +42,9 @@ def run(label, argv, env=None, want_json=False):
         )
         ok = done.returncode == 0
         why = f"exit {done.returncode & 0xFFFFFFFF:#x}"
-        handover = next((line for line in done.stderr.splitlines() if HANDOVER.match(line.strip())), None)
+        handover = handover_line(done.stderr)
         if handover and not ok:
-            why += f"; {handover.strip()}"
+            why += f"; {handover}"
         if ok and want_json:
             json.loads(done.stdout)
     except (OSError, subprocess.TimeoutExpired, ValueError) as error:
