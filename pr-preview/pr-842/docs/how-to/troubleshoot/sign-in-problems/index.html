@@ -613,6 +613,9 @@ name instead of hanging.</p>
 the step. Sign in again in the mapped Chrome profile's window, complete any
 challenge LinkedIn shows, then run again. If the challenge keeps returning,
 pause the schedule until it clears so no pass spends itself against it.</p>
+<p>If a sign-in does not take, a command that works on LinkedIn stops there:
+nothing is read or clicked, the run says it could not confirm a LinkedIn
+session, and it exits non-zero. <code>analytics</code> reads no page and records nothing.</p>
 <h2 id="x">X</h2><p>Check the session first without posting anything:</p>
 <figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
@@ -662,7 +665,7 @@ you sort it out.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 18, 2026
+  Last modified November 27, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/how-to/troubleshoot/sign-in-problems.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

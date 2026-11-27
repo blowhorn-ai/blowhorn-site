@@ -610,12 +610,13 @@ it: comments, order, and quoting survive, and a <code>null</code> stays <code>nu
 A file that cannot be read as YAML is reported once on stderr and read as
 empty, so <code>--json</code> output stays one JSON document; <code>config set</code> on such
 a file changes nothing and says so. A stored number written in words is
-refused by name (<code>config show --json</code> included). A key written twice
-makes the file unreadable, and the warning names it
-(<code>defaults.profile is written twice; keep one</code>): Blowhorn does not guess
-which of the two you meant. In a yes/no option, <code>yes</code>, <code>no</code>, <code>on</code> and
-<code>off</code> (in any case) mean yes and no, as they always have, and <code>config show</code> prints them as <code>true</code> and <code>false</code>; in a text option a hand-written
-<code>off</code> or <code>yes</code> is read as that word.</p>
+refused by name (<code>config show --json</code> included). A key written twice keeps
+its last value, as it always has; <code>config set</code> refuses such a file (it says
+it is not valid YAML) so the edit never guesses which of the two you meant.
+The file reads as YAML 1.1 does, in both engines: <code>yes</code>, <code>no</code>, <code>on</code> and
+<code>off</code> (in any case) are yes and no, so a text option written <code>off</code> or <code>yes</code>
+is read as that yes or no rather than as the word (quote it, <code>'off'</code>, to
+keep the word); <code>010</code> is eight, and <code>1e3</code> is text.</p>
 <p>One list of words reads as on, in every yes/no option and every yes/no
 environment variable, whichever engine reads it: <code>1</code>, <code>true</code>, <code>yes</code>, <code>y</code> and
 <code>on</code>, in any case. Everything else - <code>0</code>, <code>false</code>, <code>no</code>, <code>off</code>, an
@@ -1264,7 +1265,7 @@ per-command flag.</p>
   <footer class="docs-page-footer">
     <div class="docs-page-meta">
       <div class="td-page-meta__lastmod">
-  Last modified November 25, 2026
+  Last modified November 27, 2026
 </div>
 <a href="https://github.com/blowhorn-ai/blowhorn-site/edit/master/content/en/docs/reference/configuration.md" class="docs-page-edit-link" target="_blank" rel="noopener noreferrer">Edit this page</a></div>
     <div class="docs-contributor-resources">

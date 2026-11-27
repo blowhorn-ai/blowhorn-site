@@ -229,7 +229,7 @@
 - [Fix "Blowhorn is damaged and can't be opened"](/pr-preview/pr-842/docs/how-to/troubleshoot/damaged-cant-be-opened/index.md): What to do when macOS says Blowhorn is damaged after you download it from blowhorn.ai or GitHub.
 - [Package the Chrome extension](/pr-preview/pr-842/docs/how-to/manage/package-the-chrome-extension/index.md): Build the store zip locally; submission happens at release time.
 - [Run Blowhorn Tells](/pr-preview/pr-842/docs/how-to/troubleshoot/run-tells/index.md): Check what sites can see about your browser, in Chrome or from a terminal.
-- [System requirements](/pr-preview/pr-842/docs/reference/requirements/index.md): What your computer needs to run Blowhorn: macOS version, Google Chrome, and a Blowhorn account.
+- [System requirements](/pr-preview/pr-842/docs/reference/requirements/index.md): What your computer needs to run Blowhorn: macOS, Google Chrome, the compatibility matrix, and a Blowhorn account.
 - [The Blowhorn app, screen by screen](/pr-preview/pr-842/docs/reference/use-the-desktop-app/index.md): The menu-bar popover, the console screens, Setup, Settings, and what each one does.
 - [Content queue columns and activity states](/pr-preview/pr-842/docs/reference/content-queue/index.md): Every content column, what each platform reads from an activity, and what each activity state means.
 - [Job options and schedules](/pr-preview/pr-842/docs/reference/jobs/index.md): Schedule activities, recurrence words, driver mode, and the three pause scopes.
