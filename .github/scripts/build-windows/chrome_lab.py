@@ -23,6 +23,7 @@ import json
 import msvcrt
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -168,6 +169,15 @@ def main(installer):
     profile.mkdir()
     ok = say("chrome installed", CHROME.is_file())
     installed = run([installer, "/S", f"/D={app}"])
+    if installed is None or installed.returncode != 0:
+        # The installer very rarely exits at once with an access violation (0xC0000005); say so, wait out any leftover
+        # installer process, and try the folder once more so a flake does not hide what the rest of the lab shows.
+        first = "no result" if installed is None else f"{installed.returncode & 0xFFFFFFFF:#x}"
+        print(f"lab: install attempt 1 failed (exit {first}); trying again", flush=True)
+        time.sleep(10)
+        shutil.rmtree(app, ignore_errors=True)
+        app.mkdir()
+        installed = run([installer, "/S", f"/D={app}"])
     ok &= say("install", installed is not None and installed.returncode == 0, "no result" if installed is None else f"exit {installed.returncode}")
     engine = app / "resources" / "engine" / "bin" / "blowhorn.exe"
     extension = app / "resources" / "engine" / "extension"
