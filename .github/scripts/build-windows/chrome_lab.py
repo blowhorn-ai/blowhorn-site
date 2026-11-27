@@ -149,6 +149,16 @@ def main(installer):
     ok &= say("extension folder shipped", (extension / "manifest.json").is_file())
     if not (ok and engine.is_file()):
         return 1
+    # A crash probe for `schedule status` on Windows (exit 101 is a Rust panic): which line, which message.
+    probe = run([str(engine), "schedule", "status", "--json"], env={**os.environ, "USERPROFILE": str(root), "HOME": str(root)})
+    if probe is not None:
+        print(f"lab: schedule status exit {probe.returncode & 0xFFFFFFFF:#x}", flush=True)
+        sys.path.insert(0, str(Path(__file__).parent))
+        import smoke
+
+        found = smoke.panic_lines(probe.stderr)
+        if found:
+            print(f"lab: schedule status panic: {found[0]} {found[1]}".rstrip(), flush=True)
     # The installed app on its own: does it register the native host by itself shortly after it starts?
     # (Before any explicit registration, so only the app can have written the key.)
     app_exe = next(iter(app.glob("Blowhorn.exe")), None)
