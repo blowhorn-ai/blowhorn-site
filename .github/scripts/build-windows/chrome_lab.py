@@ -179,9 +179,6 @@ def main(installer):
             say("screenshot taken", screenshot(str(Path(shots) / "app.png")))
         run(["taskkill", "/F", "/T", "/PID", str(launched.pid)])
         run(["taskkill", "/F", "/IM", "Blowhorn.exe", "/T"])
-        run(["reg", "delete", HOST_KEY, "/f"])
-        if task_name:
-            run(["schtasks", "/Delete", "/TN", task_name, "/F"])
     else:
         say("app executable found", False)
     registered = run([str(engine), "chrome", "extension-install", "--json"])
@@ -215,10 +212,17 @@ def main(installer):
     finally:
         if pipe:
             pipe.stop()
-        run(["reg", "delete", HOST_KEY, "/f"])
         uninstaller = next(iter(sorted(app.glob("Uninstall*.exe"))), None)
         if uninstaller:
             run([str(uninstaller), "/S", f"_?={app}"])
+            # What the app and the explicit registration left for the uninstaller to remove.
+            key_left = run(["reg", "query", HOST_KEY, "/ve"])
+            say("uninstall removed the native host registration", not (key_left and key_left.returncode == 0))
+            say("uninstall removed the service task", service_task() is None)
+        run(["reg", "delete", HOST_KEY, "/f"])
+        leftover = service_task()
+        if leftover:
+            run(["schtasks", "/Delete", "/TN", leftover, "/F"])
     print(f"lab: {'all ok' if ok else 'something failed'}")
     return 0 if ok else 1
 
