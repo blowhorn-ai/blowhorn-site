@@ -32,6 +32,7 @@ from pathlib import Path
 CHROME = Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "Google" / "Chrome" / "Application" / "chrome.exe"
 HOST_KEY = r"HKCU\Software\Google\Chrome\NativeMessagingHosts\com.blowhorn.chrome_extension"
 HOST_PROGRAM = "blowhorn-host.exe"
+SERVICE_TASK = "ai.blowhorn.service"
 TIMEOUT = 300
 HOST_WAIT_S = 45
 
@@ -99,6 +100,16 @@ class Pipe:
                 pass
 
 
+def service_task():
+    """The name of the per-user service task (its name carries the user's id after the label), or None."""
+    listed = run(["schtasks", "/Query", "/FO", "CSV", "/NH"])
+    for line in listed.stdout.splitlines() if listed else []:
+        name = line.split(",")[0].strip('"')
+        if SERVICE_TASK in name:
+            return name
+    return None
+
+
 def host_running():
     done = run(["tasklist", "/FI", f"IMAGENAME eq {HOST_PROGRAM}", "/NH"])
     return bool(done and HOST_PROGRAM.lower() in done.stdout.lower())
@@ -131,9 +142,19 @@ def main(installer):
             done = run(["reg", "query", HOST_KEY, "/ve"])
             key_seen = bool(done and done.returncode == 0)
         say("the app registered the native host by itself", key_seen)
+        # The app also sets the background service's per-user task (start at sign-in); give it a minute more.
+        task_name = None
+        deadline = time.monotonic() + 60
+        while time.monotonic() < deadline and task_name is None:
+            task_name = service_task()
+            if task_name is None:
+                time.sleep(4)
+        say("the app set the background service task by itself", task_name is not None)
         run(["taskkill", "/F", "/T", "/PID", str(launched.pid)])
         run(["taskkill", "/F", "/IM", "Blowhorn.exe", "/T"])
         run(["reg", "delete", HOST_KEY, "/f"])
+        if task_name:
+            run(["schtasks", "/Delete", "/TN", task_name, "/F"])
     else:
         say("app executable found", False)
     registered = run([str(engine), "chrome", "extension-install", "--json"])
