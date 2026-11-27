@@ -196,6 +196,10 @@ def main(installer):
         titles = app_windows()
         ok &= say("the app shows a window", bool(titles))
         print("lab: window titles:", [re.sub(r"[^A-Za-z0-9 .,:'()_-]", "", t)[:60] for t in titles][:3], flush=True)
+        # The blowhorn:// link (the sign-in answer page's Return to Blowhorn, the extension's setup links) needs the
+        # app registered as its handler for this user; read its command back, a label and ok or failed only.
+        handler = run(["reg", "query", r"HKCU\Software\Classes\blowhorn\shell\open\command", "/ve"])
+        ok &= say("the app is registered for blowhorn:// links", bool(handler and handler.returncode == 0 and "Blowhorn" in handler.stdout))
         # Closing the window is what a person does first: does the app stay in the tray, or quit?
         run(["powershell", "-NoProfile", "-Command", "Get-Process -Name Blowhorn -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 } | ForEach-Object { [void]$_.CloseMainWindow() }"])
         time.sleep(6)
