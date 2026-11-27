@@ -100,6 +100,16 @@ class Pipe:
                 pass
 
 
+def service_task():
+    """The name of the per-user service task (its name carries the user's id after the label), or None."""
+    listed = run(["schtasks", "/Query", "/FO", "CSV", "/NH"])
+    for line in listed.stdout.splitlines() if listed else []:
+        name = line.split(",")[0].strip('"')
+        if SERVICE_TASK in name:
+            return name
+    return None
+
+
 def host_running():
     done = run(["tasklist", "/FI", f"IMAGENAME eq {HOST_PROGRAM}", "/NH"])
     return bool(done and HOST_PROGRAM.lower() in done.stdout.lower())
@@ -133,26 +143,18 @@ def main(installer):
             key_seen = bool(done and done.returncode == 0)
         say("the app registered the native host by itself", key_seen)
         # The app also sets the background service's per-user task (start at sign-in); give it a minute more.
-        task_seen = False
+        task_name = None
         deadline = time.monotonic() + 60
-        while time.monotonic() < deadline and not task_seen:
-            done = run(["schtasks", "/Query", "/TN", SERVICE_TASK])
-            task_seen = bool(done and done.returncode == 0)
-            if not task_seen:
+        while time.monotonic() < deadline and task_name is None:
+            task_name = service_task()
+            if task_name is None:
                 time.sleep(4)
-        say("the app set the background service task by itself", task_seen)
-        if not task_seen:
-            # Where is it, if anywhere? Names of tasks that mention blowhorn, and the engine's own state word.
-            listed = run(["schtasks", "/Query", "/FO", "CSV", "/NH"])
-            names = sorted({line.split(",")[0].strip('"') for line in (listed.stdout.splitlines() if listed else []) if "blowhorn" in line.lower()})
-            print("lab: tasks mentioning blowhorn:", [re.sub(r"[^A-Za-z0-9 ._\\-]", "", n)[:80] for n in names][:5], flush=True)
-            state = run([str(engine), "service", "status", "--json"])
-            words = re.findall(r'"state":\s*"([a-z-]{1,24})"', state.stdout) if state else []
-            print("lab: engine service state:", words[:1], flush=True)
+        say("the app set the background service task by itself", task_name is not None)
         run(["taskkill", "/F", "/T", "/PID", str(launched.pid)])
         run(["taskkill", "/F", "/IM", "Blowhorn.exe", "/T"])
         run(["reg", "delete", HOST_KEY, "/f"])
-        run(["schtasks", "/Delete", "/TN", SERVICE_TASK, "/F"])
+        if task_name:
+            run(["schtasks", "/Delete", "/TN", task_name, "/F"])
     else:
         say("app executable found", False)
     registered = run([str(engine), "chrome", "extension-install", "--json"])
