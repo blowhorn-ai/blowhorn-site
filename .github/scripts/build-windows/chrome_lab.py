@@ -32,6 +32,7 @@ from pathlib import Path
 CHROME = Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "Google" / "Chrome" / "Application" / "chrome.exe"
 HOST_KEY = r"HKCU\Software\Google\Chrome\NativeMessagingHosts\com.blowhorn.chrome_extension"
 HOST_PROGRAM = "blowhorn-host.exe"
+SERVICE_TASK = "ai.blowhorn.service"
 TIMEOUT = 300
 HOST_WAIT_S = 45
 
@@ -131,9 +132,19 @@ def main(installer):
             done = run(["reg", "query", HOST_KEY, "/ve"])
             key_seen = bool(done and done.returncode == 0)
         say("the app registered the native host by itself", key_seen)
+        # The app also sets the background service's per-user task (start at sign-in); give it a minute more.
+        task_seen = False
+        deadline = time.monotonic() + 60
+        while time.monotonic() < deadline and not task_seen:
+            done = run(["schtasks", "/Query", "/TN", SERVICE_TASK])
+            task_seen = bool(done and done.returncode == 0)
+            if not task_seen:
+                time.sleep(4)
+        say("the app set the background service task by itself", task_seen)
         run(["taskkill", "/F", "/T", "/PID", str(launched.pid)])
         run(["taskkill", "/F", "/IM", "Blowhorn.exe", "/T"])
         run(["reg", "delete", HOST_KEY, "/f"])
+        run(["schtasks", "/Delete", "/TN", SERVICE_TASK, "/F"])
     else:
         say("app executable found", False)
     registered = run([str(engine), "chrome", "extension-install", "--json"])
