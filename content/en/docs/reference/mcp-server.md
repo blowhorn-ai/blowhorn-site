@@ -10,19 +10,22 @@ MCP](/docs/how-to/set-up/connect-mcp-client/). That server is read-only
 today. The rest of this page describes the process the desktop app
 ships, which speaks stdio and is not a client configuration.
 
-That process is generated, not hand-written: at
-startup it reads `schemas/dist/openapi.yaml` and builds one tool per
-operation in that bundle, except the few
-[hidden by default](#hidden-tools), named by the operation id
+That process is generated, not hand-written. The app's
+`blowhorn mcp-server` binary carries the bundle compiled in from
+`schemas/dist/openapi.yaml` and builds one tool per operation, except
+the few [hidden by default](#hidden-tools), named by the operation id
 (`post`, `schedule_trigger_now`, `profile_list`, and so on). A few
 commands are split into two tools, so a distinct form gets its own
 tool: a read-only check, a fleet-wide scope, or a sign-up form. The
 base tool refuses the split-out argument and names the tool that owns
-it. A command
-added to the CLI appears as a tool the next time the server starts,
-and `make mcp-generate` fails if the tool list ever stops matching the
-bundle. The tool inputs are the command's flags and arguments, taken
-from the same schemas the CLI reference is built from.
+it. A command added to the CLI appears as a tool once that binary is
+rebuilt, and `make mcp-generate` fails if the tool list ever stops
+matching the bundle. `--schema` or `BLOWHORN_MCP_OPENAPI` can name
+another bundle. The Python server, used when
+`BLOWHORN_FRONT_DOOR=python` or when no Rust binary is built, reads
+the YAML file at startup instead. The tool inputs are the command's
+flags and arguments, taken from the same schemas the CLI reference is
+built from.
 
 ## How it relates to the CLI and to blowhorn-axi
 
@@ -84,7 +87,18 @@ prints the tool list and exits. The npm package
 [`blowhorn-mcp`](https://www.npmjs.com/package/blowhorn-mcp) is the
 same launcher the app uses. It is not a server to point a client at.
 
-From a checkout, the process starts with the checkout's Python
+From a checkout with the Rust engine built (`make engine-rust-build`),
+the checkout's `blowhorn-mcp` launcher runs that binary's `mcp-server`
+subcommand:
+
+```bash
+engine/rust/target/release/blowhorn mcp-server
+```
+
+It takes the same options and environment as below. The tool list is the
+bundle compiled into the binary, unless `--schema` or `BLOWHORN_MCP_OPENAPI`
+names another. Set `BLOWHORN_FRONT_DOOR=python` to run the Python server
+instead. Without a built binary, a checkout starts with its Python
 environment:
 
 ```bash
@@ -95,12 +109,15 @@ The `-P` flag keeps the working directory off Python's import
 path, so a file there can never stand in for one of the server's own
 modules.
 
-The server reads the bundle from `--schema`, then `BLOWHORN_MCP_OPENAPI`,
-then `schemas/dist/openapi.yaml` under the root it runs from (the
-directory that holds `engine/`). It runs the first `blowhorn`
-executable it finds in this order: `--cli`, then `BLOWHORN_MCP_CLI`,
-then `blowhorn` on your PATH, then `tools/bin/blowhorn.sh` under the
-same root. It prints nothing but protocol frames to stdout;
+The Python server reads the bundle from `--schema`, then
+`BLOWHORN_MCP_OPENAPI`, then `schemas/dist/openapi.yaml` under the root
+it runs from (the directory that holds `engine/`). The Rust server
+reads the same two overrides, and otherwise the bundle compiled into
+the binary. Either runs the `blowhorn` named by `--cli`, then
+`BLOWHORN_MCP_CLI`, then its own default: the Python server uses
+`blowhorn` on your PATH, then `tools/bin/blowhorn.sh` under the same
+root, and the Rust server uses the `blowhorn` binary that is serving.
+It prints nothing but protocol frames to stdout;
 diagnostics go to stderr, and tool arguments are never logged,
 because an argument can itself be a secret.
 
@@ -110,7 +127,10 @@ The app carries everything the server needs inside
 `Blowhorn.app/Contents/Resources/engine`: its own Python
 (`bin/python`), the engine with the server (`engine/blowhorn/`,
 `mcp_server` included), and the command bundle
-(`schemas/dist/openapi.yaml`). Each time it opens, the app also writes
+(`schemas/dist/openapi.yaml`). When that engine also includes
+`bin/blowhorn`, `blowhorn-mcp` runs `bin/blowhorn mcp-server`;
+`BLOWHORN_FRONT_DOOR=python` runs the Python module instead. Each time
+it opens, the app also writes
 its commands (`blowhorn`, `blowhorn-axi` and `blowhorn-mcp`) to
 `~/.local/bin`, but only where the path is free or already holds the
 app's own command, which contains the line
@@ -135,10 +155,12 @@ prints nothing to stdout before the server starts. With the app in the
 Trash, or no app found at all, it starts nothing: it prints one line
 to stderr and exits 1, and it never runs the uninstall or the cleanup
 that the `blowhorn` command runs in those cases. A checkout install
-(`tools/install.sh`) also writes `~/.local/bin/blowhorn-mcp`, which runs
-the checkout's venv the way the command above does and sets
-`BLOWHORN_MCP_CLI` to the `blowhorn` launcher beside it unless the
-client already set one.
+(`tools/install.sh`) also writes `~/.local/bin/blowhorn-mcp`, which
+runs `tools/bin/blowhorn-mcp.sh`. That script runs
+`engine/rust/target/release/blowhorn mcp-server` when the binary is
+executable and `BLOWHORN_FRONT_DOOR` is not `python`, and otherwise
+the checkout venv. It sets `BLOWHORN_MCP_CLI` to the `blowhorn`
+launcher beside it unless the client already set one.
 
 #### The app's own Python
 
@@ -670,6 +692,15 @@ them with `curl -s http://127.0.0.1:9465/metrics`. A tool
 call may run at most 600 seconds by default
 (`BLOWHORN_MCP_TIMEOUT`, or `--timeout`, changes that); see
 [Options and environment](#options-and-environment).
+
+The process is also checked under a real third-party client: GitHub
+Copilot CLI 1.0.116 opened a stdio session with it on 2026-11-26,
+negotiated protocol 2025-11-25 and listed its tools. The live check
+is `tests/test_copilot_cli_mcp_live.py`, and its hermetic half is in
+`tests/test_mcp_server.py`: a read call answers, a state-changing
+call dry-runs, and one with no dry-run path refuses without
+confirmation. That check exercises the process. Clients still
+connect to the hosted server.
 
 ## Catalog listings
 

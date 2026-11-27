@@ -25,8 +25,11 @@ blowhorn follow --platform github --profile personal --target layer5io --limit 0
 blowhorn follow --platform github --profile personal --target layer5io,octocat --limit 0
 
 # Every eligible profile follows from the same target.
-blowhorn follow --platform bluesky --profile all --target somehandle.bsky.social --limit 10 --exclude personal
+blowhorn follow --platform bluesky --profile all --target somehandle.bsky.social --limit 0 --exclude personal
 ```
+
+Bluesky cannot follow an account's followers: with `--limit 0`, or no `--limit`, it
+follows the named account itself, and a positive `--limit` is refused.
 
 Already-followed accounts are skipped, not re-followed, and counted
 apart: the summary's `Followed` column counts only accounts this run
@@ -35,6 +38,14 @@ either: the limit bounds follows, not candidates examined. A live X run
 is the exception: it reads nothing after clicking Follow, so it counts
 none of its follows as followed and reports them as `clicked, outcome
 not read (N)`. Those handles are still logged, so later runs skip them.
+
+On X, a named account is followed only through its own Follow button, and follower
+traversal reads only the list itself: "Who to follow" suggestions are never clicked.
+
+On X, a live run needs its follow log: if the log is there and cannot be read, that
+profile follows nobody, no browser opens for it and the run exits 1, naming the file.
+Repair it, or move it aside knowing the accounts it records are no longer skipped or
+counted toward X's limit.
 
 Under `--profile all`, a profile whose own handle matches a target is
 left out of the run. Naming profiles explicitly makes `--exclude`, and

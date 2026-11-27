@@ -27,9 +27,10 @@ reference you can quote when you write in. See [Reviewed support
 packages](/docs/reference/support-packages/) for the whole flow and what the package
 holds.
 
-For a security problem, do not use the form or a case: email
-[security@blowhorn.ai](mailto:security@blowhorn.ai) instead, as the site
-repository's security policy describes.
+For a security problem, do not use the form or a case: report it through
+the private vulnerability report form linked from the repository security
+policy, or email [security@blowhorn.ai](mailto:security@blowhorn.ai) if
+that is unavailable.
 
 Questions about access, organizations, and billing go through your account. See [Plans and limits](/docs/reference/plans/) for what
 early access covers.
