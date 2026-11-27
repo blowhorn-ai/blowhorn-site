@@ -150,6 +150,10 @@ def main(installer):
         results.append(run("desktop activity kinds", [str(engine), "desktop", "activity-kinds", "--json"], env, True))
         results.append(run("risk grid (signed out)", [str(engine), "risk", "grid", "--json"], env, True, (3,)))
         results.append(run("service status", [str(engine), "service", "status", "--json"], env, True))
+        # What the app runs when a person presses Sign in, as a dry run: the engine names where it would send them
+        # and starts no browser and no listener; and the matching sign-out, which removes nothing in a dry run.
+        results.append(run("sign-in (dry run)", [str(engine), "auth", "login", "--no-browser", "--dry-run", "--json"], env, True))
+        results.append(run("sign-out (dry run)", [str(engine), "auth", "logout", "--dry-run", "--json"], env, True))
         # A no-crash sweep over the rest of the commands the Windows engine answers natively: each is run
         # signed out, in a throwaway folder, and may answer or refuse (exit 0 to 3) but must never crash
         # (a Rust panic is exit 101, a fault 0xC0000005). `schedule status` once panicked here for want of a handler.
