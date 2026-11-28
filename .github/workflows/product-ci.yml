@@ -79,7 +79,7 @@ jobs:
   python:
     name: python (py3.14)
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Check the requested commit
         env:
@@ -115,6 +115,25 @@ jobs:
         continue-on-error: true
         timeout-minutes: 5
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends age >/dev/null
+
+      # The product's Python suite also drives its Rust tooling (tools/bin/xtask.sh:
+      # the brand-kit, CLI-reference and asset-manifest tests run `cargo xtask`), which
+      # needs the pinned toolchain; without it those tests error at setup.
+      # rustup itself, if this image does not already have it. The toolchain
+      # (and rustfmt, clippy, wasm32) is the one product/engine/rust/rust-toolchain.toml
+      # pins, installed here because no make target installs anything. Never
+      # a second copy of the version in this file. Same command as the
+      # product's own CI (blowhorn `.github/workflows/ci.yml`).
+      - name: Install the product's pinned Rust toolchain
+        run: |
+          set -euo pipefail
+          if ! command -v rustup >/dev/null 2>&1; then
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none
+          fi
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.cargo/bin:$PATH"
+          test -f product/engine/rust/rust-toolchain.toml
+          cd product/engine/rust && timeout 600 rustup toolchain install
 
       - name: Python suite (output withheld)
         run: make product-ci SUITE=python PRODUCT_DIR=product PRODUCT_CI_LOG="$RUNNER_TEMP/product-ci/python.log" PRODUCT_CI_ENCRYPTED_DIR="$RUNNER_TEMP/product-ci-encrypted"
@@ -208,16 +227,18 @@ jobs:
           persist-credentials: false
 
       # The contract suite runs every case against the Python engine too
-      # (make cli-rust-tests). The product's own rust CI sets
-      # BLOWHORN_CONTRACT_PYTHON after installing engine/requirements-dev.txt;
-      # without that, Engine::from_env looks for product/venv and fails at
-      # every_case_is_at_contract with "no virtualenv in the checkout".
+      # (make cli-rust-tests), and a case that names the interpreter (the service
+      # dry runs print <checkout>/venv/bin/python) expects the checkout's own
+      # virtualenv, as the harness's "no virtualenv in the checkout" refusal says.
+      # So the engine dependencies go into product/venv, not the runner's Python.
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.14"
 
       - name: Install the product's Python engine dependencies
-        run: python -m pip install --disable-pip-version-check -r product/engine/requirements-dev.txt
+        run: |
+          python -m venv product/venv
+          product/venv/bin/python -m pip install --disable-pip-version-check -r product/engine/requirements-dev.txt
 
       # rustup itself, if this image does not already have it. The toolchain
       # (and rustfmt, clippy, wasm32) is the one product/engine/rust/rust-toolchain.toml
@@ -251,11 +272,10 @@ jobs:
 
       # The parity tests (product engine/rust/service/tests/common/mod.rs) run the
       # Python engine with a cleared environment, so they need an absolute
-      # interpreter path; without it they look for product/venv and fail.
+      # interpreter path: the checkout's virtualenv above.
       - name: Rust suite (output withheld)
         env:
-          BLOWHORN_CONTRACT_PYTHON: python
-          BLOWHORN_PARITY_PYTHON: ${{ env.pythonLocation }}/bin/python
+          BLOWHORN_PARITY_PYTHON: ${{ github.workspace }}/product/venv/bin/python
         run: make product-ci SUITE=rust PRODUCT_DIR=product PRODUCT_CI_LOG="$RUNNER_TEMP/product-ci/rust.log" PRODUCT_CI_ENCRYPTED_DIR="$RUNNER_TEMP/product-ci-encrypted"
 
       # The age ciphertext of the failed suite's log, nothing else (run.py).
