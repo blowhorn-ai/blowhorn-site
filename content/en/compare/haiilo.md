@@ -5,7 +5,7 @@
   "description": "Blowhorn isn't a bot. It's you. Haiilo is an employee experience platform with advocacy as one module, built for larger, distributed organizations. Blowhorn is for small technical teams who want real people amplifying on developer platforms.",
   "layout": "versus",
   "weight": 33,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "Haiilo",
   "mark": "Hi",
   "site_url": "https://haiilo.com/",
@@ -106,5 +106,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_haiilo",
+    "title": "Blowhorn vs Haiilo",
+    "duration": "0:38",
+    "page": "resources/videos/comparisons/blowhorn-vs-haiilo/"
   }
 }

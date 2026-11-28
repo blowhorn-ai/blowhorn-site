@@ -13,9 +13,10 @@
 #   layout       - always "video".
 #   videoType    - "local" for a file the site hosts itself. "youtube"
 #                  for a YouTube film: set youtubeId to the id, or to
-#                  TODO_YOUTUBE_ID until upload. A placeholder does not
-#                  contact YouTube. Posters must be files this site hosts,
-#                  never a YouTube thumbnail.
+#                  TODO_YOUTUBE_ID or TODO_YOUTUBE_ID_<slug> until upload.
+#                  Any id that starts with TODO_YOUTUBE_ID is a placeholder
+#                  and does not contact YouTube. Posters must be files this
+#                  site hosts, never a YouTube thumbnail.
 #   duration     - "m:ss", shown on the card.
 #   categories   - the display name of the category folder the file
 #                  lives in. The folder is the category; keep them equal.

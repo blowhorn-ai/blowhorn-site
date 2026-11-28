@@ -5,7 +5,7 @@
   "description": "Blowhorn isn't a bot. It's you. Publer wins on budget scheduling, recycling and bulk posting across 13 platforms. Blowhorn is for real-person amplification on developer platforms.",
   "layout": "versus",
   "weight": 14,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "Publer",
   "mark": "Pb",
   "site_url": "https://publer.com/",
@@ -105,5 +105,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_publer",
+    "title": "Blowhorn vs Publer",
+    "duration": "0:34",
+    "page": "resources/videos/comparisons/blowhorn-vs-publer/"
   }
 }

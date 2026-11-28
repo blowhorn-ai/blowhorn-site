@@ -5,7 +5,7 @@
   "description": "Waalaxy makes LinkedIn and email prospecting approachable for small teams, fully in the cloud. Blowhorn keeps actions in your own browser and adds publishing and amplification across many platforms.",
   "layout": "versus",
   "weight": 23,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "Waalaxy",
   "mark": "Wx",
   "site_url": "https://www.waalaxy.com/",
@@ -71,5 +71,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_waalaxy",
+    "title": "Blowhorn vs Waalaxy",
+    "duration": "0:36",
+    "page": "resources/videos/comparisons/blowhorn-vs-waalaxy/"
   }
 }

@@ -5,7 +5,7 @@
   "description": "Podawaa is a LinkedIn engagement exchange: members like and comment on each other's posts, with AI comments and paid private options. Blowhorn sells no engagement and focuses on real people who know you.",
   "layout": "versus",
   "weight": 63,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "Podawaa",
   "mark": "Pw",
   "site_url": "https://www.podawaa.com/",
@@ -70,5 +70,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_podawaa",
+    "title": "Blowhorn vs Podawaa",
+    "duration": "0:36",
+    "page": "resources/videos/comparisons/blowhorn-vs-podawaa/"
   }
 }

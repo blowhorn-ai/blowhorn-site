@@ -5,7 +5,7 @@
   "description": "SocialBee is a tidy category-based scheduler for small businesses and agencies. Blowhorn is for technical teams who need real people amplifying on developer platforms.",
   "layout": "versus",
   "weight": 15,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "SocialBee",
   "mark": "SB",
   "site_url": "https://socialbee.com/",
@@ -85,5 +85,11 @@
   "aliases": [
     "/versus/socialbee/"
   ],
-  "featured": true
+  "featured": true,
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_socialbee",
+    "title": "Blowhorn vs SocialBee",
+    "duration": "0:34",
+    "page": "resources/videos/comparisons/blowhorn-vs-socialbee/"
+  }
 }

@@ -5,7 +5,7 @@
   "description": "GoLogin is a popular antidetect browser with an API and MCP. Blowhorn is a social tool that acts as you, in your real browser.",
   "layout": "versus",
   "weight": 43,
-  "lastmod": "2026-10-26",
+  "lastmod": "2026-11-28",
   "competitor": "GoLogin",
   "mark": "GL",
   "site_url": "https://gologin.com/",
@@ -79,5 +79,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_gologin",
+    "title": "Blowhorn vs GoLogin",
+    "duration": "0:34",
+    "page": "resources/videos/comparisons/blowhorn-vs-gologin/"
   }
 }

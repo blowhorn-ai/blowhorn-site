@@ -5,7 +5,7 @@
   "description": "Typefully is the best writing experience for threads and posts on X, LinkedIn, Threads, Bluesky and Mastodon. Blowhorn takes over once it's written: real people amplifying it across many platforms.",
   "layout": "versus",
   "weight": 17,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "Typefully",
   "mark": "Tf",
   "site_url": "https://typefully.com/",
@@ -75,5 +75,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_typefully",
+    "title": "Blowhorn vs Typefully",
+    "duration": "0:34",
+    "page": "resources/videos/comparisons/blowhorn-vs-typefully/"
   }
 }

@@ -21,7 +21,7 @@
   }
  ],
  "group": "Cloud schedulers",
- "lastmod": "2026-11-20",
+ "lastmod": "2026-11-28",
  "layout": "versus",
  "linkTitle": "Sprout Social",
  "loses": [
@@ -99,5 +99,11 @@
   "Real-person amplification: every profile in your account carries the message, on platforms Sprout doesn't reach",
   "It's really you: your own browser on your own computers, on your own connection. No vendor cloud logs in as you, no proxy to buy",
   "You stay in command: one switch pauses one activity, one computer or the whole fleet; AI drafts, you decide"
- ]
+ ],
+ "video": {
+  "youtube_id": "TODO_YOUTUBE_ID_sprout-social",
+  "title": "Blowhorn vs Sprout Social",
+  "duration": "0:38",
+  "page": "resources/videos/comparisons/blowhorn-vs-sprout-social/"
+ }
 }

@@ -5,7 +5,7 @@
   "description": "Blowhorn isn't a bot. It's you. DSMN8 is an employee advocacy and executive influence platform for mid-market and enterprise. Blowhorn is a lighter way for small technical teams to amplify through real people.",
   "layout": "versus",
   "weight": 32,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "DSMN8",
   "mark": "D8",
   "site_url": "https://dsmn8.com/",
@@ -106,5 +106,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_dsmn8",
+    "title": "Blowhorn vs DSMN8",
+    "duration": "0:36",
+    "page": "resources/videos/comparisons/blowhorn-vs-dsmn8/"
   }
 }

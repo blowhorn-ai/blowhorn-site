@@ -5,7 +5,7 @@
   "description": "Blowhorn isn't a bot. It's you. Metricool wins on analytics, competitor tracking and ads reporting for brands and agencies. Blowhorn is amplification-first, through real people on developer platforms.",
   "layout": "versus",
   "weight": 16,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "Metricool",
   "mark": "Mc",
   "site_url": "https://metricool.com/",
@@ -100,5 +100,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_metricool",
+    "title": "Blowhorn vs Metricool",
+    "duration": "0:34",
+    "page": "resources/videos/comparisons/blowhorn-vs-metricool/"
   }
 }

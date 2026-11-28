@@ -88,8 +88,9 @@ annotated in the template:
 - `videoType`: `local` for a file the site hosts itself, with `mp4` and
   `webm` paths under `assets/video/` and a 16:9 poster image. `youtube` for
   a film hosted on YouTube, with `youtubeId` set to the video id, or to
-  `TODO_YOUTUBE_ID` until the film is uploaded. A `TODO_YOUTUBE_ID`
-  placeholder does not contact YouTube. Real ids play only after the reader
+  `TODO_YOUTUBE_ID` or `TODO_YOUTUBE_ID_<slug>` until the film is uploaded.
+  Any id that starts with `TODO_YOUTUBE_ID` is a placeholder and does not
+  contact YouTube. Real ids play only after the reader
   presses play, through the `youtube` shortcode (or the same facade on a
   comparison page). Posters must be files this site hosts; never use a
   YouTube-hosted thumbnail. The privacy page and `check-third-party.py`

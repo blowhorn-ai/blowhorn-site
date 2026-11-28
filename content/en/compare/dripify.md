@@ -29,7 +29,7 @@
     }
   ],
   "group": "LinkedIn growth tools",
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "layout": "versus",
   "linkTitle": "Dripify",
   "loses": [
@@ -149,5 +149,11 @@
     "Careful LinkedIn outreach: invite to a page, accept invites, withdraw stale ones, with a dry run first",
     "Posts and amplifies on other platforms too, not just LinkedIn",
     "Safety controls and one pause switch for the whole fleet"
-  ]
+  ],
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_dripify",
+    "title": "Blowhorn vs Dripify",
+    "duration": "0:36",
+    "page": "resources/videos/comparisons/blowhorn-vs-dripify/"
+  }
 }

@@ -11,7 +11,7 @@
 {{- $cat := path.Base (strings.TrimSuffix "/" .Parent.RelPermalink) -}}
 {{- $sources := slice -}}
 {{- $youtubeId := "" -}}
-{{- if and (eq .Params.videoType "youtube") .Params.youtubeId (ne .Params.youtubeId "TODO_YOUTUBE_ID") -}}
+{{- if and (eq .Params.videoType "youtube") .Params.youtubeId (not (strings.HasPrefix .Params.youtubeId "TODO_YOUTUBE_ID")) -}}
   {{- $youtubeId = .Params.youtubeId -}}
 {{- else -}}
   {{- with .Params.video -}}
