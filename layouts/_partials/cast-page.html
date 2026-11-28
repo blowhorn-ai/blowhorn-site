@@ -45,10 +45,8 @@
 
         {{- with $item.agent }}
         <section class="agent-section" aria-labelledby="agent-title">
-          <div class="section-head">
-            <h2 id="agent-title" class="h2">{{ .title }}</h2>
-            <p class="body-lg muted">{{ .body }}</p>
-          </div>
+          <div class="section-head"><h2 id="agent-title" class="h2">{{ .title }}</h2></div>
+          <p class="body-lg muted">{{ .body }}</p>
           <ul class="agent-prompts">
             <li class="bubble-row">
               <span class="bubble-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" focusable="false"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>

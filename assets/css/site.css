@@ -2565,6 +2565,8 @@ body { background: var(--surface); }
 .agent-cta { padding: clamp(24px, 4vw, 48px); border-radius: var(--radius-lg); text-align: center; }
 .agent-cta > * + * { margin-top: var(--space-3); }
 .agent-section .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.agent-section > .section-head + .body-lg { margin-top: var(--intro-gap); }
+.agent-section > .body-lg + .agent-prompts { margin-top: var(--head-gap); }
 .agent-section > :not(.section-head) + .actions { margin-top: var(--grid-gap); }
 .agent-cta .actions { justify-content: center; }
 /* Related-page labels come from data and can outrun a 320px screen: let
