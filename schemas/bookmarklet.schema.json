@@ -22,6 +22,70 @@
       "description": "The javascript: address.",
       "type": "string",
       "pattern": "^javascript:"
+    },
+    "video": {
+      "description": "Optional how-to video on the download page's bookmarklet card. A poster button opens it in the shared player dialog (layouts/_partials/video-dialog.html, assets/js/resources.js). Captions are burned in.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "description",
+        "duration",
+        "width",
+        "height",
+        "webm",
+        "mp4",
+        "poster"
+      ],
+      "properties": {
+        "label": {
+          "description": "Short accessible name, also the player dialog's title. Hyphens never em dashes.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "not": {
+            "pattern": "\u2014"
+          }
+        },
+        "description": {
+          "description": "What the video shows, read by screen readers. Hyphens never em dashes.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "not": {
+            "pattern": "\u2014"
+          }
+        },
+        "duration": {
+          "description": "Shown on the poster, m:ss.",
+          "type": "string",
+          "pattern": "^\\d+:\\d{2}$"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "webm": {
+          "type": "string",
+          "pattern": "^assets/video/.+\\.webm$"
+        },
+        "mp4": {
+          "type": "string",
+          "pattern": "^assets/video/.+\\.mp4$"
+        },
+        "poster": {
+          "type": "string",
+          "pattern": "^assets/video/.+\\.webp$"
+        },
+        "source": {
+          "description": "Where the video's sources live, for maintainers. Not rendered.",
+          "type": "string"
+        }
+      }
     }
   }
 }

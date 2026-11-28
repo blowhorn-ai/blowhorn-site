@@ -9,7 +9,9 @@
   bookmarklet are secondary. The bookmarklet card's draggable link
   writes data/bookmarklet.json as a safeHTMLAttr href, because Go templates
   rewrite javascript: URLs and percent-encode safeURL ones;
-  check_bookmarklet.py keeps the code equal to the docs page. The Windows
+  check_bookmarklet.py keeps the code equal to the docs page. Its how-to
+  video (data/bookmarklet.json video) plays in the shared player dialog
+  through assets/js/resources.js. The Windows
   card hosts the Windows waitlist signup: a "Notify me when available"
   button that reveals an email form for the waitlist (topic "windows" on
   the signup service, separate from the newsletter list). Without
@@ -63,6 +65,15 @@
             <img class="download-icon" src="{{ "assets/icons/blowhorn-bookmark.svg" | relURL }}" alt="Bookmark" width="72" height="72">
             <h2 class="h3">The Blowhorn bookmarklet</h2>
             <p>Click it on any page to start a Blowhorn post from that page, its title and the text you selected.</p>
+            {{- with site.Data.bookmarklet.video }}
+            {{- $sources := slice (dict "src" (.webm | relURL) "type" "video/webm") (dict "src" (.mp4 | relURL) "type" "video/mp4") }}
+            <button type="button" class="video-card-poster download-video" data-play-video data-title="{{ .label }}" data-sources="{{ $sources | jsonify }}" data-poster="{{ .poster | relURL }}" aria-label="Play video: {{ .label }}" aria-describedby="bookmarklet-video-desc">
+              <img src="{{ .poster | relURL }}" alt="" width="{{ .width }}" height="{{ .height }}" loading="lazy">
+              <span class="video-card-play" aria-hidden="true"><span class="play-disc">&#9654;</span></span>
+              <span class="video-card-duration">{{ .duration }}</span>
+            </button>
+            <p id="bookmarklet-video-desc" class="visually-hidden">{{ .description }}</p>
+            {{- end }}
             <p class="download-req caption">Requires the Blowhorn Mac app and Google Chrome</p>
             <p class="actions">
               <a class="button button-secondary" {{ printf "href=\"%s\"" (site.Data.bookmarklet.code | htmlEscape) | safeHTMLAttr }}>{{ site.Data.bookmarklet.name }}</a>
@@ -116,9 +127,15 @@
         </aside>
       </div>
     </main>
+    {{- if site.Data.bookmarklet.video }}
+    {{ partial "video-dialog.html" . }}
+    {{- end }}
 {{- end }}
 
 {{ define "scripts" }}
     {{- $js := resources.Get "js/download.js" | minify | fingerprint }}
     <script src="{{ $js.RelPermalink }}" defer></script>
+    {{- if site.Data.bookmarklet.video }}
+    {{- partial "filter-script.html" "js/resources.js" }}
+    {{- end }}
 {{- end }}

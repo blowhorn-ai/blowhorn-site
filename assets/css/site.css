@@ -1326,6 +1326,7 @@ html[data-hero-art="fan"] .platforms-fan { display: none; }
 .download-card .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: auto; }
 .download-card .meta { color: var(--ink-muted); }
 .download-card .meta span + span::before { content: "\00b7"; margin-inline: var(--space-2); }
+.download-card .download-video { border-radius: var(--radius-md); overflow: hidden; }
 .download-requirements {
   display: grid;
   gap: var(--space-4);
