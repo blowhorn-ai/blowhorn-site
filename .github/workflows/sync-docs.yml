@@ -92,6 +92,17 @@ jobs:
         with:
           python-version: "3.14"
 
+      # A ref with the Rust generator builds it with the toolchain it pins
+      # (rustup is preinstalled on GitHub-hosted runners); an older ref uses
+      # the Python generator and needs none.
+      - name: Install the product's pinned Rust toolchain
+        run: |
+          toml=product/engine/rust/rust-toolchain.toml
+          if [ -f product/engine/rust/xtask/src/docs.rs ] && [ -f "$toml" ]; then
+            channel="$(sed -n 's/^channel *= *"\(.*\)"/\1/p' "$toml")"
+            rustup toolchain install "$channel" --profile minimal --no-self-update
+          fi
+
       - name: Regenerate the CLI reference
         run: |
           python -m pip install --quiet typer pyyaml

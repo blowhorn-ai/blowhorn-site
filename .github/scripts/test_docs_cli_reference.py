@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Tests for the CLI reference regeneration and the docs sync a release starts.
 
-`make docs-cli-reference` runs the product's own generator in its checkout
+`make docs-cli-reference` runs the product's own generator (Rust xtask, or the older Python script) in its checkout
 before the sync copies the pages; `make dmg-sync-docs` starts sync-docs.yml at
 the product's release tag after a public release. Both run here against a fake
 product checkout and a fake `gh`, so nothing touches GitHub.
@@ -45,6 +45,23 @@ class DocsCliReference(unittest.TestCase):
             build.parent.mkdir(parents=True)
             build.write_text("raise SystemExit(1)\n")
             self.assertNotEqual(make("docs-cli-reference", SOURCE_DIR=product).returncode, 0)
+
+    def test_a_ref_with_the_rust_generator_runs_it_and_not_the_python_one(self):
+        with tempfile.TemporaryDirectory() as product:
+            docs = Path(product, "engine", "rust", "xtask", "src", "docs.rs")
+            docs.parent.mkdir(parents=True)
+            docs.write_text("// generator\n")
+            xtask = Path(product, "tools", "bin", "xtask.sh")
+            xtask.parent.mkdir(parents=True)
+            xtask.write_text('#!/bin/sh\ncd "$(dirname "$0")/../.."\nmkdir -p docs/reference/cli\necho "rust $*" > docs/reference/cli/slack.md\n')
+            xtask.chmod(0o755)
+            build = Path(product, "release", "scripts", "cli_reference", "build.py")
+            build.parent.mkdir(parents=True)
+            build.write_text("raise SystemExit(1)\n")
+            result = subprocess.run(["make", "--no-print-directory", "-s", "docs-cli-reference", f"SOURCE_DIR={product}"],
+                                    cwd=ROOT, capture_output=True, text=True, timeout=60)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(Path(product, "docs", "reference", "cli", "slack.md").read_text(), "rust docs cli-reference\n")
 
     def test_a_ref_without_the_generator_keeps_its_pages(self):
         with tempfile.TemporaryDirectory() as product:

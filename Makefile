@@ -566,7 +566,7 @@ docs-sync:
 	@test -n "$(REF)" || (echo "usage: make docs-sync REF=<tag|branch|sha of blowhorn> [SOURCE_DIR=path/to/checkout]"; exit 1)
 	python3 .github/scripts/sync-docs.py "$(SOURCE_DIR)" "$(DOCS_DIR)" --ref "$(REF)"
 
-## Regenerate the CLI reference pages in the $(SOURCE_DIR) checkout from its schema and parser (what sync-docs.yml runs before the sync; needs typer and PyYAML).
+## Regenerate the CLI reference pages in the $(SOURCE_DIR) checkout from its schema and parser (what sync-docs.yml runs before the sync; needs the product's pinned Rust toolchain, or typer and PyYAML for an older ref).
 docs-cli-reference:
 	.github/scripts/docs-cli-reference.sh "$(SOURCE_DIR)"
 
