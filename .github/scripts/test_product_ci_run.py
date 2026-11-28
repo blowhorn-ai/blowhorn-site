@@ -390,23 +390,24 @@ class RunStepsTest(unittest.TestCase):
 
     def test_rust_steps_run_make_cli_rust_tests(self):
         steps = run.rust_steps()
-        self.assertEqual(len(steps), 1)
-        self.assertEqual(steps[0].argv, ("make", "cli-rust-tests"))
-        self.assertEqual(steps[0].counts, "cargo")
+        self.assertEqual([step.label for step in steps], ["playwright import boundary", "test suite"])
+        self.assertEqual(steps[0].argv, ("make", "engine-playwright-imports"))
+        self.assertEqual(steps[1].argv, ("make", "cli-rust-tests"))
+        self.assertEqual(steps[1].counts, "cargo")
 
     def test_python_steps_run_make_cli_tests(self):
         steps = run.python_steps("/opt/python/bin/python")
         self.assertEqual([step.label for step in steps], [
-            "install dependencies", "playwright import boundary", "test suite",
+            "install dependencies", "test suite",
         ])
-        self.assertEqual(steps[2].argv[:8], (
+        self.assertEqual(steps[1].argv[:8], (
             "timeout", "-s", "ABRT", "900", "make", "cli-tests",
             "PYTHON=/opt/python/bin/python -u",
             "PYTEST_ARGS=tests/ -q -rfE -o faulthandler_timeout=300",
         ))
-        self.assertTrue(steps[2].argv[8].startswith("PYTEST_WORKERS="))
-        self.assertGreaterEqual(int(steps[2].argv[8].split("=", 1)[1]), 2)
-        self.assertEqual(steps[2].counts, "pytest")
+        self.assertTrue(steps[1].argv[8].startswith("PYTEST_WORKERS="))
+        self.assertGreaterEqual(int(steps[1].argv[8].split("=", 1)[1]), 2)
+        self.assertEqual(steps[1].counts, "pytest")
 
 
 def _fake_age(directory: Path, behaviour: str) -> Path:
