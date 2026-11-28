@@ -756,28 +756,50 @@ class ProductCiRustPythonEngineTest(unittest.TestCase):
     """The rust job can run the contract suite against the Python engine.
 
     make cli-rust-tests starts with BLOWHORN_CONTRACT_ENGINE=python, and
-    Engine::from_env looks for checkout venv/bin/python unless
-    BLOWHORN_CONTRACT_PYTHON is set. The product's own rust CI sets that
-    to the setup-python interpreter after installing engine/requirements-dev.txt.
-    Without the same setup here, every_case_is_at_contract fails immediately
-    with "no virtualenv in the checkout" (0 passed, 1 failed).
+    Engine::from_env looks for the checkout's venv/bin/python. A case that names
+    the interpreter (the service dry runs print <checkout>/venv/bin/python)
+    only matches when it is that virtualenv, so the job builds product/venv
+    from engine/requirements-dev.txt instead of pointing the suite at the
+    runner's Python (BLOWHORN_CONTRACT_PYTHON), which made those cases fail.
     """
 
-    def test_the_rust_job_gives_the_contract_suite_a_python_3_14_with_dev_deps(self):
+    def test_the_rust_job_gives_the_contract_suite_a_checkout_venv_with_dev_deps(self):
         rust = _product_ci_jobs()["rust"]
         setup = [step for step in rust["steps"] if str(step.get("uses", "")).startswith("actions/setup-python@")]
         self.assertEqual(len(setup), 1, "the rust job should set up one Python")
         self.assertEqual(setup[0]["with"]["python-version"], "3.14")
         install = [step for step in rust["steps"] if "product/engine/requirements-dev.txt" in str(step.get("run", ""))]
         self.assertEqual(len(install), 1, "the rust job should install the product engine deps")
+        self.assertIn("-m venv product/venv", install[0]["run"])
+        self.assertIn("product/venv/bin/python -m pip install", install[0]["run"])
         suite = [step for step in rust["steps"] if step.get("name") == "Rust suite (output withheld)"]
         self.assertEqual(len(suite), 1)
-        self.assertEqual((suite[0].get("env") or {}).get("BLOWHORN_CONTRACT_PYTHON"), "python")
+        env = suite[0].get("env") or {}
+        self.assertNotIn("BLOWHORN_CONTRACT_PYTHON", env)
+        self.assertTrue(env["BLOWHORN_PARITY_PYTHON"].endswith("/product/venv/bin/python"))
         setup_index = rust["steps"].index(setup[0])
         install_index = rust["steps"].index(install[0])
         suite_index = rust["steps"].index(suite[0])
         self.assertLess(setup_index, install_index)
         self.assertLess(install_index, suite_index)
+
+
+class ProductCiPythonRustToolingTest(unittest.TestCase):
+    """The python job can run the tests that drive `cargo xtask`.
+
+    The product's brand-kit, CLI-reference and asset-manifest tests run
+    tools/bin/xtask.sh, which needs the pinned Rust toolchain; without it they
+    error at setup (20 errors and 2 failures in run 46171570430).
+    """
+
+    def test_the_python_job_installs_the_pinned_rust_toolchain_before_its_suite(self):
+        steps = _product_ci_jobs()["python"]["steps"]
+        toolchain = [i for i, step in enumerate(steps) if step.get("name") == "Install the product's pinned Rust toolchain"]
+        suite = [i for i, step in enumerate(steps) if step.get("name") == "Python suite (output withheld)"]
+        self.assertEqual(len(toolchain), 1)
+        self.assertEqual(len(suite), 1)
+        self.assertLess(toolchain[0], suite[0])
+        self.assertIn("rustup toolchain install", steps[toolchain[0]]["run"])
 
 
 if __name__ == "__main__":
