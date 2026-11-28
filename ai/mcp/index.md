@@ -1,17 +1,17 @@
 # Blowhorn MCP server
 
-> Your assistant drafts and rehearses. You give the order. The Blowhorn MCP server gives any MCP assistant a tool for each Blowhorn command, keeps the risky ones hidden until you opt in, and every write comes back as a dry run until you say go.
+> Connect any AI assistant to your Blowhorn workspace. The hosted Blowhorn MCP server serves seven read-only tools over Streamable HTTP, backed by OAuth 2.1 or Bearer authentication.
 
 ## How it works
 
-1. Open Blowhorn once: Blowhorn desktop 1.61.0 or later writes the blowhorn-mcp command to ~/.local/bin each time the app opens.
-2. Add it to your assistant: One line, or one config entry, points your MCP client at that command. It starts the local server over stdio, on your computer.
-3. Say what you want: Your assistant calls the tools. Reads run as asked, every write is a dry run first, and you give the order that makes it real.
+1. Get your endpoint: Blowhorn's hosted MCP server runs at https://mcp.blowhorn.ai/mcp over Streamable HTTP.
+2. Connect your assistant: One command or a JSON config block points your MCP client at the server. Sign in with OAuth 2.1 or a Bearer token.
+3. Say what you want: Your assistant inspects your scheduled posts, queue, events, and platform sessions without changing any live data.
 
 `terminal`
 
 ```bash
-claude mcp add blowhorn -- ~/.local/bin/blowhorn-mcp
+claude mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp
 ```
 
 `.cursor/mcp.json`
@@ -20,7 +20,7 @@ claude mcp add blowhorn -- ~/.local/bin/blowhorn-mcp
 {
   "mcpServers": {
     "blowhorn": {
-      "command": "/Users/you/.local/bin/blowhorn-mcp"
+      "url": "https://mcp.blowhorn.ai/mcp"
     }
   }
 }
@@ -28,33 +28,32 @@ claude mcp add blowhorn -- ~/.local/bin/blowhorn-mcp
 
 ## Try saying
 
-- "Draft a release post from my personal profile for Tuesday at 9:00 and queue it. Dry run first, show me what would be queued, and wait for my go before you confirm."
-- "Someone asked whether the new release works offline. Draft a reply from my company profile that answers that one question. Show me the dry run and wait for my go."
-- "Read last week's numbers across my profiles and tell me which post did best. Read only, nothing gets written."
-- "Pause everything, with the reason "waiting on legal review". Show me the dry run first, then confirm once I say go."
+- "What posts are currently scheduled across all my connected social accounts for this week?"
+- "Show me recent publish events and delivery status for yesterday's release announcement."
+- "List all active platform connections and verify which accounts are currently authenticated."
+- "Read the upcoming queued items across my channels and check if anything needs attention."
 
 ## What your assistant sees
 
 ```text
 # claude mcp list
-blowhorn: /Users/you/.local/bin/blowhorn-mcp - Connected
+blowhorn: https://mcp.blowhorn.ai/mcp (HTTP) - Connected
 
-# the tools it calls, one per Blowhorn command
-post                dry_run: true     (confirm: true after your go)
-content_upsert      dry_run: true     (confirm: true after your go)
-analytics_history   read only, runs as asked
-schedule_pause      dry_run: true     (confirm: true after your go)
-
-# hidden until you opt in by name with --allow-hidden-tool
-uninstall  service_uninstall  service_adopt  auth_logout
-desktop_build  desktop_install  chrome_attach_chrome_uninstall_agent
+# the seven read-only tools served by the hosted MCP server
+listContentItems       read only, inspects queued and draft content
+getContentItem         read only, retrieves item details and assets
+getEvents              read only, views recent publish events and delivery logs
+getConnections         read only, lists active platform channels and credentials
+listSchedules          read only, retrieves posting schedules
+getScheduleById        read only, inspects timing and recurrence rules
+getPlatformSessions    read only, checks active session status across platforms
 ```
 
 ## Where it pays off
 
-- **Release day**: Have your assistant turn the changelog into queued posts, dry-run each one, and wait for your go. Nothing is queued until you say so.
-- **The first hour**: Ask what is due, what is queued and what needs your attention. Reads run as asked, so the answer comes straight back.
-- **The weekly read-out**: Let it read last week's numbers and write Friday's summary. Nothing is written, so there is nothing to confirm.
+- **Release day**: Have your assistant inspect what is scheduled, what is queued and what needs your attention across channels without opening the app.
+- **The first hour**: Ask what published, check event logs, and verify delivery status. Reads run as asked, so the answer comes straight back.
+- **The weekly read-out**: Let it review scheduled queues and connection health for Friday's summary. Nothing is changed or written.
 
 ## What your assistant can do on each platform
 
@@ -135,17 +134,17 @@ Your own signed-in browser, through the Blowhorn extension, once you turn on You
 
 ## Frequently Asked Questions {#questions}
 
-**Does it run in the cloud?** The local server runs on your own computer, through the blowhorn-mcp command the app writes. Grok Bot connects to the hosted server at https://mcp.blowhorn.ai/mcp as a custom connector, and signs in with OAuth. [Set up Grok Bot](/docs/how-to/set-up/connect-mcp-client/#grok-bot).
+**Does it run in the cloud?** Yes. The hosted server runs at https://mcp.blowhorn.ai/mcp over Streamable HTTP with OAuth 2.1. See [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/).
 
-**Can I npx it?** Coming soon. Today, use ~/.local/bin/blowhorn-mcp, which the Blowhorn app writes each time it opens.
+**Can I npx it?** Coming soon. Today, connect directly to the hosted server URL at https://mcp.blowhorn.ai/mcp.
 
-**Can the agent approve or publish on its own?** No. Every write is a dry run until the assistant re-runs it confirmed, and an agent can never approve its own content. With approval mode on, the work it queues waits for you in the app. [How the MCP server keeps you in control](/docs/explanation/mcp-and-safety/) has the whole picture.
+**Can the agent approve or publish on its own?** No. The hosted server is read-only and serves seven inspection tools. It does not post, schedule, or change anything. [How the MCP server keeps you in control](/docs/explanation/mcp-and-safety/) has the whole picture.
 
-**Where is the MCP server source?** The public [blowhorn-mcp repo](https://github.com/blowhorn-ai/blowhorn-mcp) on GitHub holds the launcher, the Claude Code and Cursor plugin manifests, the Gemini CLI extension, the agent skill and the listing files. The server itself ships inside the Blowhorn desktop app. The npx launcher and catalog listings are coming soon.
+**Where is the MCP server source?** The public [blowhorn-mcp repo](https://github.com/blowhorn-ai/blowhorn-mcp) on GitHub holds the launcher, the Claude Code and Cursor plugin manifests, the Gemini CLI extension, the agent skill and the listing files.
 
 **Is it listed in MCP catalogs?** Coming soon.
 
 **Does my assistant see my passwords?** No. Tool results never carry secrets. See [how the MCP server keeps you in control](/docs/explanation/mcp-and-safety/).
 
-**Which assistants can use it?** Any MCP client that can start a local command: Claude Code, Claude Desktop, Cursor and VS Code, for example. [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/) has the steps for each, and the [first-connection tutorial](/docs/tutorials/first-mcp-connection/) takes you through your first post. Grok Bot connects to the [hosted server](/docs/how-to/set-up/connect-mcp-client/#grok-bot).
+**Which assistants can use it?** Any MCP client that supports Streamable HTTP: Claude Code, Cursor, VS Code, Claude Desktop, Windsurf, Zed, Gemini CLI, Grok, and Grok Bot. [Connect an AI assistant over MCP](/docs/how-to/set-up/connect-mcp-client/) has the steps for each.
 

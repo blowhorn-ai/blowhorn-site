@@ -16,7 +16,7 @@
 
 
 - [blowhorn-axi](https://blowhorn.ai/ai/blowhorn-axi/index.md): blowhorn-axi lets AI agents use Blowhorn. Compact answers built for agents, rehearsal before every action and clear next steps when something goes wrong. Runs on your computer with Node 18 or later.
-- [Blowhorn MCP server](https://blowhorn.ai/ai/mcp/index.md): The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.
+- [Blowhorn MCP server](https://blowhorn.ai/ai/mcp/index.md): The Blowhorn MCP server lets your AI assistant inspect your posts, schedule, queue, and connections over Streamable HTTP. Seven read-only tools, standard OAuth 2.1, zero setup on your computer.
 
 ## Support
 - [Support](https://blowhorn.ai/support/index.md): Contact the Blowhorn team, or start with the docs, the troubleshooting guides, the error message reference and the videos.

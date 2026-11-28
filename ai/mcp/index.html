@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"><script>
       (function () {
-        var allowed = ["signal","reveille"], param = "theme", q = null, i;
+        var allowed = ["signal","reveille","refresh"], param = "theme", q = null, i;
         try { q = new URLSearchParams(window.location.search).get(param); } catch (e) {}
         if (!q) return;
         for (i = 0; i < allowed.length; i++) {
@@ -16,14 +16,14 @@
     </script>
 
     <title>The Blowhorn MCP server - Blowhorn for any AI assistant</title>
-    <meta name="description" content="The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.">
+    <meta name="description" content="The Blowhorn MCP server lets your AI assistant inspect your posts, schedule, queue, and connections over Streamable HTTP. Seven read-only tools, standard OAuth 2.1, zero setup on your computer.">
     <link rel="canonical" href="https://blowhorn.ai/ai/mcp/">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E2117">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png">
-<link rel="stylesheet" href="/css/site.min.89aee56d7ae1874593fc42e91a7ee05f688ed1682d06cf691e19f7a9b275fe65.css">
+<link rel="stylesheet" href="/css/site.min.2486898054331768cfabcc1532963022085d00dce9ca83603700f9cb098cb105.css">
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -41,7 +41,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Blowhorn">
     <meta property="og:title" content="The Blowhorn MCP server - Blowhorn for any AI assistant">
-    <meta property="og:description" content="The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.">
+    <meta property="og:description" content="The Blowhorn MCP server lets your AI assistant inspect your posts, schedule, queue, and connections over Streamable HTTP. Seven read-only tools, standard OAuth 2.1, zero setup on your computer.">
     <meta property="og:url" content="https://blowhorn.ai/ai/mcp/">
     <meta property="og:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-og-1200x630.png">
     <meta property="og:image:type" content="image/png">
@@ -51,7 +51,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@blowhorn_ai">
     <meta name="twitter:title" content="The Blowhorn MCP server - Blowhorn for any AI assistant">
-    <meta name="twitter:description" content="The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.">
+    <meta name="twitter:description" content="The Blowhorn MCP server lets your AI assistant inspect your posts, schedule, queue, and connections over Streamable HTTP. Seven read-only tools, standard OAuth 2.1, zero setup on your computer.">
     <meta name="twitter:image" content="https://blowhorn.ai/assets/brand/marketing/blowhorn-og-1200x630.png">
     <meta name="twitter:image:alt" content="The Blowhorn logo: the Crowhorn icon beside the Blowhorn wordmark">
 
@@ -215,7 +215,7 @@
           <div class="agent-hero-copy">
             <p class="label"><a href="/ai/">AI native</a></p>
             <h1 id="agent-title" class="display">Blowhorn MCP server</h1>
-            <p class="body-lg muted">Your assistant drafts and rehearses. You give the order. The Blowhorn MCP server gives any MCP assistant a tool for each Blowhorn command, keeps the risky ones hidden until you opt in, and every write comes back as a dry run until you say go.</p>
+            <p class="body-lg muted">Connect any AI assistant to your Blowhorn workspace. The hosted Blowhorn MCP server serves seven read-only tools over Streamable HTTP, backed by OAuth 2.1 or Bearer authentication.</p>
           </div>
           <div class="agent-hero-art" aria-hidden="true">
             <span class="agent-mark agent-mark-xl" aria-hidden="true">MCP</span>
@@ -229,18 +229,28 @@
             <h2 id="how-title" class="h2">How it works</h2>
           </div>
           <ol class="agent-steps grid grid-3">
-            <li class="card card-field"><span class="agent-step-n">1</span><h3 class="h3">Open Blowhorn once</h3><p>Blowhorn desktop 1.61.0 or later writes the blowhorn-mcp command to ~/.local/bin each time the app opens.</p></li>
-            <li class="card card-plain"><span class="agent-step-n">2</span><h3 class="h3">Add it to your assistant</h3><p>One line, or one config entry, points your MCP client at that command. It starts the local server over stdio, on your computer.</p></li>
-            <li class="card card-stamp"><span class="agent-step-n">3</span><h3 class="h3">Say what you want</h3><p>Your assistant calls the tools. Reads run as asked, every write is a dry run first, and you give the order that makes it real.</p></li>
+            <li class="card card-field"><span class="agent-step-n">1</span><h3 class="h3">Get your endpoint</h3><p>Blowhorn&#39;s hosted MCP server runs at https://mcp.blowhorn.ai/mcp over Streamable HTTP.</p></li>
+            <li class="card card-plain"><span class="agent-step-n">2</span><h3 class="h3">Connect your assistant</h3><p>One command or a JSON config block points your MCP client at the server. Sign in with OAuth 2.1 or a Bearer token.</p></li>
+            <li class="card card-stamp"><span class="agent-step-n">3</span><h3 class="h3">Say what you want</h3><p>Your assistant inspects your scheduled posts, queue, events, and platform sessions without changing any live data.</p></li>
           </ol>
         </section>
         <section class="agent-section agent-wire" aria-labelledby="setup-title">
           <div class="section-head">
             <h2 id="setup-title" class="h2">Plug it into your assistant</h2>
-            <p class="muted">Open Blowhorn once so the app writes the command, then point your client at it. For Claude Code, one line does it. Cursor reads the same command from its mcp.json.</p>
+            <p class="muted">Point your MCP client at Blowhorn&#39;s hosted server at https://mcp.blowhorn.ai/mcp. Streamable HTTP with OAuth 2.1 or Bearer token fallback. For Claude Code, one command connects it. Cursor, VS Code, and Claude Desktop configure in JSON.</p>
           </div>
-          <div class="grid grid-2">
-            <figure class="term term-prompt" data-lang="bash">
+          <div class="tabs" data-tabs data-tabs-group="mcp-client" data-tabs-id="mcp-config">
+  <div class="tabs-list">
+    <a class="tabs-tab is-on" id="mcp-config-tab-claude-code" href="#mcp-config-claude-code" data-tab="claude-code">Claude Code</a>
+    <a class="tabs-tab" id="mcp-config-tab-cursor" href="#mcp-config-cursor" data-tab="cursor">Cursor</a>
+    <a class="tabs-tab" id="mcp-config-tab-vscode" href="#mcp-config-vscode" data-tab="vscode">VS Code</a>
+    <a class="tabs-tab" id="mcp-config-tab-claude-desktop" href="#mcp-config-claude-desktop" data-tab="claude-desktop">Claude Desktop</a>
+    <a class="tabs-tab" id="mcp-config-tab-windsurf" href="#mcp-config-windsurf" data-tab="windsurf">Windsurf</a>
+    <a class="tabs-tab" id="mcp-config-tab-zed" href="#mcp-config-zed" data-tab="zed">Zed</a>
+    <a class="tabs-tab" id="mcp-config-tab-gemini-cli" href="#mcp-config-gemini-cli" data-tab="gemini-cli">Gemini CLI</a>
+  </div>
+  <div class="tabs-panel" id="mcp-config-claude-code" data-tab-panel="claude-code" data-tab-index="0">
+    <figure class="term term-prompt" data-lang="bash">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
     <span class="term-title">terminal</span>
@@ -250,10 +260,12 @@
       <span class="term-copy-text">Copy</span>
     </button>
   </figcaption>
-  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>claude mcp add blowhorn -- ~/.local/bin/blowhorn-mcp</span></span></code></pre></div></div>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>claude mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp</span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
-</figure>
-            <figure class="term" data-lang="json">
+</figure><p class="caption muted">Run in your terminal. If sign-in does not complete, pass the Bearer token header: <code>claude mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp --header "Authorization: Bearer &lt;token&gt;"</code>. Check connection with <code>claude mcp list</code>.</p>
+  </div>
+  <div class="tabs-panel" id="mcp-config-cursor" data-tab-panel="cursor" data-tab-index="1">
+    <figure class="term" data-lang="json">
   <figcaption class="term-bar">
     <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
     <span class="term-title">.cursor/mcp.json</span>
@@ -266,14 +278,120 @@
   <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;/Users/you/.local/bin/blowhorn-mcp&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://mcp.blowhorn.ai/mcp&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
-</figure>
-          </div>
-          <p class="muted">Claude Desktop takes the same command in its config file. New to this? <a href="/docs/tutorials/first-mcp-connection/">Connect an assistant and send your first post</a> walks through it. <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over MCP</a> has the steps for every client, including <a href="/docs/how-to/set-up/connect-mcp-client/#claude-code">Claude Code</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#claude-desktop">Claude Desktop</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#cursor">Cursor</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#vs-code-with-github-copilot">VS Code</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#grok">Grok</a> and <a href="/docs/how-to/set-up/connect-mcp-client/#grok-bot">Grok Bot</a>. Grok Bot also has a <a href="/agents/grok-bot/">product page</a>. <a href="https://github.com/blowhorn-ai/blowhorn-mcp">Source and listings</a>: the launcher, plugin manifests and listing files live in the public blowhorn-mcp repo. Risky tools, the ones that uninstall Blowhorn, rebuild or reinstall the app, remove or take over a background service, or sign you out, are <a href="/docs/how-to/set-up/connect-mcp-client/#hidden-tools">hidden by default</a>; that section shows how to serve one by name.</p>
+</figure><p class="caption muted">In Cursor, open <b>Settings &gt; MCP</b> and add the server with URL <code>https://mcp.blowhorn.ai/mcp</code>, or write to <code>.cursor/mcp.json</code>. If sign-in does not complete, add <code>"headers": { "Authorization": "Bearer &lt;token&gt;" }</code> under <code>blowhorn</code>.</p>
+  </div>
+  <div class="tabs-panel" id="mcp-config-vscode" data-tab-panel="vscode" data-tab-index="2">
+    <figure class="term" data-lang="json">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">.vscode/mcp.json</span>
+    <span class="term-lang" aria-hidden="true">JSON</span>
+    <button type="button" class="term-copy" aria-label="Copy .vscode/mcp.json to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;servers&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://mcp.blowhorn.ai/mcp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure><p class="caption muted">In your project, add to <code>.vscode/mcp.json</code>. If sign-in does not complete, add <code>"headers": { "Authorization": "Bearer &lt;token&gt;" }</code>.</p>
+  </div>
+  <div class="tabs-panel" id="mcp-config-claude-desktop" data-tab-panel="claude-desktop" data-tab-index="3">
+    <figure class="term" data-lang="json">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">claude_desktop_config.json</span>
+    <span class="term-lang" aria-hidden="true">JSON</span>
+    <button type="button" class="term-copy" aria-label="Copy claude_desktop_config.json to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://mcp.blowhorn.ai/mcp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure><p class="caption muted">Open <b>Settings &gt; Developer &gt; Edit Config</b> in Claude Desktop, add to <code>claude_desktop_config.json</code>, save and restart.</p>
+  </div>
+  <div class="tabs-panel" id="mcp-config-windsurf" data-tab-panel="windsurf" data-tab-index="4">
+    <figure class="term" data-lang="json">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">mcp_config.json</span>
+    <span class="term-lang" aria-hidden="true">JSON</span>
+    <button type="button" class="term-copy" aria-label="Copy mcp_config.json to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://mcp.blowhorn.ai/mcp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure><p class="caption muted">In Windsurf, open <b>Settings &gt; MCP</b> to add the server URL, or write to <code>~/.codeium/windsurf/mcp_config.json</code>.</p>
+  </div>
+  <div class="tabs-panel" id="mcp-config-zed" data-tab-panel="zed" data-tab-index="5">
+    <figure class="term" data-lang="json">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">settings.json</span>
+    <span class="term-lang" aria-hidden="true">JSON</span>
+    <button type="button" class="term-copy" aria-label="Copy settings.json to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;context_servers&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;blowhorn&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://mcp.blowhorn.ai/mcp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure><p class="caption muted">In Zed's settings, add under <code>context_servers</code> in <code>settings.json</code>. Add the Bearer header if sign-in does not complete.</p>
+  </div>
+  <div class="tabs-panel" id="mcp-config-gemini-cli" data-tab-panel="gemini-cli" data-tab-index="6">
+    <figure class="term term-prompt" data-lang="bash">
+  <figcaption class="term-bar">
+    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">terminal</span>
+    <span class="term-lang" aria-hidden="true">Shell</span>
+    <button type="button" class="term-copy" aria-label="Copy terminal to clipboard" hidden>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <span class="term-copy-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="term-ps" aria-hidden="true">$ </span>gemini mcp add --transport http blowhorn https://mcp.blowhorn.ai/mcp</span></span></code></pre></div></div>
+  <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
+</figure><p class="caption muted">Run in your terminal. If sign-in does not complete, pass the Bearer header: <code>--header "Authorization: Bearer &lt;token&gt;"</code>.</p>
+  </div>
+  <p class="visually-hidden">MCP client configuration</p>
+</div>
+
+          <p class="muted">New to this? <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over MCP</a> has the steps for every client, including <a href="/docs/how-to/set-up/connect-mcp-client/#claude-code">Claude Code</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#cursor">Cursor</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#vs-code-with-github-copilot">VS Code</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#claude-desktop">Claude Desktop</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#windsurf-devin-desktop">Windsurf</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#zed">Zed</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#gemini-cli">Gemini CLI</a>, <a href="/docs/how-to/set-up/connect-mcp-client/#grok">Grok</a> and <a href="/docs/how-to/set-up/connect-mcp-client/#grok-bot">Grok Bot</a>. Grok Bot also has a <a href="/agents/grok-bot/">product page</a>. <a href="https://github.com/blowhorn-ai/blowhorn-mcp">Source and listings</a>: the launcher, plugin manifests and listing files live in the public blowhorn-mcp repo.</p>
         </section>
         <section class="agent-section" aria-labelledby="prompts-title">
           <div class="section-head">
@@ -282,19 +400,19 @@
           <ul class="agent-prompts">
             <li class="bubble-row">
               <span class="bubble-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" focusable="false"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
-              <p class="bubble bubble--tail-left bubble--mint"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text"><span class="visually-hidden">You say: </span>&#34;Draft a release post from my personal profile for Tuesday at 9:00 and queue it. Dry run first, show me what would be queued, and wait for my go before you confirm.&#34;</span></p>
+              <p class="bubble bubble--tail-left bubble--mint"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text"><span class="visually-hidden">You say: </span>&#34;What posts are currently scheduled across all my connected social accounts for this week?&#34;</span></p>
             </li>
             <li class="bubble-row">
               <span class="bubble-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" focusable="false"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
-              <p class="bubble bubble--tail-left bubble--mint"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text"><span class="visually-hidden">You say: </span>&#34;Someone asked whether the new release works offline. Draft a reply from my company profile that answers that one question. Show me the dry run and wait for my go.&#34;</span></p>
+              <p class="bubble bubble--tail-left bubble--mint"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text"><span class="visually-hidden">You say: </span>&#34;Show me recent publish events and delivery status for yesterday&#39;s release announcement.&#34;</span></p>
             </li>
             <li class="bubble-row">
               <span class="bubble-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" focusable="false"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
-              <p class="bubble bubble--tail-left bubble--mint"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text"><span class="visually-hidden">You say: </span>&#34;Read last week&#39;s numbers across my profiles and tell me which post did best. Read only, nothing gets written.&#34;</span></p>
+              <p class="bubble bubble--tail-left bubble--mint"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text"><span class="visually-hidden">You say: </span>&#34;List all active platform connections and verify which accounts are currently authenticated.&#34;</span></p>
             </li>
             <li class="bubble-row">
               <span class="bubble-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" focusable="false"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
-              <p class="bubble bubble--tail-left bubble--mint"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text"><span class="visually-hidden">You say: </span>&#34;Pause everything, with the reason &#34;waiting on legal review&#34;. Show me the dry run first, then confirm once I say go.&#34;</span></p>
+              <p class="bubble bubble--tail-left bubble--mint"><span class="bubble-shape" aria-hidden="true"><span class="bubble-fill"></span></span><span class="bubble-text"><span class="visually-hidden">You say: </span>&#34;Read the upcoming queued items across my channels and check if anything needs attention.&#34;</span></p>
             </li>
           </ul>
         </section>
@@ -313,17 +431,16 @@
     </button>
   </figcaption>
   <div class="term-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># claude mcp list
-</span></span><span class="line"><span class="cl">blowhorn: /Users/you/.local/bin/blowhorn-mcp - Connected
+</span></span><span class="line"><span class="cl">blowhorn: https://mcp.blowhorn.ai/mcp (HTTP) - Connected
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># the tools it calls, one per Blowhorn command
-</span></span><span class="line"><span class="cl">post                dry_run: true     (confirm: true after your go)
-</span></span><span class="line"><span class="cl">content_upsert      dry_run: true     (confirm: true after your go)
-</span></span><span class="line"><span class="cl">analytics_history   read only, runs as asked
-</span></span><span class="line"><span class="cl">schedule_pause      dry_run: true     (confirm: true after your go)
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># hidden until you opt in by name with --allow-hidden-tool
-</span></span><span class="line"><span class="cl">uninstall  service_uninstall  service_adopt  auth_logout
-</span></span><span class="line"><span class="cl">desktop_build  desktop_install  chrome_attach_chrome_uninstall_agent</span></span></code></pre></div></div>
+</span></span><span class="line"><span class="cl"># the seven read-only tools served by the hosted MCP server
+</span></span><span class="line"><span class="cl">listContentItems       read only, inspects queued and draft content
+</span></span><span class="line"><span class="cl">getContentItem         read only, retrieves item details and assets
+</span></span><span class="line"><span class="cl">getEvents              read only, views recent publish events and delivery logs
+</span></span><span class="line"><span class="cl">getConnections         read only, lists active platform channels and credentials
+</span></span><span class="line"><span class="cl">listSchedules          read only, retrieves posting schedules
+</span></span><span class="line"><span class="cl">getScheduleById        read only, inspects timing and recurrence rules
+</span></span><span class="line"><span class="cl">getPlatformSessions    read only, checks active session status across platforms</span></span></code></pre></div></div>
   <span class="term-status visually-hidden" role="status" aria-live="polite"></span>
 </figure>
         </section>
@@ -332,16 +449,16 @@
             <h2 id="uses-title" class="h2">Where it pays off</h2>
           </div>
           <div class="grid grid-3">
-            <div class="card card-field"><h3 class="h3">Release day</h3><p>Have your assistant turn the changelog into queued posts, dry-run each one, and wait for your go. Nothing is queued until you say so.</p></div>
-            <div class="card card-plain"><h3 class="h3">The first hour</h3><p>Ask what is due, what is queued and what needs your attention. Reads run as asked, so the answer comes straight back.</p></div>
-            <div class="card card-stamp"><h3 class="h3">The weekly read-out</h3><p>Let it read last week&#39;s numbers and write Friday&#39;s summary. Nothing is written, so there is nothing to confirm.</p></div>
+            <div class="card card-field"><h3 class="h3">Release day</h3><p>Have your assistant inspect what is scheduled, what is queued and what needs your attention across channels without opening the app.</p></div>
+            <div class="card card-plain"><h3 class="h3">The first hour</h3><p>Ask what published, check event logs, and verify delivery status. Reads run as asked, so the answer comes straight back.</p></div>
+            <div class="card card-stamp"><h3 class="h3">The weekly read-out</h3><p>Let it review scheduled queues and connection health for Friday&#39;s summary. Nothing is changed or written.</p></div>
           </div>
         </section>
         <aside class="major-says card-paper" aria-label="The Major says">
   <img class="major-says-art" src="/assets/brand/mascot/locked-6/major-6-head.webp" alt="" width="56" height="56" loading="lazy">
   <div class="major-says-copy">
     <p class="label"><a href="/major/">The Major says</a></p>
-    <p class="major-says-line h3">"Any assistant can report for duty. None of them fires without your orders."</p>
+    <p class="major-says-line h3">"Any assistant can report for duty. Connect to the hosted server in seconds."</p>
   </div>
 </aside>
 
@@ -350,13 +467,13 @@
             <h2 id="faq-title" class="h2">Frequently Asked Questions</h2>
           </div>
           <div class="agent-faq">
-            <details class="card card-field"><summary class="ui">Does it run in the cloud?</summary><p>The local server runs on your own computer, through the blowhorn-mcp command the app writes. Grok Bot connects to the hosted server at <a href="https://mcp.blowhorn.ai/mcp">https://mcp.blowhorn.ai/mcp</a> as a custom connector, and signs in with OAuth. <a href="/docs/how-to/set-up/connect-mcp-client/#grok-bot">Set up Grok Bot</a>.</p></details>
-            <details class="card card-plain"><summary class="ui">Can I npx it?</summary><p>Coming soon. Today, use ~/.local/bin/blowhorn-mcp, which the Blowhorn app writes each time it opens.</p></details>
-            <details class="card card-field"><summary class="ui">Can the agent approve or publish on its own?</summary><p>No. Every write is a dry run until the assistant re-runs it confirmed, and an agent can never approve its own content. With approval mode on, the work it queues waits for you in the app. <a href="/docs/explanation/mcp-and-safety/">How the MCP server keeps you in control</a> has the whole picture.</p></details>
-            <details class="card card-plain"><summary class="ui">Where is the MCP server source?</summary><p>The public <a href="https://github.com/blowhorn-ai/blowhorn-mcp">blowhorn-mcp repo</a> on GitHub holds the launcher, the Claude Code and Cursor plugin manifests, the Gemini CLI extension, the agent skill and the listing files. The server itself ships inside the Blowhorn desktop app. The npx launcher and catalog listings are coming soon.</p></details>
+            <details class="card card-field"><summary class="ui">Does it run in the cloud?</summary><p>Yes. The hosted server runs at <a href="https://mcp.blowhorn.ai/mcp">https://mcp.blowhorn.ai/mcp</a> over Streamable HTTP with OAuth 2.1. See <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over MCP</a>.</p></details>
+            <details class="card card-plain"><summary class="ui">Can I npx it?</summary><p>Coming soon. Today, connect directly to the hosted server URL at <a href="https://mcp.blowhorn.ai/mcp">https://mcp.blowhorn.ai/mcp</a>.</p></details>
+            <details class="card card-field"><summary class="ui">Can the agent approve or publish on its own?</summary><p>No. The hosted server is read-only and serves seven inspection tools. It does not post, schedule, or change anything. <a href="/docs/explanation/mcp-and-safety/">How the MCP server keeps you in control</a> has the whole picture.</p></details>
+            <details class="card card-plain"><summary class="ui">Where is the MCP server source?</summary><p>The public <a href="https://github.com/blowhorn-ai/blowhorn-mcp">blowhorn-mcp repo</a> on GitHub holds the launcher, the Claude Code and Cursor plugin manifests, the Gemini CLI extension, the agent skill and the listing files.</p></details>
             <details class="card card-field"><summary class="ui">Is it listed in MCP catalogs?</summary><p>Coming soon.</p></details>
             <details class="card card-plain"><summary class="ui">Does my assistant see my passwords?</summary><p>No. Tool results never carry secrets. See <a href="/docs/explanation/mcp-and-safety/">how the MCP server keeps you in control</a>.</p></details>
-            <details class="card card-field"><summary class="ui">Which assistants can use it?</summary><p>Any MCP client that can start a local command: Claude Code, Claude Desktop, Cursor and VS Code, for example. <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over MCP</a> has the steps for each, and the <a href="/docs/tutorials/first-mcp-connection/">first-connection tutorial</a> takes you through your first post. Grok Bot connects to the <a href="/docs/how-to/set-up/connect-mcp-client/#grok-bot">hosted server</a>.</p></details>
+            <details class="card card-field"><summary class="ui">Which assistants can use it?</summary><p>Any MCP client that supports Streamable HTTP: Claude Code, Cursor, VS Code, Claude Desktop, Windsurf, Zed, Gemini CLI, Grok, and Grok Bot. <a href="/docs/how-to/set-up/connect-mcp-client/">Connect an AI assistant over MCP</a> has the steps for each.</p></details>
           </div>
         </section>
         <section class="agent-section agent-platforms" aria-labelledby="platforms-title">
@@ -521,7 +638,7 @@
           </div>
         </section>
         <section class="agent-section agent-cta glass" aria-labelledby="cta-title">
-          <h2 id="cta-title" class="h2">Rehearse first, then give the order</h2>
+          <h2 id="cta-title" class="h2">Inspect your marketing with any assistant</h2>
           <p class="muted">Want the details before your assistant does the talking? The docs cover setup, every command, and each platform.</p>
           <p class="actions"><a class="button button-secondary" href="/docs/">Read the docs</a><a class="button button-secondary" href="/docs/reference/platforms/">See every platform</a>
 </p>
@@ -691,6 +808,8 @@
       </button>
     </section>
 
+
+  <script src="/js/tabs.min.37259a977667e53c21ef087afbbd4bbcf376f6e6479fe5f1c28879006fd6e85c.js" defer></script>
 
     <script src="/js/code-card.min.681cde1d563b320da97fa3f2c094be9469b193e726a2734eb3eb264d3a5e33e4.js" defer></script>
     <script type="application/json" id="docs-events">{"$schema":"../schemas/docs_events.schema.json","attribution_params":["first_source","first_medium","first_campaign","first_content","first_term","first_referrer_host","landing_guide","landing_page"],"clients":{"chatgpt":"ChatGPT","claude-code":"Claude Code","claude-desktop":"Claude Desktop","cline":"Cline","cursor":"Cursor","gemini-cli":"Gemini CLI","goose":"Goose","openai-codex-cli":"OpenAI Codex CLI","vs-code":"VS Code with GitHub Copilot","vs-code-with-github-copilot":"VS Code with GitHub Copilot","windsurf-devin-desktop":"Windsurf (Devin Desktop)","zed":"Zed"},"consent_event":"blowhorn:consent","consent_key":"blowhorn-consent","default_client":"general","events":{"docs_guide_view":{"description":"A tracked guide was viewed after consent: once per page load.","params":["page_path","guide","client"]},"docs_outbound_click":{"description":"A link to npm, an MCP registry or a Blowhorn download was followed.","params":["page_path","client","link_kind","link_url"]},"docs_snippet_copy":{"description":"The copy button on a code card was pressed. Never carries the copied text.","params":["page_path","client","snippet_kind","snippet_title"]}},"internal_hosts":["blowhorn.ai","www.blowhorn.ai"],"outbound":[{"hosts":["npmjs.com","www.npmjs.com","registry.npmjs.org"],"kind":"npm"},{"hosts":["registry.modelcontextprotocol.io"],"kind":"registry"},{"hosts":["github.com"],"kind":"registry","paths":["^/mcp(/|$)"]},{"hosts":["github.com"],"kind":"download","paths":["^/blowhorn-ai/[^/]+/releases(/|$)"]},{"hosts":["blowhorn.ai","www.blowhorn.ai"],"kind":"download","paths":["^/download/"]}],"pages":["/docs/how-to/set-up/connect-mcp-client/","/docs/reference/mcp-server/","/docs/reference/python-client/","/docs/tutorials/first-mcp-connection/","/docs/explanation/mcp-and-safety/","/ai/mcp/"],"snippet_kinds":{"bash":"shell","console":"shell","json":"json","sh":"shell","shell":"shell","text":"text","toml":"toml","yaml":"yaml","yml":"yaml","zsh":"shell"},"storage_key":"blowhorn-docs-attribution","utm_params":["utm_source","utm_medium","utm_campaign","utm_content","utm_term"]}</script>

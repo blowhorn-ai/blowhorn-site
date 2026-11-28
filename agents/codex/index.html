@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"><script>
       (function () {
-        var allowed = ["signal","reveille"], param = "theme", q = null, i;
+        var allowed = ["signal","reveille","refresh"], param = "theme", q = null, i;
         try { q = new URLSearchParams(window.location.search).get(param); } catch (e) {}
         if (!q) return;
         for (i = 0; i < allowed.length; i++) {
@@ -23,7 +23,7 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/assets/brand/logo/blowhorn-favicon-32.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png">
-<link rel="stylesheet" href="/css/site.min.89aee56d7ae1874593fc42e91a7ee05f688ed1682d06cf691e19f7a9b275fe65.css">
+<link rel="stylesheet" href="/css/site.min.2486898054331768cfabcc1532963022085d00dce9ca83603700f9cb098cb105.css">
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -651,6 +651,8 @@
       </button>
     </section>
 
+
+  <script src="/js/tabs.min.37259a977667e53c21ef087afbbd4bbcf376f6e6479fe5f1c28879006fd6e85c.js" defer></script>
 
     <script src="/js/code-card.min.681cde1d563b320da97fa3f2c094be9469b193e726a2734eb3eb264d3a5e33e4.js" defer></script>
     <script type="application/json" id="docs-events">{"$schema":"../schemas/docs_events.schema.json","attribution_params":["first_source","first_medium","first_campaign","first_content","first_term","first_referrer_host","landing_guide","landing_page"],"clients":{"chatgpt":"ChatGPT","claude-code":"Claude Code","claude-desktop":"Claude Desktop","cline":"Cline","cursor":"Cursor","gemini-cli":"Gemini CLI","goose":"Goose","openai-codex-cli":"OpenAI Codex CLI","vs-code":"VS Code with GitHub Copilot","vs-code-with-github-copilot":"VS Code with GitHub Copilot","windsurf-devin-desktop":"Windsurf (Devin Desktop)","zed":"Zed"},"consent_event":"blowhorn:consent","consent_key":"blowhorn-consent","default_client":"general","events":{"docs_guide_view":{"description":"A tracked guide was viewed after consent: once per page load.","params":["page_path","guide","client"]},"docs_outbound_click":{"description":"A link to npm, an MCP registry or a Blowhorn download was followed.","params":["page_path","client","link_kind","link_url"]},"docs_snippet_copy":{"description":"The copy button on a code card was pressed. Never carries the copied text.","params":["page_path","client","snippet_kind","snippet_title"]}},"internal_hosts":["blowhorn.ai","www.blowhorn.ai"],"outbound":[{"hosts":["npmjs.com","www.npmjs.com","registry.npmjs.org"],"kind":"npm"},{"hosts":["registry.modelcontextprotocol.io"],"kind":"registry"},{"hosts":["github.com"],"kind":"registry","paths":["^/mcp(/|$)"]},{"hosts":["github.com"],"kind":"download","paths":["^/blowhorn-ai/[^/]+/releases(/|$)"]},{"hosts":["blowhorn.ai","www.blowhorn.ai"],"kind":"download","paths":["^/download/"]}],"pages":["/docs/how-to/set-up/connect-mcp-client/","/docs/reference/mcp-server/","/docs/reference/python-client/","/docs/tutorials/first-mcp-connection/","/docs/explanation/mcp-and-safety/","/ai/mcp/"],"snippet_kinds":{"bash":"shell","console":"shell","json":"json","sh":"shell","shell":"shell","text":"text","toml":"toml","yaml":"yaml","yml":"yaml","zsh":"shell"},"storage_key":"blowhorn-docs-attribution","utm_params":["utm_source","utm_medium","utm_campaign","utm_content","utm_term"]}</script>

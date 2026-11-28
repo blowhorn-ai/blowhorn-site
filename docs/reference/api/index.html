@@ -2,7 +2,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"><script>
       (function () {
-        var allowed = ["signal","reveille"], param = "theme", q = null, i;
+        var allowed = ["signal","reveille","refresh"], param = "theme", q = null, i;
         try { q = new URLSearchParams(window.location.search).get(param); } catch (e) {}
         if (!q) return;
         for (i = 0; i < allowed.length; i++) {
@@ -40,7 +40,7 @@
     <link rel="apple-touch-icon" href="/assets/brand/logo/blowhorn-apple-touch-icon-180.png"><link rel="preload" href="/scss/main.min.380c4c868a4175e5d3ef6d450fc82d3b70faa54f12fed07476064eb8e5cb8a91.css" as="style" integrity="sha256-OAxMhopBdeXT721FD8gtO3D6pU8S/tB0dgZOuOXLipE=" crossorigin="anonymous">
 <link href="/scss/main.min.380c4c868a4175e5d3ef6d450fc82d3b70faa54f12fed07476064eb8e5cb8a91.css" rel="stylesheet" integrity="sha256-OAxMhopBdeXT721FD8gtO3D6pU8S/tB0dgZOuOXLipE=" crossorigin="anonymous">
 
-<link rel="stylesheet" href="/css/site.min.89aee56d7ae1874593fc42e91a7ee05f688ed1682d06cf691e19f7a9b275fe65.css">
+<link rel="stylesheet" href="/css/site.min.2486898054331768cfabcc1532963022085d00dce9ca83603700f9cb098cb105.css">
 
     <script src="/js/vendor/jquery.min.fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a.js"></script>
     <script src="/js/vendor/lunr.min.d802a4db88ab7be6be90d8c44a31a0f1697db28c254179baa75e704d51723068.js"></script>
@@ -241,7 +241,7 @@
   <form class="td-sidebar__search d-flex align-items-center">
     <div class="td-search td-search--offline">
       <div class="td-search__icon"></div>
-      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.0fbaa74ea66d267bee25a0949886ac4d.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
+      <input type="search" name="q" class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete="off" data-offline-search-index-json-src="/offline-search-index.cacaf36792ec137dfb95a2aaa4d469e3.json" data-offline-search-base-href="/" data-offline-search-max-results="10">
       <button type="submit" class="visually-hidden">Search this site…</button>
     </div>
     <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">

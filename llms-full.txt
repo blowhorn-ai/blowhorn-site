@@ -73,8 +73,8 @@ description: blowhorn-axi lets AI agents use Blowhorn. Compact answers built for
 --------------------------------------------------------------------------------
 title: "Blowhorn MCP server"
 url: https://blowhorn.ai/ai/mcp/index.md
-date: "2026-11-20"
-description: The Blowhorn MCP server lets your AI assistant draft and rehearse your marketing, then act only when you give the order. One tool per command, every write a dry run first, risky tools hidden until you opt in, all on your own computer.
+date: "2026-11-27"
+description: The Blowhorn MCP server lets your AI assistant inspect your posts, schedule, queue, and connections over Streamable HTTP. Seven read-only tools, standard OAuth 2.1, zero setup on your computer.
 --------------------------------------------------------------------------------
 
 
