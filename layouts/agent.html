@@ -31,3 +31,8 @@
       </div>
     </main>
 {{- end }}
+
+{{ define "scripts" }}
+  {{- $tabs := resources.Get "js/tabs.js" | minify | fingerprint }}
+  <script src="{{ $tabs.RelPermalink }}" defer></script>
+{{ end }}
