@@ -124,7 +124,6 @@ def python_steps(python: str) -> list[Step]:
     return [
         Step("install dependencies", (python, "-m", "pip", "install", "--disable-pip-version-check",
                                       "-r", "engine/requirements-dev.txt"), timeout_s=600),
-        Step("playwright import boundary", (python, "release/scripts/check_playwright_imports.py"), timeout_s=120),
         # The product's own CI runs `make cli-tests`. Its default PYTEST_WORKERS
         # is half the cores, which is 1 (no xdist) on a 2-core runner, and a
         # single pytest process hits the 900 s timeout. This job is a dedicated
@@ -138,11 +137,16 @@ def python_steps(python: str) -> list[Step]:
 
 
 def rust_steps() -> list[Step]:
-    """The Rust engine tests (`make cli-rust-tests` in the product checkout).
+    """The Rust engine's own gates, as the product's make targets name them.
 
-    Live Google Chrome tests in that suite skip when Chrome is not installed.
+    `make engine-playwright-imports` is the Playwright import boundary the product's own CI runs
+    in its rust job (cargo xtask playwright-imports); this file names the target, never the
+    script behind it, so the gate cannot drift from the product again.
+    `make cli-rust-tests` is the Rust engine tests in the product checkout. Live Google Chrome
+    tests in that suite skip when Chrome is not installed.
     """
     return [
+        Step("playwright import boundary", ("make", "engine-playwright-imports"), timeout_s=900),
         Step("test suite", ("make", "cli-rust-tests"), timeout_s=2400, counts="cargo"),
     ]
 
