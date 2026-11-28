@@ -5,7 +5,7 @@
   "description": "Lempod runs LinkedIn engagement pods where members automatically like and comment on each other's posts, with AI-generated comment options. Blowhorn takes a different path: people who know you, in your own words.",
   "layout": "versus",
   "weight": 62,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "Lempod",
   "mark": "Lp",
   "site_url": "https://lempod.com/",
@@ -70,5 +70,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_lempod",
+    "title": "Blowhorn vs Lempod",
+    "duration": "0:36",
+    "page": "resources/videos/comparisons/blowhorn-vs-lempod/"
   }
 }

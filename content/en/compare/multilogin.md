@@ -5,7 +5,7 @@
   "description": "Multilogin is a professional antidetect browser for multi-accounting, ad ops and automation. Blowhorn is a different thing: real people posting as themselves.",
   "layout": "versus",
   "weight": 42,
-  "lastmod": "2026-10-26",
+  "lastmod": "2026-11-28",
   "competitor": "Multilogin",
   "mark": "ML",
   "site_url": "https://multilogin.com/",
@@ -79,5 +79,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_multilogin",
+    "title": "Blowhorn vs Multilogin",
+    "duration": "0:36",
+    "page": "resources/videos/comparisons/blowhorn-vs-multilogin/"
   }
 }

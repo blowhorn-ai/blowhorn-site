@@ -5,7 +5,7 @@
   "description": "AdsPower is an antidetect browser with RPA tools for ad and e-commerce teams. Blowhorn is a social tool for real people speaking as themselves.",
   "layout": "versus",
   "weight": 44,
-  "lastmod": "2026-10-26",
+  "lastmod": "2026-11-28",
   "competitor": "AdsPower",
   "mark": "AP",
   "site_url": "https://www.adspower.com/",
@@ -79,5 +79,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_adspower",
+    "title": "Blowhorn vs AdsPower",
+    "duration": "0:34",
+    "page": "resources/videos/comparisons/blowhorn-vs-adspower/"
   }
 }

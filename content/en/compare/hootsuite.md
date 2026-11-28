@@ -5,7 +5,7 @@
   "description": "Blowhorn isn't a bot. It's you. Hootsuite is a full social operations suite for larger teams: inbox, listening, approvals, ads. Blowhorn is a lighter, sharper tool for technical voices who need real people amplifying on developer platforms.",
   "layout": "versus",
   "weight": 11,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "Hootsuite",
   "mark": "Hs",
   "site_url": "https://www.hootsuite.com/",
@@ -117,5 +117,11 @@
   "aliases": [
     "/versus/hootsuite/"
   ],
-  "featured": true
+  "featured": true,
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_hootsuite",
+    "title": "Blowhorn vs Hootsuite",
+    "duration": "0:38",
+    "page": "resources/videos/comparisons/blowhorn-vs-hootsuite/"
+  }
 }

@@ -1,12 +1,13 @@
 {{- /* Play-on-click YouTube facade. The built HTML never includes a YouTube
   URL. A real id is handed to resources.js, which inserts the iframe only
-  after the reader presses play. TODO_YOUTUBE_ID and an empty id render a
+  after the reader presses play. TODO_YOUTUBE_ID, any id that starts with
+  that prefix (for example TODO_YOUTUBE_ID_<slug>), and an empty id render a
   placeholder that does not contact YouTube. Posters must be first-party;
   never use a YouTube-hosted thumbnail. */ -}}
 {{- $id := strings.TrimSpace (.id | default "") -}}
 {{- $title := .title | default "Video" -}}
 {{- $duration := .duration | default "" -}}
-{{- $ready := and $id (ne $id "TODO_YOUTUBE_ID") -}}
+{{- $ready := and $id (not (strings.HasPrefix $id "TODO_YOUTUBE_ID")) -}}
 {{- if $ready }}
 <div class="vs-frame youtube-embed">
   <button type="button" class="video-card-poster" data-play-video data-youtube-id="{{ $id }}" data-title="{{ $title }}"{{ with .poster }} data-poster="{{ . | relURL }}"{{ end }} aria-label="Play video: {{ $title }}">

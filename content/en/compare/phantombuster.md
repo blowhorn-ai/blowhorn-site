@@ -5,7 +5,7 @@
   "description": "PhantomBuster is a powerful data and outreach automation platform across 15+ sites. Blowhorn is narrower on purpose: careful actions and real-person amplification, from your own browser.",
   "layout": "versus",
   "weight": 22,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "PhantomBuster",
   "mark": "Ph",
   "site_url": "https://phantombuster.com/",
@@ -87,5 +87,11 @@
   "aliases": [
     "/versus/phantombuster/"
   ],
-  "featured": true
+  "featured": true,
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_phantombuster",
+    "title": "Blowhorn vs PhantomBuster",
+    "duration": "0:36",
+    "page": "resources/videos/comparisons/blowhorn-vs-phantombuster/"
+  }
 }

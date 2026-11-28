@@ -5,7 +5,7 @@
   "description": "mokumokuren is a thoughtful local tool where you send the final post yourself, across X, Bluesky, Threads, mixi2 and Substack. Blowhorn shares the 'your computer, your sessions' belief and adds LinkedIn, Reddit, Hacker News, GitHub, Slack, scheduling and a fleet.",
   "layout": "versus",
   "weight": 40,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "mokumokuren",
   "mark": "Mk",
   "site_url": "https://docs-mokumokuren.imakita3gyo.com/en/",
@@ -85,5 +85,11 @@
   "aliases": [
     "/versus/mokumokuren/"
   ],
-  "featured": true
+  "featured": true,
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_mokumokuren",
+    "title": "Blowhorn vs mokumokuren",
+    "duration": "0:36",
+    "page": "resources/videos/comparisons/blowhorn-vs-mokumokuren/"
+  }
 }

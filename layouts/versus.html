@@ -45,7 +45,7 @@
             {{- with .duration }}<p class="muted">Duration {{ . }}</p>{{ end }}
           </div>
           {{- $yt := strings.TrimSpace (.youtube_id | default "" | string) }}
-          {{- if and $yt (ne $yt "TODO_YOUTUBE_ID") }}
+          {{- if and $yt (not (strings.HasPrefix $yt "TODO_YOUTUBE_ID")) }}
           {{ partial "youtube-embed.html" (dict "id" (.youtube_id | default "") "title" (.title | default $.Title) "duration" .duration "poster" .poster) }}
           {{- else if or .mp4 .webm }}
           <div class="vs-frame">

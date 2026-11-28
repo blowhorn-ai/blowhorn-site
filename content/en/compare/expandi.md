@@ -31,7 +31,7 @@
   ],
   "featured": true,
   "group": "LinkedIn growth tools",
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "layout": "versus",
   "linkTitle": "Expandi",
   "loses": [
@@ -151,5 +151,11 @@
     "Careful LinkedIn outreach: invite to a page, accept invites, withdraw stale ones, with a dry run first",
     "Posts and amplifies on other platforms too, not just LinkedIn",
     "Safety controls and one pause switch for the whole fleet"
-  ]
+  ],
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_expandi",
+    "title": "Blowhorn vs Expandi",
+    "duration": "0:36",
+    "page": "resources/videos/comparisons/blowhorn-vs-expandi/"
+  }
 }

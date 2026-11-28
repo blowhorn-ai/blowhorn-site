@@ -5,7 +5,7 @@
   "description": "Postiz is the strongest agent-ready scheduler out there, with 30+ platforms, a hosted MCP and a self-host option. Blowhorn's difference is who presses Post: your own browser, on your own computers, plus Hacker News, GitHub and LinkedIn outreach.",
   "layout": "versus",
   "weight": 18,
-  "lastmod": "2026-11-20",
+  "lastmod": "2026-11-28",
   "competitor": "Postiz",
   "mark": "Pz",
   "site_url": "https://postiz.com/",
@@ -94,5 +94,11 @@
   "aliases": [
     "/versus/postiz/"
   ],
-  "featured": true
+  "featured": true,
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_postiz",
+    "title": "Blowhorn vs Postiz",
+    "duration": "0:38",
+    "page": "resources/videos/comparisons/blowhorn-vs-postiz/"
+  }
 }

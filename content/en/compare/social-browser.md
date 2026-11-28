@@ -5,7 +5,7 @@
   "description": "Social Browser is a multi-profile browser with an automation studio and MCP control. Blowhorn is a social tool: queue, schedule, amplify and outreach, in your real browser.",
   "layout": "versus",
   "weight": 41,
-  "lastmod": "2026-10-26",
+  "lastmod": "2026-11-28",
   "competitor": "Social Browser",
   "mark": "SBr",
   "site_url": "https://social-browser.com/",
@@ -79,5 +79,11 @@
   "sitemap": {
     "changefreq": "monthly",
     "priority": 0.5
+  },
+  "video": {
+    "youtube_id": "TODO_YOUTUBE_ID_social-browser",
+    "title": "Blowhorn vs Social Browser",
+    "duration": "0:34",
+    "page": "resources/videos/comparisons/blowhorn-vs-social-browser/"
   }
 }
