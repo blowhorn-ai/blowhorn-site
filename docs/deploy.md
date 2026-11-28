@@ -337,8 +337,10 @@ here, on the public site repository.
    handles it. `make docs-cli-reference` then regenerates the product's
    CLI reference pages (`docs/reference/cli/*.md` and the command table in
    `docs/reference/cli.md`) at that ref with the product's own
-   `release/scripts/cli_reference/build.py`, which reads its CLI schema, so
-   a page is never published stale. The workflow then runs
+   `tools/bin/xtask.sh docs cli-reference` (built with the Rust toolchain the
+   product's `engine/rust/rust-toolchain.toml` pins, which the workflow installs; a
+   ref from before the Rust generator runs `release/scripts/cli_reference/build.py`
+   instead), which reads its CLI schema, so a page is never published stale. The workflow then runs
    `make docs-sync REF=...`, which is
    [`.github/scripts/sync-docs.py`](../.github/scripts/sync-docs.py)
    (tested by `make test-scripts`). The script copies the four public
