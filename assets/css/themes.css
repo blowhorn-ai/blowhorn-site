@@ -190,3 +190,228 @@ html[data-theme="signal"] .stage .stage-ground { stroke: var(--line); stroke-wid
     color: var(--link);
   }
 }
+
+/* Refresh, light. The visual refresh proposed in
+   pontusringblom/blowhorn-visual-refresh: warm cream paper, rooster teal,
+   flame and chick yellow, sticker shadows, Bricolage display type. It is a
+   token layer over the Signal homepage layout (home: signal), previewed with
+   ?theme=refresh; the site default stays Reveille and no copy changes.
+   Hex values are the refresh's oklch tokens converted to sRGB. Text pairs
+   are AA: ink 16.5:1 and muted 7.7:1 on paper, link 7.8:1. Button fills
+   carry ink text (4.9:1 on teal, 5.3:1 on flame), the site's on-teal
+   convention, because the refresh's cream text on those fills is 3.5:1.
+   The sticker shadow is the refresh's signature and contradicts DESIGN.md
+   rule 1 (no hard offset shadow, owner's order 2 Nov 2026); it is scoped
+   to this theme only, and landing it is the review call. */
+html[data-theme="refresh"] {
+  color-scheme: light dark;
+  --surface: #FEFBF6;
+  --surface-raised: #F1E7D2;
+  --surface-tint: #9CE9D9;
+  --nav-panel: var(--surface-tint);
+  --ink: #09181F;
+  --ink-muted: #3F5058;
+  --ink-wordmark: #09181F;
+  --link: #005B4A;
+  --link-hover: var(--ink);
+  --line: #D2CDC3;
+  --focus-ring: #005B4A;
+  --shadow-soft: 4px 4px 0 0 var(--ink);
+  --shadow-sticker: 4px 4px 0 0 var(--ink);
+  --shadow-sticker-lg: 8px 8px 0 0 var(--ink);
+
+  --refresh-primary: #009783;
+  --refresh-flame: #F25820;
+  --refresh-flame-text: #CB3000;
+  --refresh-sun: #F9C635;
+  --refresh-ink: #050F14;
+  --refresh-ink-fg: #F6F1E7;
+  --refresh-ink-muted: #99A7AF;
+
+  --glass-fill: rgba(254, 251, 246, 0.72);
+  --glass-fill-strong: rgba(254, 251, 246, 0.85);
+  --glass-fill-solid: #FEFBF6;
+  --glass-field: rgba(254, 251, 246, 0.80);
+  --glass-sheen: rgba(255, 255, 255, 0.55);
+  --glass-specular: rgba(255, 255, 255, 0.95);
+  --glass-rim: rgba(255, 255, 255, 0.65);
+  --glass-edge: rgba(9, 24, 31, 0.10);
+  --glass-shadow: var(--shadow-sticker);
+  --glass-shadow-lift: var(--shadow-sticker-lg);
+  --ambient-base: linear-gradient(180deg, #FBF4E8 0%, #FEFBF6 45%, #F1E7D2 100%);
+  --ambient-1: rgba(0, 151, 131, 0.16);
+  --ambient-2: rgba(242, 88, 32, 0.10);
+  --ambient-3: rgba(249, 198, 53, 0.16);
+  --ambient-4: rgba(0, 151, 131, 0.10);
+
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius-xl: 22px;
+
+  --app-canvas: #050F14;
+  --app-rail: #0E1B21;
+  --app-line: #24343C;
+  --app-control: #16242B;
+  --app-selected: #0E2A26;
+  --app-ink: #F6F1E7;
+  --app-muted: #99A7AF;
+  --app-accent: var(--refresh-primary);
+  --app-on-accent: #09181F;
+  --app-live: #2FBDA7;
+  --app-pending: #F9C635;
+  --app-tint: rgba(0, 151, 131, 0.12);
+}
+
+/* Refresh buttons wear the sticker treatment: 2px ink border, hard offset
+   shadow, press states. Ink text on the fills, per the note above. */
+html[data-theme="refresh"] .button-primary {
+  background: var(--refresh-primary);
+  background-image: none;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  box-shadow: var(--shadow-sticker);
+}
+html[data-theme="refresh"] .button-primary:hover {
+  background: var(--refresh-primary);
+  background-image: none;
+  border-color: var(--ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
+html[data-theme="refresh"] .button-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 var(--ink);
+}
+html[data-theme="refresh"] .button-secondary {
+  background: var(--surface);
+  background-image: none;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  box-shadow: var(--shadow-sticker);
+}
+html[data-theme="refresh"] .button-secondary:hover {
+  background: var(--surface-raised);
+  background-image: none;
+  border-color: var(--ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
+html[data-theme="refresh"] .button-secondary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 var(--ink);
+}
+html[data-theme="refresh"] .button:disabled,
+html[data-theme="refresh"] .button:disabled:hover {
+  background: var(--surface-raised);
+  background-image: none;
+  border-color: var(--line);
+  color: var(--ink-muted);
+  box-shadow: none;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="refresh"] .button-primary,
+  html[data-theme="refresh"] .button-secondary { transition: none; }
+  html[data-theme="refresh"] .button-primary:hover,
+  html[data-theme="refresh"] .button-primary:active,
+  html[data-theme="refresh"] .button-secondary:hover,
+  html[data-theme="refresh"] .button-secondary:active { transform: none; }
+}
+
+/* Refresh hero: the dot-grid field behind the Signal hero, the label pill
+   in the sticker treatment, and the flame scribble under the headline's
+   accented sentence in place of Signal's teal gradient text. */
+html[data-theme="refresh"] .hero-signal {
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 14%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+html[data-theme="refresh"] .home-signal .hero .label {
+  border: 2px solid var(--ink);
+  background: var(--surface);
+}
+html[data-theme="refresh"] .home-signal .accent {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: inherit;
+  position: relative;
+}
+html[data-theme="refresh"] .home-signal .accent::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: -0.08em;
+  height: 0.28em;
+  background: var(--refresh-flame);
+  border-radius: 999px;
+  transform: rotate(-1.5deg);
+  z-index: -1;
+  opacity: 0.85;
+}
+
+/* Refresh eyebrows read in flame, like the refresh's section heads. */
+html[data-theme="refresh"] .section-head > .label,
+html[data-theme="refresh"] .page-head > .label {
+  color: var(--refresh-flame-text);
+}
+
+/* Refresh, dark. A dark layer in the refresh's spirit: ink panels, cream
+   text, the teal and flame brightened to hold AA on the dark paper. */
+@media (prefers-color-scheme: dark) {
+  html[data-theme="refresh"] {
+    --surface: #131F25;
+    --surface-raised: #1B2830;
+    --surface-tint: #003E34;
+    --nav-panel: #1B2830;
+    --ink: #F6F1E7;
+    --ink-muted: #99A7AF;
+    --ink-wordmark: #F6F1E7;
+    --link: #2FBDA7;
+    --link-hover: #F9C635;
+    --line: #303D43;
+    --focus-ring: #2FBDA7;
+    --shadow-soft: 4px 4px 0 0 var(--ink);
+    --shadow-sticker: 4px 4px 0 0 var(--ink);
+    --shadow-sticker-lg: 8px 8px 0 0 var(--ink);
+
+    --refresh-primary: #2FBDA7;
+    --refresh-flame: #F86E42;
+    --refresh-flame-text: #F86E42;
+    --refresh-sun: #F9C635;
+    --refresh-ink: #02090E;
+    --refresh-ink-fg: #F6F1E7;
+    --refresh-ink-muted: #8C9BA2;
+
+    --glass-fill: rgba(19, 31, 37, 0.62);
+    --glass-fill-strong: rgba(19, 31, 37, 0.78);
+    --glass-fill-solid: #131F25;
+    --glass-field: rgba(19, 31, 37, 0.70);
+    --glass-sheen: rgba(255, 255, 255, 0.06);
+    --glass-specular: rgba(255, 255, 255, 0.14);
+    --glass-rim: rgba(255, 255, 255, 0.08);
+    --glass-edge: rgba(0, 0, 0, 0.35);
+    --glass-shadow: var(--shadow-sticker);
+    --glass-shadow-lift: var(--shadow-sticker-lg);
+    --ambient-base: linear-gradient(180deg, #081319 0%, #131F25 45%, #0A151B 100%);
+    --ambient-1: rgba(47, 189, 167, 0.20);
+    --ambient-2: rgba(248, 110, 66, 0.12);
+    --ambient-3: rgba(249, 198, 53, 0.10);
+    --ambient-4: rgba(47, 189, 167, 0.14);
+
+    --app-canvas: #02090E;
+    --app-rail: #0A141A;
+    --app-line: #1E2C33;
+    --app-control: #14222A;
+    --app-selected: #0E2A26;
+    --app-ink: #F6F1E7;
+    --app-muted: #8C9BA2;
+    --app-accent: var(--refresh-primary);
+    --app-on-accent: #050F14;
+    --app-live: #2FBDA7;
+    --app-pending: #F9C635;
+    --app-tint: rgba(47, 189, 167, 0.12);
+  }
+}
+

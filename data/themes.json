@@ -14,6 +14,12 @@
       "name": "Reveille",
       "home": "reveille",
       "colorScheme": "light-dark"
+    },
+    {
+      "id": "refresh",
+      "name": "Refresh",
+      "home": "signal",
+      "colorScheme": "light-dark"
     }
   ]
 }
