@@ -2564,6 +2564,9 @@ body { background: var(--surface); }
 .agent-faq + .faq-category { margin-top: var(--space-12); }
 .agent-cta { padding: clamp(24px, 4vw, 48px); border-radius: var(--radius-lg); text-align: center; }
 .agent-cta > * + * { margin-top: var(--space-3); }
+.agent-section .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.agent-section > :not(.section-head) + .actions { margin-top: var(--grid-gap); }
+.agent-cta .actions { justify-content: center; }
 /* Related-page labels come from data and can outrun a 320px screen: let
    them wrap instead of the global .button nowrap scrolling the page. */
 .agent-cta .button, .agent-section .actions .button { white-space: normal; max-width: 100%; text-align: center; }
