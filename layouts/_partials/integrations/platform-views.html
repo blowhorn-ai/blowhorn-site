@@ -13,7 +13,6 @@
 {{- $byId := dict -}}
 {{- range $rows }}{{ $byId = merge $byId (dict .id .) }}{{ end -}}
 {{- range $roles }}{{ $slug := .slug }}{{ range .platforms }}{{ if not (index $byId .) }}{{ errorf "data/roles.json role %q lists platform %q, which is not in data/integrations.json platforms" $slug . }}{{ end }}{{ end }}{{ end -}}
-{{- $actions := partial "action-index.html" $rows -}}
       <section id="platform-views" class="section platforms-signal platform-views" aria-labelledby="platform-views-title" data-platforms>
         <div class="section-head">
           <h2 id="platform-views-title" class="h2">See the map your way</h2>
@@ -90,30 +89,12 @@
             </ul>
           </div>
           {{- else if eq .kind "action" }}
-          <div class="plat-actions" data-action-filter>
-            <nav class="plat-action-picks" aria-label="Show platforms by action">
-              {{- range $actions }}
-              <a class="plat-action" href="#views-{{ .slug }}" data-action-chip="{{ .id }}">{{ .name }}</a>
-              {{- end }}
-            </nav>
-            {{- range $actions }}
-            {{- $act := . }}
-            <div class="action-group" id="views-{{ $act.slug }}" data-action-group="{{ $act.id }}">
-              <h3 id="views-{{ $act.slug }}-title" class="h3">{{ $act.name }}</h3>
-              <p class="caption muted">{{ $act.description }}</p>
-              <ul class="plat-row">
-                {{- range $act.platforms }}
-                <li>
-                  <a class="platform" href="{{ .docs | relURL }}#{{ $act.slug }}">
-                    <span class="logo-tile"><img src="{{ .logo | relURL }}" alt="" width="28" height="28"></span>
-                    <span class="ui">{{ .name }}</span>
-                    <span class="caption">{{ .viaLabel }}</span>
-                  </a>
-                </li>
-                {{- end }}
-              </ul>
-            </div>
-            {{- end }}
+          {{- /* The catalog below (layouts/integrations.html, nav#action-filter)
+            is the one by-action filter, so this panel only points at it.
+            Repeating its chips and action groups here showed the filter and
+            every action's platforms twice (#846). */ -}}
+          <div class="plat-actions">
+            <p class="caption muted">Pick an action in the <a href="#action-filter">filter below</a>.</p>
           </div>
           {{- else -}}
             {{ errorf "integrations treatment kind %q is not category, role, constellation or action" .kind }}
