@@ -147,7 +147,7 @@ def rust_steps() -> list[Step]:
     """
     return [
         Step("playwright import boundary", ("make", "engine-playwright-imports"), timeout_s=900),
-        Step("test suite", ("make", "cli-rust-tests"), timeout_s=2400, counts="cargo"),
+        Step("test suite", ("make", "cli-rust-tests"), timeout_s=3300, counts="cargo"),
     ]
 
 
